@@ -4,6 +4,7 @@
 Yok — v0.5 tamam ve UI doğrulandı. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
 
 ## Son damgalar
+- 2026-10-12 · v0.5.2+v0.5.3 (K-0008): pitbull yazıcı/okuyucu sınıfı (yazım-kümesi-sessiz sinyali) + REHBER 4 düzeltme (öncelik sırası, kural emekliliği, eşleme, güvenlik) + zincir-kontrol.ps1 kapısı — dış review bulguları kapatıldı
 - 2026-10-12 · v0.5.1 (plugin 76ede7b, kilitli): anlaşılmazlık sayacı — kullanıcı promptunda karışıklık deseni (karışık/anlaşılmadı/net değil/ne demek...) → telemetri + ekran; ilk gerçek sürüm kıyası mümkün (v0.4 ↔ v0.5.1)
 - 2026-10-12 · v0.5 UI doğrulandı (kullanıcı ekran görüntüsü: "Son öz-değerlendirme raporunu aç" CC item'i → Degerlendirme ekranı: kilit v0.4 + rapor 2026-10-12.md render ediliyor)
 - 2026-10-12 · v0.5 (K-0007): hedefler.json SSOT + surumler/ kilitleri (iki repo, v0.4-kilit baz) + kilit-surum.ps1 + kiyasla.ps1 (temp repoda uçtan uca testli) + REHBER §10 + ilk öz-değerlendirme raporu (baz, çıta önerisi yok) · rollback tatbikatı (R) · haftalık heartbeat kuruldu

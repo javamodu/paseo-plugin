@@ -1,11 +1,11 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 9ac0d76 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 1f7abf7 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `AGENTS.md` (0.7KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (3.4KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (3.6KB) — DERSLER — paseo-plugin (L5)
 - `FERMANLAR.md` (2.1KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `kanit\01-paseo-dokuman-envanteri.md` (11.5KB) — Paseo Doküman Envanteri — Ajan Verimliliği Primitifleri | H1 — Geçmişin kaydedilmesi (handoff / hafıza) | H2 — Kod+döküman indeksleme, hızlı erişim
 - `kanit\02-plugin-api.md` (10.7KB) — 02 - Paseo Plugin API Tam Haritası | 1. Manifest: `paseo-plugin.json` | 2. Her yeni ajana metin enjeksiyonu (sözleşmenin kalbi)
@@ -24,8 +24,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0005.md` (1.6KB) — K-0005 — v0.2.1 hijyen paketi + v0.3 (reviewer karşı-incelemesi kapandı)
 - `kararlar\K-0006.md` (1.2KB) — K-0006 — v0.4: echo kapısı + onboarding (memory ekseni 9→10 kapanışı)
 - `kararlar\K-0007.md` (2KB) — K-0007 — v0.5: öz-değerlendirme döngüsü + sürüm disiplini (kilit / rollback / kıyas)
+- `kararlar\K-0008.md` (1.7KB) — K-0008 — v0.5.2 + v0.5.3: dış review bulguları + pitbull yazıcı sınıfı
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `PASEO-VERIMLILIK-REHBERI-v2.0.md` (12KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
+- `PASEO-VERIMLILIK-REHBERI-v2.0.md` (12.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
@@ -37,5 +38,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
 - `scripts\saglik.ps1` (6.5KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
-- `STATE_BOARD.md` (3.1KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
+- `scripts\zincir-kontrol.ps1` (0.8KB)
+- `STATE_BOARD.md` (3.3KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
+- `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback

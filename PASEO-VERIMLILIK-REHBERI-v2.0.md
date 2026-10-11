@@ -1,6 +1,6 @@
 ﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0)
 
-v2.0 — 2026-10-11 · 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; kanıtlar: kanit/01-10 + raporlar/token-olcum-2026-10-11). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Proje kurallarıyla çelişirse projenin ANAYASA'sı kazanır.
+v2.0 — 2026-10-11 · 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; kanıtlar: kanit/01-10 + raporlar/token-olcum-2026-10-11). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme.
 
 Amaç: ajan zekâsı ≈ model IQ × bağlam kalitesi — bu rehber bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 
@@ -23,7 +23,7 @@ Rehberin kendi hijyeni: bu belge ≤150 satır kalır; büyürse ÇEKİRDEK (her
 - Doluluk durum raporunun ilk satırında: `bağlam ~%XX`. Kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si.
 - Compact ancak STATE güncellendikten sonra. Compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi).
 - Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda. Sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
-- Kural-sayısı bütçesi: eşzamanlı aktif kural envanteri (ANAYASA + bu rehber + oturum kuralları) hedef <40, mutlak tavan 80 (T — çok-kural uyumu kural adediyle düşer: stacking collapse %96→%20 (R); tekil %84 vs bütünsel %27 uçurumu (R, EnterpriseRAG)). Enjeksiyon yapan plugin bu sayımı lint'ler.
+- Kural-sayısı bütçesi: eşzamanlı aktif kural envanteri (ANAYASA + bu rehber + oturum kuralları) hedef <40, mutlak tavan 80 (T — çok-kural uyumu kural adediyle düşer: stacking collapse %96→%20 (R); tekil %84 vs bütünsel %27 uçurumu (R, EnterpriseRAG)). Enjeksiyon yapan plugin bu sayımı lint'ler. Yeni kural ancak bir eski kuralın emekliliği (silme veya EK'e taşıma) ile eklenir; diyet §10 öz-değerlendirme gündemidir.
 
 ## 3. Devir Töreni (sıfır kayıp protokolü)
 
@@ -71,6 +71,8 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 - Canlı sunucu: kullanıcının canlı portuna test koşma; izole port + restart yalnız onayla.
 - Satır sonu: yazmadan önce dosyanın LF/CRLF'sini koru; karıştırma.
 - Temizlik: geçici config/çıktı dosyaları koşu sonunda silinir; repoya geçici desen girmez.
+- Sır hijyeni: token/PAT/parola koda, prompt'a, log'a, telemetriye girmez; server-side env'de kalır. Sızıntı şüphesi = dur + raporla + iptal öner.
+- Araç yetkisi (MCP dahil): varsayılan salt-okuma; yazma yetkisi görev penceresiyle açılır, iş bitince kapanır.
 - Kapsam: yeni özellik = yeni dosya + ince kanca; bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür.
 - UI zinciri: arayüz değişikliği koddan başlamaz; projenin tasarım-kaynak → onay → kod zinciri varsa ona uy (yoksa bile önce kullanıcı onayı).
 
@@ -100,7 +102,7 @@ Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip
 
 Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetiklenir (agent-onboarding); kurulu değilse manuel uygula.
 
-- [ ] SSOT belgeleri oku (yoksa §4'teki L0-L1-L5'i hemen oluştur — 3 dosya, 10 dakika)
+- [ ] SSOT belgeleri oku. Yoksa önce eşleme yap: repo'da eşdeğer dosya var mı (LESSONS.md↔DERSLER.md, devlog/_audit↔raporlar/, mevcut karar günlüğü↔kararlar/)? Varsa mevcut dosyaya yaz — çift-kayıt yasak. Gerçekten yoksa §4'teki L0-L1-L5'i oluştur (3 dosya, 10 dakika).
 - [ ] `git log --oneline -10` + `git status` — neredeyim?
 - [ ] Son handoff var mı? Varsa echo doğrula (§3.4).
 - [ ] CODEMAP.md var mı ve güncel mi? Yoksa `scripts/codemap.*` ile üret/güncelle; araç yoksa üretim yolunu STATE'e not et. CODEMAP elle düzenlenmez.
