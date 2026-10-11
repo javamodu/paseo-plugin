@@ -1,0 +1,21 @@
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: 2026-10-11 18:58 — elle duzenleme)
+
+Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
+
+- `ANAYASA-SABLONU.md` (1.9KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
+- `FERMANLAR.md` (1.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v1.4, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
+- `kanit\01-paseo-dokuman-envanteri.md` (11.5KB) — Paseo Doküman Envanteri — Ajan Verimliliği Primitifleri | H1 — Geçmişin kaydedilmesi (handoff / hafıza) | H2 — Kod+döküman indeksleme, hızlı erişim
+- `kanit\02-plugin-api.md` (10.7KB) — 02 - Paseo Plugin API Tam Haritası | 1. Manifest: `paseo-plugin.json` | 2. Her yeni ajana metin enjeksiyonu (sözleşmenin kalbi)
+- `kanit\03-claude-code.md` (10KB) — 03 - Claude Code Verimlilik Mekanikleri | 1. Hafiza: CLAUDE.md hiyerarsisi + .claude/rules + oto-hafiza | 2. Subagents (.claude/agents)
+- `kanit\04-cursor.md` (5.3KB) — 04 - Cursor Verimlilik Mekanikleri | 1. Rules (.mdc) — 4 tip + aktivasyon matrisi | 2. Cloud Agents (background agents)
+- `kanit\05-windsurf-cline-roo.md` (5.5KB) — 05 - Windsurf / Cline / Roo Code Verimlilik Mekanikleri | 1. Windsurf (Devin Desktop): Memories + Rules | 2. Windsurf: Workflows
+- `kanit\06-aider-opencode.md` (4.8KB) — 06 - Aider + OpenCode Verimlilik Mekanikleri | 1. Aider repo-map — "ışık hızı erişim" hedefinin kalbi | 2. OpenCode: AGENTS.md + ajanlar
+- `kanit\07-orkestrasyon.md` (3.7KB) — 07 - GitHub Çok-Ajan Orkestrasyon Repoları + Pitbull Desenleri | 1. Framework tablosu (star sırasıyla) | 2. Pitbull-persistence / watchdog desenleri (çerçevelerden damıtılmış)
+- `kanit\08-hafiza.md` (4.5KB) — 08 - Hafıza Sistemleri Karşılaştırması (Paseo local-first gözüyle) | 1. Sistem tablosu (Paseo uyumuna göre sıralı) | 2. Vektörlü vs vektörsüz (dosya-tabanlı)
+- `kanit\09-token-verimliligi.md` (4.5KB) — 09 - Token Verimliliği Araçları ve Ölçülmüş Tasarruflar | 1. Repo-paketleme araçları (bağlam üretimi) | 2. Prompt caching (en büyük hazır tasarruf)
+- `kanit\10-paseo-ekosistem.md` (5.2KB) — 10 - Paseo Ekosistemi (github.com/getpaseo) — Somut Kopyalanabilirler | 1. getpaseo/paseo repo anatomisi | 2. getpaseo/plugins registry (topluluk)
+- `PASEO-VERIMLILIK-PLANI.md` (10.5KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
+- `PASEO-VERIMLILIK-REHBERI-v1.4.md` (9.2KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v1.4) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
+- `README.md` (2.7KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v1.4) | İçindekiler | Hızlı başlangıç (3 adım)
+- `scripts\codemap.ps1` (2.4KB)
+- `scripts\saglik.ps1` (4.9KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
