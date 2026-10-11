@@ -73,7 +73,7 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 - Temizlik: geçici config/çıktı dosyaları koşu sonunda silinir; repoya geçici desen girmez.
 - Sır hijyeni: token/PAT/parola koda, prompt'a, log'a, telemetriye girmez; server-side env'de kalır. Sızıntı şüphesi = dur + raporla + iptal öner.
 - Araç yetkisi (MCP dahil): varsayılan salt-okuma; yazma yetkisi görev penceresiyle açılır, iş bitince kapanır.
-- Kapsam: yeni özellik = yeni dosya + ince kanca; bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür.
+- Kapsam: yeni özellik = yeni dosya + ince kanca; bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür. Belgelenmiş proje tarifleri (reçete adımları) bu sınırdan istisnadır.
 - UI zinciri: arayüz değişikliği koddan başlamaz; projenin tasarım-kaynak → onay → kod zinciri varsa ona uy (yoksa bile önce kullanıcı onayı).
 
 ## 7. Watchdog / Otonom Mod (dürtme geldiğinde)

@@ -4,6 +4,7 @@
 Yok — v0.5 tamam ve UI doğrulandı. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
 
 ## Son damgalar
+- 2026-10-12 · v0.6 (K-0010, plugin 97ac57c kilitli): REHBER tarif istisnası + ayar.json repo-config + işaretçi enjeksiyonu (kuralBlok paradoksu kapandı) + haftalık rollup köprüsü — iki dış review'un tüm haklı bulguları kapandı
 - 2026-10-12 · v0.5.4 (K-0009, plugin b9e1c64 kilitli): karşı-review yanıtı — OVERVIEW drift kapatıldı, Unicode-\b kazası düzeltildi (ret/karışıklık desenleri artık gerçekten yakalıyor), permission +3 kalıp · v0.6 önerisi (ayar.json + işaretçi modu + rollup) onay bekliyor
 - 2026-10-12 · v0.5.2+v0.5.3 (K-0008): pitbull yazıcı/okuyucu sınıfı (yazım-kümesi-sessiz sinyali) + REHBER 4 düzeltme (öncelik sırası, kural emekliliği, eşleme, güvenlik) + zincir-kontrol.ps1 kapısı — dış review bulguları kapatıldı
 - 2026-10-12 · v0.5.1 (plugin 76ede7b, kilitli): anlaşılmazlık sayacı — kullanıcı promptunda karışıklık deseni (karışık/anlaşılmadı/net değil/ne demek...) → telemetri + ekran; ilk gerçek sürüm kıyası mümkün (v0.4 ↔ v0.5.1)
