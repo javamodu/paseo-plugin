@@ -4,6 +4,7 @@
 Yok — 10'a giden yol paketleri tamam (v0.2/v0.2.1/v0.3/v0.4). Beklenen: kullanıcı Ctrl+K doğrulaması + plugin reposu remote kararı → sonra baseline + AUP benchmark.
 
 ## Son damgalar
+- 2026-10-11 · plugin reposu remote'a açıldı: github.com/javamodu/paseo-verimlilik (main 39cf1d9, ls-remote doğrulandı)
 - 2026-10-11 · v0.4 (K-0006): echo kapisi + onboarding iskelet kontrolu CANLI kanitli (echo-eksik sinyal=0, handoff dosya adiyla) · 40/40 yesil · enjeksiyon spesifik handoff isaretcisi tasir
 - 2026-10-11 · v0.2.1+v0.3 (K-0005): reviewer 3 bulgusu kapatildi (brief oge-anahtar kontrolu, npm test runner, pitbull reload grace) + kapsam linti + finish-gate mesaj ayristirmasi · 36/36 yesil
 - 2026-10-11 · v0.2 plugin (K-0004): pitbull (10dk stall/10dk cooldown/3-stall insan kapisi) + permission polisi (zincir-korumali dar liste) + turSn/paralellik telemetrisi · 29/29 test, running
