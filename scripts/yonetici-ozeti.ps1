@@ -1,16 +1,22 @@
 ﻿# yonetici-ozeti.ps1 — kus bakisi yonetici ozeti: LOC, milestone, disiplin, saglik, TOKEN/HIZ/VERIM.
 # Kullanim: powershell -NoProfile -File scripts\yonetici-ozeti.ps1 [-Root <yol>] [-TokenDays <n>]
 #   -TokenDays 1 : sadece bugun (varsayilan) · 7 : son 7 gun · 0 : tum kayitlar
+#   -SadeceToken : repo bolumlerini atlar — Paseo-geneli tum-projeler raporu
+#   -TokenRepo X : token tablosunu cwd'si X iceren projelerle sinirlar (proje-ozel)
 # Olcum notu: token verisi ~/.codex/sessions rollout kayitlarindan okunur (R = gercek olcum).
 # Cache tasarrufu %90 indirim varsayimiyla hesaplanir (OpenAI fiyat tablosu, plan §4, R).
 # Plugin gelince bu metrikler workspace paneline .verimlilik\telemetri.jsonl uzerinden akar (Plan §2 gozlem modulu).
 param(
   [string]$Root = (Split-Path $PSScriptRoot -Parent),
-  [int]$TokenDays = 1
+  [int]$TokenDays = 1,
+  [string]$TokenRepo = '',     # cwd filtresi (ornek: -TokenRepo chinese-hsk); bos = tum projeler
+  [switch]$SadeceToken         # repo bolumlerini atla: hizli Paseo-geneli veya proje-ozel token raporu
 )
 $ErrorActionPreference = 'SilentlyContinue'
 Write-Host "=================== YONETICI OZETI ==================="
 Write-Host ("Repo: " + $Root + "  ·  " + (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+
+if (-not $SadeceToken) {
 
 # 1) LOC
 $ext = @{}
@@ -45,8 +51,11 @@ Write-Host "`n--- SAGLIK (saglik.ps1) ---"
 $out = powershell -NoProfile -ExecutionPolicy Bypass -File "$Root\scripts\saglik.ps1" -Root $Root | Select-Object -Last 1
 Write-Host $out
 
+}  # SadeceToken sonu
+
 # 5) TOKEN / HIZ / VERIM (codex rollout kayitlari; oturum-gunu bazli, tur-bazinda gercek harcama)
-Write-Host "`n--- TOKEN / HIZ / VERIM (TokenDays=$TokenDays) ---"
+$kapsam = if ($TokenRepo) { "filtre: $TokenRepo" } else { "tum projeler" }
+Write-Host "`n--- TOKEN / HIZ / VERIM (TokenDays=$TokenDays · $kapsam) ---"
 $cutoff = [datetime]::MinValue
 if ($TokenDays -gt 0) { $cutoff = (Get-Date).Date.AddDays(-($TokenDays - 1)) }
 $sf = Get-ChildItem "$env:USERPROFILE\.codex\sessions" -Recurse -Filter *.jsonl | Where-Object {
@@ -60,6 +69,7 @@ foreach ($f in $sf) {
   if (-not $lines) { continue }
   try { $meta = ($lines[0] | ConvertFrom-Json) } catch { continue }
   if ($meta.type -ne 'session_meta') { continue }
+  if ($TokenRepo -and ($meta.payload.cwd -notmatch [regex]::Escape($TokenRepo))) { continue }
   $tok = $lines | Where-Object { $_ -match '"type":"token_usage_record"' }
   if (-not $tok) { continue }
   # token_usage_record tur icinde birikimli yayinlanir (her adimda artan); gercek harcama = turn_id basina MAX
@@ -119,6 +129,8 @@ if (Test-Path $j) {
   if ($ct -gt 0) { Write-Host ("Tur: {0} · Cache-hit: %{1:N0} · Durtme: {2}" -f $tur, ($ch * 100.0 / $ct), $dur) }
 }
 Write-Host "======================================================"
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 61d7b73 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 7f9a99a — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -25,5 +25,5 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `\Vibecode\paseo-plugin\README.md` (2.7KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v1.4) | İçindekiler | Hızlı başlangıç (3 adım)
 - `\Vibecode\paseo-plugin\scripts\codemap.ps1` (2.4KB)
 - `\Vibecode\paseo-plugin\scripts\saglik.ps1` (5.1KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
-- `\Vibecode\paseo-plugin\scripts\yonetici-ozeti.ps1` (6.7KB)
-- `\Vibecode\paseo-plugin\STATE_BOARD.md` (0.5KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
+- `\Vibecode\paseo-plugin\scripts\yonetici-ozeti.ps1` (7.3KB)
+- `\Vibecode\paseo-plugin\STATE_BOARD.md` (0.8KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
