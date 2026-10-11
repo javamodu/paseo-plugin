@@ -20,3 +20,6 @@
 - Test runner'i tanimli tut: package.json 'test' scripti + tsx devDep; native node --experimental-strip-types uzantisiz import'ta ERR_MODULE_NOT_FOUND verir.
 - Bellek-ici plugin state'i reload'da sifirlanir: cooldown/sayac gibi zaman bazli korumalar PLUGIN_BASLANGIC'a demirlenmeli (pitbull cift-durtme bug'i).
 - Raporlanan test sayisi disktekiyle birebir uyuşmali (29/29 iddiasi vs 36 gercek — reviewer yakaladi); kapanis oncesi sayimi yeniden olctur.
+- Reviewer yalniz COMMIT'LI durumu test eder; coder test sayisini yalniz commit'li suitten raporlar (in-flight dosya kirli-agac alarmi uretir).
+- 'Push'landi' ibaresinde hangi repo acik yazilir — plugin reposu (paseo-verimlilik) remote'suz; push ana repoyaydi.
+
