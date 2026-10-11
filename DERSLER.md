@@ -16,3 +16,4 @@
 - Plugin telemetrisi: agents.ref(id).refresh().lastUsage dolu geliyor (in/out/cachedInputTokens) — ajan başına token ölçümü #5682 beklemeden kısmen mümkün.
 - create_agent MCP aracı provider'ı "provider/model" ister; bu makinedeki codex endpoint'i yalnız kimi-K3 kabul eder (gpt-6-luna model_not_allowed).
 - Loop dedektoru ilk gun kendi yazarini yakaladi (yanlis pozitif): stableStringify 200+ char string'leri hash'ten filtreliyordu → tum uzun shell komutlari ayni bos hash'e dustu. Cozum: filtreleme yerine kirpma + uzunluk eki. Ders: hash'e girilen alanlarda 'buyukse atla' degil 'kirp+imza' kullan.
+- Finish-gate salt-metin turda yanlis pozitif uretir ('hazir mi?' cevabi 'bitti' sayilir) — tetik kosuluna 'turda edit/write cagrisi var' eklendi. Ders: metin-deseni kapilari her zaman is-icerigi kosuluyla daraltilmali.
