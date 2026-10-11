@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD d781995 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 9b78c63 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -24,5 +24,5 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\OZET.md` (0.2KB) — OZET — raporlar/
 - `README.md` (2.7KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v1.4) | İçindekiler | Hızlı başlangıç (3 adım)
 - `scripts\codemap.ps1` (2.4KB)
-- `scripts\saglik.ps1` (4.9KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
+- `scripts\saglik.ps1` (5.1KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
 - `STATE_BOARD.md` (0.5KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar

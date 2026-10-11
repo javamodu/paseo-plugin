@@ -1,4 +1,4 @@
-﻿# saglik.ps1 — verimlilik-doctor v3: saglik + olcum kontrolu (repo-konvansiyon agnostik).
+﻿# saglik.ps1 — verimlilik-doctor v3.1 (plans\referans\ derinligi eklendi): saglik + olcum kontrolu (repo-konvansiyon agnostik).
 # Kullanim: powershell -NoProfile -File scripts\saglik.ps1 [-Root <yol>] [-Jsonl <telemetri.jsonl>]
 # Katman A: dosya varligi (kök VEYA plans/ alternatifleri), butce sinirlari, CODEMAP tazeligi, handoff zinciri, rehber hijyeni.
 # Katman B (JSONL verilirse): tur / cache-hit / durtme sayaclari hedef esiklerle karsilastirilir.
@@ -15,12 +15,12 @@ function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding
 # 1) Katman dosyalari (alternatif yol listeleri: kök veya plans/)
 $pAnayasa = Find-First $Root @('ANAYASA.md')
 $pL0 = Find-First $Root @('AGENTS.md','CLAUDE.md')
-$pL1 = Find-First $Root @('STATE_BOARD.md','plans\STATE_BOARD.md')
-$pL2 = Find-First $Root @('CODEMAP.md','plans\CODEMAP.md')
-$pL5 = Find-First $Root @('DERSLER.md','plans\DERSLER.md')
-$pL4 = Find-First $Root @('kararlar','plans\kararlar')
-$pL3 = Find-First $Root @('raporlar','plans\raporlar')
-$pHd = Find-First $Root @('plans\handoff','handoff')
+$pL1 = Find-First $Root @('STATE_BOARD.md','plans\STATE_BOARD.md','plans\referans\STATE_BOARD.md')
+$pL2 = Find-First $Root @('CODEMAP.md','plans\CODEMAP.md','plans\referans\CODEMAP.md')
+$pL5 = Find-First $Root @('DERSLER.md','plans\DERSLER.md','plans\referans\DERSLER.md')
+$pL4 = Find-First $Root @('kararlar','plans\kararlar','plans\referans\kararlar')
+$pL3 = Find-First $Root @('raporlar','plans\raporlar','plans\referans\raporlar')
+$pHd = Find-First $Root @('plans\handoff','handoff','plans\referans\handoff')
 Check 'ANAYASA.md (proje ust otoritesi)' ($null -ne $pAnayasa) 'yoksa Ferman 3 ile kur'
 Check 'L0 AGENTS.md' ($null -ne $pL0) 'her zaman yuklu kurallar'
 Check 'L1 STATE_BOARD.md' ($null -ne $pL1) 'kök veya plans/ altinda'
@@ -78,4 +78,5 @@ if ($Jsonl -and (Test-Path $Jsonl)) {
 $rows | Format-Table -AutoSize
 Write-Host ("SONUC: {0} OK, {1} EKSIK" -f $pass, $fail)
 if ($fail -gt 0) { exit 1 } else { exit 0 }
+
 
