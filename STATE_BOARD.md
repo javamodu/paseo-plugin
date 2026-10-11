@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-10'a giden yol (K-0004): v0.2 tamamlandı (pitbull + permission polisi + tur telemetrisi, 29/29 test). Sıra: v0.3 (kapsam + brief lint'i) → v0.4 (echo kapısı) → baseline → AUP benchmark.
+10'a giden yol: v0.2 + v0.2.1 hijyen + v0.3 tamam (K-0005, 36/36 yeşil, running). Sıra: reviewer v0.3 diff onayı → v0.4 (echo kapısı + onboarding) → baseline → AUP benchmark.
 
 ## Son damgalar
+- 2026-10-11 · v0.2.1+v0.3 (K-0005): reviewer 3 bulgusu kapatildi (brief oge-anahtar kontrolu, npm test runner, pitbull reload grace) + kapsam linti + finish-gate mesaj ayristirmasi · 36/36 yesil
 - 2026-10-11 · v0.2 plugin (K-0004): pitbull (10dk stall/10dk cooldown/3-stall insan kapisi) + permission polisi (zincir-korumali dar liste) + turSn/paralellik telemetrisi · 29/29 test, running
 - 2026-10-11 · Ferman 2 TAMAM: paseo-verimlilik plugin'i kuruldu (D:\Vibecode\paseo-verimlilik, running) — enjeksiyon+lint+loop dedektörü+finish-gate+telemetri canlı kanıtlı (test ajanı c25ff300: lint 42 kural/5105B, tur completed, cacheHitPct=72) · birim test 11/11 · K-0003
 - 2026-10-11 · v2.0: REHBER+PLAN senkron yükseltmesi (K-0002) · token artefaktı (R): cache-hit %96,8 (raporlar/token-olcum-2026-10-11) · saglik.ps1 v3.3 (kural-sayacı 68=SARI + kabul-oranı kapısı) · handoff 2005 (rol ayrımı reviewer/coder)

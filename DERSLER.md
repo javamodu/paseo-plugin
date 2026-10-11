@@ -17,3 +17,6 @@
 - create_agent MCP aracı provider'ı "provider/model" ister; bu makinedeki codex endpoint'i yalnız kimi-K3 kabul eder (gpt-6-luna model_not_allowed).
 - Loop dedektoru ilk gun kendi yazarini yakaladi (yanlis pozitif): stableStringify 200+ char string'leri hash'ten filtreliyordu → tum uzun shell komutlari ayni bos hash'e dustu. Cozum: filtreleme yerine kirpma + uzunluk eki. Ders: hash'e girilen alanlarda 'buyukse atla' degil 'kirp+imza' kullan.
 - Finish-gate salt-metin turda yanlis pozitif uretir ('hazir mi?' cevabi 'bitti' sayilir) — tetik kosuluna 'turda edit/write cagrisi var' eklendi. Ders: metin-deseni kapilari her zaman is-icerigi kosuluyla daraltilmali.
+- Test runner'i tanimli tut: package.json 'test' scripti + tsx devDep; native node --experimental-strip-types uzantisiz import'ta ERR_MODULE_NOT_FOUND verir.
+- Bellek-ici plugin state'i reload'da sifirlanir: cooldown/sayac gibi zaman bazli korumalar PLUGIN_BASLANGIC'a demirlenmeli (pitbull cift-durtme bug'i).
+- Raporlanan test sayisi disktekiyle birebir uyuşmali (29/29 iddiasi vs 36 gercek — reviewer yakaladi); kapanis oncesi sayimi yeniden olctur.
