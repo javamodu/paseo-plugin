@@ -1,15 +1,17 @@
-﻿# saglik.ps1 — verimlilik-doctor v3.1 (plans\referans\ derinligi eklendi): saglik + olcum kontrolu (repo-konvansiyon agnostik).
+﻿# saglik.ps1 — verimlilik-doctor v3.3: saglik + olcum + kural-sayaci + kabul-orani kapilari (repo-konvansiyon agnostik).
 # Kullanim: powershell -NoProfile -File scripts\saglik.ps1 [-Root <yol>] [-Jsonl <telemetri.jsonl>]
 # Katman A: dosya varligi (kök VEYA plans/ alternatifleri), butce sinirlari, CODEMAP tazeligi, handoff zinciri, rehber hijyeni.
-# Katman B (JSONL verilirse): tur / cache-hit / durtme sayaclari hedef esiklerle karsilastirilir.
+# Katman B (JSONL verilirse): tur / cache-hit / durtme / kabul-orani sayaclari hedef esiklerle karsilastirilir.
+# SARI = uyaridir, SONUC'u bozmaz; EKSIK = kapi kirar.
 param([string]$Root = (Split-Path $PSScriptRoot -Parent), [string]$Jsonl = "")
 $ESIK = @{ CacheHitMin = 60; DurmeMaxGunluk = 10 }
-$pass = 0; $fail = 0; $rows = @()
+$pass = 0; $fail = 0; $warnN = 0; $rows = @()
 function Check($ad, $ok, $detay) {
   $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = $(if ($ok) { 'OK' } else { 'EKSIK' }); Detay = $detay }
   if ($ok) { $script:pass++ } else { $script:fail++ }
 }
 function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null }
+function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
 
 # 1) Katman dosyalari (alternatif yol listeleri: kök veya plans/)
@@ -54,14 +56,24 @@ if ($pHd) {
 }
 
 # 5) Rehber hijyeni (kendi kuralini denetler) + paket kontrolleri (yalniz arastirma paketi olan repolarda)
-$pRehber = Find-First $Root @('PASEO-VERIMLILIK-REHBERI-v1.4.md','arastirma\PASEO-VERIMLILIK-REHBERI-v1.4.md')
+$pRehber = Find-First $Root @('PASEO-VERIMLILIK-REHBERI-v2.0.md','PASEO-VERIMLILIK-REHBERI-v1.4.md','arastirma\PASEO-VERIMLILIK-REHBERI-v2.0.md','arastirma\PASEO-VERIMLILIK-REHBERI-v1.4.md')
 if ($pRehber) {
   $rh = LineCount $pRehber
   Check 'REHBER <=150 satir (kendi hijyen kurali)' ($rh -le 150) "$rh satir"
 }
 if ((Test-Path "$Root\arastirma") -or (Test-Path "$Root\kanit")) {
-  Check 'REHBER v1.4 mevcut' ($null -ne $pRehber) 'evrensel sozlesme'
+  Check 'REHBER (v*) mevcut' ($null -ne $pRehber) 'evrensel sozlesme'
   Check 'codemap ureticisi kurulu' ((Test-Path "$Root\scripts\codemap.ps1") -or ($null -ne (Get-ChildItem "$Root\scripts" -Filter 'codemap*' -ErrorAction SilentlyContinue))) 'scripts/codemap.*'
+}
+
+# 5b) Aktif kural sayaci (REHBER §2 butcesi: hedef <40, tavan 80)
+$kuralDosyalari = @($pAnayasa, $pL0, $pRehber) | Where-Object { $_ }
+if ($kuralDosyalari.Count -gt 0) {
+  $kural = 0
+  foreach ($kd in $kuralDosyalari) { $kural += @(Get-Content $kd -Encoding UTF8 | Where-Object { $_ -match '^\s*(-|\d+\.)\s' }).Count }
+  if ($kural -gt 80) { Check 'Aktif kural sayisi <=80 (tavan)' $false "$kural kural — stacking-collapse riski (REHBER §2)" }
+  elseif ($kural -gt 40) { Warn 'Aktif kural sayisi <40 (hedef)' "$kural kural — sadelestirmeyi degerlendir" }
+  else { Check 'Aktif kural sayisi <40 (hedef)' $true "$kural kural" }
 }
 
 # 6) Plugin telemetrisi (JSONL verilirse)
@@ -73,10 +85,18 @@ if ($Jsonl -and (Test-Path $Jsonl)) {
   $dur = @($ev | Where-Object { $_.tip -eq 'durtme' }).Count
   if ($ct -gt 0) { Check ("Cache-hit >= %{0}" -f $ESIK.CacheHitMin) (($ch * 100.0 / $ct) -ge $ESIK.CacheHitMin) ("{0:N0}% ({1}/{2})" -f ($ch * 100.0 / $ct), $ch, $ct) }
   Check ("Durtme <= {0}/oturum" -f $ESIK.DurmeMaxGunluk) ($dur -le $ESIK.DurmeMaxGunluk) "$dur durtme, $tur tur"
+  $ka = @($ev | Where-Object { $_.tip -eq 'kabul' -and $_.kabul -eq $true }).Count
+  $kt = @($ev | Where-Object { $_.tip -eq 'kabul' }).Count
+  if ($kt -gt 0) {
+    $oran = $ka * 100.0 / $kt
+    if ($oran -lt 44) { Check 'Kabul orani >= %44 (METR alarmi)' $false ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    elseif ($oran -lt 60) { Warn 'Kabul orani >= %60 (hedef)' ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    else { Check 'Kabul orani >= %60 (hedef)' $true ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+  }
 }
 
 $rows | Format-Table -AutoSize
-Write-Host ("SONUC: {0} OK, {1} EKSIK" -f $pass, $fail)
+Write-Host ("SONUC: {0} OK, {1} EKSIK, {2} SARI" -f $pass, $fail, $warnN)
 if ($fail -gt 0) { exit 1 } else { exit 0 }
 
 

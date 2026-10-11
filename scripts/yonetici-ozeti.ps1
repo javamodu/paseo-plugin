@@ -127,6 +127,9 @@ if (Test-Path $j) {
   $dur = @($ev | Where-Object tip -eq 'durtme').Count
   Write-Host "`n--- AJAN TELEMETRISI ---"
   if ($ct -gt 0) { Write-Host ("Tur: {0} · Cache-hit: %{1:N0} · Durtme: {2}" -f $tur, ($ch * 100.0 / $ct), $dur) }
+  $ka = @($ev | Where-Object { $_.tip -eq 'kabul' -and $_.kabul -eq $true }).Count
+  $kt = @($ev | Where-Object { $_.tip -eq 'kabul' }).Count
+  if ($kt -gt 0) { Write-Host ("Kabul orani: %{0:N0} ({1}/{2}) — hedef >%60, alarm <%44 (METR)" -f ($ka * 100.0 / $kt), $ka, $kt) }
 }
 Write-Host "======================================================"
 

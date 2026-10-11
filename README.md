@@ -1,4 +1,4 @@
-﻿# paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v1.4)
+﻿# paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.0)
 
 Her projede her AI ajanına uygulanabilen, uygulama-üstü verimlilik sözleşmesi + otomasyon araçları. Paseo (paseo.sh) içinde doğdu, herhangi bir ajan ortamında çalışır (Claude Code, Codex, Cursor, Cline, OpenCode...).
 
@@ -8,7 +8,7 @@ Amaç: **ajan zekâsı ≈ model IQ × bağlam kalitesi** — bu paket bağlam k
 
 | Dosya | Ne işe yarar |
 |---|---|
-| `PASEO-VERIMLILIK-REHBERI-v1.4.md` | EVRENSEL SÖZLEŞME — 9 bölüm: altın kurallar, bağlam bütçesi, devir töreni, L0-L5 dosya hafızası, token teknikleri, çalışma disiplini, watchdog protokolü, subagent standardı, ilk-15-dakika onboarding |
+| `PASEO-VERIMLILIK-REHBERI-v2.0.md` | EVRENSEL SÖZLEŞME — 9 bölüm: altın kurallar, bağlam bütçesi, devir töreni, L0-L5 dosya hafızası, token teknikleri, çalışma disiplini, watchdog protokolü, subagent standardı, ilk-15-dakika onboarding |
 | `ANAYASA-SABLONU.md` | Proje başına üst otorite şablonu: hizalama anahtarları, SSOT tablosu, ASLA/HER ZAMAN maddeleri (manifesto; detay yok) |
 | `FERMANLAR.md` | Aktivasyon emirleri: geçiş (her yeni ajana ilk mesaj), inşa (plugin MVP), ANAYASA kurulumu — sırası: 3 → 2 → 1 |
 | `PASEO-VERIMLILIK-PLANI.md` | 14 mekaniklik kazanç tablosu (hız/kalite/token × artı/eksi, önem sıralı), plugin mimarisi, ölçüm kataloğu, hedef eşikler, 4 haftalık yol haritası, anti-kararlar |
@@ -33,4 +33,4 @@ powershell -NoProfile -File scripts\saglik.ps1 -Jsonl telemetri.jsonl   # + cach
 
 Ölçüm yoksa "tahmin" etiketi; tek-kaynak iddialar `*` işaretli. Vektör DB yok, opak oto-hafıza yok — kalıcı bilgi dosyada, git'te sürümlenir.
 
-v1.4 · 2026-10-11 · SpeakRapid ve BUSINESS-REALITY-ENGINE pratiğinden damıtıldı; iki bağımsız araştırma paketinin çapraz doğrulamasıyla.
+v2.0 · 2026-10-11 · SpeakRapid ve BUSINESS-REALITY-ENGINE pratiğinden damıtıldı; iki bağımsız araştırma paketinin çapraz doğrulamasıyla.

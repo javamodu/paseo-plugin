@@ -1,6 +1,6 @@
-﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v1.4)
+﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0)
 
-v1.4 — 2026-10-11 · v2 üzerine araştırma temelli revizyon (önceki numara v3'tü; plan ile senkron için v1.4 hattına çekildi) (kanıtlar: kanit/01-10). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Proje kurallarıyla çelişirse projenin ANAYASA'sı kazanır.
+v2.0 — 2026-10-11 · 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; kanıtlar: kanit/01-10 + raporlar/token-olcum-2026-10-11). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Proje kurallarıyla çelişirse projenin ANAYASA'sı kazanır.
 
 Amaç: ajan zekâsı ≈ model IQ × bağlam kalitesi — bu rehber bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 
@@ -23,6 +23,7 @@ Rehberin kendi hijyeni: bu belge ≤150 satır kalır; büyürse ÇEKİRDEK (her
 - Doluluk durum raporunun ilk satırında: `bağlam ~%XX`. Kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si.
 - Compact ancak STATE güncellendikten sonra. Compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi).
 - Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda. Sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
+- Kural-sayısı bütçesi: eşzamanlı aktif kural envanteri (ANAYASA + bu rehber + oturum kuralları) hedef <40, mutlak tavan 80 (T — çok-kural uyumu kural adediyle düşer: stacking collapse %96→%20 (R); tekil %84 vs bütünsel %27 uçurumu (R, EnterpriseRAG)). Enjeksiyon yapan plugin bu sayımı lint'ler.
 
 ## 3. Devir Töreni (sıfır kayıp protokolü)
 
@@ -49,6 +50,8 @@ Vektör DB yok; yapısal disiplin var. Her projede bu katmanları kur/koru:
 
 Bütçe aşımı = hata: şişen katman özetlenip detayı alt dosyaya taşınır (işaretçi prensibi burada da geçerli).
 
+Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A derken hafıza B derse ajan salınır); hafızaya yalnız koddan çıkarsanamayan bilgi yazılır.
+
 ## 5. Token Tasarrufu Teknikleri
 
 - Sözlük kodlaması: terimler sabit kimlik taşır (M2-3, K-0005 gibi) — 50 kelimelik açıklama 5 karaktere iner. GLOSSARY'ye bağlı kal; drift = hata.
@@ -60,6 +63,8 @@ Bütçe aşımı = hata: şişen katman özetlenip detayı alt dosyaya taşını
 - Damga hijyeni: yalnız doğrulanmış kapsamı damgala; doğrulanamayan ekseni "doğrulanmadı" diye açık işaretle — sahte yeşil en pahalı hatadır.
 
 ## 6. Çalışma Disiplini
+
+- Yansıma dış sinyalle: test/lint/araç çıktısı olmadan öz-eleştiri turu yapma — dış sinyalsiz self-critique doğruluğu düşürür (R, reasoning ölçümü; koda genelleme T). Düzeltme döngüsü her zaman bir aracın çıktısına bağlanır.
 
 - Commit: dosya adıyla add (-A yasak) · emoji yok · araç/model adı geçmez · commit tek elden · başkasının kirli dosyasına dokunma.
 - Test: testsiz kod merge olmaz; kapanış = tam süit yeşil (kısmi koşu regresyon kaçırır — kanıtlı). UI testinde sentetik dispatchEvent tuzağına düşme: gerçek mouse/point kullan. Bilinen flake'i izolede tekrarla, ürün hatası sanma.
@@ -79,12 +84,13 @@ Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip
 4. 2 satır durum raporu (ilk satır `bağlam ~%XX`) + kaldığın yerden devam.
 5. Biten subagent varsa sonucunu topla, kapat, kuyruğu ilerlet.
 6. Dürtme döngüsü koruması: aynı konuda 2. ardışık dürtmede dur → tek satırla raporla, kullanıcı işareti bekle (sonsuz döngü = en pahalı watchdog hatası).
+7. Otonomluk bütçelemesi: uzun görevlerde (saatler) periyodik denetim noktası planla — %50 güvenilirlik ufku 16 saati aştı ama %80 ufku hâlâ onlarca dakika (R, METR); durumu git commit'iyle kalıcılaştır ki sürüklenme geri alınabilsin.
 
 ## 8. Subagent + Araç Gerçekleri
 
-- Delegasyon standardı (boomerang): her subagent briefi 6 öğe taşır — görev · kapsam · dosya seti · kabul kriteri · çıktı formatı · tahmini bütçe. Brief'e tüm sohbeti kopyalama; subagent'ten tam log değil ÖZET döner (ana bağlam temiz kalır).
-- Paralellik sınırı: eşzamanlı yazıcı tavanı 3 ajan; yazma kümeleri çakışmayan görevler seç; aynı dosyaya iki ajan dokunmaz. Commit/push tek elden (ana ajan).
-- Model ayrımı: zor iş güçlü model, rutin iş ucuz model; profil/mode ile sabitle, gerekirse oturum ortasında düşür (Paseo `update_agent`).
+- Delegasyon standardı (boomerang): her brief 4 öğe ŞART — hedef · çıktı formatı · araç/kaynak · görev sınırı ("ne YAPMAMALI"); 2 öğe önerilir — kabul kriteri · tahmini bütçe; lead'in elediği yolları da yaz (tekrar keşif israfı biter). Brief'e tüm sohbeti kopyalama; subagent'ten tam log değil ÖZET döner (ana bağlam temiz kalır).
+- Paralellik sınırı: eşzamanlı yazıcı tavanı 3 ajan; yazma kümeleri çakışmayan görevler seç; aynı dosyaya iki ajan dokunmaz. Commit/push tek elden (ana ajan). Salt-okunur subagent serbest; paralel YAZAN ajan kırılgan — sıkı-bağlı işi bölme: iki ajan tek başına üst sınırın altında kalabilir (collaboration tax, R).
+- Model ayrımı: zor iş güçlü model, rutin iş ucuz model; profil/mode ile sabitle, gerekirse oturum ortasında düşür (Paseo `update_agent`). Model değişimi cache-güvenli sınırda yapılır (oturum başı, subagent fırlatma); tur ortasında değiştirme cache'i kırar (R).
 - Ücretli sağlayıcı 402/bakiye hatası: subagent düşerse sonucu uydurma — raporla; ücretsiz/yerel yedeğe düş veya kuyruğu ertele.
 - Heartbeat ≠ schedule: heartbeat mevcut ajana dürtme atar; schedule her tetikte yeni ajan doğurur. Uzun nöbet işi heartbeat'e, bağımsız tek-atış işler schedule'a.
 - Test izolasyonu: paralel koşularda ortak çıktı klasörü çakışır — her koşuya izole port + izole outputDir; koşu sonu geçicileri sil.

@@ -24,10 +24,12 @@
 
 ## 3. ASLA (mutlak yasaklar)
 
-- Y1. <örn: Kullanıcının canlı portuna dokunma>
-- Y2. <örn: Ücretli API'yi onaysız çağırma>
-- Y3. <örn: node_modules/dist içine elle yazma>
-- Y4. <projenin yasağı>
+> Kural kalıbı: her yasak (a) doğrulanabilir pozitif karşılık + (b) mekanik karşılık (hook/deny kuralı) ile yazılır. Prompt'taki yasak davranış eğilimidir; asıl garanti mekanik engeldir (kanıt: negasyon uyumu zayıf (R, NAF-Bench); Replit 2025 — sözlü "code freeze" prod DB silmeyi durduramadı).
+
+- Y1. <örn: Kullanıcının canlı portuna dokunma> → pozitif: <testler izole portta koşar> · mekanik: <Bash deny deseni>
+- Y2. <örn: Ücretli API'yi onaysız çağırma> → pozitif: <ücretli çağrı onay kaydıyla açılır> · mekanik: <hook: onay anahtarı yoksa blokla>
+- Y3. <örn: node_modules/dist içine elle yazma> → pozitif: <üretilen dizinlere yalnız build yazar> · mekanik: <Edit deny: node_modules/**>
+- Y4. <projenin yasağı> → pozitif: <…> · mekanik: <…>
 
 ## 4. HER ZAMAN (mutlak zorunluluklar)
 

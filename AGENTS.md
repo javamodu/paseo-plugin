@@ -1,6 +1,6 @@
 ﻿# AGENTS.md — paseo-plugin (L0)
 
-Bu repo evrensel ajan verimlilik sözleşmesi paketidir. Çalışma kuralları: `PASEO-VERIMLILIK-REHBERI-v1.4.md` (bu repo için bağlayıcı sözleşme) + `ANAYASA.md` (üst otorite).
+Bu repo evrensel ajan verimlilik sözleşmesi paketidir. Çalışma kuralları: `PASEO-VERIMLILIK-REHBERI-v2.0.md` (bu repo için bağlayıcı sözleşme) + `ANAYASA.md` (üst otorite).
 
 ## Hızlı yön
 

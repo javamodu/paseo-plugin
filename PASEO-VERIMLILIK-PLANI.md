@@ -1,6 +1,6 @@
 ﻿# PASEO VERİMLİLİK PLANI
 
-Tarih: 11 Eki 2026 · Plan v1.4: karşı paketin "BİRLEŞİK PLAN v2"si ile hizalandı, 8 boşluk kapatıldı (rehber ile senkron sürüm: v1.4). Kanıt: `kanit/01`-`10`. Kural: ölçüm yoksa (T)=tahmin, (R)=resmî/yayınlı ölçüm; tek-kaynak iddialar * işaretli (spot doğrulama borcu).
+Tarih: 11 Eki 2026 · Plan v2.0: 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; rehber ile senkron sürüm: v2.0). Kanıt: `kanit/01`-`10` + `raporlar/token-olcum-2026-10-11`. Kural: ölçüm yoksa (T)=tahmin, (R)=resmî/yayınlı ölçüm; tek-kaynak iddialar * işaretli (spot doğrulama borcu).
 
 ## 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA)
 
@@ -9,7 +9,7 @@ Hız = uçtan uca görev süresi kısalması; Kalite = hata/tekrar düşüşü; 
 | # | Mekanik | Hız | Kod kalitesi | Token | Kod etkisi | En kritik artı | En kritik eksi | Kanıt |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Sözleşme enjeksiyonu (`agent.create` → REHBER v1.4 ÇEKİRDEK + proje L0/L1) | +%10-20 (T) | +%15-30 (T) | ±%0 (T): ~8KB ekler, israfı önler | Düşük (~100 satır) | Tüm kazançların taşıyıcısı | Prompt şişmesi → bütçe lint şart | Yüksek (01, 02) |
-| 2 | Cache-dostu sıralama (sabit başa, değişken sona) | +%30-85 (R) | ±%0 | -%90-97.5 Anthropic cache-read (R) · -%90-95 OpenAI cached input (R, min 1024 token, otomatik) | Yok: sıralama disiplini | Sıfır kod, anında | TTL/provider farkı | Yüksek (09 + birleşik §4) |
+| 2 | Cache-dostu sıralama (sabit başa, değişken sona) | +%30-85 (R) | ±%0 | -%90-97.5 Anthropic cache-read (R) · -%90-95 OpenAI cached input (R, min 1024 token, otomatik) | Yok: sıralama disiplini | Sıfır kod, anında | TTL/provider farkı | Yüksek (09 + birleşik §4) · SAHADA DOĞRULANDI-KAPANDI (R): %96,8 hit, %86,6 tasarruf — raporlar/token-olcum-2026-10-11 |
 | 3 | Repo-map artifact (`scripts/codemap.ps1` / repomix `--compress`) | +%20-40 (T) | +%10-15 (T) | -%70-90 (T); 600k→1-4k token = 150-500x (T, PoC'ta ölçülecek) | Düşük-orta; script KURULU | H2'nin tek kanıtlı yolu | Statik; periyodik yenileme | Yüksek mekanik (06, 09) |
 | 4 | Oturum kaydı (`turn_ended` → redaksiyonlu JSONL + STATE damgası) | +%15-25 (T): arşivden geri bakma hızı | +%10-20 (T): kanıt disiplini otomatik | ±%0 | Düşük: lifecycle-actions iskeleti hazır | "Geçmişin kaydı" (H1) otomatikleşir | Redaksiyon kuralı bakımı | Yüksek (02) |
 | 5 | memory/ + devir töreni (H1) | +%30-50 (T) | +%10-20 (T) | -%20-40 (T) | Düşük: hook + şablon | Local-first, sektör konsensüsü | Dosya disiplini | Yüksek (03, 05, 08) |
@@ -27,12 +27,12 @@ Hız = uçtan uca görev süresi kısalması; Kalite = hata/tekrar düşüşü; 
 
 ## 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 
-- **Enjeksiyon:** `before(agent.create)` → REHBER v1.4 ÇEKİRDEK + proje L0/L1 işaretçileri systemPrompt BAŞINA (madde 2). Toplam enjeksiyon ≤20KB bütçe + lint kuralı (Windsurf 6k/12k dersi).
+- **Enjeksiyon:** `before(agent.create)` → REHBER v2.0 ÇEKİRDEK + proje L0/L1 işaretçileri systemPrompt BAŞINA (madde 2). Toplam enjeksiyon ≤20KB bütçe + lint kuralı (Windsurf 6k/12k dersi) + aktif kural-sayısı lint'i (<40 sarı, >80 blok — REHBER §2).
 - **ÇEKİRDEK/EKLER bölünmesi** (rehberin kendi hijyen kuralının uygulanması):
 
 | Katman | İçerik (REHBER v1.4) | Ne zaman | Bütçe |
 |---|---|---|---|
-| ÇEKİRDEK | §1 kurallar + §2 bütçe + §3 devir tetikleyicisi + §4 tablo + L0/L1 işaretçileri | Her agent.create | ≤8KB |
+| ÇEKİRDEK | §1 kurallar + §2 bütçe (kural-sayısı dahil) + §3 devir tetikleyicisi + §4 tablo + L0/L1 işaretçileri | Her agent.create | ≤8KB |
 | EK-1 | §5 token teknikleri | Bağlam baskısı sinyalinde | — |
 | EK-2 | §7 watchdog protokolü | Dürtmede (heartbeat promptu taşır) | — |
 | EK-3 | §8 subagent standardı | Delegasyon yapacak ajana | — |
@@ -44,6 +44,8 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 - **Agent-onboarding:** create'te workspace kökü taranır; L0/L1/L5 varsa okuma listesi + echo görevi, yoksa ilk-15-dakika protokolü (ANAYASA-SABLONU + L0/L1/L5 iskeleti); ilk tur sonunda doğrulama, tek seferlik dürtme.
 - **Oturum kaydı:** `turn_ended` → redaksiyonlu JSONL arşiv (env değerleri maskeli) + STATE damgası hatırlatması.
 - **Pitbull:** cooldown haritası plugin state'inde (tur başı maks 1 dürt, 10 dk sessizlik) + 3 ardışık stall → insan kapısı (Magentic ledger dersi). Dürtülen tarafın kuralları rehber §7.6.
+- **Loop dedektörü (A3.2):** aynı tool+argüman hash'i 3 kez tekrarlanırsa (OpenHands eşiği, R) ajan durur → reflection promptu ("aynı şeyi tekrarlıyorsun, strateji değiştir") veya insan kapısı; ping-pong (A→B→A) deseni de yakalanır.
+- **Finish-gate (A3.3):** ajan "bitti" diyemeden görev tanımı yeniden sunulur; pass/fail modelin metninden değil araç exit-code'undan okunur (Replit dersi: yanlış "geçti" raporu).
 - **Permission polisi:** dar beyaz liste (okuma komutları allow, `rm -rf`/force-push deny); gerisi kullanıcıya.
 - **UI v1:** komut yüzeyi `addCommandCenterItem` ile kurulur (`addSlashCommand` referansta var ama örneklerde kanıtsız* — yedekli yaklaşım); STATE_BOARD paneli v2'ye.
 - **Repo-map hattı:** `scripts/codemap.ps1` kurulu; HEAD değişince tazele (git repolarında post-commit hook); CODEMAP ≤130 satır (kod ~1k token, doküman ~4-5k); prompt'a yol + 1 satır özet enjekte edilir.
@@ -60,6 +62,8 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 | H4 orkestrasyon | MCP araçları, profiles, CLI/SDK, schedule `--max-runs`/`--expires-in` | Watchdog (madde 6) + ajan başına ölçüm eksik; ajan-seviyesi max_runtime/idle_timeout doğrulanmadı* |
 
 ## 4. Doğrulanmış Ölçüm Kataloğu (R)
+
+- **Repo sahası (yeni, R):** cache-hit %96,8 / tasarruf %86,6 (653 oturum, 3.304 tur, 10,7B input — `raporlar/token-olcum-2026-10-11/`).
 
 - Anthropic prompt caching: cache-read = base input'un %10'u (yeni modellerde %2.5-5) → %90-97.5 tasarruf; gecikme %85'e kadar düşer (resmî).
 - OpenAI cached input: %90-95 indirim, otomatik, min 1024 token (fiyat tablosu).
@@ -80,6 +84,8 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 | Pitbull dürtmesi | ≤ 10/oturum; 3 ardışık stall = insan kapısı | plugin sayacı |
 | Echo'suz devir | 0 | handoff dizini denetimi |
 | Yarım kalan iş oranı | < %10 (T, ilk ay baseline çıkar) | plugin sayacı |
+| Kabul oranı (ajan çıktısı kabul/toplam) | > %60 hedef; < %44 alarm (METR çapası, R) | plugin JSONL `kabul` olayı + saglik.ps1 Katman B |
+| Aktif kural sayısı (ANAYASA+REHBER+L0 toplamı) | < 40 hedef; > 80 blok (T) | saglik.ps1 Katman A |
 ## 5. Yol haritası (4 hafta)
 
 - **Hafta 1 — taşıyıcı:** enjeksiyon v0 (ÇEKİRDEK + cache sıralaması + ≤20KB lint) + onboarding taraması + Command Center item + tur sayacı/cache-hit telemetrisi İLK GÜNDEN. Çıktı: plugin reposu.
@@ -93,6 +99,8 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 - Ayrı orchestrator modu: YOK (delegasyon + özet sözleşmesi yeter).
 - Opak oto-memories: YOK (Windsurf/Cursor terk etti; kalıcı bilgi dosyaya).
 - LLMLingua: v1'de YOK (kod bağlamında riskli).
+- Skill/instruction spam: ölçülmeden skill eklenmez (SWE-Skills-Bench: 49 skill'in 39'u etkisiz, 3'ü zararlı *) — yalnız kazancı ölçülmüş skill kalır.
+- Çok-ajan varsayılanı: YOK (collaboration tax, R — iki ajan tek başına sınırın altında kalabilir); minimum uygulanabilir paralellik.
 - Hub / GitHub tetik: şimdilik YOK (tek makine; gerektiğinde repo-içi hub.yml).
 
 ## 7. Riskler

@@ -1,0 +1,19 @@
+﻿{
+  "tarih": "2026-10-11",
+  "olcum_araci": "scripts/yonetici-ozeti.ps1 -SadeceToken",
+  "kaynak": "~/.codex/sessions/*.jsonl (token_usage_record, turn_id dedup MAX)",
+  "etiket": "R",
+  "tum_kayitlar": {
+    "oturum": 653, "tur": 3304, "proje": 30,
+    "input_tokens": 10666844364, "cached_input_tokens": 10326071808, "output_tokens": 61158030,
+    "cache_hit_pct": 96.8, "tasarruf_pct": 86.6,
+    "efektif_token": 1434537767, "cache_indirim_varsayimi_pct": 90
+  },
+  "bugun": {
+    "oturum": 78, "tur": 124, "proje": 6,
+    "input_tokens": 328524565, "cached_input_tokens": 315855360, "output_tokens": 2718677,
+    "cache_hit_pct": 96.1, "tasarruf_pct": 85.8
+  },
+  "bu_repo": { "cache_hit_pct": 83.2, "oturum": 11, "tur": 18, "not": "genc repo, orneklem kucuk" },
+  "hukum": "Plan madde 2 (cache-dostu siralama) dogrulandi, kapandi"
+}
