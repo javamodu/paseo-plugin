@@ -1,0 +1,35 @@
+{
+  "tarih": "2026-10-12",
+  "kilit": "v0.4-kilit",
+  "olcumler": {
+    "tur": 25,
+    "ortTurSn": 160,
+    "loopDurtme": 1,
+    "finishGateDurtme": 1,
+    "kabul": 0,
+    "ret": 0,
+    "kabulOrani": null,
+    "cacheHitPct": 96.1,
+    "tasarrufPct": 85.8,
+    "doctor": {
+      "ok": 16,
+      "eksik": 0,
+      "sari": 1
+    }
+  },
+  "eksenPuanlari": {
+    "harness": 9.5,
+    "memory": 10,
+    "hiz": 6,
+    "token": "dogrulandi-R",
+    "coding": null,
+    "reasoning": null,
+    "genel": 7.6
+  },
+  "citaOnerisi": null,
+  "gerekce": "baseline dolmadi (kabul sinyali 0) — A4.1 dersi",
+  "sonraki": [
+    "haftalik heartbeat bu raporu baz alir",
+    "AUP benchmark baseline sonrasi"
+  ]
+}

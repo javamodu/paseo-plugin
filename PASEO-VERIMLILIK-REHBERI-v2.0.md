@@ -108,7 +108,11 @@ Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetikle
 - [ ] Test komutunu bul ve bir kez koştur (baseline).
 - [ ] Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v1.4).
 
+## 10. Öz-Değerlendirme + Sürüm Disiplini (v0.5, K-0007)
 
-
-
-
+- Tetik: haftalık heartbeat (Pazar 20:00 Europe/Istanbul) veya Ctrl+K manuel. Değerlendirici okur: telemetri JSONL + saglik.ps1 + yonetici-ozeti.ps1 + hedefler.json + DERSLER yeni girdileri → raporlar/oz-degerlendirme/<tarih>.md (+ .json yan dosya).
+- Hüküm: hedef tuttuysa çıta yükseltilir (öneri); tutmadıysa kök neden + iyileşme planı taslağı plans/ altına. 3 dönem üst üste kötüleşme → alarm + insan kapısı.
+- Onay şartı: hedef/plan değişikliği kullanıcı onayı olmadan uygulanmaz; ajan yalnız önerir. Onay → uygulama → karşı-inceleme → K-XXXX → yeni kilit.
+- Kilit: her onaylı uygulama sonrası iki repoda scripts/kilit-surum.ps1 → git tag + surumler/<etiket>/ (KILIT.md + kilit.json: commit, puanlar, hedefler, doctor özeti). Kilitler append-only; silme yok.
+- Rollback (yalnız kullanıcı komutuyla; ajan kendini eski sürüme döndüremez): git reset --hard <etiket>-kilit → codemap.ps1 (tazelik zaman-damgalı, tatbikat dersi) → saglik.ps1 yeşil. Plugin: tag'e dön + paseo plugin reload. Hedef geri alma: hedefler.json geçmiş kaydı + yeni K-XXXX.
+- Kıyas: scripts/kiyasla.ps1 <A> <B> → eksen bazında delta tablosu; her değerlendirme raporu önceki kilit ile kıyas içerir.

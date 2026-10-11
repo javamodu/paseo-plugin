@@ -22,4 +22,4 @@
 - Raporlanan test sayisi disktekiyle birebir uyuşmali (29/29 iddiasi vs 36 gercek — reviewer yakaladi); kapanis oncesi sayimi yeniden olctur.
 - Reviewer yalniz COMMIT'LI durumu test eder; coder test sayisini yalniz commit'li suitten raporlar (in-flight dosya kirli-agac alarmi uretir).
 - 'Push'landi' ibaresinde hangi repo acik yazilir — plugin reposu (paseo-verimlilik) remote'suz; push ana repoyaydi.
-
+- Rollback/tag dönüşü sonrası saglik.ps1 'CODEMAP taze' EKSIK verir — tazelik kontrolü zaman-damgalı; rollback prosedürüne codemap tazeleme adımı eklendi (K-0007 tatbikat dersi).

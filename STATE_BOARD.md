@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-Yok — 10'a giden yol paketleri tamam (v0.2/v0.2.1/v0.3/v0.4). Beklenen: kullanıcı Ctrl+K doğrulaması + plugin reposu remote kararı → sonra baseline + AUP benchmark.
+Yok — v0.5 tamam (öz-değerlendirme döngüsü + sürüm disiplini). Beklenen: kullanıcı CC item doğrulaması ("Son öz-değerlendirme raporunu aç") + ilk heartbeat koşusu (Pazar 20:00).
 
 ## Son damgalar
+- 2026-10-12 · v0.5 (K-0007): hedefler.json SSOT + surumler/ kilitleri (iki repo, v0.4-kilit baz) + kilit-surum.ps1 + kiyasla.ps1 (temp repoda uçtan uca testli) + REHBER §10 + ilk öz-değerlendirme raporu (baz, çıta önerisi yok) · rollback tatbikatı (R) · haftalık heartbeat kuruldu
 - 2026-10-11 · CC item UI doğrulandı (kullanıcı ekran görüntüsü: 2 sözleşme item'ı gruplu) — plugin tamamen devrede
 - 2026-10-11 · plugin reposu remote'a açıldı: github.com/javamodu/paseo-verimlilik (main 39cf1d9, ls-remote doğrulandı)
 - 2026-10-11 · v0.4 (K-0006): echo kapisi + onboarding iskelet kontrolu CANLI kanitli (echo-eksik sinyal=0, handoff dosya adiyla) · 40/40 yesil · enjeksiyon spesifik handoff isaretcisi tasir
