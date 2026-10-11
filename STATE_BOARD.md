@@ -4,6 +4,7 @@
 Yok — 10'a giden yol paketleri tamam (v0.2/v0.2.1/v0.3/v0.4). Beklenen: kullanıcı Ctrl+K doğrulaması + plugin reposu remote kararı → sonra baseline + AUP benchmark.
 
 ## Son damgalar
+- 2026-10-11 · CC item UI doğrulandı (kullanıcı ekran görüntüsü: 2 sözleşme item'ı gruplu) — plugin tamamen devrede
 - 2026-10-11 · plugin reposu remote'a açıldı: github.com/javamodu/paseo-verimlilik (main 39cf1d9, ls-remote doğrulandı)
 - 2026-10-11 · v0.4 (K-0006): echo kapisi + onboarding iskelet kontrolu CANLI kanitli (echo-eksik sinyal=0, handoff dosya adiyla) · 40/40 yesil · enjeksiyon spesifik handoff isaretcisi tasir
 - 2026-10-11 · v0.2.1+v0.3 (K-0005): reviewer 3 bulgusu kapatildi (brief oge-anahtar kontrolu, npm test runner, pitbull reload grace) + kapsam linti + finish-gate mesaj ayristirmasi · 36/36 yesil
@@ -16,8 +17,7 @@ Yok — 10'a giden yol paketleri tamam (v0.2/v0.2.1/v0.3/v0.4). Beklenen: kullan
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-- CC item'ların UI doğrulaması (Ctrl+K'de 3 item görünüyor mu) — kullanıcıda.
-- Hafta 2 kapsamı (pitbull + permission polisi + turn_ended JSONL zenginleştirme) — kullanıcıda.
+Yok — CC item UI doğrulaması kullanıcı ekran görüntüsüyle tamam (2026-10-11, 2 sözleşme item'ı gruplu görünüyor).
 
 ## v2.1 backlog
 - ÇEKİRDEK kural diyeti: aktif kural sayısı 68 → <40 hedefi için EK'lere taşıma (doctor SARI'sı; enjeksiyon ≤8KB freni yeterli, plugin öncesi şart değil).
