@@ -1,11 +1,11 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD e9678d4 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 01dc9cc — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `AGENTS.md` (0.7KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (3.7KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (4.1KB) — DERSLER — paseo-plugin (L5)
 - `FERMANLAR.md` (2.1KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `kanit\01-paseo-dokuman-envanteri.md` (11.5KB) — Paseo Doküman Envanteri — Ajan Verimliliği Primitifleri | H1 — Geçmişin kaydedilmesi (handoff / hafıza) | H2 — Kod+döküman indeksleme, hızlı erişim
 - `kanit\02-plugin-api.md` (10.7KB) — 02 - Paseo Plugin API Tam Haritası | 1. Manifest: `paseo-plugin.json` | 2. Her yeni ajana metin enjeksiyonu (sözleşmenin kalbi)
@@ -43,8 +43,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\saglik.ps1` (6.5KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (0.8KB)
-- `STATE_BOARD.md` (4.2KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (4.4KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
 - `surumler\v0.5.3\KILIT.md` (0.4KB) — Kilitli Surum - v0.5.3-kilit | Rollback
 - `surumler\v0.6\KILIT.md` (0.4KB) — Kilitli Surum - v0.6-kilit | Rollback
+- `surumler\v0.7\KILIT.md` (0.5KB) — Kilitli Surum - v0.7-kilit | Rollback

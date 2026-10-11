@@ -27,4 +27,5 @@ Yok — v0.7 tamam ve kilitli. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Euro
 Yok — CC item UI doğrulaması kullanıcı ekran görüntüsüyle tamam (2026-10-11, 2 sözleşme item'ı gruplu görünüyor).
 
 ## v2.1 backlog
+- v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.
 - ÇEKİRDEK kural diyeti: aktif kural sayısı 68 → <40 hedefi için EK'lere taşıma (doctor SARI'sı; enjeksiyon ≤8KB freni yeterli, plugin öncesi şart değil).

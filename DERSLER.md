@@ -25,3 +25,5 @@
 - Rollback/tag dönüşü sonrası saglik.ps1 'CODEMAP taze' EKSIK verir — tazelik kontrolü zaman-damgalı; rollback prosedürüne codemap tazeleme adımı eklendi (K-0007 tatbikat dersi).
 - .ps1 dosyalari ASCII-only Turkce yazilir: PS 5.1 BOM'suz UTF-8'i ANSI okur; em-dash (0x94) smart-quote'a donusup string'i kirar (zincir-kontrol.ps1 parse kazasi). md/txt serbest, ps1 ASCII.
 - Ayar cache'i mtime-only ise aynı-tick yazımı atlatır (same-second race) → anahtar mtime+boyut olmalı; v0.7 test flake'inin kök sebebi buydu.
+- Kalite dürtmesi geldiğinde önce tur bağlamına bak: kırmızı-test/TDD döngüsü failedCalls sayacını şişirir (exec exit!=0 = failed sayılır); kasıtlı kırmızı koşu tuzak değildir, dürtme yanlış-pozitif olabilir.
+- node .replace anchor'u dosyadan birebir kopyalanır ve tekil-eşleşme şartı throw ile zorlanır — anchor yoksa sessiz no-op değil, hata istenir (v0.7 yazım disiplini).
