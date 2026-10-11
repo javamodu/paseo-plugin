@@ -1,0 +1,56 @@
+{
+    "etiket":  "v0.7-kilit",
+    "tarih":  "2026-10-12",
+    "commit":  "a624651",
+    "doctor":  {
+                   "ok":  16,
+                   "eksik":  0,
+                   "sari":  1
+               },
+    "hedefler":  {
+                     "kabulOraniHedefPct":  60,
+                     "kabulOraniAlarmPct":  44,
+                     "cacheHitMinPct":  40,
+                     "kuralSariEsik":  40,
+                     "kuralKirmiziEsik":  80,
+                     "durtmeTrendi":  "azalan"
+                 },
+    "eksenPuanlari":  {
+                          "harness":  {
+                                          "puan":  9.5,
+                                          "onceki":  8,
+                                          "tur":  "T",
+                                          "kaynak":  "K-0004 -\u003e K-0006 (mekanik kancalar kuruldu)"
+                                      },
+                          "coding":  {
+                                         "puan":  null,
+                                         "tur":  "-",
+                                         "kaynak":  "sayisal puanlanmadi"
+                                     },
+                          "reasoning":  {
+                                            "puan":  null,
+                                            "tur":  "-",
+                                            "kaynak":  "sayisal puanlanmadi"
+                                        },
+                          "memory":  {
+                                         "puan":  10,
+                                         "onceki":  9,
+                                         "tur":  "T",
+                                         "kaynak":  "K-0006 (echo kapisi + onboarding, canli kanitli)"
+                                     },
+                          "hiz":  {
+                                      "puan":  6,
+                                      "hedef":  7,
+                                      "tur":  "T",
+                                      "kaynak":  "K-0004 — turSn/paralellik telemetrisi basladi"
+                                  },
+                          "token":  {
+                                        "puan":  null,
+                                        "durum":  "dogrulandi-kapandi",
+                                        "tur":  "R",
+                                        "kaynak":  "raporlar/token-olcum-2026-10-11 (%96,8 cache-hit)"
+                                    }
+                      },
+    "ekOzet":  "saglik 16 OK / 0 EKSIK / 1 SARI (76 kural, bilinen backlog)",
+    "not":  "K-0011: woo-block review B1-B5 kapandi"
+}
