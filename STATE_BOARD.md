@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-Yok — v0.5 tamam (öz-değerlendirme döngüsü + sürüm disiplini). Beklenen: kullanıcı CC item doğrulaması ("Son öz-değerlendirme raporunu aç") + ilk heartbeat koşusu (Pazar 20:00).
+Yok — v0.5 tamam ve UI doğrulandı. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
 
 ## Son damgalar
+- 2026-10-12 · v0.5 UI doğrulandı (kullanıcı ekran görüntüsü: "Son öz-değerlendirme raporunu aç" CC item'i → Degerlendirme ekranı: kilit v0.4 + rapor 2026-10-12.md render ediliyor)
 - 2026-10-12 · v0.5 (K-0007): hedefler.json SSOT + surumler/ kilitleri (iki repo, v0.4-kilit baz) + kilit-surum.ps1 + kiyasla.ps1 (temp repoda uçtan uca testli) + REHBER §10 + ilk öz-değerlendirme raporu (baz, çıta önerisi yok) · rollback tatbikatı (R) · haftalık heartbeat kuruldu
 - 2026-10-11 · CC item UI doğrulandı (kullanıcı ekran görüntüsü: 2 sözleşme item'ı gruplu) — plugin tamamen devrede
 - 2026-10-11 · plugin reposu remote'a açıldı: github.com/javamodu/paseo-verimlilik (main 39cf1d9, ls-remote doğrulandı)
