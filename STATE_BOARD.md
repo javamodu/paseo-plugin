@@ -10,3 +10,4 @@ Yok — v1.4 paketi tamam ve push'landı.
 
 ## Bekleyen onaylar
 - Ferman 2 (plugin inşası) — kullanıcıda.
+- 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu (LOC+milestone+disiplin+doctor+token/hiz/verim; turn_id dedup, oturum-gunu bazli) · plan §2 gozlem modulu islendi · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)

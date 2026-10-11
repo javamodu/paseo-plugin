@@ -48,6 +48,7 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 - **UI v1:** komut yüzeyi `addCommandCenterItem` ile kurulur (`addSlashCommand` referansta var ama örneklerde kanıtsız* — yedekli yaklaşım); STATE_BOARD paneli v2'ye.
 - **Repo-map hattı:** `scripts/codemap.ps1` kurulu; HEAD değişince tazele (git repolarında post-commit hook); CODEMAP ≤130 satır (kod ~1k token, doküman ~4-5k); prompt'a yol + 1 satır özet enjekte edilir.
 - **Doğrulama:** typecheck + `paseo plugin ls` + her kancanın canlı denemesi.
+- **Gözlem modülü (öz-denetim + kuşbakışı):** plugin kendini ve ajanları sürekli ölçer. (1) Öz-denetim: her heartbeat'te doctor kapıları + enjeksiyon bütçe lint + hook hata sayaçları — kendi hatasını raporlar. (2) Ajan ölçümü: `turn_ended` → `.verimlilik\telemetri.jsonl` (tur, cache-hit, dürtme, stall, permission kararları; redaksiyonlu). (3) Kuşbakışı paneli (workspace panel, v2): performans/hız/kalite/güvenlik/token kazanç/hata oranı + milestone zaman çizelgesi + toplam LOC; eşikler §4. Köprü (bugün kurulu): `scripts/yonetici-ozeti.ps1` aynı metrikleri üretir — LOC + milestone + disiplin + doctor skoru + codex rollout token/hız/verim (tur-bazında gerçek harcama, turn_id dedup'lı); plugin gelince panel JSONL'den beslenir.
 
 ## 3. Hedef × Paseo primitifi matrisi
 
@@ -104,6 +105,7 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 6. `addSlashCommand` kanıtsız*: komut yüzeyi `addCommandCenterItem` yedeğiyle.
 7. Bağımlılık bakımı: AutoGen 61k star ile maintenance mode'a düştü (doğrulandı) → repomix/MCP son-push kontrolü periyodik.
 8. Spot doğrulama borcu: #5480/#5003/#6106/#6262 ve ajan-seviyesi max_runtime/idle_timeout tek-kaynak* — PoC öncesi doğrula.
+
 
 
 
