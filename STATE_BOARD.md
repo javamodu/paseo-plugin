@@ -13,3 +13,6 @@ Yok — v2.0 paketi (10-eksenli araştırma sentezi + reviewer denetimi) işlend
 - Ferman 2 (plugin inşası, K-0002 ile genişlemiş kapsam: loop dedektörü + finish-gate + kabul oranı) — kullanıcıda.
 - ANAYASA.md güncellemesi (SSOT tablosu rehber v2.0 + A4 notu) — K-0002, kullanıcıda.
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu (LOC+milestone+disiplin+doctor+token/hiz/verim; turn_id dedup, oturum-gunu bazli) · plan §2 gozlem modulu islendi · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
+
+## v2.1 backlog
+- ÇEKİRDEK kural diyeti: aktif kural sayısı 68 → <40 hedefi için EK'lere taşıma (doctor SARI'sı; enjeksiyon ≤8KB freni yeterli, plugin öncesi şart değil).

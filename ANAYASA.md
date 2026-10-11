@@ -8,13 +8,13 @@
 - A1. Evrensellik: rehber ve şablonlarda uygulama/proje adı geçmez; "<proje>" yer tutucu kullanılır.
 - A2. Kanıt disiplini: ölçüm yoksa (T) tahmin, resmî ölçüm (R), tek-kaynak iddia * işaretli. Ölçümsüz yüzde YAZILMAZ.
 - A3. Bütçe hijyeni: rehber ≤150 satır, bu belge ≤60 satır; aşan içerik işaretçiyle alt dosyaya taşınır.
-- A4. Sürüm senkronu: rehber ve plan aynı sürüm numarasını taşır (şu an v1.4).
+- A4. Sürüm senkronu: rehber ve plan aynı sürüm numarasını taşır (şu an v2.0).
 
 ## 2. SSOT Maddeleri
 
 | Konu | Tek doğru kaynak |
 |---|---|
-| Evrensel sözleşme | PASEO-VERIMLILIK-REHBERI-v1.4.md |
+| Evrensel sözleşme | PASEO-VERIMLILIK-REHBERI-v2.0.md |
 | Kazanç tablosu + mimari | PASEO-VERIMLILIK-PLANI.md |
 | Proje şablonu | ANAYASA-SABLONU.md |
 | Aktivasyon emirleri | FERMANLAR.md |
