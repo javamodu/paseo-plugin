@@ -4,6 +4,7 @@
 v0.8 kilitli (K-0012, coder). K-0013 önerisi yazıldı (sözleşme bekçisi + sondaj otomasyonu) — kullanıcı onayı bekliyor. Not: raporlar/telemetri-haftalik/2026-W42.* kirli (coder'ın uçuşta işi; dokunulmadı).
 
 ## Son damgalar
+- 2026-10-12 · K-0013+K-0014 ONAYLANDI: bekçi köprüsü + sondaj pilotu + Ferman 3 · canlı laboratuvar kohortu (4 tedavi/4 kontrol, coin-flip, commit-bazlı) · çizelge 1g/3g/5g + (R) ~150tur
 - 2026-10-12 · K-0013 önerisi: deterministik bekçi (A) + Ferman 3 repo-içi atama (C) + sondaj pilotu (sorular/banka.md + haftalık schedule → raporlar/sozlesme-sondaj/) + dedupe/triage kapısı; B (salt-okunur LLM bekçi), D (ayrı heartbeat), metrik köprüsü ertelendi — onay bekliyor
 - 2026-10-12 · v0.8 (K-0012, plugin e305dce kilitli): üçüncü review'un 8+2 bulgusu kapandı — P0 permission daraltma · sağlık körü + hedefler.json SSOT · rollup hafta süzmesi · enjeksiyon modu her akışta · onboarding && · finish-gate runner · pitbull tavan+bayat (10147dk kapandı) · tur penceresi (kümülatif sayaç kapandı) · kilit EKSIK engeli
 - 2026-10-12 · v0.7 (K-0011, plugin f3a3c01 kilitli): woo-block review B1-B5 kapandı — EK özetleri çekirdekte (hayalet referans yok) · yukarı tarama katmanKokuBul 5 seviye (yanlış-negatif iskelet dürtmesi kapandı) · iskelet +3 dizin · editliMi shell-yazma (kabul takibi apply_patch'siz ortamda kör değil) · failedCalls >%10 kalite dürtmesi
