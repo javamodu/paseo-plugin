@@ -45,3 +45,7 @@
 - 2026-10-12 · PS `Test-Path` köşeli-parantezli klasörde ([[...sign-in]]) patlar — her zaman `-LiteralPath`. Aynı sebeple Get-ChildItem'da da `-LiteralPath`.
 - 2026-10-12 · Test cwd'si asla gerçek repo olmaz: pitbull testleri gerçek .verimlilik'e 132 sahte dürtme yazdı (ölçüm zehirlenmesi). Kural: disk-yazan modül testleri mkdtemp kullanır.
 - 2026-10-12 · Otomasyon ürünü tracked dosyalar (raporlar/telemetri-haftalik) kalıcı git-drift yaratır — drift/tazelik kapıları bu yolları hariç tutar (saglik.ps1 + bekci.ts, canlı tatbikat bulgusu).
+- 2026-10-12 · PS 5.1 scripti yazarken ÖNCE 3-5 satırlık izole doğrulama koş (array literal, wildcard, mojibake tuzakları) — topyekun koşup 3 tur debug etmek yerine. Kanıt: proje-panosu + katman-kur toplam 6 kırmızı koşu, hepsi küçük dbg scriptiyle tek turda çözüldü.
+- 2026-10-12 · `run_schedule_once` senkron bloklar (300sn timeout) — uzun koşuları bekleme; `schedule_logs` ile durumu yokla, ajan kendi commit'ler.
+- 2026-10-12 · PS 5.1'de `&&` yok — ayrı ifadeler `;` ile (her oturumun ilk hatası).
+- 2026-10-12 · Script'te dizin-dosyası sırası: önce dizinler, sonra içlerine dosya (katman-kur DirectoryNotFoundException ×4).
