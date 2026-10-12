@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-Yok — v0.8 tamam ve kilitli. Beklenen: ilk heartbeat koşusu (Pazar 20:00) → rapor onaya çıkar. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
+v0.8 kilitli (K-0012, coder). K-0013 önerisi yazıldı (sözleşme bekçisi + sondaj otomasyonu) — kullanıcı onayı bekliyor. Not: raporlar/telemetri-haftalik/2026-W42.* kirli (coder'ın uçuşta işi; dokunulmadı).
 
 ## Son damgalar
+- 2026-10-12 · K-0013 önerisi: deterministik bekçi (A) + Ferman 3 repo-içi atama (C) + sondaj pilotu (sorular/banka.md + haftalık schedule → raporlar/sozlesme-sondaj/) + dedupe/triage kapısı; B (salt-okunur LLM bekçi), D (ayrı heartbeat), metrik köprüsü ertelendi — onay bekliyor
 - 2026-10-12 · v0.8 (K-0012, plugin e305dce kilitli): üçüncü review'un 8+2 bulgusu kapandı — P0 permission daraltma · sağlık körü + hedefler.json SSOT · rollup hafta süzmesi · enjeksiyon modu her akışta · onboarding && · finish-gate runner · pitbull tavan+bayat (10147dk kapandı) · tur penceresi (kümülatif sayaç kapandı) · kilit EKSIK engeli
 - 2026-10-12 · v0.7 (K-0011, plugin f3a3c01 kilitli): woo-block review B1-B5 kapandı — EK özetleri çekirdekte (hayalet referans yok) · yukarı tarama katmanKokuBul 5 seviye (yanlış-negatif iskelet dürtmesi kapandı) · iskelet +3 dizin · editliMi shell-yazma (kabul takibi apply_patch'siz ortamda kör değil) · failedCalls >%10 kalite dürtmesi
 - 2026-10-12 · v0.6 (K-0010, plugin 97ac57c kilitli): REHBER tarif istisnası + ayar.json repo-config + işaretçi enjeksiyonu (kuralBlok paradoksu kapandı) + haftalık rollup köprüsü — iki dış review'un tüm haklı bulguları kapandı
@@ -25,7 +26,7 @@ Yok — v0.8 tamam ve kilitli. Beklenen: ilk heartbeat koşusu (Pazar 20:00) →
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-Yok — CC item UI doğrulaması kullanıcı ekran görüntüsüyle tamam (2026-10-11, 2 sözleşme item'ı gruplu görünüyor).
+K-0013 — sözleşme bekçisi + sondaj otomasyonu paketi (kararlar/K-0013.md).
 
 ## v2.1 backlog
 - v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.

@@ -37,3 +37,4 @@
 - Ara commitler de yeşil olmalı: test/kod ayrı commitlerde ara-kırmızı oluşur (v0.8c3 reset --soft ile birleştirildi); bölme yaparken her commitin süitini ayrı koş.
 - hedefler.json alanları aktifHedefler altında — kökte arayan sessizce fallback'e düşer; SSOT okumasını canlı değerle doğrula (cacheHitMinPct 40 göründü mü).
 - exec_command içinde powershell -Command "...$var..." yazma — $ harness tarafından yutulur/interpole edilir (ParserError); tek tırnak kullan veya JSON okumalarını node_repl'e taşı (kalite dürtmesi #2, 3/24).
+- Eşzamanlı iki ajan aynı repoda karar numarası çakıştırabilir: dosyaya yazmadan ÖNCE git log + kararlar/ ls taze çek (oturum başı snapshot bayatlar); ezilen tracked dosya git restore ile kurtarılır, kayıt bir sonraki boş numaraya taşınır (2026-10-12, K-0012/K-0013 vakası).
