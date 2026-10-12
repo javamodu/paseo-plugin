@@ -59,3 +59,4 @@
 - 2026-10-12 · Ölçüm aleti ölçülmeden ölçüm yapılmaz: prob/pano scripti kendi kendini test eder (proje-panosu -TestModu deseni). Kanıt: tsx-regex ve boşluklu-yol kazaları ilk canlı koşuda patladı.
 - 2026-10-12 · Varlık sorgusu failedCalls'a düşer ama tuzak değildir: Test-Path=false, git cat-file -t=exit1 beklenen sonuçtur (hayalet commit doğrulaması) — kasıtlı-kırmızı dersinin uzantısı.
 2026-10-12 · Paseo hedef ID'leri (ajan/terminal/tab) hafızadan veya eski bağlamdan kullanılmaz — oturumlar kapanır, ID'ler ölür; send_agent_prompt/send_terminal_keys öncesi ilgili list_* çağrısıyla taze doğrula. Kanıt: 'Agent not found' 92a06433 (kalite dürtmesi 1/6, %17).
+- 2026-10-12 · Paseo browser file:// açmaz (http/https only) + playwright bu ortamda yok — mockup/HTML doğrulama deseni: geçici node:http sunucusu (127.0.0.1) → paseo browser new_tab → browser_evaluate ile DOM doğrula → tab+sunucu kapat. Screenshot binary dönmez; DOM assertion yeterli.
