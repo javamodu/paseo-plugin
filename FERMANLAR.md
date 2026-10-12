@@ -33,6 +33,16 @@ ANAYASA-SABLONU.md'yi köke ANAYASA.md olarak kur; A1-A4, Y, Z
 maddelerine mevcut belgelerden TASLAK öner — onayım olmadan doldurma.
 ```
 
+## Ferman 4 — Bekçi (repo başına bir kez, idempotent)
+
+```
+Bu repoda sözleşme bekçisi kuruludur: paseo-verimlilik v0.9+ 15 dakikada bir
+saglik.ps1 + zincir-kontrol.ps1 köprüsünü ve repo-agnostik kontrolleri koşturur
+(aktif tur varken erteler). Anomali raporlar/takip-sozlesme/<tarih>.md'ye iner
++ ajana tek bildirim düşer (günlük dedupe). Bekçi asla onay vermez, yalnız
+raporlar/** yazar. Kaldırmak için: .verimlilik/ayar.json → bekciKapali: true.
+```
+
 ## Sıra ve bağımlılık
 
 1. Önce Ferman 3 (bu repo dahil her projede bir kez) → ANAYASA.md oluşur.
