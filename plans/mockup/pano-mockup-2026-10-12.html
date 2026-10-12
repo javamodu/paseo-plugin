@@ -30,7 +30,7 @@
   .arti-menu div:hover{background:var(--kart)}
   .icerik{flex:1;overflow-y:auto;padding:16px;min-height:0}
   .yuzey{display:none;height:100%}.yuzey.acik{display:flex;flex-direction:column}
-  .composer{flex:0 0 auto;border-top:1px solid var(--sinir);background:var(--kart);padding:10px 16px;display:flex;gap:8px;align-items:center}
+  .composer{flex:0 0 auto;border-top:1px solid var(--sinir);background:var(--kart);padding:10px 16px}
   .composer input{flex:1;background:var(--kart2);color:var(--metin);border:1px solid var(--sinir);border-radius:8px;padding:9px 12px}
   .composer .ipucu{color:var(--soluk);font-size:11px}
   .kart{background:var(--kart);border:1px solid var(--sinir);border-radius:10px;padding:12px}
@@ -77,10 +77,18 @@
   .sag-handle:hover,.sag-handle.tut{background:var(--vurgu)}
   .tab-toggle{margin-left:auto;align-self:center;background:var(--kart2);border:1px solid var(--sinir);color:var(--soluk);border-radius:6px;padding:3px 9px;font-size:12px;cursor:pointer}
   .tab-toggle:hover{color:var(--metin)}
+  .sutun{max-width:760px;margin:0 auto;width:100%;display:flex;flex-direction:column}
+  .composer-ic-wrap{max-width:760px;margin:0 auto}
+  .composer-ic{display:flex;gap:8px;align-items:center}
+  .durum-serit{display:flex;gap:8px;margin-bottom:8px}
+  .sagtabbar{display:flex;gap:2px;margin-bottom:10px;background:var(--kart2);border:1px solid var(--sinir);border-radius:8px;padding:3px;flex:0 0 auto}
+  .sagtabbar button{flex:1;background:transparent;color:var(--soluk);border:0;border-radius:6px;padding:5px 2px;font-size:14px;cursor:pointer}
+  .sagtabbar button.aktif{background:var(--kart);color:var(--metin)}
+  .sbolum{display:none}.sbolum.acik{display:block}
 </style>
 </head>
 <body>
-<div class="mockup-serit">MOCKUP v4 — rail→panel · orta: VS Code sekmeleri (+ terminal/url/dosya/ajan) · chat varsayılan · composer her sekmede sabit · veriler örnektir (T)</div>
+<div class="mockup-serit">MOCKUP v5 — composer ortalı sütun (760px) · sağ panel sekmeli: 📡 akış · 📁 dosyalar · 🌐 url · ▶ terminal · aç/kapa + resize · veriler örnektir (T)</div>
 <div class="govde">
   <nav class="rail" id="rail">
     <a data-p="doktor" class="aktif"><span class="iko">🩺</span>Doktor</a>
@@ -138,26 +146,54 @@
     <div class="tabbar" id="tabbar"><button class="tab-toggle" id="sagToggle" title="Sağ panel">◧</button></div>
     <div class="icerik" id="icerik"></div>
     <div class="composer">
+      <div class="composer-ic-wrap">
+        <div class="durum-serit"><span class="hap ok">● 10 çalışıyor</span><span class="hap notr">+408 −13</span></div>
+        <div class="composer-ic">
       <input id="composerInput" placeholder="Görev yaz veya komut: /mod atolye · /emir s9 … (mockup — chat'e düşer)">
       <span class="ipucu">composer her sekmede sabit</span>
       <button id="composerBtn">Gönder</button>
+        </div>
+      </div>
     </div>
   </div>
   <aside class="sagpanel" id="sagPanel">
     <div class="sag-handle" id="sagHandle"></div>
-    <h2 style="font-size:13px">Canlı akış</h2>
-    <div class="gorev-grup">Aktif ajanlar (2)</div>
-    <div class="gorev"><div class="ust"><b>[coder] speakrapid</b><span class="hap ok">tur 12</span></div><div class="alt">S9 · Veo · 340k/500k token · 2dk önce aktif</div></div>
-    <div class="gorev"><div class="ust"><b>[bekçi] filo</b><span class="hap notr">izliyor</span></div><div class="alt">son anomali: yok · gelen-kutu: 1 bekleyen</div></div>
-    <div class="gorev-grup">Son olaylar</div>
-    <div class="log" style="max-height:220px;overflow-y:auto">[09:41] tur-33 tamam · cache %98<br>[09:41] bekçi: anomali yok<br>[09:39] mod=ATOLYE<br>[09:36] saglik: 17 OK<br>[09:30] gelen-kutu ← speakrapid (yüksek)</div>
-  </aside>
+    <div class="sagtabbar" id="sagTabbar">
+      <button data-sp="akis" class="aktif" title="Canlı akış">📡</button>
+      <button data-sp="dosyalar" title="Dosyalar (file explorer)">📁</button>
+      <button data-sp="url" title="URL önizleme">🌐</button>
+      <button data-sp="terminal" title="Terminal">▶</button>
+    </div>
+    <div class="sbolum acik" data-sp="akis">
+      <h2 style="font-size:13px">Canlı akış</h2>
+      <div class="gorev-grup">Aktif ajanlar (2)</div>
+      <div class="gorev"><div class="ust"><b>[coder] speakrapid</b><span class="hap ok">tur 12</span></div><div class="alt">S9 · Veo · 340k/500k token · 2dk önce aktif</div></div>
+      <div class="gorev"><div class="ust"><b>[bekçi] filo</b><span class="hap notr">izliyor</span></div><div class="alt">son anomali: yok · gelen-kutu: 1 bekleyen</div></div>
+      <div class="gorev-grup">Son olaylar</div>
+      <div class="log" style="max-height:220px;overflow-y:auto">[09:41] tur-33 tamam · cache %98<br>[09:41] bekçi: anomali yok<br>[09:39] mod=ATOLYE<br>[09:36] saglik: 17 OK<br>[09:30] gelen-kutu ← speakrapid (yüksek)</div>
+    </div>
+    <div class="sbolum" data-sp="dosyalar">
+      <h2 style="font-size:13px">Dosyalar</h2>
+      <div class="agac"><b style="color:var(--metin)">paseo-verimlilik</b><div>├─ server/ (18)</div><div>│&nbsp;&nbsp;├─ modlar.ts</div><div>│&nbsp;&nbsp;├─ telemetry.ts</div><div>│&nbsp;&nbsp;└─ bekci.ts</div><div>├─ client/</div><div>├─ shared/</div><div>└─ test/dedektor.test.ts</div></div>
+    </div>
+    <div class="sbolum" data-sp="url">
+      <h2 style="font-size:13px">URL önizleme</h2>
+      <div class="urlbar"><input value="http://127.0.0.1:5050" readonly><button class="ikincil">Yenile</button></div>
+      <div class="onizleme" style="min-height:200px">URL önizlemesi (iframe) — sağ panelde dolar</div>
+    </div>
+    <div class="sbolum" data-sp="terminal">
+      <h2 style="font-size:13px">Terminal</h2>
+      <div class="term" style="min-height:200px">PS D:\Vibecode\paseo-verimlilik&gt; npm test<br>TUM TESTLER GECTI (196)<br><br>PS D:\Vibecode\paseo-verimlilik&gt; <span style="color:#fff">▊</span></div>
+    </div>
+</aside>
 </div>
 
 <template id="tpl-chat">
+  <div class="sutun">
   <div class="chat-mesaj chat-ajan">Günaydın — dünkü kapanış: v0.11 kilitli, 196 test yeşil. Bugün ne var?<div class="chat-zaman">09:12 · ajan</div></div>
   <div class="chat-mesaj chat-ben">S9 Veo'yu başlat, S8'e bağlı zincir olsun.<div class="chat-zaman">09:14 · siz</div></div>
   <div class="chat-mesaj chat-ajan">Emir taslağı hazır: once=["s8"], tavan 500k token. Onayınızı bekliyor (panelde "Onay bekliyor").<div class="chat-zaman">09:14 · ajan</div></div>
+</div>
 </template>
 <template id="tpl-doktor">
   <h2>Doktor — speakrapid <span class="hap ok">sunucu: çalışıyor :5050</span> <span class="hap uyari">1 SARI</span></h2>
@@ -258,9 +294,9 @@ tabbar.appendChild(arti);document.body.appendChild(menu);
 const inp=document.getElementById('composerInput');
 function gonder(){const m=inp.value.trim();if(!m)return;
   const chatYuzey=[...sekmeler.values()].find(s=>s.tur==='chat');
-  if(chatYuzey){const d=document.createElement('div');d.className='chat-mesaj chat-ben';d.innerHTML=m.replace(/</g,'&lt;')+'<div class="chat-zaman">şimdi · siz</div>';chatYuzey.yuzey.appendChild(d);
-    const c=document.createElement('div');c.className='chat-mesaj chat-ajan';c.innerHTML='Taslak kuyruğa eklendi (T) — onay panelde.<div class="chat-zaman">şimdi · ajan</div>';chatYuzey.yuzey.appendChild(c);
-    chatYuzey.yuzey.scrollTop=1e6;}
+  if(chatYuzey){const d=document.createElement('div');d.className='chat-mesaj chat-ben';d.innerHTML=m.replace(/</g,'&lt;')+'<div class="chat-zaman">şimdi · siz</div>';chatYuzey.yuzey.querySelector('.sutun').appendChild(d);
+    const c=document.createElement('div');c.className='chat-mesaj chat-ajan';c.innerHTML='Taslak kuyruğa eklendi (T) — onay panelde.<div class="chat-zaman">şimdi · ajan</div>';chatYuzey.yuzey.querySelector('.sutun').appendChild(c);
+    icerik.scrollTop=1e6;}
   inp.value='';}
 document.getElementById('composerBtn').addEventListener('click',gonder);
 inp.addEventListener('keydown',e=>{if(e.key==='Enter')gonder();});
@@ -273,6 +309,12 @@ sagHandle.addEventListener('mousedown',(e)=>{e.preventDefault();sagHandle.classL
   const hareket=(ev)=>{sagPanel.style.width=Math.min(520,Math.max(200,window.innerWidth-ev.clientX))+'px';};
   const birak=()=>{sagHandle.classList.remove('tut');document.removeEventListener('mousemove',hareket);document.removeEventListener('mouseup',birak);};
   document.addEventListener('mousemove',hareket);document.addEventListener('mouseup',birak);});
+
+// Sag panel sekmeleri
+document.querySelectorAll('#sagTabbar button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#sagTabbar button').forEach(x=>x.classList.remove('aktif'));b.classList.add('aktif');
+  document.querySelectorAll('.sbolum').forEach(s=>s.classList.toggle('acik',s.dataset.sp===b.dataset.sp));
+}));
 
 // Varsayilan acilis: Sohbet + Doktor + Emir
 sekmeAc('chat');sekmeAc('doktor');sekmeAc('emir');sekmeSec('sek1');
