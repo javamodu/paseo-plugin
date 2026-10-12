@@ -55,7 +55,7 @@ $cm = LineCount $pL2; if ($cm -ge 0) { Check 'L2 CODEMAP butce <=130 satir' ($cm
 if ($pL2) {
   $mapTime = (Get-Item $pL2).LastWriteTime
   $newest = Get-ChildItem $Root -Recurse -File -ErrorAction SilentlyContinue |
-    Where-Object { $_.FullName -notmatch '\\(node_modules|\.git|dist|build)\\' -and $_.FullName -ne $pL2 -and ($_.Extension -in @('.md','.ts','.tsx','.js','.py','.cs','.go','.rs','.ps1')) } |
+    Where-Object { $_.FullName -notmatch '\\(node_modules|\.git|dist|build)\\' -and $_.FullName -ne $pL2 -and $_.FullName -notmatch '\\raporlar\\telemetri-haftalik\\' -and ($_.Extension -in @('.md','.ts','.tsx','.js','.py','.cs','.go','.rs','.ps1')) } |
     Sort-Object LastWriteTime -Descending | Select-Object -First 1
   if ($newest) { Check 'CODEMAP taze' ($mapTime -ge $newest.LastWriteTime) ("en yeni kaynak: " + $newest.Name) }
 }

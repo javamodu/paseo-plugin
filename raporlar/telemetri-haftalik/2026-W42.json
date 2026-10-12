@@ -1,14 +1,14 @@
 {
   "hafta": "2026-W42",
-  "uretim": "2026-10-12T06:51:36.000Z",
-  "tur": 39,
-  "ortTurSn": 185,
+  "uretim": "2026-10-12T07:19:06.806Z",
+  "tur": 42,
+  "ortTurSn": 205,
   "kabul": 1,
   "ret": 0,
   "kabulOrani": 100,
   "loop": 0,
   "finishGate": 0,
-  "pitbull": 2,
+  "pitbull": 3,
   "karisiklik": 0,
-  "ortCacheHit": 90.7
+  "ortCacheHit": 89.1
 }
