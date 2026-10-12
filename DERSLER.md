@@ -14,7 +14,7 @@
 - Paseo plugin install hatası plugins/index.js:191'de fırlatılır ama asıl hata plugin START'ındadır — `paseo plugin logs <id>` + daemon.log'ta stack ara.
 - exec_command'da Remove-Item (çoklu ve tekil) bu oturumda policy'ye takıldı; mcp node_repl fs.rmSync çalışır.
 - Plugin telemetrisi: agents.ref(id).refresh().lastUsage dolu geliyor (in/out/cachedInputTokens) — ajan başına token ölçümü #5682 beklemeden kısmen mümkün.
-- create_agent MCP aracı provider'ı "provider/model" ister; bu makinedeki codex endpoint'i yalnız kimi-K3 kabul eder (gpt-6-luna model_not_allowed).
+- create_agent MCP aracı provider'ı "provider/model" ister; bu makinedeki codex endpoint'i yalnız kimi-K3 kabul eder (gpt-6-luna model_not_allowed). **TEKRAR (2026-10-12, txt-to-cad handoff):** gpt-5.6-sol ile de ayni duvara carpti — ders var ama uygulanmadi. Kural: create_agent'tan ONCE `list_models` cagir ve listedeki son girdiye bak (kimi-K3); profile name'e degil endpoint gercegine guven.
 - Loop dedektoru ilk gun kendi yazarini yakaladi (yanlis pozitif): stableStringify 200+ char string'leri hash'ten filtreliyordu → tum uzun shell komutlari ayni bos hash'e dustu. Cozum: filtreleme yerine kirpma + uzunluk eki. Ders: hash'e girilen alanlarda 'buyukse atla' degil 'kirp+imza' kullan.
 - Finish-gate salt-metin turda yanlis pozitif uretir ('hazir mi?' cevabi 'bitti' sayilir) — tetik kosuluna 'turda edit/write cagrisi var' eklendi. Ders: metin-deseni kapilari her zaman is-icerigi kosuluyla daraltilmali.
 - Test runner'i tanimli tut: package.json 'test' scripti + tsx devDep; native node --experimental-strip-types uzantisiz import'ta ERR_MODULE_NOT_FOUND verir.
