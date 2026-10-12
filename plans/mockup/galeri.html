@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galeri — Pano durumlari (v11.2)</title>
+<meta name="description" content="Workspace panosu mobil + desktop durum ekran goruntuleri (v11.2)">
+<style>
+  :root{--bg:#0a0e14;--kart:#11161f;--kart2:#1a2230;--sinir:rgba(255,255,255,.06);--metin:#eceaf4;--soluk:#9a9aac;--vurgu:#2563eb;--vurgu2:#3b82f6;--yesil:#34d399;--r:16px}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{background:radial-gradient(1200px 700px at 75% -10%,#0e1626 0%,var(--bg) 55%);color:var(--metin);font:15px/1.55 "Segoe UI",system-ui,sans-serif;min-height:100vh}
+  .sar{max-width:1240px;margin:0 auto;padding:32px 28px 64px}
+  header{margin-bottom:26px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-0.02em}
+  h1 b{color:var(--vurgu2)}
+  .alt{color:var(--soluk);font-size:13.5px;margin-top:6px}
+  .filtre{display:flex;gap:8px;margin:20px 0 8px;flex-wrap:wrap}
+  .filtre button{background:var(--kart);border:1px solid var(--sinir);color:var(--soluk);border-radius:99px;padding:9px 18px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;transition:color .15s,border-color .15s,background .15s}
+  .filtre button:hover{color:var(--metin)}
+  .filtre button.aktif{background:var(--vurgu);border-color:transparent;color:#fff}
+  .grup{margin-top:30px}
+  .grup h2{font-size:12.5px;color:var(--soluk);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .grup h2 .boyut{font-weight:400;text-transform:none;letter-spacing:0}
+  .izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .izgara.mobil-izgara{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .kart{background:var(--kart);border:1px solid var(--sinir);border-radius:var(--r);overflow:hidden;transition:border-color .15s,transform .15s}
+  .kart:hover{border-color:rgba(59,130,246,.4);transform:translateY(-2px)}
+  .kart button.goruntu{display:block;width:100%;border:0;padding:0;cursor:zoom-in;background:var(--kart2);overflow:hidden}
+  .kart img{width:100%;display:block;aspect-ratio:var(--oran,16/10);object-fit:cover;object-position:top}
+  .izgara.mobil-izgara img{--oran:375/812;object-fit:cover}
+  .kart .govde{padding:14px 16px 16px}
+  .kart h3{font-size:14.5px;font-weight:700;margin-bottom:5px}
+  .kart p{font-size:12.5px;color:var(--soluk);line-height:1.5}
+  .etiket{display:inline-block;font-size:10px;font-weight:700;color:var(--yesil);background:rgba(52,211,153,.12);border-radius:99px;padding:2px 9px;margin-top:9px;margin-right:5px}
+  .etiket.t{color:var(--soluk);background:var(--kart2)}
+  .isik{position:fixed;inset:0;z-index:50;background:rgba(4,7,12,.92);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .isik.acik{display:flex}
+  .isik img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 30px 90px #000c}
+  footer{margin-top:44px;color:var(--soluk);font-size:12px;border-top:1px solid var(--sinir);padding-top:16px}
+  footer code{background:var(--kart2);border:1px solid var(--sinir);border-radius:6px;padding:1px 7px;font-size:11.5px}
+  @media (max-width:560px){
+    .sar{padding:20px 14px 48px}
+    h1{font-size:24px}
+    .izgara,.izgara.mobil-izgara{grid-template-columns:1fr}
+    .izgara.mobil-izgara img{--oran:auto;max-height:70vh;object-fit:contain;background:var(--kart2)}
+  }
+</style>
+</head>
+<body>
+<div class="sar">
+  <header>
+    <h1>Pano <b>durum galerisi</b></h1>
+    <p class="alt">v11.2 — gercek ekran goruntuleri (Edge headless + hash durumlari). Her kare cekimden once DOM olcumuyle dogrulandi <span class="etiket">R</span></p>
+    <div class="filtre" role="group" aria-label="Filtre">
+      <button class="aktif" data-f="hepsi" type="button">Tumu</button>
+      <button data-f="mobil" type="button">Mobil 375x812</button>
+      <button data-f="desktop" type="button">Desktop 1440x900</button>
+    </div>
+  </header>
+
+  <section class="grup" data-grup="mobil">
+    <h2>Mobil <span class="boyut">375x812 — paneller varsayilan kapali, acilinca bottom-sheet</span></h2>
+    <div class="izgara mobil-izgara">
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/mobil-1-varsayilan.png" alt="Mobil varsayilan: dock kapali, composer orta altta"></button>
+        <div class="govde"><h3>Varsayilan</h3><p>Chat dock kapali, composer orta bolgenin altinda sabit (bottom=viewport). Sol nav kapali.</p><span class="etiket">R</span><span class="etiket t">#yok</span></div>
+      </article>
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/mobil-2-nav-sheet.png" alt="Mobil sol nav bottom-sheet acik"></button>
+        <div class="govde"><h3>Nav bottom-sheet</h3><p>Sol panel alttan acilir: full-width, yukseklik min(72vh,560px), 18px ust radius, backdrop karartma.</p><span class="etiket">R</span><span class="etiket t">#nav</span></div>
+      </article>
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/mobil-3-chat-sheet.png" alt="Mobil chat dock bottom-sheet acik"></button>
+        <div class="govde"><h3>Chat bottom-sheet</h3><p>Sag dock alttan acilir: min(78vh,620px), composer node'u sheet icine tasinir, kapaninca ortaya geri doner.</p><span class="etiket">R</span><span class="etiket t">#chat</span></div>
+      </article>
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/mobil-4-plan-scroll.png" alt="Mobil plan tablosu kart ici yatay scroll"></button>
+        <div class="govde"><h3>Plan tablosu</h3><p>Tablo min-width 640px; kart ici yatay scroll (.fview overflow-x:auto), sayfa tasmasi sifir.</p><span class="etiket">R</span><span class="etiket t">#plan</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="grup" data-grup="desktop">
+    <h2>Desktop <span class="boyut">1440x900 — dock varsayilan acik</span></h2>
+    <div class="izgara">
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/desktop-1-varsayilan.png" alt="Desktop varsayilan: dock acik, composer dock icinde"></button>
+        <div class="govde"><h3>Varsayilan</h3><p>Chat dock acik (340px, resize 240-560), composer dock icinde. Rail + orta + dock uclu yerlesim.</p><span class="etiket">R</span><span class="etiket t">#yok</span></div>
+      </article>
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/desktop-2-dock-kapali.png" alt="Desktop dock kapali: composer orta altta sabit"></button>
+        <div class="govde"><h3>Dock kapali</h3><p>Composer orta bolgenin altinda sabit (bottom=900=viewport). Pano tam genislik; gelen-kutu satirlarinda ellipsis aktif.</p><span class="etiket">R</span><span class="etiket t">#dock-kapali</span></div>
+      </article>
+      <article class="kart">
+        <button class="goruntu" type="button"><img src="png/desktop-3-nav-dock.png" alt="Desktop nav flyout ve dock acik"></button>
+        <div class="govde"><h3>Nav + dock acik</h3><p>Sol flyout 320px + dock 340px: orta icerik ~700px'e daralir, tasma sifir (metin sarar, klip yok).</p><span class="etiket">R</span><span class="etiket t">#nav</span></div>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    Hash durumlari: <code>#nav</code> <code>#chat</code> <code>#plan</code> <code>#dock-kapali</code> (+ ile birlesir) — mockup altinda hashDurumUygula. Cekim: Edge headless, DPR 1, sanal zaman 3000ms.
+  </footer>
+</div>
+
+<div class="isik" id="isik" role="dialog" aria-modal="true" aria-label="Buyuk goruntu"><img id="isikImg" alt=""></div>
+<script>
+  var isik=document.getElementById('isik'), isikImg=document.getElementById('isikImg');
+  document.querySelectorAll('.kart .goruntu').forEach(function(b){
+    b.addEventListener('click',function(){
+      var img=b.querySelector('img');
+      isikImg.src=img.src; isikImg.alt=img.alt;
+      isik.classList.add('acik');
+    });
+  });
+  function kapat(){ isik.classList.remove('acik'); isikImg.removeAttribute('src'); }
+  isik.addEventListener('click',kapat);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape')kapat(); });
+  document.querySelectorAll('.filtre button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.filtre button').forEach(function(x){x.classList.remove('aktif');});
+      b.classList.add('aktif');
+      var f=b.dataset.f;
+      document.querySelectorAll('.grup').forEach(function(g){
+        g.style.display=(f==='hepsi'||g.dataset.grup===f)?'':'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

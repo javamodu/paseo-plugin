@@ -66,3 +66,8 @@ Rail öğeleri \`<button>\` (klavye doğal) · tab'lar \`role=tab\`/\`aria-selec
 - **Composer sabitliği:** dock kapalıyken composer `.orta` altında sabit (flex:0 0 auto, bottom=viewport) — hem mobil hem desktop. Dock açıkken composer node'u dock içine taşınır (listener korunur).
 - **Varsayılan:** mobilde dock kapalı + composer ortada; desktop'ta dock açık + composer dock içinde. mq change kullanıcı tercihini ezmez.
 - **Doğrulama (R):** 375×812 — init dock kapalı/composer orta; nav sheet bottom:812 full-width 560px; chat sheet bottom:812 620px composer içinde; kapanışta composer orta bottom=812. 1440×900 — init dock açık/composer dock'ta; kapa→composer orta bottom=900 sabit; aç→geri. Taşma 0 her iki boyutta.
+## v11.3 (2026-10-13)
+- **Galeri:** `galeri.html` — 7 durum PNG'i (png/), filtre (Tumu/Mobil/Desktop), lightbox (tik+Esc), lazy yok (arka-plan sekmede IntersectionObserver ateslenmez). Mobil tek sutun, desktop auto-fill grid.
+- **Hash durumlari:** mockup sonunda `hashDurumUygula` — `#nav` `#chat` `#plan` `#dock-kapali` (+ ile birlesir); galeri/ekran-goruntusu cekimlerinin durum girisi.
+- **PNG uretimi:** Edge headless `--window-size` + `--virtual-time-budget=3000` + DPR 1; her kare oncesi DOM olcumu (bottom-sheet boyutlari, composer konumu, tasma=0).
+- **Duzeltme:** composer-ust "10 calisiyor" rozeti kaldirildi (+408 −13 korundu).
