@@ -4,6 +4,7 @@
 Yok (K-0015/K-0016 onaylandı, v0.10 kilitli). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 · K-0017 ONAYLANDI+UYGULANDI: gelen-kutu kanalı (raporlar/gelen-kutu/ + SABLON + schemaSurum=1 + islenme hash kanıtı) · bekçi 24s bekleyen-madde anomalisi (v0.10.1 kilit, plugin 5556500) · saglik şema kapısı (17. OK) · ÇEKİRDEK açılış kutu adımı
 - 2026-10-12 · K-0015+K-0016 ONAYLANDI+UYGULANDI: rol sistemi v0.10 kilit (plugin 3bbc625, 160 test yeşil) — [rol] title prefix'i, okur/raporcu profilleri, rol enjeksiyonu, telemetri rol alanı · çok-reviewer R1-R12 karara bağlandı
 - 2026-10-12 · K-0013+K-0014 UYGULANDI: plugin v0.9 kilit (bekçi köprüsü: saglik/zincir + git-drift + telemetri-fail; coder-aktif koruması; 143 test) · v0.8c5 test kirlenmesi fix + pluginSurum · iskelet 4 tedavi reposuna kuruldu+commitlendi · proje-panosu.ps1 v1 (60 repo, öz-testli) + ilk pano · sondaj schedule 8fc84e8e (Pzt 09:00, baseline koşuyor) · pano-ozeti heartbeat 1dcff907 (Pazar 20:00) · Ferman 4 · zincir sözleşme-notu ratchet
 - 2026-10-12 · K-0013+K-0014 ONAYLANDI: bekçi köprüsü + sondaj pilotu + Ferman 3 · canlı laboratuvar kohortu (4 tedavi/4 kontrol, coin-flip, commit-bazlı) · çizelge 1g/3g/5g + (R) ~150tur
