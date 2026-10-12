@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandı). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 13:40 · HANDOFF-2026-10-12-1336 yazıldı (reviewer 3ff75fe devir töreni) · Ek A: reviewer ham metni + coder doğrulaması — 4 referanstan 2'si hayalet (a6b02d5, durtme-0736.md) · reviewer onay listesi bayat (K-0013→18 tamam)
 - 2026-10-12 · v0.11 KİLİT (plugin 277df7c, tag v0.11-kilit, 196 test yeşil): K-0018 Provider-Modlar uygulandı — server/modlar.ts (gömülü eşleşme: kimi→atolye, glm/deepseek→cerrah) + ayar.json ek-listesi + .verimlilik/mod.json disk state + before-hook thinkingOptionId+systemPrompt + /mod slash komutu + telemetri mod alanı + Context Rot freni (contextWindow ≥%80, 30dk cooldown) + proje-panosu v1.1 Mod Metrikleri (Is/Saat · Is/1kToken · Fail%)
 - 2026-10-12 · K-0018 ONAYLANDI: Provider-Modlar (ATÖLYE/MATBAA/CERRAH/SERBEST) · coder incelemesi karar metninde (5 bulgu: istek-metriği vekili, çift-ajan sınırı, contextWindow alanlarıyla Context Rot freni bedava, scope önerisi, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
 - 2026-10-12 · K-0018 TASLAĞI yazıldı (kararlar/K-0018.md): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · kullanıcı onayı bekleniyor, plugin kodu v0.11 konusu (ayrı onay)
