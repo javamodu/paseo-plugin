@@ -21,6 +21,7 @@ try {
     $cikti = & powershell -ExecutionPolicy Bypass -File $saglik 2>&1 | Out-String
     if ($cikti -match 'SONUC:\s*(\d+) OK,\s*(\d+) EKSIK,\s*(\d+) SARI') {
       $doctor = [ordered]@{ ok = [int]$Matches[1]; eksik = [int]$Matches[2]; sari = [int]$Matches[3] }
+      if ($doctor.eksik -gt 0) { throw ("Saglik kapisinda EKSIK var (" + $doctor.eksik + ") - kilit engellendi. Once eksikleri kapat.") }
     }
   }
   $hedefler = $null; $puanlar = $null

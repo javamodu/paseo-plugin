@@ -32,3 +32,7 @@
 - Governance zincir doğrulayıcı (gate_evidence) yalnız kendi reposunun commit hash'ini çözer: künye 'commit' alanına cross-repo hash (platform c1265be) yazılınca FAIL; kural: alan 'external', hash note içine.
 - Regex anchor [^)]* parantezli metinde (CLI help) erken kesilir: node edit'te düz string anchor + tekil-eşleşme throw (mevcut disiplinle birlikte).
 - paseo CLI alt komut adları varsayılmaz: 'heartbeat list' ve 'heartbeat ls' üst üste 'unknown command' verdi; doğru adı `paseo <grup> --help` veya skill SKILL.md'den doğrula (turda 2 başarısız çağrının ikisi de buydu).
+- Test dosyasında await yalnız async IIFE içinde çalışır — üst düzey TLA esbuild CJS çıktısında patlar ("Top-level await ... cjs"); statik import kullan.
+- Duplike fonksiyon iki yerde drift eder: onboarding.sonHandoff ile sozlesme.sonHandoffDosyasi kopyasıydı; biri düzeltilip öteki unutulunca flake sürdü — tek kaynak + tie-break (mtime eşitse ad).
+- Ara commitler de yeşil olmalı: test/kod ayrı commitlerde ara-kırmızı oluşur (v0.8c3 reset --soft ile birleştirildi); bölme yaparken her commitin süitini ayrı koş.
+- hedefler.json alanları aktifHedefler altında — kökte arayan sessizce fallback'e düşer; SSOT okumasını canlı değerle doğrula (cacheHitMinPct 40 göründü mü).

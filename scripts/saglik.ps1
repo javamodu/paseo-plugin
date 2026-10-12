@@ -4,7 +4,21 @@
 # Katman B (JSONL verilirse): tur / cache-hit / durtme / kabul-orani sayaclari hedef esiklerle karsilastirilir.
 # SARI = uyaridir, SONUC'u bozmaz; EKSIK = kapi kirar.
 param([string]$Root = (Split-Path $PSScriptRoot -Parent), [string]$Jsonl = "")
-$ESIK = @{ CacheHitMin = 60; DurmeMaxGunluk = 10 }
+$ESIK = @{ CacheHitMin = 60; DurmeMaxGunluk = 10; KabulHedef = 60; KabulAlarm = 44; KuralSari = 40; KuralKirmizi = 80 }
+$hedefDosya = Join-Path $Root 'hedefler.json'
+if (Test-Path $hedefDosya) {
+  try {
+    $hj = Get-Content $hedefDosya -Encoding UTF8 -Raw | ConvertFrom-Json
+    $ah = $hj.aktifHedefler
+    if ($ah) {
+      if ($ah.cacheHitMinPct) { $ESIK.CacheHitMin = [double]$ah.cacheHitMinPct }
+      if ($ah.kabulOraniHedefPct) { $ESIK.KabulHedef = [double]$ah.kabulOraniHedefPct }
+      if ($ah.kabulOraniAlarmPct) { $ESIK.KabulAlarm = [double]$ah.kabulOraniAlarmPct }
+      if ($ah.kuralSariEsik) { $ESIK.KuralSari = [int]$ah.kuralSariEsik }
+      if ($ah.kuralKirmiziEsik) { $ESIK.KuralKirmizi = [int]$ah.kuralKirmiziEsik }
+    }
+  } catch { }
+}
 $pass = 0; $fail = 0; $warnN = 0; $rows = @()
 function Check($ad, $ok, $detay) {
   $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = $(if ($ok) { 'OK' } else { 'EKSIK' }); Detay = $detay }
@@ -71,27 +85,43 @@ $kuralDosyalari = @($pAnayasa, $pL0, $pRehber) | Where-Object { $_ }
 if ($kuralDosyalari.Count -gt 0) {
   $kural = 0
   foreach ($kd in $kuralDosyalari) { $kural += @(Get-Content $kd -Encoding UTF8 | Where-Object { $_ -match '^\s*(-|\d+\.)\s' }).Count }
-  if ($kural -gt 80) { Check 'Aktif kural sayisi <=80 (tavan)' $false "$kural kural — stacking-collapse riski (REHBER §2)" }
-  elseif ($kural -gt 40) { Warn 'Aktif kural sayisi <40 (hedef)' "$kural kural — sadelestirmeyi degerlendir" }
-  else { Check 'Aktif kural sayisi <40 (hedef)' $true "$kural kural" }
+  if ($kural -gt $ESIK.KuralKirmizi) { Check ("Aktif kural sayisi <= {0} (tavan)" -f $ESIK.KuralKirmizi) $false "$kural kural - stacking-collapse riski (REHBER §2)" }
+  elseif ($kural -gt $ESIK.KuralSari) { Warn ("Aktif kural sayisi < {0} (hedef)" -f $ESIK.KuralSari) "$kural kural - sadelestirmeyi degerlendir" }
+  else { Check ("Aktif kural sayisi < {0} (hedef)" -f $ESIK.KuralSari) $true "$kural kural" }
 }
 
 # 6) Plugin telemetrisi (JSONL verilirse)
 if ($Jsonl -and (Test-Path $Jsonl)) {
   $ev = Get-Content $Jsonl -Encoding UTF8 | ForEach-Object { $_ | ConvertFrom-Json }
-  $tur = @($ev | Where-Object { $_.tip -eq 'tur' }).Count
-  $ch  = @($ev | Where-Object { $_.tip -eq 'cache' -and $_.hit -eq $true }).Count
-  $ct  = @($ev | Where-Object { $_.tip -eq 'cache' }).Count
-  $dur = @($ev | Where-Object { $_.tip -eq 'durtme' }).Count
-  if ($ct -gt 0) { Check ("Cache-hit >= %{0}" -f $ESIK.CacheHitMin) (($ch * 100.0 / $ct) -ge $ESIK.CacheHitMin) ("{0:N0}% ({1}/{2})" -f ($ch * 100.0 / $ct), $ch, $ct) }
+  $turKayit = @($ev | Where-Object { $_.tip -eq 'tur' })
+  $tur = $turKayit.Count
+  # Cache: plugin tur kaydinin detay alaninda tutar (cacheHitPct=NN.N) - token-agirlikli ortalama
+  $cacheAgirlikli = 0.0; $cacheAgirlik = 0.0
+  foreach ($k in $turKayit) {
+    if ($k.detay -match 'cacheHitPct=([\d.]+)') {
+      $pct = [double]$Matches[1]
+      $agirlik = 1.0
+      if ($k.detay -match 'in=(\d+)') { $agirlik = [double]$Matches[1] }
+      $cacheAgirlikli += $pct * $agirlik; $cacheAgirlik += $agirlik
+    }
+  }
+  if ($cacheAgirlik -gt 0) {
+    $ortCache = $cacheAgirlikli / $cacheAgirlik
+    Check ("Cache-hit >= %{0} (token-agirlikli)" -f $ESIK.CacheHitMin) ($ortCache -ge $ESIK.CacheHitMin) ("{0:N1}% ({1} tur)" -f $ortCache, $tur)
+  } elseif ($tur -gt 0) {
+    Warn 'Cache-hit verisi' "$tur tur var ama cacheHitPct yok - olcum formati uyusmazligi olabilir"
+  }
+  # Durtme: tur kayitlarindaki bayraklar + lint/pitbull-durtme kayitlari
+  $dur = @($turKayit | Where-Object { $_.loopDurtme -eq $true -or $_.finishGateDurtme -eq $true }).Count
+  $dur += @($ev | Where-Object { $_.tip -eq 'lint' -and $_.detay -like 'pitbull-durtme*' }).Count
   Check ("Durtme <= {0}/oturum" -f $ESIK.DurmeMaxGunluk) ($dur -le $ESIK.DurmeMaxGunluk) "$dur durtme, $tur tur"
   $ka = @($ev | Where-Object { $_.tip -eq 'kabul' -and $_.kabul -eq $true }).Count
   $kt = @($ev | Where-Object { $_.tip -eq 'kabul' }).Count
   if ($kt -gt 0) {
     $oran = $ka * 100.0 / $kt
-    if ($oran -lt 44) { Check 'Kabul orani >= %44 (METR alarmi)' $false ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
-    elseif ($oran -lt 60) { Warn 'Kabul orani >= %60 (hedef)' ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
-    else { Check 'Kabul orani >= %60 (hedef)' $true ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    if ($oran -lt $ESIK.KabulAlarm) { Check ("Kabul orani >= %{0} (METR alarmi)" -f $ESIK.KabulAlarm) $false ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    elseif ($oran -lt $ESIK.KabulHedef) { Warn ("Kabul orani >= %{0} (hedef)" -f $ESIK.KabulHedef) ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    else { Check ("Kabul orani >= %{0} (hedef)" -f $ESIK.KabulHedef) $true ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
   }
 }
 

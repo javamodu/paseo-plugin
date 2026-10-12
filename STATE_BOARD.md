@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-Yok — v0.7 tamam ve kilitli. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
+Yok — v0.8 tamam ve kilitli. Beklenen: ilk heartbeat koşusu (Pazar 20:00) → rapor onaya çıkar. Beklenen: ilk heartbeat koşusu (Pazar 20:00 Europe/Istanbul) → rapor kullanıcı onayına çıkar.
 
 ## Son damgalar
+- 2026-10-12 · v0.8 (K-0012, plugin e305dce kilitli): üçüncü review'un 8+2 bulgusu kapandı — P0 permission daraltma · sağlık körü + hedefler.json SSOT · rollup hafta süzmesi · enjeksiyon modu her akışta · onboarding && · finish-gate runner · pitbull tavan+bayat (10147dk kapandı) · tur penceresi (kümülatif sayaç kapandı) · kilit EKSIK engeli
 - 2026-10-12 · v0.7 (K-0011, plugin f3a3c01 kilitli): woo-block review B1-B5 kapandı — EK özetleri çekirdekte (hayalet referans yok) · yukarı tarama katmanKokuBul 5 seviye (yanlış-negatif iskelet dürtmesi kapandı) · iskelet +3 dizin · editliMi shell-yazma (kabul takibi apply_patch'siz ortamda kör değil) · failedCalls >%10 kalite dürtmesi
 - 2026-10-12 · v0.6 (K-0010, plugin 97ac57c kilitli): REHBER tarif istisnası + ayar.json repo-config + işaretçi enjeksiyonu (kuralBlok paradoksu kapandı) + haftalık rollup köprüsü — iki dış review'un tüm haklı bulguları kapandı
 - 2026-10-12 · v0.5.4 (K-0009, plugin b9e1c64 kilitli): karşı-review yanıtı — OVERVIEW drift kapatıldı, Unicode-\b kazası düzeltildi (ret/karışıklık desenleri artık gerçekten yakalıyor), permission +3 kalıp · v0.6 önerisi (ayar.json + işaretçi modu + rollup) onay bekliyor
