@@ -35,6 +35,25 @@ Ajan penceresinde provider + model seç (ya da create_agent'te provider/model):
 
 Kural (K-0016 R2): reviewer panelinde model çeşitliliği şart — coder ile aynı modeli reviewer yapma.
 
+## 3b. Provider modu — /mod (v0.11, K-0018)
+
+Composer'a yaz, ajana prompt gitmez:
+
+| Komut | Etki |
+|---|---|
+| `/mod` | Telemetri ekranını açar (aktif mod + dağılım orada) |
+| `/mod atolye` | Workspace'i ATÖLYE'ye alır (süre-bazlı limitsiz: ultra thinking, cömert bağlam) |
+| `/mod matbaa` | MATBAA (istek kotası: high thinking, toplu doğrulama) |
+| `/mod cerrah` | CERRAH (token PAYG: low thinking, tek dosya diyeti) |
+| `/mod serbest` | SERBEST (mod yok, mevcut disiplin) |
+| `/mod sifirla` | Aktif modu temizler (eşleşme varsayılanına döner) |
+| `/mod atolye codex/kimi` | Modu ayarlar + provider/model eşleşmesini kaydeder |
+
+- Otomatik eşleşme (gömülü): kimi→ATÖLYE, GLM/DeepSeek→CERRAH. Kendi eşleşmeni üstteki söz dizimiyle eklersin (`.verimlilik/ayar.json`'a yazılır).
+- Tur ortasında değişmez — **yeni ajanlarda** etkili (cache koruması). State diskte: `.verimlilik/mod.json`.
+- ATÖLYE'de bağlam penceresi ≥%80 dolarsa ajan "context-rot" uyarısı alır.
+- Pano: `raporlar/proje-panosu/<tarih>.md` → "Mod Metrikleri" bölümü (mod başına Is/Saat · Is/1kToken · Fail%).
+
 ## 4. Çok-ajanlı iş (2 farklı LLM + N subagent)
 
 - **Doğru kanal: bağımsız Paseo ajanı (create_agent).** Oturumdan bağımsız yaşar, farklı LLM alır, rol prefix'i çalışır, telemetri ayrı düşer.
