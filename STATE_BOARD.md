@@ -4,6 +4,7 @@
 Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 · K-0018 TASLAĞI yazıldı (kararlar/K-0018.md): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · kullanıcı onayı bekleniyor, plugin kodu v0.11 konusu (ayrı onay)
 - 2026-10-12 · v0.10.3 kilit (plugin 3796f69, tag v0.10.3-kilit): tur telemetrisine model + ayrık token (in/out/cache) + maliyetUsd (AgentUsage.totalCostUsd — sağlayıcı raporu) + ortTurSn · telemetri ekranı token/hız/maliyet/model-dağılımı bölümü · 176 test yeşil
 - 2026-10-12 · K-0017 ONAYLANDI+UYGULANDI: gelen-kutu kanalı (raporlar/gelen-kutu/ + SABLON + schemaSurum=1 + islenme hash kanıtı) · bekçi 24s bekleyen-madde anomalisi (v0.10.1 kilit, plugin 5556500) · saglik şema kapısı (17. OK) · ÇEKİRDEK açılış kutu adımı
 - 2026-10-12 · K-0015+K-0016 ONAYLANDI+UYGULANDI: rol sistemi v0.10 kilit (plugin 3bbc625, 160 test yeşil) — [rol] title prefix'i, okur/raporcu profilleri, rol enjeksiyonu, telemetri rol alanı · çok-reviewer R1-R12 karara bağlandı
@@ -31,7 +32,7 @@ Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-Yok (K-0013/K-0014 onaylandı ve uygulandı).
+- K-0018 (TASLAK): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · açık sorular karar metninde (mod kapsamı, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
 
 ## v2.1 backlog
 - v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.
