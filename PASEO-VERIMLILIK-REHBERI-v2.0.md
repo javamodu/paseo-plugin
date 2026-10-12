@@ -19,7 +19,7 @@ Rehberin kendi hijyeni: bu belge ≤150 satır kalır; büyürse ÇEKİRDEK (her
 
 - ~%70 doluluk → yeni büyük iş alma; eldeki işi atomik, devredilebilir parçaya böl.
 - ~%80 → devir töreni başlat (§3). Yeni iş kabul etme.
-- ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş.
+- ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş (durum dosyasına; kod yazımı §1 okumadan-yazma kuralına tabi kalır).
 - Doluluk durum raporunun ilk satırında: `bağlam ~%XX`. Kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si.
 - Compact ancak STATE güncellendikten sonra. Compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi).
 - Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda. Sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
@@ -94,6 +94,7 @@ Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip
 - Paralellik sınırı: eşzamanlı yazıcı tavanı 3 ajan; yazma kümeleri çakışmayan görevler seç; aynı dosyaya iki ajan dokunmaz. Commit/push tek elden (ana ajan). Salt-okunur subagent serbest; paralel YAZAN ajan kırılgan — sıkı-bağlı işi bölme: iki ajan tek başına üst sınırın altında kalabilir (collaboration tax, R).
 - Model ayrımı: zor iş güçlü model, rutin iş ucuz model; profil/mode ile sabitle, gerekirse oturum ortasında düşür (Paseo `update_agent`). Model değişimi cache-güvenli sınırda yapılır (oturum başı, subagent fırlatma); tur ortasında değiştirme cache'i kırar (R).
 - Ücretli sağlayıcı 402/bakiye hatası: subagent düşerse sonucu uydurma — raporla; ücretsiz/yerel yedeğe düş veya kuyruğu ertele.
+- Harness seviyesi spawn (ör. Codex CLI multi_agent) daemon'a düşmez: enjeksiyon bağlamla taşınır ama tur telemetrisi yazılmaz (K-0021 doğrulaması, R). Ölçüm gerekiyorsa daemon create kullan; spawn'larda brief'e sözleşme işaretçisi taşımak yedek köprüdür.
 - Heartbeat ≠ schedule: heartbeat mevcut ajana dürtme atar; schedule her tetikte yeni ajan doğurur. Uzun nöbet işi heartbeat'e, bağımsız tek-atış işler schedule'a.
 - Test izolasyonu: paralel koşularda ortak çıktı klasörü çakışır — her koşuya izole port + izole outputDir; koşu sonu geçicileri sil.
 - Araç huyları projede birikir: çalışmayan araç, kabuk tuzağı, satır-sonu istisnası → DERSLER.md'ye işle; aynı tuzağa iki kez düşmek hatadır.

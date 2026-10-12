@@ -8,7 +8,8 @@
     "cacheHitMinPct": 40,
     "kuralSariEsik": 40,
     "kuralKirmiziEsik": 80,
-    "durtmeTrendi": "azalan"
+    "durtmeTrendi": "azalan",
+    "kabulHaftalikDususSariPuan": 10
   },
   "eksenPuanlari": {
     "harness": {

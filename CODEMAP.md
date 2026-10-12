@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD e962130 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 30ed415 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -44,7 +44,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0022.md` (1.7KB) — K-0022 — Rollup Delta + Kabul Kapsamı (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0023.md` (1.5KB) — K-0023 — Sondaj Ö1+Ö2 Metin Düzeltmeleri (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `PASEO-VERIMLILIK-REHBERI-v2.0.md` (12.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
+- `PASEO-VERIMLILIK-REHBERI-v2.0.md` (13KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `plans\handoff\HANDOFF-2026-10-12-1336.md` (5.8KB) — HANDOFF-2026-10-12-1336 — reviewer (3ff75fe) kapanışı + coder gün bilançosu | Reviewer bilançosu düzeltmesi (coder disk doğrulaması — kural 5) | Reviewer oturumunun kapanışları (reviewer tuttu, coder doğruladı)
@@ -78,7 +78,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (10KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (10.2KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback

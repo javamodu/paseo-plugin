@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.12 KİLİT (plugin 35e4ecf, tag v0.12-kilit, tam süit yeşil): K-0021+K-0022+K-0023 UYGULANDI — altAjan telemetri (parentAgentId) + rollup önceki-hafta deltası/kabul kapsamı/alt-ajan satırı + bekçi STATE_BOARD untracked işaretçisi + ÇEKİRDEK/REHBER %90 kapsam yarım cümlesi + REHBER §8 spawn köprü notu · push ls-remote doğrulandı
 - 2026-10-13 · v11 damga telafisi: mockup v11 (4670e15) kurumsal mavi/slate + Explorer agaci + dosya viewer'lari; DERSLER +3 (atomik patch, ASCII anchor, apply_patch here-string) — damga dun aksam kacti
 - 2026-10-13 · Gece paketi commit'lendi: K-0021 (collab-spawn telemetri kopsu; Adim-1 dogrulama R: enjeksiyon VAR, harness collab tur telemetrisi YOK — kapsam daraldi) + K-0022 (rollup delta + kabul kapsami) + K-0023 (sondaj O1/O2 metin fix) + PLAN-eksik-kapatma — v0.12 uygulama onayi bekleniyor
 - 2026-10-12 20:40 Â· HANDOFF-2026-10-12-2040 yazÄ±ldÄ± (commit 2ce5e36): mockup v10 kapanÄ±ÅŸÄ± â€” 6 subagent entegrasyonu (rail-flyout + chat dock + Plan DAG) Â· zincir: 1336 kopuksuz Â· bekleyen: gelen-kutu speakrapid (YÃœKSEK) + K-0019/20 taslak onayÄ±
@@ -39,7 +40,6 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 - 2026-10-11 19:40 Â· yonetici-ozeti.ps1 v1 kuruldu Â· bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-- v0.12 uygulama onayı: K-0021 (daralmış: collab-spawn telemetri bağlantısı) + K-0022 (rollup delta/kapsam) + K-0023 (Ö1/Ö2) — plan onaylı, uygulama ayrı onay ister
 - K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
 
 ## v2.1 backlog
