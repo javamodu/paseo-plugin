@@ -50,3 +50,5 @@
 - 2026-10-12 · PS 5.1'de `&&` yok — ayrı ifadeler `;` ile (her oturumun ilk hatası).
 - 2026-10-12 · Script'te dizin-dosyası sırası: önce dizinler, sonra içlerine dosya (katman-kur DirectoryNotFoundException ×4).
 - 2026-10-12 · `rg <pattern> dir/*.yaml` PowerShell'de os error 123 verir (glob expand edilmez) — rg'nin kendi glob'unu kullan: `rg -g "*.yaml" pattern dir/` ya da dizini ver, sonucu filtrele; txt-to-cad K-S3 turunda 3 kez tekrarlandi (kalite %36). Ayni sebeple `rg -o ... | Sort-Object | Get-Unique` zinciri de bos/bozuk donebiliyor — JSON okumalarini node_repl fs + JSON.parse ile yap (turda 2 kez kurtarici oldu).
+- 2026-10-12 · apply_patch çok-satır tuzağı (satır 9) TEKRARLANDI: TrimEnd() kurtarmaz — arg0 shim'i gömülü newline'ları bozuyor; düzeltme denemesiyle tur yakma, doğrudan [IO.File]::WriteAllText (UTF8 BOM'suz, LF) ile yaz. Ders kayıtlı diye düşülmez: kullanım anında tetiklenmeli (sondaj turu, kalite %16, 3/19).
+- 2026-10-12 · PS 5.1'de [System.Globalization.ISOWeek] türü yok (TypeNotFound) — ISO hafta için Calendar.GetWeekOfYear(tarih, FirstFourDayWeek, Monday) kullan.
