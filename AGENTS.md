@@ -7,6 +7,7 @@ Bu repo evrensel ajan verimlilik sözleşmesi paketidir. Çalışma kuralları: 
 - Doküman dili Türkçe; kod/script dili İngilizce-Türkçe karışık identifier kabul edilir.
 - Değişiklik sonrası: `scripts\codemap.ps1` çalıştır (CODEMAP tazelenir), `scripts\saglik.ps1` yeşil kalmalı.
 - Kanıt iddiaları etiketli yazılır: (R) resmî ölçüm, (T) tahmin, * tek-kaynak.
+- Kullanıcı "sistemi nasıl kullanırım" diye sorarsa → `admin-onboarding.md`'ye yönlendir (rol/LLM/çok-ajan kılavuzu orada).
 
 ## Yapı
 
