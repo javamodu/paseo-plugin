@@ -49,3 +49,4 @@
 - 2026-10-12 · `run_schedule_once` senkron bloklar (300sn timeout) — uzun koşuları bekleme; `schedule_logs` ile durumu yokla, ajan kendi commit'ler.
 - 2026-10-12 · PS 5.1'de `&&` yok — ayrı ifadeler `;` ile (her oturumun ilk hatası).
 - 2026-10-12 · Script'te dizin-dosyası sırası: önce dizinler, sonra içlerine dosya (katman-kur DirectoryNotFoundException ×4).
+- 2026-10-12 · `rg <pattern> dir/*.yaml` PowerShell'de os error 123 verir (glob expand edilmez) — rg'nin kendi glob'unu kullan: `rg -g "*.yaml" pattern dir/` ya da dizini ver, sonucu filtrele; txt-to-cad K-S3 turunda 3 kez tekrarlandi (kalite %36). Ayni sebeple `rg -o ... | Sort-Object | Get-Unique` zinciri de bos/bozuk donebiliyor — JSON okumalarini node_repl fs + JSON.parse ile yap (turda 2 kez kurtarici oldu).
