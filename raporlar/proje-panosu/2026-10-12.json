@@ -1,5 +1,5 @@
 {
-    "surum":  "1.0.0",
+    "surum":  "1.1.0",
     "tarih":  "2026-10-12",
     "evren":  60,
     "kovalar":  {
@@ -13,23 +13,53 @@
                       "ad":  "1",
                       "yol":  "C:\\Users\\gatep\\Local Sites\\1",
                       "kova":  "TAM",
-                      "commit14g":  64,
-                      "kirliDosya":  14,
+                      "commit14g":  68,
+                      "kirliDosya":  1,
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "chinese-hsk",
                       "yol":  "D:\\indir\\chinese-hsk",
                       "kova":  "L0+L1",
-                      "commit14g":  336,
+                      "commit14g":  341,
                       "kirliDosya":  3,
-                      "tur":  25,
-                      "failPct":  6.2,
+                      "tur":  32,
+                      "failPct":  6.3,
                       "durtme":  6,
-                      "sonTelemetri":  "2026-10-12T07:15:16.133Z"
+                      "sonTelemetri":  "2026-10-12T09:44:41.940Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "!agent-fleet",
@@ -40,7 +70,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "pockode-main",
@@ -51,7 +96,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-bus",
@@ -62,7 +122,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-bus.backup-20260710-055530",
@@ -73,7 +148,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-codex-supervisor-go",
@@ -84,7 +174,22 @@
                       "tur":  2,
                       "failPct":  7.4,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:41:07.948Z"
+                      "sonTelemetri":  "2026-10-11T21:41:07.948Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agentmanager-kilokode-go",
@@ -95,7 +200,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-mobile-runtime",
@@ -106,7 +226,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-orchestration",
@@ -117,7 +252,22 @@
                       "tur":  2,
                       "failPct":  12.1,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:48:28.156Z"
+                      "sonTelemetri":  "2026-10-11T21:48:28.156Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-os-go",
@@ -128,7 +278,22 @@
                       "tur":  1,
                       "failPct":  8,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:41:21.212Z"
+                      "sonTelemetri":  "2026-10-11T21:41:21.212Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-os-rust",
@@ -139,7 +304,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "kernel-executor",
@@ -150,7 +330,22 @@
                       "tur":  1,
                       "failPct":  5.4,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:11:39.031Z"
+                      "sonTelemetri":  "2026-10-11T21:11:39.031Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "universal-conv-log",
@@ -161,7 +356,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-runtime",
@@ -172,7 +382,22 @@
                       "tur":  1,
                       "failPct":  0,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-12T04:48:02.914Z"
+                      "sonTelemetri":  "2026-10-12T04:48:02.914Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "fooocus-app",
@@ -183,18 +408,48 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "dart",
                       "yol":  "D:\\Vibecode\\ai-scene-graph\\dart",
                       "kova":  "L0-only",
-                      "commit14g":  338,
-                      "kirliDosya":  4,
-                      "tur":  37,
+                      "commit14g":  345,
+                      "kirliDosya":  5,
+                      "tur":  54,
                       "failPct":  14.2,
                       "durtme":  3,
-                      "sonTelemetri":  "2026-10-12T07:36:14.659Z"
+                      "sonTelemetri":  "2026-10-12T09:59:26.553Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "dart-s10-perf",
@@ -205,7 +460,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "chatsync",
@@ -216,7 +486,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "chromex",
@@ -227,7 +512,22 @@
                       "tur":  2,
                       "failPct":  11.4,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:43:12.178Z"
+                      "sonTelemetri":  "2026-10-11T21:43:12.178Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "chromex-bridge",
@@ -238,7 +538,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "claude-1000x",
@@ -249,7 +564,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "Krill",
@@ -260,7 +590,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "CompanyPro",
@@ -271,7 +616,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "domain",
@@ -282,7 +642,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "espclaw-main",
@@ -293,7 +668,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "py-xiaozhi-main",
@@ -304,7 +694,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "ultrafast-ai-gateway",
@@ -315,7 +720,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "gatepipe",
@@ -326,7 +746,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "raypipe",
@@ -337,7 +772,22 @@
                       "tur":  3,
                       "failPct":  0,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T18:31:50.487Z"
+                      "sonTelemetri":  "2026-10-11T18:31:50.487Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "vix",
@@ -348,7 +798,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agent-orchestrator-ts",
@@ -359,7 +824,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "kernel",
@@ -370,7 +850,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "GOKERNEL_DRAFT",
@@ -381,7 +876,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "mvp-tokenrouter",
@@ -392,29 +902,74 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "paseo-plugin",
                       "yol":  "D:\\Vibecode\\paseo-plugin",
                       "kova":  "TAM",
-                      "commit14g":  42,
+                      "commit14g":  61,
                       "kirliDosya":  3,
-                      "tur":  82,
+                      "tur":  120,
                       "failPct":  13.8,
                       "durtme":  4,
-                      "sonTelemetri":  "2026-10-12T07:41:45.900Z"
+                      "sonTelemetri":  "2026-10-12T10:04:39.389Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "paseo-verimlilik",
                       "yol":  "D:\\Vibecode\\paseo-verimlilik",
                       "kova":  "hic",
-                      "commit14g":  41,
-                      "kirliDosya":  0,
+                      "commit14g":  52,
+                      "kirliDosya":  7,
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "rust",
@@ -425,7 +980,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "nullproxy",
@@ -436,7 +1006,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "node",
@@ -447,7 +1032,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "python",
@@ -458,7 +1058,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "scraper",
@@ -469,18 +1084,48 @@
                       "tur":  3,
                       "failPct":  20.2,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T19:14:15.324Z"
+                      "sonTelemetri":  "2026-10-11T19:14:15.324Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "agentic-starter",
                       "yol":  "D:\\Vibecode\\STARTTERKIT-BOILER\\agentic-starter",
                       "kova":  "hic",
-                      "commit14g":  19,
+                      "commit14g":  16,
                       "kirliDosya":  0,
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "dodo",
@@ -491,7 +1136,22 @@
                       "tur":  2,
                       "failPct":  19.9,
                       "durtme":  1,
-                      "sonTelemetri":  "2026-10-11T20:59:12.378Z"
+                      "sonTelemetri":  "2026-10-11T20:59:12.378Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "!sparkly-ai-website-builder-kilocode",
@@ -502,7 +1162,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "!vibe-code-editor-monaco-webcontainer-kilocode",
@@ -513,7 +1188,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "bolt-starter1-kilocode",
@@ -524,7 +1214,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "shipsetup",
@@ -535,7 +1240,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "shipsetup-sifirdan",
@@ -546,7 +1266,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "starterfinal",
@@ -557,7 +1292,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "katman-kit",
@@ -568,7 +1318,22 @@
                       "tur":  3,
                       "failPct":  16.3,
                       "durtme":  0,
-                      "sonTelemetri":  "2026-10-11T21:10:40.315Z"
+                      "sonTelemetri":  "2026-10-11T21:10:40.315Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "katman-starter",
@@ -579,7 +1344,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "platforms-ARSIV",
@@ -590,18 +1370,48 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "txt-to-cad",
                       "yol":  "D:\\Vibecode\\txt-to-cad",
                       "kova":  "TAM",
-                      "commit14g":  186,
-                      "kirliDosya":  10,
-                      "tur":  14,
+                      "commit14g":  190,
+                      "kirliDosya":  38,
+                      "tur":  24,
                       "failPct":  11.9,
-                      "durtme":  5,
-                      "sonTelemetri":  "2026-10-12T07:02:16.810Z"
+                      "durtme":  6,
+                      "sonTelemetri":  "2026-10-12T10:05:28.199Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "txt-to-cad-platform",
@@ -612,7 +1422,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "buildasist",
@@ -623,7 +1448,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "extension",
@@ -634,7 +1474,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "cizgo",
@@ -645,7 +1500,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "wpgutenberg",
@@ -656,7 +1526,22 @@
                       "tur":  0,
                       "failPct":  null,
                       "durtme":  0,
-                      "sonTelemetri":  null
+                      "sonTelemetri":  null,
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   },
                   {
                       "ad":  "yapaysite",
@@ -664,10 +1549,28 @@
                       "kova":  "L0-only",
                       "commit14g":  1,
                       "kirliDosya":  41,
-                      "tur":  67,
-                      "failPct":  15.3,
-                      "durtme":  8,
-                      "sonTelemetri":  "2026-10-12T07:45:07.683Z"
+                      "tur":  93,
+                      "failPct":  15.2,
+                      "durtme":  9,
+                      "sonTelemetri":  "2026-10-12T10:00:57.751Z",
+                      "modTur":  {
+
+                                 },
+                      "modSn":  {
+
+                                },
+                      "modTok":  {
+
+                                 },
+                      "modFail":  {
+
+                                  },
+                      "modCagri":  {
+
+                                   }
                   }
-              ]
+              ],
+    "modMetrikleri":  {
+
+                      }
 }

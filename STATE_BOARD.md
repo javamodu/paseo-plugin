@@ -1,9 +1,10 @@
 # STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
+Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandı). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 · v0.11 KİLİT (plugin 277df7c, tag v0.11-kilit, 196 test yeşil): K-0018 Provider-Modlar uygulandı — server/modlar.ts (gömülü eşleşme: kimi→atolye, glm/deepseek→cerrah) + ayar.json ek-listesi + .verimlilik/mod.json disk state + before-hook thinkingOptionId+systemPrompt + /mod slash komutu + telemetri mod alanı + Context Rot freni (contextWindow ≥%80, 30dk cooldown) + proje-panosu v1.1 Mod Metrikleri (Is/Saat · Is/1kToken · Fail%)
 - 2026-10-12 · K-0018 ONAYLANDI: Provider-Modlar (ATÖLYE/MATBAA/CERRAH/SERBEST) · coder incelemesi karar metninde (5 bulgu: istek-metriği vekili, çift-ajan sınırı, contextWindow alanlarıyla Context Rot freni bedava, scope önerisi, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
 - 2026-10-12 · K-0018 TASLAĞI yazıldı (kararlar/K-0018.md): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · kullanıcı onayı bekleniyor, plugin kodu v0.11 konusu (ayrı onay)
 - 2026-10-12 · v0.10.3 kilit (plugin 3796f69, tag v0.10.3-kilit): tur telemetrisine model + ayrık token (in/out/cache) + maliyetUsd (AgentUsage.totalCostUsd — sağlayıcı raporu) + ortTurSn · telemetri ekranı token/hız/maliyet/model-dağılımı bölümü · 176 test yeşil
@@ -36,6 +37,5 @@ Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-
 Yok (K-0018 onaylandı; uygulama v0.11 konusu, ayrı onay ister — açık sorular v0.11 başlangıcında kararlaşacak).
 
 ## v2.1 backlog
-- v0.11 adayı (K-0018 onaylı): Provider-Modlar — /mod slash + diskte mod state + agent.create before-hook (thinkingOptionId + systemPrompt mod eki) + telemetri mod alanı + pano 3 satır (iş/saat, iş/tur, iş/1k token) + contextWindow oranına Context Rot freni. Uygulama ayrı onay ister.
 - v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.
 - ÇEKİRDEK kural diyeti: aktif kural sayısı 68 → <40 hedefi için EK'lere taşıma (doctor SARI'sı; enjeksiyon ≤8KB freni yeterli, plugin öncesi şart değil).

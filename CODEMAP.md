@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 67b14b1 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 1018089 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -46,7 +46,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
 - `raporlar\OZET.md` (0.2KB) — OZET — raporlar/
-- `raporlar\proje-panosu\2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.0.0)
+- `raporlar\proje-panosu\2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.1.0)
 - `raporlar\sozlesme-sondaj\2026-10-12\OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
 - `raporlar\takip-sozlesme\2026-10-12.md` (0.1KB) — Sozlesme bekci raporu — 2026-10-12
 - `raporlar\telemetri-haftalik\2026-W42.md` (0.4KB) — Telemetri Haftalık Özet — 2026-W42
@@ -56,12 +56,12 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\katman-kur.ps1` (1.2KB) — function Kur($hedef, $sablonAd) {
 - `scripts\kilit-surum.ps1` (3.1KB)
 - `scripts\kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
-- `scripts\proje-panosu.ps1` (5.8KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
+- `scripts\proje-panosu.ps1` (8.5KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts\saglik.ps1` (8.6KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (7.3KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (7.5KB) — STATE_BOARD — paseo-plugin | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
