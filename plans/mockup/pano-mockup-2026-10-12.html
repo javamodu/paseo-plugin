@@ -330,10 +330,11 @@
     .mod-sec{min-height:44px}
     .htmlonizleme{min-height:320px}
     .gonizleme{aspect-ratio:16/9}
-    .panel{display:block;position:fixed;left:52px;top:0;bottom:0;z-index:30;transform:translateX(-115%);transition:transform .18s ease;background:var(--bg);box-shadow:20px 0 60px #0008;width:min(86vw,320px);max-width:none}
+    .panel{display:block;position:fixed;left:0;right:0;top:auto;bottom:0;z-index:30;height:min(72vh,560px);transform:translateY(112%);transition:transform .22s ease;background:var(--bg);box-shadow:0 -18px 60px #000a;width:auto;max-width:none;border-radius:18px 18px 0 0;border-top:1px solid var(--sinir);overflow-y:auto}
     .panel.acik{transform:none}
     .nav-handle{display:none}
-    .sagpanel{position:fixed;right:0;top:0;bottom:0;z-index:30;width:min(86vw,360px);max-width:none;box-shadow:-20px 0 60px #0008}
+    .sagpanel{position:fixed;left:0;right:0;top:auto;bottom:0;z-index:30;width:auto;max-width:none;height:min(78vh,620px);box-shadow:0 -18px 60px #000a;border-left:0;border-top:1px solid var(--sinir);border-radius:18px 18px 0 0;transition:transform .22s ease}
+    .sagpanel.kapali{display:flex;transform:translateY(112%)}
     .sag-handle{display:none}
     .yuzey.acik{padding:16px}
     .composer{padding:10px 12px}

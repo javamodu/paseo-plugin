@@ -61,3 +61,8 @@ Rail öğeleri \`<button>\` (klavye doğal) · tab'lar \`role=tab\`/\`aria-selec
 - **Tek sütun (≤560px):** pano-grid 1fr (span'ler sıfırlanır), donut 64px, galeri minmax 150px, composer max-width %100.
 - **Genel:** `-webkit-tap-highlight-color:transparent` + interaktiflerde `touch-action:manipulation` (çift-dokunma zoom gecikmesi yok).
 - **Doğrulama (R):** 375×812'de 10 yüzey (pano/plan/provider/galeri/dosyalar/linkler/dökümanlar/terminal/url/görev) 0 taşma + görünür interaktiflerde 40px altı 0 hedef; 1440×900 regresyon 0 taşma.
+## v11.2 (2026-10-13)
+- **Mobil paneller bottom-sheet (≤880px):** sol nav ve sağ chat dock yan drawer yerine alttan açılan sheet — full-width, yükseklik `min(72vh,560px)` nav / `min(78vh,620px)` chat, üst köşeler 18px radius, `translateY(112%)` ile gizli + .22s transition. Chat `.kapali` mobilde `display:flex` + transform (animasyon korunur); desktop'ta base `display:none` kuralı geçerli.
+- **Composer sabitliği:** dock kapalıyken composer `.orta` altında sabit (flex:0 0 auto, bottom=viewport) — hem mobil hem desktop. Dock açıkken composer node'u dock içine taşınır (listener korunur).
+- **Varsayılan:** mobilde dock kapalı + composer ortada; desktop'ta dock açık + composer dock içinde. mq change kullanıcı tercihini ezmez.
+- **Doğrulama (R):** 375×812 — init dock kapalı/composer orta; nav sheet bottom:812 full-width 560px; chat sheet bottom:812 620px composer içinde; kapanışta composer orta bottom=812. 1440×900 — init dock açık/composer dock'ta; kapa→composer orta bottom=900 sabit; aç→geri. Taşma 0 her iki boyutta.
