@@ -1,4 +1,4 @@
-# DESIGN.md — Pano Mockup Tasarım Sistemi (v10)
+# DESIGN.md — Pano Mockup Tasarım Sistemi (v11)
 
 Kapsam: \`plans/mockup/pano-mockup-2026-10-12.html\` — tek dosya vanilla, bağımlılık yok.
 İlkeler: big/bold/clean · uyarı bandı yok · **emoji yok** (ikonlar inline SVG, \`I{}\`) · sistem fontu · sıfır dış istek · veri-odaklı (markup değil veri düzenlenir).
@@ -6,11 +6,11 @@ Kapsam: \`plans/mockup/pano-mockup-2026-10-12.html\` — tek dosya vanilla, bağ
 ## 1. Tokenlar
 | Token | Değer | Kullanım |
 |---|---|---|
-| \`--bg\` | #0a0a10 (+ radial mor ışıma) | zemin |
-| \`--kart\` / \`--kart2\` | #12121b / #1a1a26 | yüzeyler |
+| \`--bg\` | #0a0e14 (+ radial lacivert ışıma) | zemin |
+| \`--kart\` / \`--kart2\` | #11161f / #1a2230 | yüzeyler |
 | \`--sinir\` | rgba(255,255,255,.06) | kenarlıklar |
 | \`--metin\` / \`--soluk\` | #eceaf4 / #9a9aac | tipografi |
-| \`--vurgu\` / \`--vurgu2\` | #8b5cf6 / #a855f7 | gradyan + aksiyon |
+| \`--vurgu\` / \`--vurgu2\` | #2563eb / #3b82f6 | kurumsal mavi — gradyan + aksiyon (mor/cırtlak yasak) |
 | \`--yesil/--sari/--kirmizi\` | #34d399 / #fbbf24 / #f87171 | durum |
 | \`--r\` | 16px | kart radius |
 Tipografi: gövde 15px · h2 22px/800 · \`.buyuk\` 26-32px/800. Odak: \`:focus-visible\` 2px vurgu2 (klavye).
@@ -47,3 +47,11 @@ Mod placeholder'ı ve sahte yanıtı \`MODLAR\` sözlüğünden; \`plan: <ID> <a
 
 ## 6. A11y + performans
 Rail öğeleri \`<button>\` (klavye doğal) · tab'lar \`role=tab\`/\`aria-selected\` · akordiyon \`aria-expanded\` · chat \`role=log\`/\`aria-live\` · donut \`role=img\` + dinamik label · dokunma hedefleri ≥38px · grafikler sabit yükseklikli (CLS 0) · \`content-visibility\` kart/mesaj/görev · dış istek sıfır · mobil ≤880px: rail 52px, flyout drawer + backdrop, dock overlay (varsayılan kapalı, composer ortada), backdrop \`dataset.kaynak\` ile nav/sag ayrımı.
+
+## v11 (2026-10-12)
+- **Renk:** mor/cırtlak palet kaldırıldı → kurumsal mavi/slate (`#2563eb/#3b82f6`, yüzeyler slate). Örnek-veri gradientleri de muted kurumsal tonlara çevrildi.
+- **Rail:** 64→72px, etiket 10px, overflow-x hidden + ellipsis — taşma sıfır. Aktif efekti: inset shadow yerine solda 3px floating bar + yumuşak transition; hover hafif zemin.
+- **Dosyalar:** ASCII ağaç kaldırıldı → Explorer tarzı ağaç (chevron expand/collapse, uzantı-renkli ikonlar, girinti). Panel ağacından dosya tık → ortada **ayrı sekme** (dedupe'li); orta Dosyalar sekmesinde aynı yüzeyde önizleme.
+- **Viewer'lar (tür bazlı):** md → okuma render · kod → pre · json → pretty-print · png → gradient yer tutucu · html → sandbox iframe srcdoc + Önizleme/Kaynak toggle.
+- **Panel thumb:** 34×24 → 72×46 (daima büyük); linklerde monogram thumb.
+- **Taşma fixleri:** `.satir` değer/etiket ellipsis + sağ hizalama.

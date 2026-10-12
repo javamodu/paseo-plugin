@@ -3,27 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Workspace panosu — tek dosya vanilla mockup (v10)">
-<meta name="theme-color" content="#0a0a10">
+<meta name="description" content="Workspace panosu — tek dosya vanilla mockup (v11)">
+<meta name="theme-color" content="#0a0e14">
 <title>Pano — Workspace OS</title>
 <style>
   /* === 1. Tokenlar === */
-  :root{--bg:#0a0a10;--kart:#12121b;--kart2:#1a1a26;--sinir:rgba(255,255,255,.06);--metin:#eceaf4;--soluk:#9a9aac;--vurgu:#8b5cf6;--vurgu2:#a855f7;--yesil:#34d399;--sari:#fbbf24;--kirmizi:#f87171;--r:16px}
+  :root{--bg:#0a0e14;--kart:#11161f;--kart2:#1a2230;--sinir:rgba(255,255,255,.06);--metin:#eceaf4;--soluk:#9a9aac;--vurgu:#2563eb;--vurgu2:#3b82f6;--yesil:#34d399;--sari:#fbbf24;--kirmizi:#f87171;--r:16px}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{background:radial-gradient(1200px 700px at 75% -10%,#171226 0%,var(--bg) 55%);color:var(--metin);font:15px/1.55 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
-  ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:99px}::-webkit-scrollbar-track{background:transparent}
+  body{background:radial-gradient(1200px 700px at 75% -10%,#0e1626 0%,var(--bg) 55%);color:var(--metin);font:15px/1.55 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+  ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#263042;border-radius:99px}::-webkit-scrollbar-track{background:transparent}
   svg{display:inline-block;vertical-align:-2px}
   a,button,input,select,textarea,[role="button"]{outline:0}
   a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role="button"]:focus-visible{outline:2px solid var(--vurgu2);outline-offset:2px}
   /* === 2. Yerlesim: rail | flyout | orta | chat dock === */
-  .govde{flex:1;display:grid;grid-template-columns:64px auto 1fr auto;min-height:0}
+  .govde{flex:1;display:grid;grid-template-columns:72px auto 1fr auto;min-height:0}
   .orta{display:flex;flex-direction:column;min-width:0;min-height:0}
   /* === 3. Rail (button tabanli, klavye dogal) === */
-  .rail{border-right:1px solid var(--sinir);display:flex;flex-direction:column;padding:10px 8px;gap:4px;overflow-y:auto}
-  .rail button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 2px;min-height:48px;color:var(--soluk);font-family:inherit;font-size:10.5px;font-weight:600;border:0;border-radius:12px;cursor:pointer;background:transparent;user-select:none}
-  .rail button:hover{color:var(--metin)}
-  .rail button.aktif{color:var(--metin);background:var(--kart2);box-shadow:inset 2px 0 0 var(--vurgu)}
+  .rail{border-right:1px solid var(--sinir);display:flex;flex-direction:column;padding:10px 5px;gap:4px;overflow-y:auto;overflow-x:hidden}
+  .rail button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 2px;min-height:48px;width:100%;min-width:0;color:var(--soluk);font-family:inherit;font-size:10px;font-weight:600;border:0;border-radius:12px;cursor:pointer;background:transparent;user-select:none;position:relative;transition:background .16s ease,color .16s ease}
+  .rail button:hover{color:var(--metin);background:rgba(255,255,255,.045)}
+  .rail button.aktif{color:var(--metin);background:var(--kart2)}
+  .rail button.aktif::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:99px;background:var(--vurgu2)}
   .rail button svg{width:19px;height:19px}
   /* === 4. Flyout panel (varsayilan kapali) === */
   .panel{display:none;width:320px;min-width:220px;max-width:480px;border-right:1px solid var(--sinir);overflow-y:auto;padding:0 18px 18px;position:relative;flex:0 0 auto}
@@ -76,7 +77,7 @@
   .chat-arti:hover{color:var(--metin);background:var(--kart2)}
   .chat-alan{flex:1;overflow-y:auto;min-height:0;padding:14px 12px;display:flex;flex-direction:column}
   .chat-mesaj{max-width:88%;padding:10px 13px;border-radius:16px;margin-bottom:9px;font-size:14px;content-visibility:auto;contain-intrinsic-size:auto 60px}
-  .chat-ben{align-self:flex-end;background:linear-gradient(135deg,#2a2150,#1c1a33);border:1px solid rgba(139,92,246,.25)}
+  .chat-ben{align-self:flex-end;background:linear-gradient(135deg,#1e293b,#111827);border:1px solid rgba(59,130,246,.25)}
   .chat-ajan{align-self:flex-start;background:var(--kart2);border:1px solid var(--sinir)}
   .chat-zaman{font-size:10.5px;color:var(--soluk);margin-top:4px}
   .composer{flex:0 0 auto;border-top:1px solid var(--sinir);padding:12px 14px}
@@ -99,7 +100,7 @@
   .ikon-btn:hover{background:var(--kart2);color:var(--metin)}
   .ikon-btn.kayit{color:var(--kirmizi);background:rgba(248,113,113,.12)}
   .ikon-btn svg{width:18px;height:18px}
-  .yuvarlak{width:44px;height:44px;border-radius:50%;background:#fff;color:#0a0a10;display:flex;align-items:center;justify-content:center;padding:0;border:0;cursor:pointer;flex:0 0 auto}
+  .yuvarlak{width:44px;height:44px;border-radius:50%;background:var(--vurgu);color:#fff;display:flex;align-items:center;justify-content:center;padding:0;border:0;cursor:pointer;flex:0 0 auto}
   .yuvarlak svg{width:17px;height:17px}
   .ipucu{color:var(--soluk);font-size:11.5px}
   /* === 8. Bilesenler === */
@@ -118,9 +119,9 @@
   select,input,textarea{background:var(--kart2);color:var(--metin);border:1px solid var(--sinir);border-radius:10px;padding:9px 11px;width:100%;margin-bottom:8px;font-size:13.5px;font-family:inherit}
   button{background:var(--vurgu);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:13.5px;min-height:40px}
   button.ikincil{background:var(--kart2);color:var(--metin);border:1px solid var(--sinir)}
-  pre{background:#0a0a10;border:1px solid var(--sinir);border-radius:12px;padding:12px;overflow:auto;font-size:12.5px;color:#9fd3a8}
+  pre{background:#0a0e14;border:1px solid var(--sinir);border-radius:12px;padding:12px;overflow:auto;font-size:12.5px;color:#9fd3a8}
   .onizleme{border:1px dashed var(--sinir);border-radius:16px;min-height:220px;display:flex;align-items:center;justify-content:center;color:var(--soluk);background:var(--kart)}
-  .log{font:12.5px/1.7 ui-monospace,Consolas,monospace;background:#0a0a10;border-radius:12px;padding:12px;color:#9aa4b5;border:1px solid var(--sinir)}
+  .log{font:12.5px/1.7 ui-monospace,Consolas,monospace;background:#0a0e14;border-radius:12px;padding:12px;color:#9aa4b5;border:1px solid var(--sinir)}
   .izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
   .rozet-serit{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
   .mini-metrik{display:flex;gap:12px;flex-wrap:wrap;background:var(--kart);border:1px solid var(--sinir);border-radius:12px;padding:9px 13px;margin-bottom:12px;font-size:12.5px}
@@ -129,14 +130,24 @@
   .gorev .ust{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .gorev .alt{color:var(--soluk);font-size:12.5px;margin-top:3px}
   button.gsatir{width:100%;text-align:left;font-family:inherit;font-weight:400;cursor:pointer}
-  button.gsatir:hover{border-color:rgba(139,92,246,.4)}
-  .term{flex:1;background:#0a0a10;border:1px solid var(--sinir);border-radius:12px;padding:14px;font:12.5px/1.7 ui-monospace,Consolas,monospace;color:#9fd3a8;overflow-y:auto}
+  button.gsatir:hover{border-color:rgba(59,130,246,.4)}
+  .term{flex:1;background:#0a0e14;border:1px solid var(--sinir);border-radius:12px;padding:14px;font:12.5px/1.7 ui-monospace,Consolas,monospace;color:#9fd3a8;overflow-y:auto}
   .urlbar{display:flex;gap:8px;margin-bottom:10px}
   .urlbar input{flex:1;margin-bottom:0}
-  .dosyalar{display:grid;grid-template-columns:230px 1fr;gap:14px;flex:1;min-height:0}
-  .agac{background:var(--kart);border:1px solid var(--sinir);border-radius:12px;padding:12px;font-size:12.5px;overflow-y:auto}
-  .agac div{padding:6px 4px;color:var(--soluk);cursor:pointer;border-radius:6px;min-height:30px}
-  .agac div:hover{color:var(--metin)}
+  .dosyalar{display:grid;grid-template-columns:250px 1fr;gap:14px;flex:1;min-height:0}
+  .agac{background:var(--kart);border:1px solid var(--sinir);border-radius:12px;padding:10px 8px;font-size:13px;overflow-y:auto;min-width:0}
+  .agac .anode{display:flex;align-items:center;gap:6px;padding:4px 8px;color:var(--soluk);cursor:pointer;border-radius:7px;min-height:30px;user-select:none}
+  .agac .anode:hover{background:var(--kart2);color:var(--metin)}
+  .agac .anode.sec{background:var(--kart2);color:var(--metin)}
+  .agac .anode.akok{color:var(--metin);font-weight:700;cursor:default}
+  .agac .anode.akok:hover{background:transparent}
+  .agac .aad{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .agac .aikon{display:flex;flex:0 0 auto}
+  .agac .aikon svg{width:15px;height:15px}
+  .agac .achev{width:14px;height:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--soluk)}
+  .agac .achev svg{width:11px;height:11px;transition:transform .12s}
+  .agac .achev.acik svg{transform:rotate(90deg)}
+  .agac .abos{width:14px;flex:0 0 auto}
   /* === 9. Plan tablosu (excel-satir + akordiyon) === */
   .ptablo{border:1px solid var(--sinir);border-radius:12px;overflow:hidden}
   .prow{display:grid;grid-template-columns:64px 1fr 78px;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--sinir);font-size:13.5px;color:var(--metin);width:100%;text-align:left;font-family:inherit;background:transparent;border-top:0;border-left:0;border-right:0;border-radius:0}
@@ -158,7 +169,7 @@
   .pbar{display:block;height:4px;background:var(--kart2);border-radius:99px;overflow:hidden;margin-top:2px}
   .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--vurgu),var(--vurgu2))}
   .ped{background:var(--kart2);border:1px solid var(--vurgu);border-radius:6px;color:var(--metin);padding:4px 8px;font-family:inherit;font-size:13px;width:100%;margin:0}
-  .dalga{font-size:10px;font-weight:700;color:var(--vurgu2);background:rgba(139,92,246,.12);border-radius:99px;padding:1px 7px;margin-left:6px}
+  .dalga{font-size:10px;font-weight:700;color:var(--vurgu2);background:rgba(59,130,246,.12);border-radius:99px;padding:1px 7px;margin-left:6px}
   .chev{display:inline-block;transition:transform .15s;color:var(--soluk);margin-left:6px}
   .psprint.acik .chev{transform:rotate(90deg)}
   .palt{display:none}.palt.acik{display:block}
@@ -174,11 +185,11 @@
   .fbar i{display:block;height:100%;background:linear-gradient(90deg,var(--vurgu),var(--vurgu2))}
   .fyuzde{font-size:11px;color:var(--soluk);margin-top:3px}
   .frow.odak{animation:odakflas 1.2s ease}
-  @keyframes odakflas{0%{background:rgba(139,92,246,.35)}100%{background:transparent}}
+  @keyframes odakflas{0%{background:rgba(59,130,246,.35)}100%{background:transparent}}
   .dag{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .dag .dugum{background:var(--kart2);border:1px solid var(--sinir);border-radius:99px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer}
   .dag .dugum:hover{border-color:var(--vurgu)}
-  .dag .dugum.notlu{border-color:rgba(139,92,246,.45);box-shadow:inset 0 -2px 0 var(--vurgu)}
+  .dag .dugum.notlu{border-color:rgba(59,130,246,.45);box-shadow:inset 0 -2px 0 var(--vurgu)}
   .dag .ok-imb{color:var(--vurgu2);font-weight:800}
   .mod-serit{display:flex;gap:2px;background:var(--kart);border:1px solid var(--sinir);border-radius:99px;padding:3px;overflow-x:auto;align-self:flex-start;width:auto}
   .mod-btn{border:0;background:transparent;color:var(--soluk);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;min-height:38px}
@@ -228,25 +239,23 @@
   /* === 10.8 Icerik sekmeleri eki (galeri/dosyalar/linkler/dokumanlar) === */
   .pliste{display:flex;flex-direction:column;gap:6px}
   .psatir{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--sinir);border-radius:10px;background:var(--kart);color:var(--metin);cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;width:100%;text-align:left;min-height:38px}
-  .psatir:hover{border-color:rgba(139,92,246,.4)}
+  .psatir:hover{border-color:rgba(59,130,246,.4)}
   .psatir svg{width:15px;height:15px;color:var(--soluk);flex:0 0 auto}
   .psatir .pisim{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .psatir .pmeta2{color:var(--soluk);font-size:11px;font-weight:400;white-space:nowrap}
-  .pthumb{width:34px;height:24px;border-radius:6px;border:1px solid var(--sinir);flex:0 0 auto}
-  .agac.kompakt{padding:10px;font-size:12px}
-  .agac div.klasor{color:var(--metin);cursor:default;font-weight:700}
-  .agac div.sec{color:var(--metin);background:var(--kart2)}
+  .pthumb{width:72px;height:46px;border-radius:8px;border:1px solid var(--sinir);flex:0 0 auto}
+  .agac.kompakt{padding:8px 6px;font-size:12.5px}
   .galeri{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-  .galeri .kare{aspect-ratio:16/10;border-radius:14px 14px 0 0;border:0;display:flex;align-items:center;justify-content:center;color:#0a0a10;font-weight:800}
+  .galeri .kare{aspect-ratio:16/10;border-radius:14px 14px 0 0;border:0;display:flex;align-items:center;justify-content:center;color:#0a0e14;font-weight:800}
   .gonizleme{aspect-ratio:16/7;border-radius:var(--r);border:1px solid var(--sinir);display:flex;align-items:center;justify-content:center;background:var(--kart);color:var(--soluk);font-weight:700;font-size:14px;transition:background .18s ease}
-  .gonizleme.dolu{color:#0a0a10;font-size:17px;font-weight:800}
+  .gonizleme.dolu{color:#0a0e14;font-size:17px;font-weight:800}
   .gkart{background:var(--kart);border:1px solid var(--sinir);border-radius:14px;overflow:hidden;cursor:pointer;padding:0;text-align:left;font-family:inherit;min-height:0}
-  .gkart:hover{border-color:rgba(139,92,246,.4)}
+  .gkart:hover{border-color:rgba(59,130,246,.4)}
   .gkart .gmeta{padding:8px 11px;color:var(--metin);font-size:12.5px;font-weight:700}
   .gkart .gmeta span{display:block;color:var(--soluk);font-size:11px;font-weight:400;margin-top:2px}
   .linkliste{display:flex;flex-direction:column;gap:8px}
   .linkkart{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--kart);border:1px solid var(--sinir);border-radius:12px;cursor:pointer;text-align:left;font-family:inherit;color:var(--metin);width:100%;font-size:13.5px;font-weight:400}
-  .linkkart:hover{border-color:rgba(139,92,246,.4)}
+  .linkkart:hover{border-color:rgba(59,130,246,.4)}
   .likon{width:36px;height:36px;border-radius:10px;background:var(--kart2);border:1px solid var(--sinir);display:flex;align-items:center;justify-content:center;color:var(--vurgu2);flex:0 0 auto}
   .likon svg{width:17px;height:17px}
   .likon.buyuk{width:46px;height:46px}
@@ -259,7 +268,7 @@
   .dokgrid{display:grid;grid-template-columns:290px 1fr;gap:14px;flex:1;min-height:0}
   .dokliste{display:flex;flex-direction:column;gap:6px;overflow-y:auto;align-content:start}
   .doksatir{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--kart);border:1px solid var(--sinir);border-radius:10px;cursor:pointer;text-align:left;font-family:inherit;color:var(--metin);width:100%;font-size:13px;font-weight:400}
-  .doksatir:hover{border-color:rgba(139,92,246,.4)}
+  .doksatir:hover{border-color:rgba(59,130,246,.4)}
   .doksatir.sec{border-color:var(--vurgu);background:var(--kart2)}
   .doksatir>svg{width:16px;height:16px;color:var(--soluk);flex:0 0 auto}
   .doksatir b{display:block;font-size:13px}
@@ -283,6 +292,18 @@
   .backdrop{position:fixed;inset:0;background:#000a;display:none;z-index:25}
   .backdrop.goster{display:block}
   .kaynak{font-size:10.5px;color:var(--soluk);text-align:center;margin-top:14px}
+  /* === 10.10 Dosya viewer + tasma fixleri (v11) === */
+  .dosya-ust{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .dosya-yol{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--soluk);background:var(--kart2);border:1px solid var(--sinir);border-radius:8px;padding:6px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+  .dosya-govde{min-width:0;min-height:0}
+  .dosya-govde pre{margin:0}
+  .fgorsel{aspect-ratio:16/9;border-radius:var(--r);border:1px solid var(--sinir);display:flex;align-items:center;justify-content:center;color:#0a0e14;font-weight:800;font-size:17px}
+  .htmlonizleme{width:100%;min-height:420px;border:1px solid var(--sinir);border-radius:12px;background:#fff;display:block}
+  .dgt.aktif{background:var(--vurgu);color:#fff;border-color:transparent}
+  .pthumb-link{display:flex;align-items:center;justify-content:center;color:#0a0e14;font-weight:800;font-size:16px}
+  .satir>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px}
+  .satir b{text-align:right;min-width:0;overflow-wrap:anywhere}
+  .rail button span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   @media (max-width:1200px){
     .span3,.span4,.span5{grid-column:span 6}
   }
@@ -494,8 +515,12 @@
 <template id="tpl-dosyalar">
   <div class="dosyalar">
     <div class="agac" data-f="agac"></div>
-    <pre data-f="pre">Ağaçtan dosya seç — önizleme burada görünür</pre>
+    <div class="dosya-govde" data-f="viewer"><div class="onizleme">Ağaçtan dosya seç — türüne göre önizleme burada (md · kod · png · json · html)</div></div>
   </div>
+</template>
+<template id="tpl-dosya">
+  <div class="dosya-ust"><span class="dosya-yol" data-f="yol"></span><span class="hap notr" data-f="tur"></span></div>
+  <div class="dosya-govde" data-f="govde"></div>
 </template>
 <template id="tpl-linkler">
   <div class="linkliste" data-f="liste"></div>
@@ -545,6 +570,8 @@ const I={
   folder:S('<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/>'),
   chip:S('<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'),
   doc:S('<path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6"/>'),
+  file:S('<path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/>'),
+  chev:S('<path d="m9 6 6 6-6 6"/>'),
   grid:S('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
   link:S('<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>'),
   clip:S('<path d="m21 11-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8L13 4a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.85 1.85 0 0 1-2.6-2.6L15 7"/>'),
@@ -598,6 +625,7 @@ const VERI={
 const DURUM_HAP={bitti:'ok',aktif:'ok',onay:'uyari',taslak:'notr',pasif:'notr'};
 
 /* === Sekme yonetimi (orta) — tek-ornek turler ortaAc uzerinden === */
+var dosyaGoruntuleFn=null;
 const tabbar=document.getElementById('tabbar'), icerik=document.getElementById('icerik');
 let sayac=0, aktifId=null;
 const TUR={
@@ -605,6 +633,7 @@ const TUR={
   plan:['list','Plan','tpl-plan'],
   provider:['chip','Provider','tpl-provider'],
   gorev:['doc','Görev','tpl-gorev'],
+  dosya:['file','Dosya','tpl-dosya'],
   galeri:['image','Galeri','tpl-galeri'],
   dosyalar:['folder','Dosyalar','tpl-dosyalar'],
   linkler:['link','Linkler','tpl-linkler'],
@@ -639,6 +668,16 @@ function sekmeSec(id){aktifId=id;sekmeler.forEach(function(s,k){
 function sekmeKapat(id){const s=sekmeler.get(id);if(!s)return;s.tab.remove();s.yuzey.remove();sekmeler.delete(id);
   if(aktifId===id){const k=sekmeler.keys().next().value;if(k)sekmeSec(k);}}
 function ortaAc(tur,params){
+  if(tur==='dosya'){
+    const yol=params&&params.yol; if(!yol)return null;
+    for(const e of sekmeler){if(e[1].tur==='dosya'&&e[1].dosyaYol===yol){sekmeSec(e[0]);return {id:e[0],yuzey:e[1].yuzey};}}
+    const parca=yol.split('/');
+    const fid=sekmeAc('dosya',parca[parca.length-1]);
+    if(!fid)return null;
+    const fs=sekmeler.get(fid); fs.dosyaYol=yol;
+    if(typeof dosyaGoruntuleFn==='function')dosyaGoruntuleFn(fs.yuzey,yol);
+    return {id:fid,yuzey:fs.yuzey};
+  }
   for(const e of sekmeler){if(e[1].tur===tur){sekmeSec(e[0]);return {id:e[0],yuzey:e[1].yuzey};}}
   const id=sekmeAc(tur); if(!id)return null;
   return {id:id,yuzey:sekmeler.get(id).yuzey};
@@ -648,7 +687,7 @@ function ortaAc(tur,params){
 const arti=document.createElement('div');arti.className='tab arti';arti.textContent='+';arti.title='Yeni sekme';arti.setAttribute('role','button');arti.setAttribute('aria-label','Yeni sekme');
 const menu=document.createElement('div');menu.className='arti-menu';
 Object.keys(TUR).forEach(function(k){
-  if(k==='gorev')return;
+  if(k==='gorev'||k==='dosya')return;
   const d=document.createElement('div');d.dataset.t=k;d.innerHTML=ikon(TUR[k][0])+TUR[k][1];menu.appendChild(d);
 });
 arti.addEventListener('click',function(e){const r=arti.getBoundingClientRect();menu.style.left=r.left+'px';menu.style.top=(r.bottom+4)+'px';menu.classList.toggle('acik');e.stopPropagation();});
@@ -1456,12 +1495,12 @@ function initIcerik(ctx){
 
   /* --- ornek veri (T): yalniz anahtar yoksa eklenir --- */
   VERI.galeri=VERI.galeri||[
-    {id:'G1',ad:'pano-v9-hero.png',tarih:'12 Eki 2026',boyut:'184 KB',g:['#8b5cf6','#a855f7'],etiket:'HERO'},
-    {id:'G2',ad:'pano-v9-rail.png',tarih:'12 Eki 2026',boyut:'96 KB',g:['#312e81','#8b5cf6'],etiket:'RAIL'},
-    {id:'G3',ad:'ork-dag-akis.png',tarih:'11 Eki 2026',boyut:'142 KB',g:['#0f766e','#34d399'],etiket:'DAG'},
-    {id:'G4',ad:'composer-modlar.png',tarih:'11 Eki 2026',boyut:'88 KB',g:['#7c2d12','#fbbf24'],etiket:'MOD'},
+    {id:'G1',ad:'pano-v9-hero.png',tarih:'12 Eki 2026',boyut:'184 KB',g:['#2563eb','#3b82f6'],etiket:'HERO'},
+    {id:'G2',ad:'pano-v9-rail.png',tarih:'12 Eki 2026',boyut:'96 KB',g:['#334155','#2563eb'],etiket:'RAIL'},
+    {id:'G3',ad:'ork-dag-akis.png',tarih:'11 Eki 2026',boyut:'142 KB',g:['#134e4a','#34d399'],etiket:'DAG'},
+    {id:'G4',ad:'composer-modlar.png',tarih:'11 Eki 2026',boyut:'88 KB',g:['#78350f','#fbbf24'],etiket:'MOD'},
     {id:'G5',ad:'doktor-rozetler.png',tarih:'10 Eki 2026',boyut:'121 KB',g:['#1e3a8a','#38bdf8'],etiket:'SES'},
-    {id:'G6',ad:'plan-akordiyon.png',tarih:'10 Eki 2026',boyut:'103 KB',g:['#4a044e','#e879f9'],etiket:'PLAN'}
+    {id:'G6',ad:'plan-akordiyon.png',tarih:'10 Eki 2026',boyut:'103 KB',g:['#334155','#94a3b8'],etiket:'PLAN'}
   ];
   VERI.dosyaAgaci=VERI.dosyaAgaci||{ad:'paseo-verimlilik',cocuk:[
     {ad:'server',cocuk:[
@@ -1470,20 +1509,32 @@ function initIcerik(ctx){
       {ad:'bekci.ts',icerik:'export function kotaKontrol(g: Gorev){\n  if (g.token > g.tavan) throw new Error("tavan asimi");\n}'}
     ]},
     {ad:'client',cocuk:[
-      {ad:'panel.tsx',icerik:'// panel koku (T)\nexport function Panel(){ /* ... */ }'}
+      {ad:'panel.tsx',icerik:'// panel koku (T)\nexport function Panel(){ /* ... */ }'},
+      {ad:'tema.css',icerik:':root{\n  --bg:#0a0e14;\n  --vurgu:#2563eb;\n}\nbody{ background:var(--bg); }'}
     ]},
     {ad:'shared',cocuk:[
       {ad:'tip.ts',icerik:'export type ModAd = "atolye" | "matbaa" | "cerrah" | "serbest";'}
     ]},
     {ad:'test',cocuk:[
       {ad:'dedektor.test.ts',icerik:'test("fake-green yakalanir", () => { /* ... */ });\n// 196 test gecti'}
-    ]}
+    ]},
+    {ad:'docs',cocuk:[
+      {ad:'REHBER.md',icerik:'# Verimlilik Rehberi\n\nRol, mod ve kanit disiplini.\n\n## Akis\n\n1. Emir yaz -> sema kapisi\n2. Manager dagitir -> DAG\n3. Kapanis kaniti -> \x60raporlar/\x60'},
+      {ad:'mimari.md',icerik:'# Mimari\n\nRail + flyout + orta sekme + chat dock.\n\n## Katmanlar\n\n- sunucu: modlar, telemetri, bekci\n- istemci: pano, dock, diyalog'}
+    ]},
+    {ad:'assets',cocuk:[
+      {ad:'kapak.png',g:['#1e3a8a','#3b82f6'],etiket:'KAPAK'},
+      {ad:'hero.png',g:['#134e4a','#14b8a6'],etiket:'HERO'}
+    ]},
+    {ad:'ayar.json',icerik:'{"mod":"atolye","kuralBlok":20,"provider":"codex · kimi-K3","cache":true}'},
+    {ad:'index.html',icerik:'<!DOCTYPE html>\n<html lang="tr">\n<head>\n<meta charset="utf-8">\n<style>body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0e14;color:#eceaf4;font-family:system-ui}h1{font-size:20px}</style>\n</head>\n<body><h1>Merhaba — örnek HTML önizleme (T)</h1></body>\n</html>'},
+    {ad:'README.md',icerik:'# paseo-verimlilik\n\nAjan verimlilik plugin paketi.\n\n## Kurulum\n\n\x60npm test\x60 — 196 test yeşil olmalı.'}
   ]};
   VERI.linkler=VERI.linkler||[
-    {id:'L1',baslik:'Paseo dokumani — workspace modeli',url:'https://paseo.sh/docs/workspaces',not:'Rail + panel + orta sekme uclusunun referansi.'},
-    {id:'L2',baslik:'Core Web Vitals esikleri',url:'https://web.dev/articles/vitals',not:'LCP 2.5s / CLS 0.1 hedefleri buradan.'},
-    {id:'L3',baslik:'Veo BYOK API notlari',url:'https://ai.google.dev/gemini-api/docs/video',not:'S9 gorevinin cagri semasi; kota bekcisi bolumu onemli.'},
-    {id:'L4',baslik:'template etiketi — MDN',url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template',not:'<template> klonlama — sekmeAc buna dayaniyor.'}
+    {id:'L1',baslik:'Paseo dokumani — workspace modeli',url:'https://paseo.sh/docs/workspaces',not:'Rail + panel + orta sekme uclusunun referansi.',g:['#1e3a8a','#3b82f6']},
+    {id:'L2',baslik:'Core Web Vitals esikleri',url:'https://web.dev/articles/vitals',not:'LCP 2.5s / CLS 0.1 hedefleri buradan.',g:['#134e4a','#14b8a6']},
+    {id:'L3',baslik:'Veo BYOK API notlari',url:'https://ai.google.dev/gemini-api/docs/video',not:'S9 gorevinin cagri semasi; kota bekcisi bolumu onemli.',g:['#78350f','#d97706']},
+    {id:'L4',baslik:'template etiketi — MDN',url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template',not:'<template> klonlama — sekmeAc buna dayaniyor.',g:['#334155','#94a3b8']}
   ];
   VERI.dokumanlar=VERI.dokumanlar||[
     {id:'D1',ad:'ANAYASA.md',tur:'MD',tarih:'12 Eki 2026',boyut:'8,2 KB',govde:'# ANAYASA\n\nUst otorite — tum fermanlar ve sozlesmeler buraya dayanir.\n\n## Madde 1 · Kanit\n\nHer iddia etiketli yazilir: \x60(R)\x60 resmi olcum, \x60(T)\x60 tahmin, \x60*\x60 tek-kaynak.\n\n## Madde 2 · Sinir\n\nAjan, dizin kapsami disina yazamaz; sinir asimi turu kapatir.'},
@@ -1533,36 +1584,102 @@ function initIcerik(ctx){
     on.querySelector('[data-f="gAd"]').textContent=g.ad+' — '+g.tarih+' · '+g.boyut;
   }
 
-  /* === 2. Dosyalar === */
-  function agacSatirlar(cocuklar,onek){
-    var out=[];
-    cocuklar.forEach(function(n,i){
-      var son=(i===cocuklar.length-1), dal=son?'└─ ':'├─ ';
-      out.push({n:n,yazi:onek+dal+n.ad+(n.cocuk?'/':'')});
-      if(n.cocuk)out=out.concat(agacSatirlar(n.cocuk,onek+(son?'   ':'│  ')));
-    });
-    return out;
+  /* === 2. Dosyalar — Explorer agaci + tur-bazli viewer === */
+  function agacBul(yol){
+    var parca=yol.split('/');var n=VERI.dosyaAgaci;
+    if(parca[0]!==n.ad)return null;
+    for(var i=1;i<parca.length;i++){
+      var c=(n.cocuk||[]).find(function(x){return x.ad===parca[i];});
+      if(!c)return null;n=c;
+    }
+    return n;
   }
-  function agacDoldur(k,kok,onSec){
-    var b=document.createElement('b');b.style.color='var(--metin)';b.textContent=kok.ad+'/';k.appendChild(b);
-    agacSatirlar(kok.cocuk||[],'').forEach(function(s){
+  function dosyaTur(yol){
+    var u=yol.split('.').pop().toLowerCase();
+    return {md:'md',markdown:'md',png:'png',jpg:'png',jpeg:'png',gif:'png',svg:'png',json:'json',html:'html',htm:'html'}[u]||'kod';
+  }
+  function dosyaIkonHtml(yol){
+    var u=yol.split('.').pop().toLowerCase();
+    var renk={ts:'#38bdf8',tsx:'#38bdf8',js:'#eab308',css:'#3b82f6',md:'#3b82f6',png:'#34d399',jpg:'#34d399',gif:'#34d399',svg:'#34d399',json:'#d97706',html:'#fb923c',htm:'#fb923c'}[u]||'#9a9aac';
+    return '<span class="aikon" style="color:'+renk+'">'+ikon('file')+'</span>';
+  }
+  function agacRender(k,kok,onSec){
+    if(!k)return;
+    if(!k._acik){k._acik=new Set();(kok.cocuk||[]).forEach(function(c){if(c.cocuk)k._acik.add(kok.ad+'/'+c.ad);});}
+    k.innerHTML='';
+    var kokEl=document.createElement('div');kokEl.className='anode akok';
+    kokEl.innerHTML='<span class="aikon" style="color:#e8c468">'+ikon('folder')+'</span><span class="aad">'+esc(kok.ad)+'</span>';
+    k.appendChild(kokEl);
+    function satir(n,derinlik,yolu){
       var d=document.createElement('div');
-      d.textContent=s.yazi;
-      if(s.n.cocuk){d.className='klasor';}
-      else{d.dataset.dosya='1';d._n=s.n;d.addEventListener('click',function(){onSec(s.n);});}
+      d.style.paddingLeft=(8+derinlik*16)+'px';
+      if(n.cocuk){
+        var acik=k._acik.has(yolu);
+        d.className='anode klasor';
+        d.innerHTML='<span class="achev'+(acik?' acik':'')+'">'+ikon('chev')+'</span><span class="aikon" style="color:#e8c468">'+ikon('folder')+'</span><span class="aad">'+esc(n.ad)+'</span>';
+        d.addEventListener('click',function(){
+          if(k._acik.has(yolu))k._acik.delete(yolu);else k._acik.add(yolu);
+          agacRender(k,kok,onSec);
+        });
+      }else{
+        d.className='anode dosya';
+        d.dataset.dosya='1';d._yol=yolu;d._n=n;
+        d.innerHTML='<span class="abos"></span>'+dosyaIkonHtml(yolu)+'<span class="aad">'+esc(n.ad)+'</span>';
+        if(onSec){d.addEventListener('click',function(){onSec(yolu,n);});}
+        else{d.setAttribute('data-orta-tur','dosya');d.setAttribute('data-orta-params',JSON.stringify({yol:yolu}));}
+      }
       k.appendChild(d);
-    });
+      if(n.cocuk&&k._acik.has(yolu)){n.cocuk.forEach(function(c){satir(c,derinlik+1,yolu+'/'+c.ad);});}
+    }
+    (kok.cocuk||[]).forEach(function(c){satir(c,0,kok.ad+'/'+c.ad);});
+  }
+  function dosyaViewer(g,yol,n){
+    var tur=dosyaTur(yol);
+    if(tur==='md'){g.innerHTML='<div class="kart okuma">'+mdYaz(n.icerik||'(boş)')+'</div>';return;}
+    if(tur==='png'){
+      var gr=n.g||['#1e3a8a','#3b82f6'];
+      g.innerHTML='<div class="fgorsel" style="background:linear-gradient(135deg,'+gr[0]+','+gr[1]+')">'+esc(n.etiket||n.ad)+'</div><p class="ipucu" style="margin-top:8px">örnek görsel yer tutucu (T) — canlıda img yüklenir</p>';
+      return;
+    }
+    if(tur==='json'){
+      var metin=n.icerik||'';
+      try{metin=JSON.stringify(JSON.parse(metin),null,2);}catch(e){}
+      g.innerHTML='<pre>'+esc(metin)+'</pre>';
+      return;
+    }
+    if(tur==='html'){
+      var src=String(n.icerik||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+      g.innerHTML='<div class="urlbar"><button class="ikincil dgt aktif" data-g="on" type="button">Önizleme</button><button class="ikincil dgt" data-g="kod" type="button">Kaynak</button></div><iframe class="htmlonizleme" sandbox="" title="HTML önizleme" srcdoc="'+src+'"></iframe><pre style="display:none">'+esc(n.icerik||'')+'</pre>';
+      g.querySelectorAll('.dgt').forEach(function(b){
+        b.addEventListener('click',function(){
+          var on=b.dataset.g==='on';
+          g.querySelector('.htmlonizleme').style.display=on?'':'none';
+          g.querySelector('pre').style.display=on?'none':'';
+          g.querySelectorAll('.dgt').forEach(function(x){x.classList.toggle('aktif',x===b);});
+        });
+      });
+      return;
+    }
+    g.innerHTML='<pre>'+esc(n.icerik||'(boş)')+'</pre>';
   }
   function dosyaSekmeHazir(y){
     if(y.dataset.hazir)return;y.dataset.hazir='1';
-    agacDoldur(y.querySelector('[data-f="agac"]'),VERI.dosyaAgaci,dosyaSec);
+    agacRender(y.querySelector('[data-f="agac"]'),VERI.dosyaAgaci,dosyaSec);
   }
-  function dosyaSec(n){
+  function dosyaSec(yolu,n){
     var y=yuzeyAl('dosyalar');if(!y)return;
     dosyaSekmeHazir(y);
-    y.querySelector('[data-f="pre"]').textContent=n.icerik||'(bos)';
-    document.querySelectorAll('.agac div[data-dosya]').forEach(function(d){d.classList.toggle('sec',d._n===n);});
+    var v=y.querySelector('[data-f="viewer"]');if(v)dosyaViewer(v,yolu,n);
+    y.querySelectorAll('.anode.dosya').forEach(function(d){d.classList.toggle('sec',d._yol===yolu);});
   }
+  dosyaGoruntuleFn=function(y,yol){
+    var n=agacBul(yol);
+    var yolEl=y.querySelector('[data-f="yol"]');if(yolEl)yolEl.textContent=yol;
+    var turEl=y.querySelector('[data-f="tur"]');if(turEl)turEl.textContent=(n?dosyaTur(yol):'?').toUpperCase();
+    var g=y.querySelector('[data-f="govde"]');if(!g)return;
+    if(!n){g.innerHTML='<div class="onizleme">Dosya bulunamadı: '+esc(yol)+'</div>';return;}
+    dosyaViewer(g,yol,n);
+  };
 
   /* === 3. Linkler === */
   function linkHost(u){return u.replace(/^https?:\/\//,'').split('/')[0];}
@@ -1570,7 +1687,8 @@ function initIcerik(ctx){
     var k=document.getElementById('linklerPanel');if(!k)return;k.innerHTML='';
     VERI.linkler.forEach(function(l){
       var b=document.createElement('button');b.type='button';b.className='psatir';
-      b.innerHTML=ikon('globe')+'<span class="pisim">'+esc(l.baslik)+'</span><span class="pmeta2">'+linkHost(l.url)+'</span>';
+      var host=linkHost(l.url);
+      b.innerHTML='<span class="pthumb pthumb-link" style="background:linear-gradient(135deg,'+l.g[0]+','+l.g[1]+')"><b>'+esc(host.charAt(0).toUpperCase())+'</b></span><span class="pisim">'+esc(l.baslik)+'</span><span class="pmeta2">'+esc(host)+'</span>';
       b.addEventListener('click',function(){linkGoster(l.id);});
       k.appendChild(b);
     });
@@ -1658,7 +1776,7 @@ function initIcerik(ctx){
   /* === init: panel listeleri === */
   galeriPanelYaz();linklerPanelYaz();dokumanlarPanelYaz();orkPanelYaz();
   var dp=document.getElementById('dosyalarPanel');
-  if(dp){dp.innerHTML='';agacDoldur(dp,VERI.dosyaAgaci,dosyaSec);}
+  if(dp){agacRender(dp,VERI.dosyaAgaci,null);}
 
   return {gorevGoster:gorevGoster,galeriGoster:galeriGoster,dosyaSec:dosyaSec,linkGoster:linkGoster,dokGoster:dokGoster};
 }

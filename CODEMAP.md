@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 57e9b50 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 9abe9de — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -40,19 +40,24 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0018.md` (4.3KB) — K-0018 — Provider-Modlar (ATÖLYE / MATBAA / CERRAH / SERBEST) (ONAYLANDI 2026-10-12) | Bağlam | Karar (taslak)
 - `kararlar\K-0019.md` (3.8KB) — K-0019 — Pano İskelet Sistemi (TASLAK 2026-10-12 — kullanıcı onayı bekleniyor) | Bağlam | Karar
 - `kararlar\K-0020.md` (3.9KB) — K-0020 — Görev Emri Orkestrasyonu (Pano Sekme 2) (TASLAK 2026-10-12 — kullanıcı onayı bekleniyor) | Bağlam | Karar
+- `kararlar\K-0021.md` (2.9KB) — K-0021 — Collab Spawn Hook Köprüsü (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
+- `kararlar\K-0022.md` (1.7KB) — K-0022 — Rollup Delta + Kabul Kapsamı (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
+- `kararlar\K-0023.md` (1.5KB) — K-0023 — Sondaj Ö1+Ö2 Metin Düzeltmeleri (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `PASEO-VERIMLILIK-REHBERI-v2.0.md` (12.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `plans\handoff\HANDOFF-2026-10-12-1336.md` (5.8KB) — HANDOFF-2026-10-12-1336 — reviewer (3ff75fe) kapanışı + coder gün bilançosu | Reviewer bilançosu düzeltmesi (coder disk doğrulaması — kural 5) | Reviewer oturumunun kapanışları (reviewer tuttu, coder doğruladı)
 - `plans\handoff\HANDOFF-2026-10-12-2040.md` (2.8KB) — HANDOFF-2026-10-12-2040 — mockup v10 (6 subagent entegrasyonu) kapanışı | Bu oturumda kapananlar | Doğrulama kanıtı (R)
-- `plans\mockup\DESIGN.md` (4.6KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v10) | 1. Tokenlar | 2. Yerleşim (v10)
+- `plans\mockup\DESIGN.md` (5.5KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
 - `plans\mockup\parcalar\v10\02-chat.md` (14.9KB) — 02-chat — Sağ Dock (Chat) Fragment'ı · v10 | 1) Davranış spec'i | 2) HTML fragment'ı
 - `plans\mockup\parcalar\v10\03-plan.md` (20.9KB) — 03 · Plan Görünümleri — v10 fragment'ı | 1. Spec | 2. HTML fragment
 - `plans\mockup\parcalar\v10\04-pano.md` (13.2KB) — 04 — Pano (orta sekme, one-view dashboard) · v10 | 1. Spec (kısa) | 2. HTML fragment
 - `plans\mockup\parcalar\v10\05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
 - `plans\mockup\parcalar\v10\06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
+- `plans\PLAN-eksik-kapatma-2026-10-12.md` (3.3KB) — PLAN — Eksik Kapatma (paseo plugin + sözleşme) — 2026-10-12 | P0 — collab spawn hook köprüsü (speakrapid-1, YÜKSEK) → K-0021 taslağı | P1 — rollup delta + kabul kapsamı (codex-1, codex-2, orta) → K-0022 taslağı
+- `raporlar\gelen-kutu\codex-2026-10-12.md` (1.9KB) — Gelen Kutu — codex — 2026-10-12
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
