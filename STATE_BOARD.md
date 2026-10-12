@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.12.1 KİLİT (plugin 7042460, tag v0.12.1-kilit, tam süit yeşil): briefKontrol callId-bazlı dedupe — eski zayif-brief her turda yeniden dürtmüyor (v2.1 backlog maddesi kapandı) · push ls-remote doğrulandı
 - 2026-10-13 · v0.12 KİLİT (plugin 35e4ecf, tag v0.12-kilit, tam süit yeşil): K-0021+K-0022+K-0023 UYGULANDI — altAjan telemetri (parentAgentId) + rollup önceki-hafta deltası/kabul kapsamı/alt-ajan satırı + bekçi STATE_BOARD untracked işaretçisi + ÇEKİRDEK/REHBER %90 kapsam yarım cümlesi + REHBER §8 spawn köprü notu · push ls-remote doğrulandı
 - 2026-10-13 · v11 damga telafisi: mockup v11 (4670e15) kurumsal mavi/slate + Explorer agaci + dosya viewer'lari; DERSLER +3 (atomik patch, ASCII anchor, apply_patch here-string) — damga dun aksam kacti
 - 2026-10-13 · Gece paketi commit'lendi: K-0021 (collab-spawn telemetri kopsu; Adim-1 dogrulama R: enjeksiyon VAR, harness collab tur telemetrisi YOK — kapsam daraldi) + K-0022 (rollup delta + kabul kapsami) + K-0023 (sondaj O1/O2 metin fix) + PLAN-eksik-kapatma — v0.12 uygulama onayi bekleniyor
@@ -43,6 +44,5 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 - K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
 
 ## v2.1 backlog
-- v0.12.1 adayı: briefKontrol dedupe — zayif-brief dürtmesi cooldown'lu (10dk) ama callId-bazlı değil; eski spawn her turda yeniden taranıp cooldown dolunca tekrar dürtüyor (kanıt: telemetri 3 kayıt hep 1/1, yeni spawn yokken dürtme geldi). Çözüm: callId-bazlı bir-kez değerlendirme (Set<string>).
 - v0.8 adayÄ±: telemetri failedCalls'a araÃ§-adÄ±/hata detayÄ± alanÄ± (kalite dÃ¼rtmesi "hangi 59 Ã§aÄŸrÄ±" sorusunu cevaplayamÄ±yor) + TDD kÄ±rmÄ±zÄ±-koÅŸu desenlerini (npm test, vitest) sayaÃ§tan hariÃ§ tutma seÃ§eneÄŸi.
 - Ã‡EKÄ°RDEK kural diyeti: aktif kural sayÄ±sÄ± 68 â†’ <40 hedefi iÃ§in EK'lere taÅŸÄ±ma (doctor SARI'sÄ±; enjeksiyon â‰¤8KB freni yeterli, plugin Ã¶ncesi ÅŸart deÄŸil).
