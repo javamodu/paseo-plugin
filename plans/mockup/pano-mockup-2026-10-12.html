@@ -10,19 +10,29 @@
   html,body{height:100%}
   body{background:var(--bg);color:var(--metin);font:13px/1.5 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
   .mockup-serit{background:var(--sari);color:#1a1a1a;padding:4px 12px;font-weight:600;text-align:center;flex:0 0 auto}
-  .govde{flex:1;display:grid;grid-template-columns:56px 300px 1fr;grid-template-rows:1fr;min-height:0}
+  .govde{flex:1;display:grid;grid-template-columns:56px 300px 1fr;min-height:0}
   .rail{background:var(--kart);border-right:1px solid var(--sinir);display:flex;flex-direction:column;padding:6px 0;gap:2px}
-  .rail a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px;color:var(--soluk);text-decoration:none;font-size:10px;font-weight:600;border-left:2px solid transparent}
+  .rail a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px;color:var(--soluk);text-decoration:none;font-size:10px;font-weight:600;border-left:2px solid transparent;cursor:pointer}
   .rail a .iko{font-size:16px}
   .rail a.aktif{color:var(--metin);border-left-color:var(--vurgu);background:var(--kart2)}
   .panel{background:var(--kart);border-right:1px solid var(--sinir);overflow-y:auto;padding:12px}
   .panel .pbolum{display:none}.panel .pbolum.acik{display:block}
-  .sayfa{overflow-y:auto;padding:16px}
-  .sayfa .bolum{display:none}.sayfa .bolum.acik{display:block}
+  .orta{display:flex;flex-direction:column;min-width:0;min-height:0}
+  .tabbar{display:flex;align-items:flex-end;background:var(--kart);border-bottom:1px solid var(--sinir);padding:4px 8px 0;gap:2px;flex:0 0 auto;overflow-x:auto}
+  .tab{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--kart2);border:1px solid var(--sinir);border-bottom:0;border-radius:8px 8px 0 0;color:var(--soluk);cursor:pointer;white-space:nowrap;font-size:12px}
+  .tab.aktif{background:var(--bg);color:var(--metin);border-top:2px solid var(--vurgu)}
+  .tab .x{color:var(--soluk);padding:0 2px;border-radius:3px}
+  .tab .x:hover{color:var(--kirmizi)}
+  .tab.arti{border:0;background:transparent;font-size:15px;padding:6px 10px}
+  .arti-menu{position:absolute;background:var(--kart2);border:1px solid var(--sinir);border-radius:8px;padding:4px;display:none;z-index:9;box-shadow:0 8px 24px #0009}
+  .arti-menu.acik{display:block}
+  .arti-menu div{padding:6px 14px;border-radius:6px;cursor:pointer;color:var(--metin)}
+  .arti-menu div:hover{background:var(--kart)}
+  .icerik{flex:1;overflow-y:auto;padding:16px;min-height:0}
+  .yuzey{display:none;height:100%}.yuzey.acik{display:flex;flex-direction:column}
   .composer{flex:0 0 auto;border-top:1px solid var(--sinir);background:var(--kart);padding:10px 16px;display:flex;gap:8px;align-items:center}
   .composer input{flex:1;background:var(--kart2);color:var(--metin);border:1px solid var(--sinir);border-radius:8px;padding:9px 12px}
   .composer .ipucu{color:var(--soluk);font-size:11px}
-  .izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
   .kart{background:var(--kart);border:1px solid var(--sinir);border-radius:10px;padding:12px}
   .kart h3{font-size:12px;color:var(--soluk);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
   .buyuk{font-size:24px;font-weight:700}
@@ -36,11 +46,12 @@
   button{background:var(--vurgu);color:#0b1526;border:0;border-radius:6px;padding:8px 14px;font-weight:700;cursor:pointer}
   button.ikincil{background:var(--kart2);color:var(--metin);border:1px solid var(--sinir)}
   pre{background:#0a0c10;border:1px solid var(--sinir);border-radius:8px;padding:10px;overflow:auto;font-size:12px;color:#9fd3a8}
-  .onizleme{border:1px dashed var(--sinir);border-radius:10px;min-height:280px;display:flex;align-items:center;justify-content:center;color:var(--soluk);background:var(--kart)}
+  .onizleme{border:1px dashed var(--sinir);border-radius:10px;flex:1;display:flex;align-items:center;justify-content:center;color:var(--soluk);background:var(--kart)}
   .galeri{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
   .galeri .kare{aspect-ratio:16/10;border-radius:10px;border:1px solid var(--sinir);display:flex;align-items:center;justify-content:center;color:#0b1526;font-weight:700}
   .log{font:12px/1.7 ui-monospace,Consolas,monospace;background:#0a0c10;border-radius:8px;padding:12px;color:#9aa4b5}
   h2{margin-bottom:12px;font-size:16px}
+  .izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
   .rozet-serit{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
   .mini-metrik{display:flex;gap:10px;flex-wrap:wrap;background:var(--kart2);border:1px solid var(--sinir);border-radius:8px;padding:6px 10px;margin-bottom:10px;font-size:12px}
   .gorev-grup{font-size:11px;color:var(--soluk);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 4px}
@@ -49,19 +60,30 @@
   .gorev .ust{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .gorev .alt{color:var(--soluk);font-size:11px;margin-top:2px}
   .gorev.bitti{opacity:.55}
+  .chat-mesaj{max-width:75%;padding:8px 12px;border-radius:12px;margin-bottom:8px}
+  .chat-ben{align-self:flex-end;background:#1d3557;border:1px solid #2a4a7f}
+  .chat-ajan{align-self:flex-start;background:var(--kart);border:1px solid var(--sinir)}
+  .chat-zaman{font-size:10px;color:var(--soluk);margin-top:3px}
+  .term{flex:1;background:#0a0c10;border-radius:8px;padding:12px;font:12px/1.7 ui-monospace,Consolas,monospace;color:#9fd3a8;overflow-y:auto}
+  .urlbar{display:flex;gap:8px;margin-bottom:8px}
+  .urlbar input{flex:1;margin-bottom:0}
+  .dosyalar{display:grid;grid-template-columns:220px 1fr;gap:12px;flex:1;min-height:0}
+  .agac{background:var(--kart);border:1px solid var(--sinir);border-radius:8px;padding:10px;font-size:12px;overflow-y:auto}
+  .agac div{padding:2px 0;color:var(--soluk);cursor:pointer}
+  .agac div:hover{color:var(--metin)}
 </style>
 </head>
 <body>
-<div class="mockup-serit">MOCKUP v3 — IDE yerleşimi (rail + panel + sayfa + composer) · tüm veriler örnektir (T) · K-0019/K-0020</div>
+<div class="mockup-serit">MOCKUP v4 — rail→panel · orta: VS Code sekmeleri (+ terminal/url/dosya/ajan) · chat varsayılan · composer her sekmede sabit · veriler örnektir (T)</div>
 <div class="govde">
   <nav class="rail" id="rail">
-    <a href="#/doktor" class="aktif"><span class="iko">🩺</span>Doktor</a>
-    <a href="#/orkestrasyon"><span class="iko">🎛</span>Orkestr.</a>
-    <a href="#/canli"><span class="iko">👁</span>Canlı</a>
-    <a href="#/galeri"><span class="iko">🖼</span>Galeri</a>
-    <a href="#/arkayuz"><span class="iko">⚙</span>Arka yüz</a>
+    <a data-p="doktor" class="aktif"><span class="iko">🩺</span>Doktor</a>
+    <a data-p="orkestrasyon"><span class="iko">🎛</span>Orkestr.</a>
+    <a data-p="canli"><span class="iko">👁</span>Canlı</a>
+    <a data-p="galeri"><span class="iko">🖼</span>Galeri</a>
+    <a data-p="arkayuz"><span class="iko">⚙</span>Arka yüz</a>
   </nav>
-  <aside class="panel">
+  <aside class="panel" id="panel">
     <div class="pbolum acik" data-sekme="doktor">
       <h2 style="font-size:13px">Workspace</h2>
       <select><option>speakrapid</option><option>agentic-starter</option><option>txt-to-cad</option><option>paseo-plugin</option></select>
@@ -75,7 +97,7 @@
       <div class="satir"><span>Aktif ajan</span><b>2</b></div>
     </div>
     <div class="pbolum" data-sekme="orkestrasyon">
-      <div class="mini-metrik"><span>Perf <b>93</b></span><span>LCP <b style="color:var(--sari)">2.9s</b></span><span>CLS <b>0.02</b></span><span>INP <b>110ms</b></span><span>SEO <b>100</b></span></div>
+      <div class="mini-metrik"><span>Perf <b>93</b></span><span>LCP <b style="color:var(--sari)">2.9s</b></span><span>CLS <b>0.02</b></span><span>SEO <b>100</b></span></div>
       <div class="gorev-grup">Aktif (1)</div>
       <div class="gorev"><div class="ust"><b>S9 · Veo gerçek çağrı</b><span class="hap ok">aktif</span></div><div class="alt">coder · kimi-K3 · ATÖLYE · kalan 1s 40d · token 340k/500k · 2dk önce</div></div>
       <div class="gorev-grup">Onay bekliyor (1)</div>
@@ -85,7 +107,7 @@
       <div class="gorev-grup">Pasif (1)</div>
       <div class="gorev"><div class="ust"><b>S12 · Lokalizasyon</b><span class="hap notr">pasif</span></div><div class="alt">ajan açık, emir gönderilmiyor</div></div>
       <div class="gorev-grup">Bitenler (14)</div>
-      <div class="gorev bitti"><div class="ust"><b>S1–S7 · tamam</b><span class="hap ok">bitti</span></div><div class="alt">son: S7 · kanıt 3f9a1c2 · kalan: 4 görev</div></div>
+      <div class="gorev bitti"><div class="ust"><b>S1–S7 · tamam</b><span class="hap ok">bitti</span></div><div class="alt">son: S7 · kanıt 3f9a1c2</div></div>
     </div>
     <div class="pbolum" data-sekme="canli">
       <h2 style="font-size:13px">Workspace</h2>
@@ -106,34 +128,49 @@
       <div class="satir"><span>Satır</span><b>son 50</b></div>
     </div>
   </aside>
-  <main class="sayfa">
-    <div class="bolum acik" data-sekme="doktor">
-      <h2>Doktor — speakrapid <span class="hap ok">sunucu: çalışıyor :5050</span> <span class="hap uyari">1 SARI</span></h2>
-      <div class="izgara">
-        <div class="kart"><h3>LOC hızı (14g)</h3><div class="buyuk">+3,2k/gün</div><div class="cubuk"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:90%"></i></div></div>
-        <div class="kart"><h3>Görevler</h3><div class="satir"><span>Biten (sprint 8)</span><b>14</b></div><div class="satir"><span>Sıradaki</span><b>Faz H · Veo BYOK</b></div><div class="satir"><span>Kalan iş</span><b>5 görev · (T) ~2 hf</b></div></div>
-        <div class="kart"><h3>Teknik borç / drift</h3><div class="satir"><span>TODO yoğunluğu</span><span class="hap ok">0</span></div><div class="satir"><span>Mimari drift</span><span class="hap uyari">core↔engines</span></div><div class="satir"><span>Fake green</span><span class="hap ok">sinyal yok</span></div></div>
-        <div class="kart"><h3>Lighthouse / CWV</h3><div class="satir"><span>Perf</span><b>93</b></div><div class="satir"><span>LCP</span><b style="color:var(--sari)">2.9s &gt; 2.5</b></div><div class="satir"><span>SEO/A11y</span><b>100/100</b></div></div>
-        <div class="kart"><h3>Sözleşme uyumu (SES)</h3><div class="buyuk">92<span style="font-size:13px;color:var(--soluk)">/100</span></div><div class="satir"><span>SKS trend</span><span class="hap ok">6,95→7,3 ↑</span></div></div>
-        <div class="kart"><h3>Token (bugün)</h3><div class="satir"><span>In / Out</span><b>12,4M / 86k</b></div><div class="satir"><span>Cache-hit</span><b>%96,4</b></div><div class="satir"><span>İstek</span><b>148</b></div></div>
-        <div class="kart"><h3>Çalışma süresi</h3><div class="buyuk">6s 12d</div><div class="satir"><span>Ort. tur</span><b>1s 48sn</b></div></div>
-        <div class="kart"><h3>Hiza + hijyen</h3><div class="satir"><span>doc↔kod↔plan</span><span class="hap ok">hizalı</span></div><div class="satir"><span>Atıl yük</span><span class="hap uyari">_tmp 855 dosya</span></div><div class="satir"><span>Kod / plan kalitesi</span><b>7,3 / 6,8</b></div></div>
-      </div>
+  <div class="orta">
+    <div class="tabbar" id="tabbar"></div>
+    <div class="icerik" id="icerik"></div>
+    <div class="composer">
+      <input id="composerInput" placeholder="Görev yaz veya komut: /mod atolye · /emir s9 … (mockup — chat'e düşer)">
+      <span class="ipucu">composer her sekmede sabit</span>
+      <button id="composerBtn">Gönder</button>
     </div>
-    <div class="bolum" data-sekme="orkestrasyon">
-      <h2>Emir oluştur</h2>
-      <div class="kart">
-        <select><option>Manager LLM: kimi-K3 (önerilen)</option><option>GLM 5.3</option><option>deepseek-v4-pro</option><option>Claude Opus 4.8 (PAYG)</option></select>
-        <select><option>Mod: ATÖLYE (süre bazlı limitsiz)</option><option>MATBAA (istek bazlı)</option><option>CERRAH (token bazlı)</option><option>SERBEST</option></select>
-        <select><option>Yetki: yaratici-worktree</option><option>salt-okur (asla edit yok)</option><option>raporcu (yalnız raporlar/)</option><option>planlayici (yalnız plans/)</option><option>yaratici-ana (tek yazıcı)</option></select>
-        <select><option>İletişim: kapalı (varsayılan)</option><option>yalnız-manager (hub)</option><option>eşler-arası (mesh)</option></select>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <input placeholder="Bitiş: 23:00"><input placeholder="Token tavanı: 500k">
-          <input placeholder="Kapsam: sprint 1-9"><input placeholder="Tur tavanı: 20">
-          <input placeholder="Önceki görev (once): s8" style="grid-column:1/3">
-        </div>
-        <button>JSON üret</button> <button class="ikincil">Onayla ve kuyruğa</button>
-        <pre>{
+  </div>
+</div>
+
+<template id="tpl-chat">
+  <div class="chat-mesaj chat-ajan">Günaydın — dünkü kapanış: v0.11 kilitli, 196 test yeşil. Bugün ne var?<div class="chat-zaman">09:12 · ajan</div></div>
+  <div class="chat-mesaj chat-ben">S9 Veo'yu başlat, S8'e bağlı zincir olsun.<div class="chat-zaman">09:14 · siz</div></div>
+  <div class="chat-mesaj chat-ajan">Emir taslağı hazır: once=["s8"], tavan 500k token. Onayınızı bekliyor (panelde "Onay bekliyor").<div class="chat-zaman">09:14 · ajan</div></div>
+</template>
+<template id="tpl-doktor">
+  <h2>Doktor — speakrapid <span class="hap ok">sunucu: çalışıyor :5050</span> <span class="hap uyari">1 SARI</span></h2>
+  <div class="izgara">
+    <div class="kart"><h3>LOC hızı (14g)</h3><div class="buyuk">+3,2k/gün</div><div class="cubuk"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:90%"></i></div></div>
+    <div class="kart"><h3>Görevler</h3><div class="satir"><span>Biten (sprint 8)</span><b>14</b></div><div class="satir"><span>Sıradaki</span><b>Faz H · Veo BYOK</b></div><div class="satir"><span>Kalan iş</span><b>5 görev · (T) ~2 hf</b></div></div>
+    <div class="kart"><h3>Teknik borç / drift</h3><div class="satir"><span>TODO yoğunluğu</span><span class="hap ok">0</span></div><div class="satir"><span>Mimari drift</span><span class="hap uyari">core↔engines</span></div><div class="satir"><span>Fake green</span><span class="hap ok">sinyal yok</span></div></div>
+    <div class="kart"><h3>Lighthouse / CWV</h3><div class="satir"><span>Perf</span><b>93</b></div><div class="satir"><span>LCP</span><b style="color:var(--sari)">2.9s &gt; 2.5</b></div><div class="satir"><span>SEO/A11y</span><b>100/100</b></div></div>
+    <div class="kart"><h3>Sözleşme uyumu (SES)</h3><div class="buyuk">92<span style="font-size:13px;color:var(--soluk)">/100</span></div><div class="satir"><span>SKS trend</span><span class="hap ok">6,95→7,3 ↑</span></div></div>
+    <div class="kart"><h3>Token (bugün)</h3><div class="satir"><span>In / Out</span><b>12,4M / 86k</b></div><div class="satir"><span>Cache-hit</span><b>%96,4</b></div><div class="satir"><span>İstek</span><b>148</b></div></div>
+    <div class="kart"><h3>Çalışma süresi</h3><div class="buyuk">6s 12d</div><div class="satir"><span>Ort. tur</span><b>1s 48sn</b></div></div>
+    <div class="kart"><h3>Hiza + hijyen</h3><div class="satir"><span>doc↔kod↔plan</span><span class="hap ok">hizalı</span></div><div class="satir"><span>Atıl yük</span><span class="hap uyari">_tmp 855 dosya</span></div><div class="satir"><span>Kod / plan kalitesi</span><b>7,3 / 6,8</b></div></div>
+  </div>
+</template>
+<template id="tpl-emir">
+  <h2>Emir oluştur</h2>
+  <div class="kart">
+    <select><option>Manager LLM: kimi-K3 (önerilen)</option><option>GLM 5.3</option><option>deepseek-v4-pro</option><option>Claude Opus 4.8 (PAYG)</option></select>
+    <select><option>Mod: ATÖLYE (süre bazlı limitsiz)</option><option>MATBAA (istek bazlı)</option><option>CERRAH (token bazlı)</option><option>SERBEST</option></select>
+    <select><option>Yetki: yaratici-worktree</option><option>salt-okur (asla edit yok)</option><option>raporcu (yalnız raporlar/)</option><option>planlayici (yalnız plans/)</option><option>yaratici-ana (tek yazıcı)</option></select>
+    <select><option>İletişim: kapalı (varsayılan)</option><option>yalnız-manager (hub)</option><option>eşler-arası (mesh)</option></select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <input placeholder="Bitiş: 23:00"><input placeholder="Token tavanı: 500k">
+      <input placeholder="Kapsam: sprint 1-9"><input placeholder="Tur tavanı: 20">
+      <input placeholder="Önceki görev (once): s8" style="grid-column:1/3">
+    </div>
+    <button>JSON üret</button> <button class="ikincil">Onayla ve kuyruğa</button>
+    <pre>{
   "emir": "S9 Veo",
   "ajanlar": [{"rol":"coder","model":"kimi-K3","mod":"ATOLYE",
     "yetki":"yaratici-worktree","iletisim":"yalniz-manager",
@@ -141,43 +178,80 @@
   "once":["s8"],
   "kapanis":{"rapor":"raporlar/s9/","onay":"kullanici"}
 }</pre>
-      </div>
-    </div>
-    <div class="bolum" data-sekme="canli">
-      <h2>Canlı Önyüz</h2>
-      <div class="kart" style="margin-bottom:12px"><button>Başlat</button> <button class="ikincil">Durdur</button></div>
-      <div class="onizleme">uygulama önizlemesi (proxyUrl iframe) — sunucu başlatınca dolar</div>
-    </div>
-    <div class="bolum" data-sekme="galeri">
-      <h2>Galeri — mockup + PNG</h2>
-      <div class="galeri">
-        <div class="kare" style="background:linear-gradient(135deg,#6aa9ff,#9f7bff)">admin v5.8</div>
-        <div class="kare" style="background:linear-gradient(135deg,#4caf7d,#2e7d5b)">öğrenci mobil</div>
-        <div class="kare" style="background:linear-gradient(135deg,#d9a13b,#b0622a)">editör dock</div>
-        <div class="kare" style="background:linear-gradient(135deg,#e05c5c,#8a2f4d)">onboarding</div>
-        <div class="kare" style="background:linear-gradient(135deg,#7b8cff,#3b4a8c)">şablonlar</div>
-        <div class="kare" style="background:linear-gradient(135deg,#43b8c9,#2a6d78)">ses stüdyosu</div>
-      </div>
-    </div>
-    <div class="bolum" data-sekme="arkayuz">
-      <h2>Arka Yüz — ham telemetri</h2>
-      <div class="log">[09:41:02] tur-33 tamam · in=83,2k cache=%98 · out=355 · 1s12sn<br>[09:41:02] bekçi: anomali yok · gelen-kutu: 1 bekleyen (speakrapid)<br>[09:39:18] mod=ATOLYE · thinking=high · provider=codex/kimi-K3<br>[09:36:44] saglik: 17 OK · 0 EKSIK · 1 SARI (kural 76)<br>[09:30:11] gelen-kutu ← speakrapid: "collab spawn enjeksiyon dışı" (yüksek)</div>
-    </div>
-  </main>
-</div>
-<div class="composer">
-  <input placeholder="Görev yaz veya komut: /mod atolye · /emir s9 … (mockup — gönderme yok)">
-  <span class="ipucu">Enter = kuyruk taslağı</span>
-  <button>Gönder</button>
-</div>
+  </div>
+</template>
+<template id="tpl-terminal">
+  <div class="term">PS D:\Vibecode\paseo-verimlilik&gt; npm test<br>ok: enjeksiyon: rol blogu cekirdek sonrasi duser<br>ok: tur kaydi model tasir: gpt-6.1-sol<br>…<br>TUM TESTLER GECTI (196)<br><br>PS D:\Vibecode\paseo-verimlilik&gt; <span style="color:#fff">▊</span></div>
+</template>
+<template id="tpl-url">
+  <div class="urlbar"><input value="http://127.0.0.1:5050" readonly><button class="ikincil">Yenile</button></div>
+  <div class="onizleme">URL önizlemesi (iframe) — canlı sunucuda dolar</div>
+</template>
+<template id="tpl-dosyalar">
+  <div class="dosyalar">
+    <div class="agac"><b style="color:var(--metin)">paseo-verimlilik</b><div>├─ server/ (18)</div><div>│&nbsp;&nbsp;├─ modlar.ts</div><div>│&nbsp;&nbsp;├─ telemetry.ts</div><div>│&nbsp;&nbsp;└─ bekci.ts</div><div>├─ client/</div><div>├─ shared/</div><div>└─ test/dedektor.test.ts</div></div>
+    <pre>export const MODLAR: Record&lt;ModAd, Mod&gt; = {
+  atolye: { thinking: "ultra", paralellik: 6, … },
+  …</pre>
+  </div>
+</template>
+<template id="tpl-ajan">
+  <div class="onizleme">Ajanın atadığı sayfa — ajan, işi için özel görünüm açar (örn. Doktor, emir özeti, diff görünümü)</div>
+</template>
+
 <script>
-  const PB={};document.querySelectorAll('.pbolum').forEach(s=>PB[s.dataset.sekme]=s);
-  const SB={};document.querySelectorAll('.bolum').forEach(s=>SB[s.dataset.sekme]=s);
-  function rota(){const h=(location.hash||'#/doktor').slice(2);
-    Object.values(PB).forEach(s=>s.classList.remove('acik'));(PB[h]||PB.doktor).classList.add('acik');
-    Object.values(SB).forEach(s=>s.classList.remove('acik'));(SB[h]||SB.doktor).classList.add('acik');
-    document.querySelectorAll('.rail a').forEach(a=>a.classList.toggle('aktif',a.hash==='#/'+h));}
-  addEventListener('hashchange',rota);rota();
+// Rail -> SADECE panel degisir (orta sayfa dokunulmaz)
+const PB={};document.querySelectorAll('.pbolum').forEach(s=>PB[s.dataset.sekme]=s);
+document.querySelectorAll('.rail a').forEach(a=>a.addEventListener('click',()=>{
+  document.querySelectorAll('.rail a').forEach(x=>x.classList.remove('aktif'));a.classList.add('aktif');
+  Object.values(PB).forEach(s=>s.classList.remove('acik'));PB[a.dataset.p].classList.add('acik');
+}));
+
+// VS Code tarzi sekme yonetimi
+const tabbar=document.getElementById('tabbar'), icerik=document.getElementById('icerik');
+let sayac=0, aktifId=null;
+const TUR={chat:['💬','Sohbet','tpl-chat'],doktor:['🩺','Doktor','tpl-doktor'],emir:['🎛','Emir','tpl-emir'],terminal:['▶','Terminal','tpl-terminal'],url:['🌐','URL','tpl-url'],dosyalar:['📁','Dosyalar','tpl-dosyalar'],ajan:['🤖','Ajan sayfası','tpl-ajan']};
+const sekmeler=new Map();
+
+function sekmeAc(tur,baslik){
+  const id='sek'+(++sayac);
+  const t=TUR[tur];
+  const tab=document.createElement('div');tab.className='tab';tab.dataset.id=id;
+  tab.innerHTML='<span>'+t[0]+'</span><span>'+(baslik||t[1])+'</span>'+(tur==='chat'?'':'<span class="x">✕</span>');
+  tab.addEventListener('click',(e)=>{if(e.target.classList.contains('x')){sekmeKapat(id);}else{sekmeSec(id);}});
+  const yuzey=document.createElement('div');yuzey.className='yuzey';yuzey.dataset.id=id;
+  yuzey.appendChild(document.getElementById(t[2]).content.cloneNode(true));
+  tabbar.insertBefore(tab,tabbar.querySelector('.arti'));
+  icerik.appendChild(yuzey);
+  sekmeler.set(id,{tab,yuzey,tur});
+  sekmeSec(id);
+}
+function sekmeSec(id){aktifId=id;sekmeler.forEach((s,k)=>{s.tab.classList.toggle('aktif',k===id);s.yuzey.classList.toggle('acik',k===id);});}
+function sekmeKapat(id){const s=sekmeler.get(id);if(!s)return;s.tab.remove();s.yuzey.remove();sekmeler.delete(id);
+  if(aktifId===id){const k=sekmeler.keys().next().value;if(k)sekmeSec(k);}}
+
+// + menusu
+const arti=document.createElement('div');arti.className='tab arti';arti.textContent='+';
+const menu=document.createElement('div');menu.className='arti-menu';
+menu.innerHTML='<div data-t="terminal">▶ Terminal</div><div data-t="url">🌐 URL</div><div data-t="dosyalar">📁 Local files</div><div data-t="ajan">🤖 Ajanın atadığı sayfa</div>';
+arti.addEventListener('click',(e)=>{const r=arti.getBoundingClientRect();menu.style.left=r.left+'px';menu.style.top=(r.bottom+4)+'px';menu.classList.toggle('acik');e.stopPropagation();});
+menu.querySelectorAll('div').forEach(d=>d.addEventListener('click',()=>{menu.classList.remove('acik');sekmeAc(d.dataset.t);}));
+document.addEventListener('click',()=>menu.classList.remove('acik'));
+tabbar.appendChild(arti);document.body.appendChild(menu);
+
+// Composer: sabit, aktif sekmeye bagimsiz; chat'e duser
+const inp=document.getElementById('composerInput');
+function gonder(){const m=inp.value.trim();if(!m)return;
+  const chatYuzey=[...sekmeler.values()].find(s=>s.tur==='chat');
+  if(chatYuzey){const d=document.createElement('div');d.className='chat-mesaj chat-ben';d.innerHTML=m.replace(/</g,'&lt;')+'<div class="chat-zaman">şimdi · siz</div>';chatYuzey.yuzey.appendChild(d);
+    const c=document.createElement('div');c.className='chat-mesaj chat-ajan';c.innerHTML='Taslak kuyruğa eklendi (T) — onay panelde.<div class="chat-zaman">şimdi · ajan</div>';chatYuzey.yuzey.appendChild(c);
+    chatYuzey.yuzey.scrollTop=1e6;}
+  inp.value='';}
+document.getElementById('composerBtn').addEventListener('click',gonder);
+inp.addEventListener('keydown',e=>{if(e.key==='Enter')gonder();});
+
+// Varsayilan acilis: Sohbet + Doktor + Emir
+sekmeAc('chat');sekmeAc('doktor');sekmeAc('emir');sekmeSec('sek1');
 </script>
 </body>
 </html>
