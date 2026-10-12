@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandı). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 · K-0019+K-0020 TASLAKLARI yazıldı (kullanıcı ekleriyle): pano iskeleti (gömülü HTML + node:http 4377 + TTL önbellek) · görev emri (sıralı zincir `once:[id]` + durum modeli taslak/onay-bekliyor/aktif/pasif/bitti + sol panel: Lighthouse şeridi + sağlık rozetleri + biten/kalan listesi) — kullanıcı onayı bekleniyor
 - 2026-10-12 13:40 · HANDOFF-2026-10-12-1336 yazıldı (reviewer 3ff75fe devir töreni) · Ek A: reviewer ham metni + coder doğrulaması — 4 referanstan 2'si hayalet (a6b02d5, durtme-0736.md) · reviewer onay listesi bayat (K-0013→18 tamam)
 - 2026-10-12 · v0.11 KİLİT (plugin 277df7c, tag v0.11-kilit, 196 test yeşil): K-0018 Provider-Modlar uygulandı — server/modlar.ts (gömülü eşleşme: kimi→atolye, glm/deepseek→cerrah) + ayar.json ek-listesi + .verimlilik/mod.json disk state + before-hook thinkingOptionId+systemPrompt + /mod slash komutu + telemetri mod alanı + Context Rot freni (contextWindow ≥%80, 30dk cooldown) + proje-panosu v1.1 Mod Metrikleri (Is/Saat · Is/1kToken · Fail%)
 - 2026-10-12 · K-0018 ONAYLANDI: Provider-Modlar (ATÖLYE/MATBAA/CERRAH/SERBEST) · coder incelemesi karar metninde (5 bulgu: istek-metriği vekili, çift-ajan sınırı, contextWindow alanlarıyla Context Rot freni bedava, scope önerisi, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
@@ -35,7 +36,7 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandı). — K-0013/K-0014 gün-i
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-Yok (K-0018 onaylandı; uygulama v0.11 konusu, ayrı onay ister — açık sorular v0.11 başlangıcında kararlaşacak).
+- K-0019 + K-0020 (TASLAK): pano iskeleti + görev emri orkestrasyonu (sıralı zincir, durum modeli, sol panel) · açık sorular karar metinlerinde · uygulama v0.12+, ayrı onay ister
 
 ## v2.1 backlog
 - v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.
