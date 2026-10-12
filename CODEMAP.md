@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 4670e15 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD a011697 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
