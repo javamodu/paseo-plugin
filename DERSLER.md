@@ -5,7 +5,7 @@
 - "$anchor" çift tırnak içinde $ değişkeni interpolasyon yapar — eşleştirme metinlerini tek tırnakla tanımla.
 - 130 satır markdown ≈ 4-5k token (Aider'in 1k token bütçesi yoğun kod sembolleri içindir; doküman haritası daha hacimli).
 - Git post-commit hook testi temp repoda 5 dakikada kanıtlanır (HEAD damgalı CODEMAP üretildi).
-- gh repo create stderr'e yazar; PowerShell NativeCommandError sanabilir — ls-remote ile doğrula.
+- gh/git gibi araçlar stderr'e BİLGİ de yazar; PS'te `2>&1` ile birleştirirsen NativeCommandError → exit 1 (push başarılıyken kırmızı görünür). Kural: push'a `2>&1` EKLEME; doğrulamayı ayrı komutla yap (`git log origin/main --oneline -1` / `ls-remote`). Kanıt: v0.10 turunda 3 'başarısız' çağrının tamamı buydu.
 - apply_patch argv'sinde çok satırlı argüman bu ortamda bozuluyor ("last line" hatası) → regex::Escape + tekil-eşleşme-şartlı Replace deseni kullan.
 - Subagent araştırma raporundaki (R) etiketler reviewer denetimi olmadan karar gerekçesi yapılmaz (N=80 çöküşü doğrulanamadı, (T)'ye düştü).
 - Araştırma ajanı mevcut kuralı "eksik" sayabilir — §8 paralellik tavanı varken eklenti önerildi; önce repo'dan doğrula.
