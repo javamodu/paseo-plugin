@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 75398d7 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 4365d15 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -45,7 +45,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `plans\handoff\HANDOFF-2026-10-12-1336.md` (5.8KB) — HANDOFF-2026-10-12-1336 — reviewer (3ff75fe) kapanışı + coder gün bilançosu | Reviewer bilançosu düzeltmesi (coder disk doğrulaması — kural 5) | Reviewer oturumunun kapanışları (reviewer tuttu, coder doğruladı)
-- `plans\mockup\DESIGN.md` (3.2KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v7) | 1. Tokenlar | 2. Yerleşim
+- `plans\mockup\DESIGN.md` (3.3KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v8) | 1. Tokenlar | 2. Yerleşim
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)

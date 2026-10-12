@@ -1,4 +1,4 @@
-# DESIGN.md — Pano Mockup Tasarım Sistemi (v7)
+# DESIGN.md — Pano Mockup Tasarım Sistemi (v8)
 
 Kapsam: `plans/mockup/pano-mockup-2026-10-12.html` — tek dosya vanilla, bağımlılık yok.
 İlkeler: big/bold/clean · uyarı bandı yok · **emoji yok** (ikonlar inline SVG) · sistem fontu · sıfır dış istek.
@@ -20,7 +20,7 @@ Tipografi: gövde 15px · h2 22px/800 · hero 52px/800 (mobil 34px) · `.buyuk` 
 - **İki panel de resize**: sol 220–480 (sol-handle), sağ 240–560 (sag-handle); ortak `surukleKur()`.
 - Tabbar: sekmeler solda, "+" yanında, **panel toggle en sağda** (margin-left:auto + appendChild sırası).
 - Composer: ortalı 780px sütun; üstte mod segmenti + durum çipleri; pill içinde attach/mic/send.
-- Sağ panel varsayılan sekmesi: **Pano** (tek bakışta tüm metrikler).
+- Sağ panel varsayılan sekmesi: **Pano** (one-view: donut SES, LOC barları, tüm Doktor metrikleri 2 sütun yoğun grid).
 
 ## 3. Composer modları (5)
 | Mod | Yapar | Yapamaz |
@@ -34,7 +34,7 @@ Varsayılan: manager. Mod placeholder'ı ve sahte yanıtı `MODLAR` sözlüğün
 
 ## 4. Veri-odaklı mimari (AI ile genişletme)
 Markup değil **veri** düzenlenir:
-- `VERI.planlar` → Plan paneli (Excel-satır, ID'li, sprint akordiyonu)
+- `VERI.planlar` → Plan paneli (Excel-satır, ID'li, **Faz → Sprint → Alt görev** akordiyonu; **Dalga = satır rozeti (D1/D2), ağaç katmanı değildir**)
 - `VERI.gorevler` → Orkestrasyon görev listesi → tıkla → orta "Görev" detay sekmesi
 - `MODLAR` → composer modları · `RAIL` → rail öğeleri · `SAG` → sağ sekmeler · `TUR` → orta sekme türleri · `I{}` → ikonlar
 Yeni X eklemek = ilgili sözlüğe/diziye kayıt (+ X'in türüyse `<template id="tpl-X">`).

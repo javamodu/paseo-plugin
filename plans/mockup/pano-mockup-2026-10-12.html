@@ -23,7 +23,7 @@
   .rail a svg{width:19px;height:19px}
   .rail a.aktif{color:var(--metin);background:var(--kart2)}
   /* === 4. Sol panel === */
-  .panel{width:320px;min-width:220px;max-width:480px;background:transparent;border-right:1px solid var(--sinir);overflow-y:auto;padding:16px;position:relative;flex:0 0 auto}
+  .panel{width:320px;min-width:220px;max-width:480px;background:transparent;border-right:1px solid var(--sinir);overflow-y:auto;padding:18px;position:relative;flex:0 0 auto}
   .panel .pbolum{display:none}.panel .pbolum.acik{display:block}
   .panel h2{font-size:14px}
   .sol-handle{position:absolute;right:0;top:0;bottom:0;width:6px;cursor:col-resize;z-index:5}
@@ -46,7 +46,7 @@
   .tab-toggle:hover{color:var(--metin)}
   .tab-toggle svg{width:14px;height:14px}
   /* === 6. Icerik === */
-  .icerik{flex:1;overflow-y:auto;padding:28px;min-height:0}
+  .icerik{flex:1;overflow-y:auto;padding:32px;min-height:0}
   .yuzey{display:none;height:100%}.yuzey.acik{display:flex;flex-direction:column}
   .sutun{max-width:780px;margin:0 auto;width:100%;display:flex;flex-direction:column}
   .hero{margin:5vh 0 30px}
@@ -98,7 +98,7 @@
   .ok{background:rgba(52,211,153,.12);color:var(--yesil)}.uyari{background:rgba(251,191,36,.12);color:var(--sari)}.kotu{background:rgba(248,113,113,.12);color:var(--kirmizi)}.notr{background:var(--kart2);color:var(--soluk)}
   .cubuk{display:flex;align-items:flex-end;gap:4px;height:64px;margin-top:10px}
   .cubuk i{flex:1;background:linear-gradient(180deg,var(--vurgu2),var(--vurgu));border-radius:4px 4px 0 0;opacity:.9}
-  .satir{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--sinir);font-size:13.5px}
+  .satir{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--sinir);font-size:13.5px}
   .satir:last-child{border-bottom:0}
   select,input,textarea{background:var(--kart2);color:var(--metin);border:1px solid var(--sinir);border-radius:10px;padding:9px 11px;width:100%;margin-bottom:8px;font-size:13.5px;font-family:inherit}
   select:focus,input:focus,textarea:focus{outline:1px solid var(--vurgu)}
@@ -114,7 +114,7 @@
   .mini-metrik{display:flex;gap:12px;flex-wrap:wrap;background:var(--kart);border:1px solid var(--sinir);border-radius:12px;padding:9px 13px;margin-bottom:12px;font-size:12.5px}
   .gorev-grup{font-size:11.5px;color:var(--soluk);text-transform:uppercase;letter-spacing:.6px;margin:14px 0 6px;font-weight:700}
   .zincir{color:var(--vurgu2);font-weight:700;padding:0 4px}
-  .gorev{padding:11px 13px;border:1px solid var(--sinir);border-radius:12px;margin-bottom:8px;background:var(--kart)}
+  .gorev{padding:12px 14px;border:1px solid var(--sinir);border-radius:12px;margin-bottom:8px;background:var(--kart)}
   .gorev .ust{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .gorev .alt{color:var(--soluk);font-size:12.5px;margin-top:3px}
   .gorev.bitti{opacity:.5}
@@ -144,6 +144,38 @@
   .chev{display:inline-block;transition:transform .15s;color:var(--soluk);margin-left:6px}
   .psprint.acik .chev{transform:rotate(90deg)}
   .palt{display:none}.palt.acik{display:block}
+  /* === 10.5 Pano one-view + plan derinlik === */
+  .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pkart{padding:12px}
+  .pkart h3{margin-bottom:8px}
+  .psat{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--sinir);font-size:12px}
+  .psat:last-child{border-bottom:0}
+  .pkalt{font-size:11px;color:var(--soluk);margin-top:6px;text-align:center}
+  .donut{width:58px;height:58px;border-radius:50%;background:conic-gradient(var(--vurgu) calc(var(--d)*1%),var(--kart2) 0);display:flex;align-items:center;justify-content:center;margin:2px auto}
+  .donut b{width:42px;height:42px;border-radius:50%;background:var(--kart);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+  .psprint.pfaz{background:var(--kart2);font-weight:800}
+  .psprint.pd1{padding-left:20px}
+  .psub.pd2{padding-left:38px}
+  .dalga{font-size:10px;color:var(--vurgu2);font-weight:700;margin-left:6px}
+  /* === 10.6 Plan full view + inline edit + DAG + select === */
+  .pmeta{font-size:11px;color:var(--soluk);margin-top:2px}
+  .pbar{height:3px;background:var(--kart2);border-radius:99px;margin-top:5px;overflow:hidden}
+  .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--vurgu),var(--vurgu2))}
+  .ped{background:var(--kart2);border:1px solid var(--vurgu);border-radius:6px;padding:2px 6px;font:inherit;color:var(--metin);width:95%;margin:0}
+  .pcol{min-width:0}
+  .fwrap{overflow-x:auto;padding:0}
+  .frow{display:grid;grid-template-columns:66px 1fr 80px 120px 90px 56px 90px;gap:10px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--sinir);font-size:13px;min-width:640px}
+  .frow:last-child{border-bottom:0}
+  .fhead{color:var(--soluk);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;background:var(--kart2)}
+  .frow.ffaz{background:var(--kart2);font-weight:800}
+  .fs1{padding-left:26px}.fs2{padding-left:44px}
+  .fbar{height:4px;background:var(--kart2);border-radius:99px;overflow:hidden}
+  .fbar i{display:block;height:100%;background:linear-gradient(90deg,var(--vurgu),var(--vurgu2))}
+  .fyuzde{font-size:11px;color:var(--soluk);margin-top:3px}
+  .dag{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .dag .dugum{background:var(--kart2);border:1px solid var(--sinir);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700}
+  .dag .ok-imb{color:var(--vurgu2);font-weight:800}
+  .mod-sec{width:auto;min-width:150px;margin:0;padding:8px 14px;border-radius:99px;font-weight:700;font-size:12.5px;background:var(--kart)}
   /* === 11. Responsive + dokunmatik === */
   .backdrop{position:fixed;inset:0;background:#000a;display:none;z-index:25}
   .backdrop.goster{display:block}
@@ -167,7 +199,7 @@
   <nav class="rail" id="rail"></nav>
   <aside class="panel" id="panel">
     <div class="sol-handle" id="solHandle"></div>
-    <div class="pbolum acik" data-sekme="doktor">
+    <div class="pbolum" data-sekme="doktor">
       <h2>Workspace</h2>
       <select><option>speakrapid</option><option>agentic-starter</option><option>txt-to-cad</option><option>paseo-plugin</option></select>
       <div class="gorev-grup">Sağlık rozetleri</div>
@@ -184,7 +216,7 @@
       <div class="gorev-grup">Görevler — detay için tıkla</div>
       <div id="gorevListe"></div>
     </div>
-    <div class="pbolum" data-sekme="plan">
+    <div class="pbolum acik" data-sekme="plan">
       <h2>Sprint planı</h2>
       <div class="ptablo" id="planListe"></div>
     </div>
@@ -213,7 +245,7 @@
     <div class="composer">
       <div class="composer-ic-wrap">
         <div class="composer-ust">
-          <div class="mod-serit" id="modSerit"></div>
+          <select id="modSec" class="mod-sec" title="Mod seçimi"></select>
           <div class="durum-serit"><span class="hap ok"><span class="nokta"></span>10 çalışıyor</span><span class="hap notr">+408 −13</span></div>
         </div>
         <div class="ek-serit" id="ekSerit"></div>
@@ -230,32 +262,52 @@
     <div class="sag-handle" id="sagHandle"></div>
     <div class="sagtabbar" id="sagTabbar"></div>
     <div class="sbolum acik" data-sp="pano">
-      <h2>Genel bakış</h2>
-      <div class="rozet-serit">
-        <span class="hap ok">borç 0</span><span class="hap uyari">drift 1</span><span class="hap ok">fake-green yok</span><span class="hap ok">hiza</span><span class="hap ok">uyum 92</span>
+      <h2>Pano — speakrapid</h2>
+      <div class="rozet-serit" style="margin-bottom:12px">
+        <span class="hap ok">sunucu :5050</span><span class="hap ok">borç 0</span><span class="hap uyari">drift 1</span><span class="hap ok">fake-green yok</span><span class="hap ok">hiza</span>
       </div>
-      <div class="kart" style="margin-bottom:10px"><h3>Sözleşme / ürün</h3>
-        <div class="satir"><span>SES</span><b>92</b></div>
-        <div class="satir"><span>SKS trend</span><span class="hap ok">6,95→7,3</span></div>
+      <div class="pgrid">
+        <div class="kart pkart">
+          <h3>Sözleşme (SES)</h3>
+          <div class="donut" style="--d:92"><b>92</b></div>
+          <div class="pkalt">SKS 6,95→7,3 ↑</div>
+        </div>
+        <div class="kart pkart">
+          <h3>LOC hızı (14g)</h3>
+          <div class="buyuk" style="font-size:20px">+3,2k/g</div>
+          <div class="cubuk" style="height:38px"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:90%"></i></div>
+        </div>
+        <div class="kart pkart"><h3>Bugün</h3>
+          <div class="psat"><span>Tur</span><b>33</b></div>
+          <div class="psat"><span>Kabul</span><b>%61</b></div>
+          <div class="psat"><span>Aktif ajan</span><b>2</b></div>
+        </div>
+        <div class="kart pkart"><h3>Token</h3>
+          <div class="psat"><span>In/Out</span><b>12,4M/86k</b></div>
+          <div class="psat"><span>Cache-hit</span><b>%96,4</b></div>
+          <div class="psat"><span>İstek</span><b>148</b></div>
+        </div>
+        <div class="kart pkart"><h3>Web (CWV)</h3>
+          <div class="psat"><span>Perf / SEO</span><b>93 / 100</b></div>
+          <div class="psat"><span>LCP</span><b style="color:var(--sari)">2.9s</b></div>
+          <div class="psat"><span>CLS</span><b>0.02</b></div>
+        </div>
+        <div class="kart pkart"><h3>Süre</h3>
+          <div class="buyuk" style="font-size:20px">6s 12d</div>
+          <div class="psat"><span>Ort. tur</span><b>1s 48sn</b></div>
+        </div>
+        <div class="kart pkart"><h3>Borç / drift</h3>
+          <div class="psat"><span>TODO</span><span class="hap ok">0</span></div>
+          <div class="psat"><span>Drift</span><span class="hap uyari">core↔eng</span></div>
+          <div class="psat"><span>Fake-green</span><span class="hap ok">yok</span></div>
+        </div>
+        <div class="kart pkart"><h3>Ajanlar</h3>
+          <div class="psat"><span>[coder] speakrapid</span><span class="hap ok">t12</span></div>
+          <div class="psat"><span>[bekçi] filo</span><span class="hap notr">izliyor</span></div>
+          <div class="psat"><span>Gelen kutu</span><span class="hap uyari">1 bekliyor</span></div>
+        </div>
       </div>
-      <div class="kart" style="margin-bottom:10px"><h3>Bugün</h3>
-        <div class="satir"><span>Tur</span><b>33</b></div>
-        <div class="satir"><span>Kabul</span><b>%61</b></div>
-        <div class="satir"><span>Token in/out</span><b>12,4M / 86k</b></div>
-        <div class="satir"><span>Cache-hit</span><b>%96,4</b></div>
-      </div>
-      <div class="kart" style="margin-bottom:10px"><h3>Web (CWV)</h3>
-        <div class="satir"><span>Perf / SEO</span><b>93 / 100</b></div>
-        <div class="satir"><span>LCP / CLS</span><b>2.9s / 0.02</b></div>
-      </div>
-      <div class="kart" style="margin-bottom:10px"><h3>LOC hızı (14g)</h3><div class="buyuk" style="font-size:24px">+3,2k/gün</div>
-        <div class="cubuk"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:90%"></i></div>
-      </div>
-      <div class="kart"><h3>Aktif ajanlar</h3>
-        <div class="satir"><span>[coder] speakrapid</span><span class="hap ok">tur 12</span></div>
-        <div class="satir"><span>[bekçi] filo</span><span class="hap notr">izliyor</span></div>
-      </div>
-      <div class="kaynak">örnek veri (T) · mockup v7</div>
+      <div class="kaynak">örnek veri (T) · mockup v8</div>
     </div>
     <div class="sbolum" data-sp="akis">
       <h2>Canlı akış</h2>
@@ -333,13 +385,24 @@ S11 Mock exam üretici — planlayici — SERBEST — once: S8</textarea>
   <h2><span data-f="ad">—</span> <span class="hap" data-f="durum">—</span></h2>
   <div class="kart" style="margin-bottom:14px">
     <div class="satir"><span>Rol / Model / Mod</span><b data-f="meta">—</b></div>
-    <div class="satir"><span>Önceki (zincir)</span><b data-f="once">—</b></div>
+    <div class="satir"><span>Ajanlar</span><b data-f="ajanlar">—</b></div>
+    <div class="satir"><span>Önceki (DAG)</span><b data-f="once">—</b></div>
     <div class="satir"><span>Sınır</span><b data-f="sinir">—</b></div>
+    <div class="satir"><span>Dizin kapsamı</span><b data-f="dizin">—</b></div>
+    <div class="satir"><span>İzin — oku</span><b data-f="izinOku">—</b></div>
+    <div class="satir"><span>İzin — edit</span><b data-f="izinEdit">—</b></div>
     <div class="satir"><span>Son aktivite</span><b data-f="son">—</b></div>
     <div class="satir"><span>Kapanış kanıtı</span><b data-f="kanit">—</b></div>
   </div>
   <h2>Detay</h2>
   <div class="kart"><p data-f="detay" style="color:var(--soluk)">—</p></div>
+</template>
+<template id="tpl-plan">
+  <h2>Plan — tam görünüm</h2>
+  <div class="kart" style="margin-bottom:14px"><h3>DAG — bağımlılık zincirleri</h3><div class="dag" id="dagSerit"></div></div>
+  <div class="mod-serit" id="temsilSec" style="margin-bottom:10px"></div>
+  <div class="kart fwrap" id="planTabloKart"><div class="fview" id="planFull"></div></div>
+  <pre id="planTemsil" style="display:none;max-height:420px"></pre>
 </template>
 <template id="tpl-terminal">
   <div class="term">PS D:\Vibecode\paseo-verimlilik&gt; npm test<br>ok: enjeksiyon: rol blogu cekirdek sonrasi duser<br>ok: tur kaydi model tasir: gpt-6.1-sol<br>…<br>TUM TESTLER GECTI (196)<br><br>PS D:\Vibecode\paseo-verimlilik&gt; <span style="color:#fff">▊</span></div>
@@ -388,22 +451,31 @@ const ikon=function(a){return I[a]||'';};
 /* === Veri (mockup — genisletme buradan) === */
 const VERI={
   planlar:[
-    {id:'S1-S7',ad:'Temel fazlar',durum:'bitti',alt:[{id:'S7.4',ad:'Kanıt arşivi',durum:'bitti'}]},
-    {id:'S8',ad:'Faz H önkoşul',durum:'aktif',acik:true,alt:[{id:'S8.1',ad:'Önkoşul şeması',durum:'bitti'},{id:'S8.2',ad:'Emir doğrulayıcı',durum:'aktif'},{id:'S8.3',ad:'Zincir testi',durum:'taslak'}]},
-    {id:'S9',ad:'Veo gerçek çağrı',durum:'onay',alt:[{id:'S9.1',ad:'BYOK anahtar yolu',durum:'taslak'},{id:'S9.2',ad:'Kota bekçisi',durum:'taslak'}]},
-    {id:'S10',ad:'Lokalizasyon',durum:'pasif',alt:[]}
+    {id:'F-G',ad:'Temel fazlar',durum:'bitti',sprintler:[
+      {id:'S1-S7',ad:'Kurulum + temel',durum:'bitti',loc:'+18,4k',alt:[{id:'S7.4',ad:'Kanıt arşivi',durum:'bitti',tamam:100,loc:'+340',dalga:2,bag:'S7.3'}]}]},
+    {id:'F-H',ad:'Veo entegrasyonu',durum:'aktif',acik:true,sprintler:[
+      {id:'S8',ad:'Önkoşul',durum:'aktif',acik:true,alt:[
+        {id:'S8.1',ad:'Önkoşul şeması',durum:'bitti',tamam:100,loc:'+1,2k',dalga:1,bag:'S7.4'},
+        {id:'S8.2',ad:'Emir doğrulayıcı',durum:'aktif',tamam:65,loc:'~800',dalga:2,bag:'S8.1'},
+        {id:'S8.3',ad:'Zincir testi',durum:'taslak',tamam:10,loc:'~400',dalga:2,bag:'S8.2'}]},
+      {id:'S9',ad:'Gerçek çağrı',durum:'onay',alt:[
+        {id:'S9.1',ad:'BYOK anahtar yolu',durum:'taslak',tamam:0,loc:'~600',bag:'S8'},
+        {id:'S9.2',ad:'Kota bekçisi',durum:'taslak',tamam:0,loc:'~300',bag:'S9.1'}]}]},
+    {id:'F-I',ad:'Yerelleştirme',durum:'pasif',sprintler:[
+      {id:'S10',ad:'Lokalizasyon',durum:'pasif',loc:'~2k',alt:[]}]}
   ],
+  dag:[['S7','S8'],['S8','S9'],['S9','S11']],
   gorevler:[
-    {id:'T1',ad:'S9 · Veo gerçek çağrı',durum:'aktif',rol:'coder',model:'kimi-K3',mod:'ATÖLYE',once:'S8',sinir:'token 340k/500k · bitiş 23:00',son:'2dk önce',kanit:'—',detay:'Veo BYOK çağrısının gerçek uçla koşusu. Kapanış: raporlar/s9/ + kullanıcı onayı.'},
-    {id:'T2',ad:'S8 · Faz H önkoşul',durum:'onay',rol:'coder',model:'kimi-K3',mod:'ATÖLYE',once:'S7',sinir:'—',son:'JSON hazır',kanit:'taslak',detay:'S9 zincirinin önkoşulu; şema doğrulaması bekleniyor. Onay panelde.'},
-    {id:'T3',ad:'S11 · Mock exam üretici',durum:'taslak',rol:'planlayici',model:'GLM 5.3',mod:'SERBEST',once:'—',sinir:'—',son:'—',kanit:'—',detay:'Şema eksik: kapanış kapısı tanımsız — önce emir tamamlanmalı.'},
-    {id:'T4',ad:'S12 · Lokalizasyon',durum:'pasif',rol:'coder',model:'—',mod:'—',once:'—',sinir:'—',son:'—',kanit:'—',detay:'Ajan açık, emir gönderilmiyor (pasif).'}
+    {id:'T1',ad:'S9 · Veo gerçek çağrı',durum:'aktif',rol:'coder',model:'kimi-K3',mod:'ATÖLYE',once:'S8',sinir:'token 340k/500k · bitiş 23:00',son:'2dk önce',kanit:'—',ajanlar:'coder-k3, reviewer-ds',dizin:'yalnız src/veo/',izinOku:'tüm repo',izinEdit:'src/veo, test/',detay:'Veo BYOK çağrısının gerçek uçla koşusu. Kapanış: raporlar/s9/ + kullanıcı onayı.'},
+    {id:'T2',ad:'S8 · Faz H önkoşul',durum:'onay',rol:'coder',model:'kimi-K3',mod:'ATÖLYE',once:'S7',sinir:'—',son:'JSON hazır',kanit:'taslak',ajanlar:'coder-k3',dizin:'contracts/',izinOku:'tüm repo',izinEdit:'contracts',detay:'S9 zincirinin önkoşulu; şema doğrulaması bekleniyor. Onay panelde.'},
+    {id:'T3',ad:'S11 · Mock exam üretici',durum:'taslak',rol:'planlayici',model:'GLM 5.3',mod:'SERBEST',once:'—',sinir:'—',son:'—',kanit:'—',ajanlar:'—',dizin:'—',izinOku:'—',izinEdit:'—',detay:'Şema eksik: kapanış kapısı tanımsız — önce emir tamamlanmalı.'},
+    {id:'T4',ad:'S12 · Lokalizasyon',durum:'pasif',rol:'coder',model:'—',mod:'—',once:'—',sinir:'—',son:'—',kanit:'—',ajanlar:'—',dizin:'—',izinOku:'—',izinEdit:'—',detay:'Ajan açık, emir gönderilmiyor (pasif).'}
   ]
 };
 const DURUM_HAP={bitti:'ok',aktif:'ok',onay:'uyari',taslak:'notr',pasif:'notr'};
 
 /* === Rail (JS render) === */
-const RAIL=[['doktor','Doktor','pulse'],['orkestrasyon','Orkestr.','graph'],['plan','Plan','list'],['canli','Canlı','eye'],['galeri','Galeri','image'],['arkayuz','Arka yüz','sliders']];
+const RAIL=[['plan','Plan','list'],['doktor','Doktor','pulse'],['orkestrasyon','Orkestr.','graph'],['canli','Canlı','eye'],['galeri','Galeri','image'],['arkayuz','Arka yüz','sliders']];
 const rail=document.getElementById('rail');
 RAIL.forEach(function(r,i){const a=document.createElement('a');a.dataset.p=r[0];if(i===0)a.classList.add('aktif');a.innerHTML=ikon(r[2])+'<span>'+r[1]+'</span>';rail.appendChild(a);});
 const PB={};document.querySelectorAll('.pbolum').forEach(function(s){PB[s.dataset.sekme]=s;});
@@ -419,7 +491,7 @@ backdrop.addEventListener('click',function(){panel.classList.remove('acik');back
 /* === Sekme yonetimi === */
 const tabbar=document.getElementById('tabbar'), icerik=document.getElementById('icerik');
 let sayac=0, aktifId=null;
-const TUR={chat:['chat','Sohbet','tpl-chat'],doktor:['pulse','Doktor','tpl-doktor'],emir:['graph','Emir','tpl-emir'],gorev:['doc','Görev','tpl-gorev'],terminal:['terminal','Terminal','tpl-terminal'],url:['globe','URL','tpl-url'],dosyalar:['folder','Dosyalar','tpl-dosyalar'],ajan:['chip','Ajan sayfası','tpl-ajan']};
+const TUR={chat:['chat','Sohbet','tpl-chat'],doktor:['pulse','Doktor','tpl-doktor'],emir:['graph','Emir','tpl-emir'],plan:['list','Plan','tpl-plan'],gorev:['doc','Görev','tpl-gorev'],terminal:['terminal','Terminal','tpl-terminal'],url:['globe','URL','tpl-url'],dosyalar:['folder','Dosyalar','tpl-dosyalar'],ajan:['chip','Ajan sayfası','tpl-ajan']};
 const sekmeler=new Map();
 function sekmeAc(tur,baslik){
   const id='sek'+(++sayac);
@@ -451,21 +523,54 @@ tabbar.appendChild(arti);document.body.appendChild(menu);
 tabbar.appendChild(document.getElementById('sagToggle'));
 document.getElementById('sagToggle').innerHTML=ikon('panel')+'Panel';
 
-/* === Plan tablosu (excel-satir + akordiyon) === */
+/* === Plan tablosu: faz > sprint > gorev akordiyon · %tamam/LOC · yaprak satirda inline edit === */
+function tamamHesapla(o){
+  if(o.alt&&o.alt.length)return Math.round(o.alt.reduce(function(t,x){return t+(x.tamam||0);},0)/o.alt.length);
+  if(o.sprintler&&o.sprintler.length){const s=o.sprintler.map(tamamHesapla);return Math.round(s.reduce(function(a,b){return a+b;},0)/s.length);}
+  return o.tamam||0;
+}
+function akorSatir(o,cls){
+  const b=document.createElement('button');
+  b.className='prow '+cls+(o.acik?' acik':'');
+  const t=tamamHesapla(o);
+  b.innerHTML='<span class="pid">'+o.id+'</span><span class="pcol"><span>'+o.ad+'</span><span class="chev">›</span><span class="pmeta">%'+t+' tamam</span><span class="pbar"><i style="width:'+t+'%"></i></span></span><span class="hap '+(DURUM_HAP[o.durum]||'notr')+'">'+o.durum+'</span>';
+  return b;
+}
+function yaprakSatir(a,cls){
+  const r=document.createElement('div');
+  r.className='prow '+cls+(a.durum==='bitti'?' bitti':'');
+  r.innerHTML='<span class="pid">'+a.id+'</span><span class="pcol"><span class="pad">'+a.ad+'</span>'+(a.dalga?'<span class="dalga">D'+a.dalga+'</span>':'')+'<span class="pmeta">%'+a.tamam+' · '+a.loc+' LOC</span><span class="pbar"><i style="width:'+a.tamam+'%"></i></span></span><span class="hap '+(DURUM_HAP[a.durum]||'notr')+'">'+a.durum+'</span>';
+  r.title='İsim düzenlemek için tıkla';
+  r.addEventListener('click',function(){
+    if(r.dataset.duzenle)return;
+    r.dataset.duzenle='1';
+    const pad=r.querySelector('.pad');
+    const inp2=document.createElement('input');inp2.className='ped';inp2.value=a.ad;
+    pad.replaceWith(inp2);inp2.focus();inp2.select();
+    const bitir=function(kaydet){if(kaydet){a.ad=inp2.value.trim()||a.ad;}delete r.dataset.duzenle;planYaz();planFullYaz();};
+    inp2.addEventListener('keydown',function(e){if(e.key==='Enter')bitir(true);if(e.key==='Escape')bitir(false);});
+    inp2.addEventListener('blur',function(){bitir(true);});
+  });
+  return r;
+}
 function planYaz(){
   const k=document.getElementById('planListe');
-  k.innerHTML='<div class="prow phead"><span>ID</span><span>Görev</span><span>Durum</span></div>';
-  VERI.planlar.forEach(function(s){
-    const b=document.createElement('button');b.className='prow psprint'+(s.acik?' acik':'');
-    b.innerHTML='<span class="pid">'+s.id+'</span><span>'+s.ad+'<span class="chev">›</span></span><span class="hap '+(DURUM_HAP[s.durum]||'notr')+'">'+s.durum+'</span>';
-    const alt=document.createElement('div');alt.className='palt'+(s.acik?' acik':'');
-    s.alt.forEach(function(a){
-      const r=document.createElement('div');r.className='prow psub'+(a.durum==='bitti'?' bitti':'');
-      r.innerHTML='<span class="pid">'+a.id+'</span><span>'+a.ad+'</span><span class="hap '+(DURUM_HAP[a.durum]||'notr')+'">'+a.durum+'</span>';
-      alt.appendChild(r);
+  k.innerHTML='<div class="prow phead"><span>ID</span><span>Ad</span><span>Durum</span></div>';
+  VERI.planlar.forEach(function(f){
+    const fb=akorSatir(f,'psprint pfaz');
+    const sf=document.createElement('div');sf.className='palt'+(f.acik?' acik':'');
+    f.sprintler.forEach(function(s){
+      if(!s.alt.length){
+        sf.appendChild(yaprakSatir({id:s.id,ad:s.ad,durum:s.durum,tamam:s.tamam||0,loc:s.loc||'',dalga:s.dalga},'psub pd1'));return;
+      }
+      const sb=akorSatir(s,'psprint pd1');
+      const sa=document.createElement('div');sa.className='palt'+(s.acik?' acik':'');
+      s.alt.forEach(function(a){sa.appendChild(yaprakSatir(a,'psub pd2'));});
+      sb.addEventListener('click',function(){sb.classList.toggle('acik');sa.classList.toggle('acik');});
+      sf.appendChild(sb);sf.appendChild(sa);
     });
-    b.addEventListener('click',function(){b.classList.toggle('acik');alt.classList.toggle('acik');});
-    k.appendChild(b);k.appendChild(alt);
+    fb.addEventListener('click',function(){fb.classList.toggle('acik');sf.classList.toggle('acik');});
+    k.appendChild(fb);k.appendChild(sf);
   });
 }
 planYaz();
@@ -485,6 +590,10 @@ function gorevGoster(id){
   y.querySelector('[data-f="sinir"]').textContent=g.sinir;
   y.querySelector('[data-f="son"]').textContent=g.son;
   y.querySelector('[data-f="kanit"]').textContent=g.kanit;
+  y.querySelector('[data-f="ajanlar"]').textContent=g.ajanlar||'—';
+  y.querySelector('[data-f="dizin"]').textContent=g.dizin||'—';
+  y.querySelector('[data-f="izinOku"]').textContent=g.izinOku||'—';
+  y.querySelector('[data-f="izinEdit"]').textContent=g.izinEdit||'—';
   y.querySelector('[data-f="detay"]').textContent=g.detay;
   sekmeSec(sid);
 }
@@ -499,6 +608,59 @@ function gorevListesiYaz(){
 }
 gorevListesiYaz();
 
+/* === Plan tam gorunum + DAG + temsil === */
+function dagYaz(){
+  const k=document.getElementById('dagSerit');if(!k)return;
+  k.innerHTML='';
+  VERI.dag.forEach(function(e,i){
+    const d1=document.createElement('span');d1.className='dugum';d1.textContent=e[0];
+    const ok=document.createElement('span');ok.className='ok-imb';ok.textContent='→';
+    const d2=document.createElement('span');d2.className='dugum';d2.textContent=e[1];
+    k.appendChild(d1);k.appendChild(ok);k.appendChild(d2);
+  });
+}
+function planFullYaz(){
+  const k=document.getElementById('planFull');if(!k)return;
+  let s='<div class="frow fhead"><span>ID</span><span>Ad</span><span>Durum</span><span>İlerleme</span><span>LOC</span><span>Dalga</span><span>Bağ</span></div>';
+  VERI.planlar.forEach(function(f){
+    const ft=tamamHesapla(f);
+    s+='<div class="frow ffaz"><span class="pid">'+f.id+'</span><span>'+f.ad+'</span><span><span class="hap '+(DURUM_HAP[f.durum]||'notr')+'">'+f.durum+'</span></span><span><span class="fbar"><i style="width:'+ft+'%"></i></span><span class="fyuzde">%'+ft+'</span></span><span>'+(f.loc||'')+'</span><span></span><span></span></div>';
+    f.sprintler.forEach(function(sp){
+      const st=tamamHesapla(sp);
+      s+='<div class="frow fs1"><span class="pid">'+sp.id+'</span><span><b>'+sp.ad+'</b></span><span><span class="hap '+(DURUM_HAP[sp.durum]||'notr')+'">'+sp.durum+'</span></span><span><span class="fbar"><i style="width:'+st+'%"></i></span><span class="fyuzde">%'+st+'</span></span><span>'+(sp.loc||'')+'</span><span></span><span></span></div>';
+      sp.alt.forEach(function(a){
+        s+='<div class="frow fs2"><span class="pid">'+a.id+'</span><span>'+a.ad+'</span><span><span class="hap '+(DURUM_HAP[a.durum]||'notr')+'">'+a.durum+'</span></span><span><span class="fbar"><i style="width:'+a.tamam+'%"></i></span><span class="fyuzde">%'+a.tamam+'</span></span><span>'+(a.loc||'')+'</span><span>'+(a.dalga?'D'+a.dalga:'')+'</span><span>'+(a.bag||'')+'</span></div>';
+      });
+    });
+  });
+  k.innerHTML=s;
+}
+function mdUret(){
+  let s='# Plan\n';
+  VERI.planlar.forEach(function(f){
+    s+='\n## '+f.id+' — '+f.ad+' (%'+tamamHesapla(f)+')\n';
+    f.sprintler.forEach(function(sp){
+      s+='\n### '+sp.id+' — '+sp.ad+' (%'+tamamHesapla(sp)+')\n';
+      sp.alt.forEach(function(a){s+='- ['+(a.durum==='bitti'?'x':' ')+'] '+a.id+' '+a.ad+' — %'+a.tamam+' · '+a.loc+(a.bag?' · ← '+a.bag:'')+'\n';});
+    });
+  });
+  return s;
+}
+function temsilBagla(){
+  const py=[...sekmeler.values()].find(function(s){return s.tur==='plan';});if(!py)return;
+  const y=py.yuzey, sec=y.querySelector('#temsilSec');
+  [['tablo','Tablo'],['md','MD (insan okur)'],['json','JSON (makine)']].forEach(function(t,i){
+    const b=document.createElement('button');b.className='mod-btn'+(i===0?' aktif':'');b.textContent=t[1];
+    b.addEventListener('click',function(){
+      sec.querySelectorAll('.mod-btn').forEach(function(x){x.classList.remove('aktif');});b.classList.add('aktif');
+      const tablo=y.querySelector('#planTabloKart'), pre=y.querySelector('#planTemsil');
+      if(t[0]==='tablo'){tablo.style.display='';pre.style.display='none';}
+      else{tablo.style.display='none';pre.style.display='';pre.textContent=t[0]==='md'?mdUret():JSON.stringify(VERI.planlar,null,2);}
+    });
+    sec.appendChild(b);
+  });
+}
+
 /* === Composer: 5 mod + attach + mic === */
 const MODLAR={
   orkestrasyon:{ad:'Orkestrasyon',ph:'Görevleri yaz — manager LLM JSON\'a çevirir…',cv:'Orkestrasyon modu — görevler task topolojisine dağıtıldı; kod editi yok (T).'},
@@ -508,12 +670,13 @@ const MODLAR={
   ask:{ad:'Ask',ph:'Soru sor — yalnızca inceler ve yorumlar…',cv:'Ask modu — yalnızca inceleme/yorum yapıldı; dosyaya dokunulmadı (T).'}
 };
 let aktifMod='manager';
-const modSerit=document.getElementById('modSerit'), inp=document.getElementById('composerInput');
+const inp=document.getElementById('composerInput');
+const modSec=document.getElementById('modSec');
 Object.keys(MODLAR).forEach(function(k){
-  const b=document.createElement('button');b.className='mod-btn'+(k===aktifMod?' aktif':'');b.textContent=MODLAR[k].ad;b.dataset.mod=k;
-  b.addEventListener('click',function(){aktifMod=k;modSerit.querySelectorAll('.mod-btn').forEach(function(x){x.classList.toggle('aktif',x.dataset.mod===k);});inp.placeholder=MODLAR[k].ph;});
-  modSerit.appendChild(b);
+  const o=document.createElement('option');o.value=k;o.textContent=MODLAR[k].ad;if(k===aktifMod)o.selected=true;
+  modSec.appendChild(o);
 });
+modSec.addEventListener('change',function(){aktifMod=modSec.value;inp.placeholder=MODLAR[aktifMod].ph;});
 inp.placeholder=MODLAR[aktifMod].ph;
 document.getElementById('ekBtn').innerHTML=ikon('clip');
 document.getElementById('micBtn').innerHTML=ikon('mic');
@@ -528,12 +691,30 @@ document.getElementById('micBtn').addEventListener('click',function(){
   const kayit=b.classList.toggle('kayit');pill.classList.toggle('dinliyor',kayit);
   inp.placeholder=kayit?'Dinleniyor… (mockup)':MODLAR[aktifMod].ph;
 });
-function gonder(){const m=inp.value.trim();if(!m)return;
+function chatYaz(m,cevap){
   const chatYuzey=[...sekmeler.values()].find(function(s){return s.tur==='chat';});
-  if(chatYuzey){const sutun=chatYuzey.yuzey.querySelector('.sutun');
-    const d=document.createElement('div');d.className='chat-mesaj chat-ben';d.innerHTML=m.replace(/</g,'&lt;')+'<div class="chat-zaman">şimdi · siz</div>';sutun.appendChild(d);
-    const c=document.createElement('div');c.className='chat-mesaj chat-ajan';c.innerHTML=MODLAR[aktifMod].cv+'<div class="chat-zaman">şimdi · ajan</div>';sutun.appendChild(c);
-    icerik.scrollTop=1e6;}
+  if(!chatYuzey)return;
+  const sutun=chatYuzey.yuzey.querySelector('.sutun');
+  const d=document.createElement('div');d.className='chat-mesaj chat-ben';d.innerHTML=m.replace(/</g,'&lt;')+'<div class="chat-zaman">şimdi · siz</div>';sutun.appendChild(d);
+  const c=document.createElement('div');c.className='chat-mesaj chat-ajan';c.innerHTML=cevap+'<div class="chat-zaman">şimdi · ajan</div>';sutun.appendChild(c);
+  icerik.scrollTop=1e6;
+}
+function planKomut(islem){
+  const p=islem.trim().split(/\s+/);
+  const pid=p[0]||'', alan=(p[1]||'').toLowerCase(), deger=p.slice(2).join(' ');
+  let bul=null;
+  VERI.planlar.forEach(function(f){if(f.id===pid)bul=f;f.sprintler.forEach(function(sp){if(sp.id===pid)bul=sp;sp.alt.forEach(function(a){if(a.id===pid)bul=a;});});});
+  VERI.gorevler.forEach(function(g){if(g.id===pid)bul=g;});
+  if(bul&&['durum','loc','tamam','ad'].indexOf(alan)>=0&&deger){
+    bul[alan]=alan==='tamam'?(parseInt(deger,10)||0):deger;
+    planYaz();if(typeof planFullYaz==='function')planFullYaz();
+    return 'Manager düzenledi: '+pid+' · '+alan+' → '+deger+' (T)';
+  }
+  return 'Plan komutu çözülemedi — kullanım: plan: <ID> <durum|loc|tamam|ad> <değer> (T)';
+}
+function gonder(){const m=inp.value.trim();if(!m)return;
+  if(m.toLowerCase().indexOf('plan:')===0){chatYaz(m,planKomut(m.slice(5)));inp.value='';return;}
+  chatYaz(m,MODLAR[aktifMod].cv);
   inp.value='';}
 document.getElementById('composerBtn').addEventListener('click',gonder);
 inp.addEventListener('keydown',function(e){if(e.key==='Enter')gonder();});
@@ -594,8 +775,8 @@ function emirBagla(){
 }
 
 /* === Varsayilan acilis === */
-sekmeAc('chat');sekmeAc('doktor');sekmeAc('emir');sekmeSec('sek1');
-emirBagla();
+sekmeAc('chat');sekmeAc('plan');sekmeAc('doktor');sekmeAc('emir');sekmeSec('sek1');
+planFullYaz();dagYaz();temsilBagla();emirBagla();
 </script>
 </body>
 </html>
