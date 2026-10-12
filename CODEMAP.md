@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 30ed415 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD eadc51f — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -52,7 +52,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-13-0047.md` (2KB) — HANDOFF-2026-10-13-0047 — context-rot %88 kapanisi | Bu oturumda kapananlar | K-0021 Adim-1 dogrulama özeti (gece, R)
 - `plans\mockup\DESIGN.md` (7.6KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
-- `plans\mockup\parcalar\v10\02-chat.md` (14.9KB) — 02-chat — Sağ Dock (Chat) Fragment'ı · v10 | 1) Davranış spec'i | 2) HTML fragment'ı
+- `plans\mockup\parcalar\v10\02-chat.md` (14.8KB) — 02-chat — Sağ Dock (Chat) Fragment'ı · v10 | 1) Davranış spec'i | 2) HTML fragment'ı
 - `plans\mockup\parcalar\v10\03-plan.md` (20.9KB) — 03 · Plan Görünümleri — v10 fragment'ı | 1. Spec | 2. HTML fragment
 - `plans\mockup\parcalar\v10\04-pano.md` (13.2KB) — 04 — Pano (orta sekme, one-view dashboard) · v10 | 1. Spec (kısa) | 2. HTML fragment
 - `plans\mockup\parcalar\v10\05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment

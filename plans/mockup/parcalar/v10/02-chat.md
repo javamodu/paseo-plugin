@@ -35,7 +35,7 @@ Shell'in `.govde` grid'inde `.orta`'dan sonra gelir. v9'daki orta statik compose
     <div class="composer-ic-wrap">
       <div class="composer-ust">
         <select id="modSec" class="mod-sec" title="Mod seçimi"></select>
-        <div class="durum-serit"><span class="hap ok"><span class="nokta"></span>10 çalışıyor</span><span class="hap notr">+408 −13</span></div>
+        <div class="durum-serit"><span class="hap notr">+408 −13</span></div>
       </div>
       <div class="ek-serit" id="ekSerit"></div>
       <div class="composer-ic" id="composerPill">
