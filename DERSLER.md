@@ -31,3 +31,4 @@
 - node_repl top-level binding'leri kernel reset'te düşer ('fs is not defined'): her çağrıda import'u tekrarla, çağrılar arası state'e güvenme (let ile tek çağrıda toparla).
 - Governance zincir doğrulayıcı (gate_evidence) yalnız kendi reposunun commit hash'ini çözer: künye 'commit' alanına cross-repo hash (platform c1265be) yazılınca FAIL; kural: alan 'external', hash note içine.
 - Regex anchor [^)]* parantezli metinde (CLI help) erken kesilir: node edit'te düz string anchor + tekil-eşleşme throw (mevcut disiplinle birlikte).
+- paseo CLI alt komut adları varsayılmaz: 'heartbeat list' ve 'heartbeat ls' üst üste 'unknown command' verdi; doğru adı `paseo <grup> --help` veya skill SKILL.md'den doğrula (turda 2 başarısız çağrının ikisi de buydu).
