@@ -43,5 +43,6 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 - K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
 
 ## v2.1 backlog
+- v0.12.1 adayı: briefKontrol dedupe — zayif-brief dürtmesi cooldown'lu (10dk) ama callId-bazlı değil; eski spawn her turda yeniden taranıp cooldown dolunca tekrar dürtüyor (kanıt: telemetri 3 kayıt hep 1/1, yeni spawn yokken dürtme geldi). Çözüm: callId-bazlı bir-kez değerlendirme (Set<string>).
 - v0.8 adayÄ±: telemetri failedCalls'a araÃ§-adÄ±/hata detayÄ± alanÄ± (kalite dÃ¼rtmesi "hangi 59 Ã§aÄŸrÄ±" sorusunu cevaplayamÄ±yor) + TDD kÄ±rmÄ±zÄ±-koÅŸu desenlerini (npm test, vitest) sayaÃ§tan hariÃ§ tutma seÃ§eneÄŸi.
 - Ã‡EKÄ°RDEK kural diyeti: aktif kural sayÄ±sÄ± 68 â†’ <40 hedefi iÃ§in EK'lere taÅŸÄ±ma (doctor SARI'sÄ±; enjeksiyon â‰¤8KB freni yeterli, plugin Ã¶ncesi ÅŸart deÄŸil).
