@@ -54,3 +54,8 @@
 - 2026-10-12 · PS 5.1'de [System.Globalization.ISOWeek] türü yok (TypeNotFound) — ISO hafta için Calendar.GetWeekOfYear(tarih, FirstFourDayWeek, Monday) kullan.
 - 2026-10-12 · node_repl cwd'si exec_command workdir'unu TAKİP ETMEZ — oturum kökünde sabit; relative path ENOENT verir (v0.10.3 turu, ilk node_repl çağrısı). Kural: node_repl'de her zaman mutlak yol prefix'i.
 - 2026-10-12 · Kayıtlı tuzağa aynı turda tekrar düşüldü ×2: `&&` (oturumun ilk komutu) + rg `dist/*.d.ts` glob (os error 123) — ikisi de bu dosyada yazılıydı. Ek: node_modules SDK aramasında paket adı tahmin edilmez (@paseo≠@getpaseo) — önce scope dizinini listele, rg'ye glob değil dizin yolu ver.
+- 2026-10-12 · Doküman editi sonrası sıralama: ÖNCE codemap.ps1, SONRA saglik.ps1, ANCAK SONRA commit — bu oturumda 3 kez bozuldu (DERSLER/admin-onboarding/handoff turları, her seferinde EKSIK + düzeltme commit'i). Tek komutta zincirle: codemap; saglik; ancak yeşilse commit.
+- 2026-10-12 · Atıl repo kontrol grubu olamaz — veri üretmeyen denek ölçüm vermez (yapaylink dersi, K-0014 kohortu). Kontrol = aktif ama sözleşmesiz repo.
+- 2026-10-12 · Ölçüm aleti ölçülmeden ölçüm yapılmaz: prob/pano scripti kendi kendini test eder (proje-panosu -TestModu deseni). Kanıt: tsx-regex ve boşluklu-yol kazaları ilk canlı koşuda patladı.
+- 2026-10-12 · Varlık sorgusu failedCalls'a düşer ama tuzak değildir: Test-Path=false, git cat-file -t=exit1 beklenen sonuçtur (hayalet commit doğrulaması) — kasıtlı-kırmızı dersinin uzantısı.
+2026-10-12 · Paseo hedef ID'leri (ajan/terminal/tab) hafızadan veya eski bağlamdan kullanılmaz — oturumlar kapanır, ID'ler ölür; send_agent_prompt/send_terminal_keys öncesi ilgili list_* çağrısıyla taze doğrula. Kanıt: 'Agent not found' 92a06433 (kalite dürtmesi 1/6, %17).
