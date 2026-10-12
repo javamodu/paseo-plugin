@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6857781 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD e865c66 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -39,6 +39,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
 - `raporlar\OZET.md` (0.2KB) — OZET — raporlar/
+- `raporlar\proje-panosu\2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.0.0)
+- `raporlar\takip-sozlesme\2026-10-12.md` (0.1KB) — Sozlesme bekci raporu — 2026-10-12
 - `raporlar\telemetri-haftalik\2026-W42.md` (0.4KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar\token-olcum-2026-10-11\OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `README.md` (2.7KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.0) | İçindekiler | Hızlı başlangıç (3 adım)
@@ -46,6 +48,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\katman-kur.ps1` (1.2KB) — function Kur($hedef, $sablonAd) {
 - `scripts\kilit-surum.ps1` (3.1KB)
 - `scripts\kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
+- `scripts\proje-panosu.ps1` (5.8KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts\saglik.ps1` (8.1KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
