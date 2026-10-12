@@ -41,3 +41,7 @@
 - Fail-closed kapı probu da kasıtlı kırmızıdır: candidate→gate FAIL→teşhis→düzelt→yeniden koşu döngüsü (txt-to-cad golden/feature geliştirme) exit!=0 üretir; %12-23 failedCalls bu profilde sinyal değil gürültüdür — TDD dersinin genellemesi.
 - Aktivite vekili = commit sayısı, tur değil: yapaysite 33 tur/1 commit (okuma-ağırlıklı) — kohort eşleştirmesinde tur kullanma (K-0014).
 - Deney evreni tek komutla üretilir; iki listenin aynı sayıda çıkması aynı küme demek değildir (22≠22: chinese-hsk/katman-kit dersi).
+- 2026-10-12 · PS `@($a, $b + 1)` 3 elemanlı olur ($b, +1 ayrı eleman) — matematik ifadesini parantezle: `@($a, ($b + 1))`. Kanıt: proje-panosu BFS kuyruğu hep seviye=0 döndü, evren 0 çıktı.
+- 2026-10-12 · PS `Test-Path` köşeli-parantezli klasörde ([[...sign-in]]) patlar — her zaman `-LiteralPath`. Aynı sebeple Get-ChildItem'da da `-LiteralPath`.
+- 2026-10-12 · Test cwd'si asla gerçek repo olmaz: pitbull testleri gerçek .verimlilik'e 132 sahte dürtme yazdı (ölçüm zehirlenmesi). Kural: disk-yazan modül testleri mkdtemp kullanır.
+- 2026-10-12 · Otomasyon ürünü tracked dosyalar (raporlar/telemetri-haftalik) kalıcı git-drift yaratır — drift/tazelik kapıları bu yolları hariç tutar (saglik.ps1 + bekci.ts, canlı tatbikat bulgusu).
