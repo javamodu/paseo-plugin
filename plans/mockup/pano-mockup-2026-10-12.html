@@ -10,7 +10,7 @@
   html,body{height:100%}
   body{background:var(--bg);color:var(--metin);font:13px/1.5 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
   .mockup-serit{background:var(--sari);color:#1a1a1a;padding:4px 12px;font-weight:600;text-align:center;flex:0 0 auto}
-  .govde{flex:1;display:grid;grid-template-columns:56px 300px 1fr;min-height:0}
+  .govde{flex:1;display:grid;grid-template-columns:56px 300px 1fr auto;min-height:0}
   .rail{background:var(--kart);border-right:1px solid var(--sinir);display:flex;flex-direction:column;padding:6px 0;gap:2px}
   .rail a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px;color:var(--soluk);text-decoration:none;font-size:10px;font-weight:600;border-left:2px solid transparent;cursor:pointer}
   .rail a .iko{font-size:16px}
@@ -71,6 +71,12 @@
   .agac{background:var(--kart);border:1px solid var(--sinir);border-radius:8px;padding:10px;font-size:12px;overflow-y:auto}
   .agac div{padding:2px 0;color:var(--soluk);cursor:pointer}
   .agac div:hover{color:var(--metin)}
+  .sagpanel{width:280px;min-width:200px;max-width:520px;background:var(--kart);border-left:1px solid var(--sinir);overflow-y:auto;padding:12px;position:relative;flex:0 0 auto}
+  .sagpanel.kapali{display:none}
+  .sag-handle{position:absolute;left:0;top:0;bottom:0;width:5px;cursor:col-resize}
+  .sag-handle:hover,.sag-handle.tut{background:var(--vurgu)}
+  .tab-toggle{margin-left:auto;align-self:center;background:var(--kart2);border:1px solid var(--sinir);color:var(--soluk);border-radius:6px;padding:3px 9px;font-size:12px;cursor:pointer}
+  .tab-toggle:hover{color:var(--metin)}
 </style>
 </head>
 <body>
@@ -129,7 +135,7 @@
     </div>
   </aside>
   <div class="orta">
-    <div class="tabbar" id="tabbar"></div>
+    <div class="tabbar" id="tabbar"><button class="tab-toggle" id="sagToggle" title="Sağ panel">◧</button></div>
     <div class="icerik" id="icerik"></div>
     <div class="composer">
       <input id="composerInput" placeholder="Görev yaz veya komut: /mod atolye · /emir s9 … (mockup — chat'e düşer)">
@@ -137,6 +143,15 @@
       <button id="composerBtn">Gönder</button>
     </div>
   </div>
+  <aside class="sagpanel" id="sagPanel">
+    <div class="sag-handle" id="sagHandle"></div>
+    <h2 style="font-size:13px">Canlı akış</h2>
+    <div class="gorev-grup">Aktif ajanlar (2)</div>
+    <div class="gorev"><div class="ust"><b>[coder] speakrapid</b><span class="hap ok">tur 12</span></div><div class="alt">S9 · Veo · 340k/500k token · 2dk önce aktif</div></div>
+    <div class="gorev"><div class="ust"><b>[bekçi] filo</b><span class="hap notr">izliyor</span></div><div class="alt">son anomali: yok · gelen-kutu: 1 bekleyen</div></div>
+    <div class="gorev-grup">Son olaylar</div>
+    <div class="log" style="max-height:220px;overflow-y:auto">[09:41] tur-33 tamam · cache %98<br>[09:41] bekçi: anomali yok<br>[09:39] mod=ATOLYE<br>[09:36] saglik: 17 OK<br>[09:30] gelen-kutu ← speakrapid (yüksek)</div>
+  </aside>
 </div>
 
 <template id="tpl-chat">
@@ -249,6 +264,15 @@ function gonder(){const m=inp.value.trim();if(!m)return;
   inp.value='';}
 document.getElementById('composerBtn').addEventListener('click',gonder);
 inp.addEventListener('keydown',e=>{if(e.key==='Enter')gonder();});
+
+// Sag panel: ac/kapa + resize
+const sagPanel=document.getElementById('sagPanel');
+document.getElementById('sagToggle').addEventListener('click',()=>sagPanel.classList.toggle('kapali'));
+const sagHandle=document.getElementById('sagHandle');
+sagHandle.addEventListener('mousedown',(e)=>{e.preventDefault();sagHandle.classList.add('tut');
+  const hareket=(ev)=>{sagPanel.style.width=Math.min(520,Math.max(200,window.innerWidth-ev.clientX))+'px';};
+  const birak=()=>{sagHandle.classList.remove('tut');document.removeEventListener('mousemove',hareket);document.removeEventListener('mouseup',birak);};
+  document.addEventListener('mousemove',hareket);document.addEventListener('mouseup',birak);});
 
 // Varsayilan acilis: Sohbet + Doktor + Emir
 sekmeAc('chat');sekmeAc('doktor');sekmeAc('emir');sekmeSec('sek1');
