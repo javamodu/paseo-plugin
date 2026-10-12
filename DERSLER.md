@@ -38,3 +38,4 @@
 - hedefler.json alanları aktifHedefler altında — kökte arayan sessizce fallback'e düşer; SSOT okumasını canlı değerle doğrula (cacheHitMinPct 40 göründü mü).
 - exec_command içinde powershell -Command "...$var..." yazma — $ harness tarafından yutulur/interpole edilir (ParserError); tek tırnak kullan veya JSON okumalarını node_repl'e taşı (kalite dürtmesi #2, 3/24).
 - Eşzamanlı iki ajan aynı repoda karar numarası çakıştırabilir: dosyaya yazmadan ÖNCE git log + kararlar/ ls taze çek (oturum başı snapshot bayatlar); ezilen tracked dosya git restore ile kurtarılır, kayıt bir sonraki boş numaraya taşınır (2026-10-12, K-0012/K-0013 vakası).
+- Fail-closed kapı probu da kasıtlı kırmızıdır: candidate→gate FAIL→teşhis→düzelt→yeniden koşu döngüsü (txt-to-cad golden/feature geliştirme) exit!=0 üretir; %12-23 failedCalls bu profilde sinyal değil gürültüdür — TDD dersinin genellemesi.
