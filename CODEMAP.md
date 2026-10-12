@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 0347f7b — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 12b2610 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -50,7 +50,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-12-1336.md` (5.8KB) — HANDOFF-2026-10-12-1336 — reviewer (3ff75fe) kapanışı + coder gün bilançosu | Reviewer bilançosu düzeltmesi (coder disk doğrulaması — kural 5) | Reviewer oturumunun kapanışları (reviewer tuttu, coder doğruladı)
 - `plans\handoff\HANDOFF-2026-10-12-2040.md` (2.8KB) — HANDOFF-2026-10-12-2040 — mockup v10 (6 subagent entegrasyonu) kapanışı | Bu oturumda kapananlar | Doğrulama kanıtı (R)
 - `plans\handoff\HANDOFF-2026-10-13-0047.md` (2KB) — HANDOFF-2026-10-13-0047 — context-rot %88 kapanisi | Bu oturumda kapananlar | K-0021 Adim-1 dogrulama özeti (gece, R)
-- `plans\mockup\DESIGN.md` (5.5KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
+- `plans\mockup\DESIGN.md` (6.5KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
 - `plans\mockup\parcalar\v10\02-chat.md` (14.9KB) — 02-chat — Sağ Dock (Chat) Fragment'ı · v10 | 1) Davranış spec'i | 2) HTML fragment'ı
 - `plans\mockup\parcalar\v10\03-plan.md` (20.9KB) — 03 · Plan Görünümleri — v10 fragment'ı | 1. Spec | 2. HTML fragment

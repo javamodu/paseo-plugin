@@ -55,3 +55,9 @@ Rail öğeleri \`<button>\` (klavye doğal) · tab'lar \`role=tab\`/\`aria-selec
 - **Viewer'lar (tür bazlı):** md → okuma render · kod → pre · json → pretty-print · png → gradient yer tutucu · html → sandbox iframe srcdoc + Önizleme/Kaynak toggle.
 - **Panel thumb:** 34×24 → 72×46 (daima büyük); linklerde monogram thumb.
 - **Taşma fixleri:** `.satir` değer/etiket ellipsis + sağ hizalama.
+## v11.1 mobil (2026-10-13)
+- **Taşma fixleri:** `.psat` baz kuralı eklendi (flex + space-between; ilk span `flex:1;min-width:0`, değer/hap `flex:0 0 auto`) — inline span'da ellipsis çalışmadığı için gelen-kutu satırları kartı taşırıyordu (R: 375px ölçüm). `.fview` `overflow-x:auto` — plan tablosu min-width 640px, mobilde kart içi yatay kaydırma (touch momentum).
+- **Dokunma (≤880px):** tab/chat-tab/panel-kapat/ikon-btn/psatir/tab-toggle/mod-sec 44px; rail ikon-only (etiket gizli); html önizleme min 320px.
+- **Tek sütun (≤560px):** pano-grid 1fr (span'ler sıfırlanır), donut 64px, galeri minmax 150px, composer max-width %100.
+- **Genel:** `-webkit-tap-highlight-color:transparent` + interaktiflerde `touch-action:manipulation` (çift-dokunma zoom gecikmesi yok).
+- **Doğrulama (R):** 375×812'de 10 yüzey (pano/plan/provider/galeri/dosyalar/linkler/dökümanlar/terminal/url/görev) 0 taşma + görünür interaktiflerde 40px altı 0 hedef; 1440×900 regresyon 0 taşma.

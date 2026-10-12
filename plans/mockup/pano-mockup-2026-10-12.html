@@ -9,6 +9,8 @@
 <style>
   /* === 1. Tokenlar === */
   :root{--bg:#0a0e14;--kart:#11161f;--kart2:#1a2230;--sinir:rgba(255,255,255,.06);--metin:#eceaf4;--soluk:#9a9aac;--vurgu:#2563eb;--vurgu2:#3b82f6;--yesil:#34d399;--sari:#fbbf24;--kirmizi:#f87171;--r:16px}
+  *{-webkit-tap-highlight-color:transparent}
+  button,.tab,[role="button"],select{touch-action:manipulation}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{background:radial-gradient(1200px 700px at 75% -10%,#0e1626 0%,var(--bg) 55%);color:var(--metin);font:15px/1.55 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
@@ -110,6 +112,9 @@
   .kart-bas h3{margin-bottom:0}
   .buyuk{font-size:32px;font-weight:800;letter-spacing:-0.01em}
   .hap{display:inline-flex;align-items:center;padding:3px 11px;border-radius:99px;font-size:11.5px;font-weight:700}
+  .psat{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .psat>span:first-child{flex:1;min-width:0}
+  .psat>b,.psat>.hap{flex:0 0 auto}
   .nokta{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yesil);margin-right:6px}
   .ok{background:rgba(52,211,153,.12);color:var(--yesil)}.uyari{background:rgba(251,191,36,.12);color:var(--sari)}.kotu{background:rgba(248,113,113,.12);color:var(--kirmizi)}.notr{background:var(--kart2);color:var(--soluk)}
   .cubuk{display:flex;align-items:flex-end;gap:4px;height:64px;margin-top:10px}
@@ -175,6 +180,7 @@
   .palt{display:none}.palt.acik{display:block}
   /* === 10. Plan tam gorunum (orta sekme) === */
   .fwrap{overflow-x:auto;padding:0}
+  .fview{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
   .frow{display:grid;grid-template-columns:66px 1fr 80px 120px 90px 56px 90px;gap:10px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--sinir);font-size:13px;min-width:640px}
   .frow:last-child{border-bottom:0}
   .frow .dalga{margin-left:0}
@@ -310,7 +316,20 @@
   @media (max-width:880px){
     .govde{grid-template-columns:52px 1fr}
     .rail{padding:8px 5px}
-    .rail button{min-height:44px}
+    .rail button{min-height:48px}
+    .rail button span{display:none}
+    .rail button svg{width:21px;height:21px}
+    .tab{min-height:44px;padding:10px 16px 10px 18px}
+    .tab.arti{min-width:44px;min-height:44px}
+    .chat-tab{min-height:44px;padding:10px 14px}
+    .chat-arti{min-width:44px;min-height:44px}
+    .panel-kapat{min-height:44px;min-width:44px}
+    .ikon-btn{width:44px;height:44px}
+    .psatir{min-height:44px}
+    .tab-toggle{min-height:44px;min-width:44px}
+    .mod-sec{min-height:44px}
+    .htmlonizleme{min-height:320px}
+    .gonizleme{aspect-ratio:16/9}
     .panel{display:block;position:fixed;left:52px;top:0;bottom:0;z-index:30;transform:translateX(-115%);transition:transform .18s ease;background:var(--bg);box-shadow:20px 0 60px #0008;width:min(86vw,320px);max-width:none}
     .panel.acik{transform:none}
     .nav-handle{display:none}
@@ -332,6 +351,14 @@
     .gonizleme{aspect-ratio:16/9}
     .dosyalar{grid-template-columns:1fr}
     .mod-esleme-satir{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .pano-grid{grid-template-columns:1fr}
+    .pano-grid>.span12{grid-column:auto}
+    .pano .donut{width:64px;height:64px}
+    .pano .donut b{width:48px;height:48px;font-size:16px}
+    .galeri{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .composer-ic-wrap{max-width:100%}
   }
 </style>
 </head>
