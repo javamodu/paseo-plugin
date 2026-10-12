@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 4365d15 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD d916169 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -45,7 +45,13 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
 - `plans\handoff\HANDOFF-2026-10-12-1336.md` (5.8KB) — HANDOFF-2026-10-12-1336 — reviewer (3ff75fe) kapanışı + coder gün bilançosu | Reviewer bilançosu düzeltmesi (coder disk doğrulaması — kural 5) | Reviewer oturumunun kapanışları (reviewer tuttu, coder doğruladı)
-- `plans\mockup\DESIGN.md` (3.3KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v8) | 1. Tokenlar | 2. Yerleşim
+- `plans\mockup\DESIGN.md` (4.6KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v10) | 1. Tokenlar | 2. Yerleşim (v10)
+- `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
+- `plans\mockup\parcalar\v10\02-chat.md` (14.9KB) — 02-chat — Sağ Dock (Chat) Fragment'ı · v10 | 1) Davranış spec'i | 2) HTML fragment'ı
+- `plans\mockup\parcalar\v10\03-plan.md` (20.9KB) — 03 · Plan Görünümleri — v10 fragment'ı | 1. Spec | 2. HTML fragment
+- `plans\mockup\parcalar\v10\04-pano.md` (13.2KB) — 04 — Pano (orta sekme, one-view dashboard) · v10 | 1. Spec (kısa) | 2. HTML fragment
+- `plans\mockup\parcalar\v10\05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
+- `plans\mockup\parcalar\v10\06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
