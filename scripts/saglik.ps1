@@ -125,6 +125,19 @@ if ($Jsonl -and (Test-Path $Jsonl)) {
   }
 }
 
+# 5c) Gelen-kutu sema kapisi (K-0017)
+$gkDir = Join-Path $Root 'raporlar\gelen-kutu'
+if (Test-Path -LiteralPath $gkDir) {
+  $gkHata = 0
+  foreach ($f in (Get-ChildItem -LiteralPath $gkDir -Filter '*.json' -ErrorAction SilentlyContinue)) {
+    try {
+      $j = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+      if ($j.schemaSurum -ne 1) { $gkHata++ }
+    } catch { $gkHata++ }
+  }
+  Check 'Gelen-kutu sema (schemaSurum=1)' ($gkHata -eq 0) ("bozuk/eski sidecar: " + $gkHata)
+}
+
 $rows | Format-Table -AutoSize
 Write-Host ("SONUC: {0} OK, {1} EKSIK, {2} SARI" -f $pass, $fail, $warnN)
 if ($fail -gt 0) { exit 1 } else { exit 0 }
