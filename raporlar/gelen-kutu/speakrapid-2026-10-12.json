@@ -10,7 +10,11 @@
       "etiket": "*",
       "siddet": "yuksek",
       "oneri": "collab create path'i plugin hook'larina baglansin; olmazsa spawn eden tarafa standart sozlesme-eki brief blogu (kopru, dokumante). Turn hook durumu ayrica dogrulanmali (T).",
-      "islenme": null
+      "islenme": {
+        "durum": "islendi (K-0021; Adim-1 dogrulamada kismen curutuldu, kapsam collab-spawn telemetri koprusune daraldi)",
+        "hash": "d70c31b",
+        "ts": "2026-10-13"
+      }
     }
   ]
 }
