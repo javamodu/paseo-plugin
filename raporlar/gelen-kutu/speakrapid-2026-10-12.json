@@ -1,0 +1,16 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "speakrapid",
+  "tarih": "2026-10-12",
+  "maddeler": [
+    {
+      "id": "speakrapid-1",
+      "baslik": "collab spawn_agent ajanlari plugin hook'larina ugramiyor (agent.create bypass)",
+      "dosyaRef": "index.server.ts:46",
+      "etiket": "*",
+      "siddet": "yuksek",
+      "oneri": "collab create path'i plugin hook'larina baglansin; olmazsa spawn eden tarafa standart sozlesme-eki brief blogu (kopru, dokumante). Turn hook durumu ayrica dogrulanmali (T).",
+      "islenme": null
+    }
+  ]
+}

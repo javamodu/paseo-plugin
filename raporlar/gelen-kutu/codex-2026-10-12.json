@@ -1,0 +1,43 @@
+{
+    "schemaSurum":  1,
+    "kaynak":  "codex",
+    "tarih":  "2026-10-12",
+    "maddeler":  [
+                     {
+                         "id":  "codex-1",
+                         "baslik":  "Trend hesaplanamaz: rollup tek hafta (W42), sablonda hafta-oncesi karsilastirma yok",
+                         "dosyaRef":  "raporlar/telemetri-haftalik/2026-W42.md:1",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "Rollup ureticisine gecen-hafta delta bolumu eklensin (tur, kabul, pitbull, cache-hit); W43\u0027ten itibaren trend satiri otomatik duser.",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "codex-2",
+                         "baslik":  "Kabul sinyali dar orneklem: 14 workspace\u0027in yalniz 2\u0027si kabul olayi uretiyor",
+                         "dosyaRef":  ".verimlilik/telemetri.jsonl:1",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "Rollup\u0027a kapsam satiri (sinyal ureten repo/toplam); 12 repoda desen mi yok izleme mi kapali dogrulanmali (T).",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "codex-3",
+                         "baslik":  "Sozlesme yayilimi dar: 60 repo evreninde TAM iskelet 6 (%10), hic 35",
+                         "dosyaRef":  "raporlar/proje-panosu/2026-10-12.md:3",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "Bilgi amacli; kohort genisletme K-0013 cizelgesine bagli. Kontrol-tedavi eslesmesi guclendirilebilir.",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "codex-4",
+                         "baslik":  "K-0021 Adim-1: speakrapid-1 kismen curutuldu — enjeksiyon her iki yolda var; kor nokta yalniz collab-spawn telemetrisi",
+                         "dosyaRef":  "kararlar/K-0021.md",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "v0.12 kapsami: yalniz collab-spawn tur/lint telemetri baglantisi; Yol B gereksiz.",
+                         "islenme":  null
+                     }
+                 ]
+}
