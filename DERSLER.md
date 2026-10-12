@@ -27,3 +27,7 @@
 - Ayar cache'i mtime-only ise aynı-tick yazımı atlatır (same-second race) → anahtar mtime+boyut olmalı; v0.7 test flake'inin kök sebebi buydu.
 - Kalite dürtmesi geldiğinde önce tur bağlamına bak: kırmızı-test/TDD döngüsü failedCalls sayacını şişirir (exec exit!=0 = failed sayılır); kasıtlı kırmızı koşu tuzak değildir, dürtme yanlış-pozitif olabilir.
 - node .replace anchor'u dosyadan birebir kopyalanır ve tekil-eşleşme şartı throw ile zorlanır — anchor yoksa sessiz no-op değil, hata istenir (v0.7 yazım disiplini).
+- Uzun exec session + write_stdin poll + kullanıcı kesintisi = session kaybı: 12.5 dk'lık pytest suite (txt-to-cad) kesintide öksüz kaldı, baştan koşuldu. Ders: uzun koşuyu tek poll zincirine bağlama; kesinti sonrası ilk iş açık session/process yoklaması, mümkünse çıktıyı dosyaya tee'le başlat.
+- node_repl top-level binding'leri kernel reset'te düşer ('fs is not defined'): her çağrıda import'u tekrarla, çağrılar arası state'e güvenme (let ile tek çağrıda toparla).
+- Governance zincir doğrulayıcı (gate_evidence) yalnız kendi reposunun commit hash'ini çözer: künye 'commit' alanına cross-repo hash (platform c1265be) yazılınca FAIL; kural: alan 'external', hash note içine.
+- Regex anchor [^)]* parantezli metinde (CLI help) erken kesilir: node edit'te düz string anchor + tekil-eşleşme throw (mevcut disiplinle birlikte).
