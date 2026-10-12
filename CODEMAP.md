@@ -1,7 +1,8 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 30bc8d0 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 7ddc8c1 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
+- `admin-onboarding.md` (4.4KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
 - `AGENTS.md` (0.7KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
