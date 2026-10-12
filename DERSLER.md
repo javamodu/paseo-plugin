@@ -36,3 +36,4 @@
 - Duplike fonksiyon iki yerde drift eder: onboarding.sonHandoff ile sozlesme.sonHandoffDosyasi kopyasıydı; biri düzeltilip öteki unutulunca flake sürdü — tek kaynak + tie-break (mtime eşitse ad).
 - Ara commitler de yeşil olmalı: test/kod ayrı commitlerde ara-kırmızı oluşur (v0.8c3 reset --soft ile birleştirildi); bölme yaparken her commitin süitini ayrı koş.
 - hedefler.json alanları aktifHedefler altında — kökte arayan sessizce fallback'e düşer; SSOT okumasını canlı değerle doğrula (cacheHitMinPct 40 göründü mü).
+- exec_command içinde powershell -Command "...$var..." yazma — $ harness tarafından yutulur/interpole edilir (ParserError); tek tırnak kullan veya JSON okumalarını node_repl'e taşı (kalite dürtmesi #2, 3/24).
