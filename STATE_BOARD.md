@@ -4,6 +4,7 @@
 Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-0014 gün-içi uygulaması tamam (v0.9 kilit: bekçi; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koşuyor).
 
 ## Son damgalar
+- 2026-10-12 · K-0018 ONAYLANDI: Provider-Modlar (ATÖLYE/MATBAA/CERRAH/SERBEST) · coder incelemesi karar metninde (5 bulgu: istek-metriği vekili, çift-ajan sınırı, contextWindow alanlarıyla Context Rot freni bedava, scope önerisi, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
 - 2026-10-12 · K-0018 TASLAĞI yazıldı (kararlar/K-0018.md): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · kullanıcı onayı bekleniyor, plugin kodu v0.11 konusu (ayrı onay)
 - 2026-10-12 · v0.10.3 kilit (plugin 3796f69, tag v0.10.3-kilit): tur telemetrisine model + ayrık token (in/out/cache) + maliyetUsd (AgentUsage.totalCostUsd — sağlayıcı raporu) + ortTurSn · telemetri ekranı token/hız/maliyet/model-dağılımı bölümü · 176 test yeşil
 - 2026-10-12 · K-0017 ONAYLANDI+UYGULANDI: gelen-kutu kanalı (raporlar/gelen-kutu/ + SABLON + schemaSurum=1 + islenme hash kanıtı) · bekçi 24s bekleyen-madde anomalisi (v0.10.1 kilit, plugin 5556500) · saglik şema kapısı (17. OK) · ÇEKİRDEK açılış kutu adımı
@@ -32,8 +33,9 @@ Yok (v0.10.3 kilitli: telemetri model/token/maliyet genişlemesi). — K-0013/K-
 - 2026-10-11 19:40 · yonetici-ozeti.ps1 v1 kuruldu · bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
 ## Bekleyen onaylar
-- K-0018 (TASLAK): Provider-Modlar — ATÖLYE/MATBAA/CERRAH/SERBEST · açık sorular karar metninde (mod kapsamı, kota görünürlüğü) · uygulama v0.11, ayrı onay ister
+Yok (K-0018 onaylandı; uygulama v0.11 konusu, ayrı onay ister — açık sorular v0.11 başlangıcında kararlaşacak).
 
 ## v2.1 backlog
+- v0.11 adayı (K-0018 onaylı): Provider-Modlar — /mod slash + diskte mod state + agent.create before-hook (thinkingOptionId + systemPrompt mod eki) + telemetri mod alanı + pano 3 satır (iş/saat, iş/tur, iş/1k token) + contextWindow oranına Context Rot freni. Uygulama ayrı onay ister.
 - v0.8 adayı: telemetri failedCalls'a araç-adı/hata detayı alanı (kalite dürtmesi "hangi 59 çağrı" sorusunu cevaplayamıyor) + TDD kırmızı-koşu desenlerini (npm test, vitest) sayaçtan hariç tutma seçeneği.
 - ÇEKİRDEK kural diyeti: aktif kural sayısı 68 → <40 hedefi için EK'lere taşıma (doctor SARI'sı; enjeksiyon ≤8KB freni yeterli, plugin öncesi şart değil).
