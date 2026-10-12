@@ -31,6 +31,18 @@ try {
     $hedefler = $hj.aktifHedefler
     $puanlar = $hj.eksenPuanlari
   }
+  $surumTs = Join-Path $RepoKok 'server\surum.ts'
+  if (Test-Path $surumTs) {
+    $icerik = [IO.File]::ReadAllText($surumTs, $utf8)
+    $yeni = $icerik -replace 'PLUGIN_SURUM = "[^"]*"', ('PLUGIN_SURUM = "' + $Etiket + '"')
+    if ($yeni -ne $icerik) {
+      [IO.File]::WriteAllText($surumTs, $yeni, $utf8)
+      git add server/surum.ts
+      git commit -m "surum damgasi: $Etiket" | Out-Null
+      $commit = (git rev-parse --short HEAD).Trim()
+      Write-Host "surum.ts damgalandi: $Etiket (commit: $commit)"
+    }
+  }
   git tag -a $tagAd -m "Kilitli surum: $Etiket"
   $tarih = Get-Date -Format 'yyyy-MM-dd'
   $dir = Join-Path $RepoKok "surumler\$Etiket"
