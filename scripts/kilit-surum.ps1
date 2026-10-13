@@ -35,6 +35,8 @@ try {
     } else {
       throw ("K-0026 (A5-3) fail-closed: saglik ciktisinda SONUC satiri yok - kilit engellendi. Cikti basi: " + $cikti.Substring(0, [Math]::Min(300, $cikti.Length)))
     }
+  } else {
+    throw ('D2-10 fail-closed: saglik.ps1 bulunamadi (' + $saglik + ') - kilit engellendi.')
   }
   $hedefler = $null; $puanlar = $null
   $hf = Join-Path $RepoKok 'hedefler.json'

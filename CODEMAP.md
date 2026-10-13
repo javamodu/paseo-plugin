@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD e672351 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD ccbbc09 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -90,12 +90,12 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\sozlesme-sondaj\2026-10-12\OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
 - `raporlar\takip-sozlesme\2026-10-12.md` (0.1KB) — Sozlesme bekci raporu — 2026-10-12
 - `raporlar\takip-sozlesme\2026-10-13.md` (0.2KB) — Sozlesme bekci raporu — 2026-10-13
-- `raporlar\telemetri-haftalik\2026-W42.md` (0.7KB) — Telemetri Haftalık Özet — 2026-W42
+- `raporlar\telemetri-haftalik\2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar\token-olcum-2026-10-11\OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `README.md` (2.8KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `scripts\codemap.ps1` (2.4KB)
 - `scripts\katman-kur.ps1` (1.2KB) — function Kur($hedef, $sablonAd) {
-- `scripts\kilit-surum.ps1` (3.9KB) — function GitZorunlu([string[]]$GitArgs) {
+- `scripts\kilit-surum.ps1` (4KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts\kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
 - `scripts\proje-panosu.ps1` (8.6KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts\saglik.ps1` (8.7KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
