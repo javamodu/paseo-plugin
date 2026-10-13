@@ -76,6 +76,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · paseo-pano DESIGN.md v1: 11 sekme tasarimi — Graf sekmesi tam rontgen (katman bantlari, dugum kartlari, 5 manuel mudahale: yeniden-kos/yeniden-ata/durt/durdur/kabul-duzenle) · Onay kutusu insan-dongude kalp · layout: header+sabit sol menu, badge'ler · kod-satiri estetigi, renk=durum+metin · tek SSE kanali, tembel GET · fail-closed gostergeleri · yapilmayacaklar: file-manager/DAG-motoru/modal
 
+- 2026-10-13 · mockup13ekim.html (paseo-pano 89dd267): 11 sekme tam UI mockup vanilla — canli dogrulandi (gecici http + paseo browser: 11 sekme render, graf 5 dugum katmanli, 0 konsol hatasi) · bulunan hata: cok-satirli JS string (textarea demo verisi) — tek satira indirildi · DESIGN.md'e React Flow ertelendi kaydi (ileri faz, render katmani degisimi yeterli)
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
