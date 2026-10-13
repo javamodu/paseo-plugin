@@ -45,6 +45,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 03:21 · mockup v11.1-11.3: psat/fview mobil taşma fix + bottom-sheet paneller (nav/chat) + composer sabit + galeri.html (7 gerçek PNG, CDP hattı) + cek.mjs + tab-toggle sticky · rozet "10 çalışıyor" kaldırıldı · DERSLER +3 · HANDOFF-2026-10-13-0321.md
 
+- 2026-10-13 · 6-subagent denetim tur-2: 28 bulgu (6 yüksek/8 orta/14 düşük) → gelen-kutu/denetim2-2026-10-13 (md+json) · yüksekler: roller.ts zincir auto-allow üçlüsü (D2-01/02/03) + permission.ts $() ikamesi (D2-04) + K-0020 durdurur/archive çelişkisi ve emirler.json otoritesi (D2-05/06) · v0.13 fix'leri bağımsız doğrulandı (A2-1/2/3, A5-1 diskten) · A3-1/2 kapandı (22/22 modül testte) · A1-1/2/3/4 hâlâ işlenmemiş
+
 ## Bekleyen onaylar
 - K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
 

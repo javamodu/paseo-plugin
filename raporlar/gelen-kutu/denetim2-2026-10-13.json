@@ -1,0 +1,268 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "denetim2-6-subagent",
+  "tarih": "2026-10-13",
+  "maddeler": [
+    {
+      "id": "D2-01",
+      "baslik": "TEST_KOSUCU zincir kontrolunden once auto-allow (npm test; <her sey> gecer)",
+      "dosyaRef": "paseo-verimlilik server/roller.ts:94",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "TEST_KOSUCU kontrolunu izinKarari sonrasina tasi; zincir karakteri varsa null don",
+      "islenme": null
+    },
+    {
+      "id": "D2-02",
+      "baslik": "Raporcu yazma dali izinKarari zincir reddini eziyor",
+      "dosyaRef": "paseo-verimlilik server/roller.ts:98",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "Raporcu dalinda zincir deseni varsa null (insan kapisi) don",
+      "islenme": null
+    },
+    {
+      "id": "D2-03",
+      "baslik": "komuttaRaporYoluGuvenliMi yazma hedefini degil substring'i kontrol ediyor",
+      "dosyaRef": "paseo-verimlilik server/roller.ts:62",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "Yazma hedefini ayristir; her hedefin raporlar/ altinda oldugunu dogrula",
+      "islenme": null
+    },
+    {
+      "id": "D2-04",
+      "baslik": "ZINCIR_DESENI $(...) komut ikamesini yakalamiyor",
+      "dosyaRef": "paseo-verimlilik server/permission.ts:7",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "$ ve ( ikamesini zincir desenine ekle",
+      "islenme": null
+    },
+    {
+      "id": "D2-05",
+      "baslik": "K-0020 'ilk dolan durdurur' fiili SDK'da karsiliksiz (cancel yok, sert fren yalniz archive())",
+      "dosyaRef": "kararlar/K-0020.md",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "§1.2 'durtme+bildirim; sert fren archive()' diye revize",
+      "islenme": null
+    },
+    {
+      "id": "D2-06",
+      "baslik": "emirler.json capraz-repo otoritesi + iki yazici kilit protokolu tanimisz",
+      "dosyaRef": "kararlar/K-0020.md",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "Otorite repo + append kilidi karar metnine islensin",
+      "islenme": null
+    },
+    {
+      "id": "D2-07",
+      "baslik": "npx vitest/jest/tsx auto-allow — paket yoksa registry'den kod indirip calistirir",
+      "dosyaRef": "paseo-verimlilik server/roller.ts:52",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "npx'e --no-install sarti veya beyaz listeden cikar",
+      "islenme": null
+    },
+    {
+      "id": "D2-08",
+      "baslik": "telemetri.jsonl rotasyonsuz; rollup her tur tam dosyayi okuyor (O(n^2))",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:136",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Boyut/satir tavani + rotasyon; rollup son N satiri ters okusun",
+      "islenme": null
+    },
+    {
+      "id": "D2-09",
+      "baslik": "'Sozlesme notu' ratchet'i pratikte olu (6 handoff'un 0'inda literal geciyor)",
+      "dosyaRef": "scripts/zincir-kontrol.ps1:14",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Handoff sablonuna satir ekle ya da deseni gercek ifadeyle degistir",
+      "islenme": null
+    },
+    {
+      "id": "D2-10",
+      "baslik": "kilit-surum: saglik.ps1 hic yoksa doctor:null ile kilit geciyor (fail-open)",
+      "dosyaRef": "scripts/kilit-surum.ps1:26",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "else { throw 'saglik.ps1 bulunamadi' }",
+      "islenme": null
+    },
+    {
+      "id": "D2-11",
+      "baslik": "permission.ts izinYanitla/permissionKontrol testte hic gecmiyor",
+      "dosyaRef": "paseo-verimlilik test/dedektor.test.ts",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Izin akisinin kritik yarisina test ekle",
+      "islenme": null
+    },
+    {
+      "id": "D2-12",
+      "baslik": "bekci.ts gercekCalistir/bekciBaslat yasam dongusu test disi",
+      "dosyaRef": "paseo-verimlilik test/dedektor.test.ts",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Yan-etki izolasyonlu yasam dongusu testi",
+      "islenme": null
+    },
+    {
+      "id": "D2-13",
+      "baslik": "CEKIRDEK<->REHBER drift: K-0017 gelen-kutu kurallari REHBER §3'te yok",
+      "dosyaRef": "paseo-verimlilik server/cekirdek.ts",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "K-0017 REHBER §3'e islensin (A1-4 ile birlikte)",
+      "islenme": null
+    },
+    {
+      "id": "D2-14",
+      "baslik": "Kural diyeti durdu: 78 aktif kural (68'den +10, tavan 80); K-0024 referansli ama kararlar/K-0024.md YOK",
+      "dosyaRef": "STATE_BOARD.md:53",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Backlog '78' tazelensin; K-0024 yazilsin veya referans duzeltilsin",
+      "islenme": null
+    },
+    {
+      "id": "D2-15",
+      "baslik": "brief.ts gorulenler Set'i ajan omru boyunca sinirsiz buyuyor",
+      "dosyaRef": "paseo-verimlilik server/brief.ts:36",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Kapasite tavani (orn. 1000) veya tur penceresi",
+      "islenme": null
+    },
+    {
+      "id": "D2-16",
+      "baslik": "telemetriYaz mkdir'i cwd'de aciyor, dosyayi katman kokune yaziyor — alt-dizinde telemetri sessizce kayboluyor",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:58",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "mkdir dirname(telemetriDosyasi(cwd)) ile acilsin",
+      "islenme": null
+    },
+    {
+      "id": "D2-17",
+      "baslik": "aktifTur sayaci turn_ended gelmezse kalici sisiyor (sahte paralellik-asimi lint'i)",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:50",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Map<agentId> yap + ajanTemizle'de sil",
+      "islenme": null
+    },
+    {
+      "id": "D2-18",
+      "baslik": "ayar.ts cache Map'i cwd anahtarli, hic evict edilmiyor",
+      "dosyaRef": "paseo-verimlilik server/ayar.ts:20",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "LRU tavani veya periyodik temizlik",
+      "islenme": null
+    },
+    {
+      "id": "D2-19",
+      "baslik": "'modAd in MODLAR' prototip zincirini de gecer ('constructor' gecerli sayilir)",
+      "dosyaRef": "paseo-verimlilik server/modlar.ts:65",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Object.hasOwn(MODLAR, ad)",
+      "islenme": null
+    },
+    {
+      "id": "D2-20",
+      "baslik": "modelDeseni ReDoS'a acik ve her agent.create'te derleniyor",
+      "dosyaRef": "paseo-verimlilik server/modlar.ts:52",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Desen uzunluk tavani + derlenen regex cache",
+      "islenme": null
+    },
+    {
+      "id": "D2-21",
+      "baslik": "zincir-kontrol: handoff dizini yoksa/<=1 dosyaysa sessiz exit 0",
+      "dosyaRef": "scripts/zincir-kontrol.ps1:4",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Bekci baglaminda exit 1 veya ayri bayrak",
+      "islenme": null
+    },
+    {
+      "id": "D2-22",
+      "baslik": "kilit-surum: surum.ts PLUGIN_SURUM deseni eslesmezse damga sessizce atlaniyor",
+      "dosyaRef": "scripts/kilit-surum.ps1:43",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Eslesmezse Warn/throw",
+      "islenme": null
+    },
+    {
+      "id": "D2-23",
+      "baslik": "saglik.ps1 catch{} hedefler.json bozuksa esikleri sessizce default'a dusuruyor",
+      "dosyaRef": "scripts/saglik.ps1:20",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "catch'te en az SARI bas",
+      "islenme": null
+    },
+    {
+      "id": "D2-24",
+      "baslik": "Tek dosyada 724 satir / 239 assert — olcek buyudukce kirilgan",
+      "dosyaRef": "paseo-verimlilik test/dedektor.test.ts",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Dosya bolme veya node:test runner degerlendir",
+      "islenme": null
+    },
+    {
+      "id": "D2-25",
+      "baslik": "STATE_BOARD 'Aktif is' parantezi 3 kilit geride (v0.11 diyor, son v0.14)",
+      "dosyaRef": "STATE_BOARD.md:4",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Parantez v0.14/K-0026'ya guncellensin",
+      "islenme": null
+    },
+    {
+      "id": "D2-26",
+      "baslik": "DERSLER tarih oneki tutarsiz + ~4 pozitif kayit (L5 negatif-bilgi formati)",
+      "dosyaRef": "DERSLER.md",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Tarih oneki zorunlu; pozitifler kanit/'e tasinabilir",
+      "islenme": null
+    },
+    {
+      "id": "D2-27",
+      "baslik": "K-0019: port 4377 doluysa (EADDRINUSE) fallback davranisi tanimisz",
+      "dosyaRef": "kararlar/K-0019.md",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Hata rozeti + salt-goruntu degrade metne eklensin",
+      "islenme": null
+    },
+    {
+      "id": "D2-28",
+      "baslik": "K-0019/K-0020 'uygulama v0.12' diyor; gercek hedef v0.15+",
+      "dosyaRef": "kararlar/K-0019.md",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Surum referanslari tazelensin, iki karar ayri surumlerde",
+      "islenme": null
+    },
+    {
+      "id": "D2-29",
+      "baslik": "brief lint regex'i kendi durtme metniyle celisiyor: 'arac/kaynak' oneriliyor ama OGE_ANAHTAR 'ARAC/KAYNAK:' yazimini saymiyor (anahtar+hemen ':' sart)",
+      "dosyaRef": "paseo-verimlilik server/brief.ts:9",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Regex'i toleransli yap ya da durtme metnini regex'e uydur",
+      "islenme": null
+    }
+  ]
+}
