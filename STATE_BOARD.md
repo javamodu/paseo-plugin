@@ -58,6 +58,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · plans/ORDU-PLAN-v1.md: K-0020 ordu plani taslaği — komuta zinciri (tek manager kapisi, /ordu slash), emirler.json append-kilit sema + plan-list dashboard satirlari, manager brief 4 bolum (mudahale/sor/asla/rapor), izinler.json 4 eksen (saat/dizin/token/kural, fail-closed), coder↔tester otonom dongu + retro, 6-ajan duzeni (1 manager CERRAH + 3 coder + 2 tester), 4 faz (F1 temel → F4 otonom) · 4 acik soru kullaniciya birakildi · CODEMAP 98 dosya
 
+- 2026-10-13 · ORDU-PLAN v1.1: kapasite ekseni (token/sure/limitsiz, kimi-k3 codefast icin hiz siniri) · dis LLM'ler custom provider ile tek-tip ajan (GLM/DeepSeek/Qwen, parent=subagent farki yok) · pitbull profilleri (gozcu/takipci/vekil) + kullanici.md vekil standardi · ogrenen yonlendirici dongusu (olc-kaydet-enjekte-yonlendir, yonlendirici.json) · F0 onkosul: provider config sablonu · acik sorulara 5-7 eklendi
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 

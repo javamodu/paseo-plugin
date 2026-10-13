@@ -132,3 +132,71 @@ Her faz ayri commit + damga; F2 oncesi K-0020 karar kaydini revize et (manager L
 2. Manager hangi provider/model? (maliyet vs kalite: manager uzun yasayacak, ucuz+hizli mi, guclu mu?)
 3. emirler.json tek repo mu, cok repo mu? (cok repo: her repo kendi dosyasi + pano toplar)
 4. Worktree birlestirme: coder worktree'si bitince ana dala kim birlestirir — otomatik mi (test yesilse), elle mi? (K-0020'de oneri: elle)
+
+---
+
+# v1.1 GENISLEME (2026-10-13) — cok-saglayicili otonom ordu
+
+Girdi: kimi-k3 gibi tokensuz/sureli abonelikler · dis LLM'ler (GLM, DeepSeek, Qwen) · cok-modlu pitbull'lar · "kullanici gibi dusunen" vekil · kendi kendini denetleyen/ogrenen sistem.
+
+## 10. Kapasite modeli — token her zaman yok
+
+izinler.json'un "token" ekseni genel "kapasite" eksenine donusur, provider basina:
+
+```json
+{
+  "kapasite": {
+    "codex/gpt-5.4":   { "tip": "token",    "saatlikTavan": 500000, "asim": "durdur+sor" },
+    "kimi/k3-codefast":{ "tip": "sure",     "pencere": "abonelik-bitisine-kadar", "hizSiniri": "dakikada-6-tur", "asim": "kuyruga-al" },
+    "zai/glm-4.6":     { "tip": "limitsiz", "hizSiniri": "dakikada-4-tur" }
+  }
+}
+```
+
+- token: mevcut sayac (telemetri.jsonl).
+- sure: abonelik donemi icinde token sayilmaz; fren = hiz siniri (rate limit) + saat penceresi.
+- limitsiz: yalniz hiz siniri ve kural ekseni calisir.
+- Dashboard satirinda metrik, tipe gore degisir: "84k/200k tok" veya "bugun 47 tur · hiz 4/dk".
+
+## 11. Dis LLM'ler orduya katilir — subagent mi dis ajan mi: EVET, ikisi de
+
+- GLM (Z.AI, Anthropic-uyumlu), DeepSeek (OpenAI-uyumlu), Qwen (Alibaba) → `~/.paseo/config.json` `agents.providers` altina custom provider olarak eklenir (resmi destek; `paseo reload` yeter, daemon restart yok).
+- Eklendikten sonra hepsi TEK TIP ajan: manager `agents.create({ config: { provider: "zai/glm-4.6" }, parent: managerId })` der → subagent. Parent vermezse bagimsiz dis ajan. Manager icin fark yok; koprude/dashboard'da "parent" rozeti gorunur.
+- Atama karari manager'da ama frem plugin'de: max paralel + kapasite + izinler her saglayiciya aynen uygulanir. Dis LLM "ucuz" diye kontrolsuz kosamaz.
+- SPAWN mesaj semasi provider alani tasir: `SPAWN: {"provider":"deepseek/deepseek-chat","rol":"coder","gorev":"S4-02"}`.
+
+## 12. Pitbull modlari (mevcut pitbull.ts genisler)
+
+Her worker'a 1+ pitbull profili baglanir; profil config'de tanimli, hepsi manager'a raporlar:
+
+| Profil | Davranis | Benzetme |
+|---|---|---|
+| gozcu | izler, sessizlik/odak kaybi raporlar; mudahale yok | kamera |
+| takipci | bitis kriteri yesil olana kadar durtur, birakmaz | pitbull |
+| vekil | kullanici.md standardina gore ciktiyi okur; "ben olsam reddederdim" → geri gonderir | sen |
+
+- vekil icin `.verimlilik/kullanici.md`: SENIN standartlarin — red sebeplerin, kalite barin, "ben olsam ne sorardim" listesi. Sen yazarsin/guncellersin; sistem her denetimde enjekte eder. Dosya yoksa vekil pasif (sahte denetim yok — durustluk).
+- pitbull kararlari kayda duser: hangi profil, kimi, neden geri gonderdi → telemetri (kim iyi durtuyor olculur).
+
+## 13. Kendi kendini denetleyen/ogrenen dongu
+
+Olç → kaydet → enjekte → yonlendir:
+
+1. OLC: her tur telemetri.jsonl'e iner (var) + pitbull kararlari eklenir.
+2. KAYDET: sprint retrosu (manager gorevi) — model × is-tipi kabul orani tablosu `.verimlilik/yonlendirici.json`'a islenir; kirmizi kokler DERSLER'e.
+3. ENJEKTE: DERSLER + kullanici.md + yonlendirici ozeti her yeni ajan brief'ine otomatik girer (mevcut enjeksiyon mekanizmasi).
+4. YONLENDIR: manager bir sonraki atamada tabloya bakar — "refactor'da glm %70 kabul, codex %90 → refactor codex'e".
+
+Ogrenme iddiasi = bu dongunun kaniti. Tablo yoksa "ogreniyor" demeyiz.
+
+## 14. Faz guncellemesi
+
+- F3'e ek: kapasite ekseni (token/sure/limitsiz) + hiz siniri.
+- F4'e ek: vekil pitbull + kullanici.md + yonlendirici.json.
+- F0 (onkosul, sende): dis provider'lari config.json'a ekleme (GLM/DeepSeek/Qwen anahtarlari) — ben sablonu hazirlarim, anahtarlari sen girersin.
+
+## Acik sorulara ek (v1.1)
+
+5. kimi-k3 "codefast" aboneliginin hiz sinirini biliyor musun (dk/tur)? bilmiyorsan muhafazakar 4/dk ile baslariz, telemetri olcer.
+6. kullanici.md'yi ilk kez kim yazsin: ben taslak cikarayim (son damgalardan), sen mi duzenlersin?
+7. vekil hangi modelde kossun? (denetim icin guclu model sart mi, yoksa ucuz model + siki kural yeter mi)
