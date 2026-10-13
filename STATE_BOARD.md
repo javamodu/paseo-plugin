@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.13 KİLİT (plugin cdd7f69, tag v0.13-kilit, typecheck+süit exit 0, 14 yeni assert): K-0025 güvenlik üçlüsü — A2-2 rg/find yazıcı bayraklar insan kapısına · A2-3 raporcu traversal normalize+segment ile kapandı · A2-1 agent.closed 11 Map tam temizlik (temizlik.ts); gelen-kutu 3 madde işlendi
 - 2026-10-13 · 6-subagent uçtan uca denetim tamam: 58 bulgu (9 yüksek/21 orta/28 düşük) → gelen-kutu/denetim-2026-10-13 (md+json) · yüksekler: A2-1 bellek sızıntısı, A2-2/A2-3 auto-allow+traversal, A3-1/2 testsiz modüller, A5-1 ölü ratchet, A5-2/3/4 kilit-surum fail-open · A2-1/A2-2/A2-3/A5-1 diskten doğrulandı (R)
 - 2026-10-13 · v0.12.1 KİLİT (plugin 7042460, tag v0.12.1-kilit, tam süit yeşil): briefKontrol callId-bazlı dedupe — eski zayif-brief her turda yeniden dürtmüyor (v2.1 backlog maddesi kapandı) · push ls-remote doğrulandı
 - 2026-10-13 · v0.12 KİLİT (plugin 35e4ecf, tag v0.12-kilit, tam süit yeşil): K-0021+K-0022+K-0023 UYGULANDI — altAjan telemetri (parentAgentId) + rollup önceki-hafta deltası/kabul kapsamı/alt-ajan satırı + bekçi STATE_BOARD untracked işaretçisi + ÇEKİRDEK/REHBER %90 kapsam yarım cümlesi + REHBER §8 spawn köprü notu · push ls-remote doğrulandı

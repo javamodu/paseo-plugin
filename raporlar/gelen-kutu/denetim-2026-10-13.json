@@ -82,7 +82,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "her modul temizle(agentId) export etsin; closed'da toplu cagri",
-      "islenme": null
+      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
     },
     {
       "id": "A2-2",
@@ -91,7 +91,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "find/rg'yi daralt veya -delete/-exec/--pre bayrak reddi",
-      "islenme": null
+      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
     },
     {
       "id": "A2-3",
@@ -100,7 +100,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "resolve() + kok/raporlar icinde kalma kontrolu",
-      "islenme": null
+      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
     },
     {
       "id": "A2-4",
