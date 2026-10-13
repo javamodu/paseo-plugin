@@ -296,3 +296,44 @@ sinav → eksik eksen raporu → o eksene ozel mini-ders uret (retro + DERSLER +
 ## Faz guncellemesi (v1.3)
 
 - Yeni F6: okul — sinav uretici + dis checker seti + egitim dongusu + mezuniyet kaydi. F5 (bench) sonrasi; bench "genel yetenek", okul "bizim kurallara hakimiyet" olcer.
+
+---
+
+# v1.4 GENISLEME (2026-10-13) — Ikili temsil: sistemin kalbi (K-0033)
+
+Karar: insan yuzeyi kisitli Markdown (`plan.md`), makine cekirdegi `emirler.json`; derleyici manager LLM, dogrulayici deterministik round-trip checker. DAG/task-graph yok — satir-liste yeterli.
+
+## 21. Insan yuzeyi — plan.md satir formati
+
+Her gorev TEK satir; serbest metin ama bilesenler taninabilir:
+
+```md
+## Sprint 4
+- [ ] S4-01 login akisini refactor et → coder · kabul: npm test auth yesil · once: S3-07
+- [ ] S4-02 auth dokumani guncelle → tester-degil docs-coder · kabul: docs/auth.md var ve linkler calisiyor
+- [x] S3-07 token yenileme (bitti 12:40)
+```
+
+Kurallar: checkbox = durum · id = tek anahtar · "→" = hedef rol · "kabul:" = olculebilir kriter (checker "olculemez" diye reddedebilir) · "once:" = bagimlilik. Baslik/serbest metin Turkce kalabilir — manager anlar, checker anlamak zorunda degil (yapilandirilmis alanlar ASCII anahtarli).
+
+## 22. Derleme hatti (kod gibi yerlesik)
+
+```
+plan.md (sen duzenlersin)
+  → manager LLM: md → json TASLAGI (dosyaya yazamaz)
+  → plugin checker: schema + tek-id + dongusuz-bagimlilik + olculebilir-kabul + izinli-dizin
+  → round-trip: json → kanonik md uret → alan-alan eslestir
+  → hepsi YESIL: emirler.json'a append-kilitli islenir + commit + damga
+  → TEK KIRMIZI: red + sebep listesi sana doner (sessiz duzeltme yok)
+```
+
+- Drift kilidi: md↔json ayriliginda yuzey kirmizi "ESLESMEDI" banner; cakismada INSAN surumu kazanir, json yeniden derlenir.
+- emirler.json git'te; her derleme commit + checker ozeti damgasi. Denetim = git diff.
+
+## 23. Ordu yonetimi de ayni hat
+
+Manager'a verdigin ordu kurallari (max paralel, rol atamalari, pitbull baglama) da ayni ikili temsille: `ordu.md` (insan) ↔ `ordu.json` (cekirdek). Tek derleyici, tek checker, iki belge cifti.
+
+## Faz guncellemesi (v1.4)
+
+- F1'in kalbi budur: satir formati + derleyici protokolu + checker. F1 kabul kriteri genisler: sen md'de 3 gorevi elle duzenlersin → checker'dan gecip dashboard'a satir satir duser → bir alani md'den degistirince drift banneri yanar, yeniden derleyince soner.

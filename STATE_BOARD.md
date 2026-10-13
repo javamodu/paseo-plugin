@@ -64,6 +64,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · ORDU-PLAN v1.3: HAKIMIYET OKULU — taze oturumda indeks (5 eksen: kural/arac/durustluk/repo/disiplin) · kirilamayanligin 4 kilidi (gizli kriter + rastgele tohum + tuzak gorev + capraz dogrulama; ajan beyani kanit degil) · iteratif+adaptif egitim dongusu %100 hedef, plateau'da insan · mezuniyet rozeti + kural degisince regresyon sinavi · yonlendiricide uyum = genel rapor + okul indeksi; mezun olmayan kritik gorev alamaz · karar: anahtarlar panodan (soru 9 kapandi) · F6 okul
 
+- 2026-10-13 · K-0033 TASLAK + ORDU-PLAN v1.4: IKILI TEMSIL sistemin kalbi — insan yuzeyi plan.md (kisitli md, satir-basi) ↔ makine cekirdegi emirler.json (tek otorite, append-kilit) · derleyici manager LLM (yazamaz, taslak uretir) · dogrulayici deterministik checker (schema+tek-id+dongusuz-bagimlilik+olculebilir-kabul+izinli-dizin) + round-trip md geri-uretimi · drift kilidi: cakismada insan kazanir, json yeniden derlenir · ordu kurallari da ayni hat (ordu.md ↔ ordu.json) · DAG reddedildi, satir-liste yeterli · F1 kalbi bu oldu
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
