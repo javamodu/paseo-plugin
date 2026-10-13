@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 0b65610 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD fd2041e — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -64,6 +64,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-13-0445.md` (1.3KB) — HANDOFF 2026-10-13 04:45 — bağlam %93 acil damga | Repo durumu | Bu vardiyada kapananlar
 - `plans\handoff\HANDOFF-2026-10-13-1200.md` (4.4KB) — HANDOFF 2026-10-13 12:00 — vardiya devri (yeniden yazıldı ve diskten doğrulandı) | Echo dogrulamasi (3 soru, diskten) | Repo durumu (12:30'da yeniden olculdu)
 - `plans\handoff\HANDOFF-2026-10-13-1450.md` (2.3KB) — HANDOFF 2026-10-13 14:50 - Ordu/Pano (mockup v2 + F2 kapandi) | Repo durumu (echo dogrulandi 14:53) | Kapananlar
+- `plans\handoff\HANDOFF-2026-10-13-1515.md` (2.4KB) — HANDOFF 2026-10-13 15:15 — restart öncesi devir (kullanıcı Paseo'yu restart edecek, "devam et" diyecek) | Repo durumu (diskten, 15:15) | Bu turda kapananlar (kanıtlı)
+- `plans\handoff\HANDOFF-2026-10-13-1707.md` (2.7KB) — HANDOFF 2026-10-13 1707 - Pano v5 + BLUEPRINT (kullanici Paseo restart edecek) | Repo durumu (echo: devralan dogrular) | Bu turda kapananlar
 - `plans\mockup\cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans\mockup\DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
@@ -99,7 +101,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (19.9KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (20.1KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback

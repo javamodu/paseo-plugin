@@ -80,6 +80,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · mockup13ekim v2 (paseo-pano b82dd3f): v11 tasarim dili uygulandi — ikon-rail (60px, inline SVG, emoji yok) + sol flyout dock (VS Code modeli: ayni ikon 2. tik kapatir) + sag inspector dock (dugum tikla → detay; header'dan kapanir) · canli dogrulandi: 11 ikon/11 sekme 0 hata, flyout toggle, dugum→dock detay "S4-04", dock toggle · gecici dosyalar silindi
 
+- 2026-10-13 15:15 · restart-oncesi devir: HANDOFF-2026-10-13-1515 (k3Bitis 25 kokte yazili + plugin reload OK + BK-01 kayitli fd2041e) · kullanici "devam et" deyince: firtina aktivasyon dogrula -> toplu onay paketi -> triage dalgasi
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
