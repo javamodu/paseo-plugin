@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 9812e3c — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 42f052c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -39,7 +39,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0017.md` (1.5KB) — K-0017 — Gelen Kutu kanalı (ajanlar arası bulgu taşıma) (ONAYLANDI 2026-10-12) | Bağlam | Karar
 - `kararlar\K-0018.md` (4.3KB) — K-0018 — Provider-Modlar (ATÖLYE / MATBAA / CERRAH / SERBEST) (ONAYLANDI 2026-10-12) | Bağlam | Karar (taslak)
 - `kararlar\K-0019.md` (3.8KB) — K-0019 — Pano İskelet Sistemi (TASLAK 2026-10-12 — kullanıcı onayı bekleniyor) | Bağlam | Karar
-- `kararlar\K-0020.md` (3.9KB) — K-0020 — Görev Emri Orkestrasyonu (Pano Sekme 2) (TASLAK 2026-10-12 — kullanıcı onayı bekleniyor) | Bağlam | Karar
+- `kararlar\K-0020.md` (4.5KB) — K-0020 — Görev Emri Orkestrasyonu (Pano Sekme 2) (TASLAK 2026-10-12 — kullanıcı onayı bekleniyor) | Bağlam | Karar
 - `kararlar\K-0021.md` (2.9KB) — K-0021 — Collab Spawn Hook Köprüsü (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0022.md` (1.7KB) — K-0022 — Rollup Delta + Kabul Kapsamı (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0023.md` (1.5KB) — K-0023 — Sondaj Ö1+Ö2 Metin Düzeltmeleri (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
@@ -65,7 +65,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\PLAN-eksik-kapatma-2026-10-12.md` (3.3KB) — PLAN — Eksik Kapatma (paseo plugin + sözleşme) — 2026-10-12 | P0 — collab spawn hook köprüsü (speakrapid-1, YÜKSEK) → K-0021 taslağı | P1 — rollup delta + kabul kapsamı (codex-1, codex-2, orta) → K-0022 taslağı
 - `raporlar\gelen-kutu\codex-2026-10-12.md` (1.9KB) — Gelen Kutu — codex — 2026-10-12
 - `raporlar\gelen-kutu\denetim-2026-10-13.md` (9.4KB) — Gelen Kutu — denetim (6 subagent, uçtan uca) — 2026-10-13 | İşlenme (2026-10-13)
-- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.2KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13 | İşlenme (2026-10-13)
+- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.3KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13 | İşlenme (2026-10-13)
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
@@ -86,7 +86,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (12.4KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (12.7KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
