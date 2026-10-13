@@ -1,0 +1,14 @@
+{
+    "schemaSurum":  1,
+    "maddeler":  [
+                     {
+                         "id":  "BK-02",
+                         "baslik":  "Plugin reload turn-event yeniden-teslimi telemetriyi kirletiyor: turSn=1 sahte tur (26 cagrili tam timeline) + turSayisi=1 sayac sifirlanmasi + tek tarafli state (turSn yok ama aktifSn var)",
+                         "dosyaRef":  "paseo-verimlilik index.server.ts turn_started/turn_ended + server/telemetry.ts turBaslat",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "turnId telemetri.jsonl icinde zaten yaziliysa turKaydet atla (redelivery dedupe); turSayisi sayacini reload sonrasi son kayitli degerden hidrate et",
+                         "islenme":  null
+                     }
+                 ]
+}
