@@ -84,6 +84,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 15:55 · v0.20 (b5acdef, push+tag): commit-aware locDelta (BK-02, yuksek, mini-olcumde yakalandi) + saatlikLoc ayni-alt-kume (R3-06) · 3 test yeni · tsc+test exit 0 · review3 acik: R3-05/07/08/09 (dusuk)
 
+- 2026-10-13 16:40 · v0.21 metrik paketi (8f2ba0d, push+tag): decodeTps + test-kirmizi orani + halusinasyon-ref sayaci + ort stall · 10 yeni assertion, tsc+test exit 0 · not: v0.21 blogu ilk yamada ajanTemizle capasina oturdu (iki aktifTur azaltmasi vardi) — capa seciminde tekrar-eden-satir kontrolu sart
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 

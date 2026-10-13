@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 4ec8a17 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 5a2da13 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -101,7 +101,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (20.3KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (20.6KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
