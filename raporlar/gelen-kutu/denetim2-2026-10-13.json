@@ -45,7 +45,7 @@
                          "dosyaRef":  "kararlar/K-0020.md",
                          "etiket":  "(R)",
                          "siddet":  "yuksek",
-                         "oneri":  "Ã‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
+                         "oneri":  "Ãƒâ€šÃ‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
                          "islenme":  "2026-10-13 K-0020 revizyonu (taslak metin duzeltmesi, karar hala onay bekliyor)"
                      },
                      {
@@ -59,7 +59,7 @@
                      },
                      {
                          "id":  "D2-07",
-                         "baslik":  "npx vitest/jest/tsx auto-allow Ã¢â‚¬â€ paket yoksa registry\u0027den kod indirip calistirir",
+                         "baslik":  "npx vitest/jest/tsx auto-allow ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paket yoksa registry\u0027den kod indirip calistirir",
                          "dosyaRef":  "paseo-verimlilik server/roller.ts:52",
                          "etiket":  "(R)",
                          "siddet":  "orta",
@@ -113,11 +113,11 @@
                      },
                      {
                          "id":  "D2-13",
-                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER Ã‚Â§3\u0027te yok",
+                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER Ãƒâ€šÃ‚Â§3\u0027te yok",
                          "dosyaRef":  "paseo-verimlilik server/cekirdek.ts",
                          "etiket":  "(R)",
                          "siddet":  "orta",
-                         "oneri":  "K-0017 REHBER Ã‚Â§3\u0027e islensin (A1-4 ile birlikte)",
+                         "oneri":  "K-0017 REHBER Ãƒâ€šÃ‚Â§3\u0027e islensin (A1-4 ile birlikte)",
                          "islenme":  null
                      },
                      {
@@ -136,11 +136,11 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Kapasite tavani (orn. 1000) veya tur penceresi",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 plugin@383c3bb (gorulen FIFO 500 tavani, BK-01 ile birlikte)"
                      },
                      {
                          "id":  "D2-16",
-                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor Ã¢â‚¬â€ alt-dizinde telemetri sessizce kayboluyor",
+                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â alt-dizinde telemetri sessizce kayboluyor",
                          "dosyaRef":  "paseo-verimlilik server/telemetry.ts:58",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
@@ -212,7 +212,7 @@
                      },
                      {
                          "id":  "D2-24",
-                         "baslik":  "Tek dosyada 724 satir / 239 assert Ã¢â‚¬â€ olcek buyudukce kirilgan",
+                         "baslik":  "Tek dosyada 724 satir / 239 assert ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â olcek buyudukce kirilgan",
                          "dosyaRef":  "paseo-verimlilik test/dedektor.test.ts",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
