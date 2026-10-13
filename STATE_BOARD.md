@@ -52,8 +52,10 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · 6-subagent denetim tur-2: 28 bulgu (6 yüksek/8 orta/14 düşük) → gelen-kutu/denetim2-2026-10-13 (md+json) · yüksekler: roller.ts zincir auto-allow üçlüsü (D2-01/02/03) + permission.ts $() ikamesi (D2-04) + K-0020 durdurur/archive çelişkisi ve emirler.json otoritesi (D2-05/06) · v0.13 fix'leri bağımsız doğrulandı (A2-1/2/3, A5-1 diskten) · A3-1/2 kapandı (22/22 modül testte) · A1-1/2/3/4 hâlâ işlenmemiş
 
+- 2026-10-13 12:35 · HANDOFF-2026-10-13-1200 yeniden yazildi + diskten dogrulandi (3 echo sorusu; gelen-kutu acik: denetim-1 37, denetim-2 23) · zincir 8/8 OK, saglik 17 OK / 0 EKSIK / 1 SARI · CODEMAP tazelendi (97 dosya)
+
 ## Bekleyen onaylar
-- K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
+- K-0019/K-0020 plugin-entegrasyon onayi: ASKIDA (K-0031 paseo-pano prototipi kullanici gozden gecirmesini bekliyor) · K-0020 acik sorular: manager LLM modu (oneri CERRAH) · yaratici-worktree birlestirme kapisi (oneri elle)
 
 ## v2.1 backlog
 - v0.8 adayÄ±: telemetri failedCalls'a araÃ§-adÄ±/hata detayÄ± alanÄ± (kalite dÃ¼rtmesi "hangi 59 Ã§aÄŸrÄ±" sorusunu cevaplayamÄ±yor) + TDD kÄ±rmÄ±zÄ±-koÅŸu desenlerini (npm test, vitest) sayaÃ§tan hariÃ§ tutma seÃ§eneÄŸi.
