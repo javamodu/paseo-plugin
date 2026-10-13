@@ -1,0 +1,16 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "codex-orkestrator",
+  "tarih": "2026-10-13",
+  "maddeler": [
+    {
+      "id": "BK-01",
+      "baslik": "briefKontrol sayaci bayat tekrar: callId'siz sub_agent kalemleri hic dedupe'lanmiyor (gorulen yalniz callId varken isler) — ayni \"1/7\" durtmesi 10dk cooldown ile her turla tekrarliyor; ustune plugin reload in-memory gorulenler/durum haritalarini sildigi icin tum timeline bastan sayiliyor",
+      "dosyaRef": "paseo-verimlilik server/brief.ts:24 (callId guard) + brief.ts:44-45 (in-memory state)",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "callId yoksa stabil kimlik uret (item index + description hash) ve gorulen'e onu yaz; ayrica durum/gorulen haritalarini .verimlilik altinda kalici dosyaya tasi ki reload tekrarlari bitsin. Alarm yorgunlugu riski: ayni metin 3+ kez geldi, kullanici artik gormezden geliyor",
+      "islenme": null
+    }
+  ]
+}
