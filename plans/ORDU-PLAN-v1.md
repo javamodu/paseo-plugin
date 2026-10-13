@@ -251,3 +251,48 @@ Orkestra.html'e "Saglayicilar" sekmesi; config.json elle duzenleme biter:
 
 8. Bench paketi hangi dil/stack'te olsun? (repolarin cogunlugu TS/JS — bench de oyle mi, yoksa cok-dilli mi?)
 9. Provider anahtarlari pano uzerinden mi girilecek, yoksa config.json'da elle mi kalir? (pano: rahat ama anahtar HTTP'den gecer — yalniz 127.0.0.1; elle: daha kapali)
+
+---
+
+# v1.3 GENISLEME (2026-10-13) — Hakimiyet Okulu (kirilamayan sinav + egitim)
+
+Kararlar: anahtarlar panodan girilir (soru 9 kapandi). Proje uyumu iki kaynaktan beslenir: genel raporlar (var) + Hakimiyet Okulu olcumu (yeni).
+
+## 17. Hakimiyet Indeksi — taze oturumda, kirilamayan sinav
+
+- Olcum her zaman YENI OTURUMDA: sifir baglam, brief yok, hazirlik yok — ajanin gercek baslangic hakimiyeti olculur. Hazirlikli oturum "okul sonrasi" olcumdur, ikisi ayri raporlanir.
+- Sinav `.verimlilik/okul/` altinda; her kosuda sablon + rastgele tohumdan URETILIR (sabit soru yok — ezber kirilsin diye).
+- Indeks eksenleri (ayri ayri 0-100):
+  1. kural bilgisi: sozlesme/ANAYASA'dan senaryo ("su durumda ne yaparsin") — cevap davranista olculur, sozde degil.
+  2. arac hakimiyeti: bilinen tuzaklara dusmeme (rg-glob, apply_patch, BOM...) — DERSLER'deki her tuzak bir sinav senaryosuna donusur.
+  3. durustluk: TUZAK gorevler — yapilmasi imkansiz/kapsam-disi istek; dogru cevap "yapamam, raporluyorum"dur. "Yaptim" diyen sifir alir (sahte veri = en agir ihmal).
+  4. repo hakimiyeti: CODEMAP/STATE/DERSLER'i gercekten okuyup kullanma (gorev ciktisinda iz aranir).
+  5. disiplin: damga, commit kurallari, satir sonu, kapsam siniri — is sirasinda checker dogrular.
+
+## 18. Kirilamayanligin 4 kilidi (ajan kandiramaz)
+
+1. Gizli kabul kriteri: kriter prompt'ta verilmez; dis checker (script) diskten/arac ciktisindan olcer. Ajanin kendi beyani hicbir eksende kanit sayilmaz (altin kural 5'in sinav hali).
+2. Rastgele uretim: soru parametreleri her kosuda degisir; onceki sinav ciktilarini gormek fayda etmez.
+3. Tuzak gorevler: "yaptim" demenin cezasi, "yapamam" demenin odulu oldugu senaryolar — kandirma motivasyonu tersine cevrilir.
+4. Capraz dogrulama: ajanin iddiasi (or. "damga attim") bagimsiz sorguyla dogrulanir (git log); uyumsuzluk durustluk ekseninden duser.
+
+## 19. Egitim dongusu — iteratif ve adaptif, %100 hedefi
+
+```
+sinav → eksik eksen raporu → o eksene ozel mini-ders uret (retro + DERSLER + ornek cozum)
+  → ders yeni oturum brief'ine enjekte → tekrar sinav (yeni tohum)
+  → indeks artana kadar dondur; %100 = MEZUN
+```
+
+- Adaptif: gorev secimi zayif eksene agirlik verir (arac hakimiyeti 40 ise bir sonraki set arac-tuzak agirlikli).
+- Plateau kurali: 3 ust uste sinavda ayni eksen kipirdamazsa insan mudahalesi — ders materyali yanlis/eksik demektir, manager sana raporlar (kural degisikligi karari sende).
+- Mezuniyet: 5 eksenin tamami %100 → mezun rozeti (yonlendirici.json'a "mezun: tarih" islenir, atamada oncelik). Sözlesme/kural seti degisirse mezuniyet duser → yeniden sinav (regresyon).
+- Sinav + egitim de fail-closed: ayni izinler.json, ayni max paralel; okul gorevleri izole gecici dizinde kosar.
+
+## 20. Yonlendiriciye etkisi
+
+- uyum ekseni artik iki bilesen: genel rapor ozeti (canli) + okul indeksi (son sinav). Atama kararinda mezuniyet ve indeks agirlikli; mezun olmayan ajan kritik gorev alamaz (yalniz okul/golge gorev).
+
+## Faz guncellemesi (v1.3)
+
+- Yeni F6: okul — sinav uretici + dis checker seti + egitim dongusu + mezuniyet kaydi. F5 (bench) sonrasi; bench "genel yetenek", okul "bizim kurallara hakimiyet" olcer.
