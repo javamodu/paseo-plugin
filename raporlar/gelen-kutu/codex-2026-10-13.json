@@ -11,6 +11,15 @@
       "siddet": "orta",
       "oneri": "callId yoksa stabil kimlik uret (item index + description hash) ve gorulen'e onu yaz; ayrica durum/gorulen haritalarini .verimlilik altinda kalici dosyaya tasi ki reload tekrarlari bitsin. Alarm yorgunlugu riski: ayni metin 3+ kez geldi, kullanici artik gormezden geliyor",
       "islenme": null
+    },
+    {
+      "id": "BK-02",
+      "baslik": "locDelta commit-koru: tur icinde commit atilinca working-tree diff sifirlanir, uretilen satirlar negatif sayilir (mini-olcumde -216 LOC/saat)",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:155",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "commit-aware olcum: tur basi HEAD sha + tur ici commit numstat + uncommitted fark",
+      "islenme": "2026-10-13 plugin@b54f930 v0.20-kilit (ayni turda bulgu+fix)"
     }
   ]
 }

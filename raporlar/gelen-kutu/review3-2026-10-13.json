@@ -55,7 +55,7 @@
       "etiket": "(R)",
       "siddet": "dusuk",
       "oneri": "Pay ve paydayi ayni kayit alt-kumesinden (locDelta ve turSn birlikte olanlar) hesapla",
-      "islenme": null
+      "islenme": "2026-10-13 plugin@b54f930 v0.20-kilit (pay=payda ayni alt-kume)"
     },
     {
       "id": "R3-07",
