@@ -54,8 +54,10 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 12:35 · HANDOFF-2026-10-13-1200 yeniden yazildi + diskten dogrulandi (3 echo sorusu; gelen-kutu acik: denetim-1 37, denetim-2 23) · zincir 8/8 OK, saglik 17 OK / 0 EKSIK / 1 SARI · CODEMAP tazelendi (97 dosya)
 
+- 2026-10-13 · PANO BEYNI canli: paseo-verimlilik e4ae439 (push'lu) — server/pano.ts koprusu 127.0.0.1:4378 (node:http, fail-closed PANO_TOKEN) + Pano workspace paneli (openBrowser ile sekme) + pano.durum RPC · paseo-pano 407df89 (yerel) — orkestra.html beyin yuzeyi (ajan izgarasi SSE, gonder/yarat/izin/arsivle POST) · canli dogrulandi: /api/durum+ajanlar 200 gercek ajan verisi, POST 403 fail-closed, SSE ajanlar akisi · typecheck temiz, plugin running
+
 ## Bekleyen onaylar
-- K-0019/K-0020 plugin-entegrasyon onayi: ASKIDA (K-0031 paseo-pano prototipi kullanici gozden gecirmesini bekliyor) · K-0020 acik sorular: manager LLM modu (oneri CERRAH) · yaratici-worktree birlestirme kapisi (oneri elle)
+- K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
 ## v2.1 backlog
 - v0.8 adayÄ±: telemetri failedCalls'a araÃ§-adÄ±/hata detayÄ± alanÄ± (kalite dÃ¼rtmesi "hangi 59 Ã§aÄŸrÄ±" sorusunu cevaplayamÄ±yor) + TDD kÄ±rmÄ±zÄ±-koÅŸu desenlerini (npm test, vitest) sayaÃ§tan hariÃ§ tutma seÃ§eneÄŸi.
