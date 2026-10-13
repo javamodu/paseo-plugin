@@ -1,0 +1,59 @@
+{
+    "tarih":  "2026-10-14",
+    "esik":  "v0.20+v0.21 (firtina/K3)",
+    "baz":  "v0.18+v0.19 ayni-repo",
+    "repolar":  [
+                    {
+                        "repo":  "paseo-plugin",
+                        "v021":  {
+                                     "n":  33,
+                                     "ortSn":  220.3,
+                                     "medyanSn":  154,
+                                     "tool":  8.3,
+                                     "decode":  115.6
+                                 },
+                        "baz":  {
+                                    "n":  99,
+                                    "ortSn":  204.6,
+                                    "medyanSn":  130,
+                                    "tool":  7.7,
+                                    "decode":  null
+                                }
+                    },
+                    {
+                        "repo":  "txt-to-cad",
+                        "v021":  {
+                                     "n":  18,
+                                     "ortSn":  275.4,
+                                     "medyanSn":  259,
+                                     "tool":  9.6,
+                                     "decode":  151.9
+                                 },
+                        "baz":  {
+                                    "n":  67,
+                                    "ortSn":  334.7,
+                                    "medyanSn":  144,
+                                    "tool":  9.9,
+                                    "decode":  null
+                                }
+                    },
+                    {
+                        "repo":  "ai-scene-graph/dart",
+                        "v021":  {
+                                     "n":  20,
+                                     "ortSn":  524.1,
+                                     "medyanSn":  516,
+                                     "tool":  17.8,
+                                     "decode":  137.8
+                                 },
+                        "baz":  {
+                                    "n":  52,
+                                    "ortSn":  406.3,
+                                    "medyanSn":  299,
+                                    "tool":  9.8,
+                                    "decode":  null
+                                }
+                    }
+                ],
+    "not":  "turSn duvar saati — kullanici beklemesi ve uzun test kouslari dahil (T)"
+}
