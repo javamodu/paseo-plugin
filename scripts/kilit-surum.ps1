@@ -36,7 +36,19 @@ try {
       throw ("K-0026 (A5-3) fail-closed: saglik ciktisinda SONUC satiri yok - kilit engellendi. Cikti basi: " + $cikti.Substring(0, [Math]::Min(300, $cikti.Length)))
     }
   } else {
-    throw ('D2-10 fail-closed: saglik.ps1 bulunamadi (' + $saglik + ') - kilit engellendi.')
+    # D2-10 v2: saglik.ps1 yoksa npm kapisi (test+typecheck); hic kapi yoksa fail-closed kalir.
+    $pkg = Join-Path $RepoKok 'package.json'
+    $npmKapiVar = $false
+    if (Test-Path $pkg) {
+      $pj = Get-Content $pkg -Raw -Encoding UTF8 | ConvertFrom-Json
+      $npmKapiVar = ($null -ne $pj.scripts.test) -or ($null -ne $pj.scripts.typecheck)
+      if ($npmKapiVar) {
+        if ($null -ne $pj.scripts.test) { & npm test | Out-Null; if ($LASTEXITCODE -ne 0) { throw ('npm test kirmizi (exit ' + $LASTEXITCODE + ') - kilit engellendi.') } }
+        if ($null -ne $pj.scripts.typecheck) { & npm run typecheck | Out-Null; if ($LASTEXITCODE -ne 0) { throw ('npm run typecheck kirmizi (exit ' + $LASTEXITCODE + ') - kilit engellendi.') } }
+        $doctor = [ordered]@{ ok = 1; eksik = 0; sari = 0; kaynak = 'npm test+typecheck' }
+      }
+    }
+    if (-not $npmKapiVar) { throw ('D2-10 fail-closed: saglik.ps1 bulunamadi (' + $saglik + ') ve npm kapisi yok - kilit engellendi.') }
   }
   $hedefler = $null; $puanlar = $null
   $hf = Join-Path $RepoKok 'hedefler.json'
