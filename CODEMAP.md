@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD ccbbc09 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 69f9471 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -44,6 +44,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0021.md` (2.9KB) — K-0021 — Collab Spawn Hook Köprüsü (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0022.md` (1.7KB) — K-0022 — Rollup Delta + Kabul Kapsamı (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0023.md` (1.5KB) — K-0023 — Sondaj Ö1+Ö2 Metin Düzeltmeleri (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
+- `kararlar\K-0024.md` (1.6KB) — K-0024 — Kural diyeti: eszamanli aktif kural hedef <40, tavan 80; detay kurallar EK'lere tasinir (ONAYLANDI 2026-10-13 — fiilen uygulandi, kayit sonradan yazildi; D2-14 kapanisi) | Baglam | Karar
 - `kararlar\K-0025.md` (2.2KB) — K-0025 — Güvenlik Üçlüsü v0.13 (ONAYLANDI 2026-10-13 — "uygula") | Bağlam | Karar
 - `kararlar\K-0026.md` (2.5KB) — K-0026 — v0.14 Dalgası: Test Boşluğu + Script Kapıları (ONAYLANDI 2026-10-13 — "evet") | Bağlam | Karar
 - `kararlar\K-0027.md` (2.3KB) — K-0027 — Denetim2 Güvenlik Dörtlüsü v0.15 (ONAYLANDI 2026-10-13 — "uygula") | Bağlam | Karar
@@ -78,10 +79,10 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\ORDU-PLAN-v1.md` (25.8KB) — ORDU PLANI v1 — composer'dan ajan ordusuna (K-0020 uygulama plani) | 0. Amac ve sinir | 1. Komuta zinciri
 - `plans\PLAN-eksik-kapatma-2026-10-12.md` (3.3KB) — PLAN — Eksik Kapatma (paseo plugin + sözleşme) — 2026-10-12 | P0 — collab spawn hook köprüsü (speakrapid-1, YÜKSEK) → K-0021 taslağı | P1 — rollup delta + kabul kapsamı (codex-1, codex-2, orta) → K-0022 taslağı
 - `raporlar\gelen-kutu\codex-2026-10-12.md` (1.9KB) — Gelen Kutu — codex — 2026-10-12
-- `raporlar\gelen-kutu\codex-2026-10-13.md` (0.4KB) — Gelen Kutu — codex-orkestrator — 2026-10-13
-- `raporlar\gelen-kutu\denetim-2026-10-13.md` (9.6KB) — Gelen Kutu — denetim (6 subagent, uçtan uca) — 2026-10-13 | İşlenme (2026-10-13)
-- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.3KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13 | İşlenme (2026-10-13)
-- `raporlar\gelen-kutu\review3-2026-10-13.md` (3.5KB) — Gelen Kutu — review3-ribak — 2026-10-13
+- `raporlar\gelen-kutu\codex-2026-10-13.md` (0.5KB) — Gelen Kutu — codex-orkestrator — 2026-10-13
+- `raporlar\gelen-kutu\denetim-2026-10-13.md` (9.8KB) — Gelen Kutu — denetim (6 subagent, uçtan uca) — 2026-10-13 | İşlenme (2026-10-13)
+- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.7KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13 | İşlenme (2026-10-13)
+- `raporlar\gelen-kutu\review3-2026-10-13.md` (3.7KB) — Gelen Kutu — review3-ribak — 2026-10-13
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
@@ -100,9 +101,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\proje-panosu.ps1` (8.6KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts\saglik.ps1` (8.7KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
-- `scripts\zincir-kontrol.ps1` (1.2KB)
+- `scripts\zincir-kontrol.ps1` (0.9KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (20.8KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (21.5KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback

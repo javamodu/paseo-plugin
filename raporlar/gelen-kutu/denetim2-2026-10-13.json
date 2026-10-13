@@ -45,7 +45,7 @@
                          "dosyaRef":  "kararlar/K-0020.md",
                          "etiket":  "(R)",
                          "siddet":  "yuksek",
-                         "oneri":  "Ãƒâ€šÃ‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
+                         "oneri":  "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
                          "islenme":  "2026-10-13 K-0020 revizyonu (taslak metin duzeltmesi, karar hala onay bekliyor)"
                      },
                      {
@@ -59,7 +59,7 @@
                      },
                      {
                          "id":  "D2-07",
-                         "baslik":  "npx vitest/jest/tsx auto-allow ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paket yoksa registry\u0027den kod indirip calistirir",
+                         "baslik":  "npx vitest/jest/tsx auto-allow ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â paket yoksa registry\u0027den kod indirip calistirir",
                          "dosyaRef":  "paseo-verimlilik server/roller.ts:52",
                          "etiket":  "(R)",
                          "siddet":  "orta",
@@ -82,7 +82,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "Handoff sablonuna satir ekle ya da deseni gercek ifadeyle degistir",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 paseo-plugin (olu ratchet kaldirildi; zincir-kontrol exit 0, 12 handoff)"
                      },
                      {
                          "id":  "D2-10",
@@ -113,12 +113,12 @@
                      },
                      {
                          "id":  "D2-13",
-                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER Ãƒâ€šÃ‚Â§3\u0027te yok",
+                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027te yok",
                          "dosyaRef":  "paseo-verimlilik server/cekirdek.ts",
                          "etiket":  "(R)",
                          "siddet":  "orta",
-                         "oneri":  "K-0017 REHBER Ãƒâ€šÃ‚Â§3\u0027e islensin (A1-4 ile birlikte)",
-                         "islenme":  null
+                         "oneri":  "K-0017 REHBER ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027e islensin (A1-4 ile birlikte)",
+                         "islenme":  "2026-10-13 zaten kapali: REHBER 3.1 Gelen-Kutu Protokolu (K-0017) mevcut - A1-4/v0.18 - diskte dogrulandi"
                      },
                      {
                          "id":  "D2-14",
@@ -127,7 +127,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "Backlog \u002778\u0027 tazelensin; K-0024 yazilsin veya referans duzeltilsin",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 kararlar/K-0024.md yazildi (diyet karari + ~46 mevcut, \u003c40 hedef acik)"
                      },
                      {
                          "id":  "D2-15",
@@ -140,7 +140,7 @@
                      },
                      {
                          "id":  "D2-16",
-                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â alt-dizinde telemetri sessizce kayboluyor",
+                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â alt-dizinde telemetri sessizce kayboluyor",
                          "dosyaRef":  "paseo-verimlilik server/telemetry.ts:58",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
@@ -212,7 +212,7 @@
                      },
                      {
                          "id":  "D2-24",
-                         "baslik":  "Tek dosyada 724 satir / 239 assert ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â olcek buyudukce kirilgan",
+                         "baslik":  "Tek dosyada 724 satir / 239 assert ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â olcek buyudukce kirilgan",
                          "dosyaRef":  "paseo-verimlilik test/dedektor.test.ts",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
