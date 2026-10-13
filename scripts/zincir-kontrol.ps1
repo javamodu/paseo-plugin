@@ -1,4 +1,4 @@
-param([string]$RepoKok = (Get-Location).Path)
+﻿param([string]$RepoKok = (Get-Location).Path)
 $ErrorActionPreference = 'Stop'
 $dir = Join-Path $RepoKok 'plans\handoff'
 if (-not (Test-Path $dir)) { Write-Host 'handoff dizini yok - zincir denetimi atlanir'; exit 0 }

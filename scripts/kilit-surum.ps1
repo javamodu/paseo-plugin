@@ -5,15 +5,21 @@ param(
   [string]$RepoKok = (Get-Location).Path
 )
 $ErrorActionPreference = 'Stop'
+# K-0026 (A5-2): native git cagrilari exit-code denetimli; sessiz basarisizlik kilit dusurmez.
+function GitZorunlu([string[]]$GitArgs) {
+  $g = & git @GitArgs 2>&1 | Out-String
+  if ($LASTEXITCODE -ne 0) { throw ('git ' + ($GitArgs -join ' ') + ' exit ' + $LASTEXITCODE + ': ' + $g.Trim()) }
+  return $g.Trim()
+}
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $bt = [char]96
 $nl = [Environment]::NewLine
 Push-Location $RepoKok
 try {
-  $commit = (git rev-parse --short HEAD).Trim()
+  $commit = GitZorunlu @('rev-parse','--short','HEAD')
   $tagAd = "$Etiket-kilit"
-  if (git tag -l $tagAd) { throw "Tag zaten var: $tagAd (kilitler append-only)" }
-  $kirli = git status --short
+  if (GitZorunlu @('tag','-l',$tagAd)) { throw "Tag zaten var: $tagAd (kilitler append-only)" }
+  $kirli = GitZorunlu @('status','--short')
   if ($kirli) { throw "Calisma agaci kirli - once commit'le." }
   $doctor = $null
   $saglik = Join-Path $RepoKok 'scripts\saglik.ps1'
@@ -22,6 +28,8 @@ try {
     if ($cikti -match 'SONUC:\s*(\d+) OK,\s*(\d+) EKSIK,\s*(\d+) SARI') {
       $doctor = [ordered]@{ ok = [int]$Matches[1]; eksik = [int]$Matches[2]; sari = [int]$Matches[3] }
       if ($doctor.eksik -gt 0) { throw ("Saglik kapisinda EKSIK var (" + $doctor.eksik + ") - kilit engellendi. Once eksikleri kapat.") }
+    } else {
+      throw ("K-0026 (A5-3) fail-closed: saglik ciktisinda SONUC satiri yok - kilit engellendi. Cikti basi: " + $cikti.Substring(0, [Math]::Min(300, $cikti.Length)))
     }
   }
   $hedefler = $null; $puanlar = $null
@@ -37,13 +45,13 @@ try {
     $yeni = $icerik -replace 'PLUGIN_SURUM = "[^"]*"', ('PLUGIN_SURUM = "' + $Etiket + '"')
     if ($yeni -ne $icerik) {
       [IO.File]::WriteAllText($surumTs, $yeni, $utf8)
-      git add server/surum.ts
-      git commit -m "surum damgasi: $Etiket" | Out-Null
-      $commit = (git rev-parse --short HEAD).Trim()
+      GitZorunlu @('add','server/surum.ts') | Out-Null
+      GitZorunlu @('commit','-m',"surum damgasi: $Etiket") | Out-Null
+      $commit = GitZorunlu @('rev-parse','--short','HEAD')
       Write-Host "surum.ts damgalandi: $Etiket (commit: $commit)"
     }
   }
-  git tag -a $tagAd -m "Kilitli surum: $Etiket"
+  GitZorunlu @('tag','-a',$tagAd,'-m',"Kilitli surum: $Etiket") | Out-Null
   $tarih = Get-Date -Format 'yyyy-MM-dd'
   $dir = Join-Path $RepoKok "surumler\$Etiket"
   New-Item -ItemType Directory -Force -Path $dir | Out-Null

@@ -199,7 +199,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "mock context ile 3 senaryo",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A3-2",
@@ -208,7 +208,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "sahte PluginHandlerContext ile 4 senaryo",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A3-3",
@@ -361,7 +361,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "BOM'lu kaydet + marker handoff sablonuna; marker yoksa Warn",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A5-2",
@@ -370,7 +370,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "her git sonrasi exit-code kontrolu",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A5-3",
@@ -379,7 +379,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "doctor null ise kilidi engelle (fail-closed)",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A5-4",
@@ -388,7 +388,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "raporlar|plans\\handoff haric tut",
-      "islenme": null
+      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
     },
     {
       "id": "A5-5",
