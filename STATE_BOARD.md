@@ -66,6 +66,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · K-0033 TASLAK + ORDU-PLAN v1.4: IKILI TEMSIL sistemin kalbi — insan yuzeyi plan.md (kisitli md, satir-basi) ↔ makine cekirdegi emirler.json (tek otorite, append-kilit) · derleyici manager LLM (yazamaz, taslak uretir) · dogrulayici deterministik checker (schema+tek-id+dongusuz-bagimlilik+olculebilir-kabul+izinli-dizin) + round-trip md geri-uretimi · drift kilidi: cakismada insan kazanir, json yeniden derlenir · ordu kurallari da ayni hat (ordu.md ↔ ordu.json) · DAG reddedildi, satir-liste yeterli · F1 kalbi bu oldu
 
+- 2026-10-13 13:20 · v0.19 FIRTINA (K-0032, 6 subagent): plugin `3ae1826` v0.19-kilit push`lu (mod+eslesme, EK-5, LOC telemetri locDelta/etkinLoc, pitbull 8dk, briefTaslakUret, k3Bitis) · REHBER v2.1 + K-0032 · RIBAK A6: 9 bulgu (1 yuksek R3-01 dahil 4 islendi, 5 dusuk backlog) · tsc+test exit 0 · K-0033 baska ajandan (commit sahibinde)
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 

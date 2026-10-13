@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6f3b8a4 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6956e3c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -6,7 +6,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `AGENTS.md` (0.9KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (18.6KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (19.5KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.6KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
@@ -61,7 +61,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-13-0047.md` (2KB) — HANDOFF-2026-10-13-0047 — context-rot %88 kapanisi | Bu oturumda kapananlar | K-0021 Adim-1 dogrulama özeti (gece, R)
 - `plans\handoff\HANDOFF-2026-10-13-0321.md` (2.5KB) — HANDOFF 2026-10-13 03:21 | Kapananlar (bu oturum) | DERSLER (bu oturumdan, işlendi)
 - `plans\handoff\HANDOFF-2026-10-13-0445.md` (1.3KB) — HANDOFF 2026-10-13 04:45 — bağlam %93 acil damga | Repo durumu | Bu vardiyada kapananlar
-- `plans\handoff\HANDOFF-2026-10-13-1200.md` (3.3KB) — HANDOFF 2026-10-13 12:00 — vardiya devri (yeniden yazıldı ve diskten doğrulandı) | Echo dogrulamasi (3 soru, diskten) | Repo durumu (12:30'da yeniden olculdu)
+- `plans\handoff\HANDOFF-2026-10-13-1200.md` (4.4KB) — HANDOFF 2026-10-13 12:00 — vardiya devri (yeniden yazıldı ve diskten doğrulandı) | Echo dogrulamasi (3 soru, diskten) | Repo durumu (12:30'da yeniden olculdu)
 - `plans\mockup\cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans\mockup\DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı

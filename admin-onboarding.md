@@ -54,6 +54,8 @@ Composer'a yaz, ajana prompt gitmez:
 - ATÖLYE'de bağlam penceresi ≥%80 dolarsa ajan "context-rot" uyarısı alır.
 - Pano: `raporlar/proje-panosu/<tarih>.md` → "Mod Metrikleri" bölümü (mod başına Is/Saat · Is/1kToken · Fail%).
 
+**FIRTINA (v0.19, K-0032 — ikinci emre kadar aktif):** kimi-K3 varsayılanı artık ATÖLYE değil FIRTINA — bitmekte olan süre-bazlı lisans için maksimum-performans modu (high thinking, 6 paralel, pitbull 8dk, brief fabrikası). Kapatmak için `/mod sifirla` ya da eşleşmeyi geri al (tek satır); ikinci emirde kimi eşleşmesi ATÖLYE'ye çevrilir. Bitiş geri sayımı için `.verimlilik/ayar.json`'a `"k3Bitis": "<ISO tarih>"` gir — tarih girilmedikçe sayaç görünmez.
+
 ## 4. Çok-ajanlı iş (2 farklı LLM + N subagent)
 
 - **Doğru kanal: bağımsız Paseo ajanı (create_agent).** Oturumdan bağımsız yaşar, farklı LLM alır, rol prefix'i çalışır, telemetri ayrı düşer.

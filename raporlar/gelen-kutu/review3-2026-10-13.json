@@ -1,0 +1,88 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "review3-ribak",
+  "tarih": "2026-10-13",
+  "maddeler": [
+    {
+      "id": "R3-01",
+      "baslik": "Firtina otomatik tespiti olu dal: modCoz'a model=null geciliyor, kimi->firtina kurali modelDeseni'li oldugundan null modelle eslesmez — 8dk pitbull esigi ve K3 satiri yalniz manuel aktifMod=firtina override'iyla calisir (PluginHookAgent tiplerinde model alani yok)",
+      "dosyaRef": "paseo-verimlilik server/pitbull.ts:79 + server/enjekte.ts:60",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "Snapshot'tan gercek model tasit (enjekte snap.agent.model) ya da K-0032'ye 'firtina yalniz modAyarla ile aktif' notu dus ve teste bu yolu ekle",
+      "islenme": "2026-10-13 K-0032 plugin@8563cb5 v0.19-kilit (provider-seviye firtina fallback)"
+    },
+    {
+      "id": "R3-02",
+      "baslik": "locSnapshot execFileSync('git') tur basina 2 kez (turBaslat + turKaydet) plugin server event-loop'unu 5sn timeout'a kadar bloklar",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:51",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "execFile (async) + sonuc promise'e bagla; ya da snapshot'i yalniz turKaydet'te tek cagriyla al",
+      "islenme": "2026-10-13 K-0032 plugin@8563cb5 v0.19-kilit (timeout 5sn->2sn; async backlog)"
+    },
+    {
+      "id": "R3-03",
+      "baslik": "locDelta = working-tree numstat toplami: ayni repo'daki paralel ajanlarin commit'lenmemis degisiklikleri birbirinin locDelta'sina karisir (FIRTINA 6 slot ile celisir); untracked yeni dosyalar hic sayilmaz",
+      "dosyaRef": "paseo-verimlilik server/telemetry.ts:48",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Olcum notunu 'kaba gosterge, ajan-bazli degil' diye md satirina isle; uzun vadede editDosyalari-diff kesisimiyle atfet",
+      "islenme": "2026-10-13 K-0032 plugin@8563cb5 v0.19-kilit (md satirina T-sinir notu)"
+    },
+    {
+      "id": "R3-04",
+      "baslik": "kararlar/K-0032.md YOK — koddaki 6+ 'K-0032' referansi kayitsiz karara isaret ediyor (sozlesme kural 6: kararlar kayitli)",
+      "dosyaRef": "paseo-verimlilik server/modlar.ts:53",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "K-0032 karar kaydini yaz (baglam/karar/reddedilen alternatifler) ya da referanslari kaldir",
+      "islenme": "2026-10-13 K-0032 karar kaydi yazildi (A5) — bulgu kapanmadan once dogrulandi"
+    },
+    {
+      "id": "R3-05",
+      "baslik": "reworkOrani ajan-koru: paralel ajanlarin ayni dosyaya editleri rework sayilir; ayrica bir 24s penceresi eslesince dosyanin pencere disi editleri de tamamen rework'e katilir",
+      "dosyaRef": "paseo-verimlilik server/rollup.ts:89",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "editDosyalari'na agentId tasit; rework'e yalniz pencere-ici editleri say",
+      "islenme": null
+    },
+    {
+      "id": "R3-06",
+      "baslik": "saatlikLoc pay/payda kapsami uyumsuz: pay tum locDelta'li turlari, payda yalniz turSn'li turlari toplar (turSn'siz locDelta'li tur orani sisirebilir)",
+      "dosyaRef": "paseo-verimlilik server/rollup.ts:92",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Pay ve paydayi ayni kayit alt-kumesinden (locDelta ve turSn birlikte olanlar) hesapla",
+      "islenme": null
+    },
+    {
+      "id": "R3-07",
+      "baslik": "k3Satiri suresi dolmus lisansta sonsuza dek '0 gun 0 saat' basar (Math.max clamp), dolmus/doldu ayrimi yok; bozuk tarihte sessiz null (belgelenmemis fail-silent)",
+      "dosyaRef": "paseo-verimlilik server/enjekte.ts:16",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "kalan=0 iken 'K3 lisans suresi doldu — modu gozden gecir' satiri bas",
+      "islenme": null
+    },
+    {
+      "id": "R3-08",
+      "baslik": "takilmaEsigiMs firtina dalinda kullanicinin ayar.json pitbullYaziciDk/OkuyucuDk override'ini yok sayiyor ve yazici/okuyucu ayrimini kaldiriyor (ikisi de 8dk)",
+      "dosyaRef": "paseo-verimlilik server/pitbull.ts:16",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Kasiltilysa kod yorumuna 'ayar override'i firtinada gecersiz' notu dus; degilse max(8dk, ayar) ya da min kurali sec",
+      "islenme": null
+    },
+    {
+      "id": "R3-09",
+      "baslik": "pitbullTara her 60sn taramada stall'lu ajan basina modCoz cagiriyor; aktifModOku + eslesmeOku cache'siz senkron disk okuma yapar (ayarOku cache'li, modlar okumalari degil)",
+      "dosyaRef": "paseo-verimlilik server/pitbull.ts:79",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "eslesmeOku/aktifModOku'ya ayarOku tarzi mtime cache ekle",
+      "islenme": null
+    }
+  ]
+}
