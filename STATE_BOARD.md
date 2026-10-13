@@ -78,6 +78,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · mockup13ekim.html (paseo-pano 89dd267): 11 sekme tam UI mockup vanilla — canli dogrulandi (gecici http + paseo browser: 11 sekme render, graf 5 dugum katmanli, 0 konsol hatasi) · bulunan hata: cok-satirli JS string (textarea demo verisi) — tek satira indirildi · DESIGN.md'e React Flow ertelendi kaydi (ileri faz, render katmani degisimi yeterli)
 
+- 2026-10-13 · mockup13ekim v2 (paseo-pano b82dd3f): v11 tasarim dili uygulandi — ikon-rail (60px, inline SVG, emoji yok) + sol flyout dock (VS Code modeli: ayni ikon 2. tik kapatir) + sag inspector dock (dugum tikla → detay; header'dan kapanir) · canli dogrulandi: 11 ikon/11 sekme 0 hata, flyout toggle, dugum→dock detay "S4-04", dock toggle · gecici dosyalar silindi
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
