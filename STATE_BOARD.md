@@ -70,6 +70,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · K-0033 ONAYLANDI + F1 TAMAM: planmd.ts (parser+checker: tek-id/dongusuz/olculebilir-kabul/izinli-dizin + round-trip + append-kilit birlestir) · pano koprusu +/api/plan +/api/repolar +plan-kaydet/plan-derle/plan-uygula eylemleri · orkestra.html Plan sekmesi (md editor, drift banner, kod-satiri liste) · test/planmd.test.ts 19 assertion yesil, tam suit+tsc 0 · canli: 15 repo, plan GET 200, POST fail-closed 403 · k3Bitis: tarih belli degil (kullanici), geri sayim pasif
 
+- 2026-10-13 · ORDU-PLAN v1.5: HEDEF-KOKLU LONG-RUNNER — topoloji = satir-listesi+once (ayri DAG motoru yok, checker dongusuzlugu zorunlu, dashboard topolojik katman) · hedefler.md↔hedefler.json (tip: hiz/kalite/ui/test, metrik DETERMINISTIK script olcer — ajan kendi metrigini olcemez) · dongu: olc→dene(worktree)→yesil kapi→kilitle/geri-al → DERSLER'e iki yonde ders · self-healing: regresyon ana dala giremez · plateau: 5 deney <%2 → insan · frenler: butce/izin/geri-alinabilirlik/dur-dugmesi/metrik degisikligi yalniz insan · F7 eklendi (7 faz tamam)
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 

@@ -339,3 +339,59 @@ Manager'a verdigin ordu kurallari (max paralel, rol atamalari, pitbull baglama) 
 ## Faz guncellemesi (v1.4)
 
 - F1'in kalbi budur: satir formati + derleyici protokolu + checker. F1 kabul kriteri genisler: sen md'de 3 gorevi elle duzenlersin → checker'dan gecip dashboard'a satir satir duser → bir alani md'den degistirince drift banneri yanar, yeniden derleyince soner.
+
+---
+
+# v1.5 GENISLEME (2026-10-13) — Hedef-koklu long-runner: sistemin amaci
+
+Kullanici direktifi: chat'ten emir → task topolojisi (graph) → otonom long-running dongu → self-learning + self-healing ile surekli iyilesme. Hedef tipleri: hiz, kalite, ui, test.
+
+## 24. Topoloji: graph VAR ama motoru YOK
+
+Chat'ten dogal dilde tarif edersin ("once A, sonra B ve C paralel, ikisi bitince D") → manager plan.md satirlarina cevirir (K-0033 hatti) → `once:` alanlari graph'i ISLER. Ayri DAG motoru yok; satir-listesi + once = graph. Checker dongusuzlugu zaten zorunlu (v1.4). Dashboard topolojik katman katman gosterir: katman-0 (bagimsiz) · katman-1 (onlara bagli) · ... Ayni katmandakiler paralel kosabilir (max-paralel freni icinde).
+
+## 25. hedefler.json — long-runner'in pusulasi
+
+Konum: `.verimlilik/hedefler.json`. Ikili temsil burada da: `hedefler.md` (insan) ↔ `hedefler.json` (makine), ayni derleyici/checker.
+
+```json
+{
+  "id": "H-01", "tip": "hiz|kalite|ui|test",
+  "metrik": "npm run bench:login suresi ms",
+  "olcum": "scripts/olc-login.ps1 (deterministik — LLM kendi metrigini OLCEMEZ)",
+  "mevcut": 4200, "hedef": 2000, "yon": "asagi",
+  "butce": { "maxDeneme": 20, "tokenTavan": 500000 },
+  "durum": "aktif|plateau|ulasildi|iptal"
+}
+```
+
+- Olcum deterministik araçla (script/test/bench/screenshot-diff) — okul kilidi §18 burada da: ajan "iyilesti" diyemez, checker olcer.
+- ui hedefi icin metrik: screenshot pixel-diff veya kabul checklist'i (script'lenmis); oznel "guzel" hedef olamaz.
+
+## 26. Dongu — olc, dene, degerlendir, kilitle ya da geri al
+
+```
+1. OLC: mevcut deger deterministik script ile olculur
+2. DENE: manager deney gorevi cikarir (plan.md satiri → worktree'de coder)
+3. DEGERLENDIR: yesil kapi = testler + lint + checker + metrik olcumu
+4. IYIYSE: kilitle (commit + kilit notu) → mevcut guncellenir → DERSLER'e "ney ise yaradi"
+   KOTUYSE: geri al (worktree atilir, ana dal TEMIZ kalir) → DERSLER'e "denendi-patladi-sebebi"
+5. PLATEAU: butce bitene veya hedefe ulasana kadar 1'e don
+```
+
+- Self-healing: yesil kapi her deneyde kosar — regresyon ana dala giremez; kirmizi deney otomatik geri alinir.
+- Self-learning: her deney sonucu (deney → delta → karar) yonlendirici.json + DERSLER'e iner; manager sonraki deneyi "ney ise yaradi" bilgisiyle planlar.
+- Plateau kurali (okul §19 ile ayni): son 5 deneyde iyilesme < %2 → durum "plateau", sana rapor (devam/strateji degistir/iptal).
+
+## 27. Frenler (long-runner'in emniyet kemeri)
+
+- Butce: hedef basina maxDeneme + tokenTavan; kapasite ekseni (v1.1) aynen gecerli.
+- Sinir: hedef yalniz izinler.json dizinlerinde kosar; prod/canli asla.
+- Geri-alinabilirlik: her kilitleme ayri commit → tek komutla geri sarılabilir.
+- Dur-dugmesi: pano'dan hedef "iptal" → manager bir sonraki dongu basinda durur (ani oldurme yok, tur sinirinda durur).
+- Insan kapisi: strateji degisikligi (metrik tanimi, hedef degeri) yalniz senden; manager metrigi degistiremez (kandirma kilidi).
+
+## Faz guncellemesi (v1.5)
+
+- F7 (hedef dongusu): hedefler.md/json cifti + olcum script arabirimi + worktree deney dongusu + plateau raporu. F5/F6 sonrasi; ama hedefler.md formati F1 checker'inin aynisi oldugundan erken prototiplenebilir.
+- Nihai tablo: F0 API yonetimi → F1 ikili temsil → F2 komuta → F3 frenler+kapasite → F4 otonom+vekil → F5 bench (3 eksen) → F6 okul → F7 long-runner hedef dongusu. Ordu ancak F7'de "surekli iyilesen" olur; oncesi givenli iskelet.
