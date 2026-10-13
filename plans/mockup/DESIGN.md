@@ -69,5 +69,6 @@ Rail öğeleri \`<button>\` (klavye doğal) · tab'lar \`role=tab\`/\`aria-selec
 ## v11.3 (2026-10-13)
 - **Galeri:** `galeri.html` — 7 durum PNG'i (png/), filtre (Tumu/Mobil/Desktop), lightbox (tik+Esc), lazy yok (arka-plan sekmede IntersectionObserver ateslenmez). Mobil tek sutun, desktop auto-fill grid.
 - **Hash durumlari:** mockup sonunda `hashDurumUygula` — `#nav` `#chat` `#plan` `#dock-kapali` (+ ile birlesir); galeri/ekran-goruntusu cekimlerinin durum girisi.
-- **PNG uretimi:** Edge headless `--window-size` + `--virtual-time-budget=3000` + DPR 1; her kare oncesi DOM olcumu (bottom-sheet boyutlari, composer konumu, tasma=0).
+- **PNG uretimi:** `cek.mjs` — Edge headless + CDP setDeviceMetricsOverride (mobil 375x812 DPR2, desktop 1440x900 DPR1; `--window-size` <500px kenetlenir, kullanma); her kare oncesi DOM olcumu (bottom-sheet boyutlari, composer konumu, tasma=0).
 - **Duzeltme:** composer-ust "10 calisiyor" rozeti kaldirildi (+408 −13 korundu).
+- **tab-toggle sticky:** cok sekmeli mobilde Chat dugmesi tabbar kaymasinda sabit kalir (`position:sticky;right:4px`, R: scroll testi).
