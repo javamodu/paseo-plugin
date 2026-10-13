@@ -1,0 +1,40 @@
+{
+  "tarih": "2026-10-14T01:30+03:00",
+  "olcen": "codex",
+  "kaynak": "D:/Vibecode/*/.verimlilik/telemetri.jsonl (14 repo)",
+  "v022Birikim": {
+    "repoSayisi": 1,
+    "repo": "paseo-plugin",
+    "tur": 19,
+    "pencere": "2026-10-13T21:32Z - 22:25Z (~54dk)",
+    "hedefEsik": 50,
+    "durum": "birikiyor"
+  },
+  "hiz": {
+    "v019_turSn": 177.8,
+    "v021_turSn": 209.9,
+    "v022_turSn": 141.9,
+    "v021_decodeTps": 111.6,
+    "v022_decodeTps": 137.8,
+    "not": "T: kucuk orneklem (19 tur)"
+  },
+  "aktifSnTutarlilik": {
+    "cift": 13,
+    "tutarli": 11,
+    "aykiri": 2,
+    "bulgu": "aktifSn ~= turSn-1; 1 kayitta tur=4sn/aktif=264sn -> BK-02 reload redelivery kirliligi"
+  },
+  "halRef": {
+    "v021": {
+      "toplam": 27,
+      "kirik": 27,
+      "oran": "100% yanlis-pozitif (canli deney kanitli)"
+    },
+    "v022": {
+      "toplam": 0,
+      "kirik": 0,
+      "not": "19 turda dosya:satir ref uretilmedi; fix b306324 ile commitlendi"
+    }
+  },
+  "digerRepolar": "txt-to-cad (317 kayit) dahil hicbir repo v0.22 sonrasi tur uretmedi; son yazim 2026-10-13 22:48 (v0.22 oncesi)"
+}

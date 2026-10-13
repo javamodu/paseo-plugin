@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 8b03c6c — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD c161dc5 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -7,7 +7,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `AGENTS.md` (0.9KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (22KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (23.5KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.6KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
@@ -56,6 +56,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `PASEO-VERIMLILIK-REHBERI-v2.0.md` (13.5KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
+- `plans\GECE-2026-10-14.md` (1.8KB) — GECE VARDIYASI RUNBOOK — 2026-10-14 01:30 -> 07:00 (Europe/Istanbul) | Dalga plani | Kapanis paketi (her is icin zorunlu)
 - `plans\handoff\ECHO-HANDOFF-2026-10-13-2014.md` (1KB) — ECHO — HANDOFF-2026-10-13-2014 (devralan dogrulamasi) | 1) Kirli dosyalar? | 2) Son commit?
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
 - `plans\handoff\HANDOFF-2026-10-11-2005.md` (3KB) — HANDOFF-2026-10-11-2005 — rol değişimi + v2.0 karar seti | Reviewer hükmü (kabul edildi) | Reviewer düzeltmeleri (kabul)
@@ -69,7 +70,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\handoff\HANDOFF-2026-10-13-1515.md` (2.4KB) — HANDOFF 2026-10-13 15:15 — restart öncesi devir (kullanıcı Paseo'yu restart edecek, "devam et" diyecek) | Repo durumu (diskten, 15:15) | Bu turda kapananlar (kanıtlı)
 - `plans\handoff\HANDOFF-2026-10-13-1707.md` (2.8KB) — HANDOFF 2026-10-13 1707 - Pano v5 + BLUEPRINT (kullanici Paseo restart edecek) | Repo durumu (echo: devralan dogrular) | Bu turda kapananlar
 - `plans\handoff\HANDOFF-2026-10-13-2014.md` (1.7KB) — HANDOFF 2026-10-13 20:14 — baglam %90 acil devir | Repo durumu (20:14, diskten) | Bu turda kapananlar (kanitli)
-- `plans\MASTER-SSOT-PLAN.md` (26.5KB) — MASTER-SSOT-PLAN — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
+- `plans\handoff\HANDOFF-2026-10-14-0127.md` (1.5KB) — HANDOFF 2026-10-14 01:27 — devir + echo | Echo (devralan dogrulamasi, diskten) | Repo durumu (01:27)
+- `plans\MASTER-SSOT-PLAN.md` (33.4KB) — MASTER-SSOT-PLAN — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans\mockup\cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans\mockup\DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans\mockup\parcalar\v10\01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
@@ -96,6 +98,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\plan-analiz-2026-10-14\gpt.md` (6.8KB) — gpt paketi — derin analiz ve puanlama (2026-10-14) | Doğrulama bulguları (plan iddiası → güncel dosya) | Alan tablosu (skor 0-10)
 - `raporlar\plan-analiz-2026-10-14\kapsul-v3.md` (4KB) — Kapsul-Autonomous-Army-Master-v3.0.0 — derin analiz (2026-10-14) | Doğrulanan iddialar (R) | Alan tablosu
 - `raporlar\plan-analiz-2026-10-14\kapsul-v4.md` (6.4KB) — Kapsul-Master-v4.0-Stable-Core-Design — derin analiz (2026-10-14) | Doğrulanan iddialar (R) | Alan tablosu
+- `raporlar\plan-analiz-2026-10-14\kapsul-v5.md` (9.4KB) — Kapsul-Ordu-Master-v5.0-Plan — derin analiz (2026-10-14) | Doğrulanan iddialar (R) | Alan tablosu
 - `raporlar\plan-analiz-2026-10-14\master-ssot.md` (7.4KB) — MASTER-SSOT-PLAN v2.4 — Özeleştiri (taze göz, acımasız) | Tutarlılık kontrolü (sorulan üç nokta) | Alan tablosu (0-10, tavan 8)
 - `raporlar\plan-analiz-2026-10-14\ordu-core.md` (8.7KB) — ordu-core — Derin Analiz ve Puanlama (v3.2 çerçeve) | Zorunlu Doğrulamalar | Alan Tablosu (0–10; canlı kanıt yoksa tavan 8)
 - `raporlar\plan-analiz-2026-10-14\ordu-v3.md` (7.2KB) — ORDU-V3 DERİN ANALİZ — 2026-10-14 (çerçeve v3.2, 15 alan) | Bağımsız doğrulama özeti (bu oturumda koşulan kanıtlar) | Alan tablosu (0–10; canlı kanıt yoksa tavan 8 kuralı uygulandı)
@@ -107,6 +110,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\telemetri-haftalik\2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar\token-olcum-2026-10-11\OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `raporlar\v021-trend-2026-10-14\OZET.md` (0.7KB) — v0.21 firtina/K3 trend ozeti — 2026-10-14 (50-tur esigi asildi: 70 tur)
+- `raporlar\v022-olcum-2026-10-14\OZET.md` (1KB) — v0.22 Olcum — 2026-10-14 01:30 (R: telemetri.jsonl disk taramasi, 14 repo) | AktifSn birikimi | Hiz / kalite (firtina, paseo-plugin)
 - `README.md` (2.8KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `scripts\codemap.ps1` (2.4KB)
 - `scripts\katman-kur.ps1` (1.2KB) — function Kur($hedef, $sablonAd) {
@@ -117,7 +121,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (0.9KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (15.5KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (19.3KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
