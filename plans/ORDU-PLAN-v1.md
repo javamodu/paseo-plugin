@@ -395,3 +395,31 @@ Konum: `.verimlilik/hedefler.json`. Ikili temsil burada da: `hedefler.md` (insan
 
 - F7 (hedef dongusu): hedefler.md/json cifti + olcum script arabirimi + worktree deney dongusu + plateau raporu. F5/F6 sonrasi; ama hedefler.md formati F1 checker'inin aynisi oldugundan erken prototiplenebilir.
 - Nihai tablo: F0 API yonetimi → F1 ikili temsil → F2 komuta → F3 frenler+kapasite → F4 otonom+vekil → F5 bench (3 eksen) → F6 okul → F7 long-runner hedef dongusu. Ordu ancak F7'de "surekli iyilesen" olur; oncesi givenli iskelet.
+
+---
+
+# v1.6 GENISLEME (2026-10-13) — Pano menu haritasi (dashboard'un anatomisi)
+
+## Sekmeler (durum: VAR / FAZ / EKSIK)
+
+| # | Sekme | Icerik | Durum |
+|---|---|---|---|
+| 1 | Orkestra | ajan izgarasi (SSE canli), gonder/yarat/arsivle, bekleyen izinler | VAR (F2 oncesi yapildi) |
+| 2 | Plan | plan.md editor + checker + drift + gorev satirlari (md↔json kalp) | VAR (F1) |
+| 3 | Graf | gorev topolojisi katman-katman; her dugum: durum/sahip/metrik; "yeniden kos" dugmesi; worktree rozeti | EKSIK (F2 verisi hazir, gorsel yok) |
+| 4 | Kuyruk | spawn-kuyruk + spawn-sonuc canli akis (kim ne istedi, red sebepleri) | EKSIK (veri var, sekme yok) |
+| 5 | Onay | manager'in sana sorduklari (plateau, kapsam, butce) — TEK kutu, cevaplanabilir | EKSIK (insan-dongude kalp; su an soru kaybolur) |
+| 6 | Saglayicilar | API yonetimi: ekle/sina/maskeli anahtar | F0 (planli) |
+| 7 | Izinler | izinler.json editoru (4 eksen + kapasite) | F3 |
+| 8 | Metrik | telemetri (tur/kabul/token/LOC) + yonlendirici matrisi | F5 (Doktor prototipte var, tasinacak) |
+| 9 | Hedefler | hedefler.md↔json + long-runner dongu durumu (mevcut/hedef cubugu) | F7 |
+| 10 | Okul | hakimiyet indeksi, mezuniyet, sinav gecmisi | F6 |
+| 11 | Ayarlar | ordu.json, mod, kullanici.md editoru | EKSIK |
+
+## Sekme disi yardimcilar
+- File manager: YAPMA — Paseo workspace'in Files sekmesi var; pano dosyaya baglanti verir (cakisma/duplikasyon yok).
+- Sesli emir: orkestra.html composer'ina Web Speech API (tr-TR) — bagimliliksiz, tarayici yerli; dusuk oncelik.
+- Handoff/devir gecmisi: plans/handoff listesi (salt-okur) — dusuk oncelik.
+
+## En kritik eksik: #5 Onay kutusu
+Manager "sana sorar" dedigi her sey su an sohbette kaybolabilir. Onay sekmesi: bekleyen sorular (soru, baglam, secenekler) + tek tikla cevap → manager'a iletilir. Bu olmadan "otonom ama kontrollu" iddiasi eksik kalir. F3 ile birlikte onceliklendirildi.
