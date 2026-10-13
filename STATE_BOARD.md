@@ -42,6 +42,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 - 2026-10-11 Â· Plan v1.4: 14 mekanik tablosu + hedef eÅŸikler; rehber v1.4 ile sÃ¼rÃ¼m senkronu
 - 2026-10-11 19:40 Â· yonetici-ozeti.ps1 v1 kuruldu Â· bugun olcum: 324.7M in / %96.2 cache-hit / %85.8 tasarruf (R)
 
+- 2026-10-13 03:21 · mockup v11.1-11.3: psat/fview mobil taşma fix + bottom-sheet paneller (nav/chat) + composer sabit + galeri.html (7 gerçek PNG, CDP hattı) + cek.mjs + tab-toggle sticky · rozet "10 çalışıyor" kaldırıldı · DERSLER +3 · HANDOFF-2026-10-13-0321.md
+
 ## Bekleyen onaylar
 - K-0019 + K-0020 (TASLAK): pano iskeleti + gÃ¶rev emri orkestrasyonu (sÄ±ralÄ± zincir, durum modeli, sol panel) Â· aÃ§Ä±k sorular karar metinlerinde Â· uygulama v0.12+, ayrÄ± onay ister
 
