@@ -60,6 +60,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · ORDU-PLAN v1.1: kapasite ekseni (token/sure/limitsiz, kimi-k3 codefast icin hiz siniri) · dis LLM'ler custom provider ile tek-tip ajan (GLM/DeepSeek/Qwen, parent=subagent farki yok) · pitbull profilleri (gozcu/takipci/vekil) + kullanici.md vekil standardi · ogrenen yonlendirici dongusu (olc-kaydet-enjekte-yonlendir, yonlendirici.json) · F0 onkosul: provider config sablonu · acik sorulara 5-7 eklendi
 
+- 2026-10-13 · ORDU-PLAN v1.2: benchmark 3 eksen (HIZ: tur/ilk-yanit/token-sn · KALITE: kabul%/deneme/vekil · UYUM: kural-ihlali+sozlesme disiplini+proje-stack basarisi) + yonlendirici.json skor vektoru (gorev-tipine gore agirlik) + bench→canli agirlik kurali · API yonetimi pano altinda (Saglayicilar sekmesi, anahtar maskeli/POST-only, config.json yedekli yazim, baglanti-sina) · F0 genisledi, F5 bench kosucu · acik sorulara 8-9 eklendi
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 

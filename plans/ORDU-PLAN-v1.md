@@ -200,3 +200,54 @@ Ogrenme iddiasi = bu dongunun kaniti. Tablo yoksa "ogreniyor" demeyiz.
 5. kimi-k3 "codefast" aboneliginin hiz sinirini biliyor musun (dk/tur)? bilmiyorsan muhafazakar 4/dk ile baslariz, telemetri olcer.
 6. kullanici.md'yi ilk kez kim yazsin: ben taslak cikarayim (son damgalardan), sen mi duzenlersin?
 7. vekil hangi modelde kossun? (denetim icin guclu model sart mi, yoksa ucuz model + siki kural yeter mi)
+
+---
+
+# v1.2 GENISLEME (2026-10-13) — benchmark + API yonetimi
+
+## 15. Benchmark — yonlendiricinin tohum verisi (3 eksen, ayri olculur)
+
+Telemetriyle ogrenme sifirdan yavas baslar; bench tohum verir. Her provider x is-tipi icin skor TEK sayi degil, 3-boyutlu vektor: { hiz, kalite, uyum }.
+
+- Bench paketi: `.verimlilik/bench/` altinda sabit 6 gorev: bug-fix, refactor, test-yaz, docs, desen-uygula, kucuk-ozellik. Her biri: ayni prompt + olculebilir kabul kriteri (test komutu) + zorluk etiketi. Uyum olcumu icin paket HEDEF PROJENIN stack'inden alinmis gercek mini-gorevler icerir (sentetik + proje-gercegi karisimi).
+- Kosu: yeni provider eklenince (veya istenince) manager "BENCH: provider" gorevi cikarir; her gorev izole gecici worktree'de, TEK tur hakki (adil kiyas), izinler.json ve max-paralel aynen gecerli (bench de fail-closed).
+
+### Eksen 1 — HIZ (olcum: zaman)
+- ilk-yanit suresi, tur suresi, cikti hizi (token/sn). Kaynak: telemetri zaman damgalari.
+- Rapor: ms/token ve tur-basi saniye; kapasite tipi "sure/limitsiz" olanlarda hiz ana kiyas ekseni olur.
+
+### Eksen 2 — KALITE (olcum: kabul)
+- test yesil mi (0/1), kac denemede yesil, vekil puani (0-5, kullanici.md standardi).
+- Rapor: kabul orani % + ortalama deneme + vekil ortalamasi.
+
+### Eksen 3 — PROJEYE UYUM (olcum: kural + baglam)
+- kural ihlali sayisi (izinler.json/kapsam/permission redleri — dusuk iyi), sozlesme disiplini (damga atildi mi, commit kurallarina uyuldu mu), proje stack'indeki bench gorevlerinde basari.
+- Rapor: ihlal/100 tur + disiplin orani % + proje-gorev kabulu %.
+- Bu eksen "genel iyi model ama bizim kurallara uymuyor" vakasini yakalar — ucuz model secip duzeltme maliyeti yememek icin asil fren.
+
+### Skorlama ve yonlendirme
+- `yonlendirici.json`: her (provider, is-tipi) icin { hiz, kalite, uyum, kaynak: "bench"|"canli", orneklem }.
+- Manager atamada gorev tipine gore agirlik: docs → hiz agirlikli; kritik kod → kalite+uyum agirlikli; deneysel → hiz+kalite. Agirliklar config'de, sen degistirirsin.
+- Agirlik kurali (bench→canli): bench skoru ilk 20 gercek turda %50 agirlik; sonrasinda canli telemetri tohumu ezer. Bench "bench" etiketiyle anilir, gercek veriyle karistirilmaz.
+- Dashboard: Saglayicilar sekmesinde model x is-tipi 3 eksen matrisi (uc sutun ayri renk, bench tohumu ve canli oran ayri satir).
+
+## 16. API yonetimi — saglayicilar pano altinda
+
+Orkestra.html'e "Saglayicilar" sekmesi; config.json elle duzenleme biter:
+
+- Liste: kayitli provider'lar — id, extends, model listesi, kapasite tipi, durum (anahtar VAR/YOK, son hata, son bench skoru). Anahtar asla geri donmez; UI yalniz maske gorur (`••••3f2a`).
+- Ekle/duzenle: `POST /api/provider { id, extends, baseUrl, modeller, anahtar }` → plugin server `~/.paseo/config.json`'a read-modify-write yazar (once yedek: config.json.bak) + `paseo reload` esdegerini tetikler (provider degisimi restart gerektirmez — gelecek lansmanlara uygulanir).
+- Anahtar guvenligi: anahtar UI'dan yalniz POST ile server'a gider, GET endpoint'lerinde hic yer almaz, log'a dusmez. PANO_TOKEN fail-closed aynen (yazma kapaliyken provider ekleme de kapali).
+- "Baglantiyi sina" butonu: tek turluk mini gorev (sabit kisa prompt) → auth + latency + model adi dogrulamasi; sonuc durum satirina islenir.
+- Risk: config.json paylasimli dosya — yazma sirasinda daemon yazarsa cakisma. Onlem: yedek + yazma sonrasi parse dogrulamasi; bozuksa yedekten geri yukle + kullaniciya rapor (sessiz duzeltme yok).
+
+## Faz guncellemesi (v1.2)
+
+- F0 → "Saglayicilar" sekmesi + provider ekle/sina (API yonetimi) olarak genisler.
+- F1'e ek: bench paketi (6 gorev) + kabul komutlari.
+- Yeni F5: bench kosucu + skor matrisi + agirlik kurali (bench→canli gecis).
+
+## Acik sorulara ek (v1.2)
+
+8. Bench paketi hangi dil/stack'te olsun? (repolarin cogunlugu TS/JS — bench de oyle mi, yoksa cok-dilli mi?)
+9. Provider anahtarlari pano uzerinden mi girilecek, yoksa config.json'da elle mi kalir? (pano: rahat ama anahtar HTTP'den gecer — yalniz 127.0.0.1; elle: daha kapali)
