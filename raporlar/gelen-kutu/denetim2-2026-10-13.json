@@ -45,7 +45,7 @@
                          "dosyaRef":  "kararlar/K-0020.md",
                          "etiket":  "(R)",
                          "siddet":  "yuksek",
-                         "oneri":  "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
+                         "oneri":  "ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
                          "islenme":  "2026-10-13 K-0020 revizyonu (taslak metin duzeltmesi, karar hala onay bekliyor)"
                      },
                      {
@@ -59,7 +59,7 @@
                      },
                      {
                          "id":  "D2-07",
-                         "baslik":  "npx vitest/jest/tsx auto-allow ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â paket yoksa registry\u0027den kod indirip calistirir",
+                         "baslik":  "npx vitest/jest/tsx auto-allow ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â paket yoksa registry\u0027den kod indirip calistirir",
                          "dosyaRef":  "paseo-verimlilik server/roller.ts:52",
                          "etiket":  "(R)",
                          "siddet":  "orta",
@@ -73,7 +73,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "Boyut/satir tavani + rotasyon; rollup son N satiri ters okusun",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 plugin@33d7e8d (rotasyon 5MB-\u003e2MB + rollup kuyruk-okuma, 6 test)"
                      },
                      {
                          "id":  "D2-09",
@@ -113,11 +113,11 @@
                      },
                      {
                          "id":  "D2-13",
-                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027te yok",
+                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027te yok",
                          "dosyaRef":  "paseo-verimlilik server/cekirdek.ts",
                          "etiket":  "(R)",
                          "siddet":  "orta",
-                         "oneri":  "K-0017 REHBER ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027e islensin (A1-4 ile birlikte)",
+                         "oneri":  "K-0017 REHBER ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§3\u0027e islensin (A1-4 ile birlikte)",
                          "islenme":  "2026-10-13 zaten kapali: REHBER 3.1 Gelen-Kutu Protokolu (K-0017) mevcut - A1-4/v0.18 - diskte dogrulandi"
                      },
                      {
@@ -140,7 +140,7 @@
                      },
                      {
                          "id":  "D2-16",
-                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â alt-dizinde telemetri sessizce kayboluyor",
+                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â alt-dizinde telemetri sessizce kayboluyor",
                          "dosyaRef":  "paseo-verimlilik server/telemetry.ts:58",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
@@ -212,7 +212,7 @@
                      },
                      {
                          "id":  "D2-24",
-                         "baslik":  "Tek dosyada 724 satir / 239 assert ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â olcek buyudukce kirilgan",
+                         "baslik":  "Tek dosyada 724 satir / 239 assert ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â olcek buyudukce kirilgan",
                          "dosyaRef":  "paseo-verimlilik test/dedektor.test.ts",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",

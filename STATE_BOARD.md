@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · D2-08+D2-09+D2-13+D2-14 kapandi: telemetri rotasyonu+rollup kuyruk-okuma (plugin@33d7e8d, 6 test) · olu sozlesme-notu ratchet'i kaldirildi · K-0024 kural diyeti karari yazildi (~46 aktif, <40 hedef) · D2-13 zaten-kapali (REHBER 3.1) · DERSLER +1 (olu-kapi)
 - 2026-10-13 · BK-01+D2-15+R3-05/07/08/09 kapandi (plugin 383c3bb/381e672/7a741d6, +20 assertion, suit+tsc exit 0): brief callId'siz dedupe + brief-state.json reload dayanikliligi + gorulen 500 tavani · reworkOrani ajan-bazli pencere-ici · k3Satiri fail-visible · firtina esik min-kurali · modlar mtime cache — codex-2026-10-13 ve review3 kutulari SIFIR acik
 - 2026-10-13 · D2-07+D2-10 guvenlik ikilisi kapandi: TEST_KOSUCU npx'e --no-install sarti, bare npx insan kapisina (plugin@38868a9, +3 test, suit 345 ok + tsc exit 0) · kilit-surum saglik.ps1 yoklugunda fail-closed (paseo-plugin@c313008, temp-repo negatif+pozitif) · saglik 17 OK / 0 EKSIK / 1 SARI, zincir 12 kopuksuz
 - 2026-10-13 · K-0031: pano izole proje olarak prototiplendi — paseo-pano@4fc58ee (D:\Vibecode\paseo-pano) · node:http 127.0.0.1:4377 · Doktor gerçek telemetri (14 repo keşfi, canlı doğrulandı) · POST fail-closed · K-0019/K-0020 plugin-entegrasyonu askıda (prototip sonrası onay)
