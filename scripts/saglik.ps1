@@ -85,14 +85,14 @@ $kuralDosyalari = @($pAnayasa, $pL0, $pRehber) | Where-Object { $_ }
 if ($kuralDosyalari.Count -gt 0) {
   $kural = 0
   foreach ($kd in $kuralDosyalari) { $kural += @(Get-Content $kd -Encoding UTF8 | Where-Object { $_ -match '^\s*(-|\d+\.)\s' }).Count }
-  if ($kural -gt $ESIK.KuralKirmizi) { Check ("Aktif kural sayisi <= {0} (tavan)" -f $ESIK.KuralKirmizi) $false "$kural kural - stacking-collapse riski (REHBER §2)" }
-  elseif ($kural -gt $ESIK.KuralSari) { Warn ("Aktif kural sayisi < {0} (hedef)" -f $ESIK.KuralSari) "$kural kural - sadelestirmeyi degerlendir" }
-  else { Check ("Aktif kural sayisi < {0} (hedef)" -f $ESIK.KuralSari) $true "$kural kural" }
+  if ($kural -gt $ESIK.KuralKirmizi) { Check ("Kural-proxy (liste-satiri) <= {0} (tavan)" -f $ESIK.KuralKirmizi) $false "$kural satir - stacking-collapse riski (REHBER §2)" }
+  elseif ($kural -gt $ESIK.KuralSari) { Warn ("Kural-proxy (liste-satiri) < {0} (hedef)" -f $ESIK.KuralSari) "$kural satir - sadelestirmeyi degerlendir" }
+  else { Check ("Kural-proxy (liste-satiri) < {0} (hedef)" -f $ESIK.KuralSari) $true "$kural satir" }
 }
 
 # 6) Plugin telemetrisi (JSONL verilirse)
 if ($Jsonl -and (Test-Path $Jsonl)) {
-  $ev = Get-Content $Jsonl -Encoding UTF8 | ForEach-Object { $_ | ConvertFrom-Json }
+  $ev = @(Get-Content $Jsonl -Encoding UTF8 | ForEach-Object { try { $_ | ConvertFrom-Json } catch { Write-Host "JSONL bozuk satir atlandi (Katman B devam)" } })
   $turKayit = @($ev | Where-Object { $_.tip -eq 'tur' })
   $tur = $turKayit.Count
   # Cache: plugin tur kaydinin detay alaninda tutar (cacheHitPct=NN.N) - token-agirlikli ortalama

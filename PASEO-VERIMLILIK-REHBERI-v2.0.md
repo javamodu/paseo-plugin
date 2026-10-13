@@ -35,6 +35,10 @@ Tetik: %80 bağlam, vardiya bitimi, veya görev devri.
 4. Devralan ajan echo doğrulaması yapar: handoff'tan 3 soruya dosyalardan doğruladığı cevabı yazar ("kirli dosyalar?", "son commit?", "bekleyen ilk onay?"). Echo yoksa devir tamamlanmamıştır.
 5. Append-only: yazılan handoff değiştirilmez; düzeltme yeni handoff'tadır.
 
+## 3.1 Gelen-Kutu Protokolü (K-0017)
+
+Bir repoya ait bulgu sohbete değil `raporlar/gelen-kutu/<kaynak>-<YYYY-AA-GG>.md` + aynı adlı `.json` sidecar'a yazılır. JSON: `schemaSurum: 1`, `maddeler: [{ id, baslik, dosyaRef, etiket, siddet, oneri, islenme: null }]`; append-only. Açılışta işlenmemiş madde taranır; işlenen maddeye `islenme: <tarih K-XXXX commit>` yazılır (madde silinmez). Bekçi 24 saati aşan işlenmemiş maddeyi anomali bildirir. Çift yazım şart: md insan, json makine içindir.
+
 ## 4. Dosya-Tabanlı Hafıza (vectorless RAG)
 
 Vektör DB yok; yapısal disiplin var. Her projede bu katmanları kur/koru:

@@ -110,6 +110,7 @@ if ($TestModu) {
 }
 
 $evren = EvrenBul $Kokler $Derinlik
+if ($evren.Count -eq 0) { Write-Host "Evren bos: koklerde repo bulunamadi - pano uretilmedi (hayalet kart yok)."; exit 0 }
 $kartlar = @($evren | ForEach-Object { RepoTara $_ })
 $tarih = Get-Date -Format 'yyyy-MM-dd'
 

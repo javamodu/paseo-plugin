@@ -37,7 +37,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "REHBER'e EK-5 gelen-kutu protokolu ekle",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A1-5",
@@ -46,7 +46,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "reload sonrasi dogrulandi; surum bazli drift izlemi onerilir",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 karar: uygulanmadi (tek-kaynak + mevcut guard yeterli)"
     },
     {
       "id": "A1-6",
@@ -397,7 +397,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "yeniden adlandir veya KURAL: oneki say",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A5-6",
@@ -406,7 +406,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "satir-bazli try/catch",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A5-7",
@@ -424,7 +424,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "bos-evren guard'i",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A5-9",
@@ -496,7 +496,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "kapsam karari K-kaydi veya telemetriOzet'e alan ekle",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A6-2",
@@ -505,7 +505,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "/mod argsiz → modDurum ekrani veya olü contract'i kaldir",
-      "islenme": null
+      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
     },
     {
       "id": "A6-3",

@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.18 KİLİT (plugin 87a9424, tag v0.18-kilit, süit exit 0): K-0030 hijyen+UI — A5-5 kural-proxy adı · A5-6 JSONL try/catch · A5-8 boş-evren guard · A1-4 REHBER §3.1 gelen-kutu · A6-1 altAjan uçtan uca · A6-2 ModEkrani (/mod argsız) · A1-5 kararlaştırıldı (uygulanmadı) — denetim-1 durumu: 9/9 yüksek + 11/21 orta işlendi; 10 orta + 28 düşük triage bekliyor
 - 2026-10-13 · v0.16 KİLİT (plugin 8dd6e50, tag v0.16-kilit, süit exit 0, 5 yeni assert): K-0028 doğruluk dalgası — A2-7 tool_call JSON yanlış-pozitifi kapandı · A2-4 alt-dizin telemetri kaybı kapandı · A4-1 rollup formülü raporda · A1-1 ANAYASA v2.0 · A5-7 Etiket ValidatePattern
 - 2026-10-13 · K-0020 taslak revizyonu (D2-05/06 işlendi): §1.2 "ilk dolan durdurur" → "dürtür+bildirir; sert fren archive() kullanıcı kararı" (SDK cancel yok) · §7 emirler.json tek-otorite + tek-yazıcı append kilidi · karar ONAYI HALA AÇIK (metin gerçekle tutarlı hale getirildi)
 - 2026-10-13 · v0.15 KİLİT (plugin aedbd30, tag v0.15-kilit, süit exit 0, 10 yeni assert): K-0027 denetim2 güvenlik dörtlüsü — D2-01/02 rol katmanında zincir auto-allow kapandı (ZINCIR_SERT) · D2-03 yazma hedefi ayrıştırma · D2-04 $() ikamesi zincir · GitZorunlu EAP tuzağı düzeltildi (DERSLER +1) · D2-05/06 K-0020 karar revizyonu ayrı onay bekliyor
