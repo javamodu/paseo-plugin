@@ -45,7 +45,7 @@
                          "dosyaRef":  "kararlar/K-0020.md",
                          "etiket":  "(R)",
                          "siddet":  "yuksek",
-                         "oneri":  "Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
+                         "oneri":  "Ã‚Â§1.2 \u0027durtme+bildirim; sert fren archive()\u0027 diye revize",
                          "islenme":  "2026-10-13 K-0020 revizyonu (taslak metin duzeltmesi, karar hala onay bekliyor)"
                      },
                      {
@@ -59,7 +59,7 @@
                      },
                      {
                          "id":  "D2-07",
-                         "baslik":  "npx vitest/jest/tsx auto-allow â€” paket yoksa registry\u0027den kod indirip calistirir",
+                         "baslik":  "npx vitest/jest/tsx auto-allow Ã¢â‚¬â€ paket yoksa registry\u0027den kod indirip calistirir",
                          "dosyaRef":  "paseo-verimlilik server/roller.ts:52",
                          "etiket":  "(R)",
                          "siddet":  "orta",
@@ -113,11 +113,11 @@
                      },
                      {
                          "id":  "D2-13",
-                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER Â§3\u0027te yok",
+                         "baslik":  "CEKIRDEK\u003c-\u003eREHBER drift: K-0017 gelen-kutu kurallari REHBER Ã‚Â§3\u0027te yok",
                          "dosyaRef":  "paseo-verimlilik server/cekirdek.ts",
                          "etiket":  "(R)",
                          "siddet":  "orta",
-                         "oneri":  "K-0017 REHBER Â§3\u0027e islensin (A1-4 ile birlikte)",
+                         "oneri":  "K-0017 REHBER Ã‚Â§3\u0027e islensin (A1-4 ile birlikte)",
                          "islenme":  null
                      },
                      {
@@ -140,12 +140,12 @@
                      },
                      {
                          "id":  "D2-16",
-                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor â€” alt-dizinde telemetri sessizce kayboluyor",
+                         "baslik":  "telemetriYaz mkdir\u0027i cwd\u0027de aciyor, dosyayi katman kokune yaziyor Ã¢â‚¬â€ alt-dizinde telemetri sessizce kayboluyor",
                          "dosyaRef":  "paseo-verimlilik server/telemetry.ts:58",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "mkdir dirname(telemetriDosyasi(cwd)) ile acilsin",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 plugin@8dd6e50 v0.16 K-0028/A2-4 ile ayni kok (mkdir dirname(dosya)) - diskte dogrulandi"
                      },
                      {
                          "id":  "D2-17",
@@ -154,7 +154,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Map\u003cagentId\u003e yap + ajanTemizle\u0027de sil",
-                         "islenme":  null
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (A2-6 mukerreri) - diskte dogrulandi"
                      },
                      {
                          "id":  "D2-18",
@@ -212,7 +212,7 @@
                      },
                      {
                          "id":  "D2-24",
-                         "baslik":  "Tek dosyada 724 satir / 239 assert â€” olcek buyudukce kirilgan",
+                         "baslik":  "Tek dosyada 724 satir / 239 assert Ã¢â‚¬â€ olcek buyudukce kirilgan",
                          "dosyaRef":  "paseo-verimlilik test/dedektor.test.ts",
                          "etiket":  "(R)",
                          "siddet":  "dusuk",

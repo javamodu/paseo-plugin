@@ -1,529 +1,529 @@
 {
-  "schemaSurum": 1,
-  "kaynak": "denetim-6-subagent",
-  "tarih": "2026-10-13",
-  "maddeler": [
-    {
-      "id": "A1-1",
-      "baslik": "ANAYASA v1.4'e isaret ediyor, REHBER v2.0",
-      "dosyaRef": "ANAYASA.md:3",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "v1.4 → v2.0 (baski hatasi duzeltmesi)",
-      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
-    },
-    {
-      "id": "A1-2",
-      "baslik": "REHBER icinde STATE damgasi v1.4 ogutleniyor",
-      "dosyaRef": "PASEO-VERIMLILIK-REHBERI-v2.0.md:112",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "v1.4 → v2.0",
-      "islenme": null
-    },
-    {
-      "id": "A1-3",
-      "baslik": "CEKIRDEK devir listesi numaralandirmasi 5-6-5 (7 madde)",
-      "dosyaRef": "server/cekirdek.ts:32",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "son madde 7 olmali",
-      "islenme": null
-    },
-    {
-      "id": "A1-4",
-      "baslik": "gelen-kutu protokolunun tam metni REHBER'de yok (CEKIRDEK isaret ettigi belgede sifir eslesme)",
-      "dosyaRef": "server/cekirdek.ts:30-31",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "REHBER'e EK-5 gelen-kutu protokolu ekle",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A1-5",
-      "baslik": "enjekte kopya diskteki CEKIRDEK'ten eski (yuzde90 parantezi dusuk) — reload oncesi enjeksiyon",
-      "dosyaRef": "server/cekirdek.ts:18",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "reload sonrasi dogrulandi; surum bazli drift izlemi onerilir",
-      "islenme": "2026-10-13 K-0030 karar: uygulanmadi (tek-kaynak + mevcut guard yeterli)"
-    },
-    {
-      "id": "A1-6",
-      "baslik": "README '9 bolum' diyor, REHBER 10 bolum",
-      "dosyaRef": "README.md:11",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "10 bolum + §10 listeye",
-      "islenme": null
-    },
-    {
-      "id": "A1-7",
-      "baslik": "README '12+ kapi' vs onboarding '16 kapi' tutarsiz",
-      "dosyaRef": "README.md:28",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "sayimi saglik.ps1'den turet",
-      "islenme": null
-    },
-    {
-      "id": "A1-8",
-      "baslik": "admin-onboarding.md + cekirdek.ts BOM'suz; aile BOM'lu — PS5.1 ANSI okuma riski",
-      "dosyaRef": "admin-onboarding.md:1",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "encoding hizalama karari",
-      "islenme": null
-    },
-    {
-      "id": "A2-1",
-      "baslik": "agent.closed 11 agentId-map'ini temizlemiyor (bellek sizintisi, uzun omurlu daemon)",
-      "dosyaRef": "index.server.ts:199",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "her modul temizle(agentId) export etsin; closed'da toplu cagri",
-      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
-    },
-    {
-      "id": "A2-2",
-      "baslik": "OKUYUCU_TAM find/rg'yi serbest argumanla auto-allow'a aciyor (find -delete, rg --pre)",
-      "dosyaRef": "server/permission.ts:10",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "find/rg'yi daralt veya -delete/-exec/--pre bayrak reddi",
-      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
-    },
-    {
-      "id": "A2-3",
-      "baslik": "RAPOR_YOLU substring testi traversal'a acik (raporlar/../STATE_BOARD.md)",
-      "dosyaRef": "server/roller.ts:53",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "resolve() + kok/raporlar icinde kalma kontrolu",
-      "islenme": "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
-    },
-    {
-      "id": "A2-4",
-      "baslik": "telemetriYaz mkdir cwd'de, dosya katmanKokuBul'da — alt-dizin cwd'sinde telemetri sessizce kaybolur; rollup ayni sebeple null",
-      "dosyaRef": "server/telemetry.ts:54",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "kok tek kaynaktan (mkdir+yazma+okuma)",
-      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
-    },
-    {
-      "id": "A2-5",
-      "baslik": "turn_ended handler'da try oncesi kod firlarsa turKaydet atlanir, aktifTur siser",
-      "dosyaRef": "index.server.ts:113",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "govde try'a, turKaydet finally'ye",
-      "islenme": null
-    },
-    {
-      "id": "A2-6",
-      "baslik": "aktifTur sayaci turn_ended gelmezse sifirlanmaz → sahte paralellik-asimi",
-      "dosyaRef": "server/telemetry.ts:44",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "agent.closed'da acik tur dusumu",
-      "islenme": null
-    },
-    {
-      "id": "A2-7",
-      "baslik": "latestOutputText tool_call JSON'unu ciktiya katiyor → finishgate/onboarding yanlis-pozitif",
-      "dosyaRef": "server/inspect.ts:11",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "yalniz assistant text ogeleri",
-      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
-    },
-    {
-      "id": "A2-8",
-      "baslik": "rollup her turda tam jsonl okur (O(dosya)); bekci execFileSync ile event loop'u 90sn bloke eder",
-      "dosyaRef": "server/rollup.ts:17",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "rollup seyreklestir; bekci async execFile",
-      "islenme": null
-    },
-    {
-      "id": "A2-9",
-      "baslik": "durtmeli turda yeni user mesaji yoksa eski prompt RET_DESENI'ne tekrar sokulur (cift kabul sayimi)",
-      "dosyaRef": "index.server.ts:137",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "turnId dedupe",
-      "islenme": null
-    },
-    {
-      "id": "A2-10",
-      "baslik": "panoIsaretciYaz atomik degil + Aktif-is basligi birebir eslesme sarti kirilgan",
-      "dosyaRef": "server/bekci.ts:195",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "tmp+rename; /^##\\s+Aktif\\s/i",
-      "islenme": null
-    },
-    {
-      "id": "A2-11",
-      "baslik": "degerlendirme 24KB butce byte olcer ama UTF-16 slice'lar (cokbaytli metinde ~48KB)",
-      "dosyaRef": "server/degerlendirme.ts:24",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "Buffer.subarray ile byte kesimi",
-      "islenme": null
-    },
-    {
-      "id": "A2-12",
-      "baslik": "onboarding.ts'inde olu dal (b.tur>1 hic calismaz)",
-      "dosyaRef": "server/onboarding.ts:52",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "sil",
-      "islenme": null
-    },
-    {
-      "id": "A2-13",
-      "baslik": "brief dedupe callId'siz sub_agent'ta ise yaramaz (yeniden sayim)",
-      "dosyaRef": "server/brief.ts:21",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "description-hash fallback",
-      "islenme": null
-    },
-    {
-      "id": "A3-1",
-      "baslik": "loopguard HIC testli degil (3x hash, A-B-A, MAKS_ARDISIK_DURTME=2 insan kapisi)",
-      "dosyaRef": "server/loopguard.ts:42",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "mock context ile 3 senaryo",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A3-2",
-      "baslik": "enjekteHandler HIC testli degil (archived atlama, mod=kapali, cwd=null)",
-      "dosyaRef": "server/enjekte.ts:6",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "sahte PluginHandlerContext ile 4 senaryo",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A3-3",
-      "baslik": "rollup bozuk onceki-hafta json senaryosu testisiz (catch→baz hafta dali)",
-      "dosyaRef": "server/rollup.ts:92",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "bozuk W41.json ile baz-hafta assert'i",
-      "islenme": null
-    },
-    {
-      "id": "A3-4",
-      "baslik": "brief dedupe callId'siz sub_agent dali testisiz",
-      "dosyaRef": "server/brief.ts:22",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "callId'siz item ile yeniden-sayim assert'i",
-      "islenme": null
-    },
-    {
-      "id": "A3-5",
-      "baslik": "panoIsaretciYaz basliksiz pano + CRLF korunumu testisiz",
-      "dosyaRef": "server/bekci.ts:179",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "3 senaryo assert'i",
-      "islenme": null
-    },
-    {
-      "id": "A3-6",
-      "baslik": "turKaydet parentAgentId→altAjan uretim zinciri testisiz (uretimde alan hic yazilmasa testler yesil)",
-      "dosyaRef": "server/telemetry.ts:112",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "turKaydet'e parentAgentId'li agent ile uçtan uca",
-      "islenme": null
-    },
-    {
-      "id": "A3-7",
-      "baslik": "briefKontrol cooldown + telemetri yazimi testisiz",
-      "dosyaRef": "server/brief.ts:38",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "mock context + sahte saat",
-      "islenme": null
-    },
-    {
-      "id": "A3-8",
-      "baslik": "kapsamKontrol tavan-asim dürtmesi testisiz",
-      "dosyaRef": "server/kapsam.ts:23",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "4 biricik dosyali timeline",
-      "islenme": null
-    },
-    {
-      "id": "A3-9",
-      "baslik": "izinYanitla/permissionKontrol/rolIzinKontrol async sarmalayicilar testisiz",
-      "dosyaRef": "server/permission.ts:55",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "mock context allow/deny govdesi",
-      "islenme": null
-    },
-    {
-      "id": "A3-10",
-      "baslik": "bekci FAIL_PENCERE_TUR=20 pencere-kaymasi senaryosu testisiz",
-      "dosyaRef": "server/bekci.ts:43",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "25 turluk pencere testi",
-      "islenme": null
-    },
-    {
-      "id": "A3-11",
-      "baslik": "rollup bozuk jsonl satir atlama + isoHafta yil-siniri testisiz",
-      "dosyaRef": "server/rollup.ts:32",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "bozuk satir + 2026-01-01 assert'i",
-      "islenme": null
-    },
-    {
-      "id": "A3-12",
-      "baslik": "bekci rapor satiri assert'i gevsek (includes; format kirilsa sessiz)",
-      "dosyaRef": "test/dedektor.test.ts:505",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "regex assert",
-      "islenme": null
-    },
-    {
-      "id": "A4-1",
-      "baslik": "W42 cache-hit %95.8 ham veriden yeniden uretilemiyor (token-agirlikli %99.0; rollup formulu %96.2) — formul raporda yazmiyor",
-      "dosyaRef": "raporlar/telemetri-haftalik/2026-W42.json:13",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "rollup formulunu rapora yaz",
-      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
-    },
-    {
-      "id": "A4-2",
-      "baslik": "W42.md uretim damgasi gun bazli, json ISO — tutarsiz",
-      "dosyaRef": "raporlar/telemetri-haftalik/2026-W42.md:3",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "md'ye tam ISO damga",
-      "islenme": null
-    },
-    {
-      "id": "A4-3",
-      "baslik": "ort tur suresi 150/157 orneklem; raporda n notu yok",
-      "dosyaRef": "raporlar/telemetri-haftalik/2026-W42.md:5",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "n= dipnotu",
-      "islenme": null
-    },
-    {
-      "id": "A4-4",
-      "baslik": "telemetri jsonl surumsuz sema evrimi (txt-to-cad'da 14 farkli anahtar kumesi)",
-      "dosyaRef": "txt-to-cad/.verimlilik/telemetri.jsonl:51",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "satirlara schemaSurum veya dokumante tolerans",
-      "islenme": null
-    },
-    {
-      "id": "A4-5",
-      "baslik": "v0.12.1 sonrasi satirlar delta/kapsam icermiyor (tasarim: rollup-ciktisinda) — dokumante degil",
-      "dosyaRef": "ai-scene-graph/dart/.verimlilik/telemetri.jsonl",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "tasarim kararini dokumante et",
-      "islenme": null
-    },
-    {
-      "id": "A4-6",
-      "baslik": "paseo-verimlilik/.verimlilik/telemetri.jsonl 0 bayt — hook kurulu, veri hic akmamis",
-      "dosyaRef": "paseo-verimlilik/.verimlilik/telemetri.jsonl",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "izleme kurulumu dogrulanmali",
-      "islenme": null
-    },
-    {
-      "id": "A5-1",
-      "baslik": "zincir-kontrol BOM'suz .ps1 → PS5.1 ANSI parse: 'Sozlesme notu' ratchet kolu olu, sessizce ZINCIR OK",
-      "dosyaRef": "scripts/zincir-kontrol.ps1:17",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "BOM'lu kaydet + marker handoff sablonuna; marker yoksa Warn",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A5-2",
-      "baslik": "kilit-surum git cagirilarinda LASTEXITCODE denetimi yok (tag duserse bile KILIT OK basar)",
-      "dosyaRef": "scripts/kilit-surum.ps1:13",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "her git sonrasi exit-code kontrolu",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A5-3",
-      "baslik": "kilit-surum saglik exit-code okumuyor; SONUC regex eslesmezse doctor=null ile kilit gecer (fail-open)",
-      "dosyaRef": "scripts/kilit-surum.ps1:20",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "doctor null ise kilidi engelle (fail-closed)",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A5-4",
-      "baslik": "saglik 'CODEMAP taze' taramasi handoff/rapor yazimini da EKSIK sayar — append-only akisla celisir",
-      "dosyaRef": "scripts/saglik.ps1:57",
-      "etiket": "(R)",
-      "siddet": "yuksek",
-      "oneri": "raporlar|plans\\handoff haric tut",
-      "islenme": "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
-    },
-    {
-      "id": "A5-5",
-      "baslik": "kural sayaci liste-satiri proxy'si (78 sayim sisme+eksik karisik); metrik yanlis isimli",
-      "dosyaRef": "scripts/saglik.ps1:87",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "yeniden adlandir veya KURAL: oneki say",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A5-6",
-      "baslik": "saglik JSONL parse try/catch'siz — tek bozuk satir Katman B'yi dusurur",
-      "dosyaRef": "scripts/saglik.ps1:95",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "satir-bazli try/catch",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A5-7",
-      "baslik": "kilit-surum Etiket dogrulanmiyor (../x traversal, gecersiz tag karakteri)",
-      "dosyaRef": "scripts/kilit-surum.ps1:14",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "ValidatePattern ^[A-Za-z0-9._-]+$",
-      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
-    },
-    {
-      "id": "A5-8",
-      "baslik": "proje-panosu evren bosken $null kart uretir (hayalet repo)",
-      "dosyaRef": "scripts/proje-panosu.ps1:113",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "bos-evren guard'i",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A5-9",
-      "baslik": "kilit-surum kirli-agac kontrolu untracked dahil; pano ile filtre tutarsiz",
-      "dosyaRef": "scripts/kilit-surum.ps1:16",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "ortak haric-tutma filtresi",
-      "islenme": null
-    },
-    {
-      "id": "A5-10",
-      "baslik": "codemap Root sondaki \\ ile cagrilinca ilk karakteri yer",
-      "dosyaRef": "scripts/codemap.ps1:26",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "TrimEnd normalizasyonu",
-      "islenme": null
-    },
-    {
-      "id": "A5-11",
-      "baslik": "codemap Set-Content BOM'lu yazar; diger scriptler BOM'suz — encoding tutarsiz",
-      "dosyaRef": "scripts/codemap.ps1:39",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "BOM'suz yazima hizala",
-      "islenme": null
-    },
-    {
-      "id": "A5-12",
-      "baslik": "yonetici-ozeti LOC sayaci uzanti filtresiz binary de okur",
-      "dosyaRef": "scripts/yonetici-ozeti.ps1:27",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "uzanti listesi paylas",
-      "islenme": null
-    },
-    {
-      "id": "A5-13",
-      "baslik": "yonetici-ozeti global SilentlyContinue; bozuk son satirda sure matematigi sapar",
-      "dosyaRef": "scripts/yonetici-ozeti.ps1:15",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "timestamp parse try/catch",
-      "islenme": null
-    },
-    {
-      "id": "A5-14",
-      "baslik": "katman-kur sablon on-kontrolsuz; yarim kurulum + yanlis yolda sifirdan agac riski",
-      "dosyaRef": "scripts/katman-kur.ps1:10",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "sablon+RepoKok toplu dogrulama",
-      "islenme": null
-    },
-    {
-      "id": "A5-15",
-      "baslik": "saglik hedefler.json parse hatasi yutulur (varsayilan esiklerle sessiz olcum)",
-      "dosyaRef": "scripts/saglik.ps1:20",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "Warn bas",
-      "islenme": null
-    },
-    {
-      "id": "A6-1",
-      "baslik": "UI v0.12 telemetri alanlarini tuketmiyor (altAjan/delta/kapsam rollup-only; contract+ekran eksik)",
-      "dosyaRef": "client/telemetri.tsx:34",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "kapsam karari K-kaydi veya telemetriOzet'e alan ekle",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A6-2",
-      "baslik": "modDurum RPC olu; /mod argsiz telemetri ekrani aciyor",
-      "dosyaRef": "index.client.tsx:60",
-      "etiket": "(R)",
-      "siddet": "orta",
-      "oneri": "/mod argsiz → modDurum ekrani veya olü contract'i kaldir",
-      "islenme": "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
-    },
-    {
-      "id": "A6-3",
-      "baslik": "OVERVIEW '10sn tazelenir' vaadi oz-degerlendirme ekraninda yok (refetchInterval eksik)",
-      "dosyaRef": "client/degerlendirme.tsx:11",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "refetchInterval ekle veya vaadi duzelt",
-      "islenme": null
-    },
-    {
-      "id": "A6-4",
-      "baslik": "client/web.ts olu modul (openExternal hic import edilmiyor)",
-      "dosyaRef": "client/web.ts:5",
-      "etiket": "(R)",
-      "siddet": "dusuk",
-      "oneri": "sil",
-      "islenme": null
-    }
-  ]
+    "schemaSurum":  1,
+    "kaynak":  "denetim-6-subagent",
+    "tarih":  "2026-10-13",
+    "maddeler":  [
+                     {
+                         "id":  "A1-1",
+                         "baslik":  "ANAYASA v1.4\u0027e isaret ediyor, REHBER v2.0",
+                         "dosyaRef":  "ANAYASA.md:3",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "v1.4 â†’ v2.0 (baski hatasi duzeltmesi)",
+                         "islenme":  "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
+                     },
+                     {
+                         "id":  "A1-2",
+                         "baslik":  "REHBER icinde STATE damgasi v1.4 ogutleniyor",
+                         "dosyaRef":  "PASEO-VERIMLILIK-REHBERI-v2.0.md:112",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "v1.4 â†’ v2.0",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A1-3",
+                         "baslik":  "CEKIRDEK devir listesi numaralandirmasi 5-6-5 (7 madde)",
+                         "dosyaRef":  "server/cekirdek.ts:32",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "son madde 7 olmali",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A1-4",
+                         "baslik":  "gelen-kutu protokolunun tam metni REHBER\u0027de yok (CEKIRDEK isaret ettigi belgede sifir eslesme)",
+                         "dosyaRef":  "server/cekirdek.ts:30-31",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "REHBER\u0027e EK-5 gelen-kutu protokolu ekle",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A1-5",
+                         "baslik":  "enjekte kopya diskteki CEKIRDEK\u0027ten eski (yuzde90 parantezi dusuk) â€” reload oncesi enjeksiyon",
+                         "dosyaRef":  "server/cekirdek.ts:18",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "reload sonrasi dogrulandi; surum bazli drift izlemi onerilir",
+                         "islenme":  "2026-10-13 K-0030 karar: uygulanmadi (tek-kaynak + mevcut guard yeterli)"
+                     },
+                     {
+                         "id":  "A1-6",
+                         "baslik":  "README \u00279 bolum\u0027 diyor, REHBER 10 bolum",
+                         "dosyaRef":  "README.md:11",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "10 bolum + Â§10 listeye",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A1-7",
+                         "baslik":  "README \u002712+ kapi\u0027 vs onboarding \u002716 kapi\u0027 tutarsiz",
+                         "dosyaRef":  "README.md:28",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "sayimi saglik.ps1\u0027den turet",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A1-8",
+                         "baslik":  "admin-onboarding.md + cekirdek.ts BOM\u0027suz; aile BOM\u0027lu â€” PS5.1 ANSI okuma riski",
+                         "dosyaRef":  "admin-onboarding.md:1",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "encoding hizalama karari",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A2-1",
+                         "baslik":  "agent.closed 11 agentId-map\u0027ini temizlemiyor (bellek sizintisi, uzun omurlu daemon)",
+                         "dosyaRef":  "index.server.ts:199",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "her modul temizle(agentId) export etsin; closed\u0027da toplu cagri",
+                         "islenme":  "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
+                     },
+                     {
+                         "id":  "A2-2",
+                         "baslik":  "OKUYUCU_TAM find/rg\u0027yi serbest argumanla auto-allow\u0027a aciyor (find -delete, rg --pre)",
+                         "dosyaRef":  "server/permission.ts:10",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "find/rg\u0027yi daralt veya -delete/-exec/--pre bayrak reddi",
+                         "islenme":  "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
+                     },
+                     {
+                         "id":  "A2-3",
+                         "baslik":  "RAPOR_YOLU substring testi traversal\u0027a acik (raporlar/../STATE_BOARD.md)",
+                         "dosyaRef":  "server/roller.ts:53",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "resolve() + kok/raporlar icinde kalma kontrolu",
+                         "islenme":  "2026-10-13 K-0025 plugin@3c9bf45 v0.13-kilit"
+                     },
+                     {
+                         "id":  "A2-4",
+                         "baslik":  "telemetriYaz mkdir cwd\u0027de, dosya katmanKokuBul\u0027da â€” alt-dizin cwd\u0027sinde telemetri sessizce kaybolur; rollup ayni sebeple null",
+                         "dosyaRef":  "server/telemetry.ts:54",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "kok tek kaynaktan (mkdir+yazma+okuma)",
+                         "islenme":  "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
+                     },
+                     {
+                         "id":  "A2-5",
+                         "baslik":  "turn_ended handler\u0027da try oncesi kod firlarsa turKaydet atlanir, aktifTur siser",
+                         "dosyaRef":  "index.server.ts:113",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "govde try\u0027a, turKaydet finally\u0027ye",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (turKaydet finally) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A2-6",
+                         "baslik":  "aktifTur sayaci turn_ended gelmezse sifirlanmaz â†’ sahte paralellik-asimi",
+                         "dosyaRef":  "server/telemetry.ts:44",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "agent.closed\u0027da acik tur dusumu",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (acik-tur dusumu) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A2-7",
+                         "baslik":  "latestOutputText tool_call JSON\u0027unu ciktiya katiyor â†’ finishgate/onboarding yanlis-pozitif",
+                         "dosyaRef":  "server/inspect.ts:11",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "yalniz assistant text ogeleri",
+                         "islenme":  "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
+                     },
+                     {
+                         "id":  "A2-8",
+                         "baslik":  "rollup her turda tam jsonl okur (O(dosya)); bekci execFileSync ile event loop\u0027u 90sn bloke eder",
+                         "dosyaRef":  "server/rollup.ts:17",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "rollup seyreklestir; bekci async execFile",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (bekci async execFile + rollup seyreklestirme) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A2-9",
+                         "baslik":  "durtmeli turda yeni user mesaji yoksa eski prompt RET_DESENI\u0027ne tekrar sokulur (cift kabul sayimi)",
+                         "dosyaRef":  "index.server.ts:137",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "turnId dedupe",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A2-10",
+                         "baslik":  "panoIsaretciYaz atomik degil + Aktif-is basligi birebir eslesme sarti kirilgan",
+                         "dosyaRef":  "server/bekci.ts:195",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "tmp+rename; /^##\\s+Aktif\\s/i",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A2-11",
+                         "baslik":  "degerlendirme 24KB butce byte olcer ama UTF-16 slice\u0027lar (cokbaytli metinde ~48KB)",
+                         "dosyaRef":  "server/degerlendirme.ts:24",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "Buffer.subarray ile byte kesimi",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A2-12",
+                         "baslik":  "onboarding.ts\u0027inde olu dal (b.tur\u003e1 hic calismaz)",
+                         "dosyaRef":  "server/onboarding.ts:52",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "sil",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A2-13",
+                         "baslik":  "brief dedupe callId\u0027siz sub_agent\u0027ta ise yaramaz (yeniden sayim)",
+                         "dosyaRef":  "server/brief.ts:21",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "description-hash fallback",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A3-1",
+                         "baslik":  "loopguard HIC testli degil (3x hash, A-B-A, MAKS_ARDISIK_DURTME=2 insan kapisi)",
+                         "dosyaRef":  "server/loopguard.ts:42",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "mock context ile 3 senaryo",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A3-2",
+                         "baslik":  "enjekteHandler HIC testli degil (archived atlama, mod=kapali, cwd=null)",
+                         "dosyaRef":  "server/enjekte.ts:6",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "sahte PluginHandlerContext ile 4 senaryo",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A3-3",
+                         "baslik":  "rollup bozuk onceki-hafta json senaryosu testisiz (catchâ†’baz hafta dali)",
+                         "dosyaRef":  "server/rollup.ts:92",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "bozuk W41.json ile baz-hafta assert\u0027i",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 803) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-4",
+                         "baslik":  "brief dedupe callId\u0027siz sub_agent dali testisiz",
+                         "dosyaRef":  "server/brief.ts:22",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "callId\u0027siz item ile yeniden-sayim assert\u0027i",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 816) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-5",
+                         "baslik":  "panoIsaretciYaz basliksiz pano + CRLF korunumu testisiz",
+                         "dosyaRef":  "server/bekci.ts:179",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "3 senaryo assert\u0027i",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 824-827) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-6",
+                         "baslik":  "turKaydet parentAgentIdâ†’altAjan uretim zinciri testisiz (uretimde alan hic yazilmasa testler yesil)",
+                         "dosyaRef":  "server/telemetry.ts:112",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "turKaydet\u0027e parentAgentId\u0027li agent ile uÃ§tan uca",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 835) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-7",
+                         "baslik":  "briefKontrol cooldown + telemetri yazimi testisiz",
+                         "dosyaRef":  "server/brief.ts:38",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "mock context + sahte saat",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 815) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-8",
+                         "baslik":  "kapsamKontrol tavan-asim dÃ¼rtmesi testisiz",
+                         "dosyaRef":  "server/kapsam.ts:23",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "4 biricik dosyali timeline",
+                         "islenme":  "2026-10-13 plugin@c3c265c v0.17 K-0029 (test 844-845) - diskte dogrulandi"
+                     },
+                     {
+                         "id":  "A3-9",
+                         "baslik":  "izinYanitla/permissionKontrol/rolIzinKontrol async sarmalayicilar testisiz",
+                         "dosyaRef":  "server/permission.ts:55",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "mock context allow/deny govdesi",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A3-10",
+                         "baslik":  "bekci FAIL_PENCERE_TUR=20 pencere-kaymasi senaryosu testisiz",
+                         "dosyaRef":  "server/bekci.ts:43",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "25 turluk pencere testi",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A3-11",
+                         "baslik":  "rollup bozuk jsonl satir atlama + isoHafta yil-siniri testisiz",
+                         "dosyaRef":  "server/rollup.ts:32",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "bozuk satir + 2026-01-01 assert\u0027i",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A3-12",
+                         "baslik":  "bekci rapor satiri assert\u0027i gevsek (includes; format kirilsa sessiz)",
+                         "dosyaRef":  "test/dedektor.test.ts:505",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "regex assert",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A4-1",
+                         "baslik":  "W42 cache-hit %95.8 ham veriden yeniden uretilemiyor (token-agirlikli %99.0; rollup formulu %96.2) â€” formul raporda yazmiyor",
+                         "dosyaRef":  "raporlar/telemetri-haftalik/2026-W42.json:13",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "rollup formulunu rapora yaz",
+                         "islenme":  "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
+                     },
+                     {
+                         "id":  "A4-2",
+                         "baslik":  "W42.md uretim damgasi gun bazli, json ISO â€” tutarsiz",
+                         "dosyaRef":  "raporlar/telemetri-haftalik/2026-W42.md:3",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "md\u0027ye tam ISO damga",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A4-3",
+                         "baslik":  "ort tur suresi 150/157 orneklem; raporda n notu yok",
+                         "dosyaRef":  "raporlar/telemetri-haftalik/2026-W42.md:5",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "n= dipnotu",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A4-4",
+                         "baslik":  "telemetri jsonl surumsuz sema evrimi (txt-to-cad\u0027da 14 farkli anahtar kumesi)",
+                         "dosyaRef":  "txt-to-cad/.verimlilik/telemetri.jsonl:51",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "satirlara schemaSurum veya dokumante tolerans",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A4-5",
+                         "baslik":  "v0.12.1 sonrasi satirlar delta/kapsam icermiyor (tasarim: rollup-ciktisinda) â€” dokumante degil",
+                         "dosyaRef":  "ai-scene-graph/dart/.verimlilik/telemetri.jsonl",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "tasarim kararini dokumante et",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A4-6",
+                         "baslik":  "paseo-verimlilik/.verimlilik/telemetri.jsonl 0 bayt â€” hook kurulu, veri hic akmamis",
+                         "dosyaRef":  "paseo-verimlilik/.verimlilik/telemetri.jsonl",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "izleme kurulumu dogrulanmali",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-1",
+                         "baslik":  "zincir-kontrol BOM\u0027suz .ps1 â†’ PS5.1 ANSI parse: \u0027Sozlesme notu\u0027 ratchet kolu olu, sessizce ZINCIR OK",
+                         "dosyaRef":  "scripts/zincir-kontrol.ps1:17",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "BOM\u0027lu kaydet + marker handoff sablonuna; marker yoksa Warn",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A5-2",
+                         "baslik":  "kilit-surum git cagirilarinda LASTEXITCODE denetimi yok (tag duserse bile KILIT OK basar)",
+                         "dosyaRef":  "scripts/kilit-surum.ps1:13",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "her git sonrasi exit-code kontrolu",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A5-3",
+                         "baslik":  "kilit-surum saglik exit-code okumuyor; SONUC regex eslesmezse doctor=null ile kilit gecer (fail-open)",
+                         "dosyaRef":  "scripts/kilit-surum.ps1:20",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "doctor null ise kilidi engelle (fail-closed)",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A5-4",
+                         "baslik":  "saglik \u0027CODEMAP taze\u0027 taramasi handoff/rapor yazimini da EKSIK sayar â€” append-only akisla celisir",
+                         "dosyaRef":  "scripts/saglik.ps1:57",
+                         "etiket":  "(R)",
+                         "siddet":  "yuksek",
+                         "oneri":  "raporlar|plans\\handoff haric tut",
+                         "islenme":  "2026-10-13 K-0026 plugin@4b768f3 v0.14-kilit / sozlesme-script"
+                     },
+                     {
+                         "id":  "A5-5",
+                         "baslik":  "kural sayaci liste-satiri proxy\u0027si (78 sayim sisme+eksik karisik); metrik yanlis isimli",
+                         "dosyaRef":  "scripts/saglik.ps1:87",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "yeniden adlandir veya KURAL: oneki say",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A5-6",
+                         "baslik":  "saglik JSONL parse try/catch\u0027siz â€” tek bozuk satir Katman B\u0027yi dusurur",
+                         "dosyaRef":  "scripts/saglik.ps1:95",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "satir-bazli try/catch",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A5-7",
+                         "baslik":  "kilit-surum Etiket dogrulanmiyor (../x traversal, gecersiz tag karakteri)",
+                         "dosyaRef":  "scripts/kilit-surum.ps1:14",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "ValidatePattern ^[A-Za-z0-9._-]+$",
+                         "islenme":  "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
+                     },
+                     {
+                         "id":  "A5-8",
+                         "baslik":  "proje-panosu evren bosken $null kart uretir (hayalet repo)",
+                         "dosyaRef":  "scripts/proje-panosu.ps1:113",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "bos-evren guard\u0027i",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A5-9",
+                         "baslik":  "kilit-surum kirli-agac kontrolu untracked dahil; pano ile filtre tutarsiz",
+                         "dosyaRef":  "scripts/kilit-surum.ps1:16",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "ortak haric-tutma filtresi",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-10",
+                         "baslik":  "codemap Root sondaki \\ ile cagrilinca ilk karakteri yer",
+                         "dosyaRef":  "scripts/codemap.ps1:26",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "TrimEnd normalizasyonu",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-11",
+                         "baslik":  "codemap Set-Content BOM\u0027lu yazar; diger scriptler BOM\u0027suz â€” encoding tutarsiz",
+                         "dosyaRef":  "scripts/codemap.ps1:39",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "BOM\u0027suz yazima hizala",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-12",
+                         "baslik":  "yonetici-ozeti LOC sayaci uzanti filtresiz binary de okur",
+                         "dosyaRef":  "scripts/yonetici-ozeti.ps1:27",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "uzanti listesi paylas",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-13",
+                         "baslik":  "yonetici-ozeti global SilentlyContinue; bozuk son satirda sure matematigi sapar",
+                         "dosyaRef":  "scripts/yonetici-ozeti.ps1:15",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "timestamp parse try/catch",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-14",
+                         "baslik":  "katman-kur sablon on-kontrolsuz; yarim kurulum + yanlis yolda sifirdan agac riski",
+                         "dosyaRef":  "scripts/katman-kur.ps1:10",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "sablon+RepoKok toplu dogrulama",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A5-15",
+                         "baslik":  "saglik hedefler.json parse hatasi yutulur (varsayilan esiklerle sessiz olcum)",
+                         "dosyaRef":  "scripts/saglik.ps1:20",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "Warn bas",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A6-1",
+                         "baslik":  "UI v0.12 telemetri alanlarini tuketmiyor (altAjan/delta/kapsam rollup-only; contract+ekran eksik)",
+                         "dosyaRef":  "client/telemetri.tsx:34",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "kapsam karari K-kaydi veya telemetriOzet\u0027e alan ekle",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A6-2",
+                         "baslik":  "modDurum RPC olu; /mod argsiz telemetri ekrani aciyor",
+                         "dosyaRef":  "index.client.tsx:60",
+                         "etiket":  "(R)",
+                         "siddet":  "orta",
+                         "oneri":  "/mod argsiz â†’ modDurum ekrani veya olÃ¼ contract\u0027i kaldir",
+                         "islenme":  "2026-10-13 K-0030 plugin@0241bb7 v0.18-kilit"
+                     },
+                     {
+                         "id":  "A6-3",
+                         "baslik":  "OVERVIEW \u002710sn tazelenir\u0027 vaadi oz-degerlendirme ekraninda yok (refetchInterval eksik)",
+                         "dosyaRef":  "client/degerlendirme.tsx:11",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "refetchInterval ekle veya vaadi duzelt",
+                         "islenme":  null
+                     },
+                     {
+                         "id":  "A6-4",
+                         "baslik":  "client/web.ts olu modul (openExternal hic import edilmiyor)",
+                         "dosyaRef":  "client/web.ts:5",
+                         "etiket":  "(R)",
+                         "siddet":  "dusuk",
+                         "oneri":  "sil",
+                         "islenme":  null
+                     }
+                 ]
 }
