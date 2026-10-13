@@ -10,7 +10,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "TEST_KOSUCU kontrolunu izinKarari sonrasina tasi; zincir karakteri varsa null don",
-      "islenme": null
+      "islenme": "2026-10-13 K-0027 plugin@4d6c7d5 v0.15-kilit"
     },
     {
       "id": "D2-02",
@@ -19,7 +19,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "Raporcu dalinda zincir deseni varsa null (insan kapisi) don",
-      "islenme": null
+      "islenme": "2026-10-13 K-0027 plugin@4d6c7d5 v0.15-kilit"
     },
     {
       "id": "D2-03",
@@ -28,7 +28,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "Yazma hedefini ayristir; her hedefin raporlar/ altinda oldugunu dogrula",
-      "islenme": null
+      "islenme": "2026-10-13 K-0027 plugin@4d6c7d5 v0.15-kilit"
     },
     {
       "id": "D2-04",
@@ -37,7 +37,7 @@
       "etiket": "(R)",
       "siddet": "yuksek",
       "oneri": "$ ve ( ikamesini zincir desenine ekle",
-      "islenme": null
+      "islenme": "2026-10-13 K-0027 plugin@4d6c7d5 v0.15-kilit"
     },
     {
       "id": "D2-05",

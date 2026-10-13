@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD c226465 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 9812e3c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -6,7 +6,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `AGENTS.md` (0.9KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (16.8KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (17.2KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.6KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
@@ -45,6 +45,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar\K-0023.md` (1.5KB) — K-0023 — Sondaj Ö1+Ö2 Metin Düzeltmeleri (ONAYLANDI 2026-10-12 — PLAN-eksik-kapatma onayı) | Bağlam | Karar
 - `kararlar\K-0025.md` (2.2KB) — K-0025 — Güvenlik Üçlüsü v0.13 (ONAYLANDI 2026-10-13 — "uygula") | Bağlam | Karar
 - `kararlar\K-0026.md` (2.5KB) — K-0026 — v0.14 Dalgası: Test Boşluğu + Script Kapıları (ONAYLANDI 2026-10-13 — "evet") | Bağlam | Karar
+- `kararlar\K-0027.md` (2.3KB) — K-0027 — Denetim2 Güvenlik Dörtlüsü v0.15 (ONAYLANDI 2026-10-13 — "uygula") | Bağlam | Karar
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `PASEO-VERIMLILIK-REHBERI-v2.0.md` (13KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `plans\handoff\HANDOFF-2026-10-11-1900.md` (0.7KB) — HANDOFF-2026-10-11-1900 — paseo-plugin ilk devir
@@ -64,7 +65,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\PLAN-eksik-kapatma-2026-10-12.md` (3.3KB) — PLAN — Eksik Kapatma (paseo plugin + sözleşme) — 2026-10-12 | P0 — collab spawn hook köprüsü (speakrapid-1, YÜKSEK) → K-0021 taslağı | P1 — rollup delta + kabul kapsamı (codex-1, codex-2, orta) → K-0022 taslağı
 - `raporlar\gelen-kutu\codex-2026-10-12.md` (1.9KB) — Gelen Kutu — codex — 2026-10-12
 - `raporlar\gelen-kutu\denetim-2026-10-13.md` (9.4KB) — Gelen Kutu — denetim (6 subagent, uçtan uca) — 2026-10-13 | İşlenme (2026-10-13)
-- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.1KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13
+- `raporlar\gelen-kutu\denetim2-2026-10-13.md` (6.2KB) — Gelen Kutu — denetim2-6-subagent — 2026-10-13 | İşlenme (2026-10-13)
 - `raporlar\gelen-kutu\SABLON.md` (1.1KB) — Gelen Kutu Şablonu (K-0017, schemaSurum: 1) | Markdown dosyası (insan-okunur) | Gelen Kutu — <kaynak> — <tarih>
 - `raporlar\gelen-kutu\speakrapid-2026-10-12.md` (1.3KB) — Gelen Kutu — speakrapid — 2026-10-12
 - `raporlar\oz-degerlendirme\2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
@@ -78,14 +79,14 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `README.md` (2.7KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.0) | İçindekiler | Hızlı başlangıç (3 adım)
 - `scripts\codemap.ps1` (2.4KB)
 - `scripts\katman-kur.ps1` (1.2KB) — function Kur($hedef, $sablonAd) {
-- `scripts\kilit-surum.ps1` (3.7KB) — function GitZorunlu([string[]]$GitArgs) {
+- `scripts\kilit-surum.ps1` (3.8KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts\kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
 - `scripts\proje-panosu.ps1` (8.5KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts\saglik.ps1` (8.7KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts\yonetici-ozeti.ps1` (7.6KB)
 - `scripts\zincir-kontrol.ps1` (1.2KB)
 - `sorular\banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (12.1KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
+- `STATE_BOARD.md` (12.4KB) — STATE_BOARD â€” paseo-plugin | Aktif iÅŸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler\v0.4\KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler\v0.5.1\KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback

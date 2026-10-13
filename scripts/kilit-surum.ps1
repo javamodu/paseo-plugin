@@ -7,8 +7,12 @@ param(
 $ErrorActionPreference = 'Stop'
 # K-0026 (A5-2): native git cagrilari exit-code denetimli; sessiz basarisizlik kilit dusurmez.
 function GitZorunlu([string[]]$GitArgs) {
+  $onceki = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
   $g = & git @GitArgs 2>&1 | Out-String
-  if ($LASTEXITCODE -ne 0) { throw ('git ' + ($GitArgs -join ' ') + ' exit ' + $LASTEXITCODE + ': ' + $g.Trim()) }
+  $code = $LASTEXITCODE
+  $ErrorActionPreference = $onceki
+  if ($code -ne 0) { throw ('git ' + ($GitArgs -join ' ') + ' exit ' + $code + ': ' + $g.Trim()) }
   return $g.Trim()
 }
 $utf8 = New-Object System.Text.UTF8Encoding($false)

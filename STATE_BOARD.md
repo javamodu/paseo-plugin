@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.15 KİLİT (plugin aedbd30, tag v0.15-kilit, süit exit 0, 10 yeni assert): K-0027 denetim2 güvenlik dörtlüsü — D2-01/02 rol katmanında zincir auto-allow kapandı (ZINCIR_SERT) · D2-03 yazma hedefi ayrıştırma · D2-04 $() ikamesi zincir · GitZorunlu EAP tuzağı düzeltildi (DERSLER +1) · D2-05/06 K-0020 karar revizyonu ayrı onay bekliyor
 - 2026-10-13 · v0.14 KİLİT (plugin 52e181d, tag v0.14-kilit, süit exit 0, 11 yeni assert): K-0026 — A3-1/2 loopguard+enjekte testleri · A5-1 zincir BOM (ratchet canlı, PS5.1 kanıtlı) · A5-2/3 kilit-surum GitZorunlu+fail-closed · A5-4 saglik CODEMAP-taze append-only istisnası; gelen-kutu 6 madde işlendi
 - 2026-10-13 · v0.13 KİLİT (plugin cdd7f69, tag v0.13-kilit, typecheck+süit exit 0, 14 yeni assert): K-0025 güvenlik üçlüsü — A2-2 rg/find yazıcı bayraklar insan kapısına · A2-3 raporcu traversal normalize+segment ile kapandı · A2-1 agent.closed 11 Map tam temizlik (temizlik.ts); gelen-kutu 3 madde işlendi
 - 2026-10-13 · 6-subagent uçtan uca denetim tamam: 58 bulgu (9 yüksek/21 orta/28 düşük) → gelen-kutu/denetim-2026-10-13 (md+json) · yüksekler: A2-1 bellek sızıntısı, A2-2/A2-3 auto-allow+traversal, A3-1/2 testsiz modüller, A5-1 ölü ratchet, A5-2/3/4 kilit-surum fail-open · A2-1/A2-2/A2-3/A5-1 diskten doğrulandı (R)
