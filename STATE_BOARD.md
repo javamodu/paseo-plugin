@@ -72,6 +72,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · ORDU-PLAN v1.5: HEDEF-KOKLU LONG-RUNNER — topoloji = satir-listesi+once (ayri DAG motoru yok, checker dongusuzlugu zorunlu, dashboard topolojik katman) · hedefler.md↔hedefler.json (tip: hiz/kalite/ui/test, metrik DETERMINISTIK script olcer — ajan kendi metrigini olcemez) · dongu: olc→dene(worktree)→yesil kapi→kilitle/geri-al → DERSLER'e iki yonde ders · self-healing: regresyon ana dala giremez · plateau: 5 deney <%2 → insan · frenler: butce/izin/geri-alinabilirlik/dur-dugmesi/metrik degisikligi yalniz insan · F7 eklendi (7 faz tamam)
 
+- 2026-10-13 · F2 TAMAM: /ordu slash → orduEmir RPC (manager yoksa yaratir, MANAGER_BRIEF ile, label ordu=manager) · spawn hatti: manager spawn-kuyruk.jsonl'e append eder (append-only), plugin 5sn poller isler, sonuc spawn-sonuc.jsonl'e (append-only) · max-paralel fren (maxCoder 3/maxTester 2/maxToplam 6, ordu.json override) · test/ordu.test.ts 12 assertion yesil, tam suit+tsc 0 · CANLI: hatali kayit → red "zorunlu alan eksik" sonuc dosyasinda dogrulandi · not: reload sonrasi paseoRef ilk agent event'ine kadar null, poller bekler (kendini iyilestirir)
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
