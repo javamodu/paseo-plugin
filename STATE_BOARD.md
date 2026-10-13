@@ -86,6 +86,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 16:40 · v0.21 metrik paketi (8f2ba0d, push+tag): decodeTps + test-kirmizi orani + halusinasyon-ref sayaci + ort stall · 10 yeni assertion, tsc+test exit 0 · not: v0.21 blogu ilk yamada ajanTemizle capasina oturdu (iki aktifTur azaltmasi vardi) — capa seciminde tekrar-eden-satir kontrolu sart
 
+- 2026-10-13 20:14 · baglam %90 acil devir: HANDOFF-2026-10-13-2014 · v0.21 push+tag (8f2ba0d) · reload 16:03 UTC OK · W42 rollup 5 repo · zincir duzeltmesi commit bekliyor (1707+2014)
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
