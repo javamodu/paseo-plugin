@@ -74,6 +74,8 @@ Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014
 
 - 2026-10-13 · F2 TAMAM: /ordu slash → orduEmir RPC (manager yoksa yaratir, MANAGER_BRIEF ile, label ordu=manager) · spawn hatti: manager spawn-kuyruk.jsonl'e append eder (append-only), plugin 5sn poller isler, sonuc spawn-sonuc.jsonl'e (append-only) · max-paralel fren (maxCoder 3/maxTester 2/maxToplam 6, ordu.json override) · test/ordu.test.ts 12 assertion yesil, tam suit+tsc 0 · CANLI: hatali kayit → red "zorunlu alan eksik" sonuc dosyasinda dogrulandi · not: reload sonrasi paseoRef ilk agent event'ine kadar null, poller bekler (kendini iyilestirir)
 
+- 2026-10-13 · paseo-pano DESIGN.md v1: 11 sekme tasarimi — Graf sekmesi tam rontgen (katman bantlari, dugum kartlari, 5 manuel mudahale: yeniden-kos/yeniden-ata/durt/durdur/kabul-duzenle) · Onay kutusu insan-dongude kalp · layout: header+sabit sol menu, badge'ler · kod-satiri estetigi, renk=durum+metin · tek SSE kanali, tembel GET · fail-closed gostergeleri · yapilmayacaklar: file-manager/DAG-motoru/modal
+
 ## Bekleyen onaylar
 - K-0019/K-0020 plugin-entegrasyonu: KOPRU CANLI (e4ae439 + 407df89, 2026-10-13) · kullanici gozden gecirmesi: Pano paneli → sekmede ac · K-0020 acik sorular surer: emirler.json otoritesi, yaratici-worktree kapisi · yazma icin daemon'a PANO_TOKEN env gerekli
 
