@@ -141,6 +141,8 @@ Girdi: kimi-k3 gibi tokensuz/sureli abonelikler · dis LLM'ler (GLM, DeepSeek, Q
 
 ## 10. Kapasite modeli — token her zaman yok
 
+> Uyum notu (2026-10-13, v0.19 firtina sonrasi): kapasite "sure" tipi = K-0032/EK-5 sure ekonomisiyle ayni eksen · pitbull sessizlik esigi plandaki 10dk degil, plugin'de 8dk (K-0032) — plan 8dk'yi baz alir · LOC telemetrisi (locDelta/reworkOrani) kalite eksenine girdi olur · R3-01 dersi: provider-bazli kurallar model null gelebilir, provider-seviye fallback sart.
+
 izinler.json'un "token" ekseni genel "kapasite" eksenine donusur, provider basina:
 
 ```json
