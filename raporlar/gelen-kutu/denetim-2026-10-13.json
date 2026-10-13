@@ -10,7 +10,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "v1.4 → v2.0 (baski hatasi duzeltmesi)",
-      "islenme": null
+      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
     },
     {
       "id": "A1-2",
@@ -109,7 +109,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "kok tek kaynaktan (mkdir+yazma+okuma)",
-      "islenme": null
+      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
     },
     {
       "id": "A2-5",
@@ -136,7 +136,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "yalniz assistant text ogeleri",
-      "islenme": null
+      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
     },
     {
       "id": "A2-8",
@@ -307,7 +307,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "rollup formulunu rapora yaz",
-      "islenme": null
+      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
     },
     {
       "id": "A4-2",
@@ -415,7 +415,7 @@
       "etiket": "(R)",
       "siddet": "orta",
       "oneri": "ValidatePattern ^[A-Za-z0-9._-]+$",
-      "islenme": null
+      "islenme": "2026-10-13 K-0028 plugin@eda2b3e v0.16-kilit"
     },
     {
       "id": "A5-8",

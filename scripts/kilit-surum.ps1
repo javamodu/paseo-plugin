@@ -1,5 +1,5 @@
 param(
-  [Parameter(Mandatory=$true)][string]$Etiket,
+  [Parameter(Mandatory=$true)][ValidatePattern('^[A-Za-z0-9._-]+$')][string]$Etiket,
   [string]$Not = "",
   [string]$EkOzet = "",
   [string]$RepoKok = (Get-Location).Path

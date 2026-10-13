@@ -4,6 +4,7 @@
 Yok (v0.11 kilitli: K-0018 Provider-Modlar uygulandÄ±). â€” K-0013/K-0014 gÃ¼n-iÃ§i uygulamasÄ± tamam (v0.9 kilit: bekÃ§i; iskelet 4 tedavi reposunda; pano v1; sondaj schedule + baseline koÅŸuyor).
 
 ## Son damgalar
+- 2026-10-13 · v0.16 KİLİT (plugin 8dd6e50, tag v0.16-kilit, süit exit 0, 5 yeni assert): K-0028 doğruluk dalgası — A2-7 tool_call JSON yanlış-pozitifi kapandı · A2-4 alt-dizin telemetri kaybı kapandı · A4-1 rollup formülü raporda · A1-1 ANAYASA v2.0 · A5-7 Etiket ValidatePattern
 - 2026-10-13 · K-0020 taslak revizyonu (D2-05/06 işlendi): §1.2 "ilk dolan durdurur" → "dürtür+bildirir; sert fren archive() kullanıcı kararı" (SDK cancel yok) · §7 emirler.json tek-otorite + tek-yazıcı append kilidi · karar ONAYI HALA AÇIK (metin gerçekle tutarlı hale getirildi)
 - 2026-10-13 · v0.15 KİLİT (plugin aedbd30, tag v0.15-kilit, süit exit 0, 10 yeni assert): K-0027 denetim2 güvenlik dörtlüsü — D2-01/02 rol katmanında zincir auto-allow kapandı (ZINCIR_SERT) · D2-03 yazma hedefi ayrıştırma · D2-04 $() ikamesi zincir · GitZorunlu EAP tuzağı düzeltildi (DERSLER +1) · D2-05/06 K-0020 karar revizyonu ayrı onay bekliyor
 - 2026-10-13 · v0.14 KİLİT (plugin 52e181d, tag v0.14-kilit, süit exit 0, 11 yeni assert): K-0026 — A3-1/2 loopguard+enjekte testleri · A5-1 zincir BOM (ratchet canlı, PS5.1 kanıtlı) · A5-2/3 kilit-surum GitZorunlu+fail-closed · A5-4 saglik CODEMAP-taze append-only istisnası; gelen-kutu 6 madde işlendi

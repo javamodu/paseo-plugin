@@ -1,6 +1,6 @@
 ﻿# ANAYASA — paseo-plugin
 
-> Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (PASEO-VERIMLILIK-REHBERI-v1.4.md) bu belgeye tabidir.
+> Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (PASEO-VERIMLILIK-REHBERI-v2.0.md) bu belgeye tabidir.
 > Ajan bu belgeyi değiştiremez; değişiklik önerisi kararlar/K-XXXX.md ile açılır, yalnız kullanıcı onaylar.
 
 ## 1. Hizalama Anahtarları (öncelik sırasıyla)
