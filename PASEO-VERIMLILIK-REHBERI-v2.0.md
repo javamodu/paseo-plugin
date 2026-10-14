@@ -113,7 +113,7 @@ Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetikle
 - [ ] CODEMAP.md var mı ve güncel mi? Yoksa `scripts/codemap.*` ile üret/güncelle; araç yoksa üretim yolunu STATE'e not et. CODEMAP elle düzenlenmez.
 - [ ] DERSLER.md yoksa oluştur; ilk kayıt: bu oturumda öğrendiğin ilk tuzak.
 - [ ] Test komutunu bul ve bir kez koştur (baseline).
-- [ ] Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v1.4).
+- [ ] Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v2.0).
 
 ## 10. Öz-Değerlendirme + Sürüm Disiplini (v0.5, K-0007)
 

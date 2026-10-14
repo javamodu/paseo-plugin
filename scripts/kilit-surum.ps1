@@ -68,6 +68,9 @@ try {
       $commit = GitZorunlu @('rev-parse','--short','HEAD')
       Write-Host "surum.ts damgalandi: $Etiket (commit: $commit)"
     }
+    else {
+      throw ("D2-22 fail-closed: surum.ts icinde PLUGIN_SURUM deseni eslesmedi (" + $surumTs + ") - damga sessizce atlanmaz, kilit engellendi.")
+    }
   }
   GitZorunlu @('tag','-a',$tagAd,'-m',"Kilitli surum: $Etiket") | Out-Null
   $tarih = Get-Date -Format 'yyyy-MM-dd'

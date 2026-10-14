@@ -84,7 +84,7 @@ enjeksiyonMod: "tam" | "isaretci" (kısa işaretçi) | "kapali".
 
 ## 7. Sağlık ve sürüm komutları (paseo-plugin reposunda)
 
-- `powershell -ExecutionPolicy Bypass -File scripts\saglik.ps1` — 16 kapı; SONUC satırı OK/EKSIK/SARI
+- `powershell -ExecutionPolicy Bypass -File scripts\saglik.ps1` — 18 kapı (bu repoda ölçüldü; -Jsonl ile 21); SONUC satırı OK/EKSIK/SARI
 - `scripts\proje-panosu.ps1` — filo panosu (60 repo taranır); `-TestModu` ile öz-test
 - `scripts\zincir-kontrol.ps1` — handoff zinciri + sözleşme-notu denetimi
 - `scripts\katman-kur.ps1 -RepoKok <yol>` — bir repoya L1/L5 iskeleti kur (idempotent)

@@ -6,6 +6,7 @@
 param([string]$Root = (Split-Path $PSScriptRoot -Parent), [string]$Jsonl = "")
 $ESIK = @{ CacheHitMin = 60; DurmeMaxGunluk = 10; KabulHedef = 60; KabulAlarm = 44; KuralSari = 40; KuralKirmizi = 80 }
 $hedefDosya = Join-Path $Root 'hedefler.json'
+$hedefParseHata = $null
 if (Test-Path $hedefDosya) {
   try {
     $hj = Get-Content $hedefDosya -Encoding UTF8 -Raw | ConvertFrom-Json
@@ -17,7 +18,7 @@ if (Test-Path $hedefDosya) {
       if ($ah.kuralSariEsik) { $ESIK.KuralSari = [int]$ah.kuralSariEsik }
       if ($ah.kuralKirmiziEsik) { $ESIK.KuralKirmizi = [int]$ah.kuralKirmiziEsik }
     }
-  } catch { }
+  } catch { $hedefParseHata = $_.Exception.Message }
 }
 $pass = 0; $fail = 0; $warnN = 0; $rows = @()
 function Check($ad, $ok, $detay) {
@@ -27,6 +28,7 @@ function Check($ad, $ok, $detay) {
 function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null }
 function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 function LineCount($p) { if ($p -and (Test-Path $p)) { (Get-Content $p -Encoding UTF8).Count } else { -1 } }
+if ($null -ne $hedefParseHata) { Check 'hedefler.json parse' $false ('bozuk JSON - varsayilan esiklerle devam: ' + $hedefParseHata) }
 
 # 1) Katman dosyalari (alternatif yol listeleri: kök veya plans/)
 $pAnayasa = Find-First $Root @('ANAYASA.md')

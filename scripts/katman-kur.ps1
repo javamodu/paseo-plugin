@@ -1,5 +1,11 @@
-param([Parameter(Mandatory=$true)][string]$RepoKok)
+param([Parameter(Mandatory=$true)][string]$RepoKok, [switch]$Force)
 $ErrorActionPreference = 'Stop'
+$RepoKok = (Resolve-Path -LiteralPath $RepoKok).Path
+$kokIsaret = @('.git','package.json','ANAYASA.md','AGENTS.md','CLAUDE.md','README.md') | Where-Object { Test-Path (Join-Path $RepoKok $_) }
+if (-not $kokIsaret -and -not $Force) {
+  Write-Host ('RED: ' + $RepoKok + ' proje-koku isareti icermiyor (.git/package.json/ANAYASA/AGENTS/README yok). Yanlis yolda sifirdan agac kurma riski - bilincli kurulum icin -Force.')
+  exit 1
+}
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $kuruldu = @(); $atlanan = @()
 $tarih = Get-Date -Format 'yyyy-MM-dd'

@@ -25,7 +25,7 @@ Amaç: **ajan zekâsı ≈ model IQ × bağlam kalitesi** — bu paket bağlam k
 ## Sağlık kontrolü
 
 ```powershell
-powershell -NoProfile -File scripts\saglik.ps1            # repo sağlığı (12+ kapı)
+powershell -NoProfile -File scripts\saglik.ps1            # repo sağlığı (18 kapı; -Jsonl ile 21)
 powershell -NoProfile -File scripts\saglik.ps1 -Jsonl telemetri.jsonl   # + cache-hit/dürtme eşikleri
 ```
 
