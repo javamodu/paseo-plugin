@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 8fe6866 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6f27c83 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -113,6 +113,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar\takip-sozlesme\2026-10-14.md` (0.3KB) — Sozlesme bekci raporu — 2026-10-14
 - `raporlar\telemetri-haftalik\2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar\token-olcum-2026-10-11\OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
+- `raporlar\triage-2026-10-14\OZET.md` (1.3KB) — Gelen-Kutu Triage — 2026-10-14 (isçi: 7a8d41f8, 43/43 madde) | denetim-2026-10-13.json (28) | denetim2-2026-10-13.json (14)
 - `raporlar\v021-trend-2026-10-14\OZET.md` (0.7KB) — v0.21 firtina/K3 trend ozeti — 2026-10-14 (50-tur esigi asildi: 70 tur)
 - `raporlar\v022-olcum-2026-10-14\OZET.md` (1KB) — v0.22 Olcum — 2026-10-14 01:30 (R: telemetri.jsonl disk taramasi, 14 repo) | AktifSn birikimi | Hiz / kalite (firtina, paseo-plugin)
 - `README.md` (2.8KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
