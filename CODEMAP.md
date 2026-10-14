@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6f27c83 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD ab26f55 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -85,6 +85,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans\ORDU-CORE-BAGIMSIZLIK-PLAN.md` (8.8KB) — ORDU-CORE BAGIMSIZLIK PLANI v0.1 (TASLAK — kullanici onayi bekler) | 0. Tek karar (bu planin kalbi) | 1. Mimari (3 kutu + adaptor sozlesmesi)
 - `plans\ORDU-PLAN-v1.md` (25.8KB) — ORDU PLANI v1 — composer'dan ajan ordusuna (K-0020 uygulama plani) | 0. Amac ve sinir | 1. Komuta zinciri
 - `plans\PLAN-eksik-kapatma-2026-10-12.md` (3.3KB) — PLAN — Eksik Kapatma (paseo plugin + sözleşme) — 2026-10-12 | P0 — collab spawn hook köprüsü (speakrapid-1, YÜKSEK) → K-0021 taslağı | P1 — rollup delta + kabul kapsamı (codex-1, codex-2, orta) → K-0022 taslağı
+- `raporlar\faz-analiz-2026-10-14\OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
 - `raporlar\gelen-kutu\codex-2026-10-12.md` (1.9KB) — Gelen Kutu — codex — 2026-10-12
 - `raporlar\gelen-kutu\codex-2026-10-13.md` (0.5KB) — Gelen Kutu — codex-orkestrator — 2026-10-13
 - `raporlar\gelen-kutu\codex-2026-10-14.md` (0.5KB) — Gelen Kutu — codex, 2026-10-14
