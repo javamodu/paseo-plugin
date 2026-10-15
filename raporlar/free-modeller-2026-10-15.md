@@ -53,7 +53,8 @@ hatti `NUM=391` gecici kanit; bkz. §5). Erisim hesabı yeniden acilinca satir y
 |---|---|---|---|
 | OpenCode Zen | 9 | **8** | yalnız-ajan-hattı (ham-API `403`) |
 | Kilo gateway | 12 | **8** (+1 sınıflandırıcı) | ham-API |
-| OpenRouter (pi) | 14 | 1 dogrulandi (kota gun ici dolup bosuyor; bu turda `north-mini-code:free` HTTP 200 / `391`) | ham-API |
+| openrouter (bu turda ayrildi) | 14 | 14 listeli, 1'i bench ile olculdu (223,6 t/s) | ham-API |
+| pi (ayri ajan-hatti provider) | 14 | 14 listeli (`openrouter/` onekli), ham-API olcumu degil | yalniz-ajan-hatti |
 | tokenharbor | 5 | **5** | ham-API |
 | codefast | 2 | 0 (bugun `403 API access denied`; erken saatte 2 olculmustu) | ham-API |
 | codefast-os | 11 | 0 (`PAYG_DISABLED`) | ham-API |
@@ -100,13 +101,35 @@ yalnız CLI hattından yapılabilir ve ham-API sayıları ile aynı kefeye konma
 Ders: **ölçümde `max_tokens` küçükse reasoning-modelleri "boş content" döndürür ve başarısız sayılır.**
 İlk koşuda 3 model bu yüzden HATALI göründü; 2000 token ile hepsi geçti.
 
-## 4. OpenRouter / pi
+## 4. OpenRouter ve pi — iki ayrı provider (güncellendi 2026-10-15, ikinci oturum)
 
-Canlı `:free` küme 14 kayıt. Pi'nin 317'lik kataloğu bayat: config'teki 20 kayıttan 16'sı OpenRouter'da
-artık yok (`404 This model is unavailable for free`). Config 14'e çekildi
-(`~/.paseo/config.json`, yedek `config.json.bak-or-live`). Uçtan uca çalışan iki free model:
-`nvidia/nemotron-3-super-120b-a12b:free` ve `thinkingmachines/inkling:free` → ajan hattı `NUM=391`.
-Kota: paylaşılan anahtar `429 Rate limit exceeded: free-models-per-day. Add 10 credits` durumuna düştü.
+Canlı `:free` küme **14 kayıt** (OpenRouter kataloğu 462 model; serbest küme günlük dolup boşalıyor).
+Pi'nin 317'lik kataloğu bayat: config'teki 20 kayıttan 16'sı OpenRouter'da artık yok
+(`404 This model is unavailable for free`).
+
+Bu turda yapılan: `openrouter` **ayrı provider olarak** yazıldı (ham-API, `paseo provider ls` = 17),
+`pi` ayrı kaldı. İkisinde de **yalnızca** canlı 14 `:free` uç listeli; `pi` id'leri ajentin beklediği
+`openrouter/` öneklisiyle birebir aynı küme. (R)
+
+| provider | erişim | uç | ölçülen |
+|---|---|---|---|
+| `openrouter` | ham-API `https://openrouter.ai/api/v1` | 14 free | `cohere/north-mini-code:free` **223,6 t/s**, IQ 100, terminal 5/5, kod/uyum PASS, ctx 256000 (`raporlar/bench-or-2026-10-15/`, 1/1 ölçülen) |
+| `pi` | yalnız-ajan-hattı (`env.OPENAI_BASE_URL` yok) | 14 free (`openrouter/` önekli) | önceki oturumda `NUM=391`; bu turda yeniden koşulmadı |
+
+Tuzak (R): yeni provider girdisi **`extends` olmadan daemon tarafından sessizce yok sayılıyor** —
+`paseo provider ls` listemiyor, `provider diagnostic <id>` → `Provider <id> is not configured`,
+`reload` ise `appliedPaths: []` verip yine de "Configuration reloaded." yazıyor. Çalışan custom
+girdilerin hepsinde `extends: "codex"` var (codex uyumu `OPENAI_BASE_URL`/`OPENAI_API_KEY` okur);
+`openrouter` da eklendiği anda 17. provider olarak göründü. `paseo provider models <id> --json`
+custom id'de statik listeyi döndürüyor, canlı katalog değil.
+
+Doğrulama: `node scripts/openrouter-pi-kapisi.mjs` → 12 PASS / `TOPLAM_FAIL=0` / `DEPO_KAPI_EXIT=0`;
+`node scripts/pi-erisim-kapisi.mjs` → `PI_KAPI_EXIT=0`; `node scripts/bench.mjs --check
+raporlar/bench-or-2026-10-15/bench.json` → `BENCH_CHECK_EXIT=0`, `CHECK_FAIL=0`.
+Anahtar diske değil yalnız config `env`'ine yazıldı (değeri raporlara düşürülmedi).
+Geri alma: `~/.paseo/config.json.bak-or-ayri` (bu değişiklikten önceki durum) veya
+`.bak-or-ayri2` kopyalanır + `paseo reload --json`. Kota notu: paylaşılan anahtar gün içinde
+`429 Rate limit exceeded: free-models-per-day. Add 10 credits` durumuna düşebiliyor.
 
 ## 5. codefast / tokenharbor (referans)
 
