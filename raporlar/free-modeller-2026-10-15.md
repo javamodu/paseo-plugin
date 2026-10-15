@@ -54,7 +54,7 @@ hatti `NUM=391` gecici kanit; bkz. §5). Erisim hesabı yeniden acilinca satir y
 | OpenCode Zen | 9 | **8** | yalnız-ajan-hattı (ham-API `403`) |
 | Kilo gateway | 12 | **8** (+1 sınıflandırıcı) | ham-API |
 | openrouter (bu turda ayrildi) | 14 | 14 listeli, 1'i bench ile olculdu (223,6 t/s) | ham-API |
-| pi (ayri ajan-hatti provider) | 14 | 14 listeli (`openrouter/` onekli), ham-API olcumu degil | yalniz-ajan-hatti |
+| pi (ayri ajan-hatti provider) | 19 (14 openrouter + 5 tokenharbor) | 19 free uc listeli, tokenharbor 3/3 canlı doğrulandı | yalniz-ajan-hatti |
 | tokenharbor | 5 | **5** | ham-API |
 | codefast | 2 | 0 (bugun `403 API access denied`; erken saatte 2 olculmustu) | ham-API |
 | codefast-os | 11 | 0 (`PAYG_DISABLED`) | ham-API |
@@ -130,6 +130,33 @@ Anahtar diske değil yalnız config `env`'ine yazıldı (değeri raporlara düş
 Geri alma: `~/.paseo/config.json.bak-or-ayri` (bu değişiklikten önceki durum) veya
 `.bak-or-ayri2` kopyalanır + `paseo reload --json`. Kota notu: paylaşılan anahtar gün içinde
 `429 Rate limit exceeded: free-models-per-day. Add 10 credits` durumuna düşebiliyor.
+
+### 4.1 Düzeltme: pi tek sağlayıcıya mahkum değil (kullanıcı uyarısı sonrası ölçüldü)
+
+`https://pi.dev/models?name=free` 1.613 model döndürüyor (filtre metin araması; çoğu $0 değil) ve
+$0 alt kümesi **birden çok sağlayıcıda**: `google`, `mistral`, `nvidia`, `huggingface`,
+`kimi-coding`, `opencode`, `openrouter`. Yerel pi 0.73.1'in kuralı: bir sağlayıcının modelleri
+**yalnızca kimliği varsa** listede görünüyor — 19 kimlik değişkeninin bu makinede **2'si dolu**
+(`OPENAI_API_KEY` = tokenharbor anahtarı, `OPENROUTER_API_KEY`). (R)
+
+OpenCode Zen free pi üzerinden **koşamıyor** (R): `OPENCODE_API_KEY` verilince pi kataloğu 73 Zen
+modelini gösteriyor (`pi --list-models opencode`), ama canlı denemeler `opencode/hy3-preview-free` →
+`400 Upstream request failed: Model is unavailable`, `opencode/cat-jam-free` → `403 OpenCode's free
+tier can only be used from within OpenCode`. Yani Zen free yalnız `opencode run` hattından koşuyor
+(§2); pi listesine bilerek alınmadı.
+
+Yapılan: tokenharbor'un 5 free ucu `~/.pi/agent/models.json` ile pi'ye kaydedildi —
+`baseUrl https://tokenharbor.ai/v1`, `api openai-completions`, `apiKey "OPENAI_API_KEY"`
+(**env adı referansı, anahtar diske yazılmadı**), `compat.supportsDeveloperRole/ReasoningEffort=false`.
+Canlı ölçüm (ajan hattı, `17*23` → `391`): `deepseek-v4.1-flash:free`, `claude-haiku-5.5:free`,
+`mimo-v2.5:free` = 3/3 PASS, önekli biçimler de PASS (`tokenharbor/claude-haiku-5.5:free`,
+`openrouter/cohere/north-mini-code:free`) → `PI_TH_EXIT=0`.
+
+Böylece Paseo `pi` provider'ı artık **19 free uç** listeliyor: 14 `openrouter/…` + 5 `tokenharbor/…`;
+`openrouter` ayrı provider olarak 14 free ile duruyor. Kapı: `node scripts/openrouter-pi-kapisi.mjs`
+→ 23 PASS / `TOPLAM_FAIL=0` / `KAPI_EXIT=0` (API çağrısı yok; config + paseo CLI + pi yerel kataloğu).
+Geri alma: `~/.pi/agent/models.json` silinir (dosya bu turda ilk kez oluşturuldu) +
+`config.json.bak-or-ayri2` → `paseo reload --json`.
 
 ## 5. codefast / tokenharbor (referans)
 
