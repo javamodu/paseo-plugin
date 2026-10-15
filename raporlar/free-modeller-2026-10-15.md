@@ -4,6 +4,42 @@ Kapsam: `opencode` (Zen), `kilo` (gateway), `openrouter`/`pi`, `tokenharbor`, `c
 Yöntem: ham-API varsa `/chat/completions` (+ `/responses` yedeği), yoksa CLI/ajan hattı. Ölçüm
 beklemeli tek sıra ile yapıldı (çakışan iki koşu Cloudflare 429 üretiyordu). Anahtarlar diske yazılmadı.
 
+## 0. CALISAN FREE UCLAR — hiz sirali (tek yerden bulunur)
+
+Ham-API satirlari: `raporlar/bench-free-2026-10-15/bench.json` + `index.html` (harness kosusu, 6/7 olculen).
+Kilo ve OpenCode satirlari bu dosyanin §2-§3 yoklamalarindan: harness bunlara ulasamiyor, cunku Paseo
+`config.json`'da bu provider'larin `env.OPENAI_BASE_URL` degeri yok (CLI/ACP katalogu).
+
+| uç | hat | hız | IQ | terminal | kod | JSON uyum |
+|---|---|---|---|---|---|---|
+| `tokenharbor/claude-haiku-5.5:free` | ham-API | **135,6 t/s** | 100 | 5/5 | PASS | PASS |
+| `tokenharbor/deepseek-v4.1-flash:free` | ham-API | 129,5 t/s | 100 | 0/5 | PASS | PASS |
+| `tokenharbor/deepseek-v4-flash:free` | ham-API | 72,5 t/s | 100 | 0/5 | PASS | PASS |
+| `codefast/kimi-k3` | ham-API | 35,1 t/s | 100 | 0/5 * | FAIL * | FAIL * |
+| `tokenharbor/mimo-v2.6-flash:free` | ham-API | 34,4 t/s | 83 | 4/5 | PASS | PASS |
+| `tokenharbor/mimo-v2.5:free` | ham-API | 32,4 t/s | 100 | 5/5 | PASS | PASS |
+| `kilo/stepfun/step-5-preview-free` | ham-API | 1,1 sn (kisa yanit) | olculmedi | — | — | — |
+| `kilo/nvidia/nemotron-3-ultra-550b-a55b:free` | ham-API | 1,2 sn | olculmedi | — | — | — |
+| `kilo/cohere/north-mini-code:free` | ham-API | 1,2 sn | olculmedi | — | — | — |
+| `kilo/poolside/laguna-s-2.1:free` | ham-API | 1,3 sn | olculmedi | — | — | — |
+| `kilo/liquid/lfm-2.5-2.6b:free` | ham-API | 1,8 sn | olculmedi | — | — | — |
+| `kilo/dots-studio/dots-3-note-preview:free` | ham-API | 4,6 sn | olculmedi | — | — | — |
+| `kilo/nvidia/nemotron-3.5-lightning:free` | ham-API | 5,1 sn | olculmedi | — | — | — |
+| `kilo/poolside/laguna-xs-2.1:free` | ham-API | 12,6 sn | olculmedi | — | — | — |
+| `opencode/cat-jam-free` | yalniz-CLI | 5,5 sn | olculmedi | — | — | — |
+| `opencode/space-bunny-free` | yalniz-CLI | 5,8 sn | olculmedi | — | — | — |
+| `opencode/nemotron-3.5-lightning-free` | yalniz-CLI | 7,2 sn | olculmedi | — | — | — |
+| `opencode/nemotron-3-ultra-free` | yalniz-CLI | 7,8 sn | olculmedi | — | — | — |
+| `opencode/muse-spark-1.3-contributor-free` | yalniz-CLI | 8,1 sn | olculmedi | — | — | — |
+| `opencode/mimo-v2.6-flash-free` | yalniz-CLI | 12,0 sn | olculmedi | — | — | — |
+| `opencode/longcat-2.5-preview-free` | yalniz-CLI | 12,4 sn | olculmedi | — | — | — |
+| `opencode/step-5-preview-free` | yalniz-CLI | 15,7 sn | olculmedi | — | — | — |
+
+\*) `kimi-k3` terminal/kod/JSON-uyum satirlari **olcum artefakti**: 2000-3000 token'lik butcede reasoning
+her seyi yiyor, `content` bos doniyor (IQ 12000 token butcede 100). Harness'e butce-tirmanmali tekrar
+eklendi; dogrulama, kodfast hizi kisi-islim nedeniyle `403 API access denied` verdigi icin bekliyor. Uc
+fiilen calisiyor: ham testte `17*23=391`, ajan hattinda `NUM=391` (bkz. §5).
+
 ## 1. Sonuç tabloları
 
 | hat | free kayıt | çalışan | erişim sınıfı |
