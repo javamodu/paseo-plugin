@@ -53,11 +53,21 @@ hatti `NUM=391` gecici kanit; bkz. §5). Erisim hesabı yeniden acilinca satir y
 |---|---|---|---|
 | OpenCode Zen | 9 | **8** | yalnız-ajan-hattı (ham-API `403`) |
 | Kilo gateway | 12 | **8** (+1 sınıflandırıcı) | ham-API |
-| OpenRouter (pi) | 14 | 0 (kota dolu) | ham-API |
+| OpenRouter (pi) | 14 | 1 dogrulandi (kota gun ici dolup bosuyor; bu turda `north-mini-code:free` HTTP 200 / `391`) | ham-API |
 | tokenharbor | 5 | **5** | ham-API |
 | codefast | 2 | 0 (bugun `403 API access denied`; erken saatte 2 olculmustu) | ham-API |
 | codefast-os | 11 | 0 (`PAYG_DISABLED`) | ham-API |
 | codefast-glm | 1 | 0 (`PAYG_DISABLED`) | ham-API |
+
+**Pi neden OpenRouter'da? (R)** Bu bir kisitlama degil, kimlik durumunun sonucu: `~/.pi/agent/auth.json`
+bos (`{}`), `~/.pi/agent/models.json` hic yok, pi'nin yerlesik saglayici tablosunda tokenharbor yok ve
+OpenAI saglayicisi yalniz `OPENAI_API_KEY` okuyup `OPENAI_API_BASE`'i görmezden geliyor — env'deki anahtar
+tokenharbor'a ait (`thk_live…`) oldugu icin `pi --provider openai` `401 Incorrect API key provided` donduruyor
+(olculdu). Calisan tek kimlik `OPENROUTER_API_KEY` (`sk-or-…`). Dogrudan yol resmî ve tek dosya isidir:
+`~/.pi/agent/models.json` icine `{"providers":{"tokenharbor":{"baseUrl":"https://tokenharbor.ai/v1",
+"api":"openai-completions",…}}}` → `pi --provider tokenharbor --model deepseek-v4-flash:free`.
+Bu turda alinan karar: dosya YAZILMADI (kullanici onayi bekliyor). Dogrulama komutu: `node scripts/pi-erisim-kapisi.mjs`
+(13 PASS / TOPLAM_FAIL=0 / API cagrisi yok).
 
 ## 2. OpenCode Zen — CLI üzerinden (`opencode run -m …`)
 
