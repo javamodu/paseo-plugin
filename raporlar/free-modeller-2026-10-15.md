@@ -6,18 +6,21 @@ beklemeli tek sıra ile yapıldı (çakışan iki koşu Cloudflare 429 üretiyor
 
 ## 0. CALISAN FREE UCLAR — hiz sirali (tek yerden bulunur)
 
-Ham-API satirlari: `raporlar/bench-free-2026-10-15/bench.json` + `index.html` (harness kosusu, 6/7 olculen).
+Ham-API satirlari: `raporlar/bench-th-fixdogrulama-2026-10-15/` (harness kosusu, 5/5 olculen).
+Eski kosu `raporlar/bench-free-2026-10-15/` (6/7) artik gecersiz: harness kucuk `max_tokens`'ta
+icerik reasoning'e gidip bos kaldiginda "cevap yok" sayip yanlis FAIL yaziyordu; kusur kapatildi
+(`14fa2bf`), tokenharbor satirlari duzeltilmis harness ile yeniden olculdu.
 Kilo ve OpenCode satirlari bu dosyanin §2-§3 yoklamalarindan: harness bunlara ulasamiyor, cunku Paseo
 `config.json`'da bu provider'larin `env.OPENAI_BASE_URL` degeri yok (CLI/ACP katalogu).
 
 | uç | hat | hız | IQ | terminal | kod | JSON uyum |
 |---|---|---|---|---|---|---|
-| `tokenharbor/claude-haiku-5.5:free` | ham-API | **135,6 t/s** | 100 | 5/5 | PASS | PASS |
-| `tokenharbor/deepseek-v4.1-flash:free` | ham-API | 129,5 t/s | 100 | 0/5 | PASS | PASS |
-| `tokenharbor/deepseek-v4-flash:free` | ham-API | 72,5 t/s | 100 | 0/5 | PASS | PASS |
-| `codefast/kimi-k3` | ham-API | 35,1 t/s | 100 | 0/5 * | FAIL * | FAIL * |
-| `tokenharbor/mimo-v2.6-flash:free` | ham-API | 34,4 t/s | 83 | 4/5 | PASS | PASS |
-| `tokenharbor/mimo-v2.5:free` | ham-API | 32,4 t/s | 100 | 5/5 | PASS | PASS |
+| `tokenharbor/claude-haiku-5.5:free` | ham-API | **141,3 t/s** | 100 | 4/5 | PASS | PASS |
+| `tokenharbor/deepseek-v4.1-flash:free` | ham-API | 91,4 t/s | 100 | 5/5 | PASS | PASS |
+| `tokenharbor/deepseek-v4-flash:free` | ham-API | 81,4 t/s | 100 | 0/5 | PASS | PASS |
+| `tokenharbor/mimo-v2.6-flash:free` | ham-API | 49,1 t/s | 100 | 5/5 | PASS | PASS |
+| `tokenharbor/mimo-v2.5:free` | ham-API | 27,2 t/s | 100 | 5/5 | PASS | PASS |
+| `codefast/kimi-k3` | ham-API | 35,1 t/s * | 100 | 0/5 * | FAIL * | FAIL * |
 | `kilo/stepfun/step-5-preview-free` | ham-API | 1,1 sn (kisa yanit) | olculmedi | — | — | — |
 | `kilo/nvidia/nemotron-3-ultra-550b-a55b:free` | ham-API | 1,2 sn | olculmedi | — | — | — |
 | `kilo/cohere/north-mini-code:free` | ham-API | 1,2 sn | olculmedi | — | — | — |
@@ -37,10 +40,12 @@ Kilo ve OpenCode satirlari bu dosyanin §2-§3 yoklamalarindan: harness bunlara 
 | `pi/openrouter/nvidia/nemotron-3-super-120b-a12b:free` | yalniz-CLI (pi) | ajan hatti `NUM=391` | olculmedi | — | — | — |
 | `pi/openrouter/thinkingmachines/inkling:free` | yalniz-CLI (pi) | ajan hatti `NUM=391` | olculmedi | — | — | — |
 
-\*) `kimi-k3` terminal/kod/JSON-uyum satirlari **olcum artefakti**: 2000-3000 token'lik butcede reasoning
-her seyi yiyor, `content` bos doniyor (IQ 12000 token butcede 100). Harness'e butce-tirmanmali tekrar
-eklendi; dogrulama, kodfast hizi kisi-islim nedeniyle `403 API access denied` verdigi icin bekliyor. Uc
-fiilen calisiyor: ham testte `17*23=391`, ajan hattinda `NUM=391` (bkz. §5).
+\*) `kimi-k3` terminal/kod/JSON-uyum satirlari **eski olcum artefakti**: 2000-3000 token'lik butcede
+reasoning her seyi yiyor, `content` bos donuyor. Harness'e butce-tirmanmali tekrar eklendi ve
+tokenharbor uzerinde dogrulandi (`14fa2bf`; `deepseek-v4.1-flash` 0/5 -> 5/5, `mimo-v2.6-flash`
+IQ 83/4/5 -> 100/5/5). `kimi-k3` satiri henuz yeniden olculemedi: codefast ham-API'si 2026-10-15
+itibariyle `403 API access denied` veriyor (dun olculen 35,1 t/s + ham test `17*23=391` + ajan
+hatti `NUM=391` gecici kanit; bkz. §5). Erisim hesabı yeniden acilinca satir yeniden olculmeli.
 
 ## 1. Sonuç tabloları
 
@@ -50,7 +55,7 @@ fiilen calisiyor: ham testte `17*23=391`, ajan hattinda `NUM=391` (bkz. §5).
 | Kilo gateway | 12 | **8** (+1 sınıflandırıcı) | ham-API |
 | OpenRouter (pi) | 14 | 0 (kota dolu) | ham-API |
 | tokenharbor | 5 | **5** | ham-API |
-| codefast | 2 | **2** | ham-API |
+| codefast | 2 | 0 (bugun `403 API access denied`; erken saatte 2 olculmustu) | ham-API |
 | codefast-os | 11 | 0 (`PAYG_DISABLED`) | ham-API |
 | codefast-glm | 1 | 0 (`PAYG_DISABLED`) | ham-API |
 
@@ -95,9 +100,11 @@ Kota: paylaşılan anahtar `429 Rate limit exceeded: free-models-per-day. Add 10
 
 ## 5. codefast / tokenharbor (referans)
 
-`tokenharbor` 5/5, `codefast` 2/2 (`kimi-k3`, `codefastk3unlimited`) — `17*23=391`, 1,2–3,1 sn.
-`codefast-os` 11/11 ve `codefast-glm` 1/1 → `403 PAYG_DISABLED` (`allowed:false`, `remaining:0` /
-`7.3e-7`, `payg_enabled:false`). `base_url`/yol hatası değil: `/glm-api` ve `/glm-api/v1` aynı 403'ü veriyor.
+`tokenharbor` 5/5 (duzeltilmis harness ile yeniden olculdu, `bench-th-fixdogrulama-2026-10-15`, 5/5
+olculen, `--check` EXIT=0). `codefast` 2/2 (`kimi-k3`, `codefastk3unlimited`) — `17*23=391`, 1,2–3,1 sn —
+**ayni gunun erken saati**; sonraki kosuda iki uc de `403 API access denied` dondurdu, yani 2/2
+su anki durum degil gecmis olcum. `codefast-os` 11/11 ve `codefast-glm` 1/1 → `403 PAYG_DISABLED`
+(`allowed:false`, `remaining:0` / `7.3e-7`, `payg_enabled:false`). `base_url`/yol hatası değil: `/glm-api` ve `/glm-api/v1` aynı 403'ü veriyor.
 
 ## 6. Yineleme
 
