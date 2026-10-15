@@ -34,6 +34,8 @@ Kilo ve OpenCode satirlari bu dosyanin §2-§3 yoklamalarindan: harness bunlara 
 | `opencode/mimo-v2.6-flash-free` | yalniz-CLI | 12,0 sn | olculmedi | — | — | — |
 | `opencode/longcat-2.5-preview-free` | yalniz-CLI | 12,4 sn | olculmedi | — | — | — |
 | `opencode/step-5-preview-free` | yalniz-CLI | 15,7 sn | olculmedi | — | — | — |
+| `pi/openrouter/nvidia/nemotron-3-super-120b-a12b:free` | yalniz-CLI (pi) | ajan hatti `NUM=391` | olculmedi | — | — | — |
+| `pi/openrouter/thinkingmachines/inkling:free` | yalniz-CLI (pi) | ajan hatti `NUM=391` | olculmedi | — | — | — |
 
 \*) `kimi-k3` terminal/kod/JSON-uyum satirlari **olcum artefakti**: 2000-3000 token'lik butcede reasoning
 her seyi yiyor, `content` bos doniyor (IQ 12000 token butcede 100). Harness'e butce-tirmanmali tekrar
