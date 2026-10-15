@@ -124,11 +124,19 @@ function parseResp(j) {
 }
 
 async function runTask(base, key, model, prompt, maxTokens) {
-  const chat = post(base.replace(/\/$/, "") + "/chat/completions", key, { model, messages: [{ role: "user", content: prompt }], max_tokens: maxTokens, temperature: 0 });
+  const url = base.replace(/\/$/, "") + "/chat/completions";
+  const chat = post(url, key, { model, messages: [{ role: "user", content: prompt }], max_tokens: maxTokens, temperature: 0 });
   let p = parseChat(chat.j), j = chat.j;
   if ((!j || chat.code[0] === "4") && !p.txt) {
     const rs = post(base.replace(/\/$/, "") + "/responses", key, { model, input: prompt, max_output_tokens: maxTokens, temperature: 0 });
     if (rs.j && (!chat.j || !p.txt)) { j = rs.j; p = parseResp(j); chat.code = rs.code; chat.sn = rs.sn; }
+  }
+  // reasoning-modelleri kucuk butcede content'i bos birakir; bircok FAIL gercekte budur. Butceyi tirmandir, bir kez dene.
+  if (p.txt.trim() === "" && p.reasoning.length > 0 && chat.code[0] === "2") {
+    const buyuk = Math.min(8000, maxTokens * 4);
+    const again = post(url, key, { model, messages: [{ role: "user", content: prompt }], max_tokens: buyuk, temperature: 0 });
+    const pa = parseChat(again.j);
+    if (again.j && pa.txt.trim() !== "") { chat.code = again.code; chat.sn = again.sn; j = again.j; p = pa; }
   }
   const tok = p.usage?.completion_tokens ?? p.usage?.output_tokens ?? Math.round((p.txt.length + p.reasoning.length) / 4);
   return { code: chat.code, sn: chat.sn, txt: p.txt, reasoning: p.reasoning, bitis: p.bitis, outToken: tok, hata: j?.error ? String(j.error.message || JSON.stringify(j.error)).slice(0, 120) : (j ? "" : chat.raw) };
