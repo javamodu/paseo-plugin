@@ -195,6 +195,16 @@ Kullanıcı uyarısı: "oh my pi var paseo agent içinde provider olarak". Ölç
   arama backendleri `no key` / `anonymous fallback` veriyor — free model kapsamı kurulum sonrası
   `omp models` ile ölçülür, şu an iddia edilmez (T).
 
+Doğrulama (bu bölümün iddiaları için koşulan komutlar, exit-0): `node
+scripts/openrouter-pi-kapisi.mjs` → `KAPI_EXIT=0`, `TOPLAM_FAIL=0`, `grep -c '^FAIL'` = 0 (19 pi /
+14 openrouter / 5 tokenharbor canlı); `node scripts/bench.mjs --check
+raporlar/bench-or-2026-10-15/bench.json` → `BENCH_CHECK_EXIT=0`, `CHECK_FAIL=0`;
+`powershell -File scripts/saglik.ps1` → `SAGLIK_EXIT=0` (17 OK, 0 EKSIK, 1 SARI).
+`omp` ölçümü salt-okuma: `%TEMP%\omp-diyas.mjs` (paseo `provider diagnostic omp` +
+`--json`) ile `npm view @oh-my-pi/pi-coding-agent engines bin` ve `where bun` / `where omp`.
+Kurulum yapılmadığı için omp tarafında exit-0 üretilecek doğrulanabilir bir çalışma yok; iddia
+yalnız "komut çözülmüyor + Bun yok" ölçümüdür.
+
 Karar: kurulum (Bun + global paket) makine-geneli ortam değiştirdiği için kullanıcı onayına bırakıldı;
 onay gelene kadar free uç ihtiyacı mevcut `openrouter` (14 free, ham-API ölçülebilir) + `pi`
 (19 free) provider'larıyla karşılanıyor — `omp` için config'e/binary'e dokunulmadı, yalnız belgelendi.
@@ -204,5 +214,8 @@ onay gelene kadar free uç ihtiyacı mevcut `openrouter` (14 free, ham-API ölç
 Betikler bu turda `raporlar/` altına taşınmadı (kapsam kuralı: tek parça/tur); geçici olarak
 `%TEMP%` içinde: `cf-probe.mjs` (ham-API yoklama, 3 sn bekleme), `kilo-olc.mjs` + `kilo-olc2.mjs`
 (gateway kataloğu + free ölçümü), `oc-run.mjs` (Zen CLI), `or-free-check.mjs` / `pi-kapi.mjs`
-(canlı free kümesiyle config karşılaştırma kapısı). Kanıt exit-kodları: `KAPI_CANLI_EXIT=0`,
-`OPENCODE_ZEN_RUN_EXIT=0`, `KILO_KALAN_EXIT=0`, `TEKRAR_KONTROL_EXIT=0`, `PACED_OLCUM_EXIT=0`.
+(canlı free kümesiyle config karşılaştırma kapısı), `omp-diyas.mjs` (paseo `provider diagnostic omp`
+salt-okuma tanısı). Kanıt exit-kodları: `KAPI_CANLI_EXIT=0`,
+`OPENCODE_ZEN_RUN_EXIT=0`, `KILO_KALAN_EXIT=0`, `TEKRAR_KONTROL_EXIT=0`, `PACED_OLCUM_EXIT=0`;
+omp turunda `KAPI_EXIT=0` (TOPLAM_FAIL=0), `BENCH_CHECK_EXIT=0` (CHECK_FAIL=0), `SAGLIK_EXIT=0`
+(17 OK / 0 EKSIK / 1 SARI).
