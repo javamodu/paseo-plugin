@@ -166,7 +166,40 @@ olculen, `--check` EXIT=0). `codefast` 2/2 (`kimi-k3`, `codefastk3unlimited`) �
 su anki durum degil gecmis olcum. `codefast-os` 11/11 ve `codefast-glm` 1/1 → `403 PAYG_DISABLED`
 (`allowed:false`, `remaining:0` / `7.3e-7`, `payg_enabled:false`). `base_url`/yol hatası değil: `/glm-api` ve `/glm-api/v1` aynı 403'ü veriyor.
 
-## 6. Yineleme
+## 6. Paseo `omp` (Oh My Pi) provider'ı: neden unavailable, nasıl koşar
+
+Kullanıcı uyarısı: "oh my pi var paseo agent içinde provider olarak". Ölçüm (R):
+
+- `paseo provider ls --json` → `{"provider":"omp","label":"Oh My Pi","status":"unavailable",
+  "enabled":"Enabled","defaultMode":"full"}`; 17 provider içinde yerleşik olarak duruyor.
+- `paseo provider models omp --json` → `PROVIDER_ERROR: Failed to fetch models for omp: Provider
+  omp is not available` — katalog boş değil, **erişilemez**; free uç ölçümü bu yüzden yapılamadı.
+- `paseo provider diagnostic omp` neden zinciri: `Command source: override` / `Configured command: omp`
+  → `where.exe omp` bulunamadı, `Resolved path: not found`, `Version: unknown`,
+  `Version support: unknown (minimum 16.3.9)`. Daemon PATH'inde `AppData\Roaming\npm` var; global
+  npm listesinde `@oh-my-pi/*` **yok** (yalnız `@mariozechner/pi-coding-agent@0.73.1`).
+- İkinci engel: `diagnostic` → `Bun runtime: unavailable; npm-installed OMP requires Bun >= 1.3.14`
+  ve `npm view @oh-my-pi/pi-coding-agent engines` → `{ bun: ">=1.3.14" }`. Makinede `bun` yok
+  (`where bun` → bulunamadı). Paket yalnız npm ile kurulsa da komut koşmaz.
+- Üçüncü engel: `Config root: C:\Users\gatep\.omp` mevcut ama içinde **sadece** `agent/extensions/`
+  (19 Temmuz tarihli `orca-agent-status.ts`, `orca-prefill.ts`, `orca-titlebar-spinner.ts`);
+  `agent/agent.db (not found)` — eski bir omp izi, oturum/hafıza veritabanı yok.
+- Ad karışıklığı (önemli): `oh-my-pi@0.2.0` = **pi eklentisi** ("Enhancement framework for Pi CLI",
+  `pi install oh-my-pi`, Sisyphus-vari orkestrasyon prompt'u). `@oh-my-pi/pi-coding-agent@18.11.0`
+  = Paseo'nun beklediği `omp` CLI'si (`bin.omp = dist/cli.js`, homepage omp.sh). Paseo provider'ı
+  ikincisini istiyor; 18.11.0 ≥ 16.3.9 olduğundan sürüm engeli yok, **kurulum engeli** var.
+- Kurulum yolu (resmî README): `bun install -g @oh-my-pi/pi-coding-agent`; sonra `omp models [arama]`
+  / oturumda `/model`. Özel uçlar `~/.omp/agent/models.yml` (etiketler `oauth`, `plan`); katalog
+  paketi `@oh-my-pi/pi-catalog` bundled `models.json` + discovery (OpenAI-uyumlu, Gemini, Codex,
+  Cursor, Antigravity, Ollama). README OpenRouter'ı sayıyor, tokenharbor/omniRoute geçmiyor; bazı
+  arama backendleri `no key` / `anonymous fallback` veriyor — free model kapsamı kurulum sonrası
+  `omp models` ile ölçülür, şu an iddia edilmez (T).
+
+Karar: kurulum (Bun + global paket) makine-geneli ortam değiştirdiği için kullanıcı onayına bırakıldı;
+onay gelene kadar free uç ihtiyacı mevcut `openrouter` (14 free, ham-API ölçülebilir) + `pi`
+(19 free) provider'larıyla karşılanıyor — `omp` için config'e/binary'e dokunulmadı, yalnız belgelendi.
+
+## 7. Yineleme
 
 Betikler bu turda `raporlar/` altına taşınmadı (kapsam kuralı: tek parça/tur); geçici olarak
 `%TEMP%` içinde: `cf-probe.mjs` (ham-API yoklama, 3 sn bekleme), `kilo-olc.mjs` + `kilo-olc2.mjs`
