@@ -209,6 +209,41 @@ Karar: kurulum (Bun + global paket) makine-geneli ortam değiştirdiği için ku
 onay gelene kadar free uç ihtiyacı mevcut `openrouter` (14 free, ham-API ölçülebilir) + `pi`
 (19 free) provider'larıyla karşılanıyor — `omp` için config'e/binary'e dokunulmadı, yalnız belgelendi.
 
+### 6.1 Kurulum onaylandı ("kurabilirsin") — ölçülen sonuç
+
+Kurulum adımları (R): `npm install -g bun` → `bun.cmd` `AppData\Roaming\npm`'e düştü, sürüm **1.4.3**
+(≥ 1.3.14). `bun install -g @oh-my-pi/pi-coding-agent` → 111 paket, `installed … with binaries: omp`,
+`OMP_KURULUM_EXIT=0`; **2 postinstall engellendi**: `onnxruntime-node@1.30.0` (`node ./script/install`)
+ve `protobufjs@7.6.6` (`node scripts/postinstall`) — `bun pm -g untrusted` ile görüldü, ikisine de
+`bun pm trust` yapılmadı.
+
+İki sürpriz ve kapatılması (R):
+- `~/.bun/bin` yalnız `omp.exe` + `omp.bunx` üretti; `omp.exe` bir başlatıcı ve "bun is not installed
+  in %PATH%" verip **exit 255** kaçtı (`OMP_VERSIYON_EXIT=255`). npm ile kurulan Bun gerçek
+  `bun.exe`'yi paket içine koyuyor (`npm\node_modules\bun\bin\bun.exe`), `~/.bun/bin`'e koymuyor.
+  Kapanış: `bun.exe` kopyalandı → `~/.bun/bin/bun.exe` **ve** daemon PATH'indeki `~/bin/bun.exe`.
+- `omp` komutu daemon PATH'inde yoktu. Kapanış: `AppData\Roaming\npm\omp.cmd` shimi yazıldı
+  (`call bun.cmd run %USERPROFILE%\.bun\install\global\node_modules\@oh-my-pi\pi-coding-agent\dist\cli.js %*`).
+
+Kurulum sonrası ölçüm (R): `omp --version` → `omp/18.11.0`; `paseo provider ls --json` →
+`{"provider":"omp","label":"Oh My Pi","status":"available","enabled":"Enabled","defaultMode":"full",
+"modes":"Full Access, Write Approval, Always Ask"}`; `paseo provider diagnostic omp` → `Resolved path:
+C:\Users\gatep\AppData\Roaming\npm\omp.CMD`, `Version support: 18.11.0 (supported; minimum 16.3.9)`,
+`Agent database: …agent.db (found)`, `Models: 635`, `Status: Ready`; `paseo provider models omp --json`
+→ 635 uç (58'i `:free` sonekli ya da `prices.prompt/completion = 0`).
+
+Kalan tek kusur (R): `diagnostic` satırı `Bun runtime: unavailable; npm-installed OMP requires Bun >=
+1.3.14` — aynı tanıda `agent.db (found)` ve sürüm okuması **canlı** çalışırken bu satirin değişmemesi,
+yoklamanın daemon açılışındaki önbellekten geldiğini gösteriyor (daemon `startedAt 2026-10-15T03:19:45Z`,
+Bun kurulumu 11:40). Gerçek koşum yolu bağımsız doğrulandı: kabuksuz `execFileSync("bun",["--version"])`
+→ `1.4.3`. Temizlenmesi `paseo restart` istiyor; restart bu oturumu da kesen tek çalışan ajan olduğu
+için **yapılmadı, kullanıcı onayına bırakıldı**.
+
+Doğrulama kapısı: `node scripts/omp-kurulum-kapisi.mjs` → `OMP_KAPI_EXIT=0`, `TOPLAM_FAIL=0`
+(11 PASS + 2 BILGI; API çağrısı yok). Geri alma: `AppData\Roaming\npm\omp.cmd` silinir,
+`~/bin/bun.exe` ve `~/.bun/bin/bun.exe` silinir, `bun uninstall -g @oh-my-pi/pi-coding-agent` +
+`npm uninstall -g bun`; Paseo config'ine dokunulmadı (omp yerleşik provider, kayıt gerekmiyor).
+
 ## 7. Yineleme
 
 Betikler bu turda `raporlar/` altına taşınmadı (kapsam kuralı: tek parça/tur); geçici olarak
