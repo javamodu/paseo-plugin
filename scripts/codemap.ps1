@@ -22,8 +22,35 @@ $lines += "# CODEMAP â€” $(Split-Path $Root -Leaf) (OTOMATIK URETILDI: $stamp â€
 $lines += ''
 $lines += 'Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.'
 $lines += ''
+# K-0035: yalniz rapor/kanit arsiv dizinlerinde esik-5 topaklama. kararlar/ + plans/ + scripts/ dosya duzeyinde kalir.
+$topakOn = @('raporlar/','kanit/','plans/arsiv/')
+$esik = 5
+function Get-TopakKey([string]$rel) {
+  foreach ($p in $topakOn) {
+    if ($rel.StartsWith($p)) { $i = $rel.LastIndexOf('/'); if ($i -gt 0) { return $rel.Substring(0,$i + 1) } }
+  }
+  return $null
+}
+$grup = @{}
 foreach ($f in $files) {
-  $rel = $f.FullName.Substring($Root.Length + 1)
+  $rel = ($f.FullName.Substring($Root.Length + 1)) -replace '\\','/'
+  $key = Get-TopakKey $rel
+  if ($key) { if (-not $grup.ContainsKey($key)) { $grup[$key] = @() }; $grup[$key] += $f }
+}
+$topaklanacak = @{}
+foreach ($k in @($grup.Keys)) { if ($grup[$k].Count -ge $esik) { $topaklanacak[$k] = $true } }
+$yazildi = @{}
+foreach ($f in $files) {
+  $rel = ($f.FullName.Substring($Root.Length + 1)) -replace '\\','/'
+  $key = Get-TopakKey $rel
+  if ($key -and $topaklanacak.ContainsKey($key)) {
+    if ($yazildi.ContainsKey($key)) { continue }
+    $yazildi[$key] = $true
+    $uyeler = @($grup[$key] | Sort-Object LastWriteTime -Descending)
+    $yeni = ($uyeler | Select-Object -First 3 | ForEach-Object { $_.Name }) -join ', '
+    $lines += "- ``$key`` ($($uyeler.Count) dosya: en yeni $yeni)"
+    continue
+  }
   $kb = [math]::Round($f.Length / 1KB, 1)
   $items = @()
   if ($f.Extension -eq '.md') {
