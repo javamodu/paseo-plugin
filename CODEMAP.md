@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD a766394 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 0e66059 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -76,10 +76,10 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/mockup/parcalar/v10/04-pano.md` (13.2KB) — 04 — Pano (orta sekme, one-view dashboard) · v10 | 1. Spec (kısa) | 2. HTML fragment
 - `plans/mockup/parcalar/v10/05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
 - `plans/mockup/parcalar/v10/06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
-- `plans/PLAN.md` (41.8KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
+- `plans/PLAN.md` (42.3KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SSOT-INDEX.md` (1.8KB) — SSOT-INDEX — belge haritasi (2026-10-14)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/free-modeller-2026-10-15.md` (18.9KB) — Free model erişim ölçümü — 2026-10-15 | 0. CALISAN FREE UCLAR — hiz sirali (tek yerden bulunur) | 1. Sonuç tabloları
+- `raporlar/free-modeller-2026-10-15.md` (21.2KB) — Free model erişim ölçümü — 2026-10-15 | 0. CALISAN FREE UCLAR — hiz sirali (tek yerden bulunur) | 1. Sonuç tabloları
 - `raporlar/gelen-kutu/` (8 dosya: en yeni codex-2026-10-14.md, denetim2-2026-10-13.md, review3-2026-10-13.md)
 - `raporlar/oz-degerlendirme/2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
 - `raporlar/OZET.md` (0.2KB) — OZET — raporlar/
@@ -104,7 +104,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (5KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
-- `scripts/omp-kurulum-kapisi.mjs` (3.8KB)
+- `scripts/omp-kurulum-kapisi.mjs` (4.2KB)
 - `scripts/openrouter-pi-kapisi.mjs` (4.1KB)
 - `scripts/pi-erisim-kapisi.mjs` (3.7KB)
 - `scripts/proje-panosu.ps1` (8.6KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {

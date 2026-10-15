@@ -232,17 +232,46 @@ C:\Users\gatep\AppData\Roaming\npm\omp.CMD`, `Version support: 18.11.0 (supporte
 `Agent database: …agent.db (found)`, `Models: 635`, `Status: Ready`; `paseo provider models omp --json`
 → 635 uç (58'i `:free` sonekli ya da `prices.prompt/completion = 0`).
 
-Kalan tek kusur (R): `diagnostic` satırı `Bun runtime: unavailable; npm-installed OMP requires Bun >=
-1.3.14` — aynı tanıda `agent.db (found)` ve sürüm okuması **canlı** çalışırken bu satirin değişmemesi,
-yoklamanın daemon açılışındaki önbellekten geldiğini gösteriyor (daemon `startedAt 2026-10-15T03:19:45Z`,
-Bun kurulumu 11:40). Gerçek koşum yolu bağımsız doğrulandı: kabuksuz `execFileSync("bun",["--version"])`
-→ `1.4.3`. Temizlenmesi `paseo restart` istiyor; restart bu oturumu da kesen tek çalışan ajan olduğu
-için **yapılmadı, kullanıcı onayına bırakıldı**.
+Kalan tek kusur ve **düzeltmesi** (R): `diagnostic` satırı `Bun runtime: unavailable; npm-installed OMP
+requires Bun >= 1.3.14`. İlk hipotezim (daemon önbelleği, restart ile temizlenir) **YANLIŞTI**.
+Kullanıcı onayıyla `paseo restart` koşuldu: `RESTART_EXIT=0`, `{"action":"restarted",
+"previousWorkerPid":18016,"workerPid":22480,"acknowledged":true}`, daemon `running`, ve satır
+değişmedi. Gerçek neden üretici kodunda (R, `app.asar` içinden okundu):
+`const bunVersion = process.versions.bun ?? "unavailable"` — yani satır **daemon'ın kendi runtime'ını**
+bildiriyor, PATH'ı yoklamıyor. Node/Electron üzerinde koşan daemon için `process.versions.bun` tanım
+gereği `undefined`, dolayısıyla "unavailable" kurulumdan bağımsız ve **yapısal** bir etiket; hiçbir
+kurulum adımı onu değiştirmez. OMP'nin fiilen koştuğu ayrı denetimlerle kanıtlandı: kabuksuz
+`execFileSync("bun",["--version"])` → `1.4.3`, `omp --version` → `omp/18.11.0`, `provider models omp`
+→ 635 uç, `agent.db (found)`.
 
 Doğrulama kapısı: `node scripts/omp-kurulum-kapisi.mjs` → `OMP_KAPI_EXIT=0`, `TOPLAM_FAIL=0`
-(11 PASS + 2 BILGI; API çağrısı yok). Geri alma: `AppData\Roaming\npm\omp.cmd` silinir,
-`~/bin/bun.exe` ve `~/.bun/bin/bun.exe` silinir, `bun uninstall -g @oh-my-pi/pi-coding-agent` +
-`npm uninstall -g bun`; Paseo config'ine dokunulmadı (omp yerleşik provider, kayıt gerekmiyor).
+(11 PASS + 2 BILGI; API çağrısı yok); restart sonrası aynı kapı `%TEMP%\omp-restart-kanit.txt` içinde
+koşuldu. Geri alma: `AppData\Roaming\npm\omp.cmd` silinir, `~/bin/bun.exe` ve `~/.bun/bin/bun.exe`
+silinir, `bun uninstall -g @oh-my-pi/pi-coding-agent` + `npm uninstall -g bun`; Paseo config'ine
+dokunulmadı (omp yerleşik provider, kayıt gerekmiyor).
+
+### 6.2 Restart sonrası: iki yeni bulgu (ilk hipotez çürütüldü)
+
+(1) **Bun satırı yapısal, önbellek değil.** Kullanıcı onayıyla `paseo restart` koşuldu
+(`RESTART_EXIT=0`, `previousWorkerPid 18016 -> workerPid 22480`, daemon `running`) ve satır
+değişmedi. Üretici kodu `app.asar` içinden okundu (R):
+`const bunVersion = process.versions.bun ?? "unavailable"` — satır daemon'ın **kendi runtime'ını**
+bildiriyor, PATH'ı yoklamıyor. Node/Electron daemon'ında tanım gereği `undefined`, dolayısıyla bu satir
+hiçbir kurulum adımıyla temizlenmez; §6.1'deki "restart ile gider" hipotezi **yanlıştı ve geri alındı**.
+
+(2) **Restart provider'ı düşürdi (geri dönüş).** Restart sonrası `provider ls` →
+`omp / status: unavailable / enabled: Disabled`, `provider models omp` → `PROVIDER_ERROR: Failed to
+fetch models for omp: Provider omp is disabled`, `diagnostic Models = 0`. Neden: `config.json`'da
+`agents.providers.omp = {"enabled":false}` kaydı oluşmuş; restart öncesi görünen `enabled:"Enabled"`
+değerinin config'de karşılığı yokmuş, yani **etkinlik config'te kalıcı değilken runtime varsayılanı ile
+çalışıyormuş**. Kapanış: `enabled: true` yazıldı + `paseo reload --json` (`appliedPaths:
+["agents.providers"]`, `restartRequiredPaths: []`) → `available/Enabled`, katalog yeniden **635 uç**,
+free 58. Yedek: `~/.paseo/config.json.bak-omp-enable`. Ayrıca kapının bu yolda çökmemesi için
+`provider models` çağrısı try/catch'e alındı (önceki hâli ham exception basıyordu).
+
+Yeniden koşulan kapılar (exit-0): `node scripts/omp-kurulum-kapisi.mjs` → `OMP_KAPI_EXIT=0`,
+`TOPLAM_FAIL=0`, 11 PASS; `node scripts/openrouter-pi-kapisi.mjs` → `PIKAPI_EXIT=0`;
+`node scripts/bench.mjs --check raporlar/bench-or-2026-10-15/bench.json` → `BENCH_CHECK_EXIT=0`.
 
 ## 7. Yineleme
 

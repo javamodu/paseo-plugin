@@ -34,7 +34,7 @@ chk(satir("Resolved path") !== "not found", `diagnostic Resolved path = ${satir(
 chk(/supported/.test(satir("Version support")), `diagnostic Version support = ${satir("Version support")}`);
 const bunDiyas = satir("Bun runtime");
 console.log(/unavailable/i.test(bunDiyas)
-  ? `BILGI diagnostic "Bun runtime" henuz ${bunDiyas} — bu satir daemon'un baslangictaki onbellegi (daemon 03:19Z, Bun kurulumu 11:40); temizlenmesi paseo restart ister ve restart bu oturumu da kestiği için kullanici onayinda. Kabuksuz cozum testinin PASS olmasi gercek kosum yolunu dogruluyor.`
+  ? `BILGI diagnostic "Bun runtime" = ${bunDiyas}. Neden YAPISAL, hata degil: uretici kodu (app.asar) bu satiri \`process.versions.bun ?? "unavailable"\` ile uretiyor — daemon'un KENDI runtime'i sorgulaniyor, PATH degil. Node uzerinde kosan daemon'da kurulumdan bagimsiz daima "unavailable"; \`paseo restart\` sonrasi da degismedi (olculdu). OMP'nin gercekten kostugu ayri PASS denetimleriyle dogrulanir: bun.exe kabuksuz cozumleniyor, omp surumu okunuyor, katalog 635 uc donuyor, agent.db found.`
   : `PASS diagnostic Bun runtime = ${bunDiyas}`);
 const modelSayi = Number((satir("Models").match(/\d+/) || [0])[0]);
 chk(modelSayi > 0, `diagnostic Models = ${modelSayi}`);
@@ -46,9 +46,10 @@ const e = arr.find((x) => x.provider === "omp");
 chk(!!e && e.status === "available", `ls'de omp: ${e ? e.status + "/enabled=" + e.enabled : "YOK"}`);
 chk(!!e && /Full Access/.test(e.modes || ""), `omp modlari: ${e ? e.modes : "YOK"}`);
 
-const ham = json(run(["provider", "models", "omp", "--json"]));
+let ham = null, hata = "";
+try { ham = json(run(["provider", "models", "omp", "--json"])); } catch (err) { hata = String(err.stdout || err.message).replace(/\s+/g, " ").slice(0, 160); }
 const mm = Array.isArray(ham) ? ham : (ham && ham.models) || [];
-chk(mm.length === modelSayi, `canli katalog omp = ${mm.length} uc (diagnostic ${modelSayi})`);
+chk(mm.length === modelSayi, `canli katalog omp = ${mm.length} uc (diagnostic ${modelSayi})${hata ? " HATA: " + hata : ""}`);
 const free = mm.filter((m) => /:free$/i.test(m.id) || (m.prices && Number(m.prices?.prompt) === 0 && Number(m.prices?.completion) === 0));
 console.log(`BILGI free uc = ${free.length}/${mm.length}; ornek: ${JSON.stringify((mm.find((m) => m.id === "cohere/north-mini-code:free") || mm[0] || {}).id)}`);
 console.log("TOPLAM_FAIL=" + bad);
