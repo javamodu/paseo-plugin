@@ -1,4 +1,4 @@
-# HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · TASLAK, K-0034'e bagli)
+# HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · K-0034 ONAYLANDI 2026-10-25)
 
 > Tek bakis belgesi: istenen yetenek → bizde durumu → rakip repolarda var mi.
 > Isaretler: VAR = kod + hermetik test kanitli (canli dogrulama hucre icinde not edilir; VAR != canli kanit) · KISMEN = bir parcasi var · PLAN(F#) = planli, faz bagli · YOK = yazilmadi
