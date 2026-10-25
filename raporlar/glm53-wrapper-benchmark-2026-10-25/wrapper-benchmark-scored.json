@@ -1,0 +1,64 @@
+{
+  "schema": "glm53-wrapper-benchmark-scored/v1",
+  "source": "wrapper-benchmark.json",
+  "generatedAt": "2026-10-24T19:50:12.947Z",
+  "networkStatus": "available",
+  "scoring": {
+    "accuracy": 60,
+    "duration": 20,
+    "toolUse": 10,
+    "eventEfficiency": 5,
+    "startup": 5,
+    "formula": "accuracy + duration + toolUse + eventEfficiency + startup"
+  },
+  "wrappers": [
+    {
+      "id": "opencode",
+      "label": "OpenCode",
+      "version": "1.19.3",
+      "taskSuccess": true,
+      "durationMs": 18470,
+      "startupAverageMs": 1205,
+      "eventCount": 14,
+      "toolCalls": 4,
+      "score": 94.72,
+      "rank": 2
+    },
+    {
+      "id": "kilocode",
+      "label": "Kilocode",
+      "version": "7.8.8",
+      "taskSuccess": true,
+      "durationMs": 28125,
+      "startupAverageMs": 1688,
+      "eventCount": 13,
+      "toolCalls": 4,
+      "score": 88.20,
+      "rank": 3
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "version": "2.1.302",
+      "taskSuccess": true,
+      "durationMs": 18242,
+      "startupAverageMs": 79.33,
+      "eventCount": 247,
+      "toolCalls": 4,
+      "score": 95.12,
+      "rank": 1
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "version": "codex-cli 0.164.0-alpha.11.1",
+      "taskSuccess": true,
+      "durationMs": 179069,
+      "startupAverageMs": 77,
+      "eventCount": 70,
+      "toolCalls": 20,
+      "score": 77.97,
+      "rank": 4
+    }
+  ]
+}
