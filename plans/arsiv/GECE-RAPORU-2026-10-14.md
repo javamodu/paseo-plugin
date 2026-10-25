@@ -61,3 +61,15 @@
 ## Bekleyen insan kararlari (gece bloklamadi)
 
 - K-0034 (MASTER-SSOT v2.7.2 otorite devri) · K-0019/K-0020 · plan §14 4 soru · ucretli-worker GO onayi (F2 gercek coder).
+---
+
+## Ek — F2 canli baglanti tamamlandi (2026-10-14 ~16:20, gun-ici vardiya)
+
+**Paseo adaptoru kimi-K3 ile CANLI calisiyor; uctan uca ilk gercek teslim kanitlandi.**
+
+- Kok neden: `paseo` bir `.cmd` shim; `execFileSync(shell:false)` ENOENT firlatiyordu. Cozum: resmi shim zinciri cozuldu — `Paseo.exe + node-entrypoint-runner + app.asar cli index` (env: ELECTRON_RUN_AS_NODE=1 vb.), `resolvePaseoBinary()` fail-closed + `ORDU_PASEO_RESOURCES` override. `src/paseo-transport.ts`.
+- Canli kanit zinciri (tum komutlar exit 0): capsule `run-e264c0a2` -> approve -> dispatch -> `tick` (ORDU_LIVE=1) **spawn bound** (session `baaadd6c`, provider codex/kimi-K3) -> ajan dosyayi yazdi (workspace-disi yazma icin `paseo permit allow` insan onayi gecti) -> `evaluate` PASS (3 kontrol, candidate `f1318a30`, evidence `6ea70713`) -> `decide --approve` -> **RUN_ACCEPTED**. Pano `/api/status` verifiedDeliveries=1.
+- Test: **252/252 exit 0** (yeni resolver + evaluate hook'lari dahil).
+- Yeni CLI fiili: `evaluate --run --attempt --artifact [--expect]` — bagimsiz dosya degerlendiricisi (worker beyanina guven yok; A36 fence + A13 + A10 zinciri). `src/cli-evaluate.ts`.
+- Bulgu (yeni ders): `paseo run --cwd` bayragi, CLI bir paseo oturumu icinden cagrildiginda **ana workspace'e baglaniyor** (ajan cwd=paseo-plugin geldi, ParentAgentId set). Workspace disi yazma auto modda insan onayi gerektiriyor — bu dogru guvenlik davranisi ama dispatch'te cwd baglamasi gozden gecirilmeli.
+- Bilinen bakiye: eski `run-eed5fe12` hâlâ RUNNING/UNKNOWN (bozuk transport doneminin fosili; reconcile 'still-unknown' = dogru fail-closed davranis).

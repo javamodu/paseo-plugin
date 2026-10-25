@@ -1,0 +1,343 @@
+**Yorumları da birleştirdim. Coder ajana verilecek net görev: mevcut planı yeniden icat etmeden, hedeflerine uymayan noktaları teknik kararlar ve çalıştırılabilir kabul testleriyle kapatmak.**
+
+Aşağıdaki metin **review ve revizyon talimatıdır; bütün önerileri sorgusuz uygulatma talimatı değildir.** Coder alternatifleri tartmalı, mevcut kodu incelemeli ve daha iyi bir çözüm öneriyorsa gerekçelendirmeli. Planın bildirdiği test başarıları, kaynak kod ve gerçek test çıktıları incelenmeden doğrulanmış kabul edilmemeli.session-https://app.notion.com
+
+---
+
+# Coder ajan için teknik review ve revizyon görevi
+
+## 1. Görevin amacı
+
+Mevcut `MASTER-SSOT-PLAN v2.7.2` ve `ordu-core` uygulamasını incele. Kullanıcının aşağıdaki iki kullanımını destekleyecek **en küçük, güvenilir ve bakımı kolay mimariyi** öner:
+
+### Senaryo A — Çok modelli araştırma ve iyileştirme
+
+- Kullanıcı manager modelini seçer.
+- Beş farklı model aynı soruya başlangıçta bağımsız cevap üretir.
+- Bütün cevaplar sürümlü biçimde kaydedilir.
+- Ajanlar ortak rubric üzerinden birbirlerinin cevaplarını eleştirir ve gerekçeli puanlar verir.
+- Her ajan eleştirileri görerek kendi cevabını geliştirir.
+- Gerekirse alana özel metrik oluşturulur; bütün adaylar yeni rubric sürümüyle yeniden değerlendirilir.
+- Manager sonuçları sentezler; bağımsız değerlendirme olmadan başarı ilan etmez.
+- Kullanıcı birden fazla task’ı panelden takip eder.
+
+### Senaryo B — Gözetimsiz geliştirme ve teslim
+
+- Kullanıcı coder/tester modellerini seçer veya seçimi manager’a bırakır.
+- İş belirlenen tarih ve saate kadar devam eder.
+- Manager/vekil yalnız önceden verilen yetki içinde soruları cevaplar ve takılmaları çözer.
+- API/model/runtime problemi gerektiğinde kontrollü fallback ve handoff doğurur.
+- Ayrı tester sabit çıktı üzerinde gerçek test ve gerektiğinde canlı UI testi yapar.
+- Görevler birbirinin dosya, izin, bütçe veya oturum alanına taşmaz.
+- STOP, deadline ve yetki iptali gerçek yürütmeyi etkiler.
+
+**Başarı ölçütü ajan sayısı değil:** sınırlar içinde, az insan müdahalesiyle, bağımsız doğrulanmış teslim.
+
+## 2. Bağlayıcı ürün sınırları
+
+Şunları değişmez kullanıcı gereksinimi olarak ele al:
+
+1. **LangChain/LangGraph kullanılmayacak.**
+2. Upstream fork yerine **desteklenen plugin, sidecar, SDK veya adaptör** tercih edilecek.
+3. Küçük çekirdek ve açık sözleşmeler korunacak.
+4. Manager LLM güvenlik veya bütçe otoritesi olmayacak.
+5. Coder kendi çıktısını kabul edemeyecek.
+6. Gerçek durum, kanıt ve görev kayıtları için tek otorite olacak.
+7. Gözetimsiz çalışmada görünmeyen/kontrol edilemeyen alt ajan kabul edilmeyecek.
+8. Merge, deploy, harcama ve kapsam genişletme ayrı yetkilendirilecek.
+
+**Çözüm yöntemi bağlayıcı değil:** Pydantic AI, PocketFlow veya mevcut kodla devam etme seçeneklerini incele. Hangisinin gerçekten gerekli olduğunu göster; sırf framework eklemek için ekleme.
+
+## 3. Önce mevcut uygulamayı doğrula
+
+Yeni kod yazmadan şu envanteri çıkar:
+
+- Core’da gerçekten bulunan modüller ve metotlar.
+- DB şeması ve migration’lar.
+- Mevcut adaptörlerin desteklediği yetenekler.
+- Testlerin kapsadığı ve kapsamadığı hata yolları.
+- Çalışan plugin/sidecar bağlantıları.
+- Plan ile uygulama arasındaki farklar.
+
+Her bulgu şu kayda bağlansın:
+
+`gereksinim → kod yeri → test → çalıştırılmış kanıt → durum`
+
+Durumları ayır:
+
+- `TASARIM_EKSIK`
+- `UYGULAMA_EKSIK`
+- `KANIT_EKSIK`
+- `TEST_BASARISIZ`
+- `DOGRULANDI`
+
+**Özellikle P0-4…P0-7 bulgularını güncel koddan yeniden kontrol et.** Eski raporda yazıyor diye hâlâ açık veya kapalı kabul etme.
+
+## 4. Önerilen mimariyi değerlendir
+
+Tercih edilen başlangıç:
+
+```
+Paseo plugin / bağımsız web
+             ↓
+Takım koordinasyonu
+manager + tur yönetimi + rol/model ataması
+             ↓
+ordu-core
+kalıcı durum + dispatch + grant/bütçe + recovery + kabul
+             ↓
+Runner adaptörleri
+Paseo / doğrudan LLM / bağımsız CLI / browser-desktop tester
+```
+
+### Kritik sınırlar
+
+- Sidecar ikinci bir otoriter görev DB’si oluşturmasın.
+- Salt-okur projeksiyonlar komut yürütmesin.
+- Aktif koordinatör, core’a **doğrulanacak komut** sunsun.
+- Politika eklentisi karar önerse bile owner hard-limit’leri ve kritik invariant’ları core korusun.
+- Plugin/sidecar kopunca core görev durumunu kaybetmesin.
+- Tek başına Pydantic AI veya PocketFlow eklemek dayanıklılık ve güvenlik çözümü sayılmasın.
+
+**Açık karar:** Mevcut core güvenilir ise genişlet; güvenilir değilse sorunlarını kanıtla. Kaynağı incelemeden yeniden yazım önerme.
+
+## 5. Planlama, derleme ve graph sözleşmesi
+
+### Manager ile derleyiciyi ayır
+
+Önerilen akış:
+
+```
+Doğal dil
+→ LLM plan önerisi
+→ tipli plan
+→ deterministik derleyici
+→ checker + yetki kontrolü
+→ sürümlü manifest
+```
+
+Byte-eşitlik beklentisi, **aynı yapılandırılmış plan girdisi ve aynı derleyici sürümü** için geçerli olsun. Doğal dilin LLM tarafından her seferinde aynı yorumlanacağı varsayılmasın.
+
+### Graph davranışlarını açıkça tanımla
+
+Büyük DAG framework’ü zorunlu değil; fakat şu davranışlar makine-okunur olmalı:
+
+- Bağımlılıklar ve koşullu geçiş.
+- Paralel dallanma ve birleşme.
+- Timeout/eksik cevap politikası.
+- Bounded repair.
+- Reviewer → revizyon turu.
+- İnsan/vekil karar kapısı.
+- Handoff.
+- Bütçe/deadline/plateau kapanışı.
+
+Ajanın ürettiği serbest metin, tek başına düğüm açamasın veya geçiş yaptıramasın.
+
+### Kimlik zinciri
+
+Şunu mevcut modele eşle:
+
+`task → run → round → node → attempt → agent/session`
+
+Ayrıca `manifestVersion`, `rubricVersion`, `grantId`, `candidateRef` ve evaluator sürümünü bağla. **Yeni tablo açmak zorunlu değil; önce mevcut kayıtların yeterliliğini göster.**
+
+## 6. Araştırma ve çapraz değerlendirme protokolü
+
+Şu protokolü uygulanabilir hâle getir:
+
+1. **Bağımsız üretim:** İlk cevaplar diğer ajanlara kapalı.
+2. **Kaydetme:** Model/runtime, brief, kaynaklar ve çıktı sürümü kaydedilir.
+3. **Ön kontrol:** Eksik alan, uydurma kaynak ve kanıtsız önemli iddialar işaretlenir.
+4. **Çapraz review:** Ajanlar diğer çıktıların sabit sürümlerini salt-okur görür.
+5. **Revizyon:** Her ajan yalnız kendi yeni sürümünü üretir.
+6. **Yeniden değerlendirme:** Aynı rubric ile karşılaştırılır.
+7. **Sentez ve bağımsız son inceleme.**
+
+Her review çıktısı en az şunları taşısın:
+
+- Ölçüt bazında puan.
+- Puan gerekçesi.
+- Kanıt/kaynak referansı.
+- Kritik itiraz.
+- İtirazı kapatacak deney veya doğrulama.
+- Belirsizlik ve anlaşmazlık.
+
+**Ajanların uzlaşması doğruluk kanıtı değildir.** Model kimliğini gizleme uygulanabilirliğini değerlendir; kör review’un mutlak tarafsızlık garantisi olduğunu iddia etme.
+
+### Rubric sürümleme
+
+Rubric kaydı:
+
+`id + version + domain + ölçütler + ağırlıklar + zorunlu kapılar + değerlendirme yöntemi`
+
+- Manager yeni rubric önerebilir.
+- Sistem kabul kapılarını kendi çıkarına gevşetemez.
+- Rubric değişirse ilgili adaylar yeniden değerlendirilir.
+- Farklı sürümlerin toplam puanları doğrudan kıyaslanmaz.
+- Kalite iyileşmesi, yalnız puan artışıyla ilan edilmez.
+
+## 7. Görev türüne göre kabul
+
+Tek bir kod-test formatını bütün işlere zorlamayın.
+
+### Ortak receipt zarfı
+
+Görev, attempt, manifest, grant, candidate, evaluator, zaman, kanıt ve bütünlük bağları korunmalı.
+
+### Göreve özel payload
+
+- **Araştırma:** Rubric, kaynak doğrulaması, iddia–kanıt ilişkisi, kritik itirazlar.
+- **Kod:** Sabit candidate, korunan suite, gerçek test sonuçları.
+- **UI:** Test edilen build/URL, senaryo, gerçek etkileşimler, beklenen/gözlenen sonuç ve kayıtlar.
+
+Şema doğrulaması sadece biçimi doğrular. Semantik kayıt bağları ve gerçek evaluator kaynağı ayrıca denetlenir.
+
+## 8. İzinler, workspace ve görünmeyen alt ajanlar
+
+Üç çıktı modu desteklensin:
+
+- **Yalnız cevap:** Platform kaydeder; ajan dosya yazmaz.
+- **İzinli dizin:** Belirlenmiş alanlara yazma.
+- **Worktree:** Ayrı dal/çalışma alanı; entegrasyon ayrı kapı.
+
+### Güvenlik şartları
+
+- Okuma ve yazma izinleri ayrı tanımlansın.
+- Varsayılan ret.
+- Canonical path, symlink ve path traversal kontrolü.
+- Shell/subprocess erişimi dosya araçlarını bypass edemesin.
+- Sırlar ve ağ erişimi ayrıca sınırlandırılsın.
+- Worktree güvenlik sandbox’ı sayılmasın.
+- Grant expiry/revoke hem dispatch’te hem çalışan işi durdurma mekanizmasında ele alınsın.
+
+### Alt ajan kabul kuralı
+
+Gözetimsiz alt ajan için:
+
+- Kimliği ve ana görevi biliniyor.
+- Yetkisi bağlanmış.
+- Kullanımı ölçülüyor veya muhafazakâr biçimde sınırlandırılabiliyor.
+- Yaşam durumu uzlaştırılabiliyor.
+- İptal ve sahiplik davranışı doğrulanmış.
+
+Bunlar yoksa **gözetimsiz dispatch reddedilsin**. “Bilinmiyor” rozeti tek başına yeterli olmasın. Ölçülemeyen kesin maliyet uydurulmasın.
+
+## 9. “Sadece izlerim” ve sınırlı vekâlet
+
+Açık çalışma kuralı:
+
+> Geçerli grant, kapsam ve bütçe içinde kalan; bağımsız kabul kapıları geçen rutin işler otomatik ilerler. İnsan yalnız yetki genişletme, tanımlı yüksek risk, tükenmiş çözüm politikası veya çözülemeyen belirsizlik için çağrılır.
+> 
+
+Vekil grant’i şu kararları ayrı ayrı kapsasın:
+
+- Hangi soruları cevaplayabilir?
+- Hangi modeller arasında fallback yapabilir?
+- Kaç ek retry verebilir?
+- Hangi düğümü yeniden atayabilir?
+- Hangi manifest değişikliğini yetkilendirebilir?
+- Süresi ve bütçesi nedir?
+- Hangi işlemler yasaktır?
+
+**Vekil kendi grant’ini büyütemez; önceden yetkilendirilmiş karar vericidir.** İnsan kararlarıyla vekil kararları audit kaydında ayrılmalı.
+
+## 10. Deadline, recovery ve handoff
+
+### Deadline
+
+Başlatma takvimi ile son çalışma saatini ayır:
+
+- Saat dilimi ve kesin tarih.
+- Sonlandırma/checkpoint politikası.
+- Test ve handoff rezervi.
+- Deadline yaklaşırken yeni iş kabulü.
+- Deadline sonrası çalışan işlemlerin davranışı.
+
+Kalite kapıları süre baskısıyla düşürülemez.
+
+### Recovery
+
+- `UNKNOWN` kör retry doğurmasın.
+- DB kilidi, gerçek dış işlemin iki kez yapılmasını tek başına önlemez.
+- Destekleyen dış sistemlerde idempotency anahtarı kullanılsın.
+- Desteklemeyenlerde uzlaştırma ve gerekirse insan kararı uygulansın.
+- STOP isteği, kalıcı STOP kaydı ve gerçek iptal teyidi ayrılmalı.
+- Bütçe takibi gecikmeli veya in-flight kullanım nedeniyle aşım riski taşıyorsa bu açıkça gösterilsin.
+
+### Handoff
+
+Devralma en az şunları taşısın:
+
+`hedef + graph durumu + kararlar + izinler + kalan bütçe/deadline + sabit çıktılar + testler + açık sorunlar + sonraki adım`
+
+Yeni sahiplik doğrulandıktan sonra eski ajan **yalnız receipt değil, yazma yetkisi açısından da** etkisizleştirilmeli.
+
+“Sıfır bağlam kaybı” garantisi yerine test edilebilir şart:
+
+> Devam etmek için gerekli doğrulanmış durum, karar, çıktı ve kanıt kaybolmaz; eksik bilgi açıkça belirtilir.
+> 
+
+## 11. Bağımsız runner ve canlı UI tester
+
+**Bağımsız runner’ı 11 uzman ekranından ayır.** Güvenlik ve recovery kapıları geçildikten sonra runner teslim edilebilmeli; grafik ekranları bağımlılık olmasın.
+
+Bağımsızlık kabulü:
+
+`Paseo kapalı → görev başlat → worker → evaluator → teslim → restart/reconcile → STOP`
+
+UI tester için:
+
+- Sabit build/candidate.
+- Ayrı test hesabı ve browser profili.
+- Desktop mouse/keyboard için tek sahip veya ayrı oturum.
+- Screenshots/log/video gibi kanıtlar.
+- Başarısızlığın yeni repair attempt’ına bağlanması.
+
+Screenshot tek başına PASS sayılmasın.
+
+## 12. Zorunlu kabul testleri
+
+| Test | Beklenen sonuç |
+| --- | --- |
+| Beş bağımsız model, iki tur | İlk cevaplar bağımsız; bütün sürümler ve review’lar kayıtlı |
+| Rubric değişikliği | Bütün ilgili adaylar yeniden değerlendirilir |
+| Ajan kendi çıktısına PASS gönderir | Kabul oluşmaz |
+| Yasak dosya/symlink/shell bypass | İşlem engellenir ve audit oluşur |
+| Aynı task’ın iki kez claim edilmesi | Yetkisiz ikinci sahip çalışamaz |
+| Aynı kimlik, farklı payload | Conflict açıkça reddedilir |
+| API kopması ve model değişimi | Kör çift iş yok; handoff doğrulanır |
+| Eski ajan geç sonuç/yazma gönderir | Stale sonuç ve yetkisiz yazma engellenir |
+| Servis restart ve kalıcı STOP | STOP unutulmaz; yeni dispatch başlamaz |
+| Vekil grant içinde/dışında karar verir | İçerisi uygulanır; dışarısı reddedilir |
+| Deadline dolması | Yeni iş açma ve kapanış politikası uygulanır |
+| Görünmeyen alt ajan | Gözetimsiz dispatch reddedilir |
+| İki task eşzamanlı çalışır | Çıktı, izin, bütçe ve oturumlar karışmaz |
+| Paseo kapalı bağımsız teslim | Runner arayüz geliştirmesinden bağımsız çalışır |
+
+Fake-adapter testleri ile canlı test sonuçları ayrı raporlansın. Çalıştırılmamış test `PASS` yapılmasın.
+
+## 13. İstediğim teslim raporu
+
+İlk teslim **review ve uygulanabilir revizyon önerisi** olsun:
+
+1. **Karar özeti:** Devam / koşullu devam / dur; gerekçeleri.
+2. **Hedef–özellik–kod–test matrisi.**
+3. **Mevcut plana yapılacak küçük, hedefli değişiklikler.**
+4. **Mimari seçenek karşılaştırması:** Mevcut core; Pydantic AI sidecar; PocketFlow; gerekirse daha basit seçenek.
+5. **Seçilen ve reddedilen öneriler:** Her biri için teknik gerekçe.
+6. **Veri modeli, komut ve adaptör sözleşmeleri.**
+7. **P0/P1/P2 iş listesi:** Kod yeri, bağımlılık ve kabul testiyle.
+8. **LOC tahmini:** Üretim kodu, test, UI, adaptör ve mevcut devralınan kod ayrı.
+9. **Gerçek test kanıtları ve kalan belirsizlikler.**
+10. **İlk küçük uygulama dilimi:** Hangi dosyalar değişecek, nasıl geri alınacak?
+
+### Son talimat
+
+**Bu önerileri eleştir; daha iyi alternatif varsa göster. Yeni bir master plan veya ikinci SSOT oluşturma.** Mevcut plan üzerinde hedefli revizyon öner.
+
+İlk uygulama hedefi:
+
+> Tek gerçek görevin güvenli teslimi, kesintiden toparlanması, ön yetki içinde ilerlemesi ve panelden kontrolü.
+> 
+
+Bundan sonra araştırma turları, paralellik, bağımsız runner ve öğrenme genişletilsin. **Yeni gerçek worker koşusu, kapsam genişletme veya yüksek riskli işlem için geçerli izin bulunduğunu ayrıca doğrula.**

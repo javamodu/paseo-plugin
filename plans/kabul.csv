@@ -1,0 +1,117 @@
+﻿id,faz,kaynak,durum,kaniT
+B00,S0,paseo SDK pin + capability probe,PASS_PARTIAL,evidence/probe-latest.json (0.11.2 + daemon OK; blocked listesi aktif)
+B01,S0,kapali payload sozlesmeleri (K1),GECTI,122/122 npm test (contracts + write-path + supervisor + adapter + metrics + handoff + closure U1-U7 incl. U4 + git-worktree + schedule + reasoning-receipt M18 + agent-lineage D4)
+B02,S1,canli Paseo capability'leri,BLOCKED,gate kodu+testleri GECTI_HERMETIC (blocked->spawn yok); canli yetenekler probe'da henuz false; ADR-012: bu blokaj YALNIZ paseo runtime'ini baglar
+RT0,RT,local runtime kapisi (runtime-kapsami),GECTI_HERMETIC,51/51 local-runtime.test.ts (paseo blocked iken local dogar; eksik kanit->FATAL; uydurma-DEAD yok)
+RT1,RT,git worktree + durable registry kaniti (harcamasiz),GECTI_HERMETIC,V3-RT.1 git-worktree-launcher.ts+git-worktree.test(4): temp git reposu worktree add + ayrik zararsiz surec + pid DURABLE JSON'a yazilmadan return YOK + restart(new instance) ayni pid + kill/lookup DEAD dogrulamasi + LocalRuntimeAdapter entegrasyon (spawn OK->ALIVE->DEAD); provider CLI uca-uca = RT2 (canli/harcama) NOT_RUN
+RT2,RT,provider CLI ile uctan uca local worker,NOT_RUN,V3-S1.1'in local kolu
+RT3,RT,local bildirim fallback (SSE+webhook),GECTI_HERMETIC,src/notify.ts sender-enjeksiyonlu (test/notify.test.ts); canli webhook NOT_RUN
+A01,S1,kapsul draft->ready,GECTI_HERMETIC,supervisor.test.ts: createRunPlan + bagimlilik kapisi (dep DONE olmadan dispatch RED); canli akis NOT_RUN
+A02,S1,plan dondurme + hash zinciri,GECTI_HERMETIC,supervisor.test.ts: planHashOf deterministik + plans satiri immutable tetigi (UPDATE->abort)
+A03,S1,insan onaysiz dispatch yok,GECTI_HERMETIC,supervisor.test.ts: PLAN_APPROVED olmadan readyNodes bos + dispatchNode /A03/ reddi
+A04,S1,attempt kimlik/versiyon bagliligi,GECTI_HERMETIC,supervisor.test.ts: input_hash=sha(plan|node|number), repair'ta farklilasir
+A05,S1,idempotency dedupe,GECTI_HERMETIC,store.test.ts A05 (canli akista NOT_RUN)
+A06,S1,atomik dispatch+rollback,GECTI_HERMETIC,store.test.ts A06 sifir-artik kaniti
+A07,S1,run kapasite tavani,GECTI_HERMETIC,store.test.ts A07
+A08,S1,belirsiz dis durum + reconcile,GECTI_HERMETIC,dispatcher.test.ts (kor re-spawn YOK kaniti)
+A09,S1,lease expiry+devir akisi,KISMEN,takeLease+bump test edildi; canli timeout NOT_RUN
+A10,S1,kosu->frozen candidate,GECTI_HERMETIC,supervisor.test.ts: PASS yalniz CANDIDATE_FROZEN uzerinde (freeze-oncesi settle RED); commitCandidate+recordEvidence zinciri
+A11,S1,evaluator izolasyonu,GECTI_HERMETIC,plan-donmus allowlist + stale-fence zinciri + gercek fixture kosusu testli; canli repo NOT_RUN
+A12,S1,repair DAG tek jenerasyon,GECTI_HERMETIC,supervisor.test.ts: bounded repair max_attempts dolunca NEEDS_DECISION (4. deneme yok); REPAIR_REQUESTED repairAttempt<=2
+A13,S1,sahte-PASS kapisi,GECTI_HERMETIC,store kapisi + runtime protokol (exit-0+0-test FAIL) + runner-catch testi; canli evaluator NOT_RUN
+A14,S1,insan kabulü zorunlu (CLI ucu),GECTI_HERMETIC,supervisor decideApproval: ACCEPT_RESULT APPROVED olmadan run ACCEPTED olmaz; aday degisince onay BAYAT(RED) + PASS-kanit sart. Canli CLI ucu V3-S1.1 NOT_RUN
+A15,S1,merge daima insan,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (kapali komut kumesinde merge/push YOK = kapi yok kaniti; ACCEPTED tek yazari insan onayi)
+A16,S1,STOP latch + okuma sirasi,GECTI_HERMETIC,store+dispatcher spawn-0 kaniti
+A35,S1,rezervasyon mutasyon kapilari,GECTI,002-hardening probe-replay testleri
+A36,S1,stale-fence cidi,GECTI,commit+evidence fence bagliligi testleri
+M01,EDIT,config reject + prompt yetki genisletmez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (bilinmeyen anahtar damitilir, prompt butceyi genisletemez)
+M02,RESOURCE,live slot sayimi,NOT_RUN,V3-S3.1 (A24 ile)
+M03,DELIVERY,bundle bagliligi+idempotent teslim,GECTI_HERMETIC,test/m16-m03.test.ts 7/7 (cift teslim DUPLICATE RED + yanlis aday RED), npm test 186/186 exit 0 (2026-10-14); canli UI yolu NOT_RUN
+M04,REMOTE,erisim guvenligi,NOT_RUN,V3-S2.4 (A17 ile)
+M05,REMOTE,donmus rozet+requested!=confirmed,NOT_RUN,V3-S2.1 (A18/A20)
+M06,UI,telefon operatoru dogru kapsul,NOT_RUN,V3-S2.2 (A19/A21)
+M07,NOTIFY,durable redakte outbox,GECTI_HERMETIC,PASS 2026-10-14 gecesi: src/notify.ts + test/notify.test.ts 12/12 (dedupe/quiet-hours/redakte/retry-DEAD), npm test 234/234 exit 0
+M08,SCHEDULE,occurrence benzersizligi,GECTI_HERMETIC,schedule.ts occurrenceKey+settled + schedule.test M08 (yerlesen tekrar uretilmez; rev bump yeni kimlik); canli scheduler dongusu NOT_RUN
+M09,SCHEDULE,TZ/DST determinizm,GECTI_HERMETIC,schedule.ts occurrencesUpTo UTC-epoch + schedule.test M09 (Ayni girdi->Ayni çıktı; non-UTC tz RED - DST sessiz vaat edilmez)
+M10,SCHEDULE,misfire/overlap catch-up yok,GECTI_HERMETIC,schedule.ts planOccurrences misfire=latest-only + schedule.test M10 (down->5 MISFIRE_SKIPPED emit 1; overlap BİNMEZ; STOP/revoke yerlestirmez adil yeniden dener)
+M11,AUTHORITY,grant kapsami genisleyemez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (superset scope RED, uydurma grant RED)
+M12,BENCH,gorev paydasi+toplam maliyet,GECTI_HERMETIC,src/benchmark.ts: tam payda + esitlik RED + unknown maliyet sifir sayilmaz (test/benchmark.test.ts 11/11, 2026-10-14); canli benchmark NOT_RUN
+M13,MEMORY,zehirli lesson karantina,GECTI_HERMETIC,src/lessons.ts: PROPOSED karantina + zorunlu alan RED + TALIMAT->POLITIKA yasagi (test/lessons.test.ts, 2026-10-14)
+M14,LEARNING,paired deney + insan publish,GECTI_HERMETIC,src/lessons.ts F6-A zinciri (auto->PUBLISHED RED, ONAY#2 zorunlu) + F6-B oto-geri-al (test/lessons.test.ts, 2026-10-14); canli ogrenme dongusu NOT_RUN
+M15,CANARY,canary geri-alim,NOT_RUN,O-4
+M16,OPS,backup+host kisitlari,GECTI_HERMETIC,src/backup.ts + test/m16-m03.test.ts (yedek->boz->restore birebir + kapi canli); disk/uyku V3-S3.3 NOT_RUN
+M17,AUTO_ACCEPT,dar oto-kabul seridi,NOT_RUN,V3-S4.4 (yeni - 20 par7)
+M18,REASONING,makbuz zorunlulugu,GECTI_HERMETIC,reasoning-receipt.ts (kapali DTO: ek alan RED, alternatif>=1, kanit>=1, confidence enum) + supervisor.requireDeliverableReceipt/requestDelivery (makbuz DONMUS ACCEPTED adayla bagdasir + her evidenceRef gercek PASS kanit sari; uyusmaz/kanitsiz/adaysiz GateError) + reasoning-receipt.test (5); mutlu yol insan-onayiyla ACCEPTED; operator UI/canli yol NOT_RUN
+M19,TEST_DESIGN,korunan suite zayiflatilamaz,KISMEN,runtime allowlist kapisi testli (model metni kosmaz); suite-corruption kolu S4
+V3-S1.1,S1,tek gercek kapsul uctan uca,PASS,PASS 2026-10-14 gecesi: test/e2e-s11.test.ts (gercek LocalRuntimeAdapter child-surec + gercek evaluator execSync + requireReceiptLinks + insan onayi), npm test 239/239 exit 0
+V3-S1.2,S1,crash-point reconciliation (kill -9),KISMEN,closure.test U1 hermetik: spawn-oncesi SENDING + SENDING-kalan satir kor re-spawn YOK + reconcile UNKNOWN'a yukseltir (outbox+reservation); gercek kill -9 canli NOT_RUN
+V3-S1.3,S1,cift komut tek kosu (canli),PASS,PASS 2026-10-14 gecesi: test/f5-parallel.test.ts F5-d (tek PENDING + 2 paralel tuketici = 1 spawn) + f1-gates F1-E, npm test 239/239 exit 0
+V3-S1.4,S1,STOP ortasinda kill -9 restart,KISMEN,idempotent migration (user_version) + dosya-tabanli ac-kapa restart'ta dispatch_paused=1 korunur (store.test V3-S1-restart: reopen->reserve /global_stop/->0 kayit) hermetik; gercek kill -9 spawn-anki NOT_RUN
+V3-S1.5,S1,sifir-test kirmizi gate (canli),PASS,PASS 2026-10-14: test/live-gates-v3.test.ts — canli runner exit-0+0test FAIL + kabul RED + pozitif kontrol PASS; 259/259 exit 0
+V3-S2.1,S2,telefon 5sn canli+kayipsiz,NOT_RUN,
+V3-S2.2,S2,yabanci 3-soru sadelik testi,NOT_RUN,
+V3-S2.3,S2,heartbeat sessiz-akis,NOT_RUN,
+V3-S3.1,S3,WAIT_CAPACITY yakmasiz,GECTI_HERMETIC,supervisor.test.ts A24: slot dolunca reserve YAKMAZ, node PENDING kalir, attempt/artik yok, CAPACITY_WAIT kaniti; canli kosukluk NOT_RUN
+V3-S3.2,S3,fault-matrix raporu+yedekten donus,NOT_RUN,
+V3-S4.1,S4,paired benchmark,NOT_RUN,
+V3-S4.2,S4,ucu-uca canli kanit,NOT_RUN,
+MOD,OPS,is modlari atolye/firtina/ekonomi (K-0006),GECTI_HERMETIC,modes.ts+config/ordu.json: mod.test 8 (suite 112/112) - firtina global_capacity esigini 2->4 kaydirir, hardMaxWorkers=8 asilamaz, guvenlik anahtari damitilir, STOP latch modla acilamaz, bilinmeyen mod->fail-closed; canli dispatch etkisi NOT_RUN
+ADP,S1,kanonik adaptor sozlesmesi 5-sozcuk (K-0006),GECTI_HERMETIC,adapter-contract.ts+test(8): spawn/durum + gonder/iptal/olaylar sozlesmesi + iptal istek!=teyit(slot ACTIVE kalir) + hata normalizasyonu(401->auth/429->kota/timeout->zamanasimi/eslesmeyen->belirsiz) + SDK-tipi sizdirma yasagi(yalniz{cls,message}); gercek provider wiring canli NOT_RUN (gonder/iptal unsupported donebilir->fail-closed)
+INDEP,S1,Paseo-kapali bilecen tablosu (K-0006/ADR-012),GECTI_HERMETIC,local-runtime.test: paseo blocked iken defter+kuyruk+manager uretim calisir; worker local kosar; canli uc-uca NOT_RUN (RT2)
+V3-S1.6,S1,STOP SLO: yeni spawn<=5sn kes (K-0006),PASS,PASS 2026-10-14: latch->dispatch-red 1.10ms olcum (spawn=0, resume sonrasi gercek pid); test/live-gates-v3.test.ts
+ECON,S4,LLM ekonomisi: her dugumde 6 rol kosmaz (K-0006 v3.0.0 par3),NOT_RUN,recipe bazli rol cagrimi + token raporu; V3-S4 bench ile olculur
+SLOT,S1,slot sayimi rezervasyonla etiketle degil (K-0006 v3.0.0 par4),KISMEN,pendingCapacity A07 tabanli; WAITING/PAUSED slot tutar + olculemeyen-nested-KAPALI canli testi NOT_RUN (V3-S3.1)
+METR,KPI,5 ana gosterge defterden turetme (metrik v3.1),GECTI_HERMETIC,telemetry.ts+metrics.test(8): dogrulanmis-teslim, insan-mudahale/gorev, maliyet/kabul(usage-unknown!=0 -> 'bilinmiyor'), regresyon-sinyali, kritik-ihlaller; guvenlik kapisi duserse hiz credited=false; olculemeyen 'bilinmiyor' (Y5). Canli benchmark/olcum V3-S4 NOT_RUN
+CLOSURE,S1,crash/STOP/UNKNOWN kurtarma kapilari U1-U7,GECTI_HERMETIC,closure.test.ts (6): U1 SENDING-oncesi+kok-re-spawn-yok+reconcile-UNKNOWN; U2 STALE->RELEASED; U3 FATAL->attempt/node FAILED + DEAD->node READY; U5 spawn-anki devir->orphan-unknown (SESSION_BOUND 0); U7 suresi-dolmus-onay RED. Cekirdek komut/olay seti degismedi
+HANDOFF,P1,tek elden teslim DTO'su yazma yolunda zorunlu (D1),GECTI_HERMETIC,handoff.ts+handoff.test(7): kapali sema (ek alan RED), 7 zorunlu alan, dispatchNode gecersiz handoff RED / saglam DISPATCHED; kapali komut/olay setine yeni kind EKLENMEDI (sync-baseline yesil)
+
+F0-A,F0,ayni md = ayni manifest byte-esit determinizm,NOT_RUN,MS-SSOT v2.7.2 §10 - plan referansi
+F1-A,F1,fake adaptor crash testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-B,F1,fake adaptor STOP/restart testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-C,F1,fake adaptor UNKNOWN reconcile testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-D,F1,fake adaptor stale/fence reddi testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-E,F1,fake adaptor cift-spawn dedupe testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-F,F1,fake adaptor sahte-PASS reddi testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F1-G,F1,fake adaptor M26/M31 negatif izin testi,PASS,PASS 2026-10-14 gecesi: test/f1-fault.test.ts+f1-gates.test.ts+handoff.test.ts, npm test 170/170 exit 0
+F2-A,F2,receipt 14 alan dogrulandi,PASS,PASS 2026-10-14 gecesi: test/e2e-s11.test.ts + raporlar/S1.1-KANIT-2026-10-14.md, npm test 176/176 exit 0
+F2-B,F2,canli sahte-PASS reddi,PASS,PASS 2026-10-14 gecesi: test/e2e-s11.test.ts + raporlar/S1.1-KANIT-2026-10-14.md, npm test 176/176 exit 0
+S1.1,F2,tek gorev uctan uca canli PASS (S1.1),PASS,PASS 2026-10-14 gecesi: test/e2e-s11.test.ts + raporlar/S1.1-KANIT-2026-10-14.md, npm test 176/176 exit 0
+F3-A,F3,canli kill -9 recovery,PASS,PASS 2026-10-14 gecesi: test/f3-live.test.ts gercek OS sureci (pid SIGKILL/ESRCH teyitli), npm test 176/176 exit 0
+F3-B,F3,canli STOP restart + reconcile gercek worker,PASS,PASS 2026-10-14 gecesi: test/f3-live.test.ts gercek OS sureci (pid SIGKILL/ESRCH teyitli), npm test 176/176 exit 0
+F4-A,F4,Paseo kapaliyken pano read 200,PASS,PASS 2026-10-14 gecesi: test/f4-pano.test.ts (loopback+token+confirm kapilari), npm test 186/186 exit 0
+F4-B,F4,STOP sonrasi 0 spawn,PASS,PASS 2026-10-14 gecesi: test/f4-pano.test.ts (loopback+token+confirm kapilari), npm test 186/186 exit 0
+F5-A,F5,DST/misfire/overlap testleri,NOT_RUN,MS-SSOT v2.7.2 §10
+F5-B,F5,outbox dedupe,NOT_RUN,MS-SSOT v2.7.2 §10
+F5-C,F5,canli kapasite + cakisma olcumu,NOT_RUN,MS-SSOT v2.7.2 §10
+F6-A,F6,karantina->promote zinciri,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
+F6-B,F6,regresyonda oto-geri-al kaniti,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
+F6-C,F6,eslenmis gorev benchmark raporu,PASS,PASS 2026-10-14 gecesi: src/benchmark.ts + test/benchmark.test.ts 11/11 (sabitlik RED + tam payda + unknown maliyet + durustluk kapisi), npm test 211/211 exit 0
+F7-A,F7,11/11 render 0 konsol hatasi,NOT_RUN,MS-SSOT v2.7.2 §10
+F7-B,F7,tam bagimsizlik kapisi (Paseosuz tam dongu),NOT_RUN,MS-SSOT v2.7.2 §10
+F2-CANLI,F2,gercek kimi-K3 coder uctan uca dongu,PASS,"PASS 2026-10-14: capsule run-e264c0a2 -> approve -> dispatch -> tick(spawn bound, session baaadd6c) -> evaluator PASS(3 kontrol, candidate f1318a30) -> decide APPROVED -> RUN_ACCEPTED; pano /api/status verifiedDeliveries=1; npm test 252/252 exit 0"
+K12-01,F8,bes bagimsiz model iki tur,NOT_RUN,birlesik liste 12: ilk cevaplar bagimsiz; tum surumler+review kayitli
+K12-02,F8,rubric degisikligi yeniden degerlendirme,NOT_RUN,birlesik liste 12
+K12-03,F2,ajan kendi ciktisina PASS gonderir,NOT_RUN,birlesik liste 12: kabul olusmaz
+K12-04,P0,yasak dosya/symlink/shell bypass,NOT_RUN,birlesik liste 12: engellenir + audit olusur
+K12-05,P0,ayni task iki kez claim,NOT_RUN,birlesik liste 12: yetkisiz ikinci sahip calisamaz
+K12-06,P0,ayni kimlik farkli payload conflict,NOT_RUN,birlesik liste 12: acik red
+K12-07,P1,API kopmasi + model degisimi,NOT_RUN,birlesik liste 12: kor cift is yok; handoff dogrulanir
+K12-08,P0,eski ajan gec sonuc/yazma,NOT_RUN,birlesik liste 12: stale sonuc + yetkisiz yazma engellenir
+K12-09,P0,restart + kalici STOP,NOT_RUN,birlesik liste 12: STOP unutulmaz; yeni dispatch baslamaz
+K12-10,P1,vekil grant ici/disi karar,NOT_RUN,birlesik liste 12: ici uygulanir disi reddedilir
+K12-11,P1,deadline dolmasi,NOT_RUN,birlesik liste 12: yeni is kapanir + kapanis politikasi
+K12-12,P0,gorunmeyen alt ajan dispatch reddi,NOT_RUN,birlesik liste 12: 5 sart yoksa red
+K12-13,P1,iki task eszamanli karismaz,NOT_RUN,birlesik liste 12: cikti/izin/butce/oturum ayrimi
+K12-14,F9,Paseo kapali bagimsiz teslim,NOT_RUN,birlesik liste 12: runner arayuz bagimsizligi
+K13-01,F4,gozetimsiz giris kapisi 6 kosul,NOT_RUN,"PLAN bol.22: reconcile/iptal/olcum/dosya-shell/grant-revoke/eski-sahip-yazma canli kanitlari"
+K13-02,F8,senaryo A arastirma uctan uca,NOT_RUN,"PLAN bol.23: 5 model -> rubric -> capraz elestiri -> revizyon -> yeniden degerlendirme -> kanitli sentez"
+K13-03,P1,senaryo B gece gelistirme uctan uca,NOT_RUN,"PLAN bol.23: kontrollu API kesintisi -> handoff -> eski sahip engeli -> deadline guvenli kapanis"
+K13-04,P1,senaryo C eszamanli izolasyon,NOT_RUN,"PLAN bol.23: A+B ayni anda; cikti/yetki/karar/butce karismaz"
+F55,S1,F5.5 cwd baglama (workspace find-or-create + fail-closed capsule-repo),GECTI_CANLI,"npm test 254/254 exit 0 (2 yeni test: pozitif cwd->workspace, negatif repo-yoksa-FATAL); canli spawn c1b78b8 cwd=ordu-core dogrulandi (list_agents)"
+F1-G-CANLI,F1,M26/M31 negatif izin (canli child-process),PASS,PASS 2026-10-14: M31 launch=0+audit FAILED; M19 dosya yok+GateError; M26 junction RED; 259/259 exit 0
+F65-01,F6.5,rol->model secimi: nodes.provider/model migration + cozum zinciri + spawn arg akisi,GECTI_HERMETIC,"npm test 270/270 exit 0 (11 yeni test, test/f65-rol-model.test.ts); planHash geriye-uyum byte-ayni; canli 2-provider spawn NOT_RUN"
+R3-01,F6,sinirli vekalet grant sistemi (grants tablosu + assertGrantAllows + revoke in-flight),GECTI_HERMETIC,"npm test 296/296 exit 0 (26 yeni test, test/r3-grant.test.ts); database/004-grants.sql user_version=4; buyutemez 4 katman + revoke RED/canli iptal patikasi testli; canli vekil kosusu NOT_RUN"
+P0-4,P0,CLI->paseo transport shell-enjeksiyonu (metakarakterli payload),GECTI_HERMETIC,"test/paseo-transport.test.ts (argv vektoru: prompt TEK eleman + byte-identik) + test/paseo-adapter.test.ts 'P0-4/6c' (kaynak taramasi: paseo-adapter.ts shell-string icermez + metakarakterli prompt tek argv tokeni); src/paseo-transport.ts execFileSync arg-array (ComSpec/shell aradan cikti), src/cli.ts defaultAdapter ayni yol; npm test 296/296 exit 0"
+P0-5,P0,txDepth global -> DB-handle basina (WeakMap),GECTI_HERMETIC,"test/store.test.ts P0-5 (iki DB ic-ice tx: her ikisi de COMMIT) + P0-5b (ic ROLLBACK dis defteri zehirlemez) + P0-5c (ic tx BEGIN IMMEDIATE - eszamanli dis yazici kilit yer); src/store.ts txDepthByDb WeakMap; npm test 296/296 exit 0"
+P0-6,P0,DUPLICATE payloadHash conflict (ayni kimlik+farkli icerik),GECTI_HERMETIC,"test/store.test.ts P0-6 (ayni idempotencyKey + FARKLI payload -> command_id_conflict RED; ayni icerik DUPLICATE kalir) + A05-b (payload tahrifati tetigi) + test/contracts.test.ts (payloadHash canonical uyusmazligi RED); src/store.ts command_id_conflict dali; npm test 296/296 exit 0"
+P0-7,P0,sentetik 'recovered:' session id (canli transport),GECTI_HERMETIC,"test/paseo-adapter.test.ts P0-7 (3 test: cikti dispatchKey kaydini icermezse ALIVE reddi->UNKNOWN; gercek korelasyon+canli durum ALIVE/DEAD; uctan uca sentetik id URETILMEZ, external_session_id null kalir); src/paseo-transport.ts lookup korelasyon sarti; KAPSAM NOTU: dispatcher.ts reconcile 'recovered:' etiketi FAKE/yerel adaptor yoludur (f1-fault/f3-live beklentisi), canli transport yolundan bagimsizdir; npm test 296/296 exit 0"
