@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD bb2f394 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 4ac5aed — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -92,6 +92,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/gelen-kutu/` (10 dosya: en yeni ordu-dc-dalga34-2026-10-25.md, ana-ajan-2026-10-25.md, codex-2026-10-14.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md` (1.1KB) — GLM 5.3 Sarmalayıcı Benchmark | Sonuçlar | Puanlama
+- `raporlar/kanit-hedef/f7a-pano-2026-10-26.md` (3KB) — F7-A pano render canlı kanıtı — 2026-10-26 | Kapsam-eşleme notu (K-0006/F5-A emsal deseni — sahte-yeşil şüphesini keser) | Kurulum (üretim DB/token'a SIFIR dokunuş)
 - `raporlar/kanit-hedef/hermetik-kanal-test-2026-10-25.md` (1.3KB) — Hermetik kanal testi — kilit-surum.ps1 Tee + son-kanit.json bacağı (K-0046 erata kanıtı, 2026-10-25 21:53) | Yeşil dal (kanal-test) | Kırmızı dal (kanal-kirmizi — test script exit 1)
 - `raporlar/model-benchmark-2026-10-24/OZET.md` (3KB) — Paseo Model Benchmark — Top 30 | Not | Top 30
 - `raporlar/model-katalog-2026-10-17/katalog.md` (15.4KB) — Birlesik Model Katalogu — paseo-plugin · 2026-10-17 | Birden fazla provider'da olan modeller (asil bakım yeri) | Tüm modeller (provider → id, ctx, fiyat)
@@ -107,6 +108,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/takip-sozlesme/` (10 dosya: en yeni 2026-10-25.md, 2026-10-24.md, 2026-10-20.md)
 - `raporlar/telemetri-haftalik/2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar/telemetri-haftalik/2026-W43.md` (0.9KB) — Telemetri Haftalık Özet — 2026-W43
+- `raporlar/telemetri-haftalik/2026-W44.md` (1KB) — Telemetri Haftalık Özet — 2026-W44
 - `raporlar/token-olcum-2026-10-11/OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `raporlar/triage-2026-10-14/OZET.md` (1.3KB) — Gelen-Kutu Triage — 2026-10-14 (isçi: 7a8d41f8, 43/43 madde) | denetim-2026-10-13.json (28) | denetim2-2026-10-13.json (14)
 - `raporlar/uygunluk-2026-10-17/uygunluk.md` (4.6KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
@@ -134,6 +136,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (20.2KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (18.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

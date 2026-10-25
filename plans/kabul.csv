@@ -86,7 +86,7 @@ F5-C,F5,canli kapasite + cakisma olcumu,PASS,capacity-canli.test.ts: doluluk 2/2
 F6-A,F6,karantina->promote zinciri,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
 F6-B,F6,regresyonda oto-geri-al kaniti,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
 F6-C,F6,eslenmis gorev benchmark raporu,PASS,PASS 2026-10-14 gecesi: src/benchmark.ts + test/benchmark.test.ts 11/11 (sabitlik RED + tam payda + unknown maliyet + durustluk kapisi), npm test 211/211 exit 0
-F7-A,F7,11/11 render 0 konsol hatasi,NOT_RUN,MS-SSOT v2.7.2 §10
+F7-A,F7,11/11 render 0 konsol hatasi,PASS,Paseo browser + GERCEK pano-server (port:0 atanan 57054; oturum-uretimli gecici token — uretim DB/token-a sifir dokunus): 11 render yuzeyi DOM-seviyesinde DOLU (rozet AKTIF + 5 KPI karti + 5 bolum tablolu) — tarayici konsolu 0 hata (100 girdi taramasi bos; 9 basarili /api/status fetch 5sn dongusu); kapsam notu: MS-SSOT §10 '11 sekme' modern tek-sayfa panoda 11 render yuzeyine eslenir (rozet+5 kart+5 bolum — F5-A emsal deseni); kanit raporlar/kanit-hedef/f7a-pano-2026-10-26.md ·d:2026-10-26T00:05:28.8625729+03:00 ·h:4ac5aed ·x:0
 F7-B,F7,tam bagimsizlik kapisi (Paseosuz tam dongu),NOT_RUN,MS-SSOT v2.7.2 §10
 F2-CANLI,F2,gercek kimi-K3 coder uctan uca dongu,PASS,"PASS 2026-10-14: capsule run-e264c0a2 -> approve -> dispatch -> tick(spawn bound, session baaadd6c) -> evaluator PASS(3 kontrol, candidate f1318a30) -> decide APPROVED -> RUN_ACCEPTED; pano /api/status verifiedDeliveries=1; npm test 252/252 exit 0"
 K12-01,F8,bes bagimsiz model iki tur,NOT_RUN,birlesik liste 12: ilk cevaplar bagimsiz; tum surumler+review kayitli
