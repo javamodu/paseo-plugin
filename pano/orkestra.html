@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paseo-pano · orkestra</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:14px/1.5 system-ui, sans-serif; background:#111418; color:#d8dee6; }
+  header { display:flex; align-items:center; gap:12px; padding:10px 16px; background:#171b21; border-bottom:1px solid #262c36; position:sticky; top:0; z-index:5; flex-wrap:wrap; }
+  header b { font-size:15px; }
+  .rozet { padding:2px 10px; border-radius:99px; font-size:12px; background:#232a35; color:#8b95a3; }
+  .rozet.yesil { background:#1d3a2a; color:#7fd79b; }
+  .rozet.kirmizi { background:#3a2323; color:#e08a8a; }
+  .rozet.sari { background:#3a3323; color:#e0a34a; }
+  main { padding:16px 20px; max-width:1200px; }
+  .kart { background:#171b21; border:1px solid #262c36; border-radius:12px; padding:12px 14px; }
+  .kart h3 { margin:0 0 6px; font-size:14px; }
+  .kart .meta { color:#8b95a3; font-size:12px; word-break:break-all; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; margin-top:12px; }
+  input, textarea { background:#1d232c; color:#d8dee6; border:1px solid #2c3440; border-radius:8px; padding:7px 10px; font:inherit; width:100%; box-sizing:border-box; }
+  textarea { min-height:56px; resize:vertical; }
+  button { background:#2c6e49; color:#eafff3; border:0; border-radius:8px; padding:7px 14px; font:inherit; cursor:pointer; }
+  button.ikincil { background:#232a35; color:#8b95a3; }
+  button.tehlike { background:#5a2c2c; color:#f0c0c0; }
+  button:disabled { opacity:.4; cursor:default; }
+  .satir { display:flex; gap:8px; margin-top:8px; }
+  .durum-running { color:#7fb8e0; } .durum-idle { color:#7fd79b; } .durum-error { color:#e08a8a; }
+  .dikkat { border-color:#e0a34a; }
+  .bolum { margin-top:20px; }
+  .bolum > h2 { font-size:15px; margin:0 0 8px; }
+  .izin { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #232a35; font-size:13px; }
+  .izin code { background:#232a35; padding:1px 6px; border-radius:6px; font-size:11px; }
+  .toast { position:fixed; bottom:16px; right:16px; background:#232a35; border:1px solid #2c3440; border-radius:10px; padding:10px 16px; font-size:13px; opacity:0; transition:opacity .2s; max-width:420px; }
+  .toast.goster { opacity:1; }
+  .form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px; }
+  .sag { margin-left:auto; }
+  a { color:#7fb8e0; }
+</style>
+</head>
+<body>
+<header>
+  <b>paseo-pano</b><span style="color:#8b95a3">orkestra</span>
+  <span class="rozet" id="r-daemon">daemon …</span>
+  <span class="rozet" id="r-yazma">yazma …</span>
+  <span class="rozet" id="r-sse">canlı …</span>
+  <span class="sag" style="color:#8b95a3;font-size:12px" id="zaman"></span>
+</header>
+<main>
+  <div class="bolum">
+    <h2>Ajanlar <span style="color:#8b95a3;font-weight:400;font-size:12px" id="ajan-sayisi"></span></h2>
+    <div id="ajanlar" class="grid"><p style="color:#8b95a3">Yükleniyor…</p></div>
+  </div>
+
+  <div class="bolum kart" id="izin-bolum" style="display:none">
+    <h3>Bekleyen izinler</h3>
+    <div id="izinler"></div>
+  </div>
+
+
+  <div class="bolum kart">
+    <h3>Plan (plan.md ↔ emirler.json · K-0033)</h3>
+    <div class="satir">
+      <select id="p-repo" style="background:#1d232c;color:#d8dee6;border:1px solid #2c3440;border-radius:8px;padding:6px 10px"></select>
+      <button class="ikincil" id="p-yukle">Yükle</button>
+      <button class="ikincil" id="p-kaydet">Kaydet</button>
+      <button class="ikincil" id="p-derle">Derle (önizleme)</button>
+      <button id="p-uygula">Uygula</button>
+      <span class="rozet" id="p-drift" style="display:none">EŞLEŞMEDİ — md değişmiş, yeniden derle</span>
+    </div>
+    <div class="satir"><textarea id="p-md" placeholder=".verimlilik/plan.md içeriği — her görev tek satır: - [ ] ID başlık → rol · kabul: ölçülebilir kriter · once: bagimlilik" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea></div>
+    <div id="p-rapor" style="font-size:12px;margin-top:6px"></div>
+    <div id="p-liste" style="margin-top:10px"></div>
+  </div>
+
+  <div class="bolum kart">
+    <h3>Yeni ajan programla</h3>
+    <div class="form-grid">
+      <input id="y-cwd" placeholder="cwd (örn. D:\Vibecode\paseo-plugin)">
+      <input id="y-provider" placeholder="provider/model" value="codex/gpt-5.4">
+      <input id="y-title" placeholder="başlık (opsiyonel)">
+    </div>
+    <div class="satir"><textarea id="y-prompt" placeholder="ilk görev promptu (opsiyonel)"></textarea></div>
+    <div class="satir"><button id="y-gonder">Ajanı yarat</button></div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const PANO_TOKEN = (typeof __PANO_TOKEN__ !== "undefined") ? __PANO_TOKEN__ : (localStorage.getItem("panoToken") || null);
+const $ = (id) => document.getElementById(id);
+let sonAjanlar = [];
+
+function toast(metin, tehlike) {
+  const t = $("toast");
+  t.textContent = metin;
+  t.style.borderColor = tehlike ? "#e08a8a" : "#2c6e49";
+  t.classList.add("goster");
+  setTimeout(() => t.classList.remove("goster"), 4000);
+}
+
+async function getJson(yol) {
+  const r = await fetch(yol);
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.hata || ("HTTP " + r.status));
+  return j;
+}
+
+async function emir(emir) {
+  const r = await fetch("/api/emir", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Pano-Token": PANO_TOKEN || "" },
+    body: JSON.stringify(emir),
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || j.ok === false) throw new Error(j.hata || j.mesaj || ("HTTP " + r.status));
+  return j;
+}
+
+function rozetDurum(el, metin, tur) {
+  el.textContent = metin;
+  el.className = "rozet " + (tur || "");
+}
+
+async function durumYenile() {
+  try {
+    const d = await getJson("/api/durum");
+    rozetDurum($("r-daemon"), d.paseoBagli ? "daemon bağlı" : "daemon bekliyor", d.paseoBagli ? "yesil" : "sari");
+    rozetDurum($("r-yazma"), d.yazma ? "yazma açık" : "salt-okur (PANO_TOKEN yok)", d.yazma ? "yesil" : "kirmizi");
+  } catch (e) {
+    rozetDurum($("r-daemon"), "köprü yok: " + e.message, "kirmizi");
+  }
+}
+
+const kisaId = (id) => id.length > 12 ? id.slice(0, 8) + "…" : id;
+const baseAd = (p) => p ? p.split(/[\\/]/).filter(Boolean).pop() : "—";
+const kac = (s) => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+function ajanCiz(ajanlar) {
+  sonAjanlar = ajanlar;
+  $("ajan-sayisi").textContent = ajanlar.length + " ajan";
+  if (ajanlar.length === 0) {
+    $("ajanlar").innerHTML = "<p style='color:#8b95a3'>Daemon'da aktif ajan yok. Aşağıdan programlayabilirsin.</p>";
+    return;
+  }
+  $("ajanlar").innerHTML = ajanlar.map(a => {
+    const dikkat = a.requiresAttention || a.bekleyenIzin > 0;
+    return "<div class='kart" + (dikkat ? " dikkat" : "") + "' data-id='" + kac(a.id) + "'>" +
+      "<h3>" + kac(a.title || kisaId(a.id)) + " <span class='durum-" + kac(a.status) + "'>· " + kac(a.status || "?") + "</span></h3>" +
+      "<div class='meta'>" + kac(a.provider || "?") + (a.model ? " / " + kac(a.model) : "") + " · " + kac(baseAd(a.cwd)) + "</div>" +
+      "<div class='meta'>id: " + kac(a.id) + (a.attentionReason ? " · dikkat: " + kac(a.attentionReason) : "") + (a.bekleyenIzin ? " · " + a.bekleyenIzin + " izin bekliyor" : "") + "</div>" +
+      "<div class='satir'><input class='g-metin' placeholder='görev / mesaj gönder…'></div>" +
+      "<div class='satir'>" +
+        "<button class='b-gonder'>Gönder</button>" +
+        "<button class='ikincil b-durum'>Tazele</button>" +
+        "<button class='tehlike b-arsiv sag'>Arşivle</button>" +
+      "</div></div>";
+  }).join("");
+  document.querySelectorAll("#ajanlar .kart").forEach(kart => {
+    const id = kart.dataset.id;
+    kart.querySelector(".b-gonder").onclick = async () => {
+      const metin = kart.querySelector(".g-metin").value;
+      if (!metin.trim()) { toast("Boş mesaj gönderilmez", true); return; }
+      try { await emir({ eylem: "gonder", agentId: id, metin }); kart.querySelector(".g-metin").value = ""; toast("Gönderildi → " + kisaId(id)); }
+      catch (e) { toast("Gönderilemedi: " + e.message, true); }
+    };
+    kart.querySelector(".b-durum").onclick = () => ajanlariYukle();
+    kart.querySelector(".b-arsiv").onclick = async () => {
+      if (!confirm("Ajan arşivlensin mi? " + id)) return;
+      try { await emir({ eylem: "arsivle", agentId: id }); toast("Arşivlendi: " + kisaId(id)); ajanlariYukle(); }
+      catch (e) { toast("Arşivlenemedi: " + e.message, true); }
+    };
+  });
+}
+
+async function ajanlariYukle() {
+  try { const j = await getJson("/api/ajanlar"); ajanCiz(j.ajanlar); }
+  catch (e) { $("ajanlar").innerHTML = "<p style='color:#e0a34a'>Ajan listesi alınamadı: " + kac(e.message) + "</p>"; }
+}
+
+async function izinleriYukle() {
+  try {
+    const j = await getJson("/api/izinler");
+    const izinler = j.izinler || [];
+    $("izin-bolum").style.display = izinler.length ? "block" : "none";
+    $("izinler").innerHTML = izinler.map((iz, i) =>
+      "<div class='izin'><code>" + kac(iz.requestId || iz.id || ("iz-" + i)) + "</code>" +
+      "<span>" + kac(iz.agentTitle || iz.agentId) + " — " + kac(iz.toolName || iz.tool || iz.kind || "izin isteği") + "</span>" +
+      "<span class='sag'></span>" +
+      "<button data-i='" + i + "' data-k='allow'>İzin ver</button>" +
+      "<button class='tehlike' data-i='" + i + "' data-k='deny'>Reddet</button></div>"
+    ).join("");
+    document.querySelectorAll("#izinler button").forEach(b => b.onclick = async () => {
+      const iz = izinler[Number(b.dataset.i)];
+      try {
+        await emir({ eylem: "izin", agentId: iz.agentId, requestId: iz.requestId || iz.id, karar: b.dataset.k });
+        toast("İzin cevaplandı: " + b.dataset.k);
+        izinleriYukle();
+      } catch (e) { toast("Cevaplanamadı: " + e.message, true); }
+    });
+  } catch { /* izin listesi opsiyonel */ }
+}
+
+$("y-gonder").onclick = async () => {
+  const cwd = $("y-cwd").value.trim();
+  const provider = $("y-provider").value.trim();
+  if (!cwd || !provider) { toast("cwd ve provider gerekli", true); return; }
+  try {
+    const j = await emir({ eylem: "yarat", cwd, provider, title: $("y-title").value.trim() || undefined, prompt: $("y-prompt").value.trim() || undefined });
+    toast("Ajan yaratıldı: " + kisaId(j.id || "?"));
+    $("y-prompt").value = "";
+    ajanlariYukle();
+  } catch (e) { toast("Yaratılamadı: " + e.message, true); }
+};
+
+function canliBaglan() {
+  try {
+    const es = new EventSource("/api/canli");
+    es.onopen = () => rozetDurum($("r-sse"), "canlı", "yesil");
+    es.onerror = () => { rozetDurum($("r-sse"), "canlı koptu", "sari"); };
+    es.onmessage = (ev) => {
+      try {
+        const m = JSON.parse(ev.data);
+        if (m.tip === "ajanlar") { ajanCiz(m.ajanlar); $("zaman").textContent = "güncel: " + new Date(m.ts).toLocaleTimeString("tr-TR"); izinleriYukle(); }
+      } catch { /* bozuk mesaj */ }
+    };
+  } catch {
+    rozetDurum($("r-sse"), "SSE yok · 10sn yoklama", "sari");
+    setInterval(ajanlariYukle, 10000);
+  }
+}
+
+
+async function planYukle() {
+  const repo = $("p-repo").value;
+  if (!repo) return;
+  try {
+    const j = await getJson("/api/plan?repo=" + encodeURIComponent(repo));
+    $("p-md").value = j.md || "";
+    planListeCiz(j.emirler ? j.emirler.gorevler : []);
+    const d = $("p-drift");
+    d.style.display = j.drift ? "inline-block" : "none";
+    d.className = "rozet " + (j.drift ? "kirmizi" : "yesil");
+    if (!j.drift && j.emirler) { d.style.display = "inline-block"; d.textContent = "eşleşti (" + j.emirler.guncelleme + ")"; }
+    if (j.drift) d.textContent = "EŞLEŞMEDİ — md değişmiş, yeniden derle";
+    $("p-rapor").innerHTML = j.emirler ? "" : "<span style='color:#8b95a3'>emirler.json henüz yok — ilk derlemeyi yap.</span>";
+  } catch (e) { $("p-rapor").innerHTML = "<span style='color:#e08a8a'>Plan alınamadı: " + kac(e.message) + "</span>"; }
+}
+
+function planListeCiz(gorevler) {
+  if (!gorevler || gorevler.length === 0) { $("p-liste").innerHTML = ""; return; }
+  const renk = { bekliyor: "#8b95a3", kosuyor: "#7fb8e0", bloklu: "#e08a8a", bitti: "#7fd79b" };
+  $("p-liste").innerHTML = gorevler.map(g =>
+    "<div style='font-family:ui-monospace,monospace;font-size:12px;padding:3px 0;border-bottom:1px solid #1d232c'>" +
+    "<span style='color:" + (renk[g.durum] || "#8b95a3") + "'>[" + kac(g.durum) + "]</span> " +
+    "<b>" + kac(g.id) + "</b> " + kac(g.baslik) +
+    (g.rol ? " → " + kac(g.rol) : "") +
+    (g.sahip ? " · sahip: " + kac(String(g.sahip).slice(0,8)) : "") +
+    (g.deneme ? " · deneme " + g.deneme : "") +
+    (g.tokenHarcanan ? " · " + g.tokenHarcanan + " tok" : "") +
+    (g.mddeYok ? " · <span style='color:#e0a34a'>md'de yok</span>" : "") +
+    "</div>"
+  ).join("");
+}
+
+async function planDerle(uygula) {
+  const repo = $("p-repo").value;
+  if (!repo) { toast("Önce repo seç", true); return; }
+  try {
+    const j = await emir({ eylem: uygula ? "plan-uygula" : "plan-derle", repo });
+    if (uygula) { toast("emirler.json güncellendi: " + (j.mesaj || "")); planYukle(); return; }
+    const detay = JSON.parse(j.mesaj || "{}");
+    const hatalar = (detay.hatalar || []).map(h => "<div style='color:#e08a8a'>RED: " + kac(h) + "</div>").join("");
+    const uyarilar = (detay.uyarilar || []).map(u => "<div style='color:#e0a34a'>uyarı: " + kac(u) + "</div>").join("");
+    $("p-rapor").innerHTML = (hatalar + uyarilar) || "<span style='color:#7fd79b'>checker YEŞİL — " + detay.gorevSayisi + " görev, uygulanabilir.</span>";
+  } catch (e) {
+    $("p-rapor").innerHTML = "<span style='color:#e08a8a'>" + kac(e.message) + "</span>";
+  }
+}
+
+async function planRepoDoldur() {
+  try {
+    const j = await getJson("/api/repolar");
+    $("p-repo").innerHTML = j.repolar.map(r => "<option>" + kac(r) + "</option>").join("");
+    if (j.repolar.length) planYukle();
+  } catch { /* repo listesi opsiyonel */ }
+}
+
+$("p-yukle").onclick = planYukle;
+$("p-kaydet").onclick = async () => {
+  const repo = $("p-repo").value;
+  try { await emir({ eylem: "plan-kaydet", repo, md: $("p-md").value }); toast("plan.md kaydedildi"); planYukle(); }
+  catch (e) { toast("Kaydedilemedi: " + e.message, true); }
+};
+$("p-derle").onclick = () => planDerle(false);
+$("p-uygula").onclick = () => planDerle(true);
+$("p-repo").onchange = planYukle;
+planRepoDoldur();
+
+durumYenile();
+ajanlariYukle();
+izinleriYukle();
+canliBaglan();
+setInterval(durumYenile, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paseo-pano</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:14px/1.5 system-ui, sans-serif; background:#111418; color:#d8dee6; }
+  nav { display:flex; gap:4px; padding:10px 16px; background:#171b21; border-bottom:1px solid #262c36; position:sticky; top:0; }
+  nav a { color:#8b95a3; text-decoration:none; padding:6px 12px; border-radius:8px; }
+  nav a.aktif { background:#232a35; color:#fff; }
+  main { padding:20px 24px; max-width:960px; }
+  select { background:#1d232c; color:#d8dee6; border:1px solid #2c3440; border-radius:8px; padding:6px 10px; }
+  .kart { background:#171b21; border:1px solid #262c36; border-radius:12px; padding:14px 16px; margin:12px 0; }
+  .kart h3 { margin:0 0 8px; font-size:15px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .kutu { background:#1d232c; border-radius:8px; padding:10px 12px; }
+  .kutu b { display:block; font-size:20px; }
+  .kutu span { color:#8b95a3; font-size:12px; }
+  .damga { color:#8b95a3; font-size:12px; margin-top:8px; }
+  .uyari { color:#e0a34a; }
+  code { background:#232a35; padding:1px 6px; border-radius:6px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#/doktor">Doktor</a>
+  <a href="#/orkestrasyon">Orkestrasyon</a>
+  <a href="#/hakkinda">Hakkında</a>
+</nav>
+<main id="kok">Yükleniyor…</main>
+<script>
+const kok = document.getElementById("kok");
+const fmt = (n) => n === null || n === undefined ? "—" : n.toLocaleString("tr-TR");
+
+async function getJson(yol) {
+  const r = await fetch(yol);
+  if (!r.ok) throw new Error((await r.json()).hata || r.status);
+  return r.json();
+}
+
+async function doktor() {
+  const { repolar } = await getJson("/api/repolar");
+  if (repolar.length === 0) { kok.innerHTML = "<p class='uyari'>Telemetri taşıyan repo bulunamadı (.verimlilik/telemetri.jsonl).</p>"; return; }
+  const sec = location.hash.split("/")[2] || repolar[0];
+  let html = "<p>Repo: <select id='rsec'>" + repolar.map(r => "<option" + (r === sec ? " selected" : "") + ">" + r + "</option>").join("") + "</select></p><div id='veri'></div>";
+  kok.innerHTML = html;
+  document.getElementById("rsec").onchange = (e) => { location.hash = "#/doktor/" + e.target.value; };
+  const v = await getJson("/api/veri?repo=" + encodeURIComponent(sec));
+  const kutu = (b, s) => "<div class='kutu'><b>" + b + "</b><span>" + s + "</span></div>";
+  document.getElementById("veri").innerHTML =
+    "<div class='kart'><h3>" + v.ad + "</h3><div class='grid'>" +
+    kutu(fmt(v.tur), "tur") +
+    kutu(v.kabulOrani === null ? "—" : "%" + v.kabulOrani, "kabul oranı") +
+    kutu(v.loop + v.finishGate, "dürtme (loop+fg)") +
+    kutu(fmt(v.altAjan), "alt-ajan turu") +
+    kutu(fmt(v.inTok), "token in") +
+    kutu(v.maliyetUsd > 0 ? "$" + v.maliyetUsd : "—", "maliyet") +
+    "</div>" +
+    (Object.keys(v.modlar).length ? "<p>Modlar: " + Object.entries(v.modlar).map(([m, n]) => m + " ×" + n).join(" · ") + "</p>" : "") +
+    (v.sonDamga ? "<p class='damga'>Son damga: " + v.sonDamga + "</p>" : "") +
+    "<p class='damga'>Üretim: " + v.uretim + " · TTL " + v.ttlSn + "sn</p></div>";
+}
+
+function orkestrasyon() {
+  kok.innerHTML = "<div class='kart'><h3>Orkestrasyon (prototip)</h3>" +
+    "<p>Görev emri kuyruğu K-0020 şemasına bağlanacak. Prototipte yazma <code>POST /api/emir</code> dar-listelidir ve <code>PANO_TOKEN</code> yoksa fail-closed.</p>" +
+    "<p class='uyari'>Bu sekmede henüz canlı veri yok — sahte kart YOK (dürüstlük kuralı).</p></div>";
+}
+
+function hakkinda() {
+  kok.innerHTML = "<div class='kart'><h3>paseo-pano</h3><p>K-0019'un izole prototipi. Bağımlılıksız, yalnız 127.0.0.1, 60sn TTL önbellek. Veri: .verimlilik/telemetri.jsonl + STATE_BOARD.md (salt-okur).</p></div>";
+}
+
+async function rota() {
+  const h = location.hash || "#/doktor";
+  document.querySelectorAll("nav a").forEach(a => a.classList.toggle("aktif", h.startsWith(a.getAttribute("href"))));
+  try {
+    if (h.startsWith("#/orkestrasyon")) orkestrasyon();
+    else if (h.startsWith("#/hakkinda")) hakkinda();
+    else await doktor();
+  } catch (e) { kok.innerHTML = "<p class='uyari'>Hata: " + e.message + "</p>"; }
+}
+addEventListener("hashchange", rota);
+rota();
+</script>
+</body>
+</html>
