@@ -26,6 +26,9 @@ export class LocalRuntimeAdapter implements WorkerAdapter {
   private probe: ProbeReceipt;
   private launcher: LocalLauncher;
   private env: NodeJS.ProcessEnv;
+  // BUG-C2 duzeltmesi (TUR A): requestCancel attemptId gonderir; spawn aninda
+  // attemptId->dispatchKey bagini kur — iptalde durable registry'den (pidOf) taze pid alinir.
+  private readonly dispatchKeyByAttempt = new Map<string, string>();
   constructor(probe: ProbeReceipt, launcher: LocalLauncher, env: NodeJS.ProcessEnv = process.env) {
     this.probe = probe;
     this.launcher = launcher;
@@ -40,6 +43,7 @@ export class LocalRuntimeAdapter implements WorkerAdapter {
     if (this.env.ORDU_RUNTIME !== 'local') return { outcome: 'FATAL', reason: 'runtime-declaration: ORDU_RUNTIME=local bekleniyor' };
     try {
       const { pid } = await this.launcher.launch(o);
+      this.dispatchKeyByAttempt.set(o.attemptId, o.dispatchKey);
       return { outcome: 'OK', externalSessionId: 'local:' + pid };
     } catch {
       return { outcome: 'UNKNOWN' }; // A08: belirsizlikte kör re-spawn YASAK — reconcile şart
@@ -53,11 +57,25 @@ export class LocalRuntimeAdapter implements WorkerAdapter {
     return alive === true ? 'ALIVE' : alive === false ? 'DEAD' : 'UNKNOWN';
   }
 
-  // iptal = kill + lookup ile DOĞRULAMA (cancelConfirmLocal kanıtsızsa spawn zaten bloklu)
-  async cancel(dispatchKey: string): Promise<boolean> {
-    const pid = this.launcher.pidOf(dispatchKey);
-    if (pid === undefined) return false;
+  // BUG-C2 duzeltmesi (TUR A): kanonik K-0006 sözleşme — cancel(attemptId) =>
+  // 'CONFIRMED_DEAD' | 'REQUESTED' | 'UNKNOWN'. Eski imza cancel(dispatchKey)=>boolean
+  // sözleşme DIŞIydı: requestCancel attemptId gonderir, pidOf(attemptId)=undefined ->
+  // erken false, kill'e HIC ulasılmaz, süreç yaşamaya devam ederdi.
+  // Teyit = kill + sınırlı pencerede OS ölüm doğrulaması (uydurma CONFIRMED_DEAD yok;
+  // ölüm gözlenmezse REQUESTED, belirsizlikte UNKNOWN — her ikisinde slot AKTİF kalır).
+  async cancel(attemptId: string): Promise<'CONFIRMED_DEAD' | 'REQUESTED' | 'UNKNOWN'> {
+    const dk = this.dispatchKeyByAttempt.get(attemptId);
+    if (dk === undefined) return 'UNKNOWN'; // bu adapter'ten spawn edilmedi: fail-closed
+    const pid = this.launcher.pidOf(dk);
+    if (pid === undefined) return 'UNKNOWN';
     await this.launcher.kill(pid);
-    return (await this.lookup(dispatchKey)) === 'DEAD';
+    const son = Date.now() + 2000;
+    while (Date.now() < son) {
+      const alive = await this.launcher.isAlive(pid);
+      if (alive === false) return 'CONFIRMED_DEAD';
+      if (alive === null) return 'UNKNOWN'; // belirsizlik → teyit yok
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    return 'REQUESTED'; // kill isteği gitti, pencerede ölüm teyidi gelmedi
   }
 }

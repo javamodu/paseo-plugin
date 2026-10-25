@@ -54,6 +54,34 @@ export async function requestCancel(
   return { status: 'CANCEL_UNCONFIRMED' as const, adapterResponse: out };
 }
 
+// BUG-C6 düzeltmesi (TUR A): devir (takeLease fence bump) store yazmalarini RED eder ama eski
+// sahibin SURECI OS-seviyesinde yazmaya devam ederdi (dalga-3 canli kanit). Kapatma patikasi:
+// devir aninda eski sahibin sürecini iptal et — attemptin DURUMU DEGISMEZ (yeni sahip ayni
+// attempte devam eder; requestCancel'in CANCELLED durum geçişlerinden FARKLI). Niyet mevcut
+// CANCEL_REQUESTED daliyla, teyit RUNTIME_OBSERVED (dış süreç gözlemi) ile deftere düşer —
+// yeni olay tipi AÇILMAZ (baseline senkron: 31 tip birebir). Teyit gelmezse süreç yaşar (dürüst).
+export async function cancelStaleOwner(
+  db: DatabaseSync, adapter: WorkerAdapter, attemptId: string, reason: string, actor = 'core',
+) {
+  const a = db.prepare('SELECT run_id FROM attempts WHERE id=?').get(attemptId) as any;
+  if (!a) throw new GateError('attempt yok');
+  tx(db, () => {
+    appendEvent(db, { type: 'CANCEL_REQUESTED', actorId: actor, causationId: attemptId, runId: a.run_id, attemptId, payload: { runId: a.run_id, attemptId, reason: 'stale-owner: ' + reason } });
+  });
+
+  let out: 'CONFIRMED_DEAD' | 'REQUESTED' | 'UNKNOWN' | 'UNSUPPORTED';
+  if (adapter.cancel) {
+    try { out = await adapter.cancel(attemptId); } catch { out = 'UNKNOWN'; }
+  } else out = 'UNSUPPORTED';
+
+  tx(db, () => {
+    appendEvent(db, { type: 'RUNTIME_OBSERVED', actorId: actor, causationId: attemptId, runId: a.run_id, attemptId, payload: { attemptId, runtimeState: 'STALE_OWNER_' + out } });
+  });
+  return out === 'CONFIRMED_DEAD'
+    ? { status: 'KILLED' as const, adapterResponse: out }
+    : { status: 'UNCONFIRMED' as const, adapterResponse: out };
+}
+
 // gonder: çalışan worker'a takip mesajı; desteklenmiyorsa normalize hata, durum değişmez.
 export async function sendFollowUp(
   db: DatabaseSync, adapter: WorkerAdapter, attemptId: string, text: string,

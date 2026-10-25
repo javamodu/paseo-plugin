@@ -5,12 +5,11 @@
 //
 // Kapi (2) IPTAL TEYIDI: gercek child kosarken cancel -> CONFIRMED_DEAD (pid olumu
 //   OS'ta dogrulanir) -> CANCELLED + rezervasyon RELEASED. UNSUPPORTED dali da kanitli.
-//   BULGU BUG-C2: LocalRuntimeAdapter.cancel, WorkerAdapter.cancel sozlesmesiyle
-//   UYUMSUZ (parametre dispatchKey bekliyor ama requestCancel attemptId gonderiyor;
-//   donus boolean, sozlesme 'CONFIRMED_DEAD'|'REQUESTED'|'UNKNOWN' enum'u). Sonuc:
-//   requestCancel + LocalRuntimeAdapter ile canli iptal ASLA teyitlenemez
-//   (pidOf(attemptId)=undefined -> erken false, kill'e HIC ulasilmaz). Test bunu
-//   canli kanitlar; duzeltme bu turun kapsami disinda (test-only gorev).
+//   BULGU BUG-C2 (dalga-3, KAPATILDI - TUR A src duzeltmesi): LocalRuntimeAdapter.cancel
+//   sozlesme-disiydi (dispatchKey bekliyor, boolean donduruyordu; requestCancel attemptId
+//   gonderdigi icin kill'e HIC ulasilmazdi). Duzeltildi: cancel(attemptId) artik kanonik
+//   enum doner (spawn aninda attemptId->dispatchKey baglantil, gercek kill + OS olum
+//   dogrulamasi). Regresyon kaniti asagida (KANIT BUG-C2-KAPALI).
 //   Gecerli kanit, sozlesme-uyumlu LiveBridgeAdapter ile verilir (test-tarafi kopru;
 //   gercek launcher + gercek pid olum dogrulamasi kullanir).
 // Kapi (5) GRANT REVOKE IN-FLIGHT: vekil grant'li attempt gercek child ile kosarken
@@ -18,10 +17,13 @@
 //   slot TUTULUR; yeni vekil islemi RED; iptal teyitlenince CANCELLED + RELEASED.
 // Kapi (6) HANDOFF SONRASI ESKI SAHIP: gercek disk-tabanli store'da devir (takeLease
 //   fence bump) sonrasi eski fence ile commitCandidate/recordEvidence RED (FenceError),
-//   yeni sahip yazar. BULGU BUG-C6: store citi var ama OS-seviye dosya yazma kapisi
-//   YOK - eski sahibin gercek sureci devirden sonra diske YAZMAYA DEVAM EDIYOR
-//   (canli kanit: yazar child'in dosyasi devir sonrasi buyuyor). Kosul 6 ancak
-//   devir+iptal birlesimiyle kapanir: iptalden sonra yazma durur (kanit asagida).
+//   yeni sahip yazar. BULGU BUG-C6 (dalga-3, KAPATILDI - TUR A src duzeltmesi): store
+//   citi kapaliydi ama eski sahibin SURECI devirden sonra diske yazmaya devam ediyordu.
+//   Duzeltildi: cancelStaleOwner (adapter-contract.ts) devir aninda eski sahibin
+//   surecini oldurur — attempt durumu degismez; niyet CANCEL_REQUESTED, teyit
+//   RUNTIME_OBSERVED dallariyla kaydolur (yeni olay tipi acilmaz - baseline senkron).
+//   Kosul 6 artik TEK adimda kapaniyor (KANIT BUG-C6-KAPALI asagida; devir+iptal
+//   birlesim yolu yedek kanit).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, existsSync, statSync } from 'node:fs';
@@ -34,7 +36,7 @@ import {
 } from '../src/store.ts';
 import { processOutbox, type WorkerAdapter, type SpawnResult } from '../src/dispatcher.ts';
 import { LocalRuntimeAdapter, LOCAL_REQUIRED_CAPS, type LocalLauncher } from '../src/local-runtime.ts';
-import { requestCancel } from '../src/adapter-contract.ts';
+import { requestCancel, cancelStaleOwner } from '../src/adapter-contract.ts';
 import { createGrant, revokeGrant, assertGrantDispatchable, type GrantInput } from '../src/grants.ts';
 import {
   createRunPlan, approvePlan, ensureStartCommand, dispatchNode, requestGrantApproval, decideWithGrant,
@@ -142,8 +144,9 @@ async function untilDead(launcher: RealNodeLauncher, pid: number, ms = 5000): Pr
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // dispatcher rig'i (live-gates-v3 deseni): PENDING outbox satiri olan RUNNING attempt.
-// path verilirse DISK-tabanli gercek store (kapi 6), yoksa bellek.
-function dispatchRig(path?: string) {
+// path verilirse DISK-tabanli gercek store (kapi 6), yoksa bellek. dk: dispatchKey
+// (ayni launcher'i paylasan bloklar icin tekil).
+function dispatchRig(path?: string, dk = 'dk-1') {
   const db = openStore(path);
   db.prepare('INSERT INTO capsules(id,goal,repo_id,source_commit) VALUES(?,?,?,?)').run('cap-1', 'h', 'r', H64('a'));
   db.prepare('INSERT INTO plans(id,capsule_id,version,plan_hash,evaluator_hash,policy_hash,payload_json) VALUES(?,?,?,?,?,?,?)')
@@ -154,7 +157,7 @@ function dispatchRig(path?: string) {
   db.prepare(`INSERT INTO attempts(id,run_id,node_id,number,state,input_hash,fencing_token) VALUES('att-1','run-1','n-1',1,'RUNNING','ih',1)`).run();
   setGlobalStop(db, false, 'test', 'kurulum');
   const cmd = recordCommand(db, { kind: 'START_RUN', actorId: 'op', runId: 'run-1', idempotencyKey: 'k-1', payload: { runId: 'run-1', planHash: H64('b'), idempotencyKey: 'k-1' } });
-  reserveDispatch(db, { attemptId: 'att-1', tokens: 50, commandId: cmd.commandId, dispatchKey: 'dk-1' });
+  reserveDispatch(db, { attemptId: 'att-1', tokens: 50, commandId: cmd.commandId, dispatchKey: dk });
   return db;
 }
 
@@ -190,16 +193,27 @@ test('S22-K2 CANLI: gercek child kosarken iptal -> CONFIRMED_DEAD (pid olumu) ->
   assert.equal(await launcher.isAlive(pid), true, 'gercek child kosmali');
   assert.match(String(col(db, "SELECT external_session_id FROM attempts WHERE id='att-1'")), /^local:/);
 
-  // --- BUG-C2 kaniti: LocalRuntimeAdapter.cancel sozlesme-uyumsuz; requestCancel uzerinden
-  // canli iptal ASLA teyitlenemez (attemptId gider, launcher dispatchKey bekler -> kill'e
-  // ulasilmaz, gercek surec YASAMAYA devam eder).
-  const directAdapter = new LocalRuntimeAdapter(probeAllLocal(), launcher, { ORDU_RUNTIME: 'local' });
-  const rBug = await requestCancel(db, directAdapter, 'att-1', 'bug-c2-kanit');
-  assert.equal(rBug.status, 'CANCEL_UNCONFIRMED');
-  assert.equal((rBug as any).adapterResponse, false, 'LocalRuntimeAdapter.cancel boolean dondu - enum sozlesmesi disinda (BUG-C2)');
-  assert.equal(await launcher.isAlive(pid), true, 'BUG-C2: iptal istegi gercek surece ULASMADI - child hala canli');
-  assert.equal(evCount(db, 'CANCEL_CONFIRMED'), 0);
-  console.log('BULGU BUG-C2: LocalRuntimeAdapter.cancel(attemptId) -> pidOf(attemptId)=undefined -> false; gercek pid=' + pid + ' HALA CANLI. Kontrat: cancel(attemptId)=>CONFIRMED_DEAD|REQUESTED|UNKNOWN; impl: cancel(dispatchKey)=>boolean. src duzeltmesi bu turun kapsami disinda.');
+  // --- BUG-C2 REGRESYON (TUR A src duzeltmesi): LocalRuntimeAdapter.cancel artik kanonik
+  // sözleşmede — attemptId alir, spawn bagindan dispatchKey'e köprüler, durable registry'den
+  // pid alir, gercek kill + OS olum teyidi ile CONFIRMED_DEAD doner. Ayri rig (dk-c2);
+  // bridge akisi (dk-1) etkilenmez.
+  {
+    const dbC2 = dispatchRig(undefined, 'dk-c2');
+    const directAdapter = new LocalRuntimeAdapter(probeAllLocal(), launcher, { ORDU_RUNTIME: 'local' });
+    const rC2s = await processOutbox(dbC2, directAdapter);
+    assert.equal(rC2s.result, 'bound');
+    const pidC2 = launcher.pidOf('dk-c2')!;
+    assert.equal(await launcher.isAlive(pidC2), true, 'regresyon child kosmali');
+    const rC2 = await requestCancel(dbC2, directAdapter, 'att-1', 'bug-c2-regresyon');
+    assert.equal(rC2.status, 'CANCELLED', 'duzeltilmis adapter canli iptali TEYITLEMELI (BUG-C2 kapandi)');
+    assert.equal(await untilDead(launcher, pidC2), true, 'kill gercek surece ulasmali');
+    await waitExit(launcher.children.get('dk-c2')!);
+    assert.equal(col(dbC2, "SELECT state FROM attempts WHERE id='att-1'"), 'CANCELLED');
+    assert.equal(col(dbC2, "SELECT state FROM reservations WHERE attempt_id='att-1'"), 'RELEASED');
+    assert.equal(evCount(dbC2, 'CANCEL_CONFIRMED'), 1);
+    console.log('KANIT BUG-C2-KAPALI: LocalRuntimeAdapter.cancel(att-1) -> pid=' + pidC2 + ' gercek kill + OS olum teyidi -> CONFIRMED_DEAD -> CANCELLED + RELEASED (sozlesme-disi dispatchKey/boolean imzasi giderildi)');
+    dbC2.close();
+  }
 
   // --- sozlesme-uyumlu kopru ile gercek iptal: pid olumu OS'ta dogrulanir
   const t0 = performance.now();
@@ -289,7 +303,7 @@ test('S22-K5 CANLI: vekil grant\'li attempt gercek child ile kosarken revoke -> 
 
 // ================= bol.22 kosul (6): HANDOFF SONRASI ESKI SAHIP YAZAMIYOR CANLI =================
 
-test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile yazma RED; yeni sahip yazar; BULGU: OS dosya kapisi YOK (devir+iptal ile kapanir)', async (t) => {
+test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile yazma RED; yeni sahip yazar; BUG-C6 KAPALI: devir aninda eski sahip sureci oldurulur, dosya buyumez', async (t) => {
   const dir = mkdtempSync(join(tmpdir(), 'ordu-s22k6-'));
   const dbPath = join(dir, 'ordu.sqlite'); // GERCEK disk store
   const proofFile = join(dir, 'eski-sahip-yazi.txt');
@@ -308,7 +322,11 @@ test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile y
   assert.equal(await launcher.isAlive(pid), true);
   assert.equal(col(db, "SELECT fencing_token FROM attempts WHERE id='att-1'"), 1);
 
-  // devir oncesi: eski sahip gercekten yaziyor (OS gozlemi baseline)
+  // devir oncesi: eski sahip gercekten yaziyor (OS gozlemi baseline).
+  // Sınırılı yoklama: tam süitin paralel yükünde child'in ilk yazması 450ms'yi aşabilir
+  // (gerçek flake: statSync ENOENT) — dosya doğana dek bekle, yazmıyorsa dürüst patla.
+  const tFile = Date.now() + 5000;
+  while (!existsSync(proofFile) && Date.now() < tFile) await sleep(50);
   await sleep(450);
   const size0 = statSync(proofFile).size;
   assert.ok(size0 > 0, 'yazar child baseline yazmali');
@@ -317,6 +335,19 @@ test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile y
   const newFence = takeLease(db, 'att-1', 'worker-yeni', FUTURE);
   assert.equal(newFence, 2);
   assert.equal(col(db, "SELECT lease_owner FROM attempts WHERE id='att-1'"), 'worker-yeni');
+
+  // BUG-C6 duzeltmesi (TUR A): devir aninda eski sahibin SURECI iptal edilir -
+  // cancelStaleOwner attempt durumunu BOZMAZ (yeni sahip ayni attempte devam eder);
+  // niyet CANCEL_REQUESTED daliyla, teyit RUNTIME_OBSERVED ile deftere duser (yeni olay tipi ACILMAZ - baseline senkron 31 tip).
+  const rStale = await cancelStaleOwner(db, bridge, 'att-1', 'devir-eski-sahip');
+  assert.equal(rStale.status, 'KILLED');
+  assert.equal(rStale.adapterResponse, 'CONFIRMED_DEAD');
+  assert.equal(await untilDead(launcher, pid), true, 'eski sahip sureci devir aninda olmeli');
+  await waitExit(launcher.children.get('dk-1')!);
+  assert.equal(col(db, "SELECT state FROM attempts WHERE id='att-1'"), 'RUNNING', 'eski sahip iptali attempt durumunu bozmamali');
+  assert.equal(evCount(db, 'CANCEL_REQUESTED'), 1);
+  const ro = db.prepare("SELECT payload_json FROM events WHERE type='RUNTIME_OBSERVED'").get() as any;
+  assert.ok(ro.payload_json.includes('STALE_OWNER_CONFIRMED_DEAD'), 'olum teyidi RUNTIME_OBSERVED dalinda kayitli');
 
   // eski sahibin STORE yazmalari RED (receipt reddi degil - sonuc ve kanit yazma kapilari)
   const e1 = (() => { try { commitCandidate(db, 'att-1', 1, H64('d'), 'worker-eski'); return null; } catch (e) { return e; } })();
@@ -336,14 +367,14 @@ test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile y
   assert.ok(evOk.evidenceId);
   assert.equal(col(db, "SELECT verdict FROM evidence WHERE id='" + evOk.evidenceId + "'"), 'PASS');
 
-  // BULGU BUG-C6: store citi kapali ama OS-SEVIYE dosya yazma kapisi YOK -
-  // eski sahibin gercek sureci devirden SONRA da diske yazmaya devam ediyor.
+  // BUG-C6 KAPALDI (TUR A): eski sahibin sureci devir aninda olduruldu -
+  // dosya devirden SONRA buyumuyor (eski bomba: yazma devam ederdi).
   await sleep(450);
   const size1 = statSync(proofFile).size;
-  assert.ok(size1 > size0, 'BUG-C6 kaniti: eski sahip devir sonrasi hala diske yaziyor (OS kapisi YOK)');
-  console.log('BULGU BUG-C6: devir (fence 1->2) store yazmalarini RED etti ama eski sahip pid=' + pid + ' diske yazmaya DEVAM EDIYOR (' + size0 + 'B -> ' + size1 + 'B). OS-seviye yazma kapisi (worktree ACL/sandbox) ordu-core icerisinde YOK - kosul 6 yalniz devir+iptal BIRLESIMIYLE kapaniyor. src duzeltmesi bu turun kapsami disinda.');
+  assert.equal(size1, size0, 'KANIT BUG-C6-KAPALI: devir sonrasi eski sahip yazamiyor (surec devir aninda olduruldu)');
+  console.log('KANIT BUG-C6-KAPALI: devir (fence 1->2) + cancelStaleOwner -> eski sahip pid=' + pid + ' devir ANINDA oldu (CANCEL_REQUESTED + RUNTIME_OBSERVED/STALE_OWNER_CONFIRMED_DEAD); dosya ' + size0 + 'B -> ' + size1 + 'B sabit (yazma durdu); attempt RUNNING kaldi (yeni sahip devam ediyor)');
 
-  // devir+iptal: eski sahibin sureci oldurulunce yazma DURUR (kosul-6 kapanis patikasi)
+  // devir sonrasi normal iptal patikasi (yedek kanit): attempt kapaninca rezervasyon RELEASED
   const r2 = await requestCancel(db, bridge, 'att-1', 'devir-iptal');
   assert.equal(r2.status, 'CANCELLED');
   assert.equal(await untilDead(launcher, pid), true);
@@ -352,6 +383,6 @@ test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile y
   const size2 = statSync(proofFile).size;
   await sleep(350);
   assert.equal(statSync(proofFile).size, size2, 'olu surec yazamaz - yazma durdu');
-  console.log('KANIT K6: devir fence 1->2; eski fence commit+kanit FenceError; yeni sahip yazdi (evidence=' + evOk.evidenceId.slice(0, 8) + '); iptal sonrasi pid=' + pid + ' OLDU, dosya ' + size2 + 'B boyutunda sabit (yazma durdu)');
+  console.log('KANIT K6: devir fence 1->2; eski fence commit+kanit FenceError; yeni sahip yazdi (evidence=' + evOk.evidenceId.slice(0, 8) + '); eski sahip pid=' + pid + ' devir aninda oldu (BUG-C6 kapali); attempt kapanisiyla rezervasyon RELEASED');
   db.close();
 });

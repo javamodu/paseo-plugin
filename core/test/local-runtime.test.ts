@@ -109,7 +109,9 @@ test('dispatcher entegrasyonu: local adapter ile uç uca SESSION_BOUND + reconci
   assert.equal((db.prepare("SELECT external_session_id FROM attempts WHERE id='att-1'").get() as any).external_session_id, 'local:4242');
   assert.equal(await a.lookup('dk-1'), 'ALIVE');
   assert.equal(await a.lookup('yok-olarak-dk'), 'UNKNOWN', 'registry\'de olmayan key uydurma DEAD OLMAZ');
-  assert.equal(await a.cancel('dk-1'), true);
+  // BUG-C2 regresyonu: cancel artik kanonik sözleşmede — attemptId alir, CONFIRMED_DEAD enum'u döner
+  assert.equal(await a.cancel('att-1'), 'CONFIRMED_DEAD');
+  assert.equal(await a.cancel('att-yok'), 'UNKNOWN', 'spawn edilmemis attempt uydurma teyit OLMAZ');
   assert.deepEqual(l.kills, [4242]);
 });
 
