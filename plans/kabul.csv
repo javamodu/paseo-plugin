@@ -1,7 +1,7 @@
-﻿id,faz,kaynak,durum,kaniT
-B00,S0,paseo SDK pin + capability probe,PASS_PARTIAL,evidence/probe-latest.json (0.11.2 + daemon OK; blocked listesi aktif)
+id,faz,kaynak,durum,kaniT
+B00,S0,paseo SDK pin + capability probe,PASS,npm run probe 2026-10-25 (R): blocked listesi BOS + 4 yetenek canli kanit (worktree gercek dongu / structuredOutput --help / usageReporting paseo inspect / cancelConfirm stop --help); receipt a8580ad0; log raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log ·d:2026-10-25T22:02:15+03:00 ·h:63920d5 ·x:0
 B01,S0,kapali payload sozlesmeleri (K1),GECTI,122/122 npm test (contracts + write-path + supervisor + adapter + metrics + handoff + closure U1-U7 incl. U4 + git-worktree + schedule + reasoning-receipt M18 + agent-lineage D4)
-B02,S1,canli Paseo capability'leri,BLOCKED,gate kodu+testleri GECTI_HERMETIC (blocked->spawn yok); canli yetenekler probe'da henuz false; ADR-012: bu blokaj YALNIZ paseo runtime'ini baglar
+B02,S1,canli Paseo capability'leri,PASS,canli yetenekler probe'da KANITLANDI (2026-10-25 probe (R) exit 0: worktree gercek git worktree dongusu + structuredOutput gercek --help ciktisi + usageReporting gercek paseo inspect LastUsage + cancelConfirm gercek stop --help; sandboxEstablished yalniz config-kaniti — davranissal sandbox ayri gate ister; log raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log) ·d:2026-10-25T22:02:15+03:00 ·h:63920d5 ·x:0
 RT0,RT,local runtime kapisi (runtime-kapsami),GECTI_HERMETIC,51/51 local-runtime.test.ts (paseo blocked iken local dogar; eksik kanit->FATAL; uydurma-DEAD yok)
 RT1,RT,git worktree + durable registry kaniti (harcamasiz),GECTI_HERMETIC,V3-RT.1 git-worktree-launcher.ts+git-worktree.test(4): temp git reposu worktree add + ayrik zararsiz surec + pid DURABLE JSON'a yazilmadan return YOK + restart(new instance) ayni pid + kill/lookup DEAD dogrulamasi + LocalRuntimeAdapter entegrasyon (spawn OK->ALIVE->DEAD); provider CLI uca-uca = RT2 (canli/harcama) NOT_RUN
 RT2,RT,provider CLI ile uctan uca local worker,NOT_RUN,V3-S1.1'in local kolu
