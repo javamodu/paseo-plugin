@@ -1,0 +1,178 @@
+import { existsSync, readFileSync, writeFileSync, mkdirSync, statSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { katmanKokuBul } from "./sozlesme";
+import type { AgentUsage } from "@getpaseo/protocol/agent-types";
+
+export type ModAd = "atolye" | "firtina" | "matbaa" | "cerrah" | "serbest";
+
+export interface Mod {
+  ad: ModAd;
+  thinking: string | null; // thinkingOptionId onerisi; null = dokunma
+  paralellik: number;
+  sistemEki: string;
+}
+
+// provider-modlar.json'un gomulu hali (K-0018): asset dosyasi yok, tek kaynak TS modulu.
+export const MODLAR: Record<ModAd, Mod> = {
+  atolye: {
+    ad: "atolye",
+    thinking: "ultra",
+    paralellik: 6,
+    sistemEki: "Mod: ATOLYE (sure-bazli limitsiz provider) — ultra thinking, 6'ya kadar paralel ajan, comert baglam oku. Baglam penceresi >%80 dolarsa yeni turda tazele (Context Rot freni). Tamamlanan is icin cift-ajan dogrulama oner (orkestrasyon kullanicida).",
+  },
+  firtina: {
+    ad: "firtina",
+    thinking: "high",
+    paralellik: 6,
+    sistemEki: "Mod: FIRTINA (Kimi-K3 sure-bazli lisans, ikinci emre kadar aktif) — kit kaynak duvar saati: bos ajan yasak, 6 slot dolu tut; token comert, zaman cimri. Onay bekleyen is seni bloklamaz: bagimsiz pakete gec, onaylari tek mesajda toplu sun. Kalite frenleri pazarliksiz: finish-gate exit-0, testsiz merge yok, kabul+rework carpani.",
+  },
+  matbaa: {
+    ad: "matbaa",
+    thinking: "high",
+    paralellik: 2,
+    sistemEki: "Mod: MATBAA (istek-bazli gunluk kota) — high thinking, en fazla 2 paralel, tek-atim buyuk paket uret. Dogrulamayi tur sonunda toplu yap; her ara adimda test kosturma (istek tasarrufu).",
+  },
+  cerrah: {
+    ad: "cerrah",
+    thinking: "low",
+    paralellik: 1,
+    sistemEki: "Mod: CERRAH (token-bazli PAYG) — low thinking, tek paralel, CODEMAP→tek dosya diyeti (genis tarama yasak). Hedefli dogrulama: yalniz degisen kapsamin testi kosulur.",
+  },
+  serbest: {
+    ad: "serbest",
+    thinking: null,
+    paralellik: 1,
+    sistemEki: "",
+  },
+};
+
+export interface ModEslesme { provider: string; modelDeseni: string; mod: ModAd }
+
+// Gomulu varsayilanlar (K-0018 ornekleri): kimi -> firtina (K-0032), GLM/deepseek -> cerrah.
+export const VARSAYILAN_ESLESME: ModEslesme[] = [
+// K-0032: ikinci emre kadar firtina; geri alma = bu satiri atolye'ye cevir
+  { provider: "codex", modelDeseni: "kimi", mod: "firtina" },
+  // K-0032 (R3-01): hook'larda model alani tasinmiyor; null-model icin provider-seviye varsayilan. Ikinci emirle bu satir da kaldirilir.
+  { provider: "codex", modelDeseni: "", mod: "firtina" },
+  { provider: "codefast-glm", modelDeseni: "", mod: "cerrah" },
+  { provider: "cf-opensource", modelDeseni: "glm|deepseek", mod: "cerrah" },
+];
+
+function guvenliRegex(desen: string): RegExp | null {
+  if (!desen) return null;
+  try { return new RegExp(desen, "i"); } catch { return null; }
+}
+
+// R3-09: pitbullTara her 60sn taramada stall'lu ajan basina modCoz cagirir — mtime+boyut anahtarli cache (ayarOku deseni).
+const eslesmeCache = new Map<string, { mt: number; boyut: number; deger: ModEslesme[] }>();
+const aktifCache = new Map<string, { mt: number; boyut: number; deger: ModAd | null }>();
+
+export function eslesmeOku(cwd: string): ModEslesme[] {
+  // ayar.json modlar.eslesmeler EK listesidir (override degil); kullanici kurallari once denenir.
+  try {
+    const dosya = join(katmanKokuBul(cwd), ".verimlilik", "ayar.json");
+    if (!existsSync(dosya)) return VARSAYILAN_ESLESME;
+    const st = statSync(dosya);
+    const c = eslesmeCache.get(cwd);
+    if (c && c.mt === st.mtimeMs && c.boyut === st.size) return c.deger;
+    const ham = JSON.parse(readFileSync(dosya, "utf8")) as Record<string, unknown>;
+    const modlar = ham.modlar as Record<string, unknown> | undefined;
+    const ek = (modlar?.eslesmeler ?? []) as ModEslesme[];
+    const gecerli = ek.filter((e) => e && typeof e.provider === "string" && typeof e.mod === "string" && Object.hasOwn(MODLAR, e.mod));
+    const deger = [...gecerli, ...VARSAYILAN_ESLESME];
+    eslesmeCache.set(cwd, { mt: st.mtimeMs, boyut: st.size, deger });
+    return deger;
+  } catch {
+    return VARSAYILAN_ESLESME;
+  }
+}
+
+export function modStateYolu(cwd: string): string {
+  return join(katmanKokuBul(cwd), ".verimlilik", "mod.json");
+}
+
+export function aktifModOku(cwd: string): ModAd | null {
+  try {
+    const dosya = modStateYolu(cwd);
+    if (!existsSync(dosya)) return null;
+    const st = statSync(dosya);
+    const c = aktifCache.get(cwd);
+    if (c && c.mt === st.mtimeMs && c.boyut === st.size) return c.deger;
+    const ham = JSON.parse(readFileSync(dosya, "utf8")) as Record<string, unknown>;
+    const ad = ham.aktif;
+    const deger = typeof ad === "string" && Object.hasOwn(MODLAR, ad) ? (ad as ModAd) : null;
+    aktifCache.set(cwd, { mt: st.mtimeMs, boyut: st.size, deger });
+    return deger;
+  } catch {
+    return null;
+  }
+}
+
+export function aktifModYaz(cwd: string, mod: ModAd | null): void {
+  const dosya = modStateYolu(cwd);
+  mkdirSync(dirname(dosya), { recursive: true });
+  writeFileSync(dosya, JSON.stringify({ aktif: mod, ts: new Date().toISOString() }, null, 2) + "\n", "utf8");
+}
+
+export function modCoz(cwd: string, provider: string, model: string | null | undefined): Mod | null {
+  const aktif = aktifModOku(cwd);
+  if (aktif) return MODLAR[aktif]; // bilincli secim eslemeyi ezer (serbest dahil: notr mod bilgisi telemetride degerli)
+  const eslesme = eslesmeOku(cwd).find((e) => {
+    if (e.provider !== provider) return false;
+    if (!e.modelDeseni) return true;
+    const re = guvenliRegex(e.modelDeseni);
+    return re !== null && typeof model === "string" && re.test(model);
+  });
+  return eslesme ? MODLAR[eslesme.mod] : null;
+}
+
+export function contextRotOrani(usage: AgentUsage | null): number | null {
+  if (!usage?.contextWindowMaxTokens || !usage.contextWindowUsedTokens) return null;
+  return usage.contextWindowUsedTokens / usage.contextWindowMaxTokens;
+}
+
+// Context Rot freni cooldown (ATOLYE): reload'da sifirlanir — kabul edilebilir (tur basina max 1 durtme).
+const rotSonDurtme = new Map<string, number>();
+
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
+export function ajanTemizle(agentId: string): void {
+  rotSonDurtme.delete(agentId);
+}
+const ROT_COOLDOWN_MS = 30 * 60 * 1000;
+export function rotDurtmeliMi(agentId: string, simdi: number): boolean {
+  const son = rotSonDurtme.get(agentId);
+  if (son !== undefined && simdi - son < ROT_COOLDOWN_MS) return false;
+  rotSonDurtme.set(agentId, simdi);
+  return true;
+}
+
+export function modDurumOku(cwd: string): { aktif: ModAd | null; eslesmeler: ModEslesme[]; modlar: ModAd[] } {
+  return { aktif: aktifModOku(cwd), eslesmeler: eslesmeOku(cwd), modlar: Object.keys(MODLAR) as ModAd[] };
+}
+
+export function modAyarla(cwd: string, modAd: string, provider?: string, modelDeseni?: string): { ok: boolean; mesaj: string } {
+  if (modAd === "sifirla") {
+    aktifModYaz(cwd, null);
+    return { ok: true, mesaj: "Aktif mod temizlendi (eslesme varsayilanina donuldu). Yeni ajanlarda etkili." };
+  }
+  if (!Object.hasOwn(MODLAR, modAd)) return { ok: false, mesaj: "Bilinmeyen mod: " + modAd + " — gecerli: " + Object.keys(MODLAR).join("/") + "/sifirla" };
+  aktifModYaz(cwd, modAd as ModAd);
+  let mesaj = "Aktif mod: " + modAd + " (workspace). Yeni ajanlarda etkili; tur ortasi degisim yok.";
+  if (provider && modelDeseni !== undefined) {
+    try {
+      const ayarDosya = join(katmanKokuBul(cwd), ".verimlilik", "ayar.json");
+      const ham = existsSync(ayarDosya) ? (JSON.parse(readFileSync(ayarDosya, "utf8")) as Record<string, unknown>) : {};
+      const modlar = (ham.modlar ?? {}) as Record<string, unknown>;
+      const liste = ((modlar.eslesmeler ?? []) as ModEslesme[]).filter((e) => !(e.provider === provider && e.modelDeseni === modelDeseni));
+      liste.push({ provider, modelDeseni, mod: modAd as ModAd });
+      modlar.eslesmeler = liste;
+      ham.modlar = modlar;
+      mkdirSync(dirname(ayarDosya), { recursive: true });
+      writeFileSync(ayarDosya, JSON.stringify(ham, null, 2) + "\n", "utf8");
+      mesaj += " Eslesme kaydedildi: " + provider + "/" + modelDeseni + " -> " + modAd + ".";
+    } catch (error) {
+      return { ok: false, mesaj: "Mod ayarlandi ama eslesme yazilamadi: " + String(error) };
+    }
+  }
+  return { ok: true, mesaj };
+}
