@@ -1,0 +1,26 @@
+status EXIT=0 :: {
+  "globalStop": true,
+  "pendingOutbox": 0,
+  "reserved": 0,
+  "unknown": 0,
+  "lastEvents": []
+}
+stop EXIT=0 :: {
+  "stopped": true,
+  "actor": "faz3-kanit"
+}
+resume-yanlis EXIT=1 (beklenen 1) :: "resume reddedildi: --confirm \"I understand the risk\" gerekli (kapı tasarımı)"
+resume-dogru EXIT=0 :: {
+  "resumed": true,
+  "commandId": "6b4131bd-b27a-4402-bea2-9e117784f1b6"
+}
+tick EXIT=0 :: {
+  "outbox": {
+    "idle": true,
+    "processed": 0
+  },
+  "reconcile": {
+    "reconciled": 0,
+    "outcomes": []
+  }
+}
