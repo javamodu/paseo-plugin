@@ -33,5 +33,16 @@
     "eski olu kapi D2-09 kaldirilmis; yeni kontrol 18/19 eslesme canli",
     "gelen-kutu sema 8/8 gecerli; saglik.ps1 kendisi durust (EXIT=1 raporluyor)"
   ],
-  "onerilenSira": ["zincir onarimi (madde 7)", "F4 hazirlik taslagi genisletilmis (madde 1-3)", "fake-green tamiri (madde 4-6)", "C/D/E dokuman-atik temizligi"]
+  "onerilenSira": ["zincir onarimi (madde 7)", "F4 hazirlik taslagi genisletilmis (madde 1-3)", "fake-green tamiri (madde 4-6)", "C/D/E dokuman-atik temizligi"],
+  "erata": [
+    {
+      "tarih": "2026-10-25T19:26:00+03:00",
+      "tur": "yerinde-duzenleme-mesrulastirma",
+      "aciklama": "maddeSayisi 20 -> 18 yerinde (in-place) duzenleme yapilmisti (blob kaniti: 43d2c6d=20, bf4e8ec=18) - append-only ihlali; icerik-dogrulama (dizi 18 eleman, hamBulguSayisi 58 korunmus) mesru, yontem degil. Ozgun degerler bu dosyada degistirilmeden korunur.",
+      "ozgunMaddeSayisi": 20,
+      "duzeltilmisMaddeSayisi": 18,
+      "kaynak": "raporlar/capraz-sorgu-ordu-dc-2026-10-25/OZET.md EK (7dde0cf)",
+      "onay": "kullanici 'duzelt' (2026-10-25)"
+    }
+  ]
 }

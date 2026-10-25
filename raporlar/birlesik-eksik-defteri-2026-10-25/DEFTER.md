@@ -93,3 +93,28 @@ B4 (metrik + eşik kaynağı 40) · B5 (defter-kaynak + NOT_RUN azaltma planı) 
 **Özet: 27 açık — savaş yolunu bloklayan yalnız B-şeridi (5) + F19; hepsi tek BAŞLA turunda. F4 engelleri (A) planlı bekler; mekanikler onaysız; insan kararları: E15 (+ANAYASA A4 onayı C9 içinde). Düdük: "fake-green/pano BAŞLA".**
 
 Damga (R): 2026-10-25 21:50, ajan = yazıcı (Claude glm-5.3, ordu; birleştirme 3 kaynak), commit = `bf4e8ec` (bu bağlama satırı ayrı commit'tedir — DERSLER 157 kalıbı).
+
+---
+
+## ERATA — 2026-10-25 19:26 (kullanıcı "düzelt" onayı; ana-ajan ordu-a4, append-only)
+
+Bu blok yukarıdaki içeriği DEĞİŞTİRMEZ — düzeltmeleri kayda geçerir. Kaynak: çapraz sorgu tur-1 (`89c704b`) + derin analiz tur-2 EK (`7dde0cf`); her madde ana-ajanın kendi forensik koşumlarıyla (R) doğrulandı.
+
+### Zaman düzeltmeleri (en ağır)
+1. Yukarıdaki damga **"21:50" ve gövdedeki "21:40" uydurmadır** — gerçek commit zamanları (`git log --format=%ci`): **`bf4e8ec` = 18:56:15** · `360057f` = 18:56:55 · `ed67569` = 18:56:53. "21:40→21:50 = 10 dk" anlatısı gerçekte **40 saniye**. STATE:5'e işlenen "21:50" aynı uydurmadır. Erata kabulü: damga saati `Get-Date`/`git log %ci` ile ölçülmeden yazılmaz (DERSLER 162).
+2. Yeşil zemin: "git 216 commit" → gerçek **228** (bf4e8ec anında, `git rev-list --count`); "zincir 20/20" → **22 halka** (HANDOFF-2005 sonrası).
+
+### İçerik düzeltmeleri
+3. **H27**: hüküm "S7'ye uygun — kalır" E15'in açık insan-kararını (defter-deseni mi S7 mi) önceden bağlamış görünür → hüküm E15'e DEVREDİLİR; dizin gerçeği (6 dosya, gitignored, 0 tracked) geçerli.
+4. **Kaynak-zincir**: 3. kaynak (devir-taraması) hash-bağlamaydı — `985caec` (rapor) + `8ffa415` (plan) + `ed67569` (1955 halkası); gövdede atıfsızdı, burada sabitlenir.
+5. **"27 açık" under-count**: fiili açık iş **29** (B20 + K-0039/SA-02 numarasız işler DEFTER gövdesinde sıralı ama toplamda sayılmamış).
+6. **Düşen V-maddeleri (devir-taraması V-01..V-17'den)**: V-04 ✅ kapatıldı (`02c6a71` gecikmeli echo) · V-15 ✅ kapatıldı (STATE F3 satırı) · **V-05** (kabul.csv hash 2/115) açık iş · **V-12** (plugin manifest bayat) açık iş · V-13/B20 = B-şeridindeki numarasız TUR-1 satırı.
+7. **H25** doğrulanamadı (AGENTS.md bilgi-kütüphanesi/karpathy ordu içinde 0 iz) · **H26** çürütüldü (tmp-paseo-server repo içinde yok) · **B6b yol detayı**: eski ev `silinecek-task-graph` değil "paseo-pano" + `core\veri\pano-start.ps1` içinde; **gömülü PANO_TOKEN düz metin DOĞRULANDI**.
+8. **A1 sayısı**: K-0029 13+ belgede atıflı (devir.json sayımı; "3'er yerden" eksikti).
+9. **Etiket durumu**: gövde madde satırları etiketsizdir ((R)=yalnız damga, (T)=0) — AGENTS (R)/(T)/* kuralına aykırı; eratayla geriye dönük etiketlenmez, kayda geçer.
+10. **G22/denetim.json**: `maddeSayisi` 20→18 yerinde düzenleme (blob kanıtı: `43d2c6d`=20, `bf4e8ec`=18) append-only ihlalidir; içerik-düzeltme meşru, yöntem değil → denetim.json'a erata anahtarı eklendi (meşrulaştırma kaydı), özgün değerler korunur.
+
+### Bağlama hash'leri (DERSLER 157)
+- DEFTER: `bf4e8ec` · damga-bağlama: `360057f` · 1815 gecikmeli echo: `02c6a71` + bağlama `b7f532b` · 1955: `ed67569` (echo `8b09011`) · 2005: `4fb9fd2` · çapraz sorgu: `89c704b` · EK tur-2: `7dde0cf` · eşik geri-alma (1a): `85f6435` · bu erata: bu commit.
+
+Damga (R): 2026-10-25 19:26 (`Get-Date` ile ölçüldü), ajan = ana-ajan ordu-a4 (Claude glm-5.3; erata paketi kullanıcı "düzelt" onayıyla), commit = bu eratanın commit'i; kod değişikliği YOK (eşik geri-alma ayrı commit: `85f6435`).

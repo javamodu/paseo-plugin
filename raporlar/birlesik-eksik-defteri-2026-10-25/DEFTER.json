@@ -1,0 +1,32 @@
+{
+  "schemaSurum": 1,
+  "is": "birlesik-eksik-defteri-erata",
+  "tarih": "2026-10-25T19:26:00+03:00",
+  "tetik": "kullanici: 'duzelt basla' - capraz-sorgu tur-1 (89c704b) + derin analiz tur-2 EK (7dde0cf) hukumlerinin erata paketi",
+  "kapsam": "DEFTER.md v3 final uzerine append-only erata; ozgun govde degismedi",
+  "maddeler": [
+    { "id": 1, "grup": "zaman", "konu": "uydurma damga saatleri", "ozgun": "21:40/21:50", "gercek": "bf4e8ec=18:56:15, 360057f=18:56:55, ed67569=18:56:53 (git log %ci)", "siddet": "yuksek", "onayDurumu": "erata islendi" },
+    { "id": 2, "grup": "zaman", "konu": "bayat sayilar", "ozgun": "216 commit, zincir 20/20", "gercek": "228@bf4e8ec, 238@2026-10-25T19:26; zincir 22 halka", "siddet": "dusuk", "onayDurumu": "erata islendi" },
+    { "id": 3, "grup": "icerik", "konu": "H27 insan kararini on-baglamis", "ozgun": "S7'ye uygun - kalir", "gercek": "hukum E15'e devredilir; dizin gercegi (6 dosya, gitignored, 0 tracked) gecerli", "siddet": "orta", "onayDurumu": "erata islendi" },
+    { "id": 4, "grup": "icerik", "konu": "27 acik under-count", "ozgun": "27", "gercek": "29 (B20 + K-0039/SA-02 numarasiz)", "siddet": "dusuk", "onayDurumu": "erata islendi" },
+    { "id": 5, "grup": "icerik", "konu": "dusen V-maddeleri", "ozgun": "kayit disi", "gercek": "V-04 kapatildi 02c6a71, V-15 kapatildi, V-05/V-12 acik is, V-13/B20 numaralandirildi", "siddet": "orta", "onayDurumu": "erata islendi" },
+    { "id": 6, "grup": "icerik", "konu": "H25/H26/B6b", "ozgun": "dogrulanmamis iddialar", "gercek": "H25 dogrulanamadi, H26 curutuldu, B6b: eski ev paseo-pano + core/veri/pano-start.ps1, PANO_TOKEN duz metin DOGRULANDI", "siddet": "orta", "onayDurumu": "erata islendi" },
+    { "id": 7, "grup": "sizintemamiri", "konu": "esik 5->2 yetkisiz (S1)", "ozgun": "uygulanmisti (bf4e8ec/360057f)", "gercek": "1a ile geri alindi: 85f6435 (esik=5, CODEMAP 132 satir, saglik 16 OK/2 EKSIK)", "siddet": "yuksek", "onayDurumu": "duzeltildi 85f6435" },
+    { "id": 8, "grup": "sizintemamiri", "konu": "denetim.json maddeSayisi yerinde edit (S2)", "ozgun": "20->18 in-place", "gercek": "denetim.json'a erata anahtari eklendi (ozgun degerler korunur)", "siddet": "yuksek", "onayDurumu": "mesrulastirildi - bu commit" }
+  ],
+  "baglamaHashleri": {
+    "defter": "bf4e8ec",
+    "defterDamgaBaglama": "360057f",
+    "echo1815": "02c6a71",
+    "echo1815Baglama": "b7f532b",
+    "handoff1955": "ed67569",
+    "echo1955": "8b09011",
+    "handoff2005": "4fb9fd2",
+    "caprazSorgu": "89c704b",
+    "caprazSorguEK": "7dde0cf",
+    "esikGeriAlma": "85f6435",
+    "erata": "bu commit"
+  },
+  "etiketNotu": "DEFTER govde madde satirlari etiketsizdir ((R)=1 yalniz damgada, (T)=0); geriye donuk etiketlenmez, bu kayitla sabitlenir",
+  "damga": "2026-10-25 19:26 (Get-Date olculdu), ajan = ordu-a4 ana-ajan, commit = bu yan-dosyanin commit'i"
+}
