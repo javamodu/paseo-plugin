@@ -92,4 +92,4 @@ B4 (metrik + eşik kaynağı 40) · B5 (defter-kaynak + NOT_RUN azaltma planı) 
 
 **Özet: 27 açık — savaş yolunu bloklayan yalnız B-şeridi (5) + F19; hepsi tek BAŞLA turunda. F4 engelleri (A) planlı bekler; mekanikler onaysız; insan kararları: E15 (+ANAYASA A4 onayı C9 içinde). Düdük: "fake-green/pano BAŞLA".**
 
-Damga (R): 2026-10-25 21:40, ajan = yazıcı (Claude glm-5.3, ordu; birleştirme 3 kaynak), commit = bu-turun-commit-i.
+Damga (R): 2026-10-25 21:50, ajan = yazıcı (Claude glm-5.3, ordu; birleştirme 3 kaynak), commit = `bf4e8ec` (bu bağlama satırı ayrı commit'tedir — DERSLER 157 kalıbı).
