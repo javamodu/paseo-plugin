@@ -37,7 +37,7 @@ Bağlantı (R): 2026-10-25 20:58 — TUR A `79a011c` → `0e76448` → `5e2fa0e`
 
 ## Bekleyen onaylar (insan)
 1. ~~Paseo daemon restart penceresi~~ **KÖPRÜ İÇİN ÇÖZÜLDÜ (2026-10-25 21:37, DERSLER 164)**: `paseo plugin reload` ölü worker'ı diriltti — köprü 4378 + durdur/kabul uçları CANLI (R: iki üst üste probe 200 + worker running), ajan öldürülmedi. Kalan tek teyit: K-0046 kanal canlı doğrulaması (3 ölçüt: cacheHitPuan ~97 · saatlikLoc makul bant · telemetride tip:'test' görünür — tip:'test' bu turda sınandı, teyit sonraki tur). M04/M15/M02 canlı kanıt artık restart'a bağlı değil. Daemon restart artık isteğe bağlı.
-2. **K-0041/K-0042 onayı** (ADAY kayıtlar yazıldı, kararlar/) · **B-1 pano-token rotate + `git rm`** (ya da K-0045 yerel-özel kabul; core/veri/pano-token.txt git-tracked, .gitignore'a alınmalı) · Karar C env (V-14) · ANAYASA A4+başlık (ANAYASA ajan değiştiremez)
+2. ~~K-0041/K-0042 onayı~~ **ONAYLANDI (2026-10-25 21:57, kullanıcı düdüğü)** — statü satırları döndü, içerik donar. Kalan bu maddede: **B-1 pano-token rotate + `git rm`** (ya da K-0045 yerel-özel kabul; core/veri/pano-token.txt git-tracked, .gitignore'a alınmalı) · Karar C env (V-14) · ANAYASA A4+başlık (ANAYASA ajan değiştiremez)
 3. **K-0039 sadeleştirme turu** (kural-proxy 84>80 — rehber v2.1 madde birleştirme; kararda "bu turda sözleşme düzenlemesi REDDEDİLDİ, ayrı dikkatli tur")
 4. **FAZ-3 dürüst-defter** (kabul %23→≥%44: 38 NOT_RUN + 43 GECTI_HERMETIC canlı koşum/kalıcı-açık) → SAVAŞA HAZIR → START → F4 (SAVAŞ SONRASI; önkoşullar: ham bench taşıma + K kayıtları + anahtar kararı)
 
