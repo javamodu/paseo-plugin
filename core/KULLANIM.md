@@ -20,7 +20,7 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 303/303, tam suit EXIT=0, 2026-10-25 — notify-canli.test.ts RT3 gercek webhook + benchmark-canli.test.ts M12 gercek süreç koşumu eklendi).
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 305/305, tam suit EXIT=0, 2026-10-25 — evaluator-canli.test.ts A11/A13 gerçek repo + schedule-canli.test.ts M08 gerçek zaman döngüsü eklendi).
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
 
 ## 3. Panoyu acma

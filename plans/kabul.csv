@@ -16,9 +16,9 @@ A07,S1,run kapasite tavani,GECTI_HERMETIC,store.test.ts A07
 A08,S1,belirsiz dis durum + reconcile,GECTI_HERMETIC,dispatcher.test.ts (kor re-spawn YOK kaniti)
 A09,S1,lease expiry+devir akisi,KISMEN,takeLease+bump test edildi; canli timeout NOT_RUN
 A10,S1,kosu->frozen candidate,GECTI_HERMETIC,supervisor.test.ts: PASS yalniz CANDIDATE_FROZEN uzerinde (freeze-oncesi settle RED); commitCandidate+recordEvidence zinciri
-A11,S1,evaluator izolasyonu,GECTI_HERMETIC,plan-donmus allowlist + stale-fence zinciri + gercek fixture kosusu testli; canli repo NOT_RUN
+A11,S1,evaluator izolasyonu,PASS,evaluator.ts canli (test/evaluator-canli.test.ts): GERCEK git repo (init+commit) icinde GERCEK node:test koşusu — runner.cjs TAP ozetini protokole cevirir; 2/2 gercek test PASS kanit; gercek kirmizi test gercek exit-1 FAIL; repo calisma agaci kirletilmez ·d:2026-10-25T23:10:29+03:00 ·h:764a0b9 ·x:0
 A12,S1,repair DAG tek jenerasyon,GECTI_HERMETIC,supervisor.test.ts: bounded repair max_attempts dolunca NEEDS_DECISION (4. deneme yok); REPAIR_REQUESTED repairAttempt<=2
-A13,S1,sahte-PASS kapisi,GECTI_HERMETIC,store kapisi + runtime protokol (exit-0+0-test FAIL) + runner-catch testi; canli evaluator NOT_RUN
+A13,S1,sahte-PASS kapisi,PASS,A13 canli (test/evaluator-canli.test.ts): sahte-PASS iki varyanti GERCEK surecte RED — exit-0 protokolsuz VE exit-0+tests=0 ikisi de FAIL; defterde 1 PASS + 3 FAIL (sahte yesil HIC girmedi) ·d:2026-10-25T23:10:29+03:00 ·h:764a0b9 ·x:0
 A14,S1,insan kabulü zorunlu (CLI ucu),GECTI_HERMETIC,supervisor decideApproval: ACCEPT_RESULT APPROVED olmadan run ACCEPTED olmaz; aday degisince onay BAYAT(RED) + PASS-kanit sart. Canli CLI ucu V3-S1.1 NOT_RUN
 A15,S1,merge daima insan,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (kapali komut kumesinde merge/push YOK = kapi yok kaniti; ACCEPTED tek yazari insan onayi)
 A16,S1,STOP latch + okuma sirasi,GECTI_HERMETIC,store+dispatcher spawn-0 kaniti
@@ -31,7 +31,7 @@ M04,REMOTE,erisim guvenligi,NOT_RUN,V3-S2.4 (A17 ile)
 M05,REMOTE,donmus rozet+requested!=confirmed,NOT_RUN,V3-S2.1 (A18/A20)
 M06,UI,telefon operatoru dogru kapsul,NOT_RUN,V3-S2.2 (A19/A21)
 M07,NOTIFY,durable redakte outbox,GECTI_HERMETIC,PASS 2026-10-14 gecesi: src/notify.ts + test/notify.test.ts 12/12 (dedupe/quiet-hours/redakte/retry-DEAD), npm test 234/234 exit 0
-M08,SCHEDULE,occurrence benzersizligi,GECTI_HERMETIC,schedule.ts occurrenceKey+settled + schedule.test M08 (yerlesen tekrar uretilmez; rev bump yeni kimlik); canli scheduler dongusu NOT_RUN
+M08,SCHEDULE,occurrence benzersizligi,PASS,schedule.ts canli dongu (test/schedule-canli.test.ts): GERCEK duvar saatiyle 300ms aralik koşum — tekrar 0; 900ms GERCEK duraklamada MISFIRE_SKIPPED kalici (catch-up firtinasi yok); yerlesen yeniden koşmaz; rev-2 yeni kimlik ·d:2026-10-25T23:10:29+03:00 ·h:764a0b9 ·x:0
 M09,SCHEDULE,TZ/DST determinizm,GECTI_HERMETIC,schedule.ts occurrencesUpTo UTC-epoch + schedule.test M09 (Ayni girdi->Ayni çıktı; non-UTC tz RED - DST sessiz vaat edilmez)
 M10,SCHEDULE,misfire/overlap catch-up yok,GECTI_HERMETIC,schedule.ts planOccurrences misfire=latest-only + schedule.test M10 (down->5 MISFIRE_SKIPPED emit 1; overlap BİNMEZ; STOP/revoke yerlestirmez adil yeniden dener)
 M11,AUTHORITY,grant kapsami genisleyemez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (superset scope RED, uydurma grant RED)
