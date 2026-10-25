@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD aa4781b — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 5728217 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -76,7 +76,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
 - `plans/SSOT-INDEX.md` (2.2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
-- `plugin/` (64 dosya: en yeni pano-durdur.test.ts, pano.ts, dedektor.test.ts)
+- `plugin/` (64 dosya: en yeni index.server.ts, pano-durdur.test.ts, pano.ts)
 - `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)

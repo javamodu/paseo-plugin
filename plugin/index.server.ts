@@ -150,6 +150,15 @@ export default function contribute(server: PluginServerContext) {
         } catch (ozetHata) {
           console.error("[paseo-verimlilik] tur ozetleme hatasi (tur yine kapanir)", ozetHata);
         }
+        // K-0046 teyit taramasi (2026-10-25): arac cagrisi gorunmeyen turda timeline kompozisyonu tek satir
+        // tanilama. Pencere boslugunun iki olasi koku var: daemon timeline'i tool_call TASIMIYOR (claude
+        // saglayicisi suphesi — telemetri tarihi: claude 0/103 araclu tur) YAD A sondaki user_mesaj pencereyi
+        // sifirliyor. Tip sayimi ayirt eder; kalicidir (gurultu: arac gorunmeyen tur basina bir satir).
+        if (ozetlerTur.length === 0 && event.timeline.length > 0) {
+          const tipSay = new Map<string, number>();
+          for (const o of event.timeline) tipSay.set(o.type, (tipSay.get(o.type) ?? 0) + 1);
+          console.warn("[paseo-verimlilik] tur penceresi bos: " + event.timeline.length + " oge [" + Array.from(tipSay.entries()).map(([t, n]) => t + "=" + n).join(" ") + "]");
+        }
         pitbullTurBitti(agentId, editliTur);
       try {
         if (event.outcome.kind === "completed") {

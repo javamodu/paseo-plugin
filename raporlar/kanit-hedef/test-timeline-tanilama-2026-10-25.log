@@ -1,0 +1,404 @@
+﻿
+> paseo-verimlilik@0.22.0 test
+> tsx test/dedektor.test.ts && tsx test/planmd.test.ts && tsx test/ordu.test.ts && tsx test/kucukfix.test.ts && tsx test/pano-durdur.test.ts
+
+ok: uc tool call ozetlendi
+ok: ayni komut ayni hash (exitCode hash'e girmez)
+ok: hash detailType icerir
+ok: farkli komut farkli hash
+ok: CEKIRDEK kural sayisi pozitif: 31
+ok: CEKIRDEK tek basina blok esiginin altinda
+ok: enjeksiyon CEKIRDEK ile baslar (cache dostu)
+ok: mevcut prompt sonda korunur
+ok: paseo-plugin reposunda ANAYASA tespit edildi
+ok: proje kurallari toplama eklendi: 46
+ok: mod=kapali: enjeksiyon atlanir (kural blogu olmadan da)
+ok: mod=isaretci: kisa metin, cekirdek yok
+ok: mod=isaretci: mevcut prompt korunur
+ok: mod=tam: tam cekirdek
+ok: isaretci hayalet referans icermez
+ok: bossuz projede onboarding isaretcisi duser
+ok: uzun komutlar birbirinden ayrilir (200+ char kirpma)
+ok: ayni uzun komut ayni hash
+ok: salt-metin turda finish-gate susar
+ok: editli + kanitsiz turda finish-gate durtur
+ok: editli + exit-0 testli turda finish-gate susar
+ok: git status allow
+ok: rg allow
+ok: Get-Content allow
+ok: rm -rf deny
+ok: force push deny
+ok: reset --hard deny
+ok: zincirde tehlike yine de deny
+ok: zincir allow edilmez
+ok: redirect bypass engellenir
+ok: npm install dokunma (kullaniciya)
+ok: shell-disina dokunma
+ok: git branch -D kullaniciya birakilir
+ok: git branch -m kullaniciya
+ok: dal olusturma kullaniciya
+ok: git branch allow
+ok: git branch -a -v allow
+ok: git branch --list allow
+ok: npm audit fix kullaniciya
+ok: npm audit allow
+ok: npm audit --json allow
+ok: git remote -v allow
+ok: git remote add kullaniciya
+ok: git stash list allow
+ok: git stash drop kullaniciya
+ok: okuyucu komutta arguman serbest (yanlis-pozitif yok)
+ok: yeni tur: pitbull susar
+ok: 11dk okuyucu stall: pitbull susar (okuyucu esigi 20dk)
+ok: 21dk okuyucu stall: pitbull durtur
+ok: 21dk stall mesaji '21 dakikadır' demeli, gelen: [paseo-verimlilik · pitbull] Tur 21 dakikadır aktivitesiz — takıldıysan: 2 satır durum raporu (ilk satır bağlam yüzdesi) + kaldığın yerden devam. Aynı konuda 2. ardışık dürtmede dur ve kullanıcı işareti bekle (rehber §7.6).
+ok: cooldown icinde ikinci durtme yok
+ok: tur bitince pitbull sifirlanir
+ok: 16dk yazici stall: pitbull durtur (yazici esigi 15dk)
+ok: oturum tavani: 5 durtmeden sonra susar (giden=5)
+ok: bayat tur (25sa) durtme uretmez, sifirlanir
+ok: yazici durtmesi yazim-kumesi sinifini bildirir
+ok: 30dk acik tur ama 2dk once aktivite: pitbull susar
+ok: 25dk aktivitesizlik: pitbull durtur (okuyucu esigi 20dk)
+ok: tur bitince sonAktivite sifirlanir, tur-disi aktivite yok sayilir
+ok: kapsam: 4 biricik dosya sayilir
+ok: kapsam: ayni dosya tekrarlari birlesir
+ok: kisa+madde-siz brief zayif sayilir
+ok: uzun+maddeli brief gecer
+ok: sub_agent yoksa brief taramasi sifir
+ok: v0.8c3: 2 anahtar yetmez (>=3 sarti)
+ok: v0.8c3: 3 anahtar gecer
+ok: ilk tarama sayar
+ok: ayni callId ikinci taramada atlanir (dedupe)
+ok: gorulen seti verilmezse eski davranis korunur
+ok: sonHandoff en yeni dosyayi bulur
+ok: echo eksikse ilk turda durtme
+ok: echo uclusu varsa susar
+ok: iskelet yoksa durtme
+ok: v0.8c2: tek katman yetmez (L1+L5 eksikse durtme surer)
+ok: uc katman kurulduysa susar
+ok: bos projede degerlendirme null doner
+ok: en yeni rapor adyla secilir (ISO siralama)
+ok: rapor icerigi okunur
+ok: yalniz kilit.json iceren surumler listelenir
+ok: karisiklik kayitlari ozete sayilir
+ok: kabul sayaci karisikliktan etkilenmez
+ok: dosya yoksa anlasilmazlik 0
+ok: ret deseni: olmadi yakalanir
+ok: ret deseni: Turkce harfle biten kelime satir sonunda yakalanir (unicode sinir)
+ok: ret deseni: olmamis yakalanir
+ok: ret deseni: temiz mesaj yakalanmaz
+ok: ret deseni: kelime-parcasi eslesmesi yok (yanlislar != yanlis)
+ok: karisiklik: karisik yakalanir
+ok: karisiklik: net degil yakalanir
+ok: karisiklik: temiz mesaj yakalanmaz
+ok: rd /s deny
+ok: git clean -fd deny
+ok: git checkout -- deny
+ok: git checkout main dokunma
+ok: ayar yoksa varsayilan
+ok: ayar.json override okunur
+ok: belirtilmeyen alan varsayilana duser
+ok: bozuk json varsayilana duser (crash yok)
+ok: sinir-disi degerler reddedilir
+ok: isaretci metni kural sayisini ve blok sebebini tasir
+ok: isaretci 4 satir ve kucuk (butce dostu)
+ok: ISO hafta: 2026-10-12 = W42
+ok: telemetri yoksa rollup uretmez
+ok: rollup dosyasi uretilir
+ok: rollup tur sayisi ve ortalama dogru
+ok: rollup kabul orani dogru
+ok: rollup durtmeler dogru
+ok: rollup cache-hit ortalamasi dogru (80+100)/2
+ok: hafta disi kayit sayilmaz (W41 disarida): Tur: 2
+ok: makine-okunur json yan dosya dogru
+ok: ayni veri ayni raporu uretir (deterministik, canli hafta guncel)
+ok: rollup normalize: pct>100 kayit 100p/(100+p) ile <=%100 (gelen: 91.9)
+ok: alt-ajan turu sayilir (K-0021)
+ok: kabul kapsami kayit sayisi
+ok: delta satiri onceki haftayi anar
+ok: delta yon ve buyukluk dogru
+ok: delta json makine-okunur
+ok: onceki hafta yoksa baz notu + kabul kosulu aciklamasi
+ok: isaretci ilk yazimda eklenir
+ok: isaretci Aktif is altina duser
+ok: ayni gun idempotent
+ok: yeni gun satiri kopyalamaz, gunceller
+ok: K-0023 O1: %90 maddesi kapsam yarim cumlesi tasir
+ok: yukari tarama katman kokune ulasir
+ok: alt dizinden AGENTS bulunur (yanlis-negatif kapandi)
+ok: isaretsizde cwd korunur (5 seviye tavani)
+ok: EK-1 ozeti cekirdekte (hayalet referans yok)
+ok: CEKIRDEK 12KB altinda (20KB butceye proje payi kalir)
+ok: yazma: Set-Content
+ok: yazma: redirect
+ok: yazma: writeFileSync
+ok: yazma: stderr redirect yanlis-pozitif degil
+ok: yazma: git status degil
+ok: editliMi: shell yazma editli sayilir
+ok: shell-yazmali + kanitsiz turda finish-gate durtur
+ok: v0.8c2: 'echo test' kanit sayilmaz (runner deseni)
+ok: v0.8c2: npx tsc kanit sayilir
+ok: kalite: 2/10 (%20) durtme uretir
+ok: kalite: cooldown ikinci durtmeyi engeller
+ok: kalite: 5 cagri altinda susar (gurultu korumasi)
+ok: kalite: %10 esiginde susar
+ok: turCagrilari yalniz son turu sayar (kumulatif kapandi): 1
+ok: editCagrilari shell-yazmayi edit sayar
+ok: kullanici mesaji yoksa tum timeline pencere sayilir
+ok: tur kaydi pluginSurum tasir: v0.22
+ok: PLUGIN_SURUM semver biciminde: v0.22
+ok: PLUGIN_SURUM en yeni kilit ile uyumlu (drift bekçisi): v0.22
+ok: bekci: temiz repo anomali uretmez
+ok: bekci: saglik EKSIK yakalanir
+ok: bekci: zincir kopugu yakalanir
+ok: bekci: kirli agac + aktif tur yok = git-drift
+ok: bekci: yalniz rollup kiri drift sayilmaz (otomasyon istisnasi)
+ok: bekci: yalniz .verimlilik kiri drift sayilmaz (telemetri istisnasi)
+ok: bekci: STATE_BOARD'suz repo git-drift uretmez (agnostik sinir)
+ok: bekci: SONUC'suz saglik ciktisi belirsiz anomalisi
+ok: bekci: fail %40 (6 tur) telemetri anomalisi
+ok: bekci: fail %10 esik altinda susar
+ok: bekciTara: anomali bildirilir
+ok: bekciTara: rapor dosyasi olusur
+ok: bekciTara: rapor satiri anahtar icerir
+ok: bekciTara: ayni gun ayni anahtar tekrar bildirilmez (dedupe)
+ok: bekciTara: aktif tur varken ertelenir (coder-aktif korumasi)
+ok: bekciTara: bekciKapali repo atlanir
+ok: rolCoz: [reviewer] taninir
+ok: rolCoz: buyuk-kucuk harf
+ok: rolCoz: bekci Turkce-cevirisi
+ok: rolCoz: basliksiz/prefikssiz null
+ok: okur: git status allow
+ok: okur: npm test allow (kosucu)
+ok: okur: npx --no-install tsc allow (D2-07)
+ok: okur: bare npx insan kapisina duser (D2-07)
+ok: okur: bare npx vitest insan kapisina duser (D2-07)
+ok: okur: Set-Content deny
+ok: okur: git commit deny
+ok: okur: edit deny
+ok: raporcu: raporlar/ edit allow
+ok: raporcu: src edit deny
+ok: raporcu: raporlar/ shell yazma allow
+ok: raporcu: src shell yazma deny
+ok: okur: tehlike kalibi deny korunur
+ok: okur: tanimadik komut kullaniciya (null)
+ok: coder: tam profil mevcut davranis
+ok: coder: commit kullaniciya birakilir (mevcut polis)
+ok: enjeksiyon: rol blogu cekirdek sonrasi duser
+ok: enjeksiyon: rol isaretcilerden once (cache dostu)
+ok: kutu: bos dizin anomali uretmez
+ok: kutu: 2 gunluk islenmemis madde anomalisi
+ok: kutu: islenmis madde susar
+ok: kutu: 24s dolmamis bekleyen susar (gurultu yok)
+ok: tur kaydi model tasir: gpt-6.1-sol
+ok: ayrik token alanlari: [1000,200,800]
+ok: tur kaydi maliyet tasir: 0.0123
+ok: ozet token toplamlari: [1500,300,800]
+ok: model dagilimi: {"gpt-6.1-sol":1,"claude-opus-4.8":1}
+ok: ozet maliyet: 0.0123
+ok: turBaslat olmadan ortTurSn null
+ok: turBaslat sonrasi ortTurSn sayi: 0
+ok: kimi eslesmesi firtina: firtina
+ok: eslesme yoksa null
+ok: null model: provider-seviye firtina: firtina
+ok: undefined model: provider-seviye firtina
+ok: aktif mod eslemeyi ezer
+ok: disk state okunur
+ok: serbest notr: {"ad":"serbest","thinking":null,"paralellik":1,"sistemEki":""}
+ok: sifirla state temizler
+ok: modAyarla ok: Aktif mod: matbaa (workspace). Yeni ajanlarda etkili; tur ortasi degisim yok. Eslesme kaydedildi: qoder/qwen -> matbaa.
+ok: ayar.json eslesmesi calisir (aktif matbaa ile ayni)
+ok: sifirlama sonrasi varsayilan eslesme korunur (firtina, K-0032)
+ok: sifirlama sonrasi ayar eslesmesi korunur
+ok: kotu regex eslesmez, patlamaz
+ok: bilinmeyen mod red
+ok: usage yoksa oran null
+ok: oran 0.8
+ok: ilk durtme gecer
+ok: cooldown icinde susar
+ok: cooldown sonrasi tekrar durtur
+ok: mod tanimlari K-0018'e uygun
+ok: firtina tanimi K-0032'ye uygun
+ok: ozet mod sayaci: {"atolye":1}
+ok: modsuz tur sayilmaz
+ok: find -delete auto-allow degil
+ok: find -exec auto-allow degil
+ok: rg --pre auto-allow degil
+ok: duz rg hala allow
+ok: duz find hala allow
+ok: diger okuyucular etkilenmedi
+ok: traversal raporcu yazimi engellendi
+ok: duz rapor yolu izinli
+ok: mutlak rapor yolu izinli
+ok: raporlar-benzeri segment izinsiz
+ok: kok traversal normalize sonrasi reddedilir
+ok: pitbull durumu seed'lendi
+ok: ajanTemizle pitbull durumunu sildi
+ok: ajanTemizleHepsi tum modullerde hatasiz calisti
+ok: 3x ayni hash: durtme gider
+ok: durtme metni gonderildi
+ok: ayni bulgu tekrar durtmez (sonHash)
+ok: gonderi sayisi sabit
+ok: farkli hash uclusu yeni bulgu: 2. ardisik durtme
+ok: 2. durtme gonderildi
+ok: 3. farkli bulgu: insan kapisi, durtme yok
+ok: insan kapisinda susuldu
+ok: A-B-A-B deseni yakalanir
+ok: uc farkli cagri: loop yok
+ok: ws: archived+baska-ws disarida, kapali+cwd-null atlandi: {"hedef":3,"gonderildi":1,"atlandi":2}
+ok: yalniz w1'e gonderildi
+ok: agentId yolu gonderir
+ok: idsiz istek reddedilir
+ok: D2-01: kosucu+zincir auto-allow degil
+ok: D2-01b: kosucu+&& auto-allow degil
+ok: D2-01 guard: duz kosucu hala allow
+ok: D2-02: raporcu yazma+zincir insan kapisina
+ok: D2-02 guard: redirect hedefi raporlar ise allow
+ok: D2-03: hedef src, substring raporlar -> deny
+ok: D2-03 guard: git add raporlar hedefi allow
+ok: D2-03b: git add -A raporcu'ya deny
+ok: D2-04: $() ikamesi zincir sayilir
+ok: D2-04 guard: duz echo allow
+ok: A2-7: tool_call JSON ciktida yok (status completed yanlis-pozitif kapandi)
+ok: A2-7 guard: assistant metni korunur
+ok: A2-4: alt-dizin cwd'sinde kayit kok .verimlilik'e dustu
+ok: A2-4 guard: dosya yolu kokte
+ok: A4-1: rollup raporu formul notu tasir
+ok: A2-6: iki acik tur sayili
+ok: A2-6: kapanan ajanin acik turu dusuldu
+ok: A2-6: sifirin altina dusmez
+ok: A2-8: 60sn icinde ikinci turKaydet rollup'i seyreklestirdi
+ok: BK-02: ayni turnId ile ikinci turKaydet satir yazmaz, adet=1
+ok: BK-02: dedupe dali aktifTur sayacini sisirmez
+ok: BK-02: reload sonrasi turSayisi jsonl'dan hidre edilir (2 kayit + yeni tur = 3), gelen=3
+ok: BK-02: hidre edilen turSayisi kayda yansir: 3
+ok: BK-02: reload sonrasi eski turnId yeniden islenmez, adet=3
+ok: A3-3: bozuk onceki-hafta json baz-hafta dalina duser
+ok: A3-4/3-7: callId'siz zayif brief durtme uretir
+ok: A3-7: durtme gonderildi
+ok: A3-7: telemetri yazildi
+ok: A3-7: cooldown ikinci durtmeyi engeller
+ok: A3-4: callId'siz item yeniden sayilir ama cooldown susar
+ok: BK-01: ilk tarama sayar
+ok: BK-01: callId'siz ayni metin ikinci taramada dedupe'lanir
+ok: D2-15: gorulen kumesi 500 tavaninda budanir
+ok: BK-01: ilk tur durtur
+ok: BK-01: durum diske yazildi
+ok: BK-01: reload sonrasi ayni timeline yeniden durtmez
+ok: BK-01: reload'da durtme tekrarlanmaz
+ok: R3-08: firtinada siki kullanici ayari korunur (yazici 5dk)
+ok: R3-08: yazici/okuyucu ayrimi surer (okuyucu 3dk)
+ok: R3-08: gevsek/varsayilan ayar 8dk tabana oturur
+ok: R3-08: firtina disi ayar aynen
+ok: R3-09: ilk okuma diskten
+ok: R3-09: dosya degisince cache gecersiz (mtime/boyut)
+ok: R3-09: eslesme ilk okuma
+ok: R3-09: ayar degisince eslesme cache gecersiz
+ok: R3-07: suresi dolmus lisans 'doldu' basar
+ok: R3-07: bozuk tarih sessiz null degil, gorunur mesaj
+ok: R3-07: gelecek tarih kalan-sure basar
+ok: R3-07: firtina disi null korunur
+ok: R3-05: rollup uretildi
+ok: R3-05: yalniz ayni-ajan pencere-ici tekrar rework (1/5=0.2), paralel ajan ve pencere-disi sayilmaz — gelen: 0.2
+ok: D2-08: fikstur 2MB ustu
+ok: D2-08: kuyruk-okuma son satiri yakalar
+ok: D2-08: 2MB ustu dosyada rollup canli-hafta kaydini bulur
+ok: D2-08: fikstur 5MB ustu
+ok: D2-08: rotasyon 5MB ustu dosyayi ~2MB'a indirir, gelen: 2097251
+ok: D2-08: rotasyon sonrasi yeni kayit dosyada
+ok: v0.22: aktifSn son-aktivite bazli (30sn): 30
+ok: v0.22: pitbull gormediyse aktifSn yazilmaz
+ok: v0.22: rollup ortAktifSn ((120+240)/2=180): 180
+ok: v0.22: md aktif-sure satiri icerir
+ok: K-0046: testAdiKisa zincirin cd bolumunu atar
+ok: K-0046: yalniz exit-kodu bilinen test komutlari olay yazar (npm install + exitCode'suz kosu degil): 2
+ok: K-0046: ilk olay exit=0 + kisa ad
+ok: K-0046: kirmizi exit korunur, ad cd'den arinir
+ok: K-0046: olay turnId + surum tasir
+ok: K-0046: tur ozeti tek ve SON satir (test olaylari onunde)
+ok: A3-5: Aktif-is basliksiz pano dokunulmaz
+ok: A3-5: isaretci eklendi
+ok: A3-5: CRLF korunur
+ok: A3-6: parentAgentId -> altAjan:true uretim zinciri
+ok: A3-8: 4 biricik dosya tavan-asim durtmesi
+ok: A3-8: durtme metni kapsam icerir
+ok: A6-1: ozet altAjan sayar: 1
+ok: git'siz ortamda locDelta null: null
+ok: turBaslat'siz turKaydet locDelta null
+ok: v0.21: decodeTps 100/50=2
+ok: v0.21: decodeTps guard
+ok: v0.21: test komutlari taninir
+ok: v0.21: test-olmayan taninmaz
+ok: v0.21: halRefTara 3 toplam 2 kirik: {"toplam":3,"kirik":2}
+ok: v0.22: alt-dizin cwd kok-goreli ref kirilmaz: {"toplam":1,"kirik":0}
+ok: v0.22: varolmayan dosya hala kirik: {"toplam":1,"kirik":1}
+ok: v0.22: satir asimi hala kirik (kok fallback sonrasi): {"toplam":1,"kirik":1}
+ok: v0.21: testKosu/testKirmizi yazildi: 1/1
+ok: BK-02: tur-ici commit pozitif sayilir (3 satir): 3
+ok: BK-02: commitsiz tur uncommitted fark (2 satir): 2
+ok: editDosyalari benzersiz: ["a.ts","b.ts"]
+ok: LOC kayitli rollup uretildi
+ok: toplamLocDelta: 180
+ok: R3-06: saatlikLoc ayni alt-kume (locDelta+turSn cifti: 30/1saat): 30
+ok: R3-05: yalniz pencere-ici tekrar 1/4: 0.25
+ok: R3-05: etkinLoc = 180 * 0.75: 135
+ok: md rework satiri icerir
+ok: v0.21: ortDecodeTps=20: 20
+ok: v0.21: testKirmiziOrani=50 (1/2): 50
+ok: v0.21: halKirikOrani=25 (1/4): 25
+ok: v0.21: ortStallSn=480: 480
+ok: turSn yoksa saatlikLoc null (sifira bolunme yok)
+ok: editsiz: reworkOrani null, etkinLoc=toplamLocDelta
+ok: K-0032: firtina takilma esigi 8dk
+ok: K-0032: firtina disi yazici esigi korunur (15dk)
+ok: K-0032: modsuz varsayilan yazici esigi (15dk)
+ok: K-0032: firtina disi okuyucu esigi korunur (20dk)
+ok: K-0032: hedef id+baslik+oneri icerir
+ok: K-0032: ciktiFormati dolu
+ok: K-0032: aracKaynak dosyaRef icerir
+ok: K-0032: gorevSiniri dolu
+ok: K-0032: firtina disi modda k3 satiri yok
+ok: K-0032: k3Bitis yoksa uyari satiri
+ok: K-0032: kalan sure dogru: K3 kalan sure: 2 gun 12 saat (bitis: 2026-10-15T12:00:00.000Z)
+ok: R3-07: bozuk tarih fail-visible (sessiz null kaldirildi)
+TUM TESTLER GECTI
+ok: temiz parse: hata yok
+ok: 3 gorev parse edildi
+ok: S4-01 alanlari dogru
+ok: kabul kriteri dogru ayrildi
+ok: bagimlilik parse edildi
+ok: dizin parse edildi
+ok: kutu isaretleri duruma donustu
+ok: derleme yesil (kabul+dizin-kuralsiz)
+ok: kanonik md uretildi
+ok: id tekrari RED
+ok: kabul kriteri yoksa RED (K-0033 sert kural)
+ok: bagimlilik dongusu RED
+ok: izinli dizin gecer
+ok: izinsiz dizin RED
+ok: insan md'si kazanir (baslik guncellendi)
+ok: runtime alanlari korunur
+ok: md'de olmayan silinmez, isaretlenir (append-kilit)
+ok: round-trip: gorev sayisi korunur
+ok: round-trip: id/kabul/rol korunur
+ok: mdHash kararli ve ayristirici
+TUM TESTLER GECTI (planmd)
+ok: bos orduda spawn serbest
+ok: 4. coder RED (max-coder)
+ok: 3. tester RED (max-tester)
+ok: tester doluysa toplam altinda olsa bile RED
+ok: toplam 6 RED (max-toplam)
+ok: id'siz RED
+ok: bilinmeyen tip RED
+ok: kuyruk: 2 gecerli satir (bozuk atlanir)
+ok: sonuc yoksa hepsi islenmemis
+ok: sonuc yazimi sonrasi islenen/sp-1
+ok: append-only: kuyruk ezilmedi, kalan sp-2
+ok: red sebebi sonuc dosyasinda
+ok: ordu.json yoksa varsayilan
+ok: ordu.json kismi override
+TUM TESTLER GECTI (ordu)
+kucukfix.test.ts OK
+[paseo-verimlilik] pano koprusu: http://127.0.0.1:43781 (ui: D:\Vibecode\ordu\pano, yazma ACIK)
+PANO-DURDUR: durdur eylemi -> send(activeTurnBehavior=interrupt) + STOP metni; agentId'siz 422; tokensuz 401 (fail-closed); /api/kabul canli defter (saglik 6b ile ayni hesap)
