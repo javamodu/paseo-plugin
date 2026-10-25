@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 480911b — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 132aeaa — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -91,6 +91,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/plan-analiz-2026-10-14/` (10 dosya: en yeni kapsul-v5.md, kapsul-v4.md, ordu-v3.md)
 - `raporlar/proje-panosu/2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.1.0)
 - `raporlar/repo-etkinlik-2026-10-14/OZET.md` (1.8KB) — Repo Etkinlik Olcumu — 2026-10-14 01:45 (R: 14 repo telemetri.jsonl disk taramasi) | Buyuk resim (anlamli orneklem: >=10 tur) | Firtina etkisi (turSn>0 filtresi, ayni repo ici)
+- `raporlar/son-durum-6subagent-2026-10-25/OZET.md` (4.9KB) — SON DURUM DENETİMİ — 6-SUBAGENT (tur 2) — 2026-10-25 21:15 | CEVAP 1 — Eksik var mı? EVET: 4 küme (hiçbiri KAPANMADI, biri kapandı) | CEVAP 2 — Sonraki adımlar (plandan doğrulanmış sıra; her adımın kapısı komutli)
 - `raporlar/sozlesme-sondaj/2026-10-12/OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
 - `raporlar/ssot-birlesimi-2026-10-25/OZET.md` (2.4KB) — SSOT Birleşimi (F2-6) — 2026-10-25 | Yapılanlar | DERSLER kesişim listesi (ordu kazandı, task-graph kopyası arşivde)
 - `raporlar/takip-sozlesme/` (10 dosya: en yeni 2026-10-25.md, 2026-10-24.md, 2026-10-20.md)
