@@ -5,7 +5,7 @@
   "tetik": "kullanici: faz baslamadan 6-subagent denetim (dokuman-kod drift, mimari drift, fake green, atik, disarida kalan)",
   "yontem": "6 salt-okur subagent (EK-3 brief) + 1 yazici; duzeltme UYGULANMADI",
   "hamBulguSayisi": 58,
-  "maddeSayisi": 20,
+  "maddeSayisi": 18,
   "eksikler": [
     { "id": 1, "grup": "kayip", "madde": "kararlar/K-0029.md + K-0036.md diskte yok, 3'er atifli", "siddet": "yuksek", "kanit": "Test-Path false; HANDOFF-2026-10-13-0445:11, plugin/surumler/v0.17/kilit.json:9, STATE_BOARD:26" },
     { "id": 2, "grup": "kayip", "madde": "ham bench verileri eski evde (24 koşu + .bench-* 4 dizin + ordu-core.zip 2.1MB), arsiv'de karsilik yok", "siddet": "yuksek", "kanit": "ADR m.7 ihlali; disk listeleme" },

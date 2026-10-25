@@ -22,12 +22,13 @@ $lines += "# CODEMAP — $(Split-Path $Root -Leaf) (OTOMATIK URETILDI: $stamp �
 $lines += ''
 $lines += 'Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.'
 $lines += ''
-# K-0035: yalniz rapor/kanit arsiv dizinlerinde esik-5 topaklama. kararlar/ + plans/ + scripts/ dosya duzeyinde kalir.
+# K-0035: yalniz rapor/kanit arsiv dizinlerinde topaklama. kararlar/ + plans/ + scripts/ dosya duzeyinde kalir.
+# 2026-10-25 (birlesik-defter turu): esik 5 -> 2 — tek-ozetli kucuk rapor dizinleri de katlanir; 435 map-dosyasina karsi 130 satir butcesi korunur.
 # K-0037 (F2-7 uygulama): plans/handoff/ esik-5 hattina girer; monorepo bilesen dizinleri (ADR hedef yapi)
 # KLASOR-TOPAKLAMA kuraliyle esiksiz TEK SATIR'a iner — 384 map-dosyasi buna karsin 130 satir butcesi korunur.
 $topakOn = @('raporlar/','kanit/','plans/arsiv/','plans/handoff/')
 $zorlaTopak = @('core/','plugin/','pano/','referans/','arsiv/','surumler/')
-$esik = 5
+$esik = 2
 function Get-TopakKey([string]$rel) {
   foreach ($p in $zorlaTopak) { if ($rel.StartsWith($p)) { return $p } }
   foreach ($p in $topakOn) {

@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 132aeaa — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 985caec — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -59,7 +59,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/Agent-Ordu-Teknik-Brief-ve-Prompt.md` (19.1KB) — Agent Ordu — Teknik ürün özeti ve geliştirici promptu | Belgenin statüsü | 1. Ürün tanımı
 - `plans/arsiv/` (7 dosya: en yeni REVIEW-v2.8-2026-10-14.md, GECE-RAPORU-2026-10-14.md, GECE-2026-10-14.md)
 - `plans/F3-TASLAK-2026-10-25.md` (6.2KB) — F3 HAZIRLIK TASLAĞI — kanca tek eve + daemon restart | 1. Şu an durum (diskten, R — 2026-10-25 ~17:30) | 2. Bulgu — B11 kapsamı bayat (yeni, R)
-- `plans/handoff/` (21 dosya: en yeni HANDOFF-2026-10-25-1930.md, HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1716.md)
+- `plans/handoff/` (22 dosya: en yeni HANDOFF-2026-10-25-1955.md, HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1930.md)
 - `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · K-0034 ONAYLANDI 2026-10-25) | 1. Komuta ve yurutme | 2. Kalite ve kabul
 - `plans/mockup/cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans/mockup/DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
@@ -70,14 +70,17 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/mockup/parcalar/v10/05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
 - `plans/mockup/parcalar/v10/06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
+- `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
 - `plans/SSOT-INDEX.md` (2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
 - `plugin/` (63 dosya: en yeni dedektor.test.ts, kucukfix.test.ts, brief.ts)
 - `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
+- `raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md` (7.7KB) — NİHAİ BİRLEŞİK EKSİK DEFTERİ — v3 FİNAL (27 açık · 1 kapalı) | Yeşil zemin (kaynaklar aynı ölçüde, R) | A — Kayıt/Kanıt/Versiyon (F4'ü bloklar) 🔴
 - `raporlar/codex-uc-analizi-2026-10-25/OZET.md` (5.1KB) — Codex ucu analizi — 2026-10-25 | Kanıt zinciri (diskten, bu turda okundu) | Ücretsiz alternatifler (kullanıcı politikası: ücretli API yok)
 - `raporlar/denetim-6subagent-2026-10-25/OZET.md` (5.9KB) — DENETİM — 6-SUBAGENT (F4 öncesi) — 2026-10-25 19:00 | Bulguların kanıt zinciri | EKSİKLER LİSTESİ (öncelik sırasıyla)
+- `raporlar/devir-tarama-6subagent-2026-10-25/OZET.md` (5KB) — DEVİR TARAMASI — 6-SUBAGENT (tam devir + plan girdisi) — 2026-10-25 18:50 | Ana-ajan bağımsız doğrulamaları (R) | Doğrulanan denetim maddeleri (önceki 20'lik listenin teyidi)
 - `raporlar/f3-restart-envanteri-2026-10-25/OZET.md` (2.2KB) — F3 RESTART ENVANTERİ — 2026-10-25 17:50 (A0) | Restart-öncesi durum (R, diskten) | Yapılanlar (restart'tan önce)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
 - `raporlar/gelen-kutu/` (9 dosya: en yeni ana-ajan-2026-10-25.md, codex-2026-10-14.md, denetim2-2026-10-13.md)
@@ -95,8 +98,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/sozlesme-sondaj/2026-10-12/OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
 - `raporlar/ssot-birlesimi-2026-10-25/OZET.md` (2.4KB) — SSOT Birleşimi (F2-6) — 2026-10-25 | Yapılanlar | DERSLER kesişim listesi (ordu kazandı, task-graph kopyası arşivde)
 - `raporlar/takip-sozlesme/` (10 dosya: en yeni 2026-10-25.md, 2026-10-24.md, 2026-10-20.md)
-- `raporlar/telemetri-haftalik/2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
-- `raporlar/telemetri-haftalik/2026-W43.md` (0.9KB) — Telemetri Haftalık Özet — 2026-W43
+- `raporlar/telemetri-haftalik/` (2 dosya: en yeni 2026-W43.md, 2026-W42.md)
 - `raporlar/token-olcum-2026-10-11/OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `raporlar/triage-2026-10-14/OZET.md` (1.3KB) — Gelen-Kutu Triage — 2026-10-14 (isçi: 7a8d41f8, 43/43 madde) | denetim-2026-10-13.json (28) | denetim2-2026-10-13.json (14)
 - `raporlar/uygunluk-2026-10-17/uygunluk.md` (4.6KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
@@ -108,7 +110,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
 - `scripts/bench-claude.mjs` (8KB) — function claude(prompt, ms = 240000) {
-- `scripts/codemap.ps1` (4KB) — function Get-TopakKey([string]$rel) {
+- `scripts/codemap.ps1` (4.2KB) — function Get-TopakKey([string]$rel) {
 - `scripts/codex-failover.mjs` (7.5KB) — function dogrula() { | async function olc(b) { | function denemeModeli(b) {
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (5KB) — function GitZorunlu([string[]]$GitArgs) {
@@ -123,6 +125,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (6.2KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (7.5KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
