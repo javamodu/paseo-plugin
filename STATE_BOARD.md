@@ -1,7 +1,7 @@
 ﻿# STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi (ce50c92), ağaç 0 kirli · kalan: arsiv/tmp-home-2026-10-25 kopyası (robocopy komutu kullanıcıya verildi; sınıflandırıcı penceresi kapalı) · S4 anahtar rotate KULLANICI'DA · F1 onayı F0 bitince ayrıca.
+F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi (ce50c92), ağaç 0 kirli · arsiv/tmp-home-2026-10-25 KOPYALANDI (kullanıcı robocopy: 113 dizin / 188 dosya / 14.93 MB / 0 FAILED; gitignore doğrulandı, .codex 25 girdi) · TEK KALAN: S4 anahtar rotate KULLANICI'DA (eski anahtar .claude\settings.json + .tmp-home\claude-glm53u-settings.json'da hâlâ duruyor, diskten okundu) · F1 onayı rotate sonrası.
 
 ## Son damgalar (tam: son 3)
 - 2026-10-25 · F0 KAPANIŞ DALGASI (kullanıcı koştu): ce50c92 "F0 kapanis: codemap tazeligi + W43 telemetri guncel; arsiv/tmp-home-2026-10-25 hazirlandi (gitignore'lu)" — CODEMAP 184 dosya/134 satır + W43 telemetri 3 dosya · saglik: 15 OK / 2 EKSİK (L1 103 satır — bu trimle kapatıldı; L2 CODEMAP 134>130, ADR ister) / 1 SARI (kural-proxy 78) · arsiv kopyası BEKLEMEDE (cmd.exe'de Copy-Item yok → robocopy verildi)
