@@ -73,7 +73,7 @@ node src/cli.ts tick
 - `status` → JSON: globalStop, pendingOutbox, reserved, unknown, son 5 olay. Exit 0.
 - `stop` → global stop latch kurar; `{stopped:true}`. Exit 0.
 - `resume` → onay metni olmadan exit 1; dogru metinle `{resumed:true, commandId}`. Exit 0.
-- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile. Yetenekler kanitlanmamissa `{dispatch:"BLOCKED", reason, note}` ile exit 2 (bugunku durum, R 2026-10-25: probe receipt BAYAT — `tick` probe kapisinda RED, exit 1, "probe receipt BAYAT — yeniden probe kos"; Paseo adaptoru wire durumu ayri dogrulanmali).
+- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile. (R) 2026-10-25 22:02 canli kosum (temp ORDU_DB): probe receipt TAZE + yetenek kapilari acik → dispatch IDLE, exit 0 (log: raporlar/kanit-hedef/core-cli-faz3-2026-10-25.log). Paseo adaptoru hala wire EDILMEDI — gercek kapsul yaratilmaz, outbox bos kalir (fail-closed).
 - CLI de `ORDU_DB` (varsayilan `data/ordu.sqlite`) ve `ORDU_PROBE` (varsayilan `evidence/probe-latest.json`) okur.
 - Bilinmeyen komut → kullanim satiri + exit 1.
 
@@ -89,7 +89,7 @@ node src/cli.ts tick
 
 - Ucretli/dis API kapali: tum testler hermetik; gercek LLM/Paseo cagrisi YOK.
 - Merge/deploy yok: core yalniz defter + dispatch + kabul kapilari; git merge ve yayinlama kapsam disi.
-- Paseo adaptoru wire edilmedi; ayrica probe receipt bayat (R 2026-10-25): `tick` probe kapisinda RED doner (exit 1, "probe receipt BAYAT") — yeniden probe kosulmadan dispatch YOK (fail-closed).
+- Paseo adaptoru wire edilmedi — dispatch gercek kapsul yaratmaz (outbox IDLE). Probe receipt artik TAZE (R 2026-10-25: `npm run probe` EXIT=0, blocked listesi BOS, receipt a8580ad0; tick exit 0). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; suit probe.mjs'i kosturmadigi icin latent kaliyordu (kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
 - Pano read-only + stop/resume'dur; plan onayi/karar verme panodan YAPILMAZ.
 
 ## 9. Dogrulandi (2026-10-14, Windows, Node v24.18.0)
@@ -116,3 +116,16 @@ Pano kalici-DB dogrulamasi (temp klasor `%TEMP%\ordu-demo-db`, port 8791, token 
 4. `/api/status` tokensiz → 403; dogru tokenle → 200 JSON (globalStop:true, bos run listesi).
 5. Kalici dosya yaratildi: `ordu-demo-db\ordu.sqlite` (+shm/wal) — kalici DB dogrulandi.
 6. Dogrulama sonrasi surec `Stop-Process` ile olduruldu, temp klasor temizlendi; acik sunucu birakilmadi.
+
+2026-10-25 FAZ-3 canli battery (temp ORDU_DB, makine EXIT; log: raporlar/kanit-hedef/core-cli-faz3-2026-10-25.log):
+
+| Komut | Sonuc | Exit |
+|---|---|---|
+| `npm run probe` | 4 yetenek canli kanit + blocked listesi BOS; receipt a8580ad0 | 0 |
+| `node src/cli.ts status` | globalStop:false, bos defter | 0 |
+| `node src/cli.ts stop` | `{stopped:true}` | 0 |
+| `node src/cli.ts resume --confirm "yanlis"` | resume reddedildi | 1 (beklenen RED) |
+| `node src/cli.ts resume --confirm "I understand the risk"` | `{resumed:true, commandId:6b4131bd-...}` | 0 |
+| `node src/cli.ts tick` | dispatch IDLE: outbox 0, reconcile 0 | 0 |
+
+Ilk kez: probe BOS-blocked + tick exit 0 (oncesi: probe-BAYAT exit 1 / capability-blocked exit 2). Paseo adaptoru hala wire degil — tick IDLE kaliyor. Ayrica 2026-10-25 BOM duzeltmesi: core/package.json UTF-8 BOM tasiyordu, probe.mjs JSON.parse cokuyordu (suit probe.mjs kosturmaz — latent; kanit: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
