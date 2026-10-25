@@ -1,6 +1,6 @@
 ﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1)
 
-v2.1 — 2026-10-13 · v2.0 (2026-10-11, K-0002) üzerine: EK-5 Süre Ekonomisi eklendi + §5 K3 askı notu (K-0032: fırtına modu, ikinci emre kadar). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme.
+v2.1 — 2026-10-13 · v2.0 (2026-10-11, K-0002) üzerine: EK-5 Süre Ekonomisi eklendi + §5 K3 askı notu (K-0032: fırtına modu, ikinci emre kadar). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme. (K-0039 sadeleştirme 2026-10-26: madde birleştirme — semantik içerik korunmuştur.)
 
 Amaç: ajan zekâsı ≈ model IQ × bağlam kalitesi — bu rehber bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 
@@ -8,18 +8,16 @@ Rehberin kendi hijyeni: bu belge ≤150 satır kalır; büyürse ÇEKİRDEK (her
 
 ## 1. Altın Kurallar (önce bunlar)
 
-1. Okumadan yazma: koda dokunmadan önce SSOT belgelerini oku (varsa ANAYASA/AGENTS/README + DERSLER + STATE_BOARD benzeri durum dosyası).
-2. Progressive disclosure: indeks → bölüm → dosya. Toplu tarama ("her şeyi oku") yasak; hedefi indeksten bul, sadece onu aç. Büyük repoda önce CODEMAP/repo-map.
-3. Dürüstlük: sahte veri, ölü buton, "yakında" kartı yasak. Yapamadığın işi tahminle kapatma — raporla.
-4. Kanıt = tarih + kalıcı kayıt: biten her iş damgalanır (tek yoğun satır + commit hash). "Yaptım" sözü kanıt değildir. Oturum-içi akıl hafıza değildir: kalıcı bilgi diske inmeden iş bitmemiştir.
-5. Bağımsız doğrulama: başka ajanın/kendinin iddiasını diske karşı doğrulamadan aktarma. Rapor zamanla eskir — kodda kanıt ara, rapora güvenme.
-6. Kararlar tekrar tartışılmaz: kayıtlı karara atıf yapılır; değiştirmek istiyorsan yeni karar kaydı açarsın (L4).
+1. Okumadan yazma + progressive disclosure: koda dokunmadan önce SSOT belgelerini oku (varsa ANAYASA/AGENTS/README + DERSLER + STATE_BOARD benzeri durum dosyası); indeks → bölüm → dosya — toplu tarama ("her şeyi oku") yasak, hedefi indeksten bul, sadece onu aç (büyük repoda önce CODEMAP/repo-map).
+2. Dürüstlük: sahte veri, ölü buton, "yakında" kartı yasak. Yapamadığın işi tahminle kapatma — raporla.
+3. Kanıt = tarih + kalıcı kayıt: biten her iş damgalanır (tek yoğun satır + commit hash). "Yaptım" sözü kanıt değildir. Oturum-içi akıl hafıza değildir: kalıcı bilgi diske inmeden iş bitmemiştir.
+4. Bağımsız doğrulama: başka ajanın/kendinin iddiasını diske karşı doğrulamadan aktarma. Rapor zamanla eskir — kodda kanıt ara, rapora güvenme.
+5. Kararlar tekrar tartışılmaz: kayıtlı karara atıf yapılır; değiştirmek istiyorsan yeni karar kaydı açarsın (L4).
 
 ## 2. Bağlam Bütçesi (her turda bilinç)
 
 - ~%70 doluluk → yeni büyük iş alma; eldeki işi atomik, devredilebilir parçaya böl.
-- ~%80 → devir töreni başlat (§3). Yeni iş kabul etme.
-- ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş (durum dosyasına; kod yazımı §1 okumadan-yazma kuralına tabi kalır).
+- ~%80 → devir töreni başlat (§3); yeni iş kabul etme. ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş (durum dosyasına; kod yazımı §1 okumadan-yazma kuralına tabi kalır).
 - Doluluk durum raporunun ilk satırında: `bağlam ~%XX`. Kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si.
 - Compact ancak STATE güncellendikten sonra. Compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi).
 - Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda. Sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
@@ -62,12 +60,10 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 > Bağlam-bütçesi (§2) ve context-rot kuralları kaliteden dolayı YÜRÜRLÜKTE kalır.
 
 - Sözlük kodlaması: terimler sabit kimlik taşır (M2-3, K-0005 gibi) — 50 kelimelik açıklama 5 karaktere iner. GLOSSARY'ye bağlı kal; drift = hata.
-- Delta okuma: günlükler append-only → sadece kuyruğu oku, tarihi tarama.
-- JSON yan-arabirim: ajan→ajan veri JSON'dan okunur (ucuz); markdown insanlar için.
-- Damga sıkıştırması: tek yoğun satır + hash; detay dosyada, panoda hüküm.
-- Tembel yükleme: referans dosyayı prompt'a kopyalama; yolunu ver, gerektiğinde aç (Cursor `@dosya` deseni).
-- Tekrar yok: aynı kararı/keşfi ikinci kez yapmak en büyük israf — önce DERSLER + kararlar/ + son handoff.
+- Delta okuma + tembel yükleme: günlükler append-only → sadece kuyruğu oku, tarihi tarama; referans dosyayı prompt'a kopyalama — yolunu ver, gerektiğinde aç (Cursor `@dosya` deseni).
+- JSON yan-arabirim + damga sıkıştırması: ajan→ajan veri JSON'dan okunur (ucuz; markdown insanlar için); tek yoğun satır + hash — detay dosyada, panoda hüküm.
 - Damga hijyeni: yalnız doğrulanmış kapsamı damgala; doğrulanamayan ekseni "doğrulanmadı" diye açık işaretle — sahte yeşil en pahalı hatadır.
+- Tekrar yok: aynı kararı/keşfi ikinci kez yapmak en büyük israf — önce DERSLER + kararlar/ + son handoff.
 
 ## 6. Çalışma Disiplini
 
@@ -76,8 +72,7 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 - Commit: dosya adıyla add (-A yasak) · emoji yok · araç/model adı geçmez · commit tek elden · başkasının kirli dosyasına dokunma.
 - Test: testsiz kod merge olmaz; kapanış = tam süit yeşil (kısmi koşu regresyon kaçırır — kanıtlı). UI testinde sentetik dispatchEvent tuzağına düşme: gerçek mouse/point kullan. Bilinen flake'i izolede tekrarla, ürün hatası sanma.
 - Canlı sunucu: kullanıcının canlı portuna test koşma; izole port + restart yalnız onayla.
-- Satır sonu: yazmadan önce dosyanın LF/CRLF'sini koru; karıştırma.
-- Temizlik: geçici config/çıktı dosyaları koşu sonunda silinir; repoya geçici desen girmez.
+- Satır sonu + temizlik: yazmadan önce dosyanın LF/CRLF'sini koru (karıştırma); geçici config/çıktı dosyaları koşu sonunda silinir — repoya geçici desen girmez.
 - Sır hijyeni: token/PAT/parola koda, prompt'a, log'a, telemetriye girmez; server-side env'de kalır. Sızıntı şüphesi = dur + raporla + iptal öner.
 - Araç yetkisi (MCP dahil): varsayılan salt-okuma; yazma yetkisi görev penceresiyle açılır, iş bitince kapanır.
 - Kapsam: yeni özellik = yeni dosya + ince kanca; bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür. Belgelenmiş proje tarifleri (reçete adımları) bu sınırdan istisnadır.
@@ -89,11 +84,10 @@ Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip
 
 1. Kullanıcı vekaleti yok: takılınca da dahil, kullanıcı yerine asla onay/karar gönderme. Onaylık iş (UI değişimi, ücretli üretim, silme, canlı restart) = kullanıcıya kısa not + beklemeden onaysız işe geç.
 2. Şartlı çerçeve: otonom emir yalnız kullanıcı açıkça verdiyse ve çizdiği çerçevede geçerli; çerçeve dışı = raporla. Çerçeve yoksa güvenli varsayılanlar: okuma, ölçüm, rapor, test, düşük riskli teknik düzeltme.
-3. Asla boş bekleme / donma / "n'apayım?" sorusuyla dönme.
-4. 2 satır durum raporu (ilk satır `bağlam ~%XX`) + kaldığın yerden devam.
-5. Biten subagent varsa sonucunu topla, kapat, kuyruğu ilerlet.
-6. Dürtme döngüsü koruması: aynı konuda 2. ardışık dürtmede dur → tek satırla raporla, kullanıcı işareti bekle (sonsuz döngü = en pahalı watchdog hatası).
-7. Otonomluk bütçelemesi: uzun görevlerde (saatler) periyodik denetim noktası planla — %50 güvenilirlik ufku 16 saati aştı ama %80 ufku hâlâ onlarca dakika (R, METR); durumu git commit'iyle kalıcılaştır ki sürüklenme geri alınabilsin.
+3. Durum akışı: asla boş bekleme / donma / "n'apayım?" sorusuyla dönme — 2 satır durum raporu (ilk satır `bağlam ~%XX`) + kaldığın yerden devam.
+4. Biten subagent varsa sonucunu topla, kapat, kuyruğu ilerlet.
+5. Dürtme döngüsü koruması: aynı konuda 2. ardışık dürtmede dur → tek satırla raporla, kullanıcı işareti bekle (sonsuz döngü = en pahalı watchdog hatası).
+6. Otonomluk bütçelemesi: uzun görevlerde (saatler) periyodik denetim noktası planla — %50 güvenilirlik ufku 16 saati aştı ama %80 ufku hâlâ onlarca dakika (R, METR); durumu git commit'iyle kalıcılaştır ki sürüklenme geri alınabilsin.
 
 ## 8. Subagent + Araç Gerçekleri
 
@@ -111,21 +105,18 @@ Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip
 Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetiklenir (agent-onboarding); kurulu değilse manuel uygula.
 
 - [ ] SSOT belgeleri oku. Yoksa önce eşleme yap: repo'da eşdeğer dosya var mı (LESSONS.md↔DERSLER.md, devlog/_audit↔raporlar/, mevcut karar günlüğü↔kararlar/)? Varsa mevcut dosyaya yaz — çift-kayıt yasak. Gerçekten yoksa §4'teki L0-L1-L5'i oluştur (3 dosya, 10 dakika).
-- [ ] `git log --oneline -10` + `git status` — neredeyim?
+- [ ] `git log --oneline -10` + `git status` — neredeyim? Test komutunu bul ve bir kez koştur (baseline).
 - [ ] Son handoff var mı? Varsa echo doğrula (§3.4).
 - [ ] CODEMAP.md var mı ve güncel mi? Yoksa `scripts/codemap.*` ile üret/güncelle; araç yoksa üretim yolunu STATE'e not et. CODEMAP elle düzenlenmez.
-- [ ] DERSLER.md yoksa oluştur; ilk kayıt: bu oturumda öğrendiğin ilk tuzak.
-- [ ] Test komutunu bul ve bir kez koştur (baseline).
-- [ ] Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v2.1).
+- [ ] DERSLER.md yoksa oluştur; ilk kayıt: bu oturumda öğrendiğin ilk tuzak. Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v2.1).
 
 ## 10. Öz-Değerlendirme + Sürüm Disiplini (v0.5, K-0007)
 
 - Tetik: haftalık heartbeat (Pazar 20:00 Europe/Istanbul) veya Ctrl+K manuel. Değerlendirici okur: telemetri JSONL + saglik.ps1 + yonetici-ozeti.ps1 + hedefler.json + DERSLER yeni girdileri → raporlar/oz-degerlendirme/<tarih>.md (+ .json yan dosya).
-- Hüküm: hedef tuttuysa çıta yükseltilir (öneri); tutmadıysa kök neden + iyileşme planı taslağı plans/ altına. 3 dönem üst üste kötüleşme → alarm + insan kapısı.
+- Hüküm + kıyas: hedef tuttuysa çıta yükseltilir (öneri); tutmadıysa kök neden + iyileşme planı taslağı plans/ altına — 3 dönem üst üste kötüleşme → alarm + insan kapısı. `scripts/kiyasla.ps1 <A> <B>` → eksen bazında delta tablosu; her değerlendirme raporu önceki kilit ile kıyas içerir.
 - Onay şartı: hedef/plan değişikliği kullanıcı onayı olmadan uygulanmaz; ajan yalnız önerir. Onay → uygulama → karşı-inceleme → K-XXXX → yeni kilit.
 - Kilit: her onaylı uygulama sonrası iki repoda scripts/kilit-surum.ps1 → git tag + surumler/<etiket>/ (KILIT.md + kilit.json: commit, puanlar, hedefler, doctor özeti). Kilitler append-only; silme yok.
 - Rollback (yalnız kullanıcı komutuyla; ajan kendini eski sürüme döndüremez): git reset --hard <etiket>-kilit → codemap.ps1 (tazelik zaman-damgalı, tatbikat dersi) → saglik.ps1 yeşil. Plugin: tag'e dön + paseo plugin reload. Hedef geri alma: hedefler.json geçmiş kaydı + yeni K-XXXX.
-- Kıyas: scripts/kiyasla.ps1 <A> <B> → eksen bazında delta tablosu; her değerlendirme raporu önceki kilit ile kıyas içerir.
 
 ## 11. EK-5 — Süre Ekonomisi (K3 / fırtına)
 
@@ -133,7 +124,6 @@ K3 süre-bazlı lisans döneminde kıt kaynak token değil DUVAR SAATİdir; ekon
 
 - Boş ajan = yanan saat: 6 slot dolu tutulur; kuyruksuz ajan kalmaz, iş bekleyen slota bölünür.
 - Onay bekleyen iş bloklamaz: onaylık maddeler toplu paketlenir (tek onay turu), ajan beklerken onaysız işe geçer.
-- Seri mini-tur yasak: tek-atım büyük çıktı — her tur sabit maliyettir; birleşik üretim duvar saatini kısaltır.
-- Token cömert, zaman cimri: uzun okuma ve derin düşünme serbest; bekleme, tekrar-keşif, boş tur yasak.
+- Tek-atım üretim, cömert token: seri mini-tur yasak — her tur sabit maliyettir, birleşik üretim duvar saatini kısaltır; uzun okuma ve derin düşünme serbest, bekleme-tekrar-keşif-boş tur yasak.
 - Kalite frenleri pazarlıksız: finish-gate exit-0, testsiz merge yok, etkinLoc = kabulLoc × (1-rework) — hız kaliteyi ezemez.
 - Çıkış: fırtına modu ikinci emir veya k3Bitis ile kapanır; kapanışta §5 askısı kalkar, token disiplini tam yürürlüğe döner.
