@@ -1,6 +1,6 @@
 ﻿# ANAYASA — paseo-plugin
 
-> Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (PASEO-VERIMLILIK-REHBERI-v2.0.md) bu belgeye tabidir.
+> Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md) bu belgeye tabidir.
 > Ajan bu belgeyi değiştiremez; değişiklik önerisi kararlar/K-XXXX.md ile açılır, yalnız kullanıcı onaylar.
 
 ## 1. Hizalama Anahtarları (öncelik sırasıyla)
@@ -14,7 +14,7 @@
 
 | Konu | Tek doğru kaynak |
 |---|---|
-| Evrensel sözleşme | PASEO-VERIMLILIK-REHBERI-v2.0.md |
+| Evrensel sözleşme | sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md |
 | Kazanç tablosu + mimari | PASEO-VERIMLILIK-PLANI.md |
 | Proje şablonu | ANAYASA-SABLONU.md |
 | Aktivasyon emirleri | FERMANLAR.md |

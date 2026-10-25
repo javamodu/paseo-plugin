@@ -8,7 +8,7 @@ Amaç: **ajan zekâsı ≈ model IQ × bağlam kalitesi** — bu paket bağlam k
 
 | Dosya | Ne işe yarar |
 |---|---|
-| `PASEO-VERIMLILIK-REHBERI-v2.1.md` | EVRENSEL SÖZLEŞME — 10 bölüm + EK-5: altın kurallar, bağlam bütçesi, devir töreni, L0-L5 dosya hafızası, token teknikleri, çalışma disiplini, watchdog protokolü, subagent standardı, ilk-15-dakika onboarding, öz-değerlendirme, EK-5 süre ekonomisi (K3 fırtına modu) |
+| `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` | EVRENSEL SÖZLEŞME — 10 bölüm + EK-5: altın kurallar, bağlam bütçesi, devir töreni, L0-L5 dosya hafızası, token teknikleri, çalışma disiplini, watchdog protokolü, subagent standardı, ilk-15-dakika onboarding, öz-değerlendirme, EK-5 süre ekonomisi (K3 fırtına modu) |
 | `ANAYASA-SABLONU.md` | Proje başına üst otorite şablonu: hizalama anahtarları, SSOT tablosu, ASLA/HER ZAMAN maddeleri (manifesto; detay yok) |
 | `FERMANLAR.md` | Aktivasyon emirleri: geçiş (her yeni ajana ilk mesaj), inşa (plugin MVP), ANAYASA kurulumu — sırası: 3 → 2 → 1 |
 | `PASEO-VERIMLILIK-PLANI.md` | 14 mekaniklik kazanç tablosu (hız/kalite/token × artı/eksi, önem sıralı), plugin mimarisi, ölçüm kataloğu, hedef eşikler, 4 haftalık yol haritası, anti-kararlar |

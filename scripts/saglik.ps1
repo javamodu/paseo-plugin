@@ -72,7 +72,7 @@ if ($pHd) {
 }
 
 # 5) Rehber hijyeni (kendi kuralini denetler) + paket kontrolleri (yalniz arastirma paketi olan repolarda)
-$pRehber = Find-First $Root @('PASEO-VERIMLILIK-REHBERI-v2.0.md','PASEO-VERIMLILIK-REHBERI-v1.4.md','arastirma\PASEO-VERIMLILIK-REHBERI-v2.0.md','arastirma\PASEO-VERIMLILIK-REHBERI-v1.4.md')
+$pRehber = Find-First $Root @('sozlesme\PASEO-VERIMLILIK-REHBERI-v2.1.md','PASEO-VERIMLILIK-REHBERI-v2.0.md','PASEO-VERIMLILIK-REHBERI-v1.4.md','arastirma\PASEO-VERIMLILIK-REHBERI-v2.0.md','arastirma\PASEO-VERIMLILIK-REHBERI-v1.4.md')
 if ($pRehber) {
   $rh = LineCount $pRehber
   Check 'REHBER <=150 satir (kendi hijyen kurali)' ($rh -le 150) "$rh satir"

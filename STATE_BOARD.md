@@ -9,6 +9,7 @@
 - 2026-10-25 · F0 TAMAMEN KAPALI: kapanış zinciri ce50c92 → d1d128d (STATE 26 satır) → b4f7201 (DERSLER izin-asimetrisi) → 57235fa (K-0037 CODEMAP kapsamı, F1/F3 uygulama) → f633614 (S4 kriteri) → f92cab3 (arsiv 113/188/0 FAILED) → 0de7cdf (K-0038 S4 rotate İPTAL — kullanıcı "yeni anahtara gerek yok"; sızma anı prosedürü kararda)
 - 2026-10-25 (özet) · F0 İCRA: 5 commit dalgası (bc174d6→ea601cb) + K-0034 ONAY (6f6a844) + HANDOFF-1350 + S2 temiz + 3 repo commit — ayrıntı handoff zinciri
 - 2026-10-25 (özet) · 2. tur teknik özet (R): ~19.5k LOC · kabul.csv kapanış ~%35-40 (T) · DÜZELTME: Codex+glm-5.3 ÇALIŞIYOR (yanlış uç teşhisi düzeltildi) · B11-B15 — raporlar/teknik-yonetici-ozeti-2026-10-25.md
+- 2026-10-25 (özet) · [task-graph evi, F2-6 birleşimi] GLM 5.3 sarmalayıcı benchmark full-access kapanışı: Claude Code 95.12 · OpenCode 94.72 · Kilocode 88.20 · Codex 77.97 — raporlar F2-5'te ordu'ya girdi (glm53-wrapper-benchmark-2026-10-25); evin SSOT kopyaları arsiv/SSOT-eski-2026-10-25/
 
 - 2026-10-19 · PASEO WORKSPACE MODEL SEÇİMİ RAPORU (R): 95 workspace (33 aktif) + 493 ajan kaydı + 65 ölçüm eşleşmesi; genel en iyi GLM 5.3/claude-glm 86 — raporlar/paseo-workspace-model-secimi-2026-10-19
 - 2026-10-15 · R3 sınırlı vekalet + F6.5 rol→model UYGULANDI (ordu-core, bağımsız doğrulama PASS): 004-grants.sql + 003-role-model.sql + src/grants.ts + providers.ts kapalı registry — npm test 296/296 exit 0 (R) · kabul.csv R3-01/F65-01 GECTI_HERMETIK (canlı kanıt NOT_RUN)

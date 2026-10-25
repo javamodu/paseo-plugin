@@ -5,7 +5,7 @@ Prensip: daimi emir sohbette tekrarlanmaz — bir kez verilir, dosyaya iner. 1 v
 ## Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı)
 
 ```
-Bu projede PASEO-VERIMLILIK-REHBERI-v2.0.md sözleşmesi geçerli.
+Bu projede sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md sözleşmesi geçerli.
 İlk işin: §9'daki "İlk 15 Dakika" checklist'ini uygula (SSOT oku, git log,
 son handoff varsa echo doğrula, CODEMAP kontrolü/yoksa scripts\codemap.ps1,
 DERSLER.md, baseline test, ilk damga). Sonra tüm kurallara uy.

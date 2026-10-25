@@ -1,6 +1,6 @@
 # Admin Onboarding — Paseo Verimlilik Sistemi
 
-> 5 dakikalık kullanım kılavuzu. Detay: PASEO-VERIMLILIK-REHBERI-v2.0.md · kararlar: kararlar/ · durum: STATE_BOARD.md
+> 5 dakikalık kullanım kılavuzu. Detay: sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md · kararlar: kararlar/ · durum: STATE_BOARD.md
 
 ## 1. Günlük kullanım (en sık 3 hareket)
 

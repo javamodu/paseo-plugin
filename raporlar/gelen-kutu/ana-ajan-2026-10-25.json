@@ -5,17 +5,131 @@
   "tur": "sprint-analiz",
   "kaynak": "2 alt-ajan: hedef-katman taramasi + durum tespiti (disk + git dogrulamali)",
   "maddeler": [
-    { "id": "B1", "baslik": "SSOT-INDEX.md diskte 0 bayt", "dosyaRef": "plans/SSOT-INDEX.md", "etiket": "ssot-ihlali", "siddet": "orta", "oneri": "Doldur veya K-0034 kapsaminda tekillestir", "islenme": null },
-    { "id": "B2", "baslik": "ANAYASA v2.0 gosteriyor, rehber fiilen v2.1 (SUPERSEDED)", "dosyaRef": "ANAYASA.md:11", "etiket": "celiski", "siddet": "orta", "oneri": "Referans guncelleme ayri K kaydina baglansin", "islenme": null },
-    { "id": "B3", "baslik": "K-0029 ve K-0034 karar dosyalari yok, atiflar var", "dosyaRef": "kararlar/", "etiket": "kayit-bosligu", "siddet": "orta", "oneri": "K-0034 aday statusuyle acilsin; K-0029 yazilsin veya atiflar temizlensin", "islenme": null },
-    { "id": "B4", "baslik": "15 Ekimden beri commit yok, ~270 untracked dosya", "dosyaRef": "git:HEAD=6b8e944", "etiket": "kanit-disiplini", "siddet": "yuksek", "oneri": "Kullanici onayiyla dalga dalga, dosya-adiyla add ile commit", "islenme": null },
-    { "id": "B5", "baslik": "ADR-F65/ADR-R3 basliklari TASLAK, STATE_BOARD UYGULANDI diyor", "dosyaRef": "plans/ADR-F65-rol-model.md:1", "etiket": "bayat-baslik", "siddet": "dusuk", "oneri": "ADR basliklari UYGULANDI-canim-kanit-bekler olarak guncellensin", "islenme": null },
-    { "id": "B6", "baslik": "STATE_BOARD.md ilk blokta mojibake + bayat aktif-is satiri", "dosyaRef": "STATE_BOARD.md:1", "etiket": "hijyen", "siddet": "orta", "oneri": "Ilk blok UTF-8 yeniden yazilsin, aktif is satiri tazelensin", "islenme": null },
-    { "id": "B7", "baslik": "CODEMAP 131 satir, K-0035 tavani 130", "dosyaRef": "CODEMAP.md", "etiket": "butce", "siddet": "dusuk", "oneri": "Esik-5 kapsami buyurse K-0035 guncellemesi gundeme alinsin", "islenme": null },
-    { "id": "B8", "baslik": "Gelen-kutu 42 madde islenmemis, telemetri-fail %29", "dosyaRef": "raporlar/takip-sozlesme/2026-10-24.md", "etiket": "birikim", "siddet": "orta", "oneri": "Isleme turu plana alinsin (islenme + hash append)", "islenme": null },
-    { "id": "B9", "baslik": "10-19 bench kosumu ECONNREFUSED, gecersiz veri raporlarda dolaniyor", "dosyaRef": "raporlar/bench-glm-claude-2026-10-19/", "etiket": "veri-kalitesi", "siddet": "dusuk", "oneri": "Ilgili rapora gecersiz-kosum damgasi", "islenme": null },
-    { "id": "B10", "baslik": "Handoff zinciri 0333te bitiyor, 11 gundur yeni halka yok", "dosyaRef": "plans/handoff/HANDOFF-2026-10-14-0333.md", "etiket": "devir-disiplini", "siddet": "orta", "oneri": "Sprint kapanisinda yeni HANDOFF halkasi acilsin", "islenme": null },
-    { "id": "B16", "baslik": "nvapi API anahtari duz metin: silinecek-task-graph/MASTER-SSOT-PLAN.md (integrate.api.nvidia.com/v1)", "dosyaRef": "D:/Vibecode/silinecek-task-graph/MASTER-SSOT-PLAN.md", "etiket": "guvenlik-s2", "siddet": "yuksek", "oneri": "F2 SSOT adiminda ordu kopyasi sanitize edilmis gecmeli; anahtar env'e; kaynak F4'te silinir", "islenme": null },
-    { "id": "B17", "baslik": "Yerel pano tokeni core/veri/pano-token.txt F2-2 ile ordu git'ine girdi (localhost mockup, 32-hex, ordu-core baseline mirasi)", "dosyaRef": "core/veri/pano-token.txt", "etiket": "guvenlik-hijyen", "siddet": "dusuk-yerel", "oneri": "K kaydi: yerel-ozel kabul ya da sanitize+gitignore; history temizligi maliyetli", "islenme": null }
+    {
+      "id": "B1",
+      "baslik": "SSOT-INDEX.md diskte 0 bayt",
+      "dosyaRef": "plans/SSOT-INDEX.md",
+      "etiket": "ssot-ihlali",
+      "siddet": "orta",
+      "oneri": "Doldur veya K-0034 kapsaminda tekillestir",
+      "islenme": null
+    },
+    {
+      "id": "B2",
+      "baslik": "ANAYASA v2.0 gosteriyor, rehber fiilen v2.1 (SUPERSEDED)",
+      "dosyaRef": "ANAYASA.md:11",
+      "etiket": "celiski",
+      "siddet": "orta",
+      "oneri": "Referans guncelleme ayri K kaydina baglansin",
+      "islenme": "F2-6: ANAYASA/AGENTS/admin-onboarding/FERMANLAR/README referanslari sozlesme/v2.1 yoluna guncellendi (S6 haritasi uygulamasi; commit = F2-6 commit'i)"
+    },
+    {
+      "id": "B3",
+      "baslik": "K-0029 ve K-0034 karar dosyalari yok, atiflar var",
+      "dosyaRef": "kararlar/",
+      "etiket": "kayit-bosligu",
+      "siddet": "orta",
+      "oneri": "K-0034 aday statusuyle acilsin; K-0029 yazilsin veya atiflar temizlensin",
+      "islenme": null
+    },
+    {
+      "id": "B4",
+      "baslik": "15 Ekimden beri commit yok, ~270 untracked dosya",
+      "dosyaRef": "git:HEAD=6b8e944",
+      "etiket": "kanit-disiplini",
+      "siddet": "yuksek",
+      "oneri": "Kullanici onayiyla dalga dalga, dosya-adiyla add ile commit",
+      "islenme": null
+    },
+    {
+      "id": "B5",
+      "baslik": "ADR-F65/ADR-R3 basliklari TASLAK, STATE_BOARD UYGULANDI diyor",
+      "dosyaRef": "plans/ADR-F65-rol-model.md:1",
+      "etiket": "bayat-baslik",
+      "siddet": "dusuk",
+      "oneri": "ADR basliklari UYGULANDI-canim-kanit-bekler olarak guncellensin",
+      "islenme": null
+    },
+    {
+      "id": "B6",
+      "baslik": "STATE_BOARD.md ilk blokta mojibake + bayat aktif-is satiri",
+      "dosyaRef": "STATE_BOARD.md:1",
+      "etiket": "hijyen",
+      "siddet": "orta",
+      "oneri": "Ilk blok UTF-8 yeniden yazilsin, aktif is satiri tazelensin",
+      "islenme": null
+    },
+    {
+      "id": "B7",
+      "baslik": "CODEMAP 131 satir, K-0035 tavani 130",
+      "dosyaRef": "CODEMAP.md",
+      "etiket": "butce",
+      "siddet": "dusuk",
+      "oneri": "Esik-5 kapsami buyurse K-0035 guncellemesi gundeme alinsin",
+      "islenme": null
+    },
+    {
+      "id": "B8",
+      "baslik": "Gelen-kutu 42 madde islenmemis, telemetri-fail %29",
+      "dosyaRef": "raporlar/takip-sozlesme/2026-10-24.md",
+      "etiket": "birikim",
+      "siddet": "orta",
+      "oneri": "Isleme turu plana alinsin (islenme + hash append)",
+      "islenme": null
+    },
+    {
+      "id": "B9",
+      "baslik": "10-19 bench kosumu ECONNREFUSED, gecersiz veri raporlarda dolaniyor",
+      "dosyaRef": "raporlar/bench-glm-claude-2026-10-19/",
+      "etiket": "veri-kalitesi",
+      "siddet": "dusuk",
+      "oneri": "Ilgili rapora gecersiz-kosum damgasi",
+      "islenme": null
+    },
+    {
+      "id": "B10",
+      "baslik": "Handoff zinciri 0333te bitiyor, 11 gundur yeni halka yok",
+      "dosyaRef": "plans/handoff/HANDOFF-2026-10-14-0333.md",
+      "etiket": "devir-disiplini",
+      "siddet": "orta",
+      "oneri": "Sprint kapanisinda yeni HANDOFF halkasi acilsin",
+      "islenme": null
+    },
+    {
+      "id": "B16",
+      "baslik": "nvapi API anahtari duz metin: silinecek-task-graph/MASTER-SSOT-PLAN.md (integrate.api.nvidia.com/v1)",
+      "dosyaRef": "D:/Vibecode/silinecek-task-graph/MASTER-SSOT-PLAN.md",
+      "etiket": "guvenlik-s2",
+      "siddet": "yuksek",
+      "oneri": "F2 SSOT adiminda ordu kopyasi sanitize edilmis gecmeli; anahtar env'e; kaynak F4'te silinir",
+      "islenme": "F2-6: arsiv kopyasi sanitize — nvapi REDACTED; kaynak dosya F4'te silinir (commit = F2-6 commit'i)"
+    },
+    {
+      "id": "B17",
+      "baslik": "Yerel pano tokeni core/veri/pano-token.txt F2-2 ile ordu git'ine girdi (localhost mockup, 32-hex, ordu-core baseline mirasi)",
+      "dosyaRef": "core/veri/pano-token.txt",
+      "etiket": "guvenlik-hijyen",
+      "siddet": "dusuk-yerel",
+      "oneri": "K kaydi: yerel-ozel kabul ya da sanitize+gitignore; history temizligi maliyetli",
+      "islenme": null
+    },
+    {
+      "id": "B18",
+      "baslik": "Groq API anahtari duz metin: silinecek-task-graph/MASTER-SSOT-PLAN.md satir 13 (gsk_..., api.groq.com/openai/v1) — B16 taramasinda gozden kacan 2. anahtar",
+      "dosyaRef": "D:/Vibecode/silinecek-task-graph/MASTER-SSOT-PLAN.md",
+      "etiket": "guvenlik-s2",
+      "siddet": "yuksek",
+      "oneri": "arsiv kopyasi REDACTED (F2-6); anahtar env'e tasinir; kaynak F4'te silinir",
+      "islenme": "F2-6: arsiv kopyasi sanitize — gsk REDACTED (commit = F2-6 commit'i)"
+    },
+    {
+      "id": "B19",
+      "baslik": "Tokenharbor anahtari duz metin: silinecek-task-graph/MASTER-SSOT-PLAN.md satir 19 (thk_live_..., tokenharbor.ai/v1) — B16 taramasinda gozden kacan 3. anahtar",
+      "dosyaRef": "D:/Vibecode/silinecek-task-graph/MASTER-SSOT-PLAN.md",
+      "etiket": "guvenlik-s2",
+      "siddet": "orta",
+      "oneri": "arsiv kopyasi REDACTED (F2-6); kaynak F4'te silinir; free-havuz kotasi nedeniyle dusuk-carpanli risk",
+      "islenme": "F2-6: arsiv kopyasi sanitize — thk_live REDACTED (commit = F2-6 commit'i)"
+    }
   ]
 }

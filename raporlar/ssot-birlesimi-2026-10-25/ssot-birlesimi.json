@@ -1,0 +1,33 @@
+{
+  "schemaSurum": 1,
+  "is": "F2-6 SSOT tekillestirme",
+  "tarih": "2026-10-25",
+  "otorite": ["kararlar/ADR-toparlanma-monorepo.md S6", "plans/handoff/HANDOFF-2026-10-25-1640.md F2-6"],
+  "kaynakEv": "D:/Vibecode/silinecek-task-graph",
+  "hamleler": [
+    "STATE_BOARD: task-graph ozgu damgasi ozet satiri eklendi",
+    "DERSLER: 8 ozgun madde eklendi (2026-10-16 tarihli)",
+    "rehber: v2.1 -> sozlesme/ (139 satir), v2.0 -> arsiv/",
+    "ADR: 3 dosya plans/ -> kararlar/",
+    "eskiSSOT: arsiv/SSOT-eski-2026-10-25/ (5 dosya)",
+    "MASTER-SSOT-PLAN: 3 anahtar REDACTED (nvapi/gsk/thk_live)",
+    "referans: AGENTS/ANAYASA/admin-onboarding/FERMANLAR/README/saglik.ps1 -> sozlesme/v2.1"
+  ],
+  "kesisimDerslerOrdouKazandi": [
+    "file:// tarayici reddi",
+    "inline node -e cift tirnak",
+    "Edit oldString tahmini",
+    "ayni olcum kosusunu tekrar etmek"
+  ],
+  "haricTutulanPencereDisi": [
+    "2026-10-25 Codex approve-for-me + sandbox cakismasi",
+    "2026-10-25 Windows surec agaci taskkill /T /F"
+  ],
+  "guvenlik": {
+    "s2TaramaArsiv": "0 hit (R)",
+    "anahtarKalinti": "0 (R)",
+    "yeniGelenKutu": ["B18 (groq, yuksek)", "B19 (tokenharbor, orta)"],
+    "islenmeAlan": ["B2", "B15", "B16"]
+  },
+  "kanitDamga": "F2-6 commit'i (bu raporla ayni commit)"
+}
