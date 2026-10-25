@@ -1,0 +1,1 @@
+$env:ORDU_DB='D:\Vibecode\silinecek-task-graph\ordu-core\veri\ordu.sqlite'; $env:ORDU_PANO_PORT='8787'; $env:ORDU_PANO_TOKEN='5024b3b9e2fa4299a1cd1482b6deec80'; Set-Location 'D:\Vibecode\silinecek-task-graph\ordu-core'; node src/pano-server.ts

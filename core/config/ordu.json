@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runtime": "paseo",
+  "mod": "atolye",
+  "_aciklama": "K-0006 iş modları. Mod yalnız KAPASITE/bütçe tavanını ve tercih edilen reasoning kademesini ölçekler; dispatch_paused/insan-onayı/evaluator-koruma/deneme-tavani gibi GÜVENLİK alanlarını ASLA değiştirmez (Y6/F3). Bilinmeyen mod → fail-closed (dispatch yok).",
+  "temel": {
+    "maxWorkers": 2,
+    "maxReservedTokens": 200000
+  },
+  "guvenlikTavani": {
+    "hardMaxWorkers": 8
+  },
+  "modlar": {
+    "atolye": { "parallelFactor": 1, "tokenFactor": 1, "kademe": "hizli" },
+    "firtina": { "parallelFactor": 2, "tokenFactor": 1, "kademe": "hizli" },
+    "ekonomi": { "parallelFactor": 1, "tokenFactor": 0.5, "kademe": "derin" }
+  }
+}

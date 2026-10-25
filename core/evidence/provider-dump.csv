@@ -1,0 +1,720 @@
+provider,model,ucretsiz,kaynak,katalogHttp,durum,ttftMs,tokSn,tokSnToplam,parca,tokenPerDelta,olcumZamani,hataKodu,not
+opencode,openrouter/poolside/laguna-s-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/poolside/laguna-xs-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/cohere/north-mini-code:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/thinkingmachines/inkling-small:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/thinkingmachines/inkling:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/openrouter/free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/liquid/lfm-2.5-2.6b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/google/gemma-4-31b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/google/gemma-4-26b-a4b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/nvidia/nemotron-3.5-content-safety:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/nvidia/nemotron-3-ultra-550b-a55b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/nvidia/nemotron-3-super-120b-a12b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/nvidia/nemotron-3.5-lightning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,openrouter/dots-studio/dots-3-note-preview:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/longcat-2.5-preview-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/exo-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/cat-jam-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/space-bunny-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/mimo-v2.6-flash-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/nemotron-3-ultra-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/nemotron-3.5-lightning-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/step-5-preview-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,opencode/muse-spark-1.3-contributor-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,DeepSeek V4 Flash Free (New),evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,Space Bunny Free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,Step 5 Preview Free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+opencode,Step 5 Preview Free,evet,config:additionalModels,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/dots-studio/dots-3-note-preview:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/openrouter/free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/google/gemma-4-26b-a4b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/google/gemma-4-31b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/thinkingmachines/inkling:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/thinkingmachines/inkling-small:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/poolside/laguna-s-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/poolside/laguna-xs-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/liquid/lfm-2.5-2.6b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/nvidia/nemotron-3-super-120b-a12b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/nvidia/nemotron-3-ultra-550b-a55b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/nvidia/nemotron-3.5-content-safety:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/nvidia/nemotron-3.5-lightning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,openrouter/cohere/north-mini-code:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/cat-jam-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/exo-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/longcat-2.5-preview-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/mimo-v2.6-flash-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/muse-spark-1.3-contributor-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/nemotron-3-ultra-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/nemotron-3.5-lightning-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/space-bunny-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,opencode/step-5-preview-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/kilo-auto/free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/cohere/north-mini-code:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/dots-studio/dots-3-note-preview:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/liquid/lfm-2.5-2.6b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/nvidia/nemotron-3-super-120b-a12b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/nvidia/nemotron-3-ultra-550b-a55b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/nvidia/nemotron-3.5-lightning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/openrouter/free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/poolside/laguna-s-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/poolside/laguna-xs-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/stealth/glyph-cluster,hayır,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/stepfun/step-5-preview-free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,kilo/thinkingmachines/inkling-small:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,OpenCode Zen/Space Bunny Free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,Kilo Gateway/StepFun: Step 5 Preview (free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+kilo,OpenCode Zen/Muse Spark 1.3 Free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/cohere/north-mini-code:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/dots-studio/dots-3-note-preview:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/google/gemma-4-26b-a4b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/google/gemma-4-31b-it:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/liquid/lfm-2.5-2.6b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/nvidia/nemotron-3-super-120b-a12b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/nvidia/nemotron-3-ultra-550b-a55b:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/nvidia/nemotron-3.5-content-safety:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/nvidia/nemotron-3.5-lightning:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/poolside/laguna-s-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/poolside/laguna-xs-2.1:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/thinkingmachines/inkling-small:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,openrouter/thinkingmachines/inkling:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,tokenharbor/deepseek-v4-flash:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,tokenharbor/deepseek-v4.1-flash:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,tokenharbor/mimo-v2.5:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+pi,tokenharbor/mimo-v2.6-flash:free,evet,config:models,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+codex,kimi-K3,hayır,config:additionalModels,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+qoder,Qwen3.8-Flash (default),hayır,config:additionalModels,,OLCUMEDI,,,,,,,,"bu saglayici ham HTTP degil; /models cagrisi yapilamaz"
+tokenharbor,claude-sonnet-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-opus-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-opus-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-sonnet-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,grok-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,kimi-k3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,kimi-k2.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mimo-v2.5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mimo-v2.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gemini-3.8-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,deepseek-v4-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-fable-5.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.7-max,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,deepseek-v4-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-fable-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-opus-4.8,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.8-max,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.3-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mimo-v2.6-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-sonnet-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mistral-large-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gemini-3.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-luna,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,grok-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,muse-spark-1.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,muse-spark-1-3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-astra,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,deepseek-v4.1-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gemini-3.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-luna,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-terra,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,muse-spark-1.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.6-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,deepseek-v3.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.5-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.8-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,qwen3.8-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-opus-5-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,kimi-k3-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-luna-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-sol-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-5.6-terra-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-astra-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.3-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,glm-5.3-flashx,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,grok-4.7,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mimo-v2.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-opus-5.5-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-luna-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6-sol-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6.1-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gpt-6.1-sol-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mistral-large-4,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,claude-haiku-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,apex,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,muse-wonder-1.0,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,gemini-4-argon,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+tokenharbor,mimo-v2.5:free,evet,canli /models,200,OK,1654,45.53,28.91,27,4.9,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+tokenharbor,deepseek-v4-flash:free,evet,canli /models,200,OK,2851,143.2,31.89,16,7.3,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+tokenharbor,deepseek-v4.1-flash:free,evet,canli /models,200,OK,2263,165.66,48.68,15,10.4,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+tokenharbor,mimo-v2.6-flash:free,evet,canli /models,200,OK,46801,103.18,2.73,15,8.7,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,01-ai/yi-large,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '23bd454d-b225-49a3-8118-582a62fc51b8': Not found for acc"
+nvidia,adept/fuyu-8b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'e598bfc1-b058-41af-869d-556d3c7e1b48': Not found for acc"
+nvidia,ai21labs/jamba-1.5-large-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '6497fc2b-7ff8-4019-8946-123dccbfc863': Not found for acc"
+nvidia,aisingapore/sea-lion-7b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '02f84bf4-c1a1-489b-a9de-ac3e8dcdec14': Not found for acc"
+nvidia,bigcode/starcoder2-15b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,databricks/dbrx-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '3d6c2ff8-8bfc-4d10-8fd0-b7337288e869': Not found for acc"
+nvidia,deepseek-ai/deepseek-coder-6.7b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'e503b15c-62b0-4d69-b532-a88f0bfa2656': Not found for acc"
+nvidia,deepseek-ai/deepseek-v4.1-flash,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AG_YAKALANDI,zaman asimi
+nvidia,google/codegemma-1.1-7b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'e2d298c5-204e-4213-b921-9f492cc9011b': Not found for acc"
+nvidia,google/codegemma-7b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '7dfc10a8-3cc4-448e-97c1-2213308dc222': Not found for acc"
+nvidia,google/deplot,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '784a8ca4-ea7d-4c93-bb46-ec027c3fae47': Not found for acc"
+nvidia,google/diffusiongemma-26b-a4b-it,hayır,canli /models,200,OK,586,,187.59,1,110,2026-10-16 20:40:18,,"tek-paket; yalniz toplam-sure bazli hiz olculur"
+nvidia,google/gemma-2b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '04174188-f742-4069-9e72-d77c2b77d3cb': Not found for acc"
+nvidia,google/gemma-3-12b-it,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'ee47df99-c92b-4dc9-b3a7-f3fb0f087b73': Not found for acc"
+nvidia,google/gemma-3-4b-it,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'c322f327-55a3-4af3-a91f-c757e2b8b135': Not found for acc"
+nvidia,google/gemma-4-31b-it,hayır,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,AG_YAKALANDI,zaman asimi
+nvidia,google/recurrentgemma-2b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '2f495340-a99f-4b4b-89bd-1beb003dd896': Not found for acc"
+nvidia,ibm/granite-3.0-3b-a800m-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '67324577-3f91-4aa6-b750-97468262530d': Not found for acc"
+nvidia,ibm/granite-3.0-8b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '5a24a4f0-2d59-46b3-ac65-42307f2633d1': Not found for acc"
+nvidia,ibm/granite-34b-code-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '4df48b4f-e3c5-4ade-82c7-c06b65e25d18': Not found for acc"
+nvidia,ibm/granite-8b-code-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'af7b6f03-f615-4c5f-86c6-388bd35cede0': Not found for acc"
+nvidia,meta/codellama-70b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'f6b06895-d073-4714-8bb2-26c09e9f6597': Not found for acc"
+nvidia,meta/llama-3.2-11b-vision-instruct,hayır,canli /models,200,OK,365,10.47,10.21,149,1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,meta/llama-3.2-90b-vision-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AG_YAKALANDI,zaman asimi
+nvidia,meta/llama-guard-4-12b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AKIS_KOPTI,zaman asimi
+nvidia,meta/llama2-70b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '2fddadfb-7e76-4c8a-9b82-f7d3fab94471': Not found for acc"
+nvidia,meta/muse-glimmer-30b,hayır,canli /models,200,OK,,,5.1,0,,2026-10-16 20:40:18,,"delta-yetersiz (0); yalniz toplam-sure bazli hiz olculur"
+nvidia,microsoft/kosmos-2,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '6018fed7-f227-48dc-99bc-3fd4264d5037': Not found for acc"
+nvidia,microsoft/phi-3-vision-128k-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '20f2537e-8593-4eb9-ad40-60eee3bbaa55': Not found for acc"
+nvidia,microsoft/phi-3.5-moe-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'e6cab982-62f4-481e-9a7a-3dedb87dbd01': Not found for acc"
+nvidia,mistralai/codestral-22b-instruct-v0.1,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '9a10b012-e6df-46fd-83b2-700dcbc75814': Not found for acc"
+nvidia,mistralai/mistral-7b-instruct-v0.3,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'cd89bd68-13e3-47a9-861e-9a62e6e14b05': Not found for acc"
+nvidia,mistralai/mistral-large,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '767b5b9a-3f9d-4c1d-86e8-fa861988cee7': Not found for acc"
+nvidia,mistralai/mistral-large-2-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for acc"
+nvidia,mistralai/mixtral-8x22b-v0.1,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '39655fc1-9ebc-4b24-963e-6915ea6680de': Not found for acc"
+nvidia,moonshotai/kimi-k2.6,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '23d4f03a-b8a6-4adb-a183-7daa083a09cc': Not found for acc"
+nvidia,nv-mistralai/mistral-nemo-12b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'f8c05193-d2e2-4f0f-bb4d-7ad70070002b': Not found for acc"
+nvidia,nvidia/ai-synthetic-video-detector,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_500,"{""type"":""urn:nvcf-worker-service:problem-details:internal-server-error"", ""title"":""Internal Server Error"", ""sta"
+nvidia,nvidia/cosmos-reason2-8b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'e199b43b-6c62-4a63-9379-f60e1a953236': Not found for acc"
+nvidia,nvidia/embed-qa-4,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/ising-calibration-1.5-31b,hayır,canli /models,200,OK,33847,5.19,2,109,1,2026-10-16 19:58:07,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/llama-3.1-nemoguard-8b-content-safety,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AKIS_KOPTI,zaman asimi
+nvidia,nvidia/llama-3.1-nemoguard-8b-topic-control,hayır,canli /models,200,OK,,,3.33,0,,2026-10-16 19:58:07,,"delta-yetersiz (0); yalniz toplam-sure bazli hiz olculur"
+nvidia,nvidia/llama-3.1-nemotron-51b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '5beba52c-65a9-4f46-8cd9-656689a1b205': Not found for acc"
+nvidia,nvidia/llama-3.1-nemotron-70b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for acc"
+nvidia,nvidia/llama-3.1-nemotron-safety-guard-8b-v3,hayır,canli /models,200,OK,208,57.22,24.64,8,1.1,2026-10-16 19:58:07,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/llama-3.1-nemotron-ultra-253b-v1,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '84bf12ff-edbd-4435-baea-0fa6a7453d2e': Not found for acc"
+nvidia,nvidia/llama-3.2-nemoretriever-1b-vlm-embed-v1,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/llama-3.2-nv-embedqa-1b-v1,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/llama-nemotron-embed-vl-1b-v2,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/llama3-chatqa-1.5-70b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '46594287-38b9-481c-a37f-baa02f2d3ba1': Not found for acc"
+nvidia,nvidia/mistral-nemo-minitron-8b-8k-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '5aa06dd2-0a02-4a5d-be4c-bf88e956965d': Not found for acc"
+nvidia,nvidia/nemotron-3-embed-1b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/nemotron-3-nano-omni-30b-a3b-reasoning,hayır,canli /models,200,OK,5428,158.08,39,55,5.1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/nemotron-3-super-120b-a12b,hayır,canli /models,200,OK,1569,140.87,56.72,21,7.1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/nemotron-3-ultra-550b-a55b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function id '948fe171-ce7a-4332-8bc0-5e14e90259f9' version 'null':"
+nvidia,nvidia/nemotron-3.5-content-safety,hayır,canli /models,200,OK,161,,24.18,4,1.3,2026-10-16 19:58:07,,"tek-paket; yalniz toplam-sure bazli hiz olculur"
+nvidia,nvidia/nemotron-3.5-lightning-30b-a3b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AG_YAKALANDI,zaman asimi
+nvidia,nvidia/nemotron-3.5-super-vl-120b-a12b,hayır,canli /models,200,OK,,,131.23,0,,2026-10-16 20:40:18,,"delta-yetersiz (0); yalniz toplam-sure bazli hiz olculur"
+nvidia,nvidia/nemotron-4-340b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'b0fcd392-e905-4ab4-8eb9-aeae95c30b37': Not found for acc"
+nvidia,nvidia/nemotron-4-340b-reward,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'c53ee0e9-bad9-4e09-b365-52c9d6b71254': Not found for acc"
+nvidia,nvidia/nemotron-nano-3-30b-a3b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '2b2dcd47-c858-425a-9c04-4cacf2eac993': Not found for acc"
+nvidia,nvidia/nemotron-parse,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,BadRequestError,Content cannot be a plain string. The model does not support text input. Content cannot be a plain string. The model does not support text input.
+nvidia,nvidia/nemotron-parse-2.0,hayır,canli /models,200,OK,204,893.37,368.93,128,1,2026-10-16 19:58:07,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/neva-22b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'bc205f8e-1740-40df-8d32-c4321763498a': Not found for acc"
+nvidia,nvidia/nv-embedqa-mistral-7b-v2,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/nvclip,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,nvidia/riva-translate-4b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'f35337fa-b4dd-4996-bcba-5476ee01171d': Not found for acc"
+nvidia,nvidia/riva-translate-4b-instruct-v2,hayır,canli /models,200,OK,451,70.51,21.57,13,1.1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,nvidia/vila,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '1c8df143-2303-419b-8b28-b4dd82cfe113': Not found for acc"
+nvidia,openai/gpt-oss-20b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AG_YAKALANDI,zaman asimi
+nvidia,poolside/laguna-xs-2.1,hayır,canli /models,200,OK,83461,7.55,1.12,101,1.1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,snowflake/arctic-embed-l,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,404 page not found 
+nvidia,stepfun-ai/step-5-preview,hayır,canli /models,200,OK,1215,311.31,100.36,23,7.8,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,writer/palmyra-creative-122b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '00bdd0a7-e38f-4423-9007-c4d8730a3f78': Not found for acc"
+nvidia,writer/palmyra-fin-70b-32k,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '316490c6-f1ed-41f9-9da8-3fa9e885653b': Not found for acc"
+nvidia,writer/palmyra-med-70b,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'aab71274-5281-4941-b0b8-20f339d1fc7e': Not found for acc"
+nvidia,writer/palmyra-med-70b-32k,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function 'd6faa974-3591-49a4-963d-97221d074b2e': Not found for acc"
+nvidia,z-ai/glm-5.3,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,AG_YAKALANDI,zaman asimi
+nvidia,z-ai/glm-5.3-flash,hayır,canli /models,200,OK,100710,375.6,2.47,23,10.9,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+nvidia,zyphra/zamba2-7b-instruct,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:58:07,HTTP_404,"{""status"":404,""title"":""Not Found"",""detail"":""Function '8378ffb2-51b0-4140-9684-dda1889373e6': Not found for acc"
+groq,openai/gpt-oss-safeguard-20b,hayır,canli /models,200,OK,,,399.41,0,,2026-10-16 19:57:51,,"delta-yetersiz (0); yalniz toplam-sure bazli hiz olculur"
+groq,canopylabs/orpheus-arabic-saudi,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,model_terms_required,The model `canopylabs/orpheus-arabic-saudi` requires terms acceptance. Please have the org admin accept the terms at https://console.groq.com/playground?model=canopylabs%2Forpheus-arabic-saudi
+groq,openai/gpt-oss-20b,hayır,canli /models,200,OK,471,,478.54,59,4.3,2026-10-16 20:40:18,,"tek-paket; yalniz toplam-sure bazli hiz olculur"
+groq,qwen/qwen3.8-27b,hayır,canli /models,200,OK,115,469.79,315.47,109,1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+groq,canopylabs/orpheus-v1-english,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,model_terms_required,The model `canopylabs/orpheus-v1-english` requires terms acceptance. Please have the org admin accept the terms at https://console.groq.com/playground?model=canopylabs%2Forpheus-v1-english
+groq,whisper-large-v3-turbo,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,invalid_request_error,The model `whisper-large-v3-turbo` does not support chat completions
+groq,whisper-large-v3,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,invalid_request_error,The model `whisper-large-v3` does not support chat completions
+groq,allam-2-7b,hayır,canli /models,200,OK,177,1390.64,708.56,255,1,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+groq,meta-llama/llama-prompt-guard-2-86m,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,invalid_request_error,text classification models do not support streaming
+groq,meta-llama/llama-prompt-guard-2-22m,hayır,canli /models,200,HATA,,,,,,2026-10-16 19:57:51,invalid_request_error,text classification models do not support streaming
+groq,openai/gpt-oss-120b,hayır,canli /models,200,OK,358,805.16,283.75,88,1.8,2026-10-16 20:40:18,,delta paketleriyle uretim penceresi olculdu
+openrouter,deepseek/deepseek-v4.1-flash-1017,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,elorian/glimpse,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xingchen-agi/xing4.0-29b-a4b:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,reflection/beam-1.0-501b-a23b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moondream/moondream3-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moondream/moondream3.1-9b-a2b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-open,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3.5-super-vl,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3.5-super-vl:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,~unbiased/pareto-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,unbiased/pareto-26.9,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,liquid/lfm-2.5-24b-a2b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-4-argon,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-4-argon:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,scaledown/summarize,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,scaledown/extract,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-wonder,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,stepfun/step-5-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-haiku-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-haiku-5.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-nano-banana-2.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-large-4-0,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inclusionai/ling-3.1-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6.1-sol-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6.1-sol-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6.1-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6.1-sol:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-5.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,typesafe/jev-router,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perceptron/perceptron-mk1.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,fireworks/ember-1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3-prime,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-max-prime,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-3.5-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-3.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,upstage/solar-mini4,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/command-a-plus,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-luna-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-luna-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-luna,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-luna:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-sol-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-sol-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-sol:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-5.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/switchyard,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xiaomi/mimo-v2.6-pro-ultraspeed,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xiaomi/mimo-v2.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xiaomi/mimo-v2.6-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.7,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-omni-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,prism-ml/ternary-bonsai-2-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3-flashx,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~deepseek/deepseek-pro-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~deepseek/deepseek-flash-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inference-net/schematron-v2-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inference-net/schematron-v2-small,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~openai/gpt-astra-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~openai/gpt-sol-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~openai/gpt-terra-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~openai/gpt-luna-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sakana/fugu-ultra-v2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sakana/fugu-max,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inclusionai/ling-3.0-flash-vl,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4.1-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4.1-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inception/mercury-2.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nex-agi/nex-n2.5-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nex-agi/nex-n2.5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-astra,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-astra:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-astra-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-6-astra-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-max-0902,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-1.3-contributor,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-1.3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.8-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.8-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-fable-5.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-fable-5.1:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,ibm-granite/granite-4.2-8b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy4-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~z-ai/glm-flash-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-1.2-contributor,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4-flash-vision-exp,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy-mt2-1.8b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy-mt2-30b-a3b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~z-ai/glm-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy-mt2-7b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.3:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,dots-studio/dots-3-note-preview:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,google/gemini-3.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.7-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance-seed/seed-2-1-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.8-2.4t-a95b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance-seed/seed-2.0-code,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4-pro-0813,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,liquid/lfm-2.5-2.6b:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,nvidia/nemotron-3.5-lightning,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3.5-lightning:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,sakana/sakana-namazu,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,upstage/solar-pro4,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-glimmer-30b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-1.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~deepseek/deepseek-v4-flash-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4-flash-0731,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thinkingmachines/inkling-small,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thinkingmachines/inkling-small:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_403,thinkingmachines/inkling-small:free is only available on agentic harnesses. Try plugging it into a coding agent or productivity app listed on https://openrouter.ai/apps
+openrouter,qwen/qwen3.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inclusionai/ling-3.0-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,poolside/laguna-s-2.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,poolside/laguna-s-2.1:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,google/gemini-3.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.6-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.5-flash-lite,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.5-flash-lite:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meituan/longcat-2.0,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thinkingmachines/inkling,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thinkingmachines/inkling:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_403,thinkingmachines/inkling:free is only available on agentic harnesses. Try plugging it into a coding agent or productivity app listed on https://openrouter.ai/apps
+openrouter,openrouter/auto-beta,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k3:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta/muse-spark-1.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-luna-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-luna-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-luna,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-luna:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-terra-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-terra-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-terra,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-terra:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-sol-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-sol-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-sol,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.6-sol:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~x-ai/grok-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-3.0-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-3.0,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,poolside/laguna-xs-2.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,poolside/laguna-xs-2.1:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,anthropic/claude-sonnet-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-lite-image,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sakana/fugu-ultra,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-image,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3-pro-image,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/north-mini-code:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,z-ai/glm-5.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openrouter/fusion,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2.7-code,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~anthropic/claude-fable-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-fable-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-fable-5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3.5-content-safety,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3.5-content-safety:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,nvidia/nemotron-3-ultra-550b-a55b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3-ultra-550b-a55b:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,qwen/qwen3.7-plus,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.7-plus:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,stepfun/step-3.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.8,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.8:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.7-max,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-build-0.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.5-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.5-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perceptron/perceptron-mk1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-lite,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-lite:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-chat-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.3:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-medium-3-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-medium-3-5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,~anthropic/claude-haiku-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~openai/gpt-mini-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~google/gemini-pro-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~moonshotai/kimi-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~google/gemini-flash-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~anthropic/claude-sonnet-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-plus-20260420,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.6-35b-a3b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.6-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.5-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v4-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hy3-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xiaomi/mimo-v2.5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,xiaomi/mimo-v2.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-image-2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,~anthropic/claude-opus-latest,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openrouter/pareto-code,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.7,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.7:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-4-26b-a4b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-4-26b-a4b-it:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,google/gemma-4-31b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-4-31b-it:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,qwen/qwen3.6-plus,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5v-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,arcee-ai/trinity-large-thinking,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.20-multi-agent,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,x-ai/grok-4.20,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/lyria-3-pro-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/lyria-3-clip-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,rekaai/reka-edge,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m2.7,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-nano,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-nano:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-small-2603,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-small-2603:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3-super-120b-a12b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3-super-120b-a12b:free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,bytedance-seed/seed-2.0-lite,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-9b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.4:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,inception/mercury-2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-lite-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance-seed/seed-2.0-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-flash-image-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-35b-a3b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-27b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-122b-a10b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-flash-02-23,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-pro-preview-customtools,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.3-codex,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-2.0,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-pro-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3.1-pro-preview:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-4.6:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-plus-02-15,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3.5-397b-a17b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m2.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.6:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-coder-next,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openrouter/free,evet,canli /models,200,HATA,,,,,,2026-10-16 20:40:18,HTTP_429,Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day
+openrouter,stepfun/step-3.5-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,upstage/solar-pro-3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m2-her,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,writer/palmyra-x5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-audio,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-audio-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.7-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2-codex,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance-seed/seed-1.6-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance-seed/seed-1.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m2.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.7,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3-flash-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3-flash-preview:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nvidia/nemotron-3-nano-30b-a3b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2-chat,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.2:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/devstral-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,relace/relace-search,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.6v,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openrouter/bodybuilder,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.1-codex-max,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,amazon/nova-2-lite-v1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/ministral-14b-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/ministral-8b-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/ministral-8b-2512:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/ministral-3b-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-large-2512,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-large-2512:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v3.2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-3-pro-image-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.1:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.1-codex,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5.1-codex-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2-thinking,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,amazon/nova-premier-v1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perplexity/sonar-pro-search,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/voxtral-small-24b-2507,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-oss-safeguard-20b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,ibm-granite/granite-4.0-h-micro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-image-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-haiku-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-haiku-4.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-vl-8b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-image,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-flash-image,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-vl-30b-a3b-thinking,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-vl-30b-a3b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.6,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-sonnet-4.5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v3.2-exp,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thedrummer/cydonia-24b-v4.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,relace/relace-apply-3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-vl-235b-a22b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-v3.1-terminus,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-coder-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-next-80b-a3b-thinking,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-next-80b-a3b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2-0905,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nousresearch/hermes-4-405b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-chat-v3.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-medium-3.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-medium-3.1:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.5v,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-nano,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-5-nano:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-oss-120b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-oss-120b:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-oss-20b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-oss-20b:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthropic/claude-opus-4.1:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/codestral-2508,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/codestral-2508:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-coder-30b-a3b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-30b-a3b-instruct-2507,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.5,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,z-ai/glm-4.5-air,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-235b-a22b-thinking-2507,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-coder,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,bytedance/ui-tars-1.5-7b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-flash-lite,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-flash-lite:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-235b-a22b-2507,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,moonshotai/kimi-k2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cognitivecomputations/dolphin-mistral-24b-venice-edition,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,tencent/hunyuan-a13b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,morph/morph-v3-large,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,morph/morph-v3-fast,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-small-3.2-24b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-m1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-flash,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-flash:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-pro:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemini-2.5-pro-preview,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-r1-0528,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-medium-3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-guard-4-12b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-30b-a3b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-14b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen3-32b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o4-mini-high,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o4-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o4-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1-nano,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4.1-nano:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-4-maverick,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-4-scout,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-chat-v3-0324,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o1-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-small-3.1-24b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-3-4b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-3-12b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/command-a,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,rekaai/reka-flash-3,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-3-27b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thedrummer/skyfall-36b-v2,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perplexity/sonar-reasoning-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perplexity/sonar-pro,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perplexity/sonar-deep-research,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-saba,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3-mini-high,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,aion-labs/aion-rp-llama-3.1-8b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen2.5-vl-72b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen-plus,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o3-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-small-24b-instruct-2501,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,perplexity/sonar,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-r1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,minimax/minimax-01,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,microsoft/phi-4,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,deepseek/deepseek-chat,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sao10k/l3.3-euryale-70b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/o1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/command-r7b-12-2024,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-3.3-70b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,amazon/nova-lite-v1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,amazon/nova-micro-v1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,amazon/nova-pro-v1,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-2024-11-20,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-large-2407,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen-2.5-coder-32b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,thedrummer/unslopnemo-12b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,anthracite-org/magnum-v4-72b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen-2.5-7b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-3.2-1b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-3.2-3b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,qwen/qwen-2.5-72b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/command-r-08-2024,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,cohere/command-r-plus-08-2024,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sao10k/l3.1-euryale-70b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nousresearch/hermes-3-llama-3.1-70b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,nousresearch/hermes-3-llama-3.1-405b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,sao10k/l3-lunaris-8b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-2024-08-06,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-3.1-70b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,meta-llama/llama-3.1-8b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-nemo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-mini,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-mini-2024-07-18,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-mini:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,google/gemma-2-27b-it,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o-2024-05-13,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4o:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mixtral-8x22b-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,microsoft/wizardlm-2-8x22b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4-turbo:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mistralai/mistral-large,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-3.5-turbo-0613,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openrouter/auto,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-3.5-turbo-instruct,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-3.5-turbo-16k,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,mancer/weaver,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,undi95/remm-slerp-l2-13b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,gryphe/mythomax-l2-13b,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-3.5-turbo,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-3.5-turbo:batch,hayır,canli /models,200,OLCUMEDI,,,,,,,,
+openrouter,openai/gpt-4,hayır,canli /models,200,OLCUMEDI,,,,,,,,

@@ -1,0 +1,35 @@
+{
+  "probe": "ordu-v3/B00",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-14T11:20:02.846Z",
+  "node": "v24.18.0",
+  "nodeEngines": ">=24.0.0 <25",
+  "depsExact": {
+    "typebox": "0.34.41",
+    "ajv": "8.20.0",
+    "ajvFormats": "3.0.1"
+  },
+  "paseo": "0.11.2",
+  "paseoStatus": "CLI-FOUND",
+  "git": "git version 2.55.0.windows.2",
+  "capabilities": {
+    "nodePinned24": true,
+    "gitPresent": true,
+    "paseoCliPresent": true,
+    "paseoDaemonReachable": true,
+    "worktreeIsolationProven": true,
+    "sandboxEstablished": true,
+    "structuredOutput": true,
+    "usageReporting": true,
+    "cancelConfirm": true
+  },
+  "blocked": [],
+  "evidence": {
+    "worktree": "temp repo + git worktree add basarili, cleanup tamam",
+    "sandbox": "provider=true mode-auto=true cwd=true (config-kaniti)",
+    "structuredOutput": "--output-schema flag'i paseo run --help ciktisinda mevcut",
+    "cancelConfirm": "paseo stop --help erisilebilir (interrupt semantigi)"
+  },
+  "note": "blocked listesi bos olmadan worker spawn YOK (fail-closed, A01). sandboxEstablished yalniz config-kanitidir; davranissal sandbox kaniti ayri gate ister.",
+  "probeReceiptHash": "ca11d2cf0283f2776b08cf7cd185a27400155b2689eea6a2e270e5845b80ad08"
+}

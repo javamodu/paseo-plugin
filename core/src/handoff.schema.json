@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "handoff.schema.json",
+  "title": "StageHandoff",
+  "description": "Aşama-diskrimine handoff DTO'su (plan v2.7 §20.4): PREPARE/PRODUCE/VERIFY/DELIVER. 'stage' const diskriminatördür; her aşama öncekinin alanlarını taşır + kendi zorunlu bağlarını ekler. Semantik çapraz bağlar (§20.5) bu şemada YOK — store/domain doğrular.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/PREPARE"
+    },
+    {
+      "$ref": "#/definitions/PRODUCE"
+    },
+    {
+      "$ref": "#/definitions/VERIFY"
+    },
+    {
+      "$ref": "#/definitions/DELIVER"
+    }
+  ],
+  "definitions": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "hex64": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "budget": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "expiry": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "budget",
+        "expiry"
+      ]
+    },
+    "testResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "result"
+      ]
+    },
+    "PREPARE": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "const": "PREPARE"
+        },
+        "runId": {
+          "$ref": "#/definitions/id"
+        },
+        "parentTask": {
+          "$ref": "#/definitions/id"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "grant": {
+          "$ref": "#/definitions/grant"
+        },
+        "evaluatorId": {
+          "$ref": "#/definitions/id"
+        },
+        "surum": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "stage",
+        "runId",
+        "parentTask",
+        "scope",
+        "grant",
+        "evaluatorId",
+        "surum"
+      ]
+    },
+    "PRODUCE": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "const": "PRODUCE"
+        },
+        "runId": {
+          "$ref": "#/definitions/id"
+        },
+        "parentTask": {
+          "$ref": "#/definitions/id"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "grant": {
+          "$ref": "#/definitions/grant"
+        },
+        "evaluatorId": {
+          "$ref": "#/definitions/id"
+        },
+        "surum": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "attemptId": {
+          "$ref": "#/definitions/id"
+        },
+        "candidateRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "izinSnapshot": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "stage",
+        "runId",
+        "parentTask",
+        "scope",
+        "grant",
+        "evaluatorId",
+        "surum",
+        "attemptId",
+        "candidateRef",
+        "izinSnapshot"
+      ]
+    },
+    "VERIFY": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "const": "VERIFY"
+        },
+        "runId": {
+          "$ref": "#/definitions/id"
+        },
+        "parentTask": {
+          "$ref": "#/definitions/id"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "grant": {
+          "$ref": "#/definitions/grant"
+        },
+        "evaluatorId": {
+          "$ref": "#/definitions/id"
+        },
+        "surum": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "attemptId": {
+          "$ref": "#/definitions/id"
+        },
+        "candidateRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "izinSnapshot": {
+          "type": "object"
+        },
+        "candidateHash": {
+          "$ref": "#/definitions/hex64"
+        },
+        "suiteHash": {
+          "$ref": "#/definitions/hex64"
+        },
+        "environment": {
+          "type": "object"
+        },
+        "testResults": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/testResult"
+          }
+        }
+      },
+      "required": [
+        "stage",
+        "runId",
+        "parentTask",
+        "scope",
+        "grant",
+        "evaluatorId",
+        "surum",
+        "attemptId",
+        "candidateRef",
+        "izinSnapshot",
+        "candidateHash",
+        "suiteHash",
+        "environment",
+        "testResults"
+      ]
+    },
+    "DELIVER": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "const": "DELIVER"
+        },
+        "runId": {
+          "$ref": "#/definitions/id"
+        },
+        "parentTask": {
+          "$ref": "#/definitions/id"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "grant": {
+          "$ref": "#/definitions/grant"
+        },
+        "evaluatorId": {
+          "$ref": "#/definitions/id"
+        },
+        "surum": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "attemptId": {
+          "$ref": "#/definitions/id"
+        },
+        "candidateRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "izinSnapshot": {
+          "type": "object"
+        },
+        "candidateHash": {
+          "$ref": "#/definitions/hex64"
+        },
+        "suiteHash": {
+          "$ref": "#/definitions/hex64"
+        },
+        "environment": {
+          "type": "object"
+        },
+        "testResults": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/testResult"
+          }
+        },
+        "receiptId": {
+          "$ref": "#/definitions/id"
+        },
+        "artifactPaths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          }
+        }
+      },
+      "required": [
+        "stage",
+        "runId",
+        "parentTask",
+        "scope",
+        "grant",
+        "evaluatorId",
+        "surum",
+        "attemptId",
+        "candidateRef",
+        "izinSnapshot",
+        "candidateHash",
+        "suiteHash",
+        "environment",
+        "testResults",
+        "receiptId",
+        "artifactPaths"
+      ]
+    }
+  }
+}

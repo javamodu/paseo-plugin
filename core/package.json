@@ -1,0 +1,24 @@
+﻿{
+  "name": "ordu-core",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "ORDU-V3 S0: kapalÃƒâ€Ã‚Â± sÃƒÆ’Ã‚Â¶zleÃƒâ€¦Ã…Â¸meler (B01) + runtime/SDK probe (B00). Teknik baseline: kapsul-final-v2.0.0 (ADR-011).",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "scripts": {
+    "test": "node --test test/contracts.test.ts test/sync-baseline.test.ts test/store.test.ts test/supervisor.test.ts test/adapter-contract.test.ts test/metrics.test.ts test/handoff.test.ts test/dispatcher.test.ts test/closure.test.ts test/schedule.test.ts test/reasoning-receipt.test.ts test/receipt-link.test.ts test/agent-lineage.test.ts test/adapter-evaluator.test.ts test/git-worktree.test.ts test/cli.test.ts test/local-runtime.test.ts test/modes.test.ts test/paseo-transport.test.ts test/paseo-adapter.test.ts test/f1-gates.test.ts test/f1-fault.test.ts test/f3-live.test.ts test/e2e-s11.test.ts test/f4-pano.test.ts test/m16-m03.test.ts test/f5-parallel.test.ts test/benchmark.test.ts test/lessons.test.ts test/m01-a15-m11.test.ts test/notify.test.ts test/f4b-pano-ogrenme.test.ts test/cli-capsule.test.ts test/live-gates-v3.test.ts test/f65-rol-model.test.ts test/r3-grant.test.ts",
+    "probe": "node src/probe.mjs",
+    "bench:providers": "node src/provider-bench.mjs",
+    "pano": "node src/pano-server.ts"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "0.34.41",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

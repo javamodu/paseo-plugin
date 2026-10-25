@@ -1,0 +1,108 @@
+{
+  "sema": "ordu-provider-bench/v1",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-17T07:41:29.070Z",
+  "ayarlar": {
+    "kapsam": "free-modeller",
+    "runs": 1,
+    "maxTokens": 256,
+    "akis": true,
+    "prompt": "1'den 30'a kadar sayilari virgulle yaz.",
+    "config": "C:\\Users\\gatep\\.paseo\\config.json"
+  },
+  "providerlar": [
+    {
+      "provider": "tokenharbor",
+      "kapsam": "free-modeller (4/68)",
+      "katalogHttp": 200,
+      "katalogMs": 585,
+      "katalogBoyut": 68,
+      "katalogHata": null,
+      "katalogLimit": {},
+      "secilenSayi": 4,
+      "modeller": []
+    },
+    {
+      "provider": "nvidia",
+      "kapsam": "free-katmani-yok, config-listesi (11/81)",
+      "katalogHttp": 200,
+      "katalogMs": 311,
+      "katalogBoyut": 81,
+      "katalogHata": null,
+      "katalogLimit": {},
+      "secilenSayi": 11,
+      "modeller": []
+    },
+    {
+      "provider": "groq",
+      "kapsam": "free-katmani-yok, config-listesi (4/11)",
+      "katalogHttp": 200,
+      "katalogMs": 330,
+      "katalogBoyut": 11,
+      "katalogHata": null,
+      "katalogLimit": {},
+      "secilenSayi": 4,
+      "modeller": []
+    },
+    {
+      "provider": "codefast",
+      "kapsam": "free-katmani-yok, config-listesi (0/0)",
+      "katalogHttp": 403,
+      "katalogMs": 360,
+      "katalogBoyut": 0,
+      "katalogHata": {
+        "kod": "NO_ACTIVE_PACKAGE",
+        "mesaj": "API access denied"
+      },
+      "katalogLimit": {},
+      "secilenSayi": 0,
+      "modeller": []
+    },
+    {
+      "provider": "codefast-os",
+      "kapsam": "free-katmani-yok, config-listesi (0/0)",
+      "katalogHttp": 403,
+      "katalogMs": 171,
+      "katalogBoyut": 0,
+      "katalogHata": {
+        "kod": "PAYG_DISABLED",
+        "mesaj": "API access denied"
+      },
+      "katalogLimit": {},
+      "secilenSayi": 0,
+      "modeller": []
+    },
+    {
+      "provider": "codefast-glm",
+      "kapsam": "free-katmani-yok, config-listesi (0/0)",
+      "katalogHttp": 403,
+      "katalogMs": 178,
+      "katalogBoyut": 0,
+      "katalogHata": {
+        "kod": "PAYG_DISABLED",
+        "mesaj": "API access denied"
+      },
+      "katalogLimit": {},
+      "secilenSayi": 0,
+      "modeller": []
+    },
+    {
+      "provider": "openrouter",
+      "kapsam": "free-modeller (17/469)",
+      "katalogHttp": 200,
+      "katalogMs": 570,
+      "katalogBoyut": 469,
+      "katalogHata": null,
+      "katalogLimit": {},
+      "secilenSayi": 17,
+      "modeller": []
+    }
+  ],
+  "ozet": {
+    "toplamModel": 0,
+    "calisan": 0,
+    "hatali": 0
+  },
+  "note": "tokSn yalniz uretim penceresi (toplamMs - ttftMs) uzerinden, en az 2 delta paketi ve 100ms usturum goruldugunde hesaplanir; aksi halde null. tokSnToplam her zaman outToken/toplamMs verir ve TTFT icerir (alt sinir). tokenKaynagi=usage sunucu sayimi, tahmin ise ~4 karakter/token kaba olcegi; ikisi de uctan uca dogrulanmis gecikme olcumu degildir. Hatali satirlar kota/402/403 kaynaklidir, model yetenegi degil.",
+  "benchHash": "31d9c5cebbe85f6cb1b3c240aa157964c500e1f975fe9ff2886560d843c3eafe"
+}
