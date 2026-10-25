@@ -18,3 +18,10 @@ Kaynak: iki bağımsız 6-subagent dalga (dalga-3: SAG/DEF/SEC/TUR/ZIN/DOK + dal
 "Çekirdek hazır; savaş MAKİNESİ değil" hükmü **doğrulandı**. 6 bloktan 4'ü prosedür/kayıt (B-1, B-4, B-5, B-6), 2'si kod bombası (B-2/C2, B-3/C6 — düdük bekler). Dalga sırasının 1-2'ncü adımları bu turda KAPANDI (doğrulama turu + TUR-1 kapanış eksikleri: rollup + erata + echo). Kalan: kod bombaları + prosedür + mekanik DOK + K-0039 → "SAVAŞA HAZIR".
 
 - Damga (R): 2026-10-25 20:01 (Get-Date ile ölçüldü — DERSLER 162), ajan = yazıcı ordu-a4 (doğrulama turu + kayıt), commit = bu kayıt commit'i.
+
+## TUR A islenme guncellemesi (2026-10-25 20:38; islenme alanlari + commit hash)
+
+- **B-2 (BUG-C2) DÜZELTİLDİ** — `79a011c`: `LocalRuntimeAdapter.cancel` kanonik sözleşmeye geçti (attemptId→dispatchKey köprüsü, gerçek kill + OS ölüm teyidi; REQUESTED/UNKNOWN fail-closed). (R): core 299/0 EXIT=0; regresyon testi live-gates-v4 `dk-c2` rig'inde.
+- **B-3 (BUG-C6) DÜZELTİLDİ** — `79a011c`: `cancelStaleOwner` devir anında eski sahip SÜRECİNİ öldürür (attempt durumu bozulmaz; yeni olay tipi AÇILMADI — baseline senkron 31 tip). (R): K6 testi dosyanın devirden sonra BÜYÜMEDİĞİNİ kanıtlıyor.
+- **C-2 KISMEN KAPANDI** — STOP ucu `0e76448` (pano `durdur`, interrupt) + kabul.csv canlı-satır ucu `5e2fa0e` (`/api/kabul`, saglik 6b ile aynı hesap: 27 yeşil/43 hermetik/115 satır). kill-9 = DAEMON otoritesi (WS `cancel_agent_request` DaemonClient'ta kalıyor — dürüst sınır). Pano mockup içerik = F6/F7 UFUK kalemi.
+- **⚠ YENİ DERS (163)**: plugin worker kill → worker YENİ DOĞMUYOR (oturum/tur spawn etmiyor; yalnız daemon restart). Pano köprüsü 4378 daemon restart penceresine dek AŞAĞI — yeni uçlar restart'ta canlanır [insan penceresi: ordu-dc'nin 6 subagent'ı bitince].
