@@ -1,0 +1,22 @@
+{
+  "schemaSurum": 1,
+  "is": "f3-restart-envanteri",
+  "tarih": "2026-10-25T17:50:00+03:00",
+  "tetik": "kullanici: TAM RESTART YAPALIM SIMDI (= F3 BASLA)",
+  "supervisor": { "pid": 36184, "process": "Paseo.exe", "listen": "127.0.0.1:6767", "serverId": "srv_zM3KvDbisBso", "desktopManaged": true },
+  "configYedek": "C:\\Users\\gatep\\.paseo\\config.json.bak-2026-10-25-F3",
+  "yapilanlar": [
+    { "adim": "A1", "is": "claude-glm.cmd kok -> scripts/", "kanit": "commit 42ae414" },
+    { "adim": "A2", "is": "config.json plugins.paseo-verimlilik.path -> D:\\Vibecode\\ordu\\plugin", "kanit": "1 eslesme, ConvertFrom-Json OK" },
+    { "adim": "A3", "is": "codex config.toml trust + projects.'d:\\vibecode\\ordu'", "kanit": "Select-String eklendi; eski paseo-plugin korundu" },
+    { "adim": "schedule", "is": "sozlesme-sondaj 8fc84e8e cwd+prompt -> D:\\Vibecode\\ordu", "kanit": "updatedAt 2026-10-25T14:48:42Z" }
+  ],
+  "yapilmayanlar": [
+    "A4 kart anahtarlari (B11, karar C verilmedi)",
+    "bayat workspace'ler (karar D, F4'lu)",
+    "K-0039 (kayitli erte)"
+  ],
+  "kirliDosyalar": ["raporlar/telemetri-haftalik/2026-W43.json", "raporlar/telemetri-haftalik/2026-W43.md"],
+  "restartKomutu": "taskkill /PID 36184 /T /F",
+  "sonrakiIs": "A6 dogrulama + A7 kapanis (plans/F3-TASLAK-2026-10-25.md)"
+}
