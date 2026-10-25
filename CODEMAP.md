@@ -1,4 +1,4 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6b8e944 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6f6a844 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -43,6 +43,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0031.md` (1.8KB) — K-0031 — Pano İzole Proje Olarak Prototip (ONAYLANDI 2026-10-13 — kullanıcı: "ayrı bir klasörde izole oluştur") | Bağlam | Karar
 - `kararlar/K-0032.md` (2.2KB) — K-0032 — fırtına modu: Kimi-K3 süre-bazlı lisans için maksimum-performans modu (ONAYLANDI 2026-10-13) | Bağlam | Karar
 - `kararlar/K-0033.md` (2.9KB) — K-0033 — Ikili temsil: insan-metni (md) ↔ makine-cekirdegi (json); derleyici manager LLM, dogrulayici round-trip checker (ONAYLANDI 2026-10-13 — kullanici: "k0033 onayliyorum") | Baglam | Karar
+- `kararlar/K-0034.md` (1.9KB) — K-0034 — MASTER-SSOT otoritesinin PLAN.md'ye devri — ONAYLANDI | Bağlam | Karar (aday)
 - `kararlar/K-0035.md` (3.5KB) — K-0035 — CODEMAP butcesi: rapor/kanit dizinlerinde esik-5 klasor topaklamasi (ONAYLANDI 2026-10-15 — kullanici: "B kalsin") | Baglam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
@@ -50,6 +51,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `plans/ADR-F65-rol-model.md` (9.7KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (TASLAK — onay bekler) | Baglam | Karar
 - `plans/ADR-R3-vekalet.md` (16.6KB) — ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (TASLAK — onay bekler) | Baglam | Karar
+- `plans/ADR-toparlanma-monorepo.md` (7.9KB) — ADR — Toparlanma: tek dizin (monorepo) — TASLAK, onay bekler | Bağlam | Karar (önerilen)
 - `plans/Agent-Ordu-Teknik-Brief-ve-Prompt.md` (19.1KB) — Agent Ordu — Teknik ürün özeti ve geliştirici promptu | Belgenin statüsü | 1. Ürün tanımı
 - `plans/arsiv/` (7 dosya: en yeni REVIEW-v2.8-2026-10-14.md, GECE-RAPORU-2026-10-14.md, GECE-2026-10-14.md)
 - `plans/handoff/ECHO-HANDOFF-2026-10-13-2014.md` (1KB) — ECHO — HANDOFF-2026-10-13-2014 (devralan dogrulamasi) | 1) Kirli dosyalar? | 2) Son commit?
@@ -66,8 +68,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/handoff/HANDOFF-2026-10-13-1707.md` (2.8KB) — HANDOFF 2026-10-13 1707 - Pano v5 + BLUEPRINT (kullanici Paseo restart edecek) | Repo durumu (echo: devralan dogrular) | Bu turda kapananlar
 - `plans/handoff/HANDOFF-2026-10-13-2014.md` (1.7KB) — HANDOFF 2026-10-13 20:14 — baglam %90 acil devir | Repo durumu (20:14, diskten) | Bu turda kapananlar (kanitli)
 - `plans/handoff/HANDOFF-2026-10-14-0127.md` (1.5KB) — HANDOFF 2026-10-14 01:27 — devir + echo | Echo (devralan dogrulamasi, diskten) | Repo durumu (01:27)
-- `plans/handoff/HANDOFF-2026-10-14-0333.md` (22.6KB) — HANDOFF 2026-10-14 03:33 — gece vardiyasi D1-D5 TAMAM | Echo dogrulama (onceki handoff icin, diskten) | Echo dogrulama (BU handoff icin, §3.4 — 2026-10-14 gun-ici devam turu, diskten dogrulandi)
-- `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · TASLAK, K-0034'e bagli) | 1. Komuta ve yurutme | 2. Kalite ve kabul
+- `plans/handoff/HANDOFF-2026-10-14-0333.md` (26.9KB) — HANDOFF 2026-10-14 03:33 — gece vardiyasi D1-D5 TAMAM | Echo dogrulama (onceki handoff icin, diskten) | Echo dogrulama (BU handoff icin, §3.4 — 2026-10-14 gun-ici devam turu, diskten dogrulandi)
+- `plans/handoff/HANDOFF-2026-10-25-1350.md` (3.1KB) — HANDOFF 2026-10-25 13:50 — F0 toparlanma: S1-S5 tamam, commit dalgaları başlıyor | Repo durumu (diskten, 13:50) | Aktif iş
+- `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · K-0034 ONAYLANDI 2026-10-25) | 1. Komuta ve yurutme | 2. Kalite ve kabul
 - `plans/mockup/cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans/mockup/DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
 - `plans/mockup/parcalar/v10/01-nav.md` (15.7KB) — 01-nav — v10 Navigasyon Mimarisi Fragment'ı | 1. Davranış Spec'i | 2. HTML Fragment'ı
@@ -76,14 +79,15 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/mockup/parcalar/v10/04-pano.md` (13.2KB) — 04 — Pano (orta sekme, one-view dashboard) · v10 | 1. Spec (kısa) | 2. HTML fragment
 - `plans/mockup/parcalar/v10/05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
 - `plans/mockup/parcalar/v10/06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
-- `plans/PLAN.md` (42.3KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
+- `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SSOT-INDEX.md` (0KB)
-- `raporlar/` (11 dosya: en yeni 3model-puanlama-2026-10-19.md, saf-performans-top30-2026-10-18.md, codex-uyumluluk-siralamasi-2026-10-17.md)
+- `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
+- `raporlar/codex-uc-analizi-2026-10-25/OZET.md` (5.1KB) — Codex ucu analizi — 2026-10-25 | Kanıt zinciri (diskten, bu turda okundu) | Ücretsiz alternatifler (kullanıcı politikası: ücretli API yok)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/gelen-kutu/` (8 dosya: en yeni codex-2026-10-14.md, denetim2-2026-10-13.md, review3-2026-10-13.md)
+- `raporlar/gelen-kutu/` (9 dosya: en yeni ana-ajan-2026-10-25.md, codex-2026-10-14.md, denetim2-2026-10-13.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/model-katalog-2026-10-17/katalog.md` (15.4KB) — Birlesik Model Katalogu — paseo-plugin · 2026-10-17 | Birden fazla provider'da olan modeller (asil bakım yeri) | Tüm modeller (provider → id, ctx, fiyat)
 - `raporlar/model-katalog-2026-10-18/katalog.md` (16KB) — Birlesik Model Katalogu — paseo-plugin · 2026-10-18 | Birden fazla provider'da olan modeller (asil bakım yeri) | Tüm modeller (provider → id, ctx, fiyat)
@@ -93,7 +97,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/proje-panosu/2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.1.0)
 - `raporlar/repo-etkinlik-2026-10-14/OZET.md` (1.8KB) — Repo Etkinlik Olcumu — 2026-10-14 01:45 (R: 14 repo telemetri.jsonl disk taramasi) | Buyuk resim (anlamli orneklem: >=10 tur) | Firtina etkisi (turSn>0 filtresi, ayni repo ici)
 - `raporlar/sozlesme-sondaj/2026-10-12/OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
-- `raporlar/takip-sozlesme/` (7 dosya: en yeni 2026-10-19.md, 2026-10-18.md, 2026-10-17.md)
+- `raporlar/takip-sozlesme/` (10 dosya: en yeni 2026-10-25.md, 2026-10-24.md, 2026-10-20.md)
 - `raporlar/telemetri-haftalik/2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
 - `raporlar/telemetri-haftalik/2026-W43.md` (0.9KB) — Telemetri Haftalık Özet — 2026-W43
 - `raporlar/token-olcum-2026-10-11/OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
@@ -120,7 +124,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
-- `STATE_BOARD.md` (30.5KB) — STATE_BOARD ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paseo-plugin | Aktif iÃƒâ€¦Ã…Â¸ | Son damgalar
+- `STATE_BOARD.md` (32.6KB) — STATE_BOARD ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paseo-plugin | Aktif iÃƒâ€¦Ã…Â¸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/v0.4/KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler/v0.5.1/KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
