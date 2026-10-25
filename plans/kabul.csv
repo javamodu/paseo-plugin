@@ -80,8 +80,8 @@ F3-A,F3,canli kill -9 recovery,PASS,PASS 2026-10-14 gecesi: test/f3-live.test.ts
 F3-B,F3,canli STOP restart + reconcile gercek worker,PASS,PASS 2026-10-14 gecesi: test/f3-live.test.ts gercek OS sureci (pid SIGKILL/ESRCH teyitli), npm test 176/176 exit 0
 F4-A,F4,Paseo kapaliyken pano read 200,PASS,PASS 2026-10-14 gecesi: test/f4-pano.test.ts (loopback+token+confirm kapilari), npm test 186/186 exit 0
 F4-B,F4,STOP sonrasi 0 spawn,PASS,PASS 2026-10-14 gecesi: test/f4-pano.test.ts (loopback+token+confirm kapilari), npm test 186/186 exit 0
-F5-A,F5,DST/misfire/overlap testleri,NOT_RUN,MS-SSOT v2.7.2 §10
-F5-B,F5,outbox dedupe,NOT_RUN,MS-SSOT v2.7.2 §10
+F5-A,F5,DST/misfire/overlap testleri,PASS,bugunku tam suit kosumu (R) 299/299 makine EXIT=0 (log raporlar/kanit-hedef/core-test-faz3-2026-10-25.log): schedule.test M09 DST determinizm (UTC tam tekrarlanabilir + non-UTC RED) + M10 misfire (catch-up firtinasi YOK) + M10 overlap (onceki run aktifken yeni BINMEZ) — eski MS-SSOT v2.7.2 par10 kapisinin gunumuz test karsiligi ·d:2026-10-25T22:14:23+03:00 ·h:f2a3670 ·x:0
+F5-B,F5,outbox dedupe,PASS,bugunku tam suit kosumu (R) 299/299 makine EXIT=0 (ayni log): store.test A05/P0-6 komut dedupe+conflict + closure.test U1 SENDING idempotent + f5-parallel canli dedupe (paralel tuketim cift spawn URETMEZ) + m16-m03 cift teslim DUPLICATE RED ·d:2026-10-25T22:14:23+03:00 ·h:f2a3670 ·x:0
 F5-C,F5,canli kapasite + cakisma olcumu,NOT_RUN,MS-SSOT v2.7.2 §10
 F6-A,F6,karantina->promote zinciri,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
 F6-B,F6,regresyonda oto-geri-al kaniti,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
