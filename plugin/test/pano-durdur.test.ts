@@ -3,6 +3,9 @@
 // kill-9 DAEMON otoritesidir - plugin ucu interrupt ile sinirlidir (pano.ts kaynak notu).
 import assert from "node:assert";
 import http from "node:http";
+import { writeFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 interface Gonderilen { agentId: string; metin: string; activeTurnBehavior?: string }
 
@@ -82,10 +85,26 @@ async function main() {
     assert.ok(k.cevap.hermetik > 0, "GECTI_HERMETIC ayri sayilmali (SARI - canli kanit yok)");
     assert.ok(k.cevap.oran !== null && k.cevap.oran < 100, "oran dürüst: tam yesil DEGIL (fail-closed defter)");
     assert.ok(k.cevap.satirlar.every((s: any) => typeof s.id === "string" && typeof s.durum === "string"), "satir semasi: id+faz+kaynak+durum+kaniT");
+
+    // 5) ORDU_KABUL_CSV gecersiz kilar: gecici defter servis edilir (BUG-2026-10-25 worker-killer
+    //    duzeltmesinin test tarafindan gorulebilen yuzu — eval baglamindaki kok env ile bagimsiz sinanir;
+    //    eval dali bizzat uretimde, canli probe ile dogrulanir)
+    const geciciCsv = join(tmpdir(), "kabul-test-" + Date.now() + ".csv");
+    writeFileSync(geciciCsv, "id,faz,kaynak,durum,kaniT\r\nX-1,F1,test,PASS,k\r\nX-2,F1,test,GECTI_HERMETIC,k\r\n", "utf8");
+    process.env.ORDU_KABUL_CSV = geciciCsv;
+    const k2 = await get("/api/kabul");
+    delete process.env.ORDU_KABUL_CSV;
+    rmSync(geciciCsv, { force: true });
+    assert.equal(k2.kod, 200, "env gecersiz: gecici defter okunur");
+    assert.equal(k2.cevap.toplam, 2, "gecici defterin 2 satiri");
+    assert.equal(k2.cevap.yesil, 1, "PASS yesil sayilir");
+    assert.equal(k2.cevap.hermetik, 1, "GECTI_HERMETIC ayri SARI sayilir");
+    assert.equal(k2.cevap.oran, 50, "oran = 1/2 = %50");
   } finally {
     pano.kapat();
     delete process.env.PANO_PORT;
     delete process.env.PANO_TOKEN;
+    delete process.env.ORDU_KABUL_CSV;
   }
 
   console.log("PANO-DURDUR: durdur eylemi -> send(activeTurnBehavior=interrupt) + STOP metni; agentId'siz 422; tokensuz 401 (fail-closed); /api/kabul canli defter " + "(saglik 6b ile ayni hesap)");

@@ -37,8 +37,16 @@ interface KabulOzet { satirlar: KabulSatir[]; yesil: number; hermetik: number; d
 const KABUL_YESIL = new Set(["PASS", "GECTI", "GECTI_CANLI"]);
 
 function kabulOku(): KabulOzet | null {
+  // BUG-2026-10-25 (worker-killer): Paseo bundle-evaluator plugin kodunu eval ile yukler; o baglamda
+  // import.meta.url TANIMSIZDIR -> fileURLToPath(undefined) firlatir -> /api/kabul'e gelen HER istek
+  // plugin surecini oldurur (telemetri + pano birlikte gider). Test ortaminda (dogrudan modul)
+  // import.meta.url doludur; testler bu hatayi gormez. Eval baglaminda kok, uiDir ile ayni
+  // varsayilan evden turetilir (B20 notu: PANO_UI_DIR gecersiz kilar).
+  const modulKok = typeof import.meta.url === "string" ? dirname(fileURLToPath(import.meta.url)) : null;
   const dosya = process.env.ORDU_KABUL_CSV
-    ?? join(dirname(fileURLToPath(import.meta.url)), "..", "..", "plans", "kabul.csv");
+    ?? (modulKok !== null
+      ? join(modulKok, "..", "..", "plans", "kabul.csv")
+      : join(dirname(process.env.PANO_UI_DIR ?? "D:\\Vibecode\\ordu\\pano"), "plans", "kabul.csv"));
   if (!existsSync(dosya)) return null;
   const metin = readFileSync(dosya, "utf8").replace(/^﻿/, ""); // BOM kaldirilir
   const satirlar: KabulSatir[] = [];
@@ -237,7 +245,16 @@ export function panoBaslat(getPaseo: () => PaseoApi | null): { durum: () => Pano
     return true;
   }
 
+  // BUG-2026-10-25 (worker-killer koruma): senkron uc hatasi yakalanmazsa node sureci (plugin) olur —
+  // /api/kabul boyle olduruyordu (kabulOku). Yonlendirme ayri fonksiyonda; hata -> 500, worker yasar.
   const sunucu = http.createServer((req, res) => {
+    try { istekYonlendir(req, res); } catch (error) {
+      console.error("[paseo-verimlilik] pano uc istisnasi (worker korunur)", error);
+      try { jsonYaz(res, 500, { hata: String((error as Error)?.message ?? error) }); } catch { /* yanit zaten yazildi */ }
+    }
+  });
+
+  function istekYonlendir(req: http.IncomingMessage, res: http.ServerResponse): void {
     const url = new URL(req.url ?? "/", "http://127.0.0.1");
     const yol = url.pathname;
     if (req.method === "GET" && yol === "/api/durum") {
@@ -307,7 +324,7 @@ export function panoBaslat(getPaseo: () => PaseoApi | null): { durum: () => Pano
       if (statikServis(res, hedef)) return;
     }
     jsonYaz(res, 404, { hata: "bulunamadi" });
-  });
+  }
 
   function durumGetir(): PanoDurum {
     return {
