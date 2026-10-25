@@ -14,6 +14,19 @@
     { "id": 7, "grup": "sizintemamiri", "konu": "esik 5->2 yetkisiz (S1)", "ozgun": "uygulanmisti (bf4e8ec/360057f)", "gercek": "1a ile geri alindi: 85f6435 (esik=5, CODEMAP 132 satir, saglik 16 OK/2 EKSIK)", "siddet": "yuksek", "onayDurumu": "duzeltildi 85f6435" },
     { "id": 8, "grup": "sizintemamiri", "konu": "denetim.json maddeSayisi yerinde edit (S2)", "ozgun": "20->18 in-place", "gercek": "denetim.json'a erata anahtari eklendi (ozgun degerler korunur)", "siddet": "yuksek", "onayDurumu": "mesrulastirildi - bu commit" }
   ],
+  "erata2": {
+    "tarih": "2026-10-25T20:04:00+03:00",
+    "tetik": "kullanici 'TUR 1 BASLA' + ordu-dc dalga-3/4 birlesik defteri (12 salt-okur subagent; kayit: raporlar/gelen-kutu/ordu-dc-dalga34-2026-10-25.json)",
+    "kapananMaddeler": [
+      { "id": "B4", "konu": "cache-hit bozuk metrik + esik celiskisi", "kanit": "a8e1293 + 3b94691 + 9a4a0b4 (R: saglik %97,2; rollup testi 91.9<=100)" },
+      { "id": "B5", "konu": "kabul-orani oz-bildirimli", "kanit": "a8e1293 - defter tabanli kapi: 27/115=%23 bilincli kirmizi fail-closed; GECTI_HERMETIK 43 ayri SARI" },
+      { "id": "B6b", "konu": "pano-start eski ev + gomulu token", "kanit": "faa7b48 (R: token degeri betikten kaldirildi)" },
+      { "id": "B20", "konu": "pano.ts:46 eski ev varsayilani", "kanit": "5045320 + child-kill restart (R: /api/durum uiVar:true)" },
+      { "id": "D13", "konu": "live-gates-v4 suite disi", "kanit": "d9a5962 (R: 299 pass / 0 fail / EXIT=0)" }
+    ],
+    "acikSayim": "5 defter maddesi + 2 gelen-kutu blogu (B-5 echo, B-6 maske) kapandi; fiili acik ~22 (kesin sayim TUR 2 acilisinda)",
+    "damga": "2026-10-25 20:04 (Get-Date olculdu), ajan = ordu-a4 ana-ajan, commit = bu erata-2'nin commit'i"
+  },
   "baglamaHashleri": {
     "defter": "bf4e8ec",
     "defterDamgaBaglama": "360057f",
@@ -25,7 +38,9 @@
     "caprazSorgu": "89c704b",
     "caprazSorguEK": "7dde0cf",
     "esikGeriAlma": "85f6435",
-    "erata": "bu commit"
+    "erata": "bu commit",
+    "rollupNormalize": "9a4a0b4",
+    "erata2": "bu commit"
   },
   "etiketNotu": "DEFTER govde madde satirlari etiketsizdir ((R)=1 yalniz damgada, (T)=0); geriye donuk etiketlenmez, bu kayitla sabitlenir",
   "damga": "2026-10-25 19:26 (Get-Date olculdu), ajan = ordu-a4 ana-ajan, commit = bu yan-dosyanin commit'i"

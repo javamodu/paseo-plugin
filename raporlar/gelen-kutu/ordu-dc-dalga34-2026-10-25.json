@@ -1,0 +1,24 @@
+{
+  "schemaSurum": 1,
+  "rapor": "ordu-dc-dalga34-2026-10-25",
+  "tarih": "2026-10-25",
+  "tur": "birlesik-eksik-risk-defteri",
+  "kaynak": "12 salt-okur subagent (dalga-3: SAG/DEF/SEC/TUR/ZIN/DOK + dalga-4: 6 eksen) - raporlayan oturum edit yasakli, sohbet raporu",
+  "maddeler": [
+    { "id": "B-1", "baslik": "pano-token.txt GIT TRACKED + gecmiste (c41c75e, faa7b48)", "dosyaRef": "core/veri/pano-token.txt", "etiket": "guvenlik", "siddet": "yuksek", "oneri": "rotate + git rm [insan]", "islenme": "Dogrulandi (R: git ls-files tracked). Rotate+git rm = insan karari (E15/karar C, K-0045 aday) - FAZ-2/F4 kuyrugu" },
+    { "id": "B-2", "baslik": "BUG-C2: LocalRuntimeAdapter.cancel iptali asla teyitlemez", "dosyaRef": "core/src (test dosyasinda belgeli)", "etiket": "kod-bombasi", "siddet": "yuksek", "oneri": "src duzeltmesi - duguk bekler", "islenme": "Dogrulandi (live-gates-v4 ciktisinda belgeli, d9a5962) - kod duzeltmesi ayri tur" },
+    { "id": "B-3", "baslik": "BUG-C6: devir sonrasi eski sahip diske yazmaya devam eder", "dosyaRef": "core/src (test dosyasinda belgeli)", "etiket": "kod-bombasi", "siddet": "yuksek", "oneri": "src duzeltmesi - duguk bekler", "islenme": "Dogrulandi (live-gates-v4 ciktisinda belgeli, d9a5962) - kod duzeltmesi ayri tur" },
+    { "id": "B-4", "baslik": "K-0029 + K-0036 kayitlari YOK (13+ atifli)", "dosyaRef": "kararlar/", "etiket": "kayit-bosligu", "siddet": "orta", "oneri": "K-0041/K-0042 kayitlari [insan]", "islenme": "Dogrulandi (R: Test-Path false x2, 41 K kaydi) - FAZ-2.9 kuyrugu" },
+    { "id": "B-5", "baslik": "HANDOFF-2005 echo'suz + takipte 15:28 zincir-kopuk notu", "dosyaRef": "plans/handoff/HANDOFF-2026-10-25-2005.md", "etiket": "devir-disiplini", "siddet": "orta", "oneri": "gecikmeli echo yaz", "islenme": "ECHO kapatildi - bu turda gecikmeli echo yazildi (ayni oturum, 1955 deseni); 15:28 notu stale (zincir-kontrol EXIT=0 R)" },
+    { "id": "B-6", "baslik": "sk-or-v1 tek eslesme dogrulanmamis (gercek degerse rotate)", "dosyaRef": "repo geneli", "etiket": "guvenlik", "siddet": "orta", "oneri": "tek satirlik hedefli kontrol", "islenme": "COZULDU (R: tek eslesme plans/F3-TASLAK-2026-10-25.md:20 = MASKE 'sk-or-v1-...' - deger YOK, rotate gerekmez)" },
+    { "id": "C-1", "baslik": "W43 kirli raporda %1950.2 cache-hit vs saglik %97,2 - iki resmi cikti birbirini iptal ediyor", "dosyaRef": "plugin/server/rollup.ts:80-86", "etiket": "olcum-dustlugu", "siddet": "yuksek", "oneri": "rollup normalize + eski jsonl normalize", "islenme": "DUZELTILDI 9a4a0b4: rollup okuma-aninda normalize (100p/(100+p)) + test (91.9<=100); W43 md DOKUNMA - sonraki rollup'ta yeniden uretilir" },
+    { "id": "C-2", "baslik": "savas altyapisi sifir: kill-9/STOP ucu yok, kabul.csv canli-satir ucu yok, pano mockup, cift sunucu (4378/8787)", "dosyaRef": "plugin/", "etiket": "savas-hazirlik", "siddet": "yuksek", "oneri": "savas oncesi tur - duguk", "islenme": null },
+    { "id": "C-3", "baslik": "saglik parametresiz cagri = olcumsuz yesil (Katman B atlanir; kabul.csv yoksa kapu sessiz gecer)", "dosyaRef": "scripts/saglik.ps1", "etiket": "olcum-dustlugu", "siddet": "orta", "oneri": "kullanim disiplini / parametre zorunlu kilinabilir", "islenme": null },
+    { "id": "D-1", "baslik": "DEFTER'de 5 madde diskte kapali (B4/B5/B6b/B20/D13) - erata gerekli", "dosyaRef": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md", "etiket": "kanit-tazeligi", "siddet": "dusuk", "oneri": "erata bloklari", "islenme": "Bu turda erata-2 islendi (a8e1293..9a4a0b4 commit zinciriyle)" },
+    { "id": "D-2", "baslik": "DOK drift: AGENTS Yapı bölümü kod evlerine kör, KULLANIM+SSOT-INDEX eski ev, package.json 0.0.0, FERMANLAR v2.0, ANAYASA A4 [insan]", "dosyaRef": "coklu", "etiket": "drift", "siddet": "orta", "oneri": "TUR 2 mekanik DOK turu", "islenme": null },
+    { "id": "D-3", "baslik": "K-0039 (84>80): kapanis yolu somut - 3 birlestirme onerisi", "dosyaRef": "sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md", "etiket": "kural-butcesi", "siddet": "orta", "oneri": "TUR 3 - savas-hazir onkosulu", "islenme": null },
+    { "id": "I-1", "baslik": "core 296/296 bayat - canli olcum kazanir", "dosyaRef": "core/", "etiket": "bayat-sayi", "siddet": "dusuk", "oneri": "canli 299/0 + plugin 388/0 kabul", "islenme": "COZULDU (R: core 299/0 d9a5962, plugin 388 ok 9a4a0b4 - ikisi EXIT=0)" }
+  ],
+  "dogrulamaNotu": "Celişki-1 ve Çelişki-2 çözüldü (B-6 maske, C-1 rollup düzeltildi); B-5 echo kapatildi; stale bulgular (pano restart, CODEMAP, STATE damgasi) TUR-1 kapanisı ile kapandi; 4 blok prosedur/kayit, 2 kod bombasi düdük bekler",
+  "damga": "2026-10-25 20:01 (Get-Date olculdu), ajan = yazici ordu-a4, commit = bu kayit commit'i"
+}

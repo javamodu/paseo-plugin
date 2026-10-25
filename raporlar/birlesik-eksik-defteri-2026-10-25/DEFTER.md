@@ -118,3 +118,21 @@ Bu blok yukarıdaki içeriği DEĞİŞTİRMEZ — düzeltmeleri kayda geçerir. 
 - DEFTER: `bf4e8ec` · damga-bağlama: `360057f` · 1815 gecikmeli echo: `02c6a71` + bağlama `b7f532b` · 1955: `ed67569` (echo `8b09011`) · 2005: `4fb9fd2` · çapraz sorgu: `89c704b` · EK tur-2: `7dde0cf` · eşik geri-alma (1a): `85f6435` · bu erata: bu commit.
 
 Damga (R): 2026-10-25 19:26 (`Get-Date` ile ölçüldü), ajan = ana-ajan ordu-a4 (Claude glm-5.3; erata paketi kullanıcı "düzelt" onayıyla), commit = bu eratanın commit'i; kod değişikliği YOK (eşik geri-alma ayrı commit: `85f6435`).
+
+## ERATA-2 — 2026-10-25 20:04 (TUR 1 kapanışı + dalga-3/4 birleşik defteri; ana-ajan ordu-a4, append-only)
+
+Tetik: kullanıcı "TUR 1 BAŞLA" düdüğü (TUR-1 paketi uygulandı) + ordu-dc'nin dalga-3/4 birleşik eksik/risk defteri (12 salt-okur subagent; kayıt: `raporlar/gelen-kutu/ordu-dc-dalga34-2026-10-25.{md,json}` — her iddia yazıcı oturumca diske karşı doğrulandı).
+
+### Diskte KAPANAN defter maddeleri (dalga-3 TUR doğrulamasıyla)
+- **B4** (cache-hit bozuk metrik + eşik çelişkisi): ✅ `a8e1293` (saglik 1.1 normalizasyon + K-0040 tek eşik) + `3b94691` (telemetry.ts kök onarımı) + `9a4a0b4` (rollup okuma-anında normalize — W43 %1931.8 çelişkisi kapandı). (R): saglik %97,2; rollup testi 91.9≤100.
+- **B5** (kabul-oranı öz-bildirimli): ✅ `a8e1293` — kapı kabul.csv defterinden: **%23 (27/115) bilinçli kırmızı fail-closed**; GECTI_HERMETIK (43) ayrı SARI.
+- **B6b** (pano-start eski ev + gömülü token): ✅ `faa7b48` — yeni ev + token değeri betikten KALDIRILDI (env/pano-token.txt; dosyanın kendisi E15'te insanda → B-1).
+- **B20** (pano.ts:46 eski ev varsayılanı): ✅ `5045320` + child-kill restart — (R): `/api/durum` uiDir=`D:\Vibecode\ordu\pano`, uiVar:true.
+- **D13** (live-gates-v4 suite'te değil): ✅ `d9a5962` — 37/37 dosya; (R): tam süit **299 pass / 0 fail / EXIT=0**.
+
+### Kalan açık defter maddeleri (dalga-3/4 birleşik hükümü, doğrulanmış)
+- **Bloklayan (6'dan 4'e indi):** B-1 pano-token rotate+`git rm` [insan] · B-2 BUG-C2 + B-3 BUG-C6 (kod bombaları, düdük bekler) · B-4 K-0029/K-0036 kayıtları [insan]. **B-5 echo KAPANDI** (gecikmeli echo 2005'e yazıldı) · **B-6 sk-or-v1 KAPANDI** (R: tek eşleşme maske — `plans\F3-TASLAK-2026-10-25.md:20`, değer yok).
+- **Geciktiren (geçerli):** savaş altyapısı (kill-9/STOP ucu, kabul.csv canlı-satır ucu, pano mockup içerik, çift sunucu 4378/8787) · saglik parametresiz çağrı = Katman B'siz ölçümsüz yeşil · DOK drift (AGENTS Yapı, KULLANIM, SSOT-INDEX, package.json 0.0.0, FERMANLAR) · K-0039 · M04/M15/M02 NOT_RUN.
+- **"27 açık" → güncel sayım:** bu eratayla 5 madde kapandı (B4, B5, B6b, B20, D13) + 2 blok kapandı (B-5, B-6) → **fiili açık ≈ 22**; kesin yeniden sayım TUR 2 açılışında.
+
+Damga (R): 2026-10-25 20:04 (Get-Date ile ölçüldü), ajan = ana-ajan ordu-a4, commit = bu erata-2'nin commit'i.
