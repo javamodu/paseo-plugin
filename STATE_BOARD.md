@@ -17,7 +17,7 @@ F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi
 - 2026-10-11 · kuruluş: repo+GitHub push · Plan v1.4+REHBER senkron (K-0002) · v0.2 pitbull (K-0004) · v0.4 echo kapısı+onboarding CANLI (K-0006)
 
 ## Bekleyen onaylar (insan)
-1. S4 anahtar rotate (kullanıcı) + ~/.paseo/config.json 2 kart güncelleme + daemon restart (ayrı onay) — kontrol kriteri: sk-p1hT öneki diskte 0 eşleşme
+1. S4 anahtar rotate (kullanıcı) + ~/.paseo/config.json 2 kart güncelleme + daemon restart (ayrı onay) — kontrol kriteri: **ESKİ ANAHTARIN TAMAMI** diskte 0 eşleşme (kısa önek grepi yanlış-pozitif verir: önek parçası guvenlik-taraması-2026-10-25.md belgesinde kalıcı)
 2. F1 (ordu/ iskeleti + paseo-plugin köke taşıma) — F0 kalanı bitince ayrıca
 3. K-0036 ücretli-yok politikası karar kaydı · §17.3 canlı test paketi
 
