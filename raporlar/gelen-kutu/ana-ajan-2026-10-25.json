@@ -12,7 +12,7 @@
       "etiket": "ssot-ihlali",
       "siddet": "orta",
       "oneri": "Doldur veya K-0034 kapsaminda tekillestir",
-      "islenme": null
+      "islenme": "F2-6: dolduruldu - 2047 bayt / 25 satir (R: Get-Item 2026-10-25 kanal turu; tasima kanal commit'i). Kalan bayat-satir maddesi C9/FAZ-2'de ayri takip"
     },
     {
       "id": "B2",
@@ -30,7 +30,7 @@
       "etiket": "kayit-bosligu",
       "siddet": "orta",
       "oneri": "K-0034 aday statusuyle acilsin; K-0029 yazilsin veya atiflar temizlensin",
-      "islenme": null
+      "islenme": "KISMEN: K-0034 acildi + ONAYLANDI (6f6a844; R: Test-Path 2026-10-25). K-0029 hala yok - FAZ-2.9'da kuyrukta (K-0041)"
     },
     {
       "id": "B4",
@@ -39,7 +39,7 @@
       "etiket": "kanit-disiplini",
       "siddet": "yuksek",
       "oneri": "Kullanici onayiyla dalga dalga, dosya-adiyla add ile commit",
-      "islenme": null
+      "islenme": "Kapandi: F0-F3 dalgalariyla commit akisi geldi (kullanici onayli, dosya-adiyla add); R 2026-10-25: untracked 0, kesintisiz 240+ commit (kanal turu olcumu)"
     },
     {
       "id": "B5",
@@ -57,7 +57,7 @@
       "etiket": "hijyen",
       "siddet": "orta",
       "oneri": "Ilk blok UTF-8 yeniden yazilsin, aktif is satiri tazelensin",
-      "islenme": null
+      "islenme": "Kapandi: ilk satir temiz UTF-8 (R: 2026-10-25 okuma - mojibake yok); aktif is 19:26 damgasiyla taze (duzelt turu)"
     },
     {
       "id": "B7",
@@ -66,7 +66,7 @@
       "etiket": "butce",
       "siddet": "dusuk",
       "oneri": "Esik-5 kapsami buyurse K-0035 guncellemesi gundeme alinsin",
-      "islenme": null
+      "islenme": "Kayda baglandi: K-0037 (erte, onayli) + 2026-10-25 duzelt turu esik 5'e geri aldi (85f6435) - 132 satir bilincli kirmizi; kalici cozum = kapsam genisletmesi (K-0035/K-0037 cizgisi), TUR 2'nin C10 maddesi"
     },
     {
       "id": "B8",
@@ -75,7 +75,7 @@
       "etiket": "birikim",
       "siddet": "orta",
       "oneri": "Isleme turu plana alinsin (islenme + hash append)",
-      "islenme": null
+      "islenme": "Kanali isleme basladi (2026-10-25 TUR-1 kanal turu): bu dosyada 10 islenmemisten 8'i islendi; eski denetim dosyalarinin 43 bekleyen maddesi (denetim 28 + denetim2 14 + codex 1) ayri tur kuyrugunda (G23)"
     },
     {
       "id": "B9",
@@ -93,7 +93,7 @@
       "etiket": "devir-disiplini",
       "siddet": "orta",
       "oneri": "Sprint kapanisinda yeni HANDOFF halkasi acilsin",
-      "islenme": null
+      "islenme": "Kapandi: 0333 sonrasi zincir 22 halka, KOPUK YOK (R: zincir-kontrol EXIT=0, 2026-10-25; son halka HANDOFF-2026-10-25-2005)"
     },
     {
       "id": "B16",
@@ -111,7 +111,7 @@
       "etiket": "guvenlik-hijyen",
       "siddet": "dusuk-yerel",
       "oneri": "K kaydi: yerel-ozel kabul ya da sanitize+gitignore; history temizligi maliyetli",
-      "islenme": null
+      "islenme": "KISMEN (TUR-1 B6b, 2026-10-25): gomulu token betikten (pano-start.ps1) kaldirildi (faa7b48) - token artik env'den; pano-token.txt dosyasinin kendisi E15/karar C insana devri (K-0045 aday) bekliyor"
     },
     {
       "id": "B18",
