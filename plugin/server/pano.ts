@@ -126,6 +126,16 @@ export function panoBaslat(getPaseo: () => PaseoApi | null): { durum: () => Pano
       await paseo.agents.ref(agentId).send(metin);
       return { ok: true };
     }
+    if (eylem === "durdur") {
+      const agentId = String(emir.agentId ?? "");
+      if (!agentId) return { ok: false, mesaj: "agentId gerekli" };
+      // STOP ucu (dalga-3 C-2, TUR A): calisan turu daemon KESER (activeTurnBehavior=interrupt
+      // - tur kuyruklanmaz, yerini alir). Not: kill-9 (OS surec olumu) DAEMON otoritesidir;
+      // WS protokolunun cancel_agent_request'i DaemonClient katmaninda kalir, PaseoApi
+      // sarmalamaz - plugin ucu interrupt ile sinirlidir (durust fail-closed sinir).
+      await paseo.agents.ref(agentId).send("STOP - pano durdurma emri (kullanici)", { activeTurnBehavior: "interrupt" });
+      return { ok: true, mesaj: "interrupt gonderildi - calisan tur kesiliyor" };
+    }
     if (eylem === "yarat") {
       const cwd = String(emir.cwd ?? "");
       const provider = String(emir.provider ?? "");
