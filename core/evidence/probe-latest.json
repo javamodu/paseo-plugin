@@ -1,7 +1,7 @@
 {
   "probe": "ordu-v3/B00",
   "schemaVersion": 1,
-  "generatedAt": "2026-10-14T11:20:02.846Z",
+  "generatedAt": "2026-10-25T19:00:56.726Z",
   "node": "v24.18.0",
   "nodeEngines": ">=24.0.0 <25",
   "depsExact": {
@@ -9,7 +9,7 @@
     "ajv": "8.20.0",
     "ajvFormats": "3.0.1"
   },
-  "paseo": "0.11.2",
+  "paseo": "0.13.0",
   "paseoStatus": "CLI-FOUND",
   "git": "git version 2.55.0.windows.2",
   "capabilities": {
@@ -31,5 +31,5 @@
     "cancelConfirm": "paseo stop --help erisilebilir (interrupt semantigi)"
   },
   "note": "blocked listesi bos olmadan worker spawn YOK (fail-closed, A01). sandboxEstablished yalniz config-kanitidir; davranissal sandbox kaniti ayri gate ister.",
-  "probeReceiptHash": "ca11d2cf0283f2776b08cf7cd185a27400155b2689eea6a2e270e5845b80ad08"
+  "probeReceiptHash": "a8580ad03e25b2b3f48c0c1918e41d7b48022f0573a78aa42eb819db2e64617d"
 }
