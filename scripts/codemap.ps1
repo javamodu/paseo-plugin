@@ -23,9 +23,13 @@ $lines += ''
 $lines += 'Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.'
 $lines += ''
 # K-0035: yalniz rapor/kanit arsiv dizinlerinde esik-5 topaklama. kararlar/ + plans/ + scripts/ dosya duzeyinde kalir.
-$topakOn = @('raporlar/','kanit/','plans/arsiv/')
+# K-0037 (F2-7 uygulama): plans/handoff/ esik-5 hattina girer; monorepo bilesen dizinleri (ADR hedef yapi)
+# KLASOR-TOPAKLAMA kuraliyle esiksiz TEK SATIR'a iner — 384 map-dosyasi buna karsin 130 satir butcesi korunur.
+$topakOn = @('raporlar/','kanit/','plans/arsiv/','plans/handoff/')
+$zorlaTopak = @('core/','plugin/','pano/','referans/','arsiv/','surumler/')
 $esik = 5
 function Get-TopakKey([string]$rel) {
+  foreach ($p in $zorlaTopak) { if ($rel.StartsWith($p)) { return $p } }
   foreach ($p in $topakOn) {
     if ($rel.StartsWith($p)) { $i = $rel.LastIndexOf('/'); if ($i -gt 0) { return $rel.Substring(0,$i + 1) } }
   }
@@ -38,7 +42,7 @@ foreach ($f in $files) {
   if ($key) { if (-not $grup.ContainsKey($key)) { $grup[$key] = @() }; $grup[$key] += $f }
 }
 $topaklanacak = @{}
-foreach ($k in @($grup.Keys)) { if ($grup[$k].Count -ge $esik) { $topaklanacak[$k] = $true } }
+foreach ($k in @($grup.Keys)) { if ($grup[$k].Count -ge $esik -or ($zorlaTopak -contains $k)) { $topaklanacak[$k] = $true } }
 $yazildi = @{}
 foreach ($f in $files) {
   $rel = ($f.FullName.Substring($Root.Length + 1)) -replace '\\','/'

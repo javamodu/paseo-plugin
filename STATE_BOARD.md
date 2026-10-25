@@ -1,10 +1,10 @@
 ﻿# STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı)
 
 ## Aktif iş
-**F2 SÜRÜYOR (2026-10-25 16:42, kullanıcı "F2 ONAYLI")** — ordu/ monorepo birleşimi, tek-yazıcı bu kökte: F2-0..3 kilitli (bkz. damga) · kalan 4 adım: F2-4 plugin/ (S2 → 4 test → commit) · F2-5 raporlar birleşimi (**W42/W43 AD ÇAKIŞMASI** — ordu canlısına dokunma; silinecek kopyası arşive) · F2-6 SSOT tekilleştirme (S6 haritası; MASTER-SSOT-PLAN.md'de nvapi anahtarı — B16, ordu'ya sanitize'siz girmez) · F2-7 SSOT-INDEX + codemap + saglik 0 EKSIK · **devir: plans/handoff/HANDOFF-2026-10-25-1640.md** (echo bekleniyor) · eski kök gözlem modunda, silme F4'te açık onayla; bekçi eski yola yazar (B14, F3'te kapanır)
+**F2 KAPALI — MONOREPO BİRLEŞİMİ TAMAM (2026-10-25 17:16, 8/8 adım; kullanıcı onaylı)** — tek-yazıcı bu kökte. Sıradaki: **F3** kanca tek eve + daemon restart (insan onayı — oturumu koparır, ayrı an) · F4 eski konum silme/arşiv (açık onay; anahtar env taşıma penceresi B16/B18/B19) · kural-proxy sadeleştirme turu (K-0039) · K-0036 + §17.3 eski. Eski kök gözlem modunda; bekçi eski yola yazar (B14, F3'te kapanır). Devir: plans/handoff/HANDOFF-2026-10-25-1716.md (echo bekleniyor).
 
 ## Son damgalar (tam: son 3)
-- 2026-10-25 · **F2 4/8 ADIM KİLİTLİ** (kullanıcı "F2 ONAYLI"; ADR-toparlanma-monorepo): F2-0 history arşivi 84e3639 (2 bundle, clone-test R) · F2-1 referans/ f0996b3 (82 dosya; S2=yanlış-pozitif) · F2-2 core/ c41c75e + sync-baseline referans/ yolu + npm test 296/296 EXIT=0 (R) · F2-3 pano/ ffa40c3 (mockup, ADR gereği test yok) · vardiya devri: HANDOFF-2026-10-25-1640 (kalan adım + B16 nvapi/B17 pano-token uyarıları orada)
+- 2026-10-25 · **F2 KAPALI 8/8** (ADR-toparlanma-monorepo, kararlar/): F2-0..3 `84e3639 f0996b3 c41c75e ffa40c3` (ayrıntı HANDOFF-2026-10-25-1640) · F2-4 plugin/ c4f7043 (93 dosya; S2 temiz R; drift bekçisi arsiv/history bundle'a yöneltildi; npm test 4/4 EXIT=0 R) · F2-5 raporlar d112592 (kullanıcı onayı: 5 dosya raporlar/, W42/W43 çakışması arsiv/raporlar-silinecek-taskgraph/, ordu canlısına DOKUNULMADI) · F2-6 SSOT 234e56b (sozlesme/v2.1 yetkili, v2.0 arsiv; 3 ADR→kararlar/; eski SSOT→arsiv/SSOT-eski-2026-10-25/; MASTER-SSOT-PLAN 3 anahtar REDACTED: B16 nvapi + B18 gsk + B19 thk_live; yol atıfları güncellendi; DERSLER birleşimi 8 madde) · F2-7 SSOT-INDEX dolduruldu + CODEMAP 423 dosya→123 satır (K-0037 klasör-topaklama uygulandı: plans/handoff/ + bilesen dizinleri tek satır) + saglik **17 OK / 1 EKSIK** (kural-proxy 84>80 → **K-0039 erte, onaylı**)
 - 2026-10-25 · **F1 TAŞIMA TAMAMLANDI** (kullanıcı koştu, ana-ajan diskten doğruladı): robocopy paseo-plugin→ordu /E (.git+untracked dahil) · `git -C ordu log` kesintisiz: 08dc97b devir → 0de7cdf K-0038 → f92cab3 · hafıza klasörü D--Vibecode-ordu 1:1 (memory/ boş — kayıp yok) · devir HANDOFF-2026-10-25-1542 taşımadan ÖNCE atıldı · F1 ölçüm kapıları: git-kesintisiz ✓ · memory ✓ · echo 3/3 yeni-yol oturumunda ba3a7c8 ✓ · eski konum donduruldu, silme F4
 - 2026-10-25 · F0 TAMAMEN KAPALI: kapanış zinciri ce50c92 → d1d128d (STATE 26 satır) → b4f7201 (DERSLER izin-asimetrisi) → 57235fa (K-0037 CODEMAP kapsamı, F1/F3 uygulama) → f633614 (S4 kriteri) → f92cab3 (arsiv 113/188/0 FAILED) → 0de7cdf (K-0038 S4 rotate İPTAL — kullanıcı "yeni anahtara gerek yok"; sızma anı prosedürü kararda)
 - 2026-10-25 (özet) · F0 İCRA: 5 commit dalgası (bc174d6→ea601cb) + K-0034 ONAY (6f6a844) + HANDOFF-1350 + S2 temiz + 3 repo commit — ayrıntı handoff zinciri
@@ -20,11 +20,11 @@
 - 2026-10-11 · kuruluş: repo+GitHub push · Plan v1.4+REHBER senkron (K-0002) · v0.2 pitbull (K-0004) · v0.4 echo kapısı+onboarding CANLI (K-0006)
 
 ## Bekleyen onaylar (insan)
-1. ~~S4 anahtar rotate~~ İPTAL — K-0038 (2026-10-25, kullanıcı: "yeni anahtara gerek yok"); ~/.paseo/config.json kart güncellemesi + daemon restart yalnız sızma/iptal anında gündeme gelir (K-0038 prosedürü)
-2. ~~F1~~ KAPANDI (2026-10-25, echo 3/3 ba3a7c8) · F2 ONAYLANDI — sürüyor, 4/8 adım; kalan adımlar + echo HANDOFF-2026-10-25-1640'da
-3. F3: kanca tek eve + daemon restart (oturumu koparır — ayrı an) · F4: eski konumların silme/arşivi (açık onay)
-4. K-0036 ücretli-yok politikası karar kaydı · §17.3 canlı test paketi
+1. **F3: kanca tek eve + daemon restart** (oturumu koparır — ayrı an/timing; B14 kapanışı, bekçi kapsamı tek ev)
+2. F4: eski konumların (paseo-verimlilik, silinecek-task-graph, paseo-pano) silme/arşivi — açık onay; aynı pencere: B16/B18/B19 anahtarlarının env'e taşınması (kaynak dosyalar silinir)
+3. K-0036 ücretli-yok politikası karar kaydı · §17.3 canlı test paketi
+4. Kural-proxy sadeleştirme turu (K-0039): rehber v2.1 madde birleştirme → <80; ayrı dikkatli tur
 
 ## Bilinen açıklar (saglik SARI/EKSİK backlog)
-- CODEMAP 134 satır > 130 bütçe: **K-0037 ONAYLANDI** — kapsam genişletmesi (K-0035 hattı: `plans/handoff/` topaklamaya girer), uygulama F1/F3'e ertelendi (yeni kökte harita yeniden üretilir — çifte iş önlendi)
-- Kural-proxy 78 satır (hedef <40): sadeleştirme backlog'ta
+- ~~CODEMAP 134 satır~~ **KAPANDI (F2-7)**: K-0037 klasör-topaklama uygulandı — CODEMAP 123 satır, 423 dosya (R)
+- Kural-proxy 84 satır (tavan 80, hedef <40): **K-0039 erte (onaylı)** — sadeleştirme ayrı tur; saglik'deki tek EKSIK bu atıfla okunur
