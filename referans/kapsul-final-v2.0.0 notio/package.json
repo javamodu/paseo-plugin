@@ -1,0 +1,14 @@
+{
+  "name": "capsule-design-baseline",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Design plan and offline reference tests; not a production server",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "node tests/domain.test.mjs",
+    "verify": "python tools/verify.py"
+  }
+}

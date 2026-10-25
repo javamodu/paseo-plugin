@@ -1,0 +1,16 @@
+{
+  "status": "NOT_CONFIGURED",
+  "profiles": [
+    {
+      "id": "balanced-demo",
+      "version": 1,
+      "runtime": "paseo",
+      "providerModel": "DISCOVER_AT_RUNTIME",
+      "promptHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "toolSchemaHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "capabilityReceiptHash": null,
+      "purpose": "coder"
+    }
+  ],
+  "note": "Discovery ve capability testinden önce model atanmaz. Bu dosyada secret değerleri yok."
+}

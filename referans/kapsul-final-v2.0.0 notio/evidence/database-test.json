@@ -1,0 +1,69 @@
+{
+  "suite": "sqlite-reference-invariants",
+  "checks": [
+    {
+      "name": "Migration applies with foreign keys and WAL",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Immutable plan",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Attempt uniqueness",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Default stop latch blocks reservations",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Token budget reservation enforced",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Global capacity enforced",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Released reservation cannot reactivate",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown usage blocks new reservation",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Same command cannot change payload",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Event append-only",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Dispatch key unique",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Rollback removes intent",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Second writer cannot claim concurrent transaction",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Zero-test PASS rejected by DB",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Stop latch survives DB reopen",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Fixture DB integrity",
+      "verdict": "PASS"
+    }
+  ]
+}

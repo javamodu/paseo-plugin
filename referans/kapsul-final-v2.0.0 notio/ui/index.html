@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kapsül — final arayüz demosu</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="demo-banner">TASARIM DEMOSU · Gerçek ajan, test veya LLM çalıştırmaz. Yenileme örneği sıfırlar.</div>
+  <header>
+    <div><strong class="brand">Kapsül</strong><span class="tagline">Hedef. Sınır. Kanıt.</span></div>
+    <div class="header-actions"><span id="connection">Bağlantı yok · örnek</span>
+      <button id="stop" class="danger">Acil durdur · demo</button></div>
+  </header>
+  <nav aria-label="Ana menü">
+    <button data-page="capsules" aria-current="page">Kapsüller</button>
+    <button data-page="decisions">Kararlar <span id="decision-count">1</span></button>
+    <button data-page="lab">Laboratuvar</button>
+    <button data-page="settings" class="settings-link">Ayarlar</button>
+  </nav>
+  <main>
+    <section id="capsules-page">
+      <div class="page-heading"><div><h1>Görev kapsülleri</h1><p>Önce hedefi seç. Yalnız o işin ayrıntısını gör.</p></div>
+        <button id="new">+ Yeni kapsül</button></div>
+      <div class="workspace">
+        <aside aria-label="Kapsül listesi"><div id="capsule-list"></div></aside>
+        <div class="work-area"><div id="capsule-detail"></div>
+          <section class="composer" aria-labelledby="composer-title">
+            <div class="composer-heading"><h2 id="composer-title">Manager'a yaz</h2>
+              <span id="context" class="context"></span></div>
+            <label for="goal" id="goal-label">Kapsüle bağlı öneri</label>
+            <textarea id="goal" rows="3" placeholder="Örn. Kapsamı büyütmeden hata nedenini ve onarım planını öner."></textarea>
+            <div class="composer-actions"><div><label for="profile">Çalışma profili</label>
+                <select id="profile"><option>Dengeli</option><option>Ekonomik</option><option>Yüksek güvence</option></select></div>
+              <button id="send" class="primary">Plan öner · örnek</button></div>
+            <p class="small">Model ve rol ayrıntıları günlük işi bölmez. Öneri çalıştırma değildir.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section id="decisions-page" hidden></section>
+    <section id="lab-page" hidden></section>
+    <section id="settings-page" hidden></section>
+  </main>
+  <footer>Final plan v2 · Bağımsız kontrol servisi hedeflenir; bu sayfa yalnız tarayıcı örneğidir.</footer>
+  <div id="notice" role="status" aria-live="polite"></div>
+</body>
+</html>

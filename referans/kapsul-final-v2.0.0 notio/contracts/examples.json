@@ -1,0 +1,169 @@
+{
+  "Capsule": {
+    "id": "cap-01",
+    "goal": "Auth regression düzelt",
+    "repoId": "repo-demo",
+    "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "scopePaths": [
+      "src/auth",
+      "tests/auth"
+    ],
+    "schemaVersion": 1
+  },
+  "Plan": {
+    "id": "plan-01",
+    "capsuleId": "cap-01",
+    "version": 1,
+    "planHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "recipeVersion": "repair-v1",
+    "policyHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "evaluatorHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nodes": [
+      {
+        "id": "prepare",
+        "role": "prepare",
+        "dependsOn": [],
+        "acceptanceId": "baseline"
+      },
+      {
+        "id": "produce",
+        "role": "coder",
+        "dependsOn": [
+          "prepare"
+        ],
+        "acceptanceId": "candidate"
+      },
+      {
+        "id": "verify",
+        "role": "evaluator",
+        "dependsOn": [
+          "produce"
+        ],
+        "acceptanceId": "protected-tests"
+      },
+      {
+        "id": "accept",
+        "role": "reviewer",
+        "dependsOn": [
+          "verify"
+        ],
+        "acceptanceId": "human"
+      }
+    ]
+  },
+  "Profile": {
+    "id": "balanced-demo",
+    "version": 1,
+    "runtime": "paseo",
+    "providerModel": "DISCOVER_AT_RUNTIME",
+    "promptHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "toolSchemaHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "capabilityReceiptHash": null,
+    "purpose": "coder"
+  },
+  "Limits": {
+    "maxWorkers": 2,
+    "maxAttemptsPerNode": 3,
+    "wallClockSeconds": 7200,
+    "maxReservedTokens": 100000,
+    "maxSpendMicros": null
+  },
+  "Run": {
+    "id": "run-01",
+    "planId": "plan-01",
+    "profileHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "version": 1,
+    "state": "READY",
+    "dispatchPaused": false,
+    "limits": {
+      "maxWorkers": 2,
+      "maxAttemptsPerNode": 3,
+      "wallClockSeconds": 7200,
+      "maxReservedTokens": 100000,
+      "maxSpendMicros": null
+    },
+    "candidateHash": null
+  },
+  "Attempt": {
+    "id": "attempt-01",
+    "runId": "run-01",
+    "nodeId": "produce",
+    "number": 1,
+    "state": "INTENT",
+    "inputManifestHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "candidateHash": null,
+    "externalSessionId": null,
+    "fencingToken": 1,
+    "usageState": "UNKNOWN"
+  },
+  "Evidence": {
+    "id": "evidence-01",
+    "attemptId": "attempt-01",
+    "candidateHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "evaluatorHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "environmentHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "artifactHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "exitCode": 0,
+    "verdict": "PASS",
+    "testCount": 12,
+    "createdAt": "2026-10-13T18:00:00Z"
+  },
+  "Approval": {
+    "id": "approval-01",
+    "runId": "run-01",
+    "planHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "candidateHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "policyHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "action": "ACCEPT_RESULT",
+    "expectedRunVersion": 1,
+    "expiresAt": "2026-10-14T18:00:00Z",
+    "decision": "PENDING",
+    "actor": null
+  },
+  "Command": {
+    "id": "cmd-01",
+    "runId": "run-01",
+    "kind": "START_RUN",
+    "expectedVersion": 1,
+    "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "payload": {
+      "planId": "plan-01"
+    }
+  },
+  "Capabilities": {
+    "runtimeId": "paseo",
+    "version": "PIN_DURING_S0",
+    "structuredOutput": false,
+    "usage": false,
+    "cancel": false,
+    "correlationLookup": false,
+    "sandboxEstablished": false,
+    "nestedVisibility": false,
+    "probeReceiptHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "Trial": {
+    "id": "trial-01",
+    "caseId": "bugfix",
+    "profileHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "repeat": 1,
+    "started": false,
+    "verdict": "NOT_RUN",
+    "attempts": 0,
+    "knownCostMicros": null,
+    "elapsedMs": null,
+    "evidenceHash": null
+  },
+  "Event": {
+    "id": "ev-01",
+    "sequence": 1,
+    "type": "RUN_CREATED",
+    "runId": "run-01",
+    "attemptId": null,
+    "causationId": "cmd-01",
+    "actorId": "operator",
+    "createdAt": "2026-10-13T18:00:00Z",
+    "payload": {
+      "planId": "plan-01"
+    }
+  }
+}

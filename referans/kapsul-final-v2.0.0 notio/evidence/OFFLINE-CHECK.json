@@ -1,0 +1,225 @@
+{
+  "scope": "offline package/schema subset/pure domain/fixture SQLite only",
+  "checks": [
+    {
+      "name": "All manifest content hashes match",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Contract positive fixtures validate in declared subset",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Invalid Run fixture rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Invalid Attempt fixture rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Invalid Approval fixture rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Invalid Capsule fixture rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Terminal cancel cannot resume",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Cancel requires observed confirmation",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Running cannot silently cancel",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown cannot blind resume",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Skip does not unlock a dependency",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Valid prerequisite unlocks",
+      "verdict": "PASS"
+    },
+    {
+      "name": "DAG stable order",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Cycle rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown dependency rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Duplicate IDs rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Matching independent evidence and approval accepted",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Changed candidate invalidates approval",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Wrong evaluator rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Untrusted receipt rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Failed evidence rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Zero tests rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Stale version rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Expired approval rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Wrong run approval rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Budget approval cannot accept",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Bounded valid dispatch",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Persistent stop blocks dispatch",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Capacity wait blocks dispatch",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown usage is not free budget",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Sandbox missing blocks write",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Reservation blocks overspend",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Invalid numeric budget rejected",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Failures remain in acceptance denominator",
+      "verdict": "PASS"
+    },
+    {
+      "name": "First pass denominator all started",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Failure costs included",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown cost disables cost ranking",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Empty denominator null",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Migration applies with foreign keys and WAL",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Immutable plan",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Attempt uniqueness",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Default stop latch blocks reservations",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Token budget reservation enforced",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Global capacity enforced",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Released reservation cannot reactivate",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Unknown usage blocks new reservation",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Same command cannot change payload",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Event append-only",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Dispatch key unique",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Rollback removes intent",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Second writer cannot claim concurrent transaction",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Zero-test PASS rejected by DB",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Stop latch survives DB reopen",
+      "verdict": "PASS"
+    },
+    {
+      "name": "Fixture DB integrity",
+      "verdict": "PASS"
+    }
+  ],
+  "passed": 54,
+  "liveRuntime": "NOT_RUN",
+  "productionSecurity": "NOT_RUN",
+  "liveBenchmark": "NOT_RUN"
+}

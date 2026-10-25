@@ -1,0 +1,10 @@
+{
+  "design": "FINAL_DRAFT",
+  "humanApproval": "PENDING",
+  "productionRuntime": "NOT_RUN",
+  "liveBenchmark": "NOT_RUN",
+  "sdkTypecheck": "NOT_RUN",
+  "sandboxSecurity": "NOT_RUN",
+  "offlineReferenceTests": "PASS_REFERENCE_ONLY",
+  "demoVisualQA": "PASS_VISUAL_ONLY_9_VIEWS"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "NOT_RUN",
+  "startedTasks": 0,
+  "acceptedTasks": 0,
+  "acceptedRate": null,
+  "firstPassRate": null,
+  "knownCostMicros": null,
+  "unknownCostCount": null,
+  "costPerAcceptedMicros": null,
+  "trials": [],
+  "note": "Gerçek model sıralaması yok."
+}

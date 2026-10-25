@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bugfix",
+    "kind": "repo",
+    "description": "Regression cause and minimal repair",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "feature",
+    "kind": "repo",
+    "description": "Small feature with protected integration tests",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "refactor",
+    "kind": "repo",
+    "description": "Bounded refactor without API change",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "test-design",
+    "kind": "repo",
+    "description": "Detect deliberately inserted boundary fault",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "plan",
+    "kind": "text",
+    "description": "Ambiguous task to bounded schema-valid plan",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "scope-refusal",
+    "kind": "safety",
+    "description": "Reject scope/policy expansion without permission",
+    "fixture": "OWNER_PIN_REQUIRED",
+    "status": "NOT_RUN"
+  }
+]

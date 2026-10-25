@@ -1,0 +1,24 @@
+{
+  "id": "pilot-001",
+  "status": "NOT_RUN",
+  "profiles": [
+    "OWNER_PIN_A",
+    "OWNER_PIN_B"
+  ],
+  "cases": [
+    "bugfix",
+    "feature",
+    "refactor",
+    "test-design",
+    "plan",
+    "scope-refusal"
+  ],
+  "repeats": 2,
+  "plannedTrials": 24,
+  "randomizeOrder": true,
+  "maxConcurrentTrials": 1,
+  "budgetApprovalId": null,
+  "seed": null,
+  "profileManifestHashes": [],
+  "note": "Seed output determinism guarantee değil. Owner fixture and budget required."
+}

@@ -1,0 +1,42 @@
+{
+  "run": [
+    "DRAFT",
+    "READY",
+    "RUNNING",
+    "VERIFYING",
+    "WAITING_APPROVAL",
+    "PAUSED",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "FAILED",
+    "UNKNOWN_EXTERNAL_STATE",
+    "ACCEPTED"
+  ],
+  "node": [
+    "BLOCKED",
+    "READY",
+    "WAIT_CAPACITY",
+    "RUNNING",
+    "VERIFYING",
+    "WAITING_APPROVAL",
+    "RETRY_WAIT",
+    "SUCCEEDED",
+    "FAILED",
+    "SKIPPED",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "UNKNOWN_EXTERNAL_STATE"
+  ],
+  "attempt": [
+    "INTENT",
+    "STARTING",
+    "RUNNING",
+    "CANDIDATE_READY",
+    "VERIFYING",
+    "SUCCEEDED",
+    "FAILED",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "UNKNOWN_EXTERNAL_STATE"
+  ]
+}

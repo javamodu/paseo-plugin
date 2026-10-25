@@ -1,0 +1,137 @@
+{
+  "scope": "Self-authored browser-only demo visual QA; not production UI E2E or full accessibility audit",
+  "views": [
+    {
+      "view": "desktop",
+      "image": "ui/previews/desktop.png",
+      "dimensions": [
+        1280,
+        1062
+      ],
+      "visualInspection": "PASS",
+      "observation": "Seçili kapsül, mevcut adım ve composer görünür; ikincil detay kendi alanında kaydırılır.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "mobile",
+      "image": "ui/previews/mobile.png",
+      "dimensions": [
+        390,
+        1993
+      ],
+      "visualInspection": "PASS",
+      "observation": "390px düzen tek kolon; etiketler okunur, yatay sayfa taşması yok.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "decisions",
+      "image": "ui/previews/decisions.png",
+      "dimensions": [
+        1280,
+        850
+      ],
+      "visualInspection": "PASS",
+      "observation": "Karar kapsamı ve aday kimliği görünür; izin ve ret ayrı eylemler.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "lab",
+      "image": "ui/previews/lab.png",
+      "dimensions": [
+        1280,
+        973
+      ],
+      "visualInspection": "PASS",
+      "observation": "Tüm deney durumları NOT_RUN; ölçülmüş sıralama gösterilmiyor.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "jobs",
+      "image": "ui/previews/jobs.png",
+      "dimensions": [
+        1280,
+        1000
+      ],
+      "visualInspection": "PASS",
+      "observation": "Bağımlı işler liste halinde; devamı detay alanında kaydırılır, composer ayrı kalır.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "evidence",
+      "image": "ui/previews/evidence.png",
+      "dimensions": [
+        1280,
+        1000
+      ],
+      "visualInspection": "PASS",
+      "observation": "Aday ve NOT_RUN görünür; örnek manifest gerçek test kanıtı gibi sunulmaz.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "history",
+      "image": "ui/previews/history.png",
+      "dimensions": [
+        1280,
+        1000
+      ],
+      "visualInspection": "PASS",
+      "observation": "Geçmiş kayıtları okunur; uzun liste detay alanında kaydırılır.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "settings",
+      "image": "ui/previews/settings.png",
+      "dimensions": [
+        1280,
+        850
+      ],
+      "visualInspection": "PASS",
+      "observation": "Altyapı ayarları günlük kontrollerden ayrı; anahtar istenmez.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    },
+    {
+      "view": "cancel",
+      "image": "ui/previews/cancel.png",
+      "dimensions": [
+        1280,
+        1000
+      ],
+      "visualInspection": "PASS",
+      "observation": "İptal talebi teyit bekliyor olarak görünür; STOP kilidi ve teyit eylemi ayrıdır.",
+      "consoleErrors": 0,
+      "exceptions": 0,
+      "failedResources": 0,
+      "horizontalPageOverflow": false
+    }
+  ],
+  "inspectedViews": 9,
+  "notes": [
+    "Desktop detail intentionally scrolls independently; screenshots need not show every row simultaneously.",
+    "Hidden semantic form labels use visually-hidden CSS.",
+    "Vertical document scrolling is intentional; no real agent or model executed."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "repair-v1",
+  "schemaVersion": 1,
+  "maxAttemptsPerNode": 3,
+  "requiredEvaluator": "OWNER_PIN_REQUIRED",
+  "allowAutoMerge": false,
+  "allowHiddenSubagents": false,
+  "nodes": [
+    {
+      "id": "prepare",
+      "role": "prepare",
+      "dependsOn": [],
+      "acceptanceId": "baseline"
+    },
+    {
+      "id": "produce",
+      "role": "coder",
+      "dependsOn": [
+        "prepare"
+      ],
+      "acceptanceId": "candidate"
+    },
+    {
+      "id": "verify",
+      "role": "evaluator",
+      "dependsOn": [
+        "produce"
+      ],
+      "acceptanceId": "protected-tests"
+    },
+    {
+      "id": "accept",
+      "role": "reviewer",
+      "dependsOn": [
+        "verify"
+      ],
+      "acceptanceId": "human"
+    }
+  ]
+}

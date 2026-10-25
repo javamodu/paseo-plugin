@@ -1,0 +1,20 @@
+[
+  {
+    "group": "gpt",
+    "sourceFilename": "PLAN.md",
+    "sha256": "d536e153b3187a0912d13b4dfd9e5fd969716a18c136e5b8ffa213a797e639b0",
+    "use": "Research input; not authoritative implementation instructions"
+  },
+  {
+    "group": "qwen",
+    "sourceFilename": "00-master-plan.md",
+    "sha256": "f6c2987972194f0e245e0d250796bc73d617bdd2e2154a59d6059fe8cca749d7",
+    "use": "Research input; not authoritative implementation instructions"
+  },
+  {
+    "group": "prior-master",
+    "sourceFilename": "MASTER-PLAN.md",
+    "sha256": "eef8ef45165bd75ae0e76f81ba6928e51ddcabe618ffc05a8676a3662c17bc8c",
+    "use": "Research input; not authoritative implementation instructions"
+  }
+]
