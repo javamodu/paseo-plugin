@@ -289,8 +289,11 @@ export function turKaydet(input: {
   const usage = input.usage;
   const detayParca: string[] = [];
   if (usage?.inputTokens) {
-    const hit = usage.cachedInputTokens && usage.inputTokens > 0
-      ? Math.round((usage.cachedInputTokens / usage.inputTokens) * 1000) / 10
+    // TUR-1.3 (B4): payda = inputTokens + cachedInputTokens - opencode/kilo saglayicilarinda inputTokens cache DISARIDA gonderilir;
+    // cache disari paydada tutulursa hit > %100 uretir (telemetri.jsonl'de 199 kayit normalize edildi - saglik.ps1 1.1).
+    const payda = usage.inputTokens + (usage.cachedInputTokens ?? 0);
+    const hit = usage.cachedInputTokens && payda > 0
+      ? Math.round((usage.cachedInputTokens / payda) * 1000) / 10
       : null;
     detayParca.push(`in=${usage.inputTokens}`);
     if (hit !== null) detayParca.push(`cacheHitPct=${hit}`);
