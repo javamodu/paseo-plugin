@@ -43,7 +43,7 @@ interface AjanKart {
 
 export function panoBaslat(getPaseo: () => PaseoApi | null): { durum: () => PanoDurum; kapat: () => void } {
   const port = Number(process.env.PANO_PORT ?? 4378);
-  const uiDir = process.env.PANO_UI_DIR ?? "D:\\Vibecode\\paseo-pano";
+  const uiDir = process.env.PANO_UI_DIR ?? "D:\\Vibecode\\ordu\\pano"; // TUR-1.4 (B20): eski ev (paseo-pano) F4'te silinecek - varsayilan yeni ev; env hala gecersiz
   const token = process.env.PANO_TOKEN ?? null;
   const sseIstemciler = new Set<http.ServerResponse>();
   let dinliyor = false;
