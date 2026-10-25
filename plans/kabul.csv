@@ -14,7 +14,7 @@ A05,S1,idempotency dedupe,GECTI_HERMETIC,store.test.ts A05 (canli akista NOT_RUN
 A06,S1,atomik dispatch+rollback,GECTI_HERMETIC,store.test.ts A06 sifir-artik kaniti
 A07,S1,run kapasite tavani,GECTI_HERMETIC,store.test.ts A07
 A08,S1,belirsiz dis durum + reconcile,GECTI_HERMETIC,dispatcher.test.ts (kor re-spawn YOK kaniti)
-A09,S1,lease expiry+devir akisi,KISMEN,takeLease+bump test edildi; canli timeout NOT_RUN
+A09,S1,lease expiry+devir akisi,PASS,a09-canli.test.ts: GERCEK 400ms lease duvar saatiyle doldu (olculen ~500ms) -> devir fence 2-3; eski fence commit RED (kanit 0); eski sahibin gercek pid devir aninda oldu (KILLED); attempt RUNNING kaldi; yeni fence 3 commit gecer ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
 A10,S1,kosu->frozen candidate,GECTI_HERMETIC,supervisor.test.ts: PASS yalniz CANDIDATE_FROZEN uzerinde (freeze-oncesi settle RED); commitCandidate+recordEvidence zinciri
 A11,S1,evaluator izolasyonu,PASS,evaluator.ts canli (test/evaluator-canli.test.ts): GERCEK git repo (init+commit) icinde GERCEK node:test koşusu — runner.cjs TAP ozetini protokole cevirir; 2/2 gercek test PASS kanit; gercek kirmizi test gercek exit-1 FAIL; repo calisma agaci kirletilmez ·d:2026-10-25T23:10:29+03:00 ·h:764a0b9 ·x:0
 A12,S1,repair DAG tek jenerasyon,GECTI_HERMETIC,supervisor.test.ts: bounded repair max_attempts dolunca NEEDS_DECISION (4. deneme yok); REPAIR_REQUESTED repairAttempt<=2
@@ -37,10 +37,10 @@ M10,SCHEDULE,misfire/overlap catch-up yok,GECTI_HERMETIC,schedule.ts planOccurre
 M11,AUTHORITY,grant kapsami genisleyemez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (superset scope RED, uydurma grant RED)
 M12,BENCH,gorev paydasi+toplam maliyet,PASS,src/benchmark.ts canli benchmark (test/benchmark-canli.test.ts): gercek cocuk surec koşumu; gercek evaluator medyan-esitlik (5); GERÇEK timeout SIGKILL tam paydada (2/3 kabul); yerel maliyet unknown Y5 (0 sayilmaz); yargisiz rapor ·d:2026-10-25T22:56:26+03:00 ·h:1fb2225 ·x:0
 M13,MEMORY,zehirli lesson karantina,GECTI_HERMETIC,src/lessons.ts: PROPOSED karantina + zorunlu alan RED + TALIMAT->POLITIKA yasagi (test/lessons.test.ts, 2026-10-14)
-M14,LEARNING,paired deney + insan publish,GECTI_HERMETIC,src/lessons.ts F6-A zinciri (auto->PUBLISHED RED, ONAY#2 zorunlu) + F6-B oto-geri-al (test/lessons.test.ts, 2026-10-14); canli ogrenme dongusu NOT_RUN
-M15,CANARY,canary geri-alim,NOT_RUN,O-4
-M16,OPS,backup+host kisitlari,GECTI_HERMETIC,src/backup.ts + test/m16-m03.test.ts (yedek->boz->restore birebir + kapi canli); disk/uyku V3-S3.3 NOT_RUN
-M17,AUTO_ACCEPT,dar oto-kabul seridi,NOT_RUN,V3-S4.4 (yeni - 20 par7)
+M14,LEARNING,paired deney + insan publish,PASS,lessons-canli.test.ts: GERCEK surec deneyi (6 gorev: 4 kabul + 1 gercek exit-3 + 1 GERCEK ETIMEDOUT timeout) -> VALIDATING -> ONAY#2 -> PUBLISHED (baz 4/6); auto kaynak L1 kapisindan gecti ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
+M15,CANARY,canary geri-alim,PASS,lessons-canli.test.ts: gercek canary — adim-1 gercek kabul (kalan 2); adim-2 GERCEK basarisiz gorev (dusus 0.75 >= esik 0.2) -> oto-REVOKE + geri-al; yeniden PUBLISHED RED ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
+M16,OPS,backup+host kisitlari,PASS,m16-canli.test.ts: GERCEK yazici ayri surec 5 satir yazdi -> SIGKILL temiz-kapanissiz COkUS -> WAL-checkpoint yedek -> restore birebir + user_version=4 + kapilar canli (hermetik tamam: m16-m03) ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
+M17,AUTO_ACCEPT,dar oto-kabul seridi,NOT_RUN,OZELLIK EKSIK: V3-S4.4 kalite-accept seridi (K-0004.2; varsayilan kapali) modern coreda YOK — kabul yolu insan-onayli (A14+M18); kapsam karari [insan]
 M18,REASONING,makbuz zorunlulugu,GECTI_HERMETIC,reasoning-receipt.ts (kapali DTO: ek alan RED, alternatif>=1, kanit>=1, confidence enum) + supervisor.requireDeliverableReceipt/requestDelivery (makbuz DONMUS ACCEPTED adayla bagdasir + her evidenceRef gercek PASS kanit sari; uyusmaz/kanitsiz/adaysiz GateError) + reasoning-receipt.test (5); mutlu yol insan-onayiyla ACCEPTED; operator UI/canli yol NOT_RUN
 M19,TEST_DESIGN,korunan suite zayiflatilamaz,KISMEN,runtime allowlist kapisi testli (model metni kosmaz); suite-corruption kolu S4
 V3-S1.1,S1,tek gercek kapsul uctan uca,PASS,PASS 2026-10-14 gecesi: test/e2e-s11.test.ts (gercek LocalRuntimeAdapter child-surec + gercek evaluator execSync + requireReceiptLinks + insan onayi), npm test 239/239 exit 0
@@ -51,8 +51,8 @@ V3-S1.5,S1,sifir-test kirmizi gate (canli),PASS,PASS 2026-10-14: test/live-gates
 V3-S2.1,S2,telefon 5sn canli+kayipsiz,NOT_RUN,
 V3-S2.2,S2,yabanci 3-soru sadelik testi,NOT_RUN,
 V3-S2.3,S2,heartbeat sessiz-akis,NOT_RUN,
-V3-S3.1,S3,WAIT_CAPACITY yakmasiz,GECTI_HERMETIC,supervisor.test.ts A24: slot dolunca reserve YAKMAZ, node PENDING kalir, attempt/artik yok, CAPACITY_WAIT kaniti; canli kosukluk NOT_RUN
-V3-S3.2,S3,fault-matrix raporu+yedekten donus,NOT_RUN,
+V3-S3.1,S3,WAIT_CAPACITY yakmasiz,PASS,capacity-canli.test.ts: 2 GERCEK yasayan worker slotlari tuttu -> n3 CAPACITY_WAIT (attempt 0; spawn 0; yakma yok); gercek olum slotu dogurdu -> 3. gercek spawn ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
+V3-S3.2,S3,fault-matrix raporu+yedekten donus,PASS,raporlar/fault-matrix-2026-10-25.md (16 enjeksiyon satiri; hepsi gunun gercek kosumlarina bagli) + m16-canli.test.ts yedekten donus (gercek cokus -> checkpoint yedek -> restore birebir) ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
 V3-S4.1,S4,paired benchmark,NOT_RUN,
 V3-S4.2,S4,ucu-uca canli kanit,NOT_RUN,
 MOD,OPS,is modlari atolye/firtina/ekonomi (K-0006),GECTI_HERMETIC,modes.ts+config/ordu.json: mod.test 8 (suite 112/112) - firtina global_capacity esigini 2->4 kaydirir, hardMaxWorkers=8 asilamaz, guvenlik anahtari damitilir, STOP latch modla acilamaz, bilinmeyen mod->fail-closed; canli dispatch etkisi NOT_RUN
@@ -82,7 +82,7 @@ F4-A,F4,Paseo kapaliyken pano read 200,PASS,PASS 2026-10-14 gecesi: test/f4-pano
 F4-B,F4,STOP sonrasi 0 spawn,PASS,PASS 2026-10-14 gecesi: test/f4-pano.test.ts (loopback+token+confirm kapilari), npm test 186/186 exit 0
 F5-A,F5,DST/misfire/overlap testleri,PASS,bugunku tam suit kosumu (R) 299/299 makine EXIT=0 (log raporlar/kanit-hedef/core-test-faz3-2026-10-25.log): schedule.test M09 DST determinizm (UTC tam tekrarlanabilir + non-UTC RED) + M10 misfire (catch-up firtinasi YOK) + M10 overlap (onceki run aktifken yeni BINMEZ) — eski MS-SSOT v2.7.2 par10 kapisinin gunumuz test karsiligi ·d:2026-10-25T22:14:23+03:00 ·h:f2a3670 ·x:0
 F5-B,F5,outbox dedupe,PASS,bugunku tam suit kosumu (R) 299/299 makine EXIT=0 (ayni log): store.test A05/P0-6 komut dedupe+conflict + closure.test U1 SENDING idempotent + f5-parallel canli dedupe (paralel tuketim cift spawn URETMEZ) + m16-m03 cift teslim DUPLICATE RED ·d:2026-10-25T22:14:23+03:00 ·h:f2a3670 ·x:0
-F5-C,F5,canli kapasite + cakisma olcumu,NOT_RUN,MS-SSOT v2.7.2 §10
+F5-C,F5,canli kapasite + cakisma olcumu,PASS,capacity-canli.test.ts: doluluk 2/2 olculdu; cakisma 0 (3 launch tekrarsiz; node basina 1 attempt; calisan workera ikinci dispatch RED) ·d:2026-10-25T23:28:37+03:00 ·h:313f480 ·x:0
 F6-A,F6,karantina->promote zinciri,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
 F6-B,F6,regresyonda oto-geri-al kaniti,PASS,PASS 2026-10-14 gecesi: src/lessons.ts + test/lessons.test.ts 10/10, npm test 211/211 exit 0
 F6-C,F6,eslenmis gorev benchmark raporu,PASS,PASS 2026-10-14 gecesi: src/benchmark.ts + test/benchmark.test.ts 11/11 (sabitlik RED + tam payda + unknown maliyet + durustluk kapisi), npm test 211/211 exit 0
