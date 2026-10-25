@@ -12,7 +12,7 @@ import { spawn, type ChildProcess } from 'node:child_process';
 import { existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { openStore, setGlobalStop } from '../src/store.ts';
+import { openStore, setGlobalStop, pendingCapacity } from '../src/store.ts';
 import { createRunPlan, approvePlan, ensureStartCommand, dispatchNode, settleNodeOutcome } from '../src/supervisor.ts';
 import { processOutbox } from '../src/dispatcher.ts';
 import { LocalRuntimeAdapter, type LocalLauncher } from '../src/local-runtime.ts';
@@ -152,4 +152,98 @@ test('V3-S3.1 + F5-C canlı: GERÇEK worker' + 'lar slotları tutar → CAPACITY
   }
   console.log('KANIT V3-S3.1: 2 gerçek worker (pid ' + pid1 + '+' + pid2 + ') slotları tuttu → n3 CAPACITY_WAIT (attempt 0; spawn 0); worker-1 gerçek ölüm → slot doğdu → n3 dispatch → 3. gerçek spawn (pid ' + pid3 + ')');
   console.log('KANIT F5-C: kapasite doluluk 2/2 ölçüldü; çakışma 0 (3 launch tekrarsız; node başına 1 attempt; çalışan worker-a ikinci dispatch RED)');
+});
+
+// ---- SLOT (K-0006 v3.0.0 par4): slot sayımı REZERVASYONLA, etiketle değil ----
+// Eşleme (F5-A/F5-B emsal deseni): v3.0.0 "WAITING/PAUSED slot tutar" → modern şemada
+// UNKNOWN (yanıt kaybı bekleme durumu) slotu tutar (001-initial.sql:84 ACTIVE+UNKNOWN sayar);
+// "ölçülemeyen iç nested ajan KAPALI" → runs.usage_unknown=1 → rezervasyon kabulü
+// unknown_budget ABORT ile KAPALI (001-initial.sql:82-83). Her iki bacak GERÇEK süreçle.
+class AmbiguousLauncher extends RealNodeLauncher {
+  failAfterSpawn = false;
+  async launch(o: { dispatchKey: string }) {
+    const r = await super.launch(o);
+    if (this.failAfterSpawn) throw new Error('yanit kaybi: surec dogdu mu bilinmiyor');
+    return r;
+  }
+}
+
+test('SLOT canlı: UNKNOWN rezervasyon slotu TUTAR (etiket yok) + YAŞAYAN süreç RELEASED ile slotu bırakır (etiketle değil) + ölçülemeyen KAPALI (unknown_budget)', async (t) => {
+  const dir = mkdtempSync(join(tmpdir(), 'ordu-slot-'));
+  const db = openStore(join(dir, 'ordu.sqlite'));
+  setGlobalStop(db, false, 'test', 'acilis');
+  db.prepare('UPDATE settings SET max_workers=2 WHERE id=1').run(); // GERÇEK kapasite tavanı: 2
+  t.after(() => { db.close(); });
+
+  const launcher = new AmbiguousLauncher(join(dir, 'registry.json'));
+  t.after(async () => { await launcher.cleanup(); });
+  const adapter = new LocalRuntimeAdapter(probeAllLocal(), launcher, { ORDU_RUNTIME: 'local' });
+
+  const { planHash } = createRunPlan(db, {
+    capsuleId: 'cap-slot', goal: 'slot canli', repoId: 'repo', sourceCommit: H64('s'),
+    runId: 'run-slot', planId: 'plan-slot', profileHash: H64('p'), maxWorkers: 2,
+    nodes: [
+      { id: 'n1', role: 'coder', deps: [] },
+      { id: 'n2', role: 'coder', deps: [] },
+      { id: 'n3', role: 'coder', deps: [] },
+      { id: 'n4', role: 'coder', deps: [] },
+    ],
+  });
+  approvePlan(db, 'run-slot', planHash, 'human');
+  const startCmd = ensureStartCommand(db, 'run-slot', planHash, 'operator');
+  const opt = (key: string) => ({ tokens: 50, startCommandId: startCmd, dispatchKey: key, handoff: sampleHandoff('run-slot') });
+  const col = (sql: string) => { const r = db.prepare(sql).get() as any; return r[Object.keys(r)[0]]; };
+
+  // 1) n1: GERÇEK süreç doğdu ama launch YANITI KAYBOLDU → reservation UNKNOWN (etiket bağlanmadı)
+  launcher.failAfterSpawn = true;
+  const d1 = dispatchNode(db, 'run-slot', 'n1', opt('dk-s1'));
+  assert.equal(d1.status, 'DISPATCHED');
+  const sp1 = await processOutbox(db, adapter);
+  assert.equal(sp1.result, 'unknown', 'yanit kaybi: bilinmezlik asil kaynak (A08)');
+  assert.equal(col("SELECT state FROM reservations WHERE attempt_id='" + d1.attemptId + "'"), 'UNKNOWN');
+  const pid1 = launcher.pidOf('dk-s1')!;
+  assert.equal(await launcher.isAlive(pid1), true, 'belirsiz süreç GERÇEKTEN yaşıyor (pid=' + pid1 + ')');
+  assert.equal(col("SELECT external_session_id FROM attempts WHERE id='" + d1.attemptId + "'"), null, 'etiket HİÇ bağlanmadı (yanıt kaybı)');
+
+  // 2) n2: normal dispatch → ACTIVE + GERÇEK spawn + etiketli
+  launcher.failAfterSpawn = false;
+  const d2 = dispatchNode(db, 'run-slot', 'n2', opt('dk-s2'));
+  assert.equal(d2.status, 'DISPATCHED');
+  const sp2 = await processOutbox(db, adapter);
+  assert.equal(sp2.result, 'bound');
+  const pid2 = launcher.pidOf('dk-s2')!;
+  assert.ok(pid2 > 0 && pid2 !== pid1, 'iki gerçek pid: ' + pid1 + ' ve ' + pid2);
+  assert.equal(col("SELECT state FROM reservations WHERE attempt_id='" + d2.attemptId + "'"), 'ACTIVE');
+
+  // 3) SLOT TUTULUYOR: 1 UNKNOWN + 1 ACTIVE = 2/2 → n3 CAPACITY_WAIT (yakmasız)
+  assert.equal(pendingCapacity(db), 2, 'UNKNOWN + ACTIVE = 2 slot — sayım REZERVASYONLA (etiketle değil)');
+  const d3 = dispatchNode(db, 'run-slot', 'n3', opt('dk-s3'));
+  assert.equal(d3.status, 'WAIT_CAPACITY', 'etiketsiz UNKNOWN bekleyen yine de slot TUTAR → 3. dispatch bekler');
+  assert.equal(col("SELECT COUNT(*) FROM attempts WHERE node_id='n3'"), 0, 'YAKMAZ: attempt yok');
+  assert.equal(col("SELECT COUNT(*) FROM events WHERE type='CAPACITY_WAIT'"), 1);
+  assert.equal(launcher.launches.length, 2, 'üçüncü spawn HİÇ gitmedi');
+
+  // 4) ETİKETLE DEĞİL (ters yön): n2 GERÇEKTEN YAŞIYORKEN rezervasyon RELEASED → slot SERBEST
+  settleNodeOutcome(db, d2.attemptId, 'FAIL', 'test-settle');
+  assert.equal(col("SELECT state FROM reservations WHERE attempt_id='" + d2.attemptId + "'"), 'RELEASED');
+  assert.equal(await launcher.isAlive(pid2), true, 'süreç HÂLÂ yaşıyor — yine de slot FREE (etiket değil rezervasyon sayar)');
+  assert.equal(pendingCapacity(db), 1, 'RELEASED slotu bıraktı');
+  const d3b = dispatchNode(db, 'run-slot', 'n3', opt('dk-s3'));
+  assert.equal(d3b.status, 'DISPATCHED', 'boşalan slotla bekleyen node dispatch edildi');
+  const sp3 = await processOutbox(db, adapter);
+  assert.equal(sp3.result, 'bound');
+  const pid3 = launcher.pidOf('dk-s3')!;
+  assert.equal(await launcher.isAlive(pid3), true, 'üçüncü GERÇEK spawn (pid=' + pid3 + ')');
+  assert.equal(col("SELECT external_session_id FROM attempts WHERE id='" + d3b.attemptId + "'"), 'local:' + pid3);
+
+  // 5) ÖLÇÜLEMEYEN-NESTED KAPALI: önce UNKNOWN da bırakılır (kapasite boş — yalnız unknown_budget kesebilir)
+  settleNodeOutcome(db, d1.attemptId, 'FAIL', 'test-settle');
+  assert.equal(col("SELECT state FROM reservations WHERE attempt_id='" + d1.attemptId + "'"), 'RELEASED', 'UNKNOWN→RELEASED (A35 yolu)');
+  assert.equal(pendingCapacity(db), 1, 'kapasite dolu DEĞİL — RED nedeni yalnız unknown_budget olabilir');
+  db.prepare("UPDATE runs SET usage_unknown=1 WHERE id='run-slot'").run();
+  assert.throws(() => dispatchNode(db, 'run-slot', 'n4', opt('dk-s4')), /unknown_budget/, 'ölçülemeyen kullanım yeni dispatch KAPATIR');
+  assert.equal(col("SELECT state FROM nodes WHERE run_id='run-slot' AND id='n4'"), 'PENDING', 'dispatch geri alındı (tx rollback)');
+  assert.equal(col("SELECT COUNT(*) FROM attempts WHERE node_id='n4'"), 0, 'attempt satırı YOK');
+
+  console.log('KANIT SLOT: yanıt-kaybı n1 (pid ' + pid1 + ') ETİKETSİZ UNKNOWN olarak slot tuttu → n3 CAPACITY_WAIT (attempt 0; spawn 0); n2 (pid ' + pid2 + ') YAŞADIĞI halde RELEASED rezervasyon slotu bıraktı → 3. gerçek spawn (pid ' + pid3 + '); usage_unknown=1 → dispatch unknown_budget RED (ölçülemeyen-nested KAPALI) — sayım rezervasyonla, etiketle değil');
 });
