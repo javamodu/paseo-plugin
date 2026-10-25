@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 313f480 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD ad1b7ba — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -56,7 +56,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0040.md` (2.1KB) — K-0040 — cacheHitMinPct eşik kaynağının tekilleştirilmesi: hedefler.json = 40, saglik varsayılanı hizalanır — ONAYLANDI | Bağlam | Karar
 - `kararlar/K-0041.md` (2.5KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
 - `kararlar/K-0042.md` (1.8KB) — K-0042 — K-0036 (ücretli/dis API yok politikası) geriye dönük kayıt — ADAY | Bağlam | Karar
-- `kararlar/K-0046.md` (7.7KB) — K-0046 — Aldatılamayan hedefleme: kanıt-üçleme kanalı + hız ölçüm payda kuralları — ONAYLANDI (kanal uygulanıyor) | Bağlam | Karar
+- `kararlar/K-0046.md` (9.5KB) — K-0046 — Aldatılamayan hedefleme: kanıt-üçleme kanalı + hız ölçüm payda kuralları — ONAYLANDI (kanal uygulanıyor) | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (5 dosya: en yeni BLUEPRINT.md, .pano-serve.js, DESIGN.md)
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
@@ -129,10 +129,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/pi-erisim-kapisi.mjs` (3.7KB)
 - `scripts/proje-panosu.ps1` (8.6KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts/saglik.ps1` (10.2KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
+- `scripts/test-kanal.ps1` (2.2KB)
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (16.6KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (18.7KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
