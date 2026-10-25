@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD f77c401 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD d4c990f — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -60,7 +60,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/Agent-Ordu-Teknik-Brief-ve-Prompt.md` (19.1KB) — Agent Ordu — Teknik ürün özeti ve geliştirici promptu | Belgenin statüsü | 1. Ürün tanımı
 - `plans/arsiv/` (7 dosya: en yeni REVIEW-v2.8-2026-10-14.md, GECE-RAPORU-2026-10-14.md, GECE-2026-10-14.md)
 - `plans/F3-TASLAK-2026-10-25.md` (6.2KB) — F3 HAZIRLIK TASLAĞI — kanca tek eve + daemon restart | 1. Şu an durum (diskten, R — 2026-10-25 ~17:30) | 2. Bulgu — B11 kapsamı bayat (yeni, R)
-- `plans/handoff/` (23 dosya: en yeni HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1955.md, HANDOFF-2026-10-25-2005.md)
+- `plans/handoff/` (23 dosya: en yeni HANDOFF-2026-10-25-2005.md, HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1955.md)
 - `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · K-0034 ONAYLANDI 2026-10-25) | 1. Komuta ve yurutme | 2. Kalite ve kabul
 - `plans/mockup/cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans/mockup/DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
@@ -73,19 +73,19 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
 - `plans/SSOT-INDEX.md` (2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
-- `plugin/` (63 dosya: en yeni pano.ts, telemetry.ts, dedektor.test.ts)
+- `plugin/` (63 dosya: en yeni dedektor.test.ts, rollup.ts, pano.ts)
 - `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
-- `raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md` (10.9KB) — NİHAİ BİRLEŞİK EKSİK DEFTERİ — v3 FİNAL (27 açık · 1 kapalı) | Yeşil zemin (kaynaklar aynı ölçüde, R) | A — Kayıt/Kanıt/Versiyon (F4'ü bloklar) 🔴
+- `raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md` (13.3KB) — NİHAİ BİRLEŞİK EKSİK DEFTERİ — v3 FİNAL (27 açık · 1 kapalı) | Yeşil zemin (kaynaklar aynı ölçüde, R) | A — Kayıt/Kanıt/Versiyon (F4'ü bloklar) 🔴
 - `raporlar/capraz-sorgu-ordu-dc-2026-10-25/OZET.md` (9.8KB) — ÇAPRAZ SORGU — ordu-dc defter turu (6-subagent) — 2026-10-25 19:15 | HÜKÜM: DEFTER koşullu güvenilir — sıfır-hata DEĞİL; 2 süreç ihlali + 6 içerik sapması | Kullanıcı karar listesi (sırayla)
 - `raporlar/codex-uc-analizi-2026-10-25/OZET.md` (5.1KB) — Codex ucu analizi — 2026-10-25 | Kanıt zinciri (diskten, bu turda okundu) | Ücretsiz alternatifler (kullanıcı politikası: ücretli API yok)
 - `raporlar/denetim-6subagent-2026-10-25/OZET.md` (5.9KB) — DENETİM — 6-SUBAGENT (F4 öncesi) — 2026-10-25 19:00 | Bulguların kanıt zinciri | EKSİKLER LİSTESİ (öncelik sırasıyla)
 - `raporlar/devir-tarama-6subagent-2026-10-25/OZET.md` (5KB) — DEVİR TARAMASI — 6-SUBAGENT (tam devir + plan girdisi) — 2026-10-25 18:50 | Ana-ajan bağımsız doğrulamaları (R) | Doğrulanan denetim maddeleri (önceki 20'lik listenin teyidi)
 - `raporlar/f3-restart-envanteri-2026-10-25/OZET.md` (2.2KB) — F3 RESTART ENVANTERİ — 2026-10-25 17:50 (A0) | Restart-öncesi durum (R, diskten) | Yapılanlar (restart'tan önce)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/gelen-kutu/` (9 dosya: en yeni ana-ajan-2026-10-25.md, codex-2026-10-14.md, denetim2-2026-10-13.md)
+- `raporlar/gelen-kutu/` (10 dosya: en yeni ordu-dc-dalga34-2026-10-25.md, ana-ajan-2026-10-25.md, codex-2026-10-14.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md` (1.1KB) — GLM 5.3 Sarmalayıcı Benchmark | Sonuçlar | Puanlama
 - `raporlar/model-benchmark-2026-10-24/OZET.md` (3KB) — Paseo Model Benchmark — Top 30 | Not | Top 30
@@ -128,6 +128,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (9.2KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (10.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
