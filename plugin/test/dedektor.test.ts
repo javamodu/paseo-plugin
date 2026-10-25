@@ -351,6 +351,11 @@ assert(izinKarari("rg fix src/") === "allow", "okuyucu komutta arguman serbest (
   assert(roJson.hafta === "2026-W42" && roJson.tur === 2 && roJson.ortCacheHit === 90, "makine-okunur json yan dosya dogru");
   const roMd3 = fsp.readFileSync(haftalikRollup(roTmp, new Date("2026-10-12T20:00:00"))!, "utf8");
   assert(roMd3 === roMd2, "ayni veri ayni raporu uretir (deterministik, canli hafta guncel)");
+  // TUR-1 kapanisi: eski kayit pct>100 (provider semantigi) okuma-aninda normalize edilir - dalga-3 TUR bulgusu
+  fsp.appendFileSync(roTmp + "/.verimlilik/telemetri.jsonl", JSON.stringify({ ts: "2026-10-12T10:08:00Z", tip: "tur", agentId: "a", provider: "p", turSn: 50, detay: "in=1000 cacheHitPct=2253.1" }) + "\n");
+  const roMdN = fsp.readFileSync(haftalikRollup(roTmp, new Date("2026-10-12T22:00:00"))!, "utf8");
+  const ortN = roMdN.match(/Ort\. cache-hit \(token-ağırlıklı\): %([\d.]+)/);
+  assert(ortN !== null && parseFloat(ortN[1]) <= 100, "rollup normalize: pct>100 kayit 100p/(100+p) ile <=%100 (gelen: " + (ortN ? ortN[1] : "yok") + ")");
   fsp.rmSync(roTmp, { recursive: true, force: true });
 
   // v0.12: rollup delta + kabul kapsami + alt-ajan (K-0021/K-0022)

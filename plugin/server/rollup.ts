@@ -81,7 +81,11 @@ export function haftalikRollup(cwd: string, simdi = new Date()): string | null {
           const inn = r.detay.match(/in=(\d+)/);
           if (m) {
             const agirlik = inn ? Math.max(1, parseInt(inn[1], 10)) : 1;
-            cacheAgirlikli += parseFloat(m[1]) * agirlik;
+            let pct = parseFloat(m[1]);
+            // TUR-1 kapanisi (dalga-3 TUR bulgusu): eski kayitlarda provider semantigi (telemetry.ts kok onarimi 1.3 oncesi)
+            // pct>100 uretiyordu — okuma-aninda normalize (saglik.ps1 1.1 ile ayni formul 100p/(100+p)); yeni kayitlar <=100.
+            if (pct > 100) { pct = (100 * pct) / (100 + pct); }
+            cacheAgirlikli += pct * agirlik;
             cacheAgirlik += agirlik;
           }
         }
