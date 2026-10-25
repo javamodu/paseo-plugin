@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD bbf3c52 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 480911b — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -59,7 +59,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/Agent-Ordu-Teknik-Brief-ve-Prompt.md` (19.1KB) — Agent Ordu — Teknik ürün özeti ve geliştirici promptu | Belgenin statüsü | 1. Ürün tanımı
 - `plans/arsiv/` (7 dosya: en yeni REVIEW-v2.8-2026-10-14.md, GECE-RAPORU-2026-10-14.md, GECE-2026-10-14.md)
 - `plans/F3-TASLAK-2026-10-25.md` (6.2KB) — F3 HAZIRLIK TASLAĞI — kanca tek eve + daemon restart | 1. Şu an durum (diskten, R — 2026-10-25 ~17:30) | 2. Bulgu — B11 kapsamı bayat (yeni, R)
-- `plans/handoff/` (20 dosya: en yeni HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1716.md, HANDOFF-2026-10-25-1640.md)
+- `plans/handoff/` (21 dosya: en yeni HANDOFF-2026-10-25-1930.md, HANDOFF-2026-10-25-1815.md, HANDOFF-2026-10-25-1716.md)
 - `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · K-0034 ONAYLANDI 2026-10-25) | 1. Komuta ve yurutme | 2. Kalite ve kabul
 - `plans/mockup/cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans/mockup/DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)

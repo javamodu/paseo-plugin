@@ -1,6 +1,7 @@
 ﻿# STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı)
 
 ## Aktif iş
+- bekci raporu: raporlar/takip-sozlesme/2026-10-25.md (untracked — commit bekliyor)
 **F4-ÖNCESİ DENETİM TAMAM (2026-10-25 19:05; kullanıcı talebi, 6 salt-okur subagent) — `raporlar/denetim-6subagent-2026-10-25/` (commit `43d2c6d`)**: 58 ham bulgu → 20 madde. En kritik: K-0029/K-0036 kayıtları YOK · ham bench verileri eski evde arşivsiz (F4 silerse kayıp) · fake-green (cache-hit %175 bozuk metrik; kabul-oranı öz-bildirimli vs defter %33 NOT_RUN) · **zincir KOPUK: HANDOFF-1815 kısaltılmış ad → saglik 16 OK / 2 EKSIK (K-0039 + zincir) — "17 OK/1 EKSIK" anlatısı bayat**. Düzeltme uygulanmadı (karar insanda). Sıra önerisi: (1) zincir onarımı (2) F4 taslağı genişletilmiş (3) fake-green tamiri (4) doküman/atık temizliği. F3 KAPALI kanıtları ve kalan açık: `plans/handoff/HANDOFF-2026-10-25-1815.md` + F3 kapanış damgası (daemon 36184→20040, plugin ordu/plugin'den, B14 KAPANDI; B20 · karar C/D · F4 · K-0039 · B11–15 json hijyeni açık).
 
 ## Son damgalar (tam: son 3)
