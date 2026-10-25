@@ -1,6 +1,7 @@
 import http from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
-import { join, extname, normalize, sep } from "node:path";
+import { join, extname, normalize, sep, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { PaseoApi } from "@getpaseo/client";
 import { derle, repolariBul, izinliDizinleriOku, emirlerOku, planMdOku, planMdYaz, birlestir, emirlerYaz, mdHash } from "./planmd";
 
@@ -25,6 +26,36 @@ export interface PanoDurum {
   paseoBagli: boolean;
   yazma: boolean;
   dinliyor: boolean;
+}
+
+// TUR A - 4 (dalga-3 C-2): kabul.csv canli-satir ucu. saglik.ps1 6b ile AYNI dürüst hesap:
+// yesil = PASS/GECTI/GECTI_CANLI; GECTI_HERMETIC ayri SARI (hermetik - canli kanit YOK);
+// kalan (BLOCKED/PASS_PARTIAL/NOT_RUN/KISMEN/FAIL...) diger. Iki resmi cikti ayni defteri okur.
+interface KabulSatir { id: string; faz: string; kaynak: string; durum: string; kaniT: string }
+interface KabulOzet { satirlar: KabulSatir[]; yesil: number; hermetik: number; diger: number; toplam: number; oran: number | null }
+
+const KABUL_YESIL = new Set(["PASS", "GECTI", "GECTI_CANLI"]);
+
+function kabulOku(): KabulOzet | null {
+  const dosya = process.env.ORDU_KABUL_CSV
+    ?? join(dirname(fileURLToPath(import.meta.url)), "..", "..", "plans", "kabul.csv");
+  if (!existsSync(dosya)) return null;
+  const metin = readFileSync(dosya, "utf8").replace(/^﻿/, ""); // BOM kaldirilir
+  const satirlar: KabulSatir[] = [];
+  let yesil = 0, hermetik = 0, diger = 0;
+  for (const satir of metin.split(/\r?\n/)) {
+    if (!satir.trim() || satir.startsWith("id,")) continue;
+    const p = satir.split(",");
+    if (p.length < 4) continue;
+    const durum = p[3].trim();
+    const row: KabulSatir = { id: p[0], faz: p[1], kaynak: p[2], durum, kaniT: p.slice(4).join(",") };
+    satirlar.push(row);
+    if (KABUL_YESIL.has(durum)) yesil++;
+    else if (durum === "GECTI_HERMETIC") hermetik++;
+    else diger++;
+  }
+  const toplam = satirlar.length;
+  return { satirlar, yesil, hermetik, diger, toplam, oran: toplam > 0 ? Math.round((yesil / toplam) * 1000) / 10 : null };
 }
 
 interface AjanKart {
@@ -223,6 +254,12 @@ export function panoBaslat(getPaseo: () => PaseoApi | null): { durum: () => Pano
       izinleriTopla()
         .then((izinler) => jsonYaz(res, 200, { izinler }))
         .catch((e) => jsonYaz(res, 500, { hata: String(e?.message ?? e) }));
+      return;
+    }
+    if (req.method === "GET" && yol === "/api/kabul") {
+      // TUR A - 4: defter tabanli canli kabul satirlari (saglik 6b ile ayni kaynak/hesap)
+      const ozet = kabulOku();
+      jsonYaz(res, ozet ? 200 : 404, ozet ?? { hata: "plans/kabul.csv bulunamadi (ORDU_KABUL_CSV ile yol verilebilir)" });
       return;
     }
     if (req.method === "GET" && yol === "/api/repolar") {

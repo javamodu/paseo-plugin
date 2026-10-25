@@ -65,13 +65,30 @@ async function main() {
     const r3 = await istek({ eylem: "durdur", agentId: "ajan-1" }, null);
     assert.equal(r3.kod, 401, "tokensuz POST 401");
     assert.equal(gonderilen.length, 1, "tokensuz istek send'e ulasmamali");
+
+    // 4) /api/kabul: defter tabanli canli kabul (TUR A - 4, dalga-3 C-2)
+    const get = (path: string): Promise<{ kod: number; cevap: any }> =>
+      new Promise((resolve, reject) => {
+        http.get({ host: "127.0.0.1", port, path }, (res) => {
+          let buf = "";
+          res.on("data", (p: Buffer) => { buf += p; });
+          res.on("end", () => resolve({ kod: res.statusCode ?? 0, cevap: JSON.parse(buf) }));
+        }).on("error", reject);
+      });
+    const k = await get("/api/kabul");
+    assert.equal(k.kod, 200, "kabul ucu 200 (repo ici plans/kabul.csv gercek dosya)");
+    assert.ok(k.cevap.toplam > 50, "defter gercek satir tasimali (117 satir civari)");
+    assert.equal(k.cevap.yesil + k.cevap.hermetik + k.cevap.diger, k.cevap.toplam, "sayim tutarli");
+    assert.ok(k.cevap.hermetik > 0, "GECTI_HERMETIC ayri sayilmali (SARI - canli kanit yok)");
+    assert.ok(k.cevap.oran !== null && k.cevap.oran < 100, "oran dürüst: tam yesil DEGIL (fail-closed defter)");
+    assert.ok(k.cevap.satirlar.every((s: any) => typeof s.id === "string" && typeof s.durum === "string"), "satir semasi: id+faz+kaynak+durum+kaniT");
   } finally {
     pano.kapat();
     delete process.env.PANO_PORT;
     delete process.env.PANO_TOKEN;
   }
 
-  console.log("PANO-DURDUR: durdur eylemi -> send(activeTurnBehavior=interrupt) + STOP metni; agentId'siz 422; tokensuz 401 (fail-closed)");
+  console.log("PANO-DURDUR: durdur eylemi -> send(activeTurnBehavior=interrupt) + STOP metni; agentId'siz 422; tokensuz 401 (fail-closed); /api/kabul canli defter " + "(saglik 6b ile ayni hesap)");
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
