@@ -11,7 +11,7 @@ param(
 )
 if (-not $Out) { $Out = Join-Path $Root 'CODEMAP.md' }
 $codeExt = @('.ts','.tsx','.js','.jsx','.mjs','.py','.cs','.go','.rs','.java','.rb','.php','.ps1')
-$exclude = '\\(node_modules|\.git|dist|build|bin|obj|\.next|coverage|vendor|target)\\'
+$exclude = '\\(node_modules|\.git|dist|build|bin|obj|\.next|coverage|vendor|target|\.tmp-home|\.tmp-kilo|\.verimlilik|sorular)\\'
 $head = ''; try { $head = (git -C $Root rev-parse --short HEAD 2>$null) } catch {}
 $stamp = if ($head) { "HEAD $head" } else { Get-Date -Format 'yyyy-MM-dd HH:mm' }
 $files = Get-ChildItem $Root -Recurse -File -ErrorAction SilentlyContinue |

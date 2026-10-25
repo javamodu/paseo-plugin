@@ -1,0 +1,90 @@
+{
+  "_aciklama": "Üçüncü taraf / resmî benchmark puanları (SWE-bench, Terminal-Bench, Artificial Analysis vb.). Bu dosya BILDIRIM kaynağıdır, ölçüm değildir: buradaki her değer dış kaynaklıdır ve raporda * (tek kaynak) etiketiyle taşınır. Kaynaksız alan null bırakılır — null 'puan yok' demektir, 'sıfır' değil.",
+  "_alanlar": {
+    "swebench": "SWE-bench (Verified) çözme yüzdesi",
+    "terminal_bench": "Terminal-Bench pas@1 yüzdesi",
+    "aa_intelligence": "Artificial Analysis intelligence index",
+    "kaynak": "Doğrulanabilir URL",
+    "tarih": "Bu kaydı rehbere işlediğimiz tarih"
+  },
+  "ekAlanlar": {
+    "benchalign_coding": "BenchLM BenchAlign kod lane ortalaması",
+    "benchalign_agentic": "BenchLM BenchAlign agentik lane ortalaması",
+    "benchalign_genel": "BenchLM BenchAlign genel puan",
+    "fiyat_girdi": "$ / 1M girdi token",
+    "fiyat_cikti": "$ / 1M çıktı token",
+    "ctx": "bağlam penceresi (token)"
+  },
+  "models": {
+    "glm-5.3": {
+      "swebench": 95.4,
+      "terminal_bench": 88.2,
+      "aa_intelligence": 45,
+      "benchalign_coding": 56.4,
+      "benchalign_agentic": 70.2,
+      "benchalign_genel": 67.87,
+      "fiyat_girdi": 1.4,
+      "fiyat_cikti": 4.4,
+      "ctx": 1048576,
+      "ek": "Terminal-Bench 3.0: 28.3 (trio içinde lider) · DeepSWE 66.9 · SWE-Marathon 42.5 · Vals Index 53.51% (#19/49) · Vibe Code Bench v1.1 78.13% · Terminal-Bench 4.0 38.89% · AA çıktı hızı 83 t/s · Vals ölçümünde test başına ~73 dk (thinking max)",
+      "kaynak": "https://www.vals.ai/models/zai_glm-5.3 | https://benchlm.ai/compare/glm-5-3-vs-kimi-k3 | https://www.respan.ai/articles/glm-vs-kimi",
+      "tarih": "2026-10-17"
+    },
+    "kimi-k3": {
+      "swebench": null,
+      "terminal_bench": 88.3,
+      "aa_intelligence": 44,
+      "benchalign_coding": 58.9,
+      "benchalign_agentic": 69.4,
+      "benchalign_genel": 69.86,
+      "fiyat_girdi": 3.0,
+      "fiyat_cikti": 15.0,
+      "ctx": 1050000,
+      "ek": "Terminal-Bench 3.0: 17.4 · DeepSWE 67.5 · SWE-Marathon 48.1 · CursorBench 3.2 60.8 · FrontierSWE 81.2 · ProgramBench 77.8 · AA çıktı hızı 41.7 t/s · görsel+video giriş destekler (tek başına ayırt edici)",
+      "kaynak": "https://benchlm.ai/compare/glm-5-3-vs-kimi-k3 | https://www.respan.ai/articles/glm-vs-kimi",
+      "tarih": "2026-10-17"
+    },
+    "deepseek-v4-pro-0813": {
+      "swebench": 80.6,
+      "terminal_bench": 87.9,
+      "aa_intelligence": null,
+      "benchalign_coding": 47.2,
+      "benchalign_agentic": 54.5,
+      "benchalign_genel": 63.18,
+      "fiyat_girdi": 1.32,
+      "fiyat_cikti": 3.96,
+      "ctx": 1048576,
+      "ek": "LiveCodeBench pass@1-COT 93.5 (küresel #1) · Codeforces 3206 · ~115 t/s (EmpirioLabs tek atış ölçümü 2026-10-06)",
+      "kaynak": "https://benchlm.ai/compare/deepseek-v4-pro-0813-vs-kimi-k3 | https://deepinfra.com/blog/kimi-k3-vs-deepseek-v4-pro-vs-glm-5-2 | https://empiriolabs.ai/blog/kimi-k3-glm-5-3-qwen3-8-max-deepseek-v4-pro-self-playing-games",
+      "tarih": "2026-10-17"
+    },
+    "deepseek-v4.1-flash": {
+      "swebench": null,
+      "terminal_bench": null,
+      "aa_intelligence": null,
+      "benchalign_coding": 60.7,
+      "benchalign_agentic": null,
+      "benchalign_genel": 65.59,
+      "fiyat_girdi": 0.15,
+      "fiyat_cikti": 0.6,
+      "ctx": 1048576,
+      "ek": "Kod lane 60.7 = GLM-5.3-Flash (48.3) ve GLM-5.3'ün kod tarafından yüksek; kendi ölçümümüz: ham API 129.5 t/s, terminal 5/5, IQ 100, kod PASS (raporlar/bench-th-fixdogrulama-2026-10-15). Resmî snapshot adi deepseek-flash = MODEL VERSION DeepSeek-V4.1-Flash-1017; resmî fiyat off-peak $0.15/$0.60 (cache-hit $0.003), PEAK 01:00-04:00 + 06:00-10:00 UTC hafta ici tam 2x ($0.30/$1.20). OpenRouter ayni fiyati DUZ sunuyor (deepseek/deepseek-v4.1-flash-1017; batch $0.05/$0.15). TokenHarbor DAHA UCUZ: $0.14/$0.42 (nedeni yayimlanmamis, kalici sayilmayabilir). Resmi maks cikis 384K, eszamanlilik limiti 2500.",
+      "kaynak": "https://benchlm.ai/compare/deepseek-v4-1-flash-vs-glm-5-3-flash | https://api-docs.deepseek.com/quick_start/pricing/ | canli GET https://tokenharbor.ai/v1/models | canli GET https://openrouter.ai/api/v1/models | raporlar/bench-th-fixdogrulama-2026-10-15/bench.json | raporlar/model-fiyat-performans-2026-10-17.md",
+      "tarih": "2026-10-17"
+    },
+    "qwen3.8-max-0902": {
+      "swebench": null,
+      "terminal_bench": null,
+      "aa_intelligence": null,
+      "benchalign_coding": null,
+      "benchalign_agentic": null,
+      "benchalign_genel": null,
+      "fiyat_girdi": 2.0,
+      "fiyat_cikti": 6.0,
+      "ctx": 1048576,
+      "ek": "SWE-bench Pro 67.7 (Qwen kendi raporu, Claude Code harness) · codefast kataloğunda YOK — bu yolla alınamaz (canlı katalog 2026-10-17, 72 model)",
+      "kaynak": "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/ | https://empiriolabs.ai/blog/kimi-k3-glm-5-3-qwen3-8-max-deepseek-v4-pro-self-playing-games",
+      "tarih": "2026-10-17"
+    }
+  }
+}
