@@ -1,4 +1,6 @@
-﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0)
+﻿> SUPERSEDED — guncel surum: PASEO-VERIMLILIK-REHBERI-v2.1.md (2026-10-13). Bu dosya tarihce olarak korunur; referans guncellemesi ayri karar (K) konusudur.
+
+# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0)
 
 v2.0 — 2026-10-11 · 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; kanıtlar: kanit/01-10 + raporlar/token-olcum-2026-10-11). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme.
 

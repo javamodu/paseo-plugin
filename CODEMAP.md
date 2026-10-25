@@ -1,13 +1,12 @@
-﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 0e66059 — elle duzenleme)
+﻿# CODEMAP — paseo-plugin (OTOMATIK URETILDI: HEAD 6b8e944 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
-- `.verimlilik/plan.md` (0.4KB) — Ordu Planı — paseo-plugin (F1 demo) | Sprint 1
 - `admin-onboarding.md` (6KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
 - `AGENTS.md` (0.9KB) — AGENTS.md — paseo-plugin (L0) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `DERSLER.md` (30.4KB) — DERSLER — paseo-plugin (L5)
+- `DERSLER.md` (48.5KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.6KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
@@ -45,6 +44,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0032.md` (2.2KB) — K-0032 — fırtına modu: Kimi-K3 süre-bazlı lisans için maksimum-performans modu (ONAYLANDI 2026-10-13) | Bağlam | Karar
 - `kararlar/K-0033.md` (2.9KB) — K-0033 — Ikili temsil: insan-metni (md) ↔ makine-cekirdegi (json); derleyici manager LLM, dogrulayici round-trip checker (ONAYLANDI 2026-10-13 — kullanici: "k0033 onayliyorum") | Baglam | Karar
 - `kararlar/K-0035.md` (3.5KB) — K-0035 — CODEMAP butcesi: rapor/kanit dizinlerinde esik-5 klasor topaklamasi (ONAYLANDI 2026-10-15 — kullanici: "B kalsin") | Baglam | Karar
+- `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `PASEO-VERIMLILIK-REHBERI-v2.0.md` (13.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.0) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
 - `PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
@@ -66,7 +66,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/handoff/HANDOFF-2026-10-13-1707.md` (2.8KB) — HANDOFF 2026-10-13 1707 - Pano v5 + BLUEPRINT (kullanici Paseo restart edecek) | Repo durumu (echo: devralan dogrular) | Bu turda kapananlar
 - `plans/handoff/HANDOFF-2026-10-13-2014.md` (1.7KB) — HANDOFF 2026-10-13 20:14 — baglam %90 acil devir | Repo durumu (20:14, diskten) | Bu turda kapananlar (kanitli)
 - `plans/handoff/HANDOFF-2026-10-14-0127.md` (1.5KB) — HANDOFF 2026-10-14 01:27 — devir + echo | Echo (devralan dogrulamasi, diskten) | Repo durumu (01:27)
-- `plans/handoff/HANDOFF-2026-10-14-0333.md` (15.2KB) — HANDOFF 2026-10-14 03:33 — gece vardiyasi D1-D5 TAMAM | Echo dogrulama (onceki handoff icin, diskten) | Echo dogrulama (BU handoff icin, §3.4 — 2026-10-14 gun-ici devam turu, diskten dogrulandi)
+- `plans/handoff/HANDOFF-2026-10-14-0333.md` (22.6KB) — HANDOFF 2026-10-14 03:33 — gece vardiyasi D1-D5 TAMAM | Echo dogrulama (onceki handoff icin, diskten) | Echo dogrulama (BU handoff icin, §3.4 — 2026-10-14 gun-ici devam turu, diskten dogrulandi)
 - `plans/HEDEF.md` (7KB) — HEDEF — Ordu yetkinlik haritasi (v1.3 · 2026-10-14 · TASLAK, K-0034'e bagli) | 1. Komuta ve yurutme | 2. Kalite ve kabul
 - `plans/mockup/cek.mjs` (3.1KB) — async function waitUp(){ for(let i=0;i<60;i++){ try{ const r=await fetch('http://127.0.0.1:'+PORT+'/json/version'); if(r.ok) return; }catch{} await new Promise(r=>setTimeout(r,250)); } throw new Error('devtools gelmedi'); } | function cmd(method,params){ const i=++id; ws.send(JSON.stringify({id:i,method,params})); return new Promise(res=>pend.set(i,res)); }
 - `plans/mockup/DESIGN.md` (8.4KB) — DESIGN.md — Pano Mockup Tasarım Sistemi (v11) | 1. Tokenlar | 2. Yerleşim (v10)
@@ -77,42 +77,50 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/mockup/parcalar/v10/05-icerik.md` (23.9KB) — 05-icerik.md — v10 İçerik Sekmeleri Fragment'ı | 1. Spec | 2. HTML fragment
 - `plans/mockup/parcalar/v10/06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
 - `plans/PLAN.md` (42.3KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
-- `plans/SSOT-INDEX.md` (1.8KB) — SSOT-INDEX — belge haritasi (2026-10-14)
+- `plans/SSOT-INDEX.md` (0KB)
+- `raporlar/` (11 dosya: en yeni 3model-puanlama-2026-10-19.md, saf-performans-top30-2026-10-18.md, codex-uyumluluk-siralamasi-2026-10-17.md)
+- `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
+- `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
+- `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/free-modeller-2026-10-15.md` (21.2KB) — Free model erişim ölçümü — 2026-10-15 | 0. CALISAN FREE UCLAR — hiz sirali (tek yerden bulunur) | 1. Sonuç tabloları
 - `raporlar/gelen-kutu/` (8 dosya: en yeni codex-2026-10-14.md, denetim2-2026-10-13.md, review3-2026-10-13.md)
+- `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
+- `raporlar/model-katalog-2026-10-17/katalog.md` (15.4KB) — Birlesik Model Katalogu — paseo-plugin · 2026-10-17 | Birden fazla provider'da olan modeller (asil bakım yeri) | Tüm modeller (provider → id, ctx, fiyat)
+- `raporlar/model-katalog-2026-10-18/katalog.md` (16KB) — Birlesik Model Katalogu — paseo-plugin · 2026-10-18 | Birden fazla provider'da olan modeller (asil bakım yeri) | Tüm modeller (provider → id, ctx, fiyat)
 - `raporlar/oz-degerlendirme/2026-10-12.md` (1.5KB) — Öz-Değerlendirme — 2026-10-12 (ilk rapor · baz) | Ölçümler | Eksen puanları (baz — değişiklik yok)
-- `raporlar/OZET.md` (0.2KB) — OZET — raporlar/
+- `raporlar/paseo-workspace-model-secimi-2026-10-19/OZET.md` (12.8KB) — Paseo Workspace Model Secimi - 2026-10-19 | Ozet | Workspace Tablosu
 - `raporlar/plan-analiz-2026-10-14/` (10 dosya: en yeni kapsul-v5.md, kapsul-v4.md, ordu-v3.md)
 - `raporlar/proje-panosu/2026-10-12.md` (3KB) — Proje Panosu - 2026-10-12 (v1.1.0)
-- `raporlar/provider-rehberi-2026-10-14.md` (27KB) — PASEO PROVIDER REHBERİ — 2026-10-14 (v1.0) | 1. Provider haritası (R: `paseo provider ls`) | 2. Limitler (R: katalog + canlı hata mesajları)
 - `raporlar/repo-etkinlik-2026-10-14/OZET.md` (1.8KB) — Repo Etkinlik Olcumu — 2026-10-14 01:45 (R: 14 repo telemetri.jsonl disk taramasi) | Buyuk resim (anlamli orneklem: >=10 tur) | Firtina etkisi (turSn>0 filtresi, ayni repo ici)
 - `raporlar/sozlesme-sondaj/2026-10-12/OZET.md` (4.5KB) — Sözleşme Sondajı — 2026-10-12 (ISO W42 · pilot koşu 1/3, K-0013) | Bulgu tablosu | Detaylar
-- `raporlar/takip-sozlesme/2026-10-12.md` (0.1KB) — Sozlesme bekci raporu — 2026-10-12
-- `raporlar/takip-sozlesme/2026-10-13.md` (0.2KB) — Sozlesme bekci raporu — 2026-10-13
-- `raporlar/takip-sozlesme/2026-10-14.md` (0.4KB) — Sozlesme bekci raporu — 2026-10-14
-- `raporlar/takip-sozlesme/2026-10-15.md` (0.3KB) — Sozlesme bekci raporu — 2026-10-15
+- `raporlar/takip-sozlesme/` (7 dosya: en yeni 2026-10-19.md, 2026-10-18.md, 2026-10-17.md)
 - `raporlar/telemetri-haftalik/2026-W42.md` (0.8KB) — Telemetri Haftalık Özet — 2026-W42
+- `raporlar/telemetri-haftalik/2026-W43.md` (0.9KB) — Telemetri Haftalık Özet — 2026-W43
 - `raporlar/token-olcum-2026-10-11/OZET.md` (1.3KB) — Token Ölçümü — 2026-10-11 (R) | Tüm kayıtlar (TokenDays=0) | Bugün (TokenDays=1)
 - `raporlar/triage-2026-10-14/OZET.md` (1.3KB) — Gelen-Kutu Triage — 2026-10-14 (isçi: 7a8d41f8, 43/43 madde) | denetim-2026-10-13.json (28) | denetim2-2026-10-13.json (14)
+- `raporlar/uygunluk-2026-10-17/uygunluk.md` (4.6KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
+- `raporlar/uygunluk-top30-2026-10-17/uygunluk.md` (17.6KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
+- `raporlar/uygunluk-top30-2026-10-18/uygunluk.md` (21KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/v021-trend-2026-10-14/OZET.md` (0.7KB) — v0.21 firtina/K3 trend ozeti — 2026-10-14 (50-tur esigi asildi: 70 tur)
 - `raporlar/v022-olcum-2026-10-14/OZET.md` (1KB) — v0.22 Olcum — 2026-10-14 01:30 (R: telemetri.jsonl disk taramasi, 14 repo) | AktifSn birikimi | Hiz / kalite (firtina, paseo-plugin)
-- `raporlar/yonetici-ozeti-free-2026-10-14.md` (7.8KB) — YÖNETİCİ ÖZETİ — FREE KULLANIM DURUMU (2026-10-14) | 0. GÜNCELLEME 2026-10-15 (bu dosyanın aşağıdaki hükmünü kısmen geçersiz kılar) (R) | 1. Tek tabloda cevap
 - `README.md` (2.8KB) — paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
+- `scripts/bench-claude.mjs` (8KB) — function claude(prompt, ms = 240000) {
 - `scripts/codemap.ps1` (3.6KB) — function Get-TopakKey([string]$rel) {
+- `scripts/codex-failover.mjs` (7.5KB) — function dogrula() { | async function olc(b) { | function denemeModeli(b) {
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (5KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
+- `scripts/model-katalog.mjs` (9.7KB) — function md() {
 - `scripts/omp-kurulum-kapisi.mjs` (4.2KB)
 - `scripts/openrouter-pi-kapisi.mjs` (4.1KB)
 - `scripts/pi-erisim-kapisi.mjs` (3.7KB)
 - `scripts/proje-panosu.ps1` (8.6KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
 - `scripts/saglik.ps1` (8.9KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
+- `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
-- `sorular/banka.md` (2.3KB) — Soru Bankası — Sözleşme Sondajı (K-0013) | A. Onboarding quizi (yeni ajan neyi yanlış anlıyor) | B. Çelişki sondası (iki kuralı çatıştır)
-- `STATE_BOARD.md` (30.2KB) — STATE_BOARD ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paseo-plugin | Aktif iÃƒâ€¦Ã…Â¸ | Son damgalar
+- `STATE_BOARD.md` (30.5KB) — STATE_BOARD ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â paseo-plugin | Aktif iÃƒâ€¦Ã…Â¸ | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/v0.4/KILIT.md` (0.9KB) — Kilitli Sürüm — v0.4-kilit (paseo-plugin) | Rollback tatbikatı (R) | Rollback prosedürü
 - `surumler/v0.5.1/KILIT.md` (0.5KB) — Kilitli Surum - v0.5.1-kilit | Rollback
