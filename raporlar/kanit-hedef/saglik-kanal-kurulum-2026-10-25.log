@@ -1,0 +1,29 @@
+﻿
+Kontrol                                   Durum Detay                                                                  
+-------                                   ----- -----                                                                  
+ANAYASA.md (proje ust otoritesi)          OK    yoksa Ferman 3 ile kur                                                 
+L0 AGENTS.md                              OK    her zaman yuklu kurallar                                               
+L1 STATE_BOARD.md                         OK    kök veya plans/ altinda                                                
+L2 CODEMAP.md                             OK    codemap ureticisi ile uret                                             
+L5 DERSLER.md                             OK    acilis okumasi; negatif bilgi                                          
+L4 kararlar/ dizini                       OK    ADR: K-XXXX.md                                                         
+L3 raporlar/ dizini                       OK    append-only + OZET.md                                                  
+handoff dizini                            OK    devir toreni ciktilari                                                 
+L0 butce <=200 satir                      OK    14 satir                                                               
+L1 butce <=100 satir                      OK    45 satir                                                               
+L2 CODEMAP butce <=130 satir              EKSIK 137 satir (dokuman haritasi ~4-5k token; kod sembol haritasi ~1k)      
+CODEMAP taze                              OK    en yeni kaynak: K-0046.md                                              
+Handoff zinciri kopuksuz                  OK    onceki: HANDOFF-2026-10-25-2005                                        
+REHBER <=150 satir (kendi hijyen kurali)  OK    139 satir                                                              
+REHBER (v*) mevcut                        OK    evrensel sozlesme                                                      
+codemap ureticisi kurulu                  OK    scripts/codemap.*                                                      
+Kural-proxy (liste-satiri) <= 80 (tavan)  EKSIK 84 satir - stacking-collapse riski (REHBER §2)                         
+Cache-hit normalizasyon                   SARI  199 kayit normalize edildi (plugin inputTokens semantigi - telemetry...
+Cache-hit >= %40 (token-agirlikli)        OK    97,0% (1138 tur)                                                       
+Durtme <= 10/oturum                       EKSIK 197 durtme, 1138 tur                                                   
+Kabul defteri hermetik                    SARI  43 GECTI_HERMETIC - canli kanit adaylari (FAZ-3 turu: PASS'e ya da k...
+Kabul orani (defter) >= %44 (METR alarmi) EKSIK %23 (27/115 madde) - bilincli kirmizi, fail-closed                     
+Gelen-kutu sema (schemaSurum=1)           OK    bozuk/eski sidecar: 0                                                  
+
+
+SONUC: 17 OK, 4 EKSIK, 2 SARI

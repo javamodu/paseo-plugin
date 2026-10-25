@@ -1019,6 +1019,28 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     fspM.rmSync(roTmp, { recursive: true, force: true });
   }
   {
+    // K-0046 (kanal): tip:'test' olayi — makine EXIT kaniti (elle "EXIT=0" prosee degil; null-durustluk)
+    const { turKaydet: tk46, telemetriDosyasi: td46, testAdiKisa: tak46 } = await import("../server/telemetry");
+    assert(tak46("cd /d/Vibecode/ordu && npm test") === "npm test", "K-0046: testAdiKisa zincirin cd bolumunu atar");
+    const a46 = fspM.mkdtempSync(osM.tmpdir() + "/a46-");
+    const tl46 = [
+      { type: "tool_call", name: "bash", status: "completed", detail: { type: "shell", command: "npm test", exitCode: 0 } },
+      { type: "tool_call", name: "bash", status: "completed", detail: { type: "shell", command: "cd /d/Vibecode/ordu && npm test", exitCode: 1 } },
+      { type: "tool_call", name: "bash", status: "completed", detail: { type: "shell", command: "npm install", exitCode: 0 } },
+      { type: "tool_call", name: "bash", status: "running", detail: { type: "shell", command: "npm test" } },
+    ];
+    tk46({ agent: { id: "a46", cwd: a46, provider: "codex" }, turnId: "t46", outcome: { kind: "completed" }, timeline: tl46 as never, usage: null, model: null, mod: null, loopDurtme: false, finishGateDurtme: false } as never);
+    const satirlar46 = fspM.readFileSync(td46(a46), "utf8").trim().split("\n").map((l: string) => JSON.parse(l));
+    const test46 = satirlar46.filter((r: any) => r.tip === "test");
+    assert(test46.length === 2, "K-0046: yalniz exit-kodu bilinen test komutlari olay yazar (npm install + exitCode'suz kosu degil): " + test46.length);
+    assert(test46[0].exitCode === 0 && test46[0].testAd === "npm test", "K-0046: ilk olay exit=0 + kisa ad");
+    assert(test46[1].exitCode === 1 && test46[1].testAd === "npm test", "K-0046: kirmizi exit korunur, ad cd'den arinir");
+    assert(test46[0].turnId === "t46" && test46[0].pluginSurum !== undefined, "K-0046: olay turnId + surum tasir");
+    const tur46 = satirlar46.filter((r: any) => r.tip === "tur");
+    assert(tur46.length === 1 && satirlar46[satirlar46.length - 1].tip === "tur", "K-0046: tur ozeti tek ve SON satir (test olaylari onunde)");
+    fspM.rmSync(a46, { recursive: true, force: true });
+  }
+  {
     const { panoIsaretciYaz: piY } = await import("../server/bekci");
     const pTmp = fspM.mkdtempSync(osM.tmpdir() + "/a35-");
     fspM.writeFileSync(pTmp + "/STATE_BOARD.md", "# Pano\n## Baska\n");

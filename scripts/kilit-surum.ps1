@@ -43,9 +43,29 @@ try {
       $pj = Get-Content $pkg -Raw -Encoding UTF8 | ConvertFrom-Json
       $npmKapiVar = ($null -ne $pj.scripts.test) -or ($null -ne $pj.scripts.typecheck)
       if ($npmKapiVar) {
-        if ($null -ne $pj.scripts.test) { & npm test | Out-Null; if ($LASTEXITCODE -ne 0) { throw ('npm test kirmizi (exit ' + $LASTEXITCODE + ') - kilit engellendi.') } }
-        if ($null -ne $pj.scripts.typecheck) { & npm run typecheck | Out-Null; if ($LASTEXITCODE -ne 0) { throw ('npm run typecheck kirmizi (exit ' + $LASTEXITCODE + ') - kilit engellendi.') } }
+        # K-0046 (kanal): test EXIT kaniti diske iner (Tee + son-kanit.json) — Out-Null donemi KAPANDI;
+        # raporlardaki "EXIT=0" prosee artik makine kaynagi bagli (d=olculmus damga, h=commit, x=exit — DERSLER 162).
+        $kanitDir = Join-Path $RepoKok 'raporlar\kanit-hedef'
+        New-Item -ItemType Directory -Force -Path $kanitDir | Out-Null
+        if ($null -ne $pj.scripts.test) {
+          $testLog = Join-Path $kanitDir ("test-$Etiket.log")
+          $sw = [System.Diagnostics.Stopwatch]::StartNew()
+          & npm test 2>&1 | Tee-Object -FilePath $testLog
+          $testExit = $LASTEXITCODE
+          $sw.Stop()
+          $sonKanit = [ordered]@{ d = (Get-Date -Format o); h = $commit; x = $testExit; test = $Etiket; sureSn = [int]$sw.Elapsed.TotalSeconds }
+          [IO.File]::WriteAllText((Join-Path $kanitDir 'son-kanit.json'), ($sonKanit | ConvertTo-Json) + $nl, $utf8)
+          if ($testExit -ne 0) { throw ('npm test kirmizi (exit ' + $testExit + ') - kilit engellendi. Kanit: ' + $testLog) }
+        }
+        if ($null -ne $pj.scripts.typecheck) {
+          & npm run typecheck 2>&1 | Tee-Object -FilePath (Join-Path $kanitDir ("typecheck-$Etiket.log"))
+          if ($LASTEXITCODE -ne 0) { throw ('npm run typecheck kirmizi (exit ' + $LASTEXITCODE + ') - kilit engellendi.') }
+        }
         $doctor = [ordered]@{ ok = 1; eksik = 0; sari = 0; kaynak = 'npm test+typecheck' }
+        # K-0046: kanit loglari sinirsiz buyumez — son 50 / 8 hafta (ikisi de asan silinir).
+        Get-ChildItem $kanitDir -Filter '*.log' | Sort-Object LastWriteTime -Descending |
+          Select-Object -Skip 50 | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-56) } |
+          ForEach-Object { Remove-Item $_.FullName -Force }
       }
     }
     if (-not $npmKapiVar) { throw ('D2-10 fail-closed: saglik.ps1 bulunamadi (' + $saglik + ') ve npm kapisi yok - kilit engellendi.') }

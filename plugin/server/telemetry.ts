@@ -11,7 +11,7 @@ import { haftalikRollup } from "./rollup";
 
 export interface TelemetriKayit {
   ts: string;
-  tip: "tur" | "kabul" | "lint" | "karisiklik";
+  tip: "tur" | "kabul" | "lint" | "karisiklik" | "test";
   agentId: string;
   provider: string;
   turnId?: string | null;
@@ -43,6 +43,8 @@ export interface TelemetriKayit {
   decodeTps?: number;
   testKosu?: number;
   testKirmizi?: number;
+  testAd?: string;
+  exitCode?: number;
   halRef?: number;
   halKirik?: number;
   editDosyalari?: string[];
@@ -191,6 +193,13 @@ export function testKomutuMu(cmd: string): boolean {
   return TEST_KOMUTU.test(cmd);
 }
 
+// K-0046 (kanal): tip:'test' olayinin kisa adi — zincirin anlamsiz bolumleri (cd ...) atilir, son 3 token.
+export function testAdiKisa(cmd: string): string {
+  const bolumler = cmd.split(/&&|;/).map((b) => b.trim()).filter(Boolean);
+  const son = bolumler.length > 0 ? bolumler[bolumler.length - 1]! : cmd;
+  return son.split(/\s+/).slice(0, 3).join(" ").slice(0, 60);
+}
+
 // K-0032 (v0.21): halusinasyon proxy'si — cikti metnindeki dosya:satir referanslari diske karsi dogrulanir.
 const HAL_DESEN = /(?:^|[\s(`"'])((?:[\w.\-]+[\/\\])*[\w.\-]+\.(?:ts|tsx|js|mjs|py|md|go|rs|json)):(\d{1,6})\b/g;
 export function halRefTara(metin: string, cwd: string): { toplam: number; kirik: number } {
@@ -305,6 +314,23 @@ export function turKaydet(input: {
   const turSnV21 = t0v21 ? Math.round((Date.now() - t0v21) / 1000) : undefined;
   const testKosuV21 = shell.filter((o) => o.exitCode !== undefined && o.exitCode !== null && testKomutuMu(o.command ?? "")).length;
   const testKirmiziV21 = shell.filter((o) => o.exitCode !== undefined && o.exitCode !== null && o.exitCode !== 0 && testKomutuMu(o.command ?? "")).length;
+  // K-0046 (kanal): her test kosusunun makine EXIT kodu ayri kalici olay olarak iner —
+  // kabul.csv soneki ·x: bacağının makine kaynağı (kapanış-testi kapı kuralı: doğrudan npm test + elle
+  // "EXIT=0" prose'u KANIT DEĞİL). exitCode null/bilinmiyorsa olay YAZILMAZ — null-dürüstlük.
+  // Olaylar tur özetinden ÖNCE yazılır: son satır daima tip:'tur' kalır (mevcut testler son-satır okur).
+  for (const o of shell) {
+    if (o.exitCode === undefined || o.exitCode === null || !testKomutuMu(o.command ?? "")) continue;
+    telemetriYaz(input.agent.cwd, {
+      ts: new Date().toISOString(),
+      tip: "test",
+      agentId: input.agent.id,
+      provider: input.agent.provider,
+      pluginSurum: PLUGIN_SURUM,
+      turnId: input.turnId,
+      testAd: testAdiKisa(o.command ?? ""),
+      exitCode: o.exitCode,
+    });
+  }
   const halV21 = halRefTara(latestOutputText(input.timeline), input.agent.cwd);
   // K-0032 (v0.19): baslangic snapshot'i ile fark; git'siz ortamda null.
   const locBaslangic = locBaslangiclari.get(input.agent.id);

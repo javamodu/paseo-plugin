@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD dd0b1d5 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD a2361a1 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -56,6 +56,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0040.md` (2.1KB) — K-0040 — cacheHitMinPct eşik kaynağının tekilleştirilmesi: hedefler.json = 40, saglik varsayılanı hizalanır — ONAYLANDI | Bağlam | Karar
 - `kararlar/K-0041.md` (2.4KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
 - `kararlar/K-0042.md` (1.8KB) — K-0042 — K-0036 (ücretli/dis API yok politikası) geriye dönük kayıt — ADAY | Bağlam | Karar
+- `kararlar/K-0046.md` (6KB) — K-0046 — Aldatılamayan hedefleme: kanıt-üçleme kanalı + hız ölçüm payda kuralları — ONAYLANDI (kanal uygulanıyor) | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (5 dosya: en yeni BLUEPRINT.md, .pano-serve.js, DESIGN.md)
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
@@ -75,7 +76,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
 - `plans/SSOT-INDEX.md` (2.2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
-- `plugin/` (64 dosya: en yeni pano-durdur.test.ts, pano.ts, dedektor.test.ts)
+- `plugin/` (64 dosya: en yeni dedektor.test.ts, telemetry.ts, pano-durdur.test.ts)
 - `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
@@ -119,7 +120,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/codemap.ps1` (4.3KB) — function Get-TopakKey([string]$rel) {
 - `scripts/codex-failover.mjs` (7.5KB) — function dogrula() { | async function olc(b) { | function denemeModeli(b) {
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
-- `scripts/kilit-surum.ps1` (5KB) — function GitZorunlu([string[]]$GitArgs) {
+- `scripts/kilit-surum.ps1` (6.3KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
 - `scripts/model-katalog.mjs` (9.7KB) — function md() {
 - `scripts/omp-kurulum-kapisi.mjs` (4.2KB)
