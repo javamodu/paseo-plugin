@@ -97,16 +97,20 @@ if ($Jsonl -and (Test-Path $Jsonl)) {
   $ev = @(Get-Content $Jsonl -Encoding UTF8 | ForEach-Object { try { $_ | ConvertFrom-Json } catch { Write-Host "JSONL bozuk satir atlandi (Katman B devam)" } })
   $turKayit = @($ev | Where-Object { $_.tip -eq 'tur' })
   $tur = $turKayit.Count
-  # Cache: plugin tur kaydinin detay alaninda tutar (cacheHitPct=NN.N) - token-agirlikli ortalama
-  $cacheAgirlikli = 0.0; $cacheAgirlik = 0.0
+  # Cache: plugin tur kaydinin detay alaninda tutar (cacheHitPct=NN.N) - token-agirlikli ortalama.
+  # TUR-1.1 (B4): pct>100 kayitlar provider semantigidir (telemetry.ts paydasi inputTokens, cache DISARIDA - kok onarimi 1.3'te);
+  # gecmis kayitlar 100p/(100+p) ile normalize edilir - %100 ustu deger asla rapor edilmez.
+  $cacheAgirlikli = 0.0; $cacheAgirlik = 0.0; $normN = 0
   foreach ($k in $turKayit) {
     if ($k.detay -match 'cacheHitPct=([\d.]+)') {
       $pct = [double]$Matches[1]
+      if ($pct -gt 100) { $pct = 100 * $pct / (100 + $pct); $normN++ }
       $agirlik = 1.0
       if ($k.detay -match 'in=(\d+)') { $agirlik = [double]$Matches[1] }
       $cacheAgirlikli += $pct * $agirlik; $cacheAgirlik += $agirlik
     }
   }
+  if ($normN -gt 0) { Warn 'Cache-hit normalizasyon' "$normN kayit normalize edildi (plugin inputTokens semantigi - telemetry.ts kok onarimi oncesi kayitlar)" }
   if ($cacheAgirlik -gt 0) {
     $ortCache = $cacheAgirlikli / $cacheAgirlik
     Check ("Cache-hit >= %{0} (token-agirlikli)" -f $ESIK.CacheHitMin) ($ortCache -ge $ESIK.CacheHitMin) ("{0:N1}% ({1} tur)" -f $ortCache, $tur)
@@ -117,13 +121,23 @@ if ($Jsonl -and (Test-Path $Jsonl)) {
   $dur = @($turKayit | Where-Object { $_.loopDurtme -eq $true -or $_.finishGateDurtme -eq $true }).Count
   $dur += @($ev | Where-Object { $_.tip -eq 'lint' -and $_.detay -like 'pitbull-durtme*' }).Count
   Check ("Durtme <= {0}/oturum" -f $ESIK.DurmeMaxGunluk) ($dur -le $ESIK.DurmeMaxGunluk) "$dur durtme, $tur tur"
-  $ka = @($ev | Where-Object { $_.tip -eq 'kabul' -and $_.kabul -eq $true }).Count
-  $kt = @($ev | Where-Object { $_.tip -eq 'kabul' }).Count
+  # TUR-1.2 (B5): kabul-orani JSONL oz-bildiriminden DEGIL, gercek defterden (kabul.csv) okunur - asagida 6b.
+}
+
+# 6b) Kabul-orani kapisi - GERCEK DEFTER (TUR-1.2/B5): kabul.csv kaynakli; GECTI_HERMETIK yesil SAYILMAZ.
+# Telemetri oz-bildirimi (%98+) kanit degil; kapinin kaynagi defterdir - bilincli kirmizi fail-closed.
+$kDefterYolu = Find-First $Root @('plans\kabul.csv','kabul.csv')
+if ($kDefterYolu) {
+  $kDefter = @(Import-Csv $kDefterYolu)
+  $kt = $kDefter.Count
+  $ka = @($kDefter | Where-Object { @('PASS','GECTI','GECTI_CANLI') -contains $_.durum }).Count
+  $hermetik = @($kDefter | Where-Object { $_.durum -eq 'GECTI_HERMETIC' }).Count
+  if ($hermetik -gt 0) { Warn 'Kabul defteri hermetik' "$hermetik GECTI_HERMETIK - canli kanit adaylari (FAZ-3 turu: PASS'e ya da kalici-acik listesine)" }
   if ($kt -gt 0) {
     $oran = $ka * 100.0 / $kt
-    if ($oran -lt $ESIK.KabulAlarm) { Check ("Kabul orani >= %{0} (METR alarmi)" -f $ESIK.KabulAlarm) $false ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
-    elseif ($oran -lt $ESIK.KabulHedef) { Warn ("Kabul orani >= %{0} (hedef)" -f $ESIK.KabulHedef) ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
-    else { Check ("Kabul orani >= %{0} (hedef)" -f $ESIK.KabulHedef) $true ("%{0:N0} ({1}/{2})" -f $oran, $ka, $kt) }
+    if ($oran -lt $ESIK.KabulAlarm) { Check ("Kabul orani (defter) >= %{0} (METR alarmi)" -f $ESIK.KabulAlarm) $false ("%{0:N0} ({1}/{2} madde) - bilincli kirmizi, fail-closed" -f $oran, $ka, $kt) }
+    elseif ($oran -lt $ESIK.KabulHedef) { Warn ("Kabul orani (defter) >= %{0} (hedef)" -f $ESIK.KabulHedef) ("%{0:N0} ({1}/{2} madde)" -f $oran, $ka, $kt) }
+    else { Check ("Kabul orani (defter) >= %{0} (hedef)" -f $ESIK.KabulHedef) $true ("%{0:N0} ({1}/{2} madde)" -f $oran, $ka, $kt) }
   }
 }
 
