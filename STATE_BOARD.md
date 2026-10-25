@@ -1,7 +1,7 @@
 ﻿# STATE_BOARD — paseo-plugin
 
 ## Aktif iş
-F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi (ce50c92), ağaç 0 kirli · arsiv/tmp-home-2026-10-25 KOPYALANDI (kullanıcı robocopy: 113 dizin / 188 dosya / 14.93 MB / 0 FAILED; gitignore doğrulandı, .codex 25 girdi) · TEK KALAN: S4 anahtar rotate KULLANICI'DA (eski anahtar .claude\settings.json + .tmp-home\claude-glm53u-settings.json'da hâlâ duruyor, diskten okundu) · F1 onayı rotate sonrası.
+F0 (ADR-toparlanma-monorepo) **TAMAMEN KAPALI**: codemap+telemetri (ce50c92) · arsiv/tmp-home-2026-10-25 kopyalandı (robocopy 113/188/0 FAILED, gitignore doğrulandı) · S4 rotate **İPTAL — K-0038** (kullanıcı: "yeni anahtara gerek yok"; anahtar env+gitignore'lu dosyalarda yaşamaya devam, sızma anı prosedürü kararda) · **F1 onayı bekleniyor** (ordu/ iskeleti + fiziksel taşıma + bağlam-sürekliliği zinciri).
 
 ## Son damgalar (tam: son 3)
 - 2026-10-25 · F0 KAPANIŞ DALGASI (kullanıcı koştu): ce50c92 "F0 kapanis: codemap tazeligi + W43 telemetri guncel; arsiv/tmp-home-2026-10-25 hazirlandi (gitignore'lu)" — CODEMAP 184 dosya/134 satır + W43 telemetri 3 dosya · saglik: 15 OK / 2 EKSİK (L1 103 satır — bu trimle kapatıldı; L2 CODEMAP 134>130, ADR ister) / 1 SARI (kural-proxy 78) · arsiv kopyası BEKLEMEDE (cmd.exe'de Copy-Item yok → robocopy verildi)
@@ -17,8 +17,8 @@ F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi
 - 2026-10-11 · kuruluş: repo+GitHub push · Plan v1.4+REHBER senkron (K-0002) · v0.2 pitbull (K-0004) · v0.4 echo kapısı+onboarding CANLI (K-0006)
 
 ## Bekleyen onaylar (insan)
-1. S4 anahtar rotate (kullanıcı) + ~/.paseo/config.json 2 kart güncelleme + daemon restart (ayrı onay) — kontrol kriteri: **ESKİ ANAHTARIN TAMAMI** diskte 0 eşleşme (kısa önek grepi yanlış-pozitif verir: önek parçası guvenlik-taraması-2026-10-25.md belgesinde kalıcı)
-2. F1 (ordu/ iskeleti + paseo-plugin köke taşıma) — F0 kalanı bitince ayrıca
+1. ~~S4 anahtar rotate~~ İPTAL — K-0038 (2026-10-25, kullanıcı: "yeni anahtara gerek yok"); ~/.paseo/config.json kart güncellemesi + daemon restart yalnız sızma/iptal anında gündeme gelir (K-0038 prosedürü)
+2. F1 (ordu/ iskeleti + paseo-plugin köke taşıma) — F0 KAPALI, bu onay sıradaki
 3. K-0036 ücretli-yok politikası karar kaydı · §17.3 canlı test paketi
 
 ## Bilinen açıklar (saglik SARI/EKSİK backlog)
