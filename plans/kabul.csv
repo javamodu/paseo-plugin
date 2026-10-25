@@ -5,7 +5,7 @@ B02,S1,canli Paseo capability'leri,PASS,canli yetenekler probe'da KANITLANDI (20
 RT0,RT,local runtime kapisi (runtime-kapsami),GECTI_HERMETIC,51/51 local-runtime.test.ts (paseo blocked iken local dogar; eksik kanit->FATAL; uydurma-DEAD yok)
 RT1,RT,git worktree + durable registry kaniti (harcamasiz),GECTI_HERMETIC,V3-RT.1 git-worktree-launcher.ts+git-worktree.test(4): temp git reposu worktree add + ayrik zararsiz surec + pid DURABLE JSON'a yazilmadan return YOK + restart(new instance) ayni pid + kill/lookup DEAD dogrulamasi + LocalRuntimeAdapter entegrasyon (spawn OK->ALIVE->DEAD); provider CLI uca-uca = RT2 (canli/harcama) NOT_RUN
 RT2,RT,provider CLI ile uctan uca local worker,NOT_RUN,V3-S1.1'in local kolu
-RT3,RT,local bildirim fallback (SSE+webhook),GECTI_HERMETIC,src/notify.ts sender-enjeksiyonlu (test/notify.test.ts); canli webhook NOT_RUN
+RT3,RT,local bildirim fallback (SSE+webhook),PASS,src/notify.ts canli webhook (test/notify-canli.test.ts): alici AYRI surecte loopback HTTP + gercek POST 204; sir tel VE disk redakte; alici SIGKILL gercek baglanti reddi ile retry 2 sonra DEAD (attempts=3 gercek curl nedeni); jsonl replay dedupe idempotent ·d:2026-10-25T22:56:26+03:00 ·h:1fb2225 ·x:0
 A01,S1,kapsul draft->ready,GECTI_HERMETIC,supervisor.test.ts: createRunPlan + bagimlilik kapisi (dep DONE olmadan dispatch RED); canli akis NOT_RUN
 A02,S1,plan dondurme + hash zinciri,GECTI_HERMETIC,supervisor.test.ts: planHashOf deterministik + plans satiri immutable tetigi (UPDATE->abort)
 A03,S1,insan onaysiz dispatch yok,GECTI_HERMETIC,supervisor.test.ts: PLAN_APPROVED olmadan readyNodes bos + dispatchNode /A03/ reddi
@@ -35,7 +35,7 @@ M08,SCHEDULE,occurrence benzersizligi,GECTI_HERMETIC,schedule.ts occurrenceKey+s
 M09,SCHEDULE,TZ/DST determinizm,GECTI_HERMETIC,schedule.ts occurrencesUpTo UTC-epoch + schedule.test M09 (Ayni girdi->Ayni çıktı; non-UTC tz RED - DST sessiz vaat edilmez)
 M10,SCHEDULE,misfire/overlap catch-up yok,GECTI_HERMETIC,schedule.ts planOccurrences misfire=latest-only + schedule.test M10 (down->5 MISFIRE_SKIPPED emit 1; overlap BİNMEZ; STOP/revoke yerlestirmez adil yeniden dener)
 M11,AUTHORITY,grant kapsami genisleyemez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (superset scope RED, uydurma grant RED)
-M12,BENCH,gorev paydasi+toplam maliyet,GECTI_HERMETIC,src/benchmark.ts: tam payda + esitlik RED + unknown maliyet sifir sayilmaz (test/benchmark.test.ts 11/11, 2026-10-14); canli benchmark NOT_RUN
+M12,BENCH,gorev paydasi+toplam maliyet,PASS,src/benchmark.ts canli benchmark (test/benchmark-canli.test.ts): gercek cocuk surec koşumu; gercek evaluator medyan-esitlik (5); GERÇEK timeout SIGKILL tam paydada (2/3 kabul); yerel maliyet unknown Y5 (0 sayilmaz); yargisiz rapor ·d:2026-10-25T22:56:26+03:00 ·h:1fb2225 ·x:0
 M13,MEMORY,zehirli lesson karantina,GECTI_HERMETIC,src/lessons.ts: PROPOSED karantina + zorunlu alan RED + TALIMAT->POLITIKA yasagi (test/lessons.test.ts, 2026-10-14)
 M14,LEARNING,paired deney + insan publish,GECTI_HERMETIC,src/lessons.ts F6-A zinciri (auto->PUBLISHED RED, ONAY#2 zorunlu) + F6-B oto-geri-al (test/lessons.test.ts, 2026-10-14); canli ogrenme dongusu NOT_RUN
 M15,CANARY,canary geri-alim,NOT_RUN,O-4
