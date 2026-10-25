@@ -1,0 +1,31 @@
+{
+  "schemaSurum": 1,
+  "tur": "devir-tarama-6subagent",
+  "tarih": "2026-10-25T18:50",
+  "ajan": "ana-ajan (Claude glm-5.3)",
+  "yontem": "6 salt-okur subagent (EK-3 6-alanli brief) + 1 yazici + ana-ajan bagimsiz dogrulama; duzeltme UYGULANMADI",
+  "bagimsizDogrulamalar": {
+    "npmTest": { "exit": 0, "dosya": "4/4", "ok": 387, "kanit": "ana-ajan koşumu (R)" },
+    "zincir": { "halka": 20, "bag": 19, "kopuk": 0, "onarimCommit": "480911b", "echoCommit": "294e8d8", "baglantiCommit": "132aeaa" },
+    "anahtarRepoSizintisi": { "iddia": "repo'ya sızmış", "hukum": "CURUTULDU", "kanit": ".gitignore:2-4 + git log --all 0 commit; 3 dosya gitignored" }
+  },
+  "maddeler": [
+    { "id": "V-01", "baslik": "cacheHitPct bozuk metrik - kok neden saglayici semantigi (payda cache disaridir bazi saglayicilarda)", "dosyaRef": "plugin/server/telemetry.ts:292-296; scripts/saglik.ps1:110-115", "etiket": "fake-green", "siddet": "yuksek", "oneri": "saglik.ps1:104 normalizasyon (p>100 -> 100*p/(100+p)) + SARI rapor; kok onarim telemetry.ts payda inputTokens+cachedInputTokens", "islenme": null },
+    { "id": "V-02", "baslik": "kabul-orani kapisı oz-bildirimli - kabul.csv hic okunmuyor (288/292 telemetri, %98,6; gercek 27/115=%23,5 canli)", "dosyaRef": "scripts/saglik.ps1:120-127; plans/kabul.csv", "etiket": "fake-green", "siddet": "yuksek", "oneri": "kapıyı Import-Csv kabul.csv'ye bagla; GECTI_HERMETIC bilinçli yeşil SAYILMAZ (ayrı SARI satır)", "islenme": null },
+    { "id": "V-03", "baslik": "cacheHit esik 60->40 ezmesi K kayitsiz", "dosyaRef": "hedefler.json:8; scripts/saglik.ps1:15", "etiket": "karar-boslugu", "siddet": "orta", "oneri": "40 veya 60 karari K kaydiyla sabitlenir", "islenme": null },
+    { "id": "V-04", "baslik": "HANDOFF-1815 echo bloğu BOŞ (4/5 dolu)", "dosyaRef": "plans/handoff/HANDOFF-2026-10-25-1815.md:36-38", "etiket": "devir-disiplini", "siddet": "orta", "oneri": "gecikmeli echo append (append-only)", "islenme": null },
+    { "id": "V-05", "baslik": "kabul.csv kanıt hijyeni 2/115 hash'li (%1,7)", "dosyaRef": "plans/kabul.csv:91,110", "etiket": "kanit-disiplini", "siddet": "orta", "oneri": "yeni kapanışlarda hash alanı zorunlu; backlog NOT_RUN turu", "islenme": null },
+    { "id": "V-06", "baslik": "surum senkronu ihlali: PLAN v2.0 vs rehber v2.1", "dosyaRef": "PASEO-VERIMLILIK-PLANI.md:3,30; ANAYASA.md:11", "etiket": "SSOT", "siddet": "orta", "oneri": "PLAN v2.1'e senkron; ANAYASA A4+baslik K kaydi + kullanici onayi", "islenme": null },
+    { "id": "V-07", "baslik": "K-0029 diskte YOK, 13+ belgede karar gibi atıflı", "dosyaRef": "plugin/surumler/v0.17/kilit.json:9; plugin/server/telemetry.ts:126,356,358 vd.", "etiket": "kayit-boslugu", "siddet": "yuksek", "oneri": "aday statüsüyle geriye dönük kayıt veya atıfların v0.17 etiketine yönlendirilmesi", "islenme": null },
+    { "id": "V-08", "baslik": "K-0036 diskte YOK (ücretli-yok politikası)", "dosyaRef": "STATE_BOARD.md:27; plans/handoff/HANDOFF-2026-10-25-1930.md:31", "etiket": "kayit-boslugu", "siddet": "yuksek", "oneri": "kayıt açılır, STATE atfı gerçek kayda bağlanır", "islenme": null },
+    { "id": "V-09", "baslik": "ajanTemizle 9 modülde duplike", "dosyaRef": "plugin/server/telemetry.ts:117-130 + 8 modul (brief.ts:98, finishgate.ts:12, kapsam.ts:12, loopguard.ts:17, pitbull.ts:35, kalite.ts:10, modlar.ts:138, onboarding.ts:28)", "etiket": "atik", "siddet": "orta", "oneri": "tek server/temizlik.ts + Map-enjeksiyonu; testler aynen geçmeli", "islenme": null },
+    { "id": "V-10", "baslik": "web.ts olu modul (0 import)", "dosyaRef": "plugin/client/web.ts:1-12", "etiket": "atik", "siddet": "dusuk", "oneri": "sil (tek commit, sıfır davranış etkisi)", "islenme": null },
+    { "id": "V-11", "baslik": "live-gates-v4.test.ts hic kosulmuyor (36/37)", "dosyaRef": "core/package.json:11", "etiket": "test-kapsam", "siddet": "yuksek", "oneri": "önce tek başına koş; kırmızıysa karar (ekle/v3 sil), yeşilse script'e ekle", "islenme": null },
+    { "id": "V-12", "baslik": "plugin manifest bayat: index.client.ts + index.server.tsx listede, diskte yok", "dosyaRef": "plugin/package.json:8,11", "etiket": "bayat", "siddet": "dusuk", "oneri": "tek satır düzeltme (doğru adlar index.client.tsx, index.server.ts)", "islenme": null },
+    { "id": "V-13", "baslik": "B20 pano.ts:46 varsayılan eski ev; PANO_UI_DIR env tanımsız", "dosyaRef": "plugin/server/pano.ts:46", "etiket": "kanca-tek-ev", "siddet": "orta", "oneri": "kod varsayılanı D:\\Vibecode\\ordu\\pano'ya (child-kill restart ~30 sn); env yolu secilirse tam restart", "islenme": null },
+    { "id": "V-14", "baslik": "karar C: config.json 10 alan satırı düz metin / 5 değer; aynı anahtar 2 hesap adı taşıyor", "dosyaRef": "~/.paseo/config.json:617,653,720,751,773,940,965,987,988,862", "etiket": "guvenlik", "siddet": "orta (yerel disk)", "oneri": "env taşıma (tam restart penceresi) veya yerel-kabul K kaydı; B13 env adı ayrımı aynı adımda", "islenme": null },
+    { "id": "V-15", "baslik": "STATE_BOARD kendi içinde çelişiyor: bekleyen onayda F3 duruyor, damga F3 KAPALI diyor", "dosyaRef": "STATE_BOARD.md:25 vs :5,8", "etiket": "bayat", "siddet": "yuksek", "oneri": "bekleyen onaylar listesi tazelenir (bu turda işlendi)", "islenme": null },
+    { "id": "V-16", "baslik": "doküman bayatlık seti 16 bulgu + 5 çelişki (KULLANIM.md:4 eski kök, README/ANAYASA baslıklari, admin-onboarding:85,96, pano README/BLUEPRINT, FERMANLAR:20, PLAN.md:6)", "dosyaRef": "core/KULLANIM.md:4,86; README.md:1; ANAYASA.md:1,11; admin-onboarding.md:85,96; pano/README.md:1,21; pano/BLUEPRINT.md:4; FERMANLAR.md:20; plans/PLAN.md:6", "etiket": "bayat", "siddet": "orta", "oneri": "dosya-bazlı commit sırasıyla (plan FAZ-2)", "islenme": null },
+    { "id": "V-17", "baslik": "kural-proxy 84 > 80 (K-0039 erte gecerli, bagimsiz sayim)", "dosyaRef": "ANAYASA.md(10)+AGENTS.md(5)+sozlesme/v2.1(69)", "etiket": "butce", "siddet": "orta", "oneri": "ayrı sadeleştirme turu (madde birleştirme <80, hedef <40)", "islenme": null }
+  ]
+}
