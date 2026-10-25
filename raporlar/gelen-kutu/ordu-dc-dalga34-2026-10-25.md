@@ -25,3 +25,10 @@ Kaynak: iki bağımsız 6-subagent dalga (dalga-3: SAG/DEF/SEC/TUR/ZIN/DOK + dal
 - **B-3 (BUG-C6) DÜZELTİLDİ** — `79a011c`: `cancelStaleOwner` devir anında eski sahip SÜRECİNİ öldürür (attempt durumu bozulmaz; yeni olay tipi AÇILMADI — baseline senkron 31 tip). (R): K6 testi dosyanın devirden sonra BÜYÜMEDİĞİNİ kanıtlıyor.
 - **C-2 KISMEN KAPANDI** — STOP ucu `0e76448` (pano `durdur`, interrupt) + kabul.csv canlı-satır ucu `5e2fa0e` (`/api/kabul`, saglik 6b ile aynı hesap: 27 yeşil/43 hermetik/115 satır). kill-9 = DAEMON otoritesi (WS `cancel_agent_request` DaemonClient'ta kalıyor — dürüst sınır). Pano mockup içerik = F6/F7 UFUK kalemi.
 - **⚠ YENİ DERS (163)**: plugin worker kill → worker YENİ DOĞMUYOR (oturum/tur spawn etmiyor; yalnız daemon restart). Pano köprüsü 4378 daemon restart penceresine dek AŞAĞI — yeni uçlar restart'ta canlanır [insan penceresi: ordu-dc'nin 6 subagent'ı bitince].
+
+## TUR B/C islenme guncellemesi (2026-10-25 20:58; capraz-sorgu devir2038 — devralan echo)
+
+- **D-2 (DOK drift) TUR C İLE KAPANDI** — AGENTS Yapı 8 dizin (tek satır, kural-proxy nötr) · core/KULLANIM.md 5 nokta (eski ev yolu, 299 test sayısı, kabul.csv yolu `../plans/kabul.csv`, tick durumu taze (R): probe-BAYAT exit 1) · plugin/package.json 0.0.0→0.22.0 (v0.22-kilit) · FERMANLAR v2.0→v2.1 (6 bayat nokta + pano kapsam-notu) · SSOT-INDEX dış-repo damgaları + KULLANIM girdisi. ANAYASA A4 [insan] açık kaldı.
+- **C-3 ÖLÇÜLDÜ** — saglik `-Jsonl .verimlilik/telemetri.jsonl` koşumu Katman B'yi ölçtü (cache-hit %97,0 OK / 1138 tur; dürtme 197 EKSIK — bilinen backlog). Parametre zorunluluğu K adayı olarak kayıtlı.
+- **B-4 (K-0041/K-0042) ADAY KAYITLAR YAZILDI** — `kararlar/K-0041.md` (K-0029 v0.17 state+test dalgası) + `kararlar/K-0042.md` (K-0036 ücretli-yok politikası); ikisi ADAY — onay [insan].
+- **Çapraz sorgu bulgusu**: K6 flake (79a011c'in bıraktığı) KÖKTEN düzeltildi — ölçüm noktası ölüm teyidi sonrasına taşındı; (R): iki üst üste tam süit 299/299 EXIT=0. Ayrıntı: `raporlar/capraz-sorgu-devir2038-2026-10-25/`.

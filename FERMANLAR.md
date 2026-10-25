@@ -1,8 +1,8 @@
-﻿# FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11)
+﻿# FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25)
 
 Prensip: daimi emir sohbette tekrarlanmaz — bir kez verilir, dosyaya iner. 1 ve 3 tek kez verilip artefakta dönüşür (sözleşme + ANAYASA); 2 tek seferlik inşa emridir. Plugin kurulduktan sonra 1 numaralı ferman otomatikleşir (agent.create enjeksiyonu).
 
-## Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı)
+## Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu)
 
 ```
 Bu projede sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md sözleşmesi geçerli.
@@ -12,7 +12,7 @@ DERSLER.md, baseline test, ilk damga). Sonra tüm kurallara uy.
 Her durum raporunun ilk satırı: bağlam ~%XX.
 ```
 
-## Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
+## Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 
 ```
 PASEO-VERIMLILIK-PLANI.md §2 mimarisiyle "paseo-verimlilik"
@@ -36,7 +36,7 @@ maddelerine mevcut belgelerden TASLAK öner — onayım olmadan doldurma.
 ## Ferman 4 — Bekçi (repo başına bir kez, idempotent)
 
 ```
-Bu repoda sözleşme bekçisi kuruludur: paseo-verimlilik v0.9+ 15 dakikada bir
+Bu repoda sözleşme bekçisi kuruludur: paseo-verimlilik v0.22-kilit 15 dakikada bir
 saglik.ps1 + zincir-kontrol.ps1 köprüsünü ve repo-agnostik kontrolleri koşturur
 (aktif tur varken erteler). Anomali raporlar/takip-sozlesme/<tarih>.md'ye iner
 + ajana tek bildirim düşer (günlük dedupe). Bekçi asla onay vermez, yalnız
@@ -49,5 +49,5 @@ raporlar/** yazar. Kaldırmak için: .verimlilik/ayar.json → bekciKapali: true
 2. Sonra Ferman 2 (bir kez, plugin reposunda) → plugin kurulur.
 3. Plugin yokken Ferman 1 her yeni ajana elle verilir; plugin kurulunca bu adım kendiliğinden kalkar.
 
-v2.0 notu: Ferman 2 kapsamı K-0002 ile genişledi (loop dedektörü + finish-gate + kabul oranı + kural-sayısı lint'i); onay hâlâ kullanıcıda.
+v2.1 notu (2026-10-25): Ferman 2 tamamlandı ve kilitlendi (K-0003; `v0.22-kilit` etiketi, `plugin/surumler/v0.22/`); Ferman 3 bu repoda tamamlandı (ANAYASA.md kökte). Kapsam-notu: pano davranışının SSOT'u fermanlar DEĞİLDİR — kaynak: `plugin/server/pano.ts` (durdur/`GET /api/kabul` uçları, TUR A) + `core/KULLANIM.md` §3-5.
 

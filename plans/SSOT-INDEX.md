@@ -15,14 +15,15 @@ Otorite: `kararlar/ADR-toparlanma-monorepo.md` (S6) · Bu dosya birleşim sonras
 | Hedef | `plans/HEDEF.md` | task-graph HEDEF.md işaretçiydi → `arsiv/SSOT-eski-2026-10-25/` |
 | Plan | `PASEO-VERIMLILIK-PLANI.md` | kök |
 | Devir zinciri | `plans/handoff/` | append-only halkalar |
+| Kullanım kılavuzu | `core/KULLANIM.md` | ordu-core tek-dosya kılavuzu |
 
 ## Bileşen evleri
 
 | Bileşen | Dizin | Kaynak ev (donduruldu, silme F4) |
 |---|---|---|
-| core | `core/` | silinecek-task-graph/ordu-core (bundle: `arsiv/history/ordu-core.bundle`) |
-| plugin | `plugin/` | paseo-verimlilik (bundle: `arsiv/history/paseo-verimlilik.bundle` — kilit tag'lerin evi; drift bekçisi buradan okur) |
-| pano | `pano/` | paseo-pano (mockup; history F4 öncesi bundle önerisi ADR'de) |
+| core | `core/` | dış repo: `D:\Vibecode\silinecek-task-graph\ordu-core` (donduruldu; bundle: `arsiv/history/ordu-core.bundle`) |
+| plugin | `plugin/` | dış repo: `D:\Vibecode\paseo-verimlilik` (bundle: `arsiv/history/paseo-verimlilik.bundle` — kilit tag'lerin evi; drift bekçisi buradan okur) |
+| pano | `pano/` | dış repo: `D:\Vibecode\paseo-pano` (mockup; history F4 öncesi bundle önerisi ADR'de) |
 | referans | `referans/` | kapsul-final-v2.0.0 notio + ordu-v3 (salt-okur) |
 | arşiv | `arsiv/` | history bundle'ları + eski SSOT kopyaları (2026-10-25) + rehber v2.0 |
 

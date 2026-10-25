@@ -132,7 +132,7 @@ if ($kDefterYolu) {
   $kt = $kDefter.Count
   $ka = @($kDefter | Where-Object { @('PASS','GECTI','GECTI_CANLI') -contains $_.durum }).Count
   $hermetik = @($kDefter | Where-Object { $_.durum -eq 'GECTI_HERMETIC' }).Count
-  if ($hermetik -gt 0) { Warn 'Kabul defteri hermetik' "$hermetik GECTI_HERMETIK - canli kanit adaylari (FAZ-3 turu: PASS'e ya da kalici-acik listesine)" }
+  if ($hermetik -gt 0) { Warn 'Kabul defteri hermetik' "$hermetik GECTI_HERMETIC - canli kanit adaylari (FAZ-3 turu: PASS'e ya da kalici-acik listesine)" }
   if ($kt -gt 0) {
     $oran = $ka * 100.0 / $kt
     if ($oran -lt $ESIK.KabulAlarm) { Check ("Kabul orani (defter) >= %{0} (METR alarmi)" -f $ESIK.KabulAlarm) $false ("%{0:N0} ({1}/{2} madde) - bilincli kirmizi, fail-closed" -f $oran, $ka, $kt) }

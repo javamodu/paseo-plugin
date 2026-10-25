@@ -1,16 +1,16 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 5e2fa0e — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD dd0b1d5 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `admin-onboarding.md` (6KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
-- `AGENTS.md` (0.9KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
+- `AGENTS.md` (1.3KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (37 dosya: en yeni MASTER-SSOT-PLAN.md, HEDEF.md, AGENTS.md)
-- `core/` (78 dosya: en yeni live-gates-v4.test.ts, adapter-contract.ts, store.ts)
+- `core/` (78 dosya: en yeni KULLANIM.md, live-gates-v4.test.ts, adapter-contract.ts)
 - `DERSLER.md` (55.8KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
-- `FERMANLAR.md` (2.6KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.0, 2026-10-11) | Ferman 1 — Geçiş (plugin gelene kadar her yeni ajanın ilk mesajı) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; birleşik planın bekleyen onayı)
+- `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
 - `kararlar/ADR-F65-rol-model.md` (9.7KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (TASLAK — onay bekler) | Baglam | Karar
@@ -54,6 +54,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0038.md` (2KB) — K-0038 — S4 anahtar rotate İPTALİ: mevcut codefast anahtarı yaşamaya devam eder | Bağlam | Karar
 - `kararlar/K-0039.md` (1.7KB) — K-0039 — Kural-proxy 84>80 (v2.1 yetki geçişi): bilinen-açık erte — ONAYLANDI | Bağlam | Karar
 - `kararlar/K-0040.md` (2.1KB) — K-0040 — cacheHitMinPct eşik kaynağının tekilleştirilmesi: hedefler.json = 40, saglik varsayılanı hizalanır — ONAYLANDI | Bağlam | Karar
+- `kararlar/K-0041.md` (2.4KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
+- `kararlar/K-0042.md` (1.8KB) — K-0042 — K-0036 (ücretli/dis API yok politikası) geriye dönük kayıt — ADAY | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (5 dosya: en yeni BLUEPRINT.md, .pano-serve.js, DESIGN.md)
 - `PASEO-VERIMLILIK-PLANI.md` (12.6KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
@@ -72,13 +74,14 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/mockup/parcalar/v10/06-review.md` (11.5KB) — 06 — UX / A11Y / Performans Denetimi (v10 hedefine karşı) | 1. Gereksinim kontrol listesi (v10 hedef mimarisi) | 2. UX tutarlılık hataları
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
-- `plans/SSOT-INDEX.md` (2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
+- `plans/SSOT-INDEX.md` (2.2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
 - `plugin/` (64 dosya: en yeni pano-durdur.test.ts, pano.ts, dedektor.test.ts)
 - `raporlar/` (14 dosya: en yeni guvenlik-taramasi-2026-10-25.md, teknik-yonetici-ozeti-2026-10-25.md, yonetici-ozeti-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md` (13.3KB) — NİHAİ BİRLEŞİK EKSİK DEFTERİ — v3 FİNAL (27 açık · 1 kapalı) | Yeşil zemin (kaynaklar aynı ölçüde, R) | A — Kayıt/Kanıt/Versiyon (F4'ü bloklar) 🔴
+- `raporlar/capraz-sorgu-devir2038-2026-10-25/OZET.md` (5KB) — Çapraz Sorgu — HANDOFF-2026-10-25-2038 Devir Tespiti (6 okuyan + 1 yazan) | A. Doğrulanan iddialar (handoff ↔ disk tutarlı) | B. Çelişkiler (handoff iddia ↔ gerçek)
 - `raporlar/capraz-sorgu-ordu-dc-2026-10-25/OZET.md` (9.8KB) — ÇAPRAZ SORGU — ordu-dc defter turu (6-subagent) — 2026-10-25 19:15 | HÜKÜM: DEFTER koşullu güvenilir — sıfır-hata DEĞİL; 2 süreç ihlali + 6 içerik sapması | Kullanıcı karar listesi (sırayla)
 - `raporlar/codex-uc-analizi-2026-10-25/OZET.md` (5.1KB) — Codex ucu analizi — 2026-10-25 | Kanıt zinciri (diskten, bu turda okundu) | Ücretsiz alternatifler (kullanıcı politikası: ücretli API yok)
 - `raporlar/denetim-6subagent-2026-10-25/OZET.md` (5.9KB) — DENETİM — 6-SUBAGENT (F4 öncesi) — 2026-10-25 19:00 | Bulguların kanıt zinciri | EKSİKLER LİSTESİ (öncelik sırasıyla)
@@ -128,6 +131,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (10.9KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (11.6KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

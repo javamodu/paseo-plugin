@@ -1,7 +1,7 @@
 # ORDU-CORE KULLANIM
 
 Tek dosyalik kullanici kilavuzu. Kapsam: test kosma, panoyu acma, CLI komutlari, kanit dosyalari.
-Butun komutlar repo kokunden kosulur: `D:\Vibecode\silinecek-task-graph\ordu-core`
+Butun komutlar repo kokunden kosulur: `D:\Vibecode\ordu\core`
 
 ## 1. On kosullar
 
@@ -20,7 +20,7 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 186/186, ~36 sn).
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 299/299, iki ust uste tam suit kosumu EXIT=0, 2026-10-25).
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
 
 ## 3. Panoyu acma
@@ -73,7 +73,7 @@ node src/cli.ts tick
 - `status` → JSON: globalStop, pendingOutbox, reserved, unknown, son 5 olay. Exit 0.
 - `stop` → global stop latch kurar; `{stopped:true}`. Exit 0.
 - `resume` → onay metni olmadan exit 1; dogru metinle `{resumed:true, commandId}`. Exit 0.
-- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile. Yetenekler kanitlanmamissa `{dispatch:"BLOCKED", reason, note}` ile exit 2 (bugunku durum: Paseo adaptoru wire edilmedigi icin BLOCKED beklenen davranis).
+- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile. Yetenekler kanitlanmamissa `{dispatch:"BLOCKED", reason, note}` ile exit 2 (bugunku durum, R 2026-10-25: probe receipt BAYAT — `tick` probe kapisinda RED, exit 1, "probe receipt BAYAT — yeniden probe kos"; Paseo adaptoru wire durumu ayri dogrulanmali).
 - CLI de `ORDU_DB` (varsayilan `data/ordu.sqlite`) ve `ORDU_PROBE` (varsayilan `evidence/probe-latest.json`) okur.
 - Bilinmeyen komut → kullanim satiri + exit 1.
 
@@ -83,13 +83,13 @@ node src/cli.ts tick
 - `KANIT-baseline-2026-10-14.md` — baseline olcum + kabul.csv baglantisi.
 - `test-out.txt`, `test-out-s11.txt`, `test-out-m16m03.txt` — tam suite ciktilari.
 - `evidence/probe-latest.json` — runtime/SDK probe kaniti (tick bunu dogrular).
-- Kapi matrisi `kabul.csv`: bu repo disinda, `..\ordu-v3\kabul.csv` (90 satir; F0-A..F7-B kapilari).
+- Kapi matrisi `kabul.csv`: `../plans/kabul.csv` (115 madde; F0-A..F7-B kapilari; pano `/api/kabul` ucu ayni dosyayi servis eder).
 
 ## 8. Bilinen sinirlar
 
 - Ucretli/dis API kapali: tum testler hermetik; gercek LLM/Paseo cagrisi YOK.
 - Merge/deploy yok: core yalniz defter + dispatch + kabul kapilari; git merge ve yayinlama kapsam disi.
-- Paseo adaptoru wire edilmedi: `tick` B02 kapisindan BLOCKED doner (exit 2) — beklenen davranis.
+- Paseo adaptoru wire edilmedi; ayrica probe receipt bayat (R 2026-10-25): `tick` probe kapisinda RED doner (exit 1, "probe receipt BAYAT") — yeniden probe kosulmadan dispatch YOK (fail-closed).
 - Pano read-only + stop/resume'dur; plan onayi/karar verme panodan YAPILMAZ.
 
 ## 9. Dogrulandi (2026-10-14, Windows, Node v24.18.0)
@@ -105,6 +105,8 @@ Asagidaki komutlar bu dokumani yazan oturumda gercekten kosuldu:
 | `node src/cli.ts resume --confirm "yanlis metin"` | `resume reddedildi: --confirm "I understand the risk" gerekli` | 1 (beklenen RED) |
 | `node src/cli.ts resume --confirm "I understand the risk" --actor demo` | `{resumed:true, commandId:"62041f16-..."}` | 0 |
 | `node src/cli.ts tick` | `{dispatch:"BLOCKED", reason:"capability-blocked: worktreeIsolationProven,..."}` | 2 (beklenen kapi) |
+
+2026-10-25 yeniden dogrulama (TUR C): `npm test` 299/299 EXIT=0 — **iki ust uste tam suit kosumu** (K6 flake duzeltmesi sonrasi); `node src/cli.ts tick` (temp ORDU_DB) probe-BAYAT RED exit 1 — §6/§8 guncellendi. Ayrinti: raporlar/capraz-sorgu-devir2038-2026-10-25/.
 
 Pano kalici-DB dogrulamasi (temp klasor `%TEMP%\ordu-demo-db`, port 8791, token env'siz birakildi):
 

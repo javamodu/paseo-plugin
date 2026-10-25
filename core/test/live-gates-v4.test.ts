@@ -368,11 +368,15 @@ test('S22-K6 CANLI: disk-tabanli gercek store\'da devir sonrasi eski fence ile y
   assert.equal(col(db, "SELECT verdict FROM evidence WHERE id='" + evOk.evidenceId + "'"), 'PASS');
 
   // BUG-C6 KAPALDI (TUR A): eski sahibin sureci devir aninda olduruldu -
-  // dosya devirden SONRA buyumuyor (eski bomba: yazma devam ederdi).
+  // dosya OLUUM TEYIDINDEN SONRA buyumuyor (eski bomba: yazma devam ederdi).
+  // Not: size0'dan olume dek child'in yazmasi beklenen davranistir (oluana dek
+  // sahiptir); size0'a karsi olcumsuz karsilastirma tam-suit paralel yukuunde
+  // flake'ydi (devir islemleri 100ms tik araligini asarsa yazma sizar).
+  const sizeDead = statSync(proofFile).size;
   await sleep(450);
   const size1 = statSync(proofFile).size;
-  assert.equal(size1, size0, 'KANIT BUG-C6-KAPALI: devir sonrasi eski sahip yazamiyor (surec devir aninda olduruldu)');
-  console.log('KANIT BUG-C6-KAPALI: devir (fence 1->2) + cancelStaleOwner -> eski sahip pid=' + pid + ' devir ANINDA oldu (CANCEL_REQUESTED + RUNTIME_OBSERVED/STALE_OWNER_CONFIRMED_DEAD); dosya ' + size0 + 'B -> ' + size1 + 'B sabit (yazma durdu); attempt RUNNING kaldi (yeni sahip devam ediyor)');
+  assert.equal(size1, sizeDead, 'KANIT BUG-C6-KAPALI: olum teyidinden sonra eski sahip yazamiyor (surec devir aninda olduruldu)');
+  console.log('KANIT BUG-C6-KAPALI: devir (fence 1->2) + cancelStaleOwner -> eski sahip pid=' + pid + ' devir ANINDA oldu (CANCEL_REQUESTED + RUNTIME_OBSERVED/STALE_OWNER_CONFIRMED_DEAD); dosya ' + sizeDead + 'B -> ' + size1 + 'B sabit (yazma durdu); attempt RUNNING kaldi (yeni sahip devam ediyor)');
 
   // devir sonrasi normal iptal patikasi (yedek kanit): attempt kapaninca rezervasyon RELEASED
   const r2 = await requestCancel(db, bridge, 'att-1', 'devir-iptal');

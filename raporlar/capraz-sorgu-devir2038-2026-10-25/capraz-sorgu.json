@@ -1,0 +1,44 @@
+{
+  "schemaSurum": 1,
+  "rapor": "capraz-sorgu-devir2038-2026-10-25",
+  "tarih": "2026-10-25",
+  "duzen": "6 salt-okur subagent + 1 yazici (devralan echo)",
+  "hedef": "HANDOFF-2026-10-25-2038",
+  "dogrulanan": [
+    "HEAD dd0b1d5 + 3 DOKUNMA (bekci evreni)",
+    "commit zinciri 79a011c/0e76448/5e2fa0e/dd0b1d5 kapsam-dosya 4/4",
+    "gelen-kutu dalga34 B-2/B-3/C-2 islenme (ayni-commit)",
+    "pano 4378 ASAGI (TCP + netstat)",
+    "GECTI_HERMETIC yazimi dosya+kod; sayim 115/27/43",
+    "31 olay tipi birebir senkron (kume farki 0)",
+    "durdur = send+interrupt; kill-9 daemon otoritesi",
+    "plugin suite + plugin tsc EXIT=0 (yeniden olcum)"
+  ],
+  "celiskiler": [
+    { "id": "X-1", "bulgu": "core 299/0 iddia KARARSIZDI: 2 tam kosudan 1'i 298/1 EXIT=1 (S22-K6 flake, live-gates-v4.test.ts:306, 6!==5)", "sonuc": "DUZELTILDI bu turda (olcum noktasi olum teyidi sonrasina tasindi); R: sonrasi iki ust uste 299/299 EXIT=0" },
+    { "id": "X-2", "bulgu": "'iki tsc' core ayagi yeniden uretilemiyor (core'da tsconfig/typescript yok, komut belgelenmemis)", "sonuc": "kayda gecti; plugin ayagi EXIT=0 (R)" },
+    { "id": "X-3", "bulgu": "saglik anlatisi bayat: '17 OK/1 EKSIK' yerine gercek 16 OK/3 EKSIK/1 SARI (CODEMAP 133 anlatida yok)", "sonuc": "durust sayam STATE'e islendi" },
+    { "id": "X-4", "bulgu": "C-3 parametresiz saglik = olcumsuz yesil (Katman B atlanir)", "sonuc": "OLCULDU: -Jsonl kosumu 16 OK/5 EKSIK/2 SARI; cache-hit %97,0 OK; durtme 197 EKSIK (bilinen backlog)" },
+    { "id": "X-5", "bulgu": "8787 port yabanci surecte (deepseek-harness qoder-bridge PID 9368); ordu core pano calismiyor - EADDRINUSE riski", "sonuc": "acik; cift-sunucu dokumantasyon kalemine girmeli" },
+    { "id": "X-6", "bulgu": "STATE_BOARD.md:11 kopuk artik parca ('kayitlari, K-0039.')", "sonuc": "onarildi bu turda" },
+    { "id": "X-7", "bulgu": "DERSLER etiket 163 vs fiziksel 156 madde (~7 sapma, onceden var)", "sonuc": "kayda gecti" },
+    { "id": "X-8", "bulgu": "saglik.ps1:135 mesaj metninde GECTI_HERMETIK (K)", "sonuc": "duzeltildi" },
+    { "id": "X-9", "bulgu": "kabul hesabi kopya-kod (pano.ts TS parser vs saglik.ps1 Import-Csv - ayni dosya/ayni siniflandirma, paylasilan modul yok)", "sonuc": "kayit altina alindi, dokunulmadi" }
+  ],
+  "kapananlar": [
+    "K6 flake kokten duzeltme + iki ust uste 299/299 EXIT=0 (R)",
+    "TUR C: AGENTS Yapi (tek satir, kural-proxy notr), KULLANIM.md 5 nokta, package.json 0.22.0, FERMANLAR v2.1, SSOT-INDEX dis-repo + KULLANIM girdisi",
+    "TUR B: K-0041/K-0042 ADAY kayitlari (kullanici onayi bekler)",
+    "C-3: JSONL'li saglik olcumu",
+    "echo dogrulama HANDOFF-2038'e yazildi"
+  ],
+  "insanKuyrugu": [
+    "daemon restart penceresi (pano 4378 canlanir; koşan ajanlar olur)",
+    "B-1 pano-token rotate + git rm (veya K-0045 yerel-ozel kabul); .gitignore maddesi rotate turunda",
+    "K-0041/K-0042 onayi (ADAY -> ONAYLANDI)",
+    "K-0039 sadelestirme turu (kural-proxy <80; ayri dikkatli tur)",
+    "FAZ-3 durust-defter (kabul %23 -> >=%44)",
+    "M04/M15/M02 kabul satirlari (canli kanit restart penceresine bagimli)"
+  ],
+  "damga": "2026-10-25 20:58 (Get-Date olculdu), yazici = devralan echo, commit = bu kayit commit'i"
+}

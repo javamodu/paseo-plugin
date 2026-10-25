@@ -11,4 +11,4 @@ Bu repo evrensel ajan verimlilik sözleşmesi paketidir. Çalışma kuralları: 
 
 ## Yapı
 
-- Kök: sözleşme/plan/şablon/fermanlar · `kanit/` 10 dosyalık araştırma · `scripts/` otomasyon · `kararlar/` ADR · `raporlar/` append-only · `plans/handoff/` devir törenleri.
+- Kök: sözleşme/plan/şablon/fermanlar · `kanit/` 10 dosyalık araştırma · `scripts/` otomasyon · `kararlar/` ADR+K kararları · `raporlar/` append-only · `plans/handoff/` devir törenleri · `arsiv/` tarih damgalı eski SSOT + history bundle'ları · bileşen evleri (F1/F2 birleşimi): `core/` ordu-core (defter+dispatch+kabul) · `plugin/` paseo-verimlilik (v0.22-kilit) · `pano/` pano iskelet/mockup · `referans/` salt-okur (kapsul-final, ordu-v3) · `surumler/` kök kilit sürümleri · `sorular/`, `veri/` yardımcı.
