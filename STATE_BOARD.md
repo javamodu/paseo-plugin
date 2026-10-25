@@ -22,5 +22,5 @@ F0 (ADR-toparlanma-monorepo) kapanış aşaması: codemap+telemetri commit'lendi
 3. K-0036 ücretli-yok politikası karar kaydı · §17.3 canlı test paketi
 
 ## Bilinen açıklar (saglik SARI/EKSİK backlog)
-- CODEMAP 134 satır > 130 bütçe: üretici script değişikliği = ADR ister (klasör-topaklama mı, bütçe yükseltme mi — 10-14'ten bekleyen karar)
+- CODEMAP 134 satır > 130 bütçe: **K-0037 ONAYLANDI** — kapsam genişletmesi (K-0035 hattı: `plans/handoff/` topaklamaya girer), uygulama F1/F3'e ertelendi (yeni kökte harita yeniden üretilir — çifte iş önlendi)
 - Kural-proxy 78 satır (hedef <40): sadeleştirme backlog'ta
