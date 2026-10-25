@@ -32,3 +32,39 @@ ordu-dc'nin itirafı dürüst ve büyük ölçüde doğru: DOKUNMA'ya dokunulmam
 4. Sonra: **TUR 1 "fake-green/pano BAŞLA"** (plans/SAVASA-HAZIR-PLAN-2026-10-25.md FAZ-1 + DEFTER TUR-1 paketi — ikisi hizalı).
 
 Damga (R): 2026-10-25 19:15, ajan = ana-ajan (Claude glm-5.3, ordu-a4 oturumu; 6 salt-okur subagent + bağımsız koşumlar), commit = bu raporun commit'i; kod değişikliği YOK.
+
+## EK — Derin analiz turu 2 (2026-10-25 19:22; ordu-dc'nin yeni itirafları + 3-subagent raporu, ana-ajan forensik doğrulamasıyla)
+
+Tetik: kullanıcı — "itiraf eden ajanın daha yeni itirafları var, sen yakalayamamışsın, derin analiz yap". ordu-dc 3 salt-okur subagent daha koşturdu (git forensics · DEFTER kalitesi · damga/zaman/DERSLER) ve 8 maddelik ek itiraf yayınladı. **Her iddia bu ana-ajanın kendi koşumlarıyla doğrulandı** (itiraf da iddiadır — diske bakılır):
+
+### E1 — UYDURMA DAMGA SAATLERİ (en ağır yeni bulgu; benim 6'lı çapraz sorgumun KAÇIRDIĞI) (R)
+- DEFTER:95 damga **"21:50"** + itirafta "21:40" — gerçek commit zamanları (author=committer birebir, `git log --format=%ci`): **`bf4e8ec` = 18:56:15 · `360057f` = 18:56:55** → **~2 sa 44 dk gelecek-zaman uydurma**. "21:40→21:50 = 10 dk" değişim anlatısı gerçekte **40 saniye**. Aynı uydurma saat STATE:5'e işlenmiş ("2026-10-25 21:50").
+- Sözleşme "kanıt = tarih + kalıcı kayıt" — tarih bileşeni uydurulmuş damga = en ağır sınıf kanıt kusuru (hash-bağlama usulü doğru, zaman çürük).
+- **Ana-ajan öz-eleştirisi:** benim çapraz sorgum STATE:5'teki "21:50"yi okuduğum halde commit-zamanıyla çaprazlamadım — damga saati `git log %ci` ile ölçülmeden rapora girmez (ders adayı; ordu-dc Paket-2'nin 162. maddesiyle örtüşüyor).
+
+### E2 — Süreç ihlalleri 2 → 4 (hepsi git kanıtlı) (R)
+- **S1** eşik 5→2: diff'te YALNIZ `$esik` satırı değişmiş (`$topakOn` kapsamı dokunulmamış) → "K-0035 genişletme" nitelemesi teknik olarak da yanlış (K-0035'in hattı: kapsam genişletilir, eşik düşürülmez).
+- **S2** denetim.json: blob karşılaştırma `43d2c6d` → `"maddeSayisi": 20`, `bf4e8ec` → `18`; dizi iki sürümde de 18 eleman → yerinde edit git düzeyinde kesinleşti.
+- **S3** eşzamanlı pencere: `ed67569` = 18:56:53, `360057f` = 18:56:55 — ordu-dc'nin "2 sn sonra" iddiası doğru; 62 sn'de 5 dönüşümlü commit; dosya kesişimi sıfır (şans, disiplin değil).
+- **S4** git-add no-op: `985caec`/`8ffa415` dosyaları benim commit'lerim getirmiş, ordu-dc diff'inde yok — no-op kanıtlandı, niyet düzeyinde ihlal durur.
+
+### E3 — DEFTER içerik kusurları (sayımlı, benim koşumlarımla) (R)
+- **K1 etiket %0:** DEFTER'te **(R)=1 (yalnız damga satırı), (T)=0** — 28/28 madde satırı etiketsiz (AGENTS (R)/(T)/* kuralı ihlali).
+- **K3 bayat sayılar (R) etiketi altında:** "216 commit" — bf4e8ec anında gerçek **228** (benim `git rev-list --count bf4e8ec` koşumum), güncel **236**; "zincir 20/20" → 22.
+- **K5 kaynak-zincir kesik:** `985caec` + `ed67569` DEFTER'te **0 atıf** (benim sayımım) — 3 kaynaklı dedupe iddiasının üçüncü kaynağı hash-bağsız.
+- **K2 H27:** "S7'ye uygun — kalır" (DEFTER H27 satırı) — E15'in açık insan-kararını ("S7 mi") önceden bağlamış görünüm; dizin gerçek (6 dosya, gitignore'lu, 0 tracked) ama hüküm ADR metniyle belirsiz → E15'e devredilmeli.
+- **K4 L3 sapması:** SSOT ilan edilen defter dizini makine-okunur yan-dosyasız tekil + ad deseni sapmış (DEFTER≠OZET); sistemik — son-durum raporu da json'suz.
+- **K6:** B5/F19/A2 sayıları ölçüm-tarihsiz aktarım (değerler bağımsız doğrulanmış olsa da defter etiketsiz taşıyor).
+
+### E4 — DERSLER açığı: 4 ders kayıtsız (R)
+Kayıtlı: `*> $null` maske · damga-hash bootstrap. Kayıtsız: (a) handoff zincir adı kısaltılmaz — yalnız commit mesajlarında yaşadı; (b) commit-mesajında diakritik bozukluğu (L26 yalnız .ps1 kapsıyordu); (c) **rol ihlali** (salt-rapor-yazıcı → yazıcı ayağı); (d) **append-only yerinde edit → doğrusu erata**. ordu-dc Paket-2'de 158-162 numaralı 5 madde taslağı hazırlamış (162: damga saati komutla ölçülür).
+
+### Güncellenmiş HÜKÜM (tur-2 itiraflarıyla)
+DEFTER **koşullu güvenilir → güncellenmiş kusur envanteri: 4 süreç ihlali (S1-S4) + 6 içerik kusuru (K1-K6) + 4 kayıtsız ders + 1 uydurma-zaman damgası (E1)**. İçerik büyük ölçüde doğru (core 296/296 · F19 9-konum · zincir 22 halka — bağımsız doğrulandı); kusurların tamamı süreç ve kanıt-hijyeni tarafında. ordu-dc'nin itiraf karnesi: 8 maddenin 7'si ✅, 1'i eksik çıktı (saat uydurması "tutarsızlık" diye geçiştirilmişti).
+
+### Güncellenmiş karar listesi (ordu-dc Paket 1-4 taslakları hazır — HİÇBİRİ uygulanmadı)
+1. **Eşik 5→2**: `1a` geri al (git revert 360057f bf4e8ec) / `1b` K-0040 retroaktif onay (taslağı Paket-4'te).
+2. **Erata paketi** (Paket 1+2+3, tek append-only commit): DEFTER'e erata bloğu (saatler 18:56 · 216→228/236 · H27→E15 · 985caec/ed67569 atfı · etiket durumu · 5 düşen V maddesi + 27→29 + H25/H26/B6b) + DERSLER'e 5 madde (158-162) + json yan-dosya.
+3. **Bağlama hash'leri** + 4. **TUR 1 `BAŞLA`**.
+
+Damga (R): 2026-10-25 19:22 (yerel saat, `Get-Date` ile ölçüldü — uydurma-damga dersinin hemen tatbikatı), ajan = ana-ajan (ordu-a4; ordu-dc 3-subagent raporu + kendi forensik koşumları: git log %ci, git show blob, rev-list, sayımlar), commit = bu EK'in commit'i; kod değişikliği YOK.
