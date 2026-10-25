@@ -4,7 +4,7 @@
 # Katman B (JSONL verilirse): tur / cache-hit / durtme / kabul-orani sayaclari hedef esiklerle karsilastirilir.
 # SARI = uyaridir, SONUC'u bozmaz; EKSIK = kapi kirar.
 param([string]$Root = (Split-Path $PSScriptRoot -Parent), [string]$Jsonl = "")
-$ESIK = @{ CacheHitMin = 60; DurmeMaxGunluk = 10; KabulHedef = 60; KabulAlarm = 44; KuralSari = 40; KuralKirmizi = 80 }
+$ESIK = @{ CacheHitMin = 40; DurmeMaxGunluk = 10; KabulHedef = 60; KabulAlarm = 44; KuralSari = 40; KuralKirmizi = 80 } # K-0040: CacheHitMin varsayilani hedefler.json (40) ile hizalandi - tek esik kaynagi
 $hedefDosya = Join-Path $Root 'hedefler.json'
 $hedefParseHata = $null
 if (Test-Path $hedefDosya) {
