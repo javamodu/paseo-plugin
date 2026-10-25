@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 3a71b44 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 63920d5 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -54,7 +54,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0038.md` (2KB) — K-0038 — S4 anahtar rotate İPTALİ: mevcut codefast anahtarı yaşamaya devam eder | Bağlam | Karar
 - `kararlar/K-0039.md` (1.7KB) — K-0039 — Kural-proxy 84>80 (v2.1 yetki geçişi): bilinen-açık erte — ONAYLANDI | Bağlam | Karar
 - `kararlar/K-0040.md` (2.1KB) — K-0040 — cacheHitMinPct eşik kaynağının tekilleştirilmesi: hedefler.json = 40, saglik varsayılanı hizalanır — ONAYLANDI | Bağlam | Karar
-- `kararlar/K-0041.md` (2.4KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
+- `kararlar/K-0041.md` (2.5KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
 - `kararlar/K-0042.md` (1.8KB) — K-0042 — K-0036 (ücretli/dis API yok politikası) geriye dönük kayıt — ADAY | Bağlam | Karar
 - `kararlar/K-0046.md` (7.7KB) — K-0046 — Aldatılamayan hedefleme: kanıt-üçleme kanalı + hız ölçüm payda kuralları — ONAYLANDI (kanal uygulanıyor) | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
@@ -133,6 +133,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.6KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (13.3KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (13.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
