@@ -93,7 +93,13 @@ class CrashLauncher {
   async kill(pid) { try { process.kill(pid, 'SIGKILL'); } catch {} }
 }
 
-const db = openStore(dbPath);
+let db = null;
+// kill -9 gecikmeli OS tanitici birakma (Windows): onceki SIGKILL'in kilit kalintisi
+// kisa pencere BUSY uretebilir — manager acilista sabirla tekrar dener (crash DEGIL).
+for (let i = 0; i < 20 && db === null; i++) {
+  try { db = openStore(dbPath); }
+  catch (e) { if (i === 19) throw e; await new Promise((r) => setTimeout(r, 100)); }
+}
 const caps = {};
 for (const c of LOCAL_REQUIRED_CAPS) caps[c] = true;
 const probe = { probe: 'ordu-v3/B00', schemaVersion: 1, generatedAt: new Date().toISOString(),
@@ -201,6 +207,7 @@ test('V3-S1.2 canlı: manager SIGKILL spawn-öncesi — SENDING kalır (durable)
   // GERÇEK çökme: manager'ı (dispatch'i yürüten süreci) SIGKILL ile öldür
   manager.kill('SIGKILL');
   await new Promise<void>((resolve) => manager.once('exit', () => resolve()));
+  await new Promise((r) => setTimeout(r, 150)); // OS tanitici birakma penceresi
   assert.equal(manager.exitCode, null, 'kill -9 → exitCode null (sinyal ölümü, temiz çıkış DEĞİL)');
   assert.equal(existsSync(registryPath), false, 'spawn öncesi çökme: registry YOK (hiç süreç doğmadı)');
 
@@ -256,6 +263,7 @@ test('V3-S1.4 canlı: manager SIGKILL spawn-anki + STOP — latch kill -9 restar
   // GERÇEK çökme: manager'ı SENT commit edilmeden öldür; worker (torun) yaşamaya devam eder
   manager.kill('SIGKILL');
   await new Promise<void>((resolve) => manager.once('exit', () => resolve()));
+  await new Promise((r) => setTimeout(r, 150)); // OS tanitici birakma penceresi
   assert.equal(manager.exitCode, null, 'kill -9 → exitCode null (crash, temiz çıkış DEĞİL)');
 
   // kurtarma: YENİ süreç — registry'den dirilen launcher (handle'sız pid okur)
