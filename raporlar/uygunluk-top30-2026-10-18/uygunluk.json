@@ -1,0 +1,7606 @@
+{
+  "tarih": "2026-10-18",
+  "profil": "scripts/uygunluk-hedefi.json",
+  "raporlar": [
+    "raporlar/bench-2026-10-14/bench.json",
+    "raporlar/bench-smoke/bench.json",
+    "raporlar/bench-free-2026-10-15/bench.json",
+    "raporlar/bench-free-2026-10-15-tirmanma/bench.json",
+    "raporlar/bench-codefast-fix-2026-10-15/bench.json",
+    "raporlar/bench-or-2026-10-15/bench.json",
+    "raporlar/bench-th-fixdogrulama-2026-10-15/bench.json",
+    "raporlar/bench-kimi-2026-10-17/bench.json",
+    "raporlar/bench-th-2026-10-17/bench.json",
+    "raporlar/bench-th-1017-2026-10-17/bench.json",
+    "raporlar/bench-groq-2026-10-17/bench.json",
+    "raporlar/bench-dortlu-2026-10-17/bench.json",
+    "raporlar/bench-glm-2026-10-18/bench.json",
+    "raporlar/bench-serbest-2026-10-18/bench.json",
+    "raporlar/bench-glm-claude-2026-10-18/bench.json"
+  ],
+  "agirliklar": {
+    "kodTerminal": 25,
+    "baglam": 15,
+    "uzunUfuk": 15,
+    "erisim": 20,
+    "hiz": 15,
+    "agentik": 10
+  },
+  "kapilar": {
+    "minTerminal": "4/5",
+    "minIQ": 100,
+    "kodSart": "PASS",
+    "minCtx": 256000,
+    "minTps": 20,
+    "gerekenYetenekler": [
+      "toolCall"
+    ],
+    "tercihEdilenYetenekler": [
+      "promptCache"
+    ]
+  },
+  "gateUygulananSeviyeler": [
+    "anaYazar",
+    "gunluk"
+  ],
+  "sonuc": [
+    {
+      "anahtar": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 83.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 14.3,
+        "uzunUfuk": 6.3,
+        "erisim": 20,
+        "hiz": 7.6,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 129.9,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 129.9
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4.1-flash:free",
+      "model": "deepseek-v4.1-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "anaYazar",
+      "karar": "KABUL",
+      "puan": 77.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.9,
+        "erisim": 20,
+        "hiz": 5.3,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 91.4,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "BUGUN fiilen yazma isini tasiyan tek model: terminal 5/5, kod PASS, IQ 100, 1.048.576 ctx. codefast kapilari kapali oldugu icin ana yazar havuzu free'a dustu",
+      "kosul": "terminal >= 4/5 ve kod PASS",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 91.4
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/dots-studio/dots-3-note-preview:free",
+      "model": "dots-studio/dots-3-note-preview:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 76.6,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 6.8,
+        "uzunUfuk": 9.1,
+        "erisim": 20,
+        "hiz": 5.7,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 98.6,
+      "context": 512000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 512000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 98.6
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.6-flash:free",
+      "model": "mimo-v2.6-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "red",
+      "karar": "RED",
+      "puan": 73.9,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.2,
+        "erisim": 20,
+        "hiz": 2.7,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 49.1,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "IQ 83 (C4 kacti), terminal 4/5",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 49.1
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.5:free",
+      "model": "mimo-v2.5:free",
+      "provider": "tokenharbor",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 72.7,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.3,
+        "erisim": 20,
+        "hiz": 1.4,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 27.2,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "tier high, terminal 5/5; yavas (27-32 t/s) - yedek",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 27.2
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/claude-haiku-5.5:free",
+      "model": "claude-haiku-5.5:free",
+      "provider": "tokenharbor",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 72.6,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 22,
+        "baglam": 14.3,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 8.3,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "4/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 141.3,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "4/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 141.3
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast/codefastk3unlimited",
+      "model": "codefastk3unlimited",
+      "provider": "codefast",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 70.4,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 2.9,
+        "uzunUfuk": 9.5,
+        "erisim": 20,
+        "hiz": 3,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 53.9,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 53.9
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 67.1,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 2.9,
+        "uzunUfuk": 8.9,
+        "erisim": 20,
+        "hiz": 2.3,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 42.5,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 42.5
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/cohere/north-mini-code:free",
+      "model": "cohere/north-mini-code:free",
+      "provider": "openrouter",
+      "seviye": "gunluk",
+      "karar": "KABUL",
+      "puan": 66.1,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 22,
+        "baglam": 2.9,
+        "uzunUfuk": 8.6,
+        "erisim": 20,
+        "hiz": 2.6,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "4/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 47.8,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "223.6 t/s, terminal 5/5, kod PASS; toplu uretim/olcum isleri. NOT: ctx 256.000 (kapi esigine esit) ve free kuyrugu var",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "4/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 47.8
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4-flash:free",
+      "model": "deepseek-v4-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "red",
+      "karar": "RED",
+      "puan": 62.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 10,
+        "baglam": 14.3,
+        "uzunUfuk": 5.2,
+        "erisim": 20,
+        "hiz": 4.7,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 81.4,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "Bir kosuda terminal 0/5; v4.1 surumu supersede ediyor",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 81.4
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/liquid/lfm-2.5-2.6b:free",
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KIRIK",
+      "puan": 60,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 0,
+        "uzunUfuk": 15,
+        "erisim": 20,
+        "hiz": 15,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "FAIL:bek=220,0,56 got=385,0,91",
+      "IQ": 0,
+      "tps": 266.1,
+      "context": 65536,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:bek=220,0,56 got=385,0,91"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 65536
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 266.1
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KIRIK",
+      "puan": 54.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 10,
+        "baglam": 3,
+        "uzunUfuk": 7.8,
+        "erisim": 20,
+        "hiz": 3.4,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 60.8,
+      "context": 262144,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 262144
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 60.8
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast/kimi-k3",
+      "model": "kimi-k3",
+      "provider": "codefast",
+      "seviye": "ikincil",
+      "karar": "KIRIK",
+      "puan": 40,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 2.9,
+        "uzunUfuk": 7.3,
+        "erisim": 20,
+        "hiz": 1.8,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 100,
+      "tps": 35.1,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "En yseksek kapasite (Vals TB2.1 80.9 / SWE-bench 93.4 / kod lane 58.9 #22; ajan hatti 300.1 t/s olculmus 2026-10-14). ANCAK kapi KAPALI: 2026-10-17 canli taramada kimi-k3-unlimited-api /models = 403 NO_ACTIVE_PACKAGE, ajan hatti 403 API access denied",
+      "kosul": "Paket/PAYG yeniden alinmali (kimi: NO_ACTIVE_PACKAGE; diger kapilar: PAYG_DISABLED) -> kimi-k3-unlimited-api /models 200 donmeli, sonra terminal >= 4/5 ve kod PASS",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 35.1
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/nvidia/nemotron-3.5-content-safety:free",
+      "model": "nvidia/nemotron-3.5-content-safety:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KIRIK",
+      "puan": 26.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 1,
+        "uzunUfuk": 1.3,
+        "erisim": 20,
+        "hiz": 3.9,
+        "agentik": 0
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": 68.2,
+      "context": 128000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 128000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 68.2
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "hayir"
+        }
+      ]
+    },
+    {
+      "anahtar": "claude-glm/glm-5.3",
+      "model": "glm-5.3",
+      "provider": "claude-glm",
+      "seviye": "gunluk",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 1.1,
+        "agentik": 2
+      },
+      "eksik": [
+        "context",
+        "toolCall"
+      ],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 22.6,
+      "erisim": "claude -p (Anthropic /v1/messages)",
+      "hata": "",
+      "gerekce": "KULLANICI GUNLUK KARTI (2026-10-18): Claude Code motoru + glm-api Anthropic kapisi. GERCEK OLcum (bench-glm-claude-2026-10-18, R): IQ 100 (6/6), terminal 5/5, kod PASS, uyum PASS, t/s 22.6 (motor-dahil duvar saati — ham tel 79.5 t/s ile karsilastirilamaz). E2E kanit: claude -p exit 0 (GUNLUK-VAR). unrecognized_model uyarisi kosmetik (cagrilar success)",
+      "kosul": "Surum sadakati: tel yanit model alani glm-5.2 bildiriyor (takma ad) — saglayicidan dogrulanmali; hız kıyası ham telle ayrı ölçülmeden motor-dahil değerle hüküm verilmez",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 22.6
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-glm/glm-5.3",
+      "model": "glm-5.3",
+      "provider": "codefast-glm",
+      "seviye": "gunluk",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 4.6,
+        "agentik": 2
+      },
+      "eksik": [
+        "context",
+        "toolCall"
+      ],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 0,
+      "tps": 79.5,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "KULLANICI TALIMATI (2026-10-18): gunluk modele yukseltildi. GERCEK OLcum (2026-10-18, R): 79.5 t/s, terminal 5/5, kod PASS, uyum PASS (bench-glm-2026-10-18). IQ COZULDU (R 20:52): ilk kosumdaki 0/6 geciciydi — ayni gun yeniden probda 6/6 (C1=977...C6=289) ve claude-code hattindan da 6/6 (bench-glm-claude-2026-10-18) -> IQ>=100 kapisi ACIK, anaYazar adayi. Vals SWE 95.4 (en yuksek), lane 70.2 #8/128, $1.40/$4.40. NOT: tel yanitlari her iki kapida da model: glm-5.2 bildiriyor (sunucu takma adi suphesi acik). codefast-glm (codex motoru) /responses 404 nedeniyle bilincli KAPALI",
+      "kosul": "IQ kapisi olculdu-ACIK (6/6 iki hattan, R 2026-10-18 20:52). Kalan tek suphe: tel model alani glm-5.2 bildiriyor — surum sadakati saglayicidan dogrulanmali",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 79.5
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/deepseek-v4-flash",
+      "model": "deepseek-v4-flash",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/deepseek-v4-pro",
+      "model": "deepseek-v4-pro",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/glm-5.1",
+      "model": "glm-5.1",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/glm-5.2",
+      "model": "glm-5.2",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/glm-5.3",
+      "model": "glm-5.3",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/gpt-oss-120b-medium",
+      "model": "gpt-oss-120b-medium",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/kimi-k3",
+      "model": "kimi-k3",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/mimo-v2.5-pro",
+      "model": "mimo-v2.5-pro",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/minimax-m3",
+      "model": "minimax-m3",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/nvidia/nemotron-3-ultra-550b-a55b",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast-os/stepfun-ai/step-3.7-flash",
+      "model": "stepfun-ai/step-3.7-flash",
+      "provider": "codefast-os",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 0
+      },
+      "eksik": [
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-5.5",
+      "model": "gpt-5.5",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-5.6-luna",
+      "model": "gpt-5.6-luna",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-5.6-sol",
+      "model": "gpt-5.6-sol",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-5.6-terra",
+      "model": "gpt-5.6-terra",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-6-astra",
+      "model": "gpt-6-astra",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-6-luna",
+      "model": "gpt-6-luna",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-6-sol",
+      "model": "gpt-6-sol",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "codex/kimi-K3",
+      "model": "kimi-K3",
+      "provider": "codex",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "groq/allam-2-7b",
+      "model": "allam-2-7b",
+      "provider": "groq",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 0,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 15,
+        "agentik": 0
+      },
+      "eksik": [
+        "toolCall"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:bek=220,0,56 got=9,NaN,4",
+      "IQ": 0,
+      "tps": 1204.8,
+      "context": 4096,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:bek=220,0,56 got=9,NaN,4"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 4096
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 1204.8
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "groq/openai/gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 1,
+        "uzunUfuk": 9.9,
+        "erisim": 20,
+        "hiz": 15,
+        "agentik": 2
+      },
+      "eksik": [
+        "toolCall"
+      ],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 261.4,
+      "context": 131072,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 131072
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 261.4
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "groq/openai/gpt-oss-20b",
+      "model": "openai/gpt-oss-20b",
+      "provider": "groq",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 1,
+        "uzunUfuk": 6.5,
+        "erisim": 20,
+        "hiz": 15,
+        "agentik": 2
+      },
+      "eksik": [
+        "toolCall"
+      ],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 583.8,
+      "context": 131072,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 131072
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 583.8
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "groq/qwen/qwen3.8-27b",
+      "model": "qwen/qwen3.8-27b",
+      "provider": "groq",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 1,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 15,
+        "agentik": 2
+      },
+      "eksik": [
+        "toolCall"
+      ],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 33,
+      "tps": 348.9,
+      "context": 131072,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 33
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 131072
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 348.9
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/Kilo Gateway/StepFun: Step 5 Preview (free",
+      "model": "Kilo Gateway/StepFun: Step 5 Preview (free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/cohere/north-mini-code:free",
+      "model": "kilo/cohere/north-mini-code:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/dots-studio/dots-3-note-preview:free",
+      "model": "kilo/dots-studio/dots-3-note-preview:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/kilo-auto/free",
+      "model": "kilo/kilo-auto/free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/liquid/lfm-2.5-2.6b:free",
+      "model": "kilo/liquid/lfm-2.5-2.6b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "model": "kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/nvidia/nemotron-3-super-120b-a12b:free",
+      "model": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "model": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/nvidia/nemotron-3.5-lightning:free",
+      "model": "kilo/nvidia/nemotron-3.5-lightning:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/openrouter/free",
+      "model": "kilo/openrouter/free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/poolside/laguna-s-2.1:free",
+      "model": "kilo/poolside/laguna-s-2.1:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/poolside/laguna-xs-2.1:free",
+      "model": "kilo/poolside/laguna-xs-2.1:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/stealth/glyph-cluster",
+      "model": "kilo/stealth/glyph-cluster",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/stepfun/step-5-preview-free",
+      "model": "kilo/stepfun/step-5-preview-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/kilo/thinkingmachines/inkling-small:free",
+      "model": "kilo/thinkingmachines/inkling-small:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/OpenCode Zen/Muse Spark 1.3 Free",
+      "model": "OpenCode Zen/Muse Spark 1.3 Free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/OpenCode Zen/Space Bunny Free",
+      "model": "OpenCode Zen/Space Bunny Free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/cat-jam-free",
+      "model": "opencode/cat-jam-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/exo-free",
+      "model": "opencode/exo-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/longcat-2.5-preview-free",
+      "model": "opencode/longcat-2.5-preview-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/mimo-v2.6-flash-free",
+      "model": "opencode/mimo-v2.6-flash-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/muse-spark-1.3-contributor-free",
+      "model": "opencode/muse-spark-1.3-contributor-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/nemotron-3-ultra-free",
+      "model": "opencode/nemotron-3-ultra-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/nemotron-3.5-lightning-free",
+      "model": "opencode/nemotron-3.5-lightning-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/space-bunny-free",
+      "model": "opencode/space-bunny-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/opencode/step-5-preview-free",
+      "model": "opencode/step-5-preview-free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/cohere/north-mini-code:free",
+      "model": "openrouter/cohere/north-mini-code:free",
+      "provider": "kilo",
+      "seviye": "gunluk",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "223.6 t/s, terminal 5/5, kod PASS; toplu uretim/olcum isleri. NOT: ctx 256.000 (kapi esigine esit) ve free kuyrugu var",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/dots-studio/dots-3-note-preview:free",
+      "model": "openrouter/dots-studio/dots-3-note-preview:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/google/gemma-4-26b-a4b-it:free",
+      "model": "openrouter/google/gemma-4-26b-a4b-it:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/google/gemma-4-31b-it:free",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/liquid/lfm-2.5-2.6b:free",
+      "model": "openrouter/liquid/lfm-2.5-2.6b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "model": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+      "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/nvidia/nemotron-3.5-content-safety:free",
+      "model": "openrouter/nvidia/nemotron-3.5-content-safety:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/nvidia/nemotron-3.5-lightning:free",
+      "model": "openrouter/nvidia/nemotron-3.5-lightning:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/openrouter/free",
+      "model": "openrouter/openrouter/free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/poolside/laguna-s-2.1:free",
+      "model": "openrouter/poolside/laguna-s-2.1:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/poolside/laguna-xs-2.1:free",
+      "model": "openrouter/poolside/laguna-xs-2.1:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/thinkingmachines/inkling-small:free",
+      "model": "openrouter/thinkingmachines/inkling-small:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "kilo/openrouter/thinkingmachines/inkling:free",
+      "model": "openrouter/thinkingmachines/inkling:free",
+      "provider": "kilo",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/DeepSeek V4 Flash Free (New)",
+      "model": "DeepSeek V4 Flash Free (New)",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/cat-jam-free",
+      "model": "opencode/cat-jam-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/exo-free",
+      "model": "opencode/exo-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/longcat-2.5-preview-free",
+      "model": "opencode/longcat-2.5-preview-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/mimo-v2.6-flash-free",
+      "model": "opencode/mimo-v2.6-flash-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/muse-spark-1.3-contributor-free",
+      "model": "opencode/muse-spark-1.3-contributor-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/nemotron-3-ultra-free",
+      "model": "opencode/nemotron-3-ultra-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/nemotron-3.5-lightning-free",
+      "model": "opencode/nemotron-3.5-lightning-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/space-bunny-free",
+      "model": "opencode/space-bunny-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/opencode/step-5-preview-free",
+      "model": "opencode/step-5-preview-free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/cohere/north-mini-code:free",
+      "model": "openrouter/cohere/north-mini-code:free",
+      "provider": "opencode",
+      "seviye": "gunluk",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "223.6 t/s, terminal 5/5, kod PASS; toplu uretim/olcum isleri. NOT: ctx 256.000 (kapi esigine esit) ve free kuyrugu var",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/dots-studio/dots-3-note-preview:free",
+      "model": "openrouter/dots-studio/dots-3-note-preview:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/google/gemma-4-26b-a4b-it:free",
+      "model": "openrouter/google/gemma-4-26b-a4b-it:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/google/gemma-4-31b-it:free",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/liquid/lfm-2.5-2.6b:free",
+      "model": "openrouter/liquid/lfm-2.5-2.6b:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "model": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+      "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/nvidia/nemotron-3.5-content-safety:free",
+      "model": "openrouter/nvidia/nemotron-3.5-content-safety:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/nvidia/nemotron-3.5-lightning:free",
+      "model": "openrouter/nvidia/nemotron-3.5-lightning:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/openrouter/free",
+      "model": "openrouter/openrouter/free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/poolside/laguna-s-2.1:free",
+      "model": "openrouter/poolside/laguna-s-2.1:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/poolside/laguna-xs-2.1:free",
+      "model": "openrouter/poolside/laguna-xs-2.1:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/thinkingmachines/inkling-small:free",
+      "model": "openrouter/thinkingmachines/inkling-small:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/openrouter/thinkingmachines/inkling:free",
+      "model": "openrouter/thinkingmachines/inkling:free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/Space Bunny Free",
+      "model": "Space Bunny Free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "opencode/Step 5 Preview Free",
+      "model": "Step 5 Preview Free",
+      "provider": "opencode",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/deepseek/deepseek-v4.1-flash-1017",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 10,
+        "baglam": 15,
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 10
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "PASS",
+      "IQ": 0,
+      "tps": null,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "This request requires more credits, or fewer max_tokens. You requested up to 4000 tokens, but can only afford 701. To in",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/google/gemma-4-26b-a4b-it:free",
+      "model": "google/gemma-4-26b-a4b-it:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 3,
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 262144,
+      "erisim": "ham-API",
+      "hata": "Provider returned error",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 262144
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/google/gemma-4-31b-it:free",
+      "model": "google/gemma-4-31b-it:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 3,
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 262144,
+      "erisim": "ham-API",
+      "hata": "Provider returned error",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 262144
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/nvidia/nemotron-3.5-lightning:free",
+      "model": "nvidia/nemotron-3.5-lightning:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 14.3,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/poolside/laguna-s-2.1:free",
+      "model": "poolside/laguna-s-2.1:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 3,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 262144,
+      "erisim": "ham-API",
+      "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 262144
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/poolside/laguna-xs-2.1:free",
+      "model": "poolside/laguna-xs-2.1:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 3,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 262144,
+      "erisim": "ham-API",
+      "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 262144
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/thinkingmachines/inkling-small:free",
+      "model": "thinkingmachines/inkling-small:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 15,
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "thinkingmachines/inkling-small:free is only available on agentic harnesses. Try plugging it into a coding agent or produ",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "openrouter/thinkingmachines/inkling:free",
+      "model": "thinkingmachines/inkling:free",
+      "provider": "openrouter",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 15,
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "thinkingmachines/inkling:free is only available on agentic harnesses. Try plugging it into a coding agent or productivit",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "qoder/qfmodel",
+      "model": "qfmodel",
+      "provider": "qoder",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "Qwen3.8-Flash, 0.00x Credit; makinede hic olculmedi",
+      "kosul": "scripts/bench.mjs ACP olcumu (base_url yok -> ham API olculmez); en az 1 ham olcum veya ajan hatti t/s",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "qoder/Qwen3.8-Flash (default)",
+      "model": "Qwen3.8-Flash (default)",
+      "provider": "qoder",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "uzunUfuk": 0,
+        "erisim": 0,
+        "agentik": 0
+      },
+      "eksik": [
+        "terminal",
+        "context",
+        "hiz",
+        "toolCall"
+      ],
+      "terminal": null,
+      "kod": null,
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "yalniz-ajan-hatti",
+      "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": false,
+          "olcum": "bilinmiyor"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4-pro",
+      "model": "deepseek-v4-pro",
+      "provider": "tokenharbor",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "context",
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4.1-flash-1017",
+      "model": "deepseek-v4.1-flash-1017",
+      "provider": "tokenharbor",
+      "seviye": "yedek",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 15,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.",
+      "gerekce": "Ayni modelin tokenharbor UCRETLI rotasi (10-17 id'si): $0.14/$0.42 (tablonun en ucuz ucretli rotasi), ctx 1.048.576, toolCall+promptCache evet; yetenek kaniti kardes id'den aktarim (T). Kapi: 402 bakiye $0 (bench-th-1017-2026-10-17)",
+      "kosul": "bakiye yuklenirse terminal >= 4/5 ve kod PASS olculmeli; aile kanidi 5/5+PASS (deepseek-v4.1-flash:free, R)",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/glm-5.3",
+      "model": "glm-5.3",
+      "provider": "tokenharbor",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 2.1,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 200000,
+      "erisim": "ham-API",
+      "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": 200000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/kimi-k3",
+      "model": "kimi-k3",
+      "provider": "tokenharbor",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 15,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/qwen3.8-max",
+      "model": "qwen3.8-max",
+      "provider": "tokenharbor",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "uzunUfuk": 0,
+        "erisim": 4,
+        "agentik": 6
+      },
+      "eksik": [
+        "context",
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": null,
+      "erisim": "ham-API",
+      "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": false,
+          "olcum": "yayimlanmamis"
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    }
+  ],
+  "hicOlcumedi": [
+    {
+      "anahtar": "codefast/deepseek-v4-pro",
+      "seviye": "ikincil",
+      "kosul": "bakiye acilirsa ham olcum terminal >= 4/5",
+      "gerekce": "En ucuz ($1.32/$3.96) + en hizli (~115 t/s); kod lane 47.2 daha dusuk",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "openrouter/qwen3.8-max",
+      "seviye": "aday",
+      "kosul": "OpenRouter anahtari + modelin free havuzuna girmesi (kodfast katalogunda YOK)",
+      "gerekce": "Vals TB2.1 67.4 / SWE-bench 85.6 geride; codefast katalogunda yok",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "nvidia/z-ai/glm-5.3-flash",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "1.2 t/s - kullanilamaz",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "kilo/free",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "gunluk free-models-per-day limiti, 0 token",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "openrouter/poolside-laguna",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "1.6-2.5 t/s + bir kosuda NUM=401 sapmasi",
+      "karar": "HIC-OLCUMEDI"
+    }
+  ],
+  "deltalar": [
+    {
+      "anahtar": "tokenharbor/deepseek-v4.1-flash:free",
+      "yeni": 77.2,
+      "eski": 77.2,
+      "delta": 0
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.6-flash:free",
+      "yeni": 73.9,
+      "eski": 73.9,
+      "delta": 0
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.5:free",
+      "yeni": 72.7,
+      "eski": 72.7,
+      "delta": 0
+    },
+    {
+      "anahtar": "tokenharbor/claude-haiku-5.5:free",
+      "yeni": 72.6,
+      "eski": 72.6,
+      "delta": 0
+    },
+    {
+      "anahtar": "codefast/codefastk3unlimited",
+      "yeni": 70.4,
+      "eski": 70.4,
+      "delta": 0
+    },
+    {
+      "anahtar": "openrouter/cohere/north-mini-code:free",
+      "yeni": 66.1,
+      "eski": 82.1,
+      "delta": -16
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4-flash:free",
+      "yeni": 62.2,
+      "eski": 62.2,
+      "delta": 0
+    },
+    {
+      "anahtar": "codefast/kimi-k3",
+      "yeni": 40,
+      "eski": 40,
+      "delta": 0
+    }
+  ],
+  "gate": {
+    "sonuc": "KIRILDI",
+    "anaYazarYok": false,
+    "kirilan": [
+      "claude-glm/glm-5.3",
+      "codefast-glm/glm-5.3",
+      "kilo/openrouter/cohere/north-mini-code:free",
+      "opencode/openrouter/cohere/north-mini-code:free"
+    ]
+  }
+}

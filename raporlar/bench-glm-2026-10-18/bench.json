@@ -1,0 +1,47 @@
+{
+  "tarih": "2026-10-18",
+  "hedef": 1,
+  "olculen": 1,
+  "rows": [
+    {
+      "provider": "codefast-glm",
+      "model": "glm-5.3",
+      "erisim": "ham-API",
+      "tps": 79.5,
+      "hizToken": 348,
+      "sn": 4.38,
+      "IQ": 0,
+      "iqDogru": [],
+      "iqKacan": [
+        "C1(977)",
+        "C2(72)",
+        "C3(4.5)",
+        "C4(195.5)",
+        "C5(7006652)",
+        "C6(289)"
+      ],
+      "terminal": "5/5",
+      "termKacan": [],
+      "kod": "PASS",
+      "uyum": "PASS",
+      "reasoningKarakter": 0,
+      "bitis": "stop",
+      "context": null,
+      "maksCikis": null,
+      "fiyatG": null,
+      "fiyatC": null,
+      "tier": null,
+      "toolCall": null,
+      "promptCache": null,
+      "parametreler": null,
+      "swebench": 95.4,
+      "terminalBench": 88.2,
+      "aa": 45,
+      "puanKaynak": "https://www.vals.ai/models/zai_glm-5.3 | https://benchlm.ai/compare/glm-5-3-vs-kimi-k3 | https://www.respan.ai/articles/glm-vs-kimi",
+      "hata": "",
+      "termOrnek": "T1=sudo lsof -i :8080 T2=grep -rn \"ERROR\" . T3=git reset --soft HEAD~1 T4=dd if=/dev/zero of=dosya.img bs=1M count=500 T5=docker ps -aq | tail -n 3 | xargs docker rm -f",
+      "kodOrnek": "function fonk(n){ let t = 0; for(let i = 2; i <= n; i += 2){ t += i * i; } return t; }",
+      "uyumOrnek": "{\"a\":1,\"b\":[2,3]}"
+    }
+  ]
+}

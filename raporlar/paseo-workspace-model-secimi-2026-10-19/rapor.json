@@ -1,0 +1,1162 @@
+{
+  "schemaSurum": 1,
+  "tarih": "2026-10-19",
+  "kaynak": "raporlar/saf-performans-top30-2026-10-18.md",
+  "toplamWorkspace": 95,
+  "aktifWorkspace": 33,
+  "arsivWorkspace": 62,
+  "ajanKaydi": 493,
+  "olcumEslesenWorkspace": 65,
+  "olcumEslesmeyenWorkspace": 30,
+  "genelEnIyi": {
+    "model": "glm-5.3",
+    "score": 86
+  },
+  "enSikOneriler": [
+    {
+      "anahtar": "kimik3/codex",
+      "adet": 50
+    },
+    {
+      "anahtar": "glm53/glm53u-codex",
+      "adet": 6
+    },
+    {
+      "anahtar": "gpt56luna/codex",
+      "adet": 4
+    },
+    {
+      "anahtar": "glm53/glm53u-claude",
+      "adet": 2
+    },
+    {
+      "anahtar": "glm53/claude",
+      "adet": 1
+    },
+    {
+      "anahtar": "glm53/kilo",
+      "adet": 1
+    },
+    {
+      "anahtar": "mimov26flash/tokenharbor",
+      "adet": 1
+    }
+  ],
+  "workspaces": [
+    {
+      "id": "wks_30d0e14d2828ec75",
+      "title": "Project purpose",
+      "path": "D:\\Vibecode\\esp32-xiaozhi\\py-xiaozhi-main",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_7ca2750a4b9f5013",
+      "title": "Best plan choice",
+      "path": "D:\\Vibecode\\agent-mobile-runtime",
+      "archived": true,
+      "agents": 10,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_f55a0d6a67179d05",
+      "title": "Dizin analizi",
+      "path": "D:\\Vibecode\\rust-disk-sweeper",
+      "archived": true,
+      "agents": 2,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_44d31a2d1e0a908d",
+      "title": "Dizin analizi",
+      "path": "D:\\Vibecode\\agent-bus",
+      "archived": true,
+      "agents": 3,
+      "best": {
+        "model": "gpt56luna",
+        "provider": "codex",
+        "score": 81
+      },
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_4c4f014c2aabb18a",
+      "title": "Directory analysis",
+      "path": "D:\\Vibecode\\agent-codex-supervisor-go",
+      "archived": true,
+      "agents": 2,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_3ef3635c26e837f9",
+      "title": "Universal UI implementation plan",
+      "path": "D:\\Vibecode\\agent-bus",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_2b990512d1ae30cd",
+      "title": "universal-agentic-runtime",
+      "path": "D:\\Vibecode\\agent-mobile-runtime\\universal-ui",
+      "archived": true,
+      "agents": 2,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_d057d928e6b32471",
+      "title": "VS Code universal bridge",
+      "path": "D:\\Vibecode\\agent-mobile-runtime\\universal-ui",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_96d75e55135e4ee6",
+      "title": "Universal VS Code bridge",
+      "path": "D:\\Vibecode\\vscode\\vscodelogger",
+      "archived": true,
+      "agents": 2,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_b70f400fb62265eb",
+      "title": "End-to-end project review",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-rust",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_fbcfe21107c17c00",
+      "title": "agentos-go-s17-s22",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-go",
+      "archived": true,
+      "agents": 5,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_061b6ec206678707",
+      "title": "Go plan detailed analysis",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-rust",
+      "archived": true,
+      "agents": 3,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_bec3f5d852d74f48",
+      "title": "Sprint count remaining",
+      "path": "D:\\Vibecode\\agent-orchestration\\otonom-kernel-os\\turnuva",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_be71af0d08fc7860",
+      "title": "Reusable code docs",
+      "path": "D:\\Vibecode\\reusable-componenet",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_3813d742a0df79c0",
+      "title": "Sprints remaining",
+      "path": "D:\\Vibecode\\agent-orchestration\\otonom-kernel-os\\turnuva",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_0c2f30a10c5e3dc5",
+      "title": "Sprint count remaining",
+      "path": "D:\\Vibecode\\agent-orchestration",
+      "archived": true,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_4cff83ffeca973c5",
+      "title": "Mimari final text",
+      "path": "D:\\Vibecode\\agent-os\\!repolar\\kenel-executor",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_85896d3ed27cf3ea",
+      "title": "Project moved and locked",
+      "path": "D:\\Vibecode\\agent-os\\kernel-executor",
+      "archived": true,
+      "agents": 20,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_19073b63911e34c0",
+      "title": "main",
+      "path": "D:\\Vibecode\\agent-os\\kernel-executor",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_14add6781fc1f60f",
+      "title": "Process reaper readiness gate",
+      "path": "C:\\Users\\gatep\\.paseo\\worktrees\\33kz63d8\\p55-process-reaper-gate",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "codex/gpt-5.5"
+    },
+    {
+      "id": "wks_f247ac13da4c2112",
+      "title": "portainer-develop",
+      "path": "d:\\Vibecode\\deneme\\portainer-develop",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_a43c7afa4f9a6938",
+      "title": "p55-a-clean-baseline",
+      "path": "C:\\Users\\gatep\\.paseo\\worktrees\\33kz63d8\\p55-a-clean-baseline",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_395d3e6e9d13eab4",
+      "title": "txt-to-cad",
+      "path": "d:\\Vibecode\\txt-to-cad",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_e7c8b4f22ec745c3",
+      "title": "agentic 3d",
+      "path": "d:\\Vibecode\\txt-to-cad",
+      "archived": false,
+      "agents": 41,
+      "best": {
+        "model": "glm53",
+        "provider": "claude",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_851445e933227979",
+      "title": "paseo plugin",
+      "path": "D:\\Vibecode\\BUSINESS-REALITY-ENGINE",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_c1f3bf9a8a6d87dc",
+      "title": "dart video",
+      "path": "D:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 6,
+      "best": {
+        "model": "gpt56luna",
+        "provider": "codex",
+        "score": 81
+      },
+      "mostUsed": "codex/gpt-5.6-sol"
+    },
+    {
+      "id": "wks_7b99e6c2893495ef",
+      "title": "Dart Scene Manager Evaluation",
+      "path": "D:\\Vibecode\\ai-scene-graph",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "gpt56luna",
+        "provider": "codex",
+        "score": 81
+      },
+      "mostUsed": "codex/gpt-5.6-luna"
+    },
+    {
+      "id": "wks_456bfc258f85cf4c",
+      "title": "Codeclaw extension helpfulness evaluation",
+      "path": "D:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "gpt56luna",
+        "provider": "codex",
+        "score": 81
+      },
+      "mostUsed": "codex/gpt-5.6-luna"
+    },
+    {
+      "id": "wks_4e308bdd0f9c1b41",
+      "title": "main",
+      "path": "d:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_5024c487b4ae7dbc",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_078712c6c41e8a7c",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_9eeb5db7fd5f66ff",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_27a474cc4cd4effd",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_a6cdefd88907d885",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_6218672fa869743d",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 0,
+      "best": null,
+      "mostUsed": null
+    },
+    {
+      "id": "wks_731310c2cd8e4e27",
+      "title": "go agent orchestration",
+      "path": "D:\\Vibecode\\agent-os\\kernel-executor",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_c68d69342be043b7",
+      "title": "vercel  saas 1click",
+      "path": "d:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": false,
+      "agents": 3,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_546d5fde17054b08",
+      "title": "Review project end-to-end to find current status",
+      "path": "D:\\Vibecode\\agent-codex-supervisor-go",
+      "archived": false,
+      "agents": 3,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_bb7fd43cf5c32511",
+      "title": "go execution harness",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-go",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_4120a279ba815e0a",
+      "title": "pockode go",
+      "path": "D:\\Vibecode\\agent-mobile-runtime\\universal-ui",
+      "archived": false,
+      "agents": 3,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_a76cf67484e610eb",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 3,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/codefastk3unlimited"
+    },
+    {
+      "id": "wks_88c7412e9105f014",
+      "title": "P3/P4 kapanışı",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 12,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_444d6544a299de9b",
+      "title": "disk temizlik",
+      "path": "D:\\indir\\urunler",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_314295dec8225b07",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "opencode/opencode/muse-spark-1.3-contributor-free"
+    },
+    {
+      "id": "wks_3563ced6839d1863",
+      "title": "docs/post-upgrade-documentation-update",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "opencode/opencode/muse-spark-1.3-contributor-free"
+    },
+    {
+      "id": "wks_687314070db913df",
+      "title": "1",
+      "path": "c:\\Users\\gatep\\Local Sites\\1",
+      "archived": true,
+      "agents": 10,
+      "best": null,
+      "mostUsed": "codex/gpt-6-astra"
+    },
+    {
+      "id": "wks_0fb6a1897559b180",
+      "title": "Investigate project leftovers and report",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_8174140de580b9cb",
+      "title": "cutrapid",
+      "path": "d:\\Vibecode\\ai-scene-graph\\dart",
+      "archived": false,
+      "agents": 18,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_1328c4892d8a52cd",
+      "title": "Examine WordPress theme 5 subagents",
+      "path": "D:\\Vibecode\\wpgutenberg",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_e93bd804e6b870bb",
+      "title": "speakrapid",
+      "path": "D:\\indir\\chinese-hsk",
+      "archived": false,
+      "agents": 25,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_94f9b9ee744284c7",
+      "title": "End-to-end inspect and report FSE tema projesi",
+      "path": "C:\\Users\\gatep\\Local Sites\\1\\dist\\woo-block",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_008190a369fd62da",
+      "title": "fse ai customize",
+      "path": "C:\\Users\\gatep\\Local Sites\\1\\app\\public\\wp-content\\themes\\woo-block",
+      "archived": false,
+      "agents": 6,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_71fb8b26c26cfbe6",
+      "title": "HSK TAM MÜFREDAT",
+      "path": "D:\\indir\\chinese-hsk\\archive\\HSK3.0",
+      "archived": false,
+      "agents": 5,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_e6db0a255e16e525",
+      "title": "go harness",
+      "path": "D:\\Vibecode\\agent-orchestration",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_f5f2b811059d12e2",
+      "title": "Collect the Sprint 19 eight-hour soak result and record evid",
+      "path": "D:\\Vibecode\\agent-mobile-runtime",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_95f3d3122a63988a",
+      "title": "Record Sprint 19 eight-hour soak rerun evidence",
+      "path": "D:\\Vibecode\\agent-mobile-runtime",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_292cb850cb1a9d55",
+      "title": "zig os",
+      "path": "D:\\Vibecode\\agent-runtime",
+      "archived": false,
+      "agents": 3,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_08fed04ec5895b1b",
+      "title": "supabase auth - dodo -vercel",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\dodo",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_42110b34a6436708",
+      "title": "dodo lemon",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\agentic-starter",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_ed77d447b00735a2",
+      "title": "nextjs vercel",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\shipsetup",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_3718290f5a38b166",
+      "title": "Review project end-to-end for pain point alignment",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\shipsetup",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_abf15edd8d9f9979",
+      "title": "Review project e2e alignment",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\shipsetup-sifirdan",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_32c71c2569c5bad5",
+      "title": "Analyze project goals status and quality",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\next-supabase-starter-main",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_b95352ea667f9b6e",
+      "title": "Assess project goals, progress, loc, and quality",
+      "path": "D:\\Vibecode\\chromex",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_cfa149e793622c91",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_c6be8425ad6f4d3d",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_52b3922d6bf03920",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_a3202c7f1c0c2480",
+      "title": "10 tane subagent ata ve buradaki her bir klasördeli plan dök",
+      "path": "D:\\Vibecode\\YapaySite-archive",
+      "archived": true,
+      "agents": 4,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_0bc38edd78129d50",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_2f461c9e60a0619a",
+      "title": "yapaylink",
+      "path": "D:\\Vibecode\\YapaySite-archive\\YapaySite",
+      "archived": false,
+      "agents": 122,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_3daf7d7ae0abe20d",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_954adf09d56da2ef",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_38526960eca6c1c2",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_1c4031bebb0901db",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_cd0885699fb22dc1",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_574f41dc57405238",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_536035fcd258f6fd",
+      "title": "hi",
+      "path": "C:\\Users\\gatep\\Local Sites\\1\\app\\public\\wp-content\\themes\\woo-block",
+      "archived": true,
+      "agents": 1,
+      "best": null,
+      "mostUsed": "opencode/opencode/step-5-preview-free"
+    },
+    {
+      "id": "wks_3d70dbaf84366393",
+      "title": "10 tane subagent ile tüm folder ve klasörleri tarar tüm zip",
+      "path": "D:\\Vibecode",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_631621f0aa18b84e",
+      "title": "Gece Lighthouse denetimi (katman-kit). Canlı site: https://k",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_3728670fb867bc0a",
+      "title": "Gece agent-os-go bütünlük denetimi (watchdog). Repo: D:\\Vibe",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-go",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_0f45ee84992f646c",
+      "title": "harness coding memory token",
+      "path": "D:\\Vibecode\\paseo-plugin",
+      "archived": false,
+      "agents": 102,
+      "best": {
+        "model": "glm53",
+        "provider": "kilo",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_0fb73e8dfae00cb2",
+      "title": "Examine each folder with 3 sub agents end-to-end and report",
+      "path": "D:\\Vibecode\\rust-file-explorer",
+      "archived": false,
+      "agents": 3,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_df1b75332e13a7a1",
+      "title": "3-sub-agent end-to-end folder inspection report",
+      "path": "D:\\Vibecode\\vscode",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-codex",
+        "score": 86
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_25cecbbb317731ca",
+      "title": "3-subagent end-to-end folder report",
+      "path": "D:\\Vibecode\\llm-orchestrator-py",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-claude",
+        "score": 86
+      },
+      "mostUsed": "glm53u-claude/glm-5.3"
+    },
+    {
+      "id": "wks_7ddeeb891f853a9e",
+      "title": "Generate end-to-end report for each folder with 3 sub agents",
+      "path": "D:\\Vibecode\\chromex-extension",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_63f4de211048d49c",
+      "title": "Generate report for each folder with 3 sub agents end-to-end",
+      "path": "D:\\Vibecode\\scraper",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_2cc98dcb70931276",
+      "title": "Inspect each folder end-to-end using 3 sub agents",
+      "path": "D:\\Vibecode\\playwright-cdp",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "glm53",
+        "provider": "glm53u-claude",
+        "score": 86
+      },
+      "mostUsed": "glm53u-claude/glm-5.3"
+    },
+    {
+      "id": "wks_bc9100dd54d24a2f",
+      "title": "uçtan uca incele rapor ver her klasör için",
+      "path": "D:\\Vibecode\\!token-optimzation",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_00ff8f63ff83a44a",
+      "title": "Create end-to-end inspection report with 3 subagents",
+      "path": "D:\\Vibecode\\Harness\\raypipe",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_76104fc8a724a051",
+      "title": "Run weekly contract survey K-0013 pilot",
+      "path": "D:\\Vibecode\\paseo-plugin",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_d927427789396822",
+      "title": "Lighthouse audit for katman-kit pages",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_10daeac6a5435a70",
+      "title": "Run mobile Lighthouse audit on katman-kit pages and update LIGHTHOUSE-LOG.md",
+      "path": "D:\\Vibecode\\STARTTERKIT-BOILER\\vercel\\katman-kit",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_fa23db7aecaa33d4",
+      "title": "Run watchdog integrity check for agent-os-go",
+      "path": "D:\\Vibecode\\agent-os\\agent-os-go",
+      "archived": true,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_bfb50e7bbc690e19",
+      "title": "ordu-core",
+      "path": "D:\\Vibecode\\silinecek-task-graph\\ordu-core",
+      "archived": false,
+      "agents": 1,
+      "best": {
+        "model": "kimik3",
+        "provider": "codex",
+        "score": 85
+      },
+      "mostUsed": "codex/kimi-K3"
+    },
+    {
+      "id": "wks_de68236e6d78ad9a",
+      "title": "Analyze plan with 6 subagents",
+      "path": "D:\\Vibecode\\silinecek-task-graph",
+      "archived": false,
+      "agents": 2,
+      "best": {
+        "model": "mimov26flash",
+        "provider": "tokenharbor",
+        "score": 63
+      },
+      "mostUsed": "opencode/opencode/space-bunny-free"
+    }
+  ]
+}

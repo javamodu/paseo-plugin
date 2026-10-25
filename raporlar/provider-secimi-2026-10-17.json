@@ -1,0 +1,79 @@
+{
+  "schemaSurum": 1,
+  "tarih": "2026-10-17",
+  "soru": "Bu plugini yazmak icin gpt/codex/claude haricindeki free providerlar arasinda en iyi hangisi?",
+  "karar": "tokenharbor/deepseek-v4.1-flash:free",
+  "puanlamaYontemi": {
+    "agirliklar": {
+      "kodTerminal": 25,
+      "baglam": 15,
+      "uzunUfuk": 15,
+      "erisim": 20,
+      "hiz": 15,
+      "agentik": 10
+    },
+    "kaynaklar": [
+      "raporlar/bench-free-2026-10-15/bench.json",
+      "raporlar/bench-th-fixdogrulama-2026-10-15/bench.json",
+      "raporlar/bench-or-2026-10-15/bench.json",
+      "raporlar/provider-rehberi-2026-10-14.md#5",
+      "canli: paseo_list_providers + paseo_list_models (2026-10-17)"
+    ],
+    "not": "Dış kod benchmark'ı (SWE-bench/Terminal-Bench) kullanılmadı; scripts/bench-puanlari.json bilinçli olarak boş. Ölçülmemiş hücre null=puan yok."
+  },
+  "sorulanDortModel": [
+    { "model": "kimi-k3", "durum": "kosuyor-ama-ucretli", "kanit": "codefast etiketi 'Sinirsiz (bakiye)', 3/15 $ per 1M; codefastk3unlimited 2 kez 'API access denied'", "free": false },
+    { "model": "deepseek", "durum": "free-erisilebilir", "kanit": "tokenharbor: deepseek-v4-flash:free + deepseek-v4.1-flash:free", "free": true },
+    { "model": "qwen3.8-max", "durum": "yok", "kanit": "hicbir saglayici katalogunda yok; tek Qwen 3.8 ucu qoder/Qwen3.8-Flash", "free": null },
+    { "model": "glm-5.3", "durum": "kapali-403", "kanit": "canli ajan 2026-10-17: 'unexpected status 403 Forbidden: API access denied .../glm-api/v1/responses'", "free": false }
+  ],
+  "skorlar": [
+    { "sira": 1, "provider": "tokenharbor", "model": "deepseek-v4.1-flash:free", "puan": 91, "kodTerminal": 25, "terminal": "5/5", "kod": "PASS", "iq": 100, "ctx": 1048576, "tier": "low", "reasoningKarakter": 1034, "tpsHam": 129.5, "tpsDiger": 91.4, "toolCall": true, "ucretsiz": true, "limit": "7 gunluk free kota" },
+    { "sira": 2, "provider": "tokenharbor", "model": "mimo-v2.5:free", "puan": 88, "kodTerminal": 25, "terminal": "5/5", "kod": "PASS", "iq": 100, "ctx": 1048576, "tier": "high", "reasoningKarakter": 883, "tpsHam": 32.4, "tpsDiger": 27.2, "toolCall": true, "ucretsiz": true, "limit": "7 gunluk free kota" },
+    { "sira": 3, "provider": "openrouter", "model": "cohere/north-mini-code:free", "puan": 88, "kodTerminal": 25, "terminal": "5/5", "kod": "PASS", "iq": 100, "ctx": 256000, "tier": null, "reasoningKarakter": 2891, "tpsHam": 223.6, "toolCall": true, "ucretsiz": true, "limit": "openrouter :free kuyrugu" },
+    { "sira": 4, "provider": "tokenharbor", "model": "deepseek-v4-flash:free", "puan": 81, "kodTerminal": 18, "terminal": "0/5", "kod": "PASS", "iq": 100, "ctx": 1000000, "tier": "low", "reasoningKarakter": 1396, "tpsHam": 81.4, "tpsDiger": 72.5, "toolCall": true, "ucretsiz": true, "limit": "7 gunluk free kota" },
+    { "sira": 5, "provider": "tokenharbor", "model": "mimo-v2.6-flash:free", "puan": 80, "kodTerminal": 20, "terminal": "4/5", "kod": "PASS", "iq": 83, "ctx": 1048576, "tier": "low", "reasoningKarakter": 845, "tpsHam": 49.1, "tpsDiger": 34.4, "toolCall": true, "ucretsiz": true, "limit": "7 gunluk free kota" },
+    { "sira": null, "provider": "qoder", "model": "Qwen3.8-Flash", "puan": null, "not": "bench hicb koculmadi - veri yok, puan uydurulmadi", "ucretsiz": "0.00x Credit" },
+    { "sira": null, "provider": "codefast", "model": "kimi-k3", "puan": 76, "puanNotu": "free ligi disinda (bakiye)", "terminal": "10-14 PASS / 10-15 0/5", "kod": "karisik", "ctx": 256000, "tpsAjan": 300.1, "tpsHam": 35.1, "ucretsiz": false },
+    { "sira": null, "provider": "codefast-glm", "model": "glm-5.3", "puan": 0, "not": "403 API access denied dogrulandi (2026-10-17 canli ajan)" },
+    { "sira": null, "provider": "nvidia", "model": "z-ai/glm-5.3-flash", "puan": null, "not": "free ama 1.2 t/s - kullanilamaz" },
+    { "sira": null, "provider": "kilo", "model": "42 free model", "puan": 0, "note": "gunluk free-models-per-day limiti" }
+  ],
+  "ucretliAlim": {
+    "karar": "glm-5.3 (birincil) + deepseek-v4-pro (ikincil, istersen) — codefast uzerinden",
+    "kodfastKatalog": {
+      "http": 200,
+      "modelSayisi": 72,
+      "ilgili": ["glm-5.3", "codefastglm53", "glm-5.2", "kimi-k3", "moonshotai/kimi-k3", "deepseek-v4-pro", "deepseek-v4.1-flash", "deepseek-v4-flash", "mimo-v2.5-pro", "minimax-m3"],
+      "qwenVar": false,
+      "glmApiKapisi": "403 (bakiye/entitlement gerekiyor)",
+      "openSourceApiKapisi": "403",
+      "tarih": "2026-10-17"
+    },
+    "agirliklar": { "terminalAgentik": 25, "uzunRepoKod": 20, "hiz": 20, "fiyat": 20, "ctxMaxCikis": 15 },
+    "skorlar": [
+      { "sira": 1, "model": "glm-5.3", "puan": 91, "terminalAgentik": 24, "uzunRepoKod": 17, "hiz": 16, "fiyat": 19, "ctx": 15, "fiyatG": 1.4, "fiyatC": 4.4, "ctxToken": 1048576, "maksCikis": 131072, "tpsDisa": 83, "not": "agentik lane 70.2 (#8/128); TB3.0 28.3 lider; Vals testi thinking max ile ~73 dk - high/medium kullan" },
+      { "sira": 2, "model": "deepseek-v4-pro", "puan": 86, "terminalAgentik": 19, "uzunRepoKod": 15, "hiz": 18, "fiyat": 20, "ctx": 14, "fiyatG": 1.32, "fiyatC": 3.96, "tpsDisa": 115, "not": "en ucuz + en hizli; kod lane 47.2 daha dusuk" },
+      { "sira": 3, "model": "kimi-k3", "puan": 75, "terminalAgentik": 24, "uzunRepoKod": 19, "hiz": 9, "fiyat": 8, "ctx": 15, "fiyatG": 3.0, "fiyatC": 15.0, "tpsDisa": 41.7, "not": "gorsel/video giris + en uzun repo isi (SWE-Marathon 48.1); cikis token'i 3.4x pahali" },
+      { "sira": null, "model": "qwen3.8-max", "puan": 0, "note": "codefast katalogunda YOK - bu yolla alinamaz" }
+    ],
+    "dogrulamaKapisi": [
+      "GET https://api.codefast.app/glm-api/v1/models -> 200 beklenir",
+      "paseo_list_models(codefast-glm) -> glm-5.3 gorunur",
+      "tek ajan turu: NUM=391 dogrula",
+      "403 kalirsa: root katalog route varsayimi dogrulanmamis sayilir"
+    ],
+    "etiket": "* ucuncu taraf (BenchLM / Vals AI / Z.ai model karti / Respan / EmpirioLabs / CodingFleet) - kendi olcumumuz degil"
+  },
+  "onerilenKullanim": {
+    "birincilYazar": "tokenharbor/deepseek-v4.1-flash:free (thinking codex:high)",
+    "derinIsler": "tokenharbor/mimo-v2.5:free (tier high, 5/5 terminal)",
+    "tekSeferlikHiz": "openrouter/cohere/north-mini-code:free (223.6 t/s)",
+    "kabulEtme": ["codefast/kimi-k3 (bakiye/ucretli)", "codefast-glm/glm-5.3 (403)", "kilo free (limit)", "nvidia glm-5.3-flash (1.2 t/s)", "poolside/laguna-* (1.6-2.5 t/s + sapma)"]
+  },
+  "bosluklar": [
+    "qoder/Qwen3.8-Flash icin ham API + IQ seti olcumu yapilmadi",
+    "kimi-k3 kod FAIL'i (10-15) tekrar edilmedi - tek kosu",
+    "hicbir free model icin resmi SWE-bench/Terminal-Bench olcumu yok"
+  ]
+}

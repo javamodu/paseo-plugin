@@ -1,0 +1,55 @@
+{
+  "schemaSurum": 1,
+  "tarih": "2026-10-19",
+  "konu": "GLM 5.3 motor uyumluluk matrisi",
+  "top30": {
+    "sira": 1,
+    "puan": 86,
+    "etiket": "A/R",
+    "kaynak": "raporlar/saf-performans-top30-2026-10-18.md"
+  },
+  "motorlar": [
+    {
+      "motor": "Claude Code",
+      "durum": "CALISIYOR",
+      "kanit": "raporlar/bench-glm-claude-2026-10-18/bench.json",
+      "olcum": {
+        "tps": 22.6,
+        "iq": 100,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "uyum": "PASS"
+      },
+      "bugunkuDeneme": "raporlar/bench-glm-claude-2026-10-19/bench.json (ECONNREFUSED, olculen=0, gecersiz)"
+    },
+    {
+      "motor": "KiloCode/Kilo",
+      "durum": "CALISIYOR",
+      "kanit": "E2E-OK-GLM53-KILO",
+      "modelYolu": "glmcodefast/glm-5.3",
+      "bugunkuDeneme": "kilo.cmd --help sandbox EPERM; urun karari degil"
+    },
+    {
+      "motor": "OpenCode",
+      "durum": "YOL_VAR_E2E_KANIT_YOK",
+      "kanit": "raporlar/model-katalog-2026-10-18/katalog.json + 2026-10-17 401 kaydi",
+      "modelYolu": "glmcodefast/glm-5.3",
+      "bugunkuDeneme": "opencode.cmd models EEXIST"
+    },
+    {
+      "motor": "Codex",
+      "durum": "CALISMIYOR",
+      "kanit": "LLM-PROVIDER-REHBERI.md /responses 404 + /chat 200",
+      "not": "codefast-glm karti bilincli kapali; ACP gerekir"
+    }
+  ],
+  "olcumOzeti": {
+    "hamChatMedyanTps": 82.1,
+    "anthropicTelMedyanTps": 101.1,
+    "claudeMotorTps": 22.6,
+    "iq": 100,
+    "terminal": "5/5",
+    "kod": "PASS",
+    "uyum": "PASS"
+  }
+}

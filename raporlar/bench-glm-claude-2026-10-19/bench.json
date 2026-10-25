@@ -1,0 +1,54 @@
+{
+  "tarih": "2026-10-19",
+  "hedef": 1,
+  "olculen": 0,
+  "rows": [
+    {
+      "provider": "claude-glm",
+      "model": "glm-5.3",
+      "motor": "claude-code",
+      "erisim": "claude -p (Anthropic /v1/messages)",
+      "tps": null,
+      "hizToken": 0,
+      "sn": 182.53,
+      "IQ": 0,
+      "iqDogru": [],
+      "iqKacan": [
+        "C1(977)",
+        "C2(72)",
+        "C3(4.5)",
+        "C4(195.5)",
+        "C5(7006652)",
+        "C6(289)"
+      ],
+      "terminal": "0/5",
+      "termKacan": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5"
+      ],
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "uyum": "FAIL",
+      "durumlar": {
+        "hiz": "success",
+        "iq": "success",
+        "term": "success",
+        "kod": "success",
+        "uyum": "success"
+      },
+      "hata": "",
+      "hizOrnek": "API Error: Connection refused — a firewall or proxy may be blocking it (ECONNREF",
+      "iqSn": 183.97,
+      "iqToken": 0,
+      "iqOrnek": "API Error: Connection refused — a firewall or proxy may be blocking it (ECONNREFUSED)",
+      "termSn": 180.74,
+      "termOrnek": "API Error: Connection refused — a firewall or proxy may be blocking it (ECONNREFUSED)",
+      "kodSn": 185.34,
+      "kodOrnek": "",
+      "uyumSn": 176.94,
+      "uyumOrnek": ""
+    }
+  ]
+}

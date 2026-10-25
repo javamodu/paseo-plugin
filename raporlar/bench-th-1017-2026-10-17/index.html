@@ -1,0 +1,49 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Paseo model bench 2026-10-17</title>
+<style>
+body{font:14px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:24px;color:#111;background:#fafafa}
+h1{font-size:18px;margin:0 0 4px} .ozet{color:#555;margin-bottom:14px;max-width:1100px}
+input,select{font:inherit;padding:5px 8px;margin:0 8px 12px 0;border:1px solid #ccc;border-radius:6px;background:#fff}
+table{border-collapse:collapse;width:100%;background:#fff}
+th,td{border-bottom:1px solid #e5e5e5;padding:6px 8px;text-align:left;white-space:nowrap}
+th{cursor:pointer;position:sticky;top:0;background:#f0f0f0} th:hover{background:#e2e2e2}
+th.sirali{background:#d8e6ff}
+td.n{text-align:right} .ok{color:#0a7a2f} .kotu{color:#b00020} .pas{color:#777}
+tr.hatali td{background:#fff4f4}
+</style></head><body>
+<h1>Paseo model benchmark — 2026-10-17</h1>
+<div class="ozet">Hedef: <b>5</b> model · Ölçülen: <b>0</b> · Uç: ham API (chat/completions → responses yedeği).<br>
+<b>(ölçüm)</b> bu araçla bugün ölçüldü: speed t/s = çıktı token / saniye · IQ = 6 soruluk hesap/kombinatorik · terminal = 5 komut-yazımı sorusu (satır bazlı kalıp + <code>dd</code> için bayt matematiği) · kod = vm sandbox'ında çalıştırılan fonksiyon · JSON uyum = şema kontrolü · akıl krk = reasoning karakteri. Renklendirme yalnız puan/metin sütunlarında; süre, context, fiyat gibi nicelikler tarafsız.<br>
+<b>Katalog</b> alanları provider'ın kendi <code>/models</code> cevabından: context, maks çıkış, fiyat, tier, tool call, prompt cache, desteklenen parametre sayısı.<br>
+<b>*</b> ile işaretli sütunlar <u>dış kaynaklı yayımlanmış puandır, burada ölçülmedi</u>; değerler <code>scripts/bench-puanlari.json</code> içinde URL'li kaynağıyla durur, kaynaksız model <code>—</code> görünür (bu "puan yok" demektir, sıfır değil). Sütun başlığına tıklayarak sırala.</div>
+<input id="q" placeholder="model/provider ara…" oninput="ciz()">
+<select id="f" onchange="ciz()"><option value="">tümü</option><option value="olc">sadece ölçülen</option><option value="hata">sadece hatalı</option><option value="yayin">sadece yayımlı puanı olan</option></select>
+<table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table>
+<script>
+const R=[{"provider":"tokenharbor","model":"deepseek-v4-flash:free","erisim":"ham-API","tps":null,"hizToken":0,"sn":0.58,"IQ":0,"iqDogru":[],"iqKacan":["C1(977)","C2(72)","C3(4.5)","C4(195.5)","C5(7006652)","C6(289)"],"terminal":"0/5","termKacan":["T1","T2","T3","T4","T5"],"kod":"FAIL:fonksiyon bulunamadi","uyum":"FAIL","reasoningKarakter":0,"bitis":null,"context":1000000,"maksCikis":null,"fiyatG":0,"fiyatC":0,"tier":"low","toolCall":"evet","promptCache":"evet","parametreler":null,"swebench":null,"terminalBench":null,"aa":null,"puanKaynak":null,"hata":"You've used this period's free allowance. Your next rolling 7-day period starts on 20 Oct 2026 at 05:38 UTC. Use the pai","termOrnek":"","kodOrnek":"","uyumOrnek":""},{"provider":"tokenharbor","model":"deepseek-v4.1-flash:free","erisim":"ham-API","tps":null,"hizToken":0,"sn":0.69,"IQ":0,"iqDogru":[],"iqKacan":["C1(977)","C2(72)","C3(4.5)","C4(195.5)","C5(7006652)","C6(289)"],"terminal":"0/5","termKacan":["T1","T2","T3","T4","T5"],"kod":"FAIL:fonksiyon bulunamadi","uyum":"FAIL","reasoningKarakter":0,"bitis":null,"context":1048576,"maksCikis":null,"fiyatG":0,"fiyatC":0,"tier":"low","toolCall":"evet","promptCache":"evet","parametreler":null,"swebench":null,"terminalBench":null,"aa":null,"puanKaynak":null,"hata":"You've used this period's free allowance. Your next rolling 7-day period starts on 20 Oct 2026 at 05:38 UTC. Use the pai","termOrnek":"","kodOrnek":"","uyumOrnek":""},{"provider":"tokenharbor","model":"mimo-v2.5:free","erisim":"ham-API","tps":null,"hizToken":0,"sn":1.91,"IQ":0,"iqDogru":[],"iqKacan":["C1(977)","C2(72)","C3(4.5)","C4(195.5)","C5(7006652)","C6(289)"],"terminal":"0/5","termKacan":["T1","T2","T3","T4","T5"],"kod":"FAIL:fonksiyon bulunamadi","uyum":"FAIL","reasoningKarakter":0,"bitis":null,"context":1048576,"maksCikis":null,"fiyatG":0,"fiyatC":0,"tier":"high","toolCall":"evet","promptCache":"evet","parametreler":null,"swebench":null,"terminalBench":null,"aa":null,"puanKaynak":null,"hata":"You've used this period's free allowance. Your next rolling 7-day period starts on 20 Oct 2026 at 05:38 UTC. Use the pai","termOrnek":"","kodOrnek":"","uyumOrnek":""},{"provider":"tokenharbor","model":"mimo-v2.6-flash:free","erisim":"ham-API","tps":null,"hizToken":0,"sn":0.65,"IQ":0,"iqDogru":[],"iqKacan":["C1(977)","C2(72)","C3(4.5)","C4(195.5)","C5(7006652)","C6(289)"],"terminal":"0/5","termKacan":["T1","T2","T3","T4","T5"],"kod":"FAIL:fonksiyon bulunamadi","uyum":"FAIL","reasoningKarakter":0,"bitis":null,"context":1048576,"maksCikis":null,"fiyatG":0,"fiyatC":0,"tier":"low","toolCall":"evet","promptCache":"evet","parametreler":null,"swebench":null,"terminalBench":null,"aa":null,"puanKaynak":null,"hata":"You've used this period's free allowance. Your next rolling 7-day period starts on 20 Oct 2026 at 05:38 UTC. Use the pai","termOrnek":"","kodOrnek":"","uyumOrnek":""},{"provider":"tokenharbor","model":"deepseek-v4.1-flash-1017","erisim":"ham-API","tps":null,"hizToken":0,"sn":0.49,"IQ":0,"iqDogru":[],"iqKacan":["C1(977)","C2(72)","C3(4.5)","C4(195.5)","C5(7006652)","C6(289)"],"terminal":"0/5","termKacan":["T1","T2","T3","T4","T5"],"kod":"FAIL:fonksiyon bulunamadi","uyum":"FAIL","reasoningKarakter":0,"bitis":null,"context":1048576,"maksCikis":null,"fiyatG":0.14,"fiyatC":0.42,"tier":"low","toolCall":"evet","promptCache":"evet","parametreler":null,"swebench":null,"terminalBench":null,"aa":null,"puanKaynak":null,"hata":"Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep using paid models.","termOrnek":"","kodOrnek":"","uyumOrnek":""}];
+const COLS=[["provider","provider","s"],["model","model","s"],["erisim","erişim","s"],["tps","speed t/s","n"],["IQ","IQ (ölçüm)","n","puan"],["terminal","terminal (ölçüm)","s","metin"],["kod","kod (ölçüm)","s","metin"],["uyum","JSON uyum","s","metin"],["reasoningKarakter","akıl krk","n"],["context","context","n"],["maksCikis","maks çıkış","n"],["fiyatG","$ girdi/1M","n"],["fiyatC","$ çıktı/1M","n"],["tier","tier","s"],["toolCall","tool call","s"],["promptCache","prompt cache","s"],["parametreler","parametre sayısı","n"],["swebench","SWE-bench *","n","puan"],["terminalBench","Terminal-Bench *","n","puan"],["aa","AA intelligence *","n","puan"],["sn","süre sn","n"],["bitis","bitiş","s"],["puanKaynak","puan kaynağı","s"],["hata","hata","s"]];
+let key=3,asc=false;
+const sinif=(p,v)=>{if(v==null||v==='')return 'pas';const s=String(v);if(p==='puan'){const x=Number(s);return x>=100?'ok':(x>0&&x<50?'kotu':'')}if(p==='metin')return /^PASS$|^[45][/][5]$/.test(s)?'ok':(/^FAIL|^ATLA|^yok|^[012][/][5]$/.test(s)?'kotu':'');return ''};
+function thOlustur(){document.getElementById('th').textContent='';COLS.forEach((c,i)=>{const th=document.createElement('th');th.textContent=c[1]+(key===i?(asc?' ▲':' ▼'):'');th.onclick=()=>sirala(i);document.getElementById('th').appendChild(th)});}
+function sirala(i){asc=(key===i)?!asc:true;key=i;ciz();}
+function ciz(){
+  const q=document.getElementById('q').value.toLowerCase(),f=document.getElementById('f').value;
+  let r=R.filter(x=>(!q||(x.provider+' '+x.model).toLowerCase().includes(q))&&(f!=='olc'||x.tps>0)&&(f!=='hata'||(x.hata||'').length>0)&&(f!=='yayin'||x.swebench!=null||x.terminalBench!=null||x.aa!=null));
+  r.sort((a,b)=>{const k=COLS[key][0];let A=a[k],B=b[k];const bosA=A==null||A==='',bosB=B==null||B==='';if(bosA&&bosB)return 0;if(bosA)return 1;if(bosB)return -1;if(typeof A==='string'||typeof B==='string'){A=String(A);B=String(B);return asc?A.localeCompare(B,'tr'):B.localeCompare(A,'tr')}return asc?A-B:B-A});
+  const tb=document.getElementById('tb');tb.textContent='';
+  for(const x of r){
+    const tr=document.createElement('tr');if((x.hata||'').length)tr.className='hatali';
+    for(const [k,label,t,p] of COLS){
+      const td=document.createElement('td');
+      const ham=x[k];const bos=ham==null||ham==='';
+      if(t==='n'&&!bos)td.className='n';
+      const v=bos?'—':ham;
+      if(k!=='provider'&&k!=='model'&&k!=='erisim')td.className+=' '+sinif(p,bos?'':ham);
+      td.textContent=String(v).slice(0,120);tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  }
+  if(!r.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=COLS.length;td.textContent='sonuç yok';tr.appendChild(td);tb.appendChild(tr)}
+  thOlustur();
+}
+ciz();
+</script></body></html>

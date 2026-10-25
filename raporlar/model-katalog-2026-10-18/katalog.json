@@ -1,0 +1,3707 @@
+{
+  "tarih": "2026-10-18",
+  "toplamModel": 83,
+  "cokluSaglayici": 33,
+  "kayit": 119,
+  "gruplar": [
+    {
+      "kanonik": "deepseek-v4.1-flash",
+      "providerSayisi": 3,
+      "toplamKayit": 3,
+      "satirlar": [
+        {
+          "kanonik": "deepseek-v4.1-flash",
+          "provider": "tokenharbor",
+          "modelId": "deepseek-v4.1-flash:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": 0,
+          "fiyatC": 0,
+          "tier": "low",
+          "olculdu": true,
+          "tps": 133.4,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": {
+            "swebench": null,
+            "terminalBench": null,
+            "aa": null
+          }
+        },
+        {
+          "kanonik": "deepseek-v4.1-flash",
+          "provider": "opencode",
+          "modelId": "opencode/deepseek-v4.1-flash",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 0.15,
+          "fiyatC": 0.6,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": {
+            "swebench": null,
+            "terminalBench": null,
+            "aa": null
+          }
+        },
+        {
+          "kanonik": "deepseek-v4.1-flash",
+          "provider": "opencode",
+          "modelId": "opencode/deepseek-v4.1-flash-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 0.15,
+          "fiyatC": 0.6,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": {
+            "swebench": null,
+            "terminalBench": null,
+            "aa": null
+          }
+        }
+      ],
+      "enUcuz": {
+        "provider": "tokenharbor",
+        "modelId": "deepseek-v4.1-flash:free",
+        "fiyatG": 0,
+        "fiyatC": 0
+      },
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 133.4,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": {
+        "swebench": null,
+        "terminalBench": null,
+        "aa": null
+      }
+    },
+    {
+      "kanonik": "mimo-v2.6-flash",
+      "providerSayisi": 3,
+      "toplamKayit": 3,
+      "satirlar": [
+        {
+          "kanonik": "mimo-v2.6-flash",
+          "provider": "tokenharbor",
+          "modelId": "mimo-v2.6-flash:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": 0,
+          "fiyatC": 0,
+          "tier": "low",
+          "olculdu": true,
+          "tps": 4.2,
+          "terminal": "0/5",
+          "kod": "PASS",
+          "IQ": 0,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "mimo-v2.6-flash",
+          "provider": "opencode",
+          "modelId": "opencode/mimo-v2.6-flash-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "mimo-v2.6-flash",
+          "provider": "kilo",
+          "modelId": "opencode/mimo-v2.6-flash-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": {
+        "provider": "tokenharbor",
+        "modelId": "mimo-v2.6-flash:free",
+        "fiyatG": 0,
+        "fiyatC": 0
+      },
+      "ctx": 1048576,
+      "olculen": 3,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3.5-lightning",
+      "providerSayisi": 3,
+      "toplamKayit": 3,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3.5-lightning",
+          "provider": "opencode",
+          "modelId": "opencode/nemotron-3.5-lightning-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3.5-lightning",
+          "provider": "kilo",
+          "modelId": "opencode/nemotron-3.5-lightning-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3.5-lightning",
+          "provider": "openrouter",
+          "modelId": "nvidia/nemotron-3.5-lightning:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1000000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model request",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1000000,
+      "olculen": 3,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "deepseek-v4-flash",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "deepseek-v4-flash",
+          "provider": "tokenharbor",
+          "modelId": "deepseek-v4-flash:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1000000,
+          "maks": null,
+          "fiyatG": 0,
+          "fiyatC": 0,
+          "tier": "low",
+          "olculdu": true,
+          "tps": 81.6,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "deepseek-v4-flash",
+          "provider": "codefast-os",
+          "modelId": "deepseek-v4-flash",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": {
+        "provider": "tokenharbor",
+        "modelId": "deepseek-v4-flash:free",
+        "fiyatG": 0,
+        "fiyatC": 0
+      },
+      "ctx": 1000000,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": 81.6,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "deepseek-v4-pro",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "deepseek-v4-pro",
+          "provider": "codefast-os",
+          "modelId": "deepseek-v4-pro",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        },
+        {
+          "kanonik": "deepseek-v4-pro",
+          "provider": "deepseek",
+          "modelId": "deepseek-v4-pro",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "gemma-4-31b-it",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "gemma-4-31b-it",
+          "provider": "nvidia",
+          "modelId": "google/gemma-4-31b-it",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "gemma-4-31b-it",
+          "provider": "openrouter",
+          "modelId": "google/gemma-4-31b-it:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 262144,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Provider returned error",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 262144,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "glm-5.2",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "glm-5.2",
+          "provider": "codefast-os",
+          "modelId": "glm-5.2",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        },
+        {
+          "kanonik": "glm-5.2",
+          "provider": "claude-glm",
+          "modelId": "glm-5.2",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "glm-5.3",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "glm-5.3",
+          "provider": "codefast-os",
+          "modelId": "glm-5.3",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 1.4,
+          "fiyatC": 4.4,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": {
+            "swebench": 95.4,
+            "terminalBench": 88.2,
+            "aa": 45
+          }
+        },
+        {
+          "kanonik": "glm-5.3",
+          "provider": "claude-glm",
+          "modelId": "glm-5.3",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 1.4,
+          "fiyatC": 4.4,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": {
+            "swebench": 95.4,
+            "terminalBench": 88.2,
+            "aa": 45
+          }
+        }
+      ],
+      "enUcuz": {
+        "provider": "codefast-os",
+        "modelId": "glm-5.3",
+        "fiyatG": 1.4,
+        "fiyatC": 4.4
+      },
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": {
+        "swebench": 95.4,
+        "terminalBench": 88.2,
+        "aa": 45
+      }
+    },
+    {
+      "kanonik": "glmcodefast/glm-5.3",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "glmcodefast/glm-5.3",
+          "provider": "opencode",
+          "modelId": "glmcodefast/glm-5.3",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "glmcodefast/glm-5.3",
+          "provider": "kilo",
+          "modelId": "glmcodefast/glm-5.3",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/stepfun/step-5-preview",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "kilo/stepfun/step-5-preview",
+          "provider": "kilo",
+          "modelId": "kilo/stepfun/step-5-preview-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "kilo/stepfun/step-5-preview",
+          "provider": "kilo",
+          "modelId": "kilo/stepfun/step-5-preview",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kimi-k3",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "kimi-k3",
+          "provider": "codefast",
+          "modelId": "kimi-k3",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 3,
+          "fiyatC": 15,
+          "tier": null,
+          "olculdu": true,
+          "tps": 46.8,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": {
+            "swebench": null,
+            "terminalBench": 88.3,
+            "aa": 44
+          }
+        },
+        {
+          "kanonik": "kimi-k3",
+          "provider": "codefast-os",
+          "modelId": "kimi-k3",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": 3,
+          "fiyatC": 15,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": {
+            "swebench": null,
+            "terminalBench": 88.3,
+            "aa": 44
+          }
+        }
+      ],
+      "enUcuz": {
+        "provider": "codefast",
+        "modelId": "kimi-k3",
+        "fiyatG": 3,
+        "fiyatC": 15
+      },
+      "ctx": null,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": 46.8,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": {
+        "swebench": null,
+        "terminalBench": 88.3,
+        "aa": 44
+      }
+    },
+    {
+      "kanonik": "laguna-xs-2.1",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "laguna-xs-2.1",
+          "provider": "nvidia",
+          "modelId": "poolside/laguna-xs-2.1",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "laguna-xs-2.1",
+          "provider": "openrouter",
+          "modelId": "poolside/laguna-xs-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 262144,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model request",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 262144,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "longcat-2.5-preview",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "longcat-2.5-preview",
+          "provider": "opencode",
+          "modelId": "opencode/longcat-2.5-preview-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "longcat-2.5-preview",
+          "provider": "kilo",
+          "modelId": "opencode/longcat-2.5-preview-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3-nano-omni-30b-a3b-reasoning",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3-nano-omni-30b-a3b-reasoning",
+          "provider": "nvidia",
+          "modelId": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3-nano-omni-30b-a3b-reasoning",
+          "provider": "openrouter",
+          "modelId": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 256000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 42.5,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 256000,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 42.5,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3-super-120b-a12b",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3-super-120b-a12b",
+          "provider": "nvidia",
+          "modelId": "nvidia/nemotron-3-super-120b-a12b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3-super-120b-a12b",
+          "provider": "openrouter",
+          "modelId": "nvidia/nemotron-3-super-120b-a12b:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 262144,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 60.8,
+          "terminal": "0/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 262144,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 60.8,
+        "terminal": "0/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3-ultra",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3-ultra",
+          "provider": "opencode",
+          "modelId": "opencode/nemotron-3-ultra-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3-ultra",
+          "provider": "kilo",
+          "modelId": "opencode/nemotron-3-ultra-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3-ultra-550b-a55b",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3-ultra-550b-a55b",
+          "provider": "codefast-os",
+          "modelId": "nvidia/nemotron-3-ultra-550b-a55b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        },
+        {
+          "kanonik": "nemotron-3-ultra-550b-a55b",
+          "provider": "openrouter",
+          "modelId": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1000000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 129.9,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1000000,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/cohere/north-mini-code",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/cohere/north-mini-code",
+          "provider": "kilo",
+          "modelId": "openrouter/cohere/north-mini-code:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/cohere/north-mini-code",
+          "provider": "pi",
+          "modelId": "openrouter/cohere/north-mini-code:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/dots-studio/dots-3-note-preview",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/dots-studio/dots-3-note-preview",
+          "provider": "kilo",
+          "modelId": "openrouter/dots-studio/dots-3-note-preview:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/dots-studio/dots-3-note-preview",
+          "provider": "pi",
+          "modelId": "openrouter/dots-studio/dots-3-note-preview:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/google/gemma-4-26b-a4b-it",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/google/gemma-4-26b-a4b-it",
+          "provider": "kilo",
+          "modelId": "openrouter/google/gemma-4-26b-a4b-it:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/google/gemma-4-26b-a4b-it",
+          "provider": "pi",
+          "modelId": "openrouter/google/gemma-4-26b-a4b-it:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/google/gemma-4-31b-it",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/google/gemma-4-31b-it",
+          "provider": "kilo",
+          "modelId": "openrouter/google/gemma-4-31b-it:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/google/gemma-4-31b-it",
+          "provider": "pi",
+          "modelId": "openrouter/google/gemma-4-31b-it:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/liquid/lfm-2.5-2.6b",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/liquid/lfm-2.5-2.6b",
+          "provider": "kilo",
+          "modelId": "openrouter/liquid/lfm-2.5-2.6b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/liquid/lfm-2.5-2.6b",
+          "provider": "pi",
+          "modelId": "openrouter/liquid/lfm-2.5-2.6b:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+          "provider": "kilo",
+          "modelId": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+          "provider": "pi",
+          "modelId": "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/nvidia/nemotron-3-super-120b-a12b",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-super-120b-a12b",
+          "provider": "kilo",
+          "modelId": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-super-120b-a12b",
+          "provider": "pi",
+          "modelId": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/nvidia/nemotron-3-ultra-550b-a55b",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-ultra-550b-a55b",
+          "provider": "kilo",
+          "modelId": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3-ultra-550b-a55b",
+          "provider": "pi",
+          "modelId": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/nvidia/nemotron-3.5-content-safety",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3.5-content-safety",
+          "provider": "kilo",
+          "modelId": "openrouter/nvidia/nemotron-3.5-content-safety:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3.5-content-safety",
+          "provider": "pi",
+          "modelId": "openrouter/nvidia/nemotron-3.5-content-safety:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/nvidia/nemotron-3.5-lightning",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3.5-lightning",
+          "provider": "kilo",
+          "modelId": "openrouter/nvidia/nemotron-3.5-lightning:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/nvidia/nemotron-3.5-lightning",
+          "provider": "pi",
+          "modelId": "openrouter/nvidia/nemotron-3.5-lightning:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/poolside/laguna-s-2.1",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/poolside/laguna-s-2.1",
+          "provider": "kilo",
+          "modelId": "openrouter/poolside/laguna-s-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/poolside/laguna-s-2.1",
+          "provider": "pi",
+          "modelId": "openrouter/poolside/laguna-s-2.1:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/poolside/laguna-xs-2.1",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/poolside/laguna-xs-2.1",
+          "provider": "kilo",
+          "modelId": "openrouter/poolside/laguna-xs-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/poolside/laguna-xs-2.1",
+          "provider": "pi",
+          "modelId": "openrouter/poolside/laguna-xs-2.1:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/thinkingmachines/inkling",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/thinkingmachines/inkling",
+          "provider": "kilo",
+          "modelId": "openrouter/thinkingmachines/inkling:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/thinkingmachines/inkling",
+          "provider": "pi",
+          "modelId": "openrouter/thinkingmachines/inkling:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/thinkingmachines/inkling-small",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/thinkingmachines/inkling-small",
+          "provider": "kilo",
+          "modelId": "openrouter/thinkingmachines/inkling-small:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "openrouter/thinkingmachines/inkling-small",
+          "provider": "pi",
+          "modelId": "openrouter/thinkingmachines/inkling-small:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "space-bunny",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "space-bunny",
+          "provider": "opencode",
+          "modelId": "opencode/space-bunny-free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "space-bunny",
+          "provider": "kilo",
+          "modelId": "opencode/space-bunny-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 2,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "step-5-preview",
+      "providerSayisi": 2,
+      "toplamKayit": 2,
+      "satirlar": [
+        {
+          "kanonik": "step-5-preview",
+          "provider": "kilo",
+          "modelId": "opencode/step-5-preview-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        },
+        {
+          "kanonik": "step-5-preview",
+          "provider": "nvidia",
+          "modelId": "stepfun-ai/step-5-preview",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "allam-2-7b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "allam-2-7b",
+          "provider": "groq",
+          "modelId": "allam-2-7b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 4096,
+          "maks": 4096,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 1242.2,
+          "terminal": "0/5",
+          "kod": "FAIL:bek=220,0,56 got=9,NaN,4",
+          "IQ": 0,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 4096,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 1242.2,
+        "terminal": "0/5",
+        "kod": "FAIL:bek=220,0,56 got=9,NaN,4",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "cat-jam",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "cat-jam",
+          "provider": "kilo",
+          "modelId": "opencode/cat-jam-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "codefastk3unlimited",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "codefastk3unlimited",
+          "provider": "codefast",
+          "modelId": "codefastk3unlimited",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 53.9,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 53.9,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "deepseek-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "deepseek-flash",
+          "provider": "deepseek",
+          "modelId": "deepseek-flash",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "deepseek-v4.1-flash-1017",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "deepseek-v4.1-flash-1017",
+          "provider": "tokenharbor",
+          "modelId": "deepseek-v4.1-flash-1017",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": 0.075,
+          "fiyatC": 0.3,
+          "tier": "low",
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Your Token Harbor balance is at $0. Top up at https://tokenharbor.ai/dashboard to keep usi",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": {
+        "provider": "tokenharbor",
+        "modelId": "deepseek-v4.1-flash-1017",
+        "fiyatG": 0.075,
+        "fiyatC": 0.3
+      },
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "deepseek/deepseek-v4.1-flash-1017",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "deepseek/deepseek-v4.1-flash-1017",
+          "provider": "openrouter",
+          "modelId": "deepseek/deepseek-v4.1-flash-1017",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "PASS",
+          "IQ": 0,
+          "hata": "This request requires more credits, or fewer max_tokens. You requested up to 4000 tokens, ",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "PASS",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "diffusiongemma-26b-a4b-it",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "diffusiongemma-26b-a4b-it",
+          "provider": "nvidia",
+          "modelId": "google/diffusiongemma-26b-a4b-it",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "dots-studio/dots-3-note-preview",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "dots-studio/dots-3-note-preview",
+          "provider": "openrouter",
+          "modelId": "dots-studio/dots-3-note-preview:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 512000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 98.6,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 512000,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 98.6,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "exo",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "exo",
+          "provider": "kilo",
+          "modelId": "opencode/exo-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "gemma-4-26b-a4b-it",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "gemma-4-26b-a4b-it",
+          "provider": "openrouter",
+          "modelId": "google/gemma-4-26b-a4b-it:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 262144,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Provider returned error",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 262144,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "glm-5.1",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "glm-5.1",
+          "provider": "codefast-os",
+          "modelId": "glm-5.1",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "glm-5.3-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "glm-5.3-flash",
+          "provider": "nvidia",
+          "modelId": "z-ai/glm-5.3-flash",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "gpt-oss-120b-medium",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "gpt-oss-120b-medium",
+          "provider": "codefast-os",
+          "modelId": "gpt-oss-120b-medium",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "inkling",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "inkling",
+          "provider": "openrouter",
+          "modelId": "thinkingmachines/inkling:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "thinkingmachines/inkling:free is only available on agentic harnesses. Try plugging it into",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "inkling-small",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "inkling-small",
+          "provider": "openrouter",
+          "modelId": "thinkingmachines/inkling-small:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "thinkingmachines/inkling-small:free is only available on agentic harnesses. Try plugging i",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/cohere/north-mini-code",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/cohere/north-mini-code",
+          "provider": "kilo",
+          "modelId": "kilo/cohere/north-mini-code:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/dots-studio/dots-3-note-preview",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/dots-studio/dots-3-note-preview",
+          "provider": "kilo",
+          "modelId": "kilo/dots-studio/dots-3-note-preview:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/kilo-auto/free",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/kilo-auto/free",
+          "provider": "kilo",
+          "modelId": "kilo/kilo-auto/free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/liquid/lfm-2.5-2.6b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/liquid/lfm-2.5-2.6b",
+          "provider": "kilo",
+          "modelId": "kilo/liquid/lfm-2.5-2.6b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+          "provider": "kilo",
+          "modelId": "kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/nvidia/nemotron-3-super-120b-a12b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/nvidia/nemotron-3-super-120b-a12b",
+          "provider": "kilo",
+          "modelId": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/nvidia/nemotron-3-ultra-550b-a55b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/nvidia/nemotron-3-ultra-550b-a55b",
+          "provider": "kilo",
+          "modelId": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/nvidia/nemotron-3.5-lightning",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/nvidia/nemotron-3.5-lightning",
+          "provider": "kilo",
+          "modelId": "kilo/nvidia/nemotron-3.5-lightning:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/openrouter/free",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/openrouter/free",
+          "provider": "kilo",
+          "modelId": "kilo/openrouter/free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/poolside/laguna-s-2.1",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/poolside/laguna-s-2.1",
+          "provider": "kilo",
+          "modelId": "kilo/poolside/laguna-s-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/poolside/laguna-xs-2.1",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/poolside/laguna-xs-2.1",
+          "provider": "kilo",
+          "modelId": "kilo/poolside/laguna-xs-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/stealth/glyph-cluster",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/stealth/glyph-cluster",
+          "provider": "kilo",
+          "modelId": "kilo/stealth/glyph-cluster",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "kilo/thinkingmachines/inkling-small",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "kilo/thinkingmachines/inkling-small",
+          "provider": "kilo",
+          "modelId": "kilo/thinkingmachines/inkling-small:free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "laguna-s-2.1",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "laguna-s-2.1",
+          "provider": "openrouter",
+          "modelId": "poolside/laguna-s-2.1:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 262144,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model request",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 262144,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "liquid/lfm-2.5-2.6b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "liquid/lfm-2.5-2.6b",
+          "provider": "openrouter",
+          "modelId": "liquid/lfm-2.5-2.6b:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 65536,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 266.1,
+          "terminal": "0/5",
+          "kod": "FAIL:bek=220,0,56 got=385,0,91",
+          "IQ": 0,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 65536,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 266.1,
+        "terminal": "0/5",
+        "kod": "FAIL:bek=220,0,56 got=385,0,91",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "llama-3.2-11b-vision-instruct",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "llama-3.2-11b-vision-instruct",
+          "provider": "nvidia",
+          "modelId": "meta/llama-3.2-11b-vision-instruct",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "mimo-v2.5",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "mimo-v2.5",
+          "provider": "tokenharbor",
+          "modelId": "mimo-v2.5:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": 0,
+          "fiyatC": 0,
+          "tier": "high",
+          "olculdu": true,
+          "tps": 24.2,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": {
+        "provider": "tokenharbor",
+        "modelId": "mimo-v2.5:free",
+        "fiyatG": 0,
+        "fiyatC": 0
+      },
+      "ctx": 1048576,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 24.2,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "mimo-v2.5-pro",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "mimo-v2.5-pro",
+          "provider": "codefast-os",
+          "modelId": "mimo-v2.5-pro",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "minimax-m3",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "minimax-m3",
+          "provider": "codefast-os",
+          "modelId": "minimax-m3",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "muse-glimmer-30b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "muse-glimmer-30b",
+          "provider": "nvidia",
+          "modelId": "meta/muse-glimmer-30b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "muse-spark-1.3-contributor",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "muse-spark-1.3-contributor",
+          "provider": "kilo",
+          "modelId": "opencode/muse-spark-1.3-contributor-free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3.5-content-safety",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3.5-content-safety",
+          "provider": "openrouter",
+          "modelId": "nvidia/nemotron-3.5-content-safety:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 128000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 68.2,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 128000,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 68.2,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "nemotron-3.5-super-vl-120b-a12b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "nemotron-3.5-super-vl-120b-a12b",
+          "provider": "nvidia",
+          "modelId": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "north-mini-code",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "north-mini-code",
+          "provider": "openrouter",
+          "modelId": "cohere/north-mini-code:free",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 256000,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 223.6,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 256000,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 223.6,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openai/gpt-oss-120b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "openai/gpt-oss-120b",
+          "provider": "groq",
+          "modelId": "openai/gpt-oss-120b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 131072,
+          "maks": 65536,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 296.1,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 131072,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 296.1,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openai/gpt-oss-20b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "openai/gpt-oss-20b",
+          "provider": "groq",
+          "modelId": "openai/gpt-oss-20b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 131072,
+          "maks": 65536,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 448.9,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 100,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 131072,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 448.9,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 100
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "openrouter/openrouter/free",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "openrouter/openrouter/free",
+          "provider": "kilo",
+          "modelId": "openrouter/openrouter/free",
+          "tur": "codex-extends",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": 0,
+          "hata": "base_url yok (ACP/native katalog) — ham API olcumu yapilamaz",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": null,
+        "kod": null,
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "qwen3.8-27b",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "qwen3.8-27b",
+          "provider": "groq",
+          "modelId": "qwen/qwen3.8-27b",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 131072,
+          "maks": 16384,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": 369.9,
+          "terminal": "5/5",
+          "kod": "PASS",
+          "IQ": 33,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 131072,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": 369.9,
+        "terminal": "5/5",
+        "kod": "PASS",
+        "IQ": 33
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "riva-translate-4b-instruct-v2",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "riva-translate-4b-instruct-v2",
+          "provider": "nvidia",
+          "modelId": "nvidia/riva-translate-4b-instruct-v2",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "step-3.7-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "step-3.7-flash",
+          "provider": "codefast-os",
+          "modelId": "stepfun-ai/step-3.7-flash",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": true,
+          "tps": null,
+          "terminal": "0/5",
+          "kod": "FAIL:fonksiyon bulunamadi",
+          "IQ": 0,
+          "hata": "API access denied",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 1,
+      "olcumluSatir": {
+        "tps": null,
+        "terminal": "0/5",
+        "kod": "FAIL:fonksiyon bulunamadi",
+        "IQ": 0
+      },
+      "disPuan": null
+    },
+    {
+      "kanonik": "stepfun/step-5-preview",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "stepfun/step-5-preview",
+          "provider": "openrouter",
+          "modelId": "stepfun/step-5-preview",
+          "tur": "codex-extends",
+          "baseVar": true,
+          "ctx": 1048576,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": 1048576,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "tokenharbor/deepseek-v4-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "tokenharbor/deepseek-v4-flash",
+          "provider": "pi",
+          "modelId": "tokenharbor/deepseek-v4-flash:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "tokenharbor/deepseek-v4.1-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "tokenharbor/deepseek-v4.1-flash",
+          "provider": "pi",
+          "modelId": "tokenharbor/deepseek-v4.1-flash:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "tokenharbor/mimo-v2.5",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "tokenharbor/mimo-v2.5",
+          "provider": "pi",
+          "modelId": "tokenharbor/mimo-v2.5:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    },
+    {
+      "kanonik": "tokenharbor/mimo-v2.6-flash",
+      "providerSayisi": 1,
+      "toplamKayit": 1,
+      "satirlar": [
+        {
+          "kanonik": "tokenharbor/mimo-v2.6-flash",
+          "provider": "pi",
+          "modelId": "tokenharbor/mimo-v2.6-flash:free",
+          "tur": "acp/native",
+          "baseVar": false,
+          "ctx": null,
+          "maks": null,
+          "fiyatG": null,
+          "fiyatC": null,
+          "tier": null,
+          "olculdu": false,
+          "tps": null,
+          "terminal": null,
+          "kod": null,
+          "IQ": null,
+          "hata": "",
+          "disPuan": null
+        }
+      ],
+      "enUcuz": null,
+      "ctx": null,
+      "olculen": 0,
+      "olcumluSatir": null,
+      "disPuan": null
+    }
+  ],
+  "bozuk": [
+    {
+      "provider": "kilo",
+      "id": "OpenCode Zen/Space Bunny Free",
+      "neden": "gecersiz id (bosluk/parantez; Zen id'leri kucuk harf slug)"
+    },
+    {
+      "provider": "kilo",
+      "id": "Kilo Gateway/StepFun: Step 5 Preview (free",
+      "neden": "gecersiz id (bosluk/parantez; Zen id'leri kucuk harf slug)"
+    },
+    {
+      "provider": "kilo",
+      "id": "OpenCode Zen/Muse Spark 1.3 Free",
+      "neden": "gecersiz id (bosluk/parantez; Zen id'leri kucuk harf slug)"
+    }
+  ]
+}

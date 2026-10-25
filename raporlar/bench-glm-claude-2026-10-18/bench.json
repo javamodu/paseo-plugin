@@ -1,0 +1,48 @@
+{
+  "tarih": "2026-10-18",
+  "hedef": 1,
+  "olculen": 1,
+  "rows": [
+    {
+      "provider": "claude-glm",
+      "model": "glm-5.3",
+      "motor": "claude-code",
+      "erisim": "claude -p (Anthropic /v1/messages)",
+      "tps": 22.6,
+      "hizToken": 385,
+      "sn": 17.03,
+      "IQ": 100,
+      "iqDogru": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "iqKacan": [],
+      "terminal": "5/5",
+      "termKacan": [],
+      "kod": "PASS",
+      "uyum": "PASS",
+      "durumlar": {
+        "hiz": "success",
+        "iq": "success",
+        "term": "success",
+        "kod": "success",
+        "uyum": "success"
+      },
+      "hata": "",
+      "hizOrnek": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30",
+      "iqSn": 17.98,
+      "iqToken": 684,
+      "iqOrnek": "C1=977 C2=72 C3=4.5 C4=195.5 C5=7006652 C6=289",
+      "termSn": 36.51,
+      "termOrnek": "T1=`sudo lsof -i :8080` T2=`grep -rn \"ERROR\" /dizin/yolu` T3=`git reset --soft HEAD~1` T4=`dd if=/dev/zero of=dosya.img bs=1M count=500` T5=`docker rm $(docker ps -aq | tail -n 3)`",
+      "kodSn": 15.98,
+      "kodOrnek": "function fonk(n){ let t = 0; for (let i = 2; i <= n; i += 2) t += i * i; return t; }",
+      "uyumSn": 13.75,
+      "uyumOrnek": "{\"a\":1,\"b\":[2,3]}"
+    }
+  ]
+}

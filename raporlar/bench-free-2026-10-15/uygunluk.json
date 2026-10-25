@@ -1,0 +1,568 @@
+{
+  "tarih": "2026-10-17",
+  "profil": "scripts/uygunluk-hedefi.json",
+  "raporlar": [
+    "raporlar/bench-free-2026-10-15/bench.json",
+    "raporlar/bench-th-fixdogrulama-2026-10-15/bench.json",
+    "raporlar/bench-or-2026-10-15/bench.json"
+  ],
+  "agirliklar": {
+    "kodTerminal": 25,
+    "baglam": 15,
+    "uzunUfuk": 15,
+    "erisim": 20,
+    "hiz": 15,
+    "agentik": 10
+  },
+  "kapilar": {
+    "minTerminal": "4/5",
+    "minIQ": 100,
+    "kodSart": "PASS",
+    "minCtx": 256000,
+    "minTps": 20,
+    "gerekenYetenekler": [
+      "toolCall"
+    ],
+    "tercihEdilenYetenekler": [
+      "promptCache"
+    ]
+  },
+  "gateUygulananSeviyeler": [
+    "anaYazar",
+    "gunluk",
+    "ikincil"
+  ],
+  "sonuc": [
+    {
+      "anahtar": "openrouter/cohere/north-mini-code:free",
+      "model": "cohere/north-mini-code:free",
+      "provider": "openrouter",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 82.1,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 2.9,
+        "uzunUfuk": 10.8,
+        "erisim": 20,
+        "hiz": 13.4,
+        "agentik": 10
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 223.6,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "223.6 t/s, terminal 5/5, kod PASS; tek seferlik uzun uretim",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 223.6
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4.1-flash:free",
+      "model": "deepseek-v4.1-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "gunluk",
+      "karar": "KABUL",
+      "puan": 77.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.9,
+        "erisim": 20,
+        "hiz": 5.3,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 91.4,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "Olculmus tek free guclu aday: terminal 5/5, kod PASS, IQ 100, 129.5 t/s, 1.048.576 ctx",
+      "kosul": "terminal >= 4/5 ve kod PASS",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 91.4
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.6-flash:free",
+      "model": "mimo-v2.6-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "red",
+      "karar": "RED",
+      "puan": 73.9,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.2,
+        "erisim": 20,
+        "hiz": 2.7,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 49.1,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "IQ 83 (C4 kacti), terminal 4/5",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 49.1
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/mimo-v2.5:free",
+      "model": "mimo-v2.5:free",
+      "provider": "tokenharbor",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 72.7,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 25,
+        "baglam": 15,
+        "uzunUfuk": 3.3,
+        "erisim": 20,
+        "hiz": 1.4,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "5/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 27.2,
+      "context": 1048576,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "tier high, terminal 5/5; yavas (27-32 t/s) - yedek",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "5/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1048576
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 27.2
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/claude-haiku-5.5:free",
+      "model": "claude-haiku-5.5:free",
+      "provider": "tokenharbor",
+      "seviye": "yedek",
+      "karar": "KABUL",
+      "puan": 72.6,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 22,
+        "baglam": 14.3,
+        "uzunUfuk": 0,
+        "erisim": 20,
+        "hiz": 8.3,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "4/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 141.3,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": true,
+          "olcum": "4/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 141.3
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "tokenharbor/deepseek-v4-flash:free",
+      "model": "deepseek-v4-flash:free",
+      "provider": "tokenharbor",
+      "seviye": "red",
+      "karar": "RED",
+      "puan": 62.2,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 10,
+        "baglam": 14.3,
+        "uzunUfuk": 5.2,
+        "erisim": 20,
+        "hiz": 4.7,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "PASS",
+      "IQ": 100,
+      "tps": 81.4,
+      "context": 1000000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "Bir kosuda terminal 0/5; v4.1 surumu supersede ediyor",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": true,
+          "olcum": "PASS"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 1000000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 81.4
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast/kimi-k3",
+      "model": "kimi-k3",
+      "provider": "codefast",
+      "seviye": "anaYazar",
+      "karar": "KIRIK",
+      "puan": 40,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 2.9,
+        "uzunUfuk": 7.3,
+        "erisim": 20,
+        "hiz": 1.8,
+        "agentik": 8
+      },
+      "eksik": [],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 100,
+      "tps": 35.1,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "",
+      "gerekce": "Ajan hatti 300.1 t/s (10-14); Vals TB2.1 80.9 / SWE-bench 93.4 / kod lane 58.9 (#22). Son ham olcumde kod FAIL + terminal 0/5 oldugu icin yeniden olcum sart",
+      "kosul": "terminal >= 4/5 ve kod PASS (son olcumde kirik)",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": true,
+          "olcum": 100
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": true,
+          "olcum": 35.1
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    },
+    {
+      "anahtar": "codefast/codefastk3unlimited",
+      "model": "codefastk3unlimited",
+      "provider": "codefast",
+      "seviye": "aday",
+      "karar": "BEKLENIYOR",
+      "puan": null,
+      "tavan": 100,
+      "bilesen": {
+        "kodTerminal": 0,
+        "baglam": 2.9,
+        "uzunUfuk": 0,
+        "erisim": 2,
+        "agentik": 8
+      },
+      "eksik": [
+        "hiz"
+      ],
+      "terminal": "0/5",
+      "kod": "FAIL:fonksiyon bulunamadi",
+      "IQ": 0,
+      "tps": null,
+      "context": 256000,
+      "erisim": "ham-API",
+      "hata": "API access denied",
+      "gerekce": "profilde tanimsiz",
+      "kosul": "",
+      "kapilar": [
+        {
+          "ad": "terminal >= 4/5",
+          "gecti": false,
+          "olcum": "0/5"
+        },
+        {
+          "ad": "kod PASS",
+          "gecti": false,
+          "olcum": "FAIL:fonksiyon bulunamadi"
+        },
+        {
+          "ad": "IQ >= 100",
+          "gecti": false,
+          "olcum": 0
+        },
+        {
+          "ad": "ctx >= 256000",
+          "gecti": true,
+          "olcum": 256000
+        },
+        {
+          "ad": "tps >= 20",
+          "gecti": false,
+          "olcum": "olculmedi"
+        },
+        {
+          "ad": "yetenek: toolCall",
+          "gecti": true,
+          "olcum": "evet"
+        }
+      ]
+    }
+  ],
+  "hicOlcumedi": [
+    {
+      "anahtar": "codefast-glm/glm-5.3",
+      "seviye": "ikincil",
+      "kosul": "bakiye/entitlement acilirsa glm-api /models 200 donmeli, sonra terminal >= 4/5 ve kod PASS",
+      "gerekce": "Vals SWE-bench 95.4 (en yuksek), agentik lane 70.2 (#8/128), 83 t/s, $1.40/$4.40; kapisi 403 API access denied",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "codefast/deepseek-v4-pro",
+      "seviye": "ikincil",
+      "kosul": "bakiye acilirsa ham olcum terminal >= 4/5",
+      "gerekce": "En ucuz ($1.32/$3.96) + en hizli (~115 t/s); kod lane 47.2 daha dusuk",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "qoder/qfmodel",
+      "seviye": "aday",
+      "kosul": "scripts/bench.mjs ACP olcumu (base_url yok -> ham API olculmez); en az 1 ham olcum veya ajan hatti t/s",
+      "gerekce": "Qwen3.8-Flash, 0.00x Credit; makinede hic olculmedi",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "openrouter/qwen3.8-max",
+      "seviye": "aday",
+      "kosul": "OpenRouter anahtari + modelin free havuzuna girmesi (kodfast katalogunda YOK)",
+      "gerekce": "Vals TB2.1 67.4 / SWE-bench 85.6 geride; codefast katalogunda yok",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "nvidia/z-ai/glm-5.3-flash",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "1.2 t/s - kullanilamaz",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "kilo/free",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "gunluk free-models-per-day limiti, 0 token",
+      "karar": "HIC-OLCUMEDI"
+    },
+    {
+      "anahtar": "openrouter/poolside-laguna",
+      "seviye": "red",
+      "kosul": "",
+      "gerekce": "1.6-2.5 t/s + bir kosuda NUM=401 sapmasi",
+      "karar": "HIC-OLCUMEDI"
+    }
+  ],
+  "deltalar": null,
+  "gate": {
+    "sonuc": "KIRILDI",
+    "kirilan": [
+      "codefast/kimi-k3"
+    ]
+  }
+}
