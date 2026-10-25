@@ -82,7 +82,7 @@ Composer'a yaz, ajana prompt gitmez:
 ```
 enjeksiyonMod: "tam" | "isaretci" (kısa işaretçi) | "kapali".
 
-## 7. Sağlık ve sürüm komutları (paseo-plugin reposunda)
+## 7. Sağlık ve sürüm komutları (ordu monorepo'sunda — eski adı paseo-plugin, F1'de köke taşındı)
 
 - `powershell -ExecutionPolicy Bypass -File scripts\saglik.ps1` — 18 kapı (bu repoda ölçüldü; -Jsonl ile 21); SONUC satırı OK/EKSIK/SARI
 - `scripts\proje-panosu.ps1` — filo panosu (60 repo taranır); `-TestModu` ile öz-test
@@ -93,7 +93,7 @@ enjeksiyonMod: "tam" | "isaretci" (kısa işaretçi) | "kapali".
 ## 8. Acil durumlar
 
 - **Plugin sapıttı:** `paseo plugin reload paseo-verimlilik` · olmadı: `paseo plugin disable paseo-verimlilik`
-- **Rollback:** `git reset --hard vX.Y-kilit` (iki repo için de tag'ler var) → sonra codemap + saglik yeşil olmalı
+- **Rollback:** `git reset --hard vX.Y-kilit` (ordu monorepo'sunda tag'ler tek kökte; eski iki-repo döneminden kalan tag'ler de geçerlidir) → sonra codemap + saglik yeşil olmalı
 - **Bekçi gürültüsü:** repo köküne .verimlilik/ayar.json → `{"bekciKapali": true}`
 - **Bir repoda sözleşme istenmiyor:** aynı dosyada `{"enjeksiyonMod": "kapali"}`
 

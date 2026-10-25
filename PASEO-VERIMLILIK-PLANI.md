@@ -1,6 +1,6 @@
 ﻿# PASEO VERİMLİLİK PLANI
 
-Tarih: 11 Eki 2026 · Plan v2.0: 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; rehber ile senkron sürüm: v2.0). Kanıt: `kanit/01`-`10` + `raporlar/token-olcum-2026-10-11`. Kural: ölçüm yoksa (T)=tahmin, (R)=resmî/yayınlı ölçüm; tek-kaynak iddialar * işaretli (spot doğrulama borcu).
+Tarih: 11 Eki 2026 · Plan v2.0: 10-eksenli harness araştırması sentezi + reviewer denetimi (karar: kararlar/K-0002; rehber ile senkron sürüm: v2.1 — v2.1 sadeleştirme 2026-10-26 K-0039). Kanıt: `kanit/01`-`10` + `raporlar/token-olcum-2026-10-11`. Kural: ölçüm yoksa (T)=tahmin, (R)=resmî/yayınlı ölçüm; tek-kaynak iddialar * işaretli (spot doğrulama borcu).
 
 ## 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA)
 
@@ -13,7 +13,7 @@ Hız = uçtan uca görev süresi kısalması; Kalite = hata/tekrar düşüşü; 
 | 3 | Repo-map artifact (`scripts/codemap.ps1` / repomix `--compress`) | +%20-40 (T) | +%10-15 (T) | -%70-90 (T); 600k→1-4k token = 150-500x (T, PoC'ta ölçülecek) | Düşük-orta; script KURULU | H2'nin tek kanıtlı yolu | Statik; periyodik yenileme | Yüksek mekanik (06, 09) |
 | 4 | Oturum kaydı (`turn_ended` → redaksiyonlu JSONL + STATE damgası) | +%15-25 (T): arşivden geri bakma hızı | +%10-20 (T): kanıt disiplini otomatik | ±%0 | Düşük: lifecycle-actions iskeleti hazır | "Geçmişin kaydı" (H1) otomatikleşir | Redaksiyon kuralı bakımı | Yüksek (02) |
 | 5 | memory/ + devir töreni (H1) | +%30-50 (T) | +%10-20 (T) | -%20-40 (T) | Düşük: hook + şablon | Local-first, sektör konsensüsü | Dosya disiplini | Yüksek (03, 05, 08) |
-| 6 | Pitbull watchdog (iki taraflı: cooldown + §7.6 dur-kuralı) | +%15-30 (T) | +%0-5 (T) | ±%0 (T) | Düşük (~50 satır) | Primitif hazır | Korumasız yayın YOK; #5728* | Yüksek mekanik (01, 02, 10) |
+| 6 | Pitbull watchdog (iki taraflı: cooldown + §7.5 dur-kuralı — K-0039 yenumaralandırması) | +%15-30 (T) | +%0-5 (T) | ±%0 (T) | Düşük (~50 satır) | Primitif hazır | Korumasız yayın YOK; #5728* | Yüksek mekanik (01, 02, 10) |
 | 7 | Boomerang delegasyonu (6 öğeli brief + özet) | +%20-40 (T) | +%5-15 (T) | -%30-60 (T) | Yok: `create_agent` var | Kanıtlanmış desen | Özet kaybı riski | Yüksek (03, 05) |
 | 8 | MCP araç tanımı kısma (`paseoTools` / defer-loading deseni) | +%5-10 (T) | ±%0 | -%85+ (R): ~55k token MCP tanım yükünde; profil başına araç kısıtlama | Yok: provider politikası config'i | Bugün yapılandırılabilir | Yanlış kısma = eksik araç | Yüksek (01 + birleşik §4) |
 | 9 | Glob-scoped kurallar (.mdc aktivasyon portu) | +%0-5 (T) | +%5-10 (T) | -%30-60 (T): talimat bağlamında | Orta: glob matcher | Üç rakipte konsensüs | v1'de "hepsi başa" yeter | Yüksek (03, 04, 05) |
@@ -27,7 +27,7 @@ Hız = uçtan uca görev süresi kısalması; Kalite = hata/tekrar düşüşü; 
 
 ## 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 
-- **Enjeksiyon:** `before(agent.create)` → REHBER v2.0 ÇEKİRDEK + proje L0/L1 işaretçileri systemPrompt BAŞINA (madde 2). Toplam enjeksiyon ≤20KB bütçe + lint kuralı (Windsurf 6k/12k dersi) + aktif kural-sayısı lint'i (<40 sarı, >80 blok — REHBER §2).
+- **Enjeksiyon:** `before(agent.create)` → REHBER v2.1 ÇEKİRDEK + proje L0/L1 işaretçileri systemPrompt BAŞINA (madde 2). Toplam enjeksiyon ≤20KB bütçe + lint kuralı (Windsurf 6k/12k dersi) + aktif kural-sayısı lint'i (<40 sarı, >80 blok — REHBER §2).
 - **ÇEKİRDEK/EKLER bölünmesi** (rehberin kendi hijyen kuralının uygulanması):
 
 | Katman | İçerik (REHBER v1.4) | Ne zaman | Bütçe |
@@ -43,7 +43,7 @@ v1'de EK'ler tetikleyici cümle olarak kalır; otomatik yükleme motoru madde 9 
 - **Mevcut ajanlara geçiş (migration):** enjeksiyon yalnız yeni ajanlarda otomatik (agent.create); resume'da session_open systemPrompt'a dokunamaz. Geçiş yolları: (1) kapat + handoff ile devir (alıcı yeni ajan olduğundan otomatik alır), (2) send_agent_prompt ile tek seferlik "sözleşmeyi oku" mesajı, (3) plugin RPC'si sozlesme.enjekte(agentId) → mevcut ajanın konuşmasına send() ile ÇEKİRDEK düşürülür; Command Center'dan toplu geçiş butonu.
 - **Agent-onboarding:** create'te workspace kökü taranır; L0/L1/L5 varsa okuma listesi + echo görevi, yoksa ilk-15-dakika protokolü (ANAYASA-SABLONU + L0/L1/L5 iskeleti); ilk tur sonunda doğrulama, tek seferlik dürtme.
 - **Oturum kaydı:** `turn_ended` → redaksiyonlu JSONL arşiv (env değerleri maskeli) + STATE damgası hatırlatması.
-- **Pitbull:** cooldown haritası plugin state'inde (tur başı maks 1 dürt, 10 dk sessizlik) + 3 ardışık stall → insan kapısı (Magentic ledger dersi). Dürtülen tarafın kuralları rehber §7.6.
+- **Pitbull:** cooldown haritası plugin state'inde (tur başı maks 1 dürt, 10 dk sessizlik) + 3 ardışık stall → insan kapısı (Magentic ledger dersi). Dürtülen tarafın kuralları rehber §7.5 (K-0039 yenumaralandırması: eski §7.6).
 - **Loop dedektörü (A3.2):** aynı tool+argüman hash'i 3 kez tekrarlanırsa (OpenHands eşiği, R) ajan durur → reflection promptu ("aynı şeyi tekrarlıyorsun, strateji değiştir") veya insan kapısı; ping-pong (A→B→A) deseni de yakalanır.
 - **Finish-gate (A3.3):** ajan "bitti" diyemeden görev tanımı yeniden sunulur; pass/fail modelin metninden değil araç exit-code'undan okunur (Replit dersi: yanlış "geçti" raporu).
 - **Permission polisi:** dar beyaz liste (okuma komutları allow, `rm -rf`/force-push deny); gerisi kullanıcıya.

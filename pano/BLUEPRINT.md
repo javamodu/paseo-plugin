@@ -1,7 +1,7 @@
-# BLUEPRINT.MD — paseo-pano (ordu beyni) yapı spec'i
+# BLUEPRINT.MD — pano (ordu beyni) yapı spec'i
 
 > Sürüm: v1 · 2026-10-13 · Durum: ONAY BEKLER
-> Bu dosya TEK OTORİTE: mockup/uygulama yazan ajan önce bunu okur. Kaynaklar: ORDU-PLAN v1.6 (paseo-plugin/plans), DESIGN.md, K-0033 (ikili temsil), köprü: paseo-verimlilik/server/pano.ts. Çelişkide sıra: ANAYASA > bu dosya > DESIGN.md.
+> Bu dosya TEK OTORİTE: mockup/uygulama yazan ajan önce bunu okur. Kaynaklar: ORDU-PLAN v1.6 (ordu/plans — eski evi paseo-plugin/plans idi), DESIGN.md, K-0033 (ikili temsil), köprü: ordu'nun plugin/ evindeki paseo-verimlilik/server/pano.ts. Çelişkide sıra: ANAYASA > bu dosya > DESIGN.md.
 
 ## 0. Ajan için okuma kılavuzu
 

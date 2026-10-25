@@ -1,6 +1,8 @@
-# paseo-plugin — Evrensel Ajan Verimlilik Sözleşmesi (v2.1)
+# ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1)
 
 Her projede her AI ajanına uygulanabilen, uygulama-üstü verimlilik sözleşmesi + otomasyon araçları. Paseo (paseo.sh) içinde doğdu, herhangi bir ajan ortamında çalışır (Claude Code, Codex, Cursor, Cline, OpenCode...).
+
+Monorepo bileşen evleri (F1/F2 birleşimi; ayrıntı AGENTS.md "Yapı" bölümünde): `core/` ordu-core (defter+dispatch+kabul) · `plugin/` paseo-verimlilik (v0.22-kilit) · `pano/` pano iskelet/mockup · `referans/` salt-okur (kapsul-final, ordu-v3) · `surumler/` kök kilit sürümleri.
 
 Amaç: **ajan zekâsı ≈ model IQ × bağlam kalitesi** — bu paket bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 

@@ -1,6 +1,6 @@
-# paseo-pano — Pano Prototipi (izole)
+# pano — Pano Prototipi (izole; ordu monorepo'nun pano/ evi)
 
-K-0019'un bagimsiz prototipi: plugin'e gomulu degil, ayri proje. Amac: Doktor sekmesini gercek telemetriyle dogrulamak, sonra plugin entegrasyonuna karar vermek.
+K-0019'un bagimsiz prototipi: ordu-core'a gomulu degil, izole pano evi (eski evi paseo-pano idi — B20 dokuman ayagi). Amac: Doktor sekmesini gercek telemetriyle dogrulamak, sonra core entegrasyonuna karar vermek.
 
 ## Calistir
 ```
@@ -18,7 +18,7 @@ PANO_TOKEN=gizli node server.js   # POST /api/emir icin token (yoksa fail-closed
 
 ## Orkestra (plugin köprüsü, K-0020)
 `orkestra.html` — paseo-verimlilik plugin'inin subprocess köprüsü üzerinden servis edilen orkestrasyon beyni.
-- Plugin köprüsü: http://127.0.0.1:4378 (plugin yüklüyse otomatik; `PANO_PORT`/`PANO_UI_DIR` env ile değişir)
+- Plugin köprüsü: http://127.0.0.1:4378 (ordu'nun plugin/ evindeki paseo-verimlilik yüklüyse otomatik; `PANO_PORT`/`PANO_UI_DIR` env ile değişir)
 - Paseo içinde: workspace paneli "Pano" → "Panoyu sekmede aç" (workspace browser tab'ı)
 - API: GET /api/durum · /api/ajanlar · /api/izinler · /api/canli (SSE) · POST /api/emir (gonder/yarat/izin/arsivle)
 - Yazma fail-closed: daemon'a `PANO_TOKEN` env verilmedikçe POST 403. Token tanımlıysa HTML'e enjekte edilir (yalnız 127.0.0.1).
