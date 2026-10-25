@@ -1,0 +1,37 @@
+{
+  "schemaSurum": 1,
+  "is": "denetim-6subagent",
+  "tarih": "2026-10-25T19:00:00+03:00",
+  "tetik": "kullanici: faz baslamadan 6-subagent denetim (dokuman-kod drift, mimari drift, fake green, atik, disarida kalan)",
+  "yontem": "6 salt-okur subagent (EK-3 brief) + 1 yazici; duzeltme UYGULANMADI",
+  "hamBulguSayisi": 58,
+  "maddeSayisi": 20,
+  "eksikler": [
+    { "id": 1, "grup": "kayip", "madde": "kararlar/K-0029.md + K-0036.md diskte yok, 3'er atifli", "siddet": "yuksek", "kanit": "Test-Path false; HANDOFF-2026-10-13-0445:11, plugin/surumler/v0.17/kilit.json:9, STATE_BOARD:26" },
+    { "id": 2, "grup": "kayip", "madde": "ham bench verileri eski evde (24 koşu + .bench-* 4 dizin + ordu-core.zip 2.1MB), arsiv'de karsilik yok", "siddet": "yuksek", "kanit": "ADR m.7 ihlali; disk listeleme" },
+    { "id": 3, "grup": "kayip", "madde": "silinecek-task-graph versiyonsuz (.git yok) - F4 silme oncesi tasinmali", "siddet": "orta", "kanit": "git status fatal" },
+    { "id": 4, "grup": "fake-green", "madde": "saglik.ps1:110-115 cache-hit kapisu %175.1 imkansiz yesil (bozuk metrik); esik 60->40 indirilmis", "siddet": "yuksek", "kanit": "telemetri.jsonl degerleri 0.2-107920" },
+    { "id": 5, "grup": "fake-green", "madde": "kabul-orani kapisi oz-bildirimli: telemetri %99 vs kabul.csv 38/115 NOT_RUN; canli dogrulanmis 27/115", "siddet": "yuksek", "kanit": "Import-Csv sayimi; saglik.ps1:120-127" },
+    { "id": 6, "grup": "fake-green", "madde": "STATE '17 OK / 1 EKSIK' anlatisi bayat: guncel 16/2 veya 18/3 EKSIK; *> $null cikti maskelemesi", "siddet": "orta", "kanit": "saglik kosusu; duzme 197/1077 backlog'ta yok" },
+    { "id": 7, "grup": "kirik-zincir", "madde": "HANDOFF-1815 kisaltmis zincir adi -> zincir-kontrol EXIT=1 KOPUK", "siddet": "orta", "kanit": "zincir-kontrol.ps1 kosusu" },
+    { "id": 8, "grup": "bayat-dokuman", "madde": "core/KULLANIM.md:4 eski eve npm test kosturuyor", "siddet": "yuksek", "kanit": "dosya:satir" },
+    { "id": 9, "grup": "bayat-dokuman", "madde": "README/pano README/BLUEPRINT/ANAYASA A4/admin-onboarding:85,96/PLAN.md:6/FERMANLAR:15/F3-TASLAK hala-satirlari/SSOT-INDEX:23 bayat", "siddet": "orta", "kanit": "dosya:satir listesi OZET.md madde 9" },
+    { "id": 10, "grup": "codemap", "madde": "CODEMAP dizin sayilari uyumsuz (arsiv 37-200, core 78-108, plugin 63-93, +5 dizin); HEAD damgasi 1-commit gecikme (bootstrap, aciklanabilir)", "siddet": "orta", "kanit": "disk sayim vs CODEMAP satirlari" },
+    { "id": 11, "grup": "atik-kod", "madde": "ajanTemizle 9 modulde duplike export", "siddet": "orta", "kanit": "grep sayimi" },
+    { "id": 12, "grup": "atik-kod", "madde": "plugin/client/web.ts olu modul (0 import)", "siddet": "orta", "kanit": "import taramasi" },
+    { "id": 13, "grup": "atik-kod", "madde": "core/test/live-gates-v4.test.ts hic kosulmuyor (package.json scriptinde yok)", "siddet": "orta", "kanit": "script listesi" },
+    { "id": 14, "grup": "atik-kod", "madde": "3 betik yalniz CODEMAP+eski raporlarla aniliyor; bench-claude.mjs bilincli kopya; .pano-serve.js gecici", "siddet": "dusuk", "kanit": "referans taramasi" },
+    { "id": 15, "grup": "yapi", "madde": "core/ icinde 21 tracked veri dosyasi (S7 ihlali)", "siddet": "orta", "kanit": "git ls-files sayimi" },
+    { "id": 16, "grup": "yapi", "madde": "plans/arsiv + plans/mockup ADR'ye gore kok arsiv/'de olmali", "siddet": "orta", "kanit": "ADR L26 vs disk" },
+    { "id": 17, "grup": "yapi", "madde": "kokte hedef-agac-disi: sorular/, surumler/, hedefler.json, 8 kok dokumani", "siddet": "dusuk", "kanit": "ADR L16-27 karsilastirma" },
+    { "id": 18, "grup": "yapi", "madde": "referans/ dizin adi ADR 'kapsul-final' ile birebir eslesmiyor", "siddet": "dusuk", "kanit": "liste karsilastirma" }
+  ],
+  "olumluDogrulamalar": [
+    "plugin npm test EXIT=0, 4/4 dosya, 387 ok (c4f7043 iddiasi DOGRU)",
+    "git gecmisi kesintisiz 216 commit; bundle'lar arsiv/history'de",
+    "SSOT tekligi temiz",
+    "eski olu kapi D2-09 kaldirilmis; yeni kontrol 18/19 eslesme canli",
+    "gelen-kutu sema 8/8 gecerli; saglik.ps1 kendisi durust (EXIT=1 raporluyor)"
+  ],
+  "onerilenSira": ["zincir onarimi (madde 7)", "F4 hazirlik taslagi genisletilmis (madde 1-3)", "fake-green tamiri (madde 4-6)", "C/D/E dokuman-atik temizligi"]
+}

@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 94ae0ed — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 74b00af — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -77,6 +77,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/codex-uc-analizi-2026-10-25/OZET.md` (5.1KB) — Codex ucu analizi — 2026-10-25 | Kanıt zinciri (diskten, bu turda okundu) | Ücretsiz alternatifler (kullanıcı politikası: ücretli API yok)
+- `raporlar/denetim-6subagent-2026-10-25/OZET.md` (5.9KB) — DENETİM — 6-SUBAGENT (F4 öncesi) — 2026-10-25 19:00 | Bulguların kanıt zinciri | EKSİKLER LİSTESİ (öncelik sırasıyla)
 - `raporlar/f3-restart-envanteri-2026-10-25/OZET.md` (2.2KB) — F3 RESTART ENVANTERİ — 2026-10-25 17:50 (A0) | Restart-öncesi durum (R, diskten) | Yapılanlar (restart'tan önce)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
 - `raporlar/gelen-kutu/` (9 dosya: en yeni ana-ajan-2026-10-25.md, codex-2026-10-14.md, denetim2-2026-10-13.md)
