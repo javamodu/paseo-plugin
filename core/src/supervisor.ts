@@ -10,6 +10,8 @@ import { requireHandoff } from './handoff.ts';
 import { requireReasoningReceipt, type ReasoningReceipt } from './reasoning-receipt.ts';
 import { assertProviderModel } from './providers.ts';
 import { assertGrantAllows, assertGrantDispatchable, expireDueGrants, grantIdOfVekil, vekilActorOf, type GrantDecisionPayload } from './grants.ts';
+import { assertAltAjanGorunur } from './r8.ts';
+import { assertDispatchOpen } from './deadline.ts';
 
 const sha = (s: string) => createHash('sha256').update(s).digest('hex');
 const canonical = (v: unknown): string =>
@@ -100,13 +102,18 @@ export function dispatchNode(
   db: DatabaseSync,
   runId: string,
   nodeId: string,
-  opts: { tokens: number; startCommandId: string; dispatchKey: string; handoff: unknown; grantId?: string },
+  opts: { tokens: number; startCommandId: string; dispatchKey: string; handoff: unknown; grantId?: string; now?: () => Date },
 ) {
   if (!hasEvent(db, runId, 'PLAN_APPROVED')) throw new GateError('A03: plan onaylanmadan dispatch yok');
   requireHandoff(opts.handoff); // P1 §5: handoff DTO'su YAZMA YOLUNDA zorunlu (fail-closed)
   const deps = nodeDeps(db, runId, nodeId);
   if (!deps.every((d) => depDone(db, runId, d))) throw new GateError('A01: bagimliliklar tam degil — dispatch yok');
+  // K12-12 (R8 §24): görünmeyen alt-ajan dispatch reddi — 5 şart (kimlik+ana görev,
+  // yetki bağı, kullanım ölçümü, yaşam durumu uzlaştırma, iptal+sahiplik); eksik şart ADIYLA kırmızı
+  assertAltAjanGorunur(db, { runId, nodeId, commandId: opts.startCommandId, tokens: opts.tokens });
   if (nodeState(db, runId, nodeId) !== 'PENDING') throw new GateError('node dispatch-edilebilir degil: ' + nodeState(db, runId, nodeId));
+  // K12-11 (R4 §9.6): deadline dolunca yeni dispatch kapalı (kapanış politikası deadline.ts'te)
+  assertDispatchOpen(db, runId, opts.now);
   const planHash = (db.prepare('SELECT p.plan_hash FROM plans p JOIN runs r ON r.plan_id=p.id WHERE r.id=?').get(runId) as any).plan_hash as string;
   return tx(db, () => {
     const number = ((db.prepare('SELECT COALESCE(MAX(number),0) AS m FROM attempts WHERE run_id=? AND node_id=?').get(runId, nodeId) as any).m as number) + 1;

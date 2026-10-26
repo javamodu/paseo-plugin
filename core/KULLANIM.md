@@ -20,7 +20,7 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 333/333, tam suit EXIT=0, 2026-10-26 K12 cok-ajan turu — kanal-kaynakli, son-kanit.json d=09:26:21 h=4ee1d4b x=0, etiket k12-cok-ajan, log test-k12-cok-ajan.log; +9 K12 cok-ajan senaryo testi (k12-cok-ajan.test.ts: oz-beyan PASS reddi / cift claim / idempotency conflict / API kopmasi+model degisimi / stale fence / restart+STOP / vekil grant / eszamanli izolasyon) dahil).
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 340/340, tam suit EXIT=0, 2026-10-26 K12 tur 2 — kanal-kaynakli, son-kanit.json d=10:11:14 h=ab7c224 x=0, etiket k12-deadline-r8, log test-k12-deadline-r8.log; +7 K12 deadline/R8 testi (deadline dispatch kapanisi + kapanis politikasi + bildirim dedupe + grant EXPIRED + R8 5 sart ayri kirilimlari) dahil).
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
 - Kapanis-kaniti kanali (K-0046 (e)/(f)): kabul.csv'ye sonek baglayacak koşumlar dogrudan `npm test` yerine kokten `powershell -ExecutionPolicy Bypass -File scripts\test-kanal.ps1 -Etiket <etiket>` ile koşulur — Tee logu `raporlar/kanit-hedef/test-<etiket>.log`'a iner, `son-kanit.json` {d,h,x,test,sureSn} yazar; sonek son-kanit.json'dan BIREBIR kopyalanir (elle yazilmaz).
 
