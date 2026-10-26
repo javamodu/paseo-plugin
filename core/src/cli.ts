@@ -1,7 +1,7 @@
 // ordu CLI — headless operasyon yüzeyi (V3-S1.1'in insan kapılarıyla konuşan ucu).
 // Tasarım kuralı: her komut TEK iş + makine-okunur JSON çıktı; karar komutları
 // B01 sözleşmesinden geçer (CLEAR_STOP evrensel onay metni ister — sürtünme bilinçli).
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, existsSync, readFileSync } from 'node:fs';
 import { createHash, randomUUID } from 'node:crypto';
 import { dirname } from 'node:path';
 import { openStore, recordCommand, setGlobalStop, pendingCapacity } from './store.ts';
@@ -18,6 +18,7 @@ import { sampleReceipt } from './reasoning-receipt.ts';
 import { evaluateArtifact } from './cli-evaluate.ts';
 import { runDaemon } from './daemon.ts';
 import { openProductionNotify, type ExecSync } from './sender.ts';
+import { kabulOku, olcDrift, olcSapma, replanTaslagi, replanOnayla, openReplanDefteri } from './replan.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -218,6 +219,46 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
           bekleyen: p.outbox.list().filter((x) => x.status === 'pending' || x.status === 'deferred').length } };
       } catch (e: any) { return { code: 1, out: 'notify flush reddedildi: ' + e.message }; }
     }
+    case 'replan': {
+      // A2 (graf v6; OTONOMİ MERDİVENİ AŞAMA 2/L3): replan motoru CLI yüzü.
+      // Ölç (DRIFT% + sapma + defter bağlamı) → taslak; eşik KOD TAŞIMAZ —
+      // [insan] onayı: --esik N ölçümde, --onay + REPLAN_ONAYLIYORUM uygulamada.
+      // Aktör daima 'insan:cli' (EK-2: ajan/proxy onaylayamaz — replanOnayla RED eder).
+      const planEv = flag('plan') ?? deps.env.ORDU_PLAN ?? 'plans/PLAN.md';
+      const kabulEv = flag('kabul') ?? deps.env.ORDU_KABUL ?? 'plans/kabul.csv';
+      const onayId = flag('onay');
+      if (onayId) {
+        try {
+          const r = replanOnayla({
+            defter: openReplanDefteri(deps.dbPath), taslakId: onayId,
+            confirm: flag('confirm') ?? '', actor: 'insan:cli', planEv, ...(now ? { now } : {}),
+          });
+          return { code: 0, out: r };
+        } catch (e: any) { return { code: 1, out: 'replan onay reddedildi: ' + e.message }; }
+      }
+      const esik = flag('esik') !== undefined ? Number(flag('esik')) : undefined;
+      const hedef = flag('hedef') !== undefined ? Number(flag('hedef')) : undefined;
+      if (esik !== undefined && !(Number.isFinite(esik) && esik >= 0 && esik <= 100))
+        return { code: 1, out: 'replan: --esik 0-100 olmalı' };
+      if (hedef !== undefined && !(Number.isFinite(hedef) && hedef >= 0 && hedef <= 100))
+        return { code: 1, out: 'replan: --hedef 0-100 olmalı' };
+      try {
+        const kabul = kabulOku(kabulEv);
+        if (!existsSync(planEv)) return { code: 1, out: 'replan reddedildi: PLAN.md yok: ' + planEv };
+        const drift = olcDrift(readFileSync(planEv, 'utf8'), kabul);
+        const sapma = olcSapma(db, kabul, {
+          ...(hedef !== undefined ? { hedefYuzde: hedef } : {}),
+          ...(esik !== undefined ? { esik } : {}),
+        });
+        const defter = openReplanDefteri(deps.dbPath);
+        defter.olcumKaydet(sapma, drift, now);
+        const t = replanTaslagi(sapma, drift, now);
+        if (t.oneriler.length > 0) defter.taslakKaydet(t);
+        return { code: 0, out: { drift, sapma, defterYolu: defter.path,
+          esikNotu: esik === undefined ? 'esik TANIMSIZ — tetikleme kapali ([insan] esik onayi: --esik N verin)' : undefined,
+          taslak: t.oneriler.length > 0 ? { id: t.id, tetik: t.tetik, oneriSayisi: t.oneriler.length, onayKomutu: `ordu replan --onay ${t.id} --confirm "REPLAN ONAYLIYORUM"` } : undefined } };
+      } catch (e: any) { return { code: 1, out: 'replan reddedildi: ' + e.message }; }
+    }
     case 'serve': {
       // S4 Scheduler 2/2: tick DÖNGÜSÜ — daemon sürücüsü. Her tur ayrı `tick` ÇOCUK
       // süreci (crash izolasyonu); cadence schedule.ts disipliniyle (misfire/overlap
@@ -246,7 +287,7 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       }
     }
     default:
-      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)' };
+      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)|replan [--esik N --hedef N --plan P --kabul K]|replan --onay <taslakId> --confirm "REPLAN ONAYLIYORUM"' };
   }
 }
 

@@ -59,7 +59,7 @@ Durum: `HAZIR`=bağımlılık tamam · `BEKLE`·`DALGA`·`[İNSAN]`=kapı · `DE
 | A0-5 | **L-RT: üretim LocalLauncher + provider→CLI eşleme** (Paseo'suz koşum bacağı) | coder | core/src/local-runtime + providers | `ORDU_RUNTIME=local` gerçek CLI süreci + durable pid registry; claude-code/gemini-cli bilinçli registry girişleri | — | 230+60 (150 L-RT + ~40/CLI) | HAZIR (v4) |
 | S7 | Mini-turnuva (2 provider) | manager+tester | core | 2 run kıyas tablosu | T0 commit + S1 | 0 | BEKLE |
 | A1 | F8 turnuva protokolü | coder | core/src | K12-01/02+K13-02 kapanır; +130 test | S7 + A0-1 | 400-700 | **KAPALI (F8: commit e70dd55, kabul.csv PASS 13:31)** |
-| A2 | Replan motoru | coder | core/src | DRIFT% sürekli; §18 otomatik; +120 test | A1 | 250-400 | BEKLE |
+| A2 | Replan motoru | coder | core/src | DRIFT% sürekli; §18 otomatik; +120 test | A1 | 250-400 | **KAPALI (v7: kanal d=2026-10-27T00:12:39 h=45bd046 x=0 etiket a2-replan; core/src/replan.ts + cli 'replan' + 11 hermetik test, tam süit 389/389; kabul A2 PASS; [insan] eşik onayı ölçüm-üzeri açık kapı — §13)** |
 | A3 | Deneyim→kural derleyicisi | coder | core/src+DERSLER | ders→kural tavan 80; +90 test | A2 | 200-350 | BEKLE |
 | A4 | Otonom sürü sürücüsü | coder | core/src/daemon | gece modu açılır; +100 test | A3+A0-3 | 150-250 | BEKLE |
 | EK1-1 | Benchmark regresyon defteri | coder | core/src/benchmark | koşumlar damgalı; gerileme sinyali | — | 100 | HAZIR |
@@ -70,7 +70,7 @@ Durum: `HAZIR`=bağımlılık tamam · `BEKLE`·`DALGA`·`[İNSAN]`=kapı · `DE
 | EK1-6 | Pano aksiyometri satırları | coder | core/src/pano | her adımın metriği görünür | A4 | 80 | BEKLE |
 | K1 | Kapanış: Z1 + kilit tag | manager | repo | CODEMAP taze + doctor 0 EKSIK + kilit tag — **NOT (v6): v0.23-kilit 16:2x'te plugin S3 dalgasında DOĞDU (9853bb1); graf K1 sıradaki kilit penceresinde tag'ler (v0.24+ [insan])** | tüm A+EK | 0 | BEKLE |
 
-Toplam (T, graf v6): ~2565 kod (T0+A1 KAPALI — **kalan ~2010**) + ~1010 test · kritik yol: T0✓→S7→A1✓→A2→A3→A4→K1 — **A1 gerçekte S7'yi beklemeden kapandığından A2 bağımlılıkça SERBEST (kritik yol ucu); S1/S7 senaryoları [insan] düdük bekler ama zinciri bloklamaz.** A0-5 kritik yol DIŞI — paralel yetenek: Paseo'suz + claude-code/gemini-cli/codex CLI koşumu. K1 bağımlılığı "tüm A+EK" = A0-1..A4 + EK1-1..6 (A0-5 bilinçli HARİÇ: kritik yol dışı, paralel yetenek; S5/S6 da koşum-senaryosu olduğu için kapanışta zorunlu DEĞİL).
+Toplam (T, graf v7): ~2565 kod (T0+A1+A2 KAPALI — **kalan ~1685**) + ~1010 test (A2'nin 120'si kapandı — kalan 890) · kritik yol: T0✓→S7→A1✓→A2✓→A3→A4→K1 — **A2 kapandı → A3 bağımlılıkça SERBEST (kritik yol ucu); S1/S7 senaryoları [insan] düdük bekler ama zinciri bloklamaz.** A0-5 kritik yol DIŞI — paralel yetenek: Paseo'suz + claude-code/gemini-cli/codex CLI koşumu. K1 bağımlılığı "tüm A+EK" = A0-1..A4 + EK1-1..6 (A0-5 bilinçli HARİÇ: kritik yol dışı, paralel yetenek; S5/S6 da koşum-senaryosu olduğu için kapanışta zorunlu DEĞİL).
 
 > **İsim-uzayı dipnotu (v6):** bu belgenin S3'ü = STOP/kesinti SENARYOSU ([insan], BEKLE). Plugin dalgalarının S3'ü (v0.23 kod dalgası, 16:2x'te KAPALI: 76a8b0b/9853bb1/a6fd75f + tag v0.23-kilit) ile ALAKASIZDIR — iki ID uzayı farklı belgelerde yaşar, rapor okurken karıştırılmamalı.
 
@@ -143,3 +143,15 @@ S3 plugin v0.23 dalgası kapandı; bu oturum kapanışı diskten bağımsız do�
 - Kirli ağaç: bu oturumun plan/rapor seti untracked — "[insan] commit" düdüğü bekliyor (tek yazıcı, dosya adıyla; paralel tarafın dosyalarına dokunulmaz).
 
 **Kilit notu:** kilit-surum.ps1'in çift-ev kusuru (tek RepoKok iki ev taşıyamıyor) plugin dalgasında RED'e düştü, adımlar elle yürütüldü — onarım kayıtlı ayrı kalem; graf kapanış (K1) kilidi için sıradaki pencerede netleşmeli.
+
+## 13. Graf v7 — FINAL durum (2026-10-27 00:24, Get-Date ölçümlü; A2 replan motoru kapanışı sonrası)
+
+A2 dalgası kapandı; kapanış diskten bağımsız doğrulandı (kanal son-kanit.json birebir `d=2026-10-27T00:12:39.7323672+03:00 · h=45bd046 · x=0 · etiket a2-replan · sureSn=114` · test-a2-replan.log · kanıt raporu raporlar/kanit-hedef/a2-replan-2026-10-26.md · kabul.csv A2 PASS).
+
+**Graf v7 taze durumu (6/6 PASS):**
+- KAPALI: **T0** (F6.5-A, 80fdb4a) · **A1** (F8, e70dd55) · **A2** (kanal x=0, 45bd046) — kalan kod ~1685 (T) / test 890.
+- **Kritik yol ucu: A3 bağımlılıkça SERBEST** (tek bağımlılığı A2 idi; kapısı [insan] kural-onayları toplu) → A3 → A4 → K1 zinciri açık.
+- **A2'nin getirdiği (V4-01 kökten kapandı):** DRIFT% ölçer kodda (`kabulOku`/`olcDrift`/`olcSapma`); §18 Durum hücreleri [insan] kapılı otomatik tazelenir (MD-ezmez: yalnız Durum hücresi; `REPLAN ONAYLIYORUM` + aktör `insan:cli` — EK-2 ajan/proxy RED); replan.jsonl append-only fsync (ölçüm icerikHash idempotent); onaysız plan değişimi YOK.
+- [insan] düdük bekleyenler: **S1 "koş"** (canlı senaryo) · S7 (mini-turnuva; zinciri bloklamaz) · "A3 başla" (kritik yol ucu) · S5/S6 (T4'/T5' uçları, S1 sonrası) · S3-STOP (kendi senaryosu) · K-0044 (paralel tarafın anahtar→env penceresi) · K1 tag onayı (v0.24+).
+- Dürüst kapsam: A2 ölçütü "+120 test" plan (T) değeri — gerçek (R) 11 hermetik kırılım testi (kabul satırında aynen böyle kayıtlı).
+- Kirli ağaç: bu oturumun A2 seti commit düdüğünde tek yazıcıyla girer; paralel tarafın dalga-ortası dosyalarına dokunulmaz.

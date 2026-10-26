@@ -46,3 +46,10 @@ Değişiklikler (geçmişte birebir): (a) S5/S6 düğümleri + S1 kenarları ekl
 Graf v6: **24 düğüm / 29 kenar / 8/8 kontrol PASS** (programatik; script koşum sonrası silindi).
 Değişiklikler: (a) **T0 → KAPALI** (F6.5-A: commit 80fdb4a + kanal x=0 + kabul F65-01 PASS 10:46); (b) K1 ölçütü — **v0.23-kilit tag'i 16:2x'te plugin S3 dalgasında doğdu** (9853bb1); graf K1 sıradaki kilit penceresinde tag'ler (v0.24+ [insan]); (c) kilit script çift-ev kusuru RED kaydı (onarım graf-dışı kalem); (d) isim-uzayı dipnotu: grafın S3'ü (STOP senaryosu) ≠ plugin dalgasının S3'ü (v0.23).
 Kalan butce: kod ~2010 (T) / test 1010. Kritik yol: T0✓ → S7 → A1✓ → A2 → A3 → A4 → K1 — **A1 gerçekte S7'yi beklemeden kapandığından A2 bağımlılıkça SERBEST (kritik yol ucu); S1/S7 senaryoları [insan] düdük bekler ama kalan zinciri (A2→A3→A4→K1) BLOKLAMAZ.**
+
+## v7 yeniden koşum (2026-10-27 00:24 — Get-Date ölçümlü; A2 replan motoru kapanışı sonrası gerçeklik tazelemesi)
+
+Graf v7: **24 düğüm / 29 kenar / 6/6 kontrol PASS** (programatik: node -e topolojik tarama + alan doluluğu; kenar yapısı v6 ile aynı — yalnız durum metinleri değişti).
+Değişiklikler: (a) **A2 → KAPALI** (kanal son-kanit.json birebir d=2026-10-27T00:12:39.7323672+03:00 h=45bd046 x=0 etiket a2-replan sureSn=114; core/src/replan.ts + cli 'replan' + 11 hermetik test, tam süit 389/389; kabul.csv A2 PASS); (b) grafSurumu v6→v7 + geçmiş girişi; (c) KAPALI seti T0+A1+A2 (3/24).
+Kalan butce: kod ~1685 (T) / test 890. Kritik yol: T0✓ → S7 → A1✓ → A2✓ → A3 → A4 → K1 — **A3 bağımlılıkça SERBEST (tek bağımlılığı A2 idi; kritik yol ucu artık A3).**
+Kırmızı-satır notu: A2 ölçütü "+120 test" plan (T) değeri — gerçek (R) 11 kırılım testi; dürüst fark kabul satırında ve kanıt raporunda aynen kayıtlı.
