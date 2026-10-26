@@ -48,7 +48,7 @@
       "etiket": "bayat-baslik",
       "siddet": "dusuk",
       "oneri": "ADR basliklari UYGULANDI-canim-kanit-bekler olarak guncellensin",
-      "islenme": null
+      "islenme": "Kapandi (2026-10-26 gelen-kutu isleme turu): her iki ADR basligi TASLAK->UYGULANDI+kanit damgasi (kararlar/ADR-F65-rol-model.md:1 + kararlar/ADR-R3-vekalet.md:1 - gercek evleri kararlar/, dosyaRef'teki plans/ yolu F1 tasinindan onceki eski konum). Kanit: database/003-role-model.sql + database/004-grants.sql migrationlari + test/f65-rol-model.test.ts ve test/r3-grant.test.ts 311-suitinde PASS (R: kanal kosumu h=c881efa x=0). [insan] onay damgasi ADR basliginda acik beklemede"
     },
     {
       "id": "B6",
@@ -84,7 +84,7 @@
       "etiket": "veri-kalitesi",
       "siddet": "dusuk",
       "oneri": "Ilgili rapora gecersiz-kosum damgasi",
-      "islenme": null
+      "islenme": "Kapandi (2026-10-26 gelen-kutu isleme turu): raporlar/bench-glm-claude-2026-10-19/GECERSIZ-KOSUM-DAMGASI.md yazildi - 5 asamanin tamami ECONNREFUSED (R: bench.json hizOrnek/iqOrnek/termOrnek), olculen 0, tps null; bench.json verisi append-only dokunulmadi; FAZ-4.1 karsilastirmalarinda bu dizin dislanir"
     },
     {
       "id": "B10",

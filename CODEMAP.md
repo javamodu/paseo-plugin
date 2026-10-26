@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 6933617 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 54fda5a — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -13,8 +13,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
-- `kararlar/ADR-F65-rol-model.md` (9.7KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (TASLAK — onay bekler) | Baglam | Karar
-- `kararlar/ADR-R3-vekalet.md` (16.6KB) — ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (TASLAK — onay bekler) | Baglam | Karar
+- `kararlar/ADR-F65-rol-model.md` (9.8KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (UYGULANDI — kanıt: database/003-role-model.sql migration + test/f65-rol-model.test.ts 311-suitinde PASS; [insan] onay damgası bekler) | Baglam | Karar
+- `kararlar/ADR-R3-vekalet.md` (16.7KB) — ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (UYGULANDI — kanıt: database/004-grants.sql migration + test/r3-grant.test.ts 311-suitinde PASS; [insan] onay damgası bekler) | Baglam | Karar
 - `kararlar/ADR-toparlanma-monorepo.md` (7.9KB) — ADR — Toparlanma: tek dizin (monorepo) — TASLAK, onay bekler | Bağlam | Karar (önerilen)
 - `kararlar/K-0001.md` (0.6KB) — K-0001 — İki araştırma paketinin birleştirilmesi ve sürüm senkronu
 - `kararlar/K-0002.md` (1.6KB) — K-0002 — v2.0: 10-eksenli harness araştırması sentezi + reviewer denetimi
@@ -82,6 +82,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/` (18 dosya: en yeni savasa-hazir-2026-10-26.md, kalici-acik-defteri-2026-10-26.md, fault-matrix-2026-10-25.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
+- `raporlar/bench-glm-claude-2026-10-19/GECERSIZ-KOSUM-DAMGASI.md` (1.4KB) — GEÇERSİZ KOŞUM DAMGASI — bench-glm-claude-2026-10-19
 - `raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md` (5.3KB) — UYGUNLUK — paseo-plugin · 2026-10-18 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md` (13.3KB) — NİHAİ BİRLEŞİK EKSİK DEFTERİ — v3 FİNAL (27 açık · 1 kapalı) | Yeşil zemin (kaynaklar aynı ölçüde, R) | A — Kayıt/Kanıt/Versiyon (F4'ü bloklar) 🔴
 - `raporlar/capraz-sorgu-devir2038-2026-10-25/OZET.md` (5KB) — Çapraz Sorgu — HANDOFF-2026-10-25-2038 Devir Tespiti (6 okuyan + 1 yazan) | A. Doğrulanan iddialar (handoff ↔ disk tutarlı) | B. Çelişkiler (handoff iddia ↔ gerçek)
@@ -91,7 +92,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/devir-tarama-6subagent-2026-10-25/OZET.md` (5KB) — DEVİR TARAMASI — 6-SUBAGENT (tam devir + plan girdisi) — 2026-10-25 18:50 | Ana-ajan bağımsız doğrulamaları (R) | Doğrulanan denetim maddeleri (önceki 20'lik listenin teyidi)
 - `raporlar/f3-restart-envanteri-2026-10-25/OZET.md` (2.2KB) — F3 RESTART ENVANTERİ — 2026-10-25 17:50 (A0) | Restart-öncesi durum (R, diskten) | Yapılanlar (restart'tan önce)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/gelen-kutu/` (10 dosya: en yeni ordu-dc-dalga34-2026-10-25.md, ana-ajan-2026-10-25.md, codex-2026-10-14.md)
+- `raporlar/gelen-kutu/` (10 dosya: en yeni ana-ajan-2026-10-25.md, ordu-dc-dalga34-2026-10-25.md, codex-2026-10-14.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md` (1.1KB) — GLM 5.3 Sarmalayıcı Benchmark | Sonuçlar | Puanlama
 - `raporlar/kanit-hedef/f7a-pano-2026-10-26.md` (3KB) — F7-A pano render canlı kanıtı — 2026-10-26 | Kapsam-eşleme notu (K-0006/F5-A emsal deseni — sahte-yeşil şüphesini keser) | Kurulum (üretim DB/token'a SIFIR dokunuş)

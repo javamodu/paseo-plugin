@@ -1,4 +1,4 @@
-# ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (TASLAK — onay bekler)
+# ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (UYGULANDI — kanıt: database/004-grants.sql migration + test/r3-grant.test.ts 311-suitinde PASS; [insan] onay damgası bekler)
 
 ## Baglam
 PLAN.md v2.9 KILIT SS9.2 Vekalet grant modeli (R3): vekil 'yalniz oneri' degildir; onceden verilmis grant icindeki tanimli kararlari VEREBILIR. approvals.action kapali kumesine 5 vekil karar tipi eklenir: ANSWER_QUESTION, FALLBACK_MODEL, EXTRA_RETRY, REASSIGN_NODE, MANIFEST_AMEND — her biri ayri yetki, ayri expiry/butce. Vekil kendi grant'ini buyutemez; merge/deploy/harcama/kapsam genisletme grant ile VERILEMEZ (ayri insan yetkisi). Audit'te actor_id ayrimi: 'insan' vs 'vekil:<grantId>'. Kabul: K12-10.

@@ -1,4 +1,4 @@
-# ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (TASLAK — onay bekler)
+# ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (UYGULANDI — kanıt: database/003-role-model.sql migration + test/f65-rol-model.test.ts 311-suitinde PASS; [insan] onay damgası bekler)
 
 ## Baglam
 PLAN.md v2.9 F6.5 satiri rol basina model secimini ister ve yontem isaretini verir: "nodes.provider kolonu (ADR'li migration, varsayilan ORDU_PROVIDER)". Guncel durum (ordu-core kaynak kaniti):
