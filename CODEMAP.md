@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 80fdb4a — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD e6b2283 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -7,8 +7,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `ANAYASA.md` (1.8KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (93 dosya: en yeni MASTER-SSOT-PLAN.md, HEDEF.md, AGENTS.md)
-- `core/` (102 dosya: en yeni KULLANIM.md, bildirim-canli.test.ts, bildirim-sender.test.ts)
-- `DERSLER.md` (72.5KB) — DERSLER — paseo-plugin (L5)
+- `core/` (105 dosya: en yeni KULLANIM.md, k13-senaryo-a.test.ts, f8-turnuva.test.ts)
+- `DERSLER.md` (73.8KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
@@ -68,7 +68,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `plans/` (47 dosya: en yeni CANLI-TEST-6SUBAGENT-PLANI-2026-10-26.md, HANDOFF-2026-10-25-2038.md, UYGULAMA-PLANI-SPRINT-2026-10-26.md)
 - `plugin/` (64 dosya: en yeni dedektor.test.ts, index.server.ts, pano-durdur.test.ts)
-- `raporlar/` (104 dosya: en yeni bildirim-sender-2026-10-26.md, 2026-W44.md, f65-2provider-2026-10-26.md)
+- `raporlar/` (105 dosya: en yeni f8-turnuva-2026-10-26.md, 2026-W44.md, bildirim-sender-2026-10-26.md)
 - `README.md` (3.1KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -89,6 +89,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (35.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (37.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
