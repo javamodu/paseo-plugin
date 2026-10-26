@@ -1,7 +1,7 @@
 {
-    "d":  "2026-10-26T06:20:49.4375900+03:00",
-    "h":  "0a8eaec",
+    "d":  "2026-10-26T06:51:20.1229532+03:00",
+    "h":  "240dec6",
     "x":  0,
-    "test":  "s4-scheduler-sentpoll",
-    "sureSn":  30
+    "test":  "s4-scheduler-daemon",
+    "sureSn":  26
 }

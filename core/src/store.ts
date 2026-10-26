@@ -13,6 +13,9 @@ const dbDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'database');
 
 export function openStore(path = ':memory:') {
   const db = new DatabaseSync(path);
+  // S4 Scheduler 2/2 (daemon): eş-zamanlı ana+çocuk bağlantıları (daemon mandal okuması
+  // + cli çocuğu aynı defteri aynı anda açabilir) — BUSIŞ yerine bekle: 5 sn tavan.
+  db.exec('PRAGMA busy_timeout=5000;');
   db.exec('PRAGMA foreign_keys=ON;');
   // idempotent migration (V3-S1.4 restart doğruluğu): 001 kopyası değiştirilemez
   // (hash-senkron testi), bu yüzden user_version damgası ile ikinci açılışta atlanır.
@@ -23,7 +26,9 @@ export function openStore(path = ':memory:') {
   if (version < 3) db.exec(readFileSync(join(dbDir, '003-role-model.sql'), 'utf8'));
   // R3 (ADR-R3): grants defteri + attempts/approvals.grant_id; user_version<4 kapisi ikinci acilista atlatir.
   if (version < 4) db.exec(readFileSync(join(dbDir, '004-grants.sql'), 'utf8'));
-  db.exec('PRAGMA user_version=4;');
+  // koşullu damga: her açılışta YAZMA (daemon: ana+çocuk eş-zamanlı açışta kilit çatışması
+  // üretirdi) — yalnızca migration gerçekten koştuysa damgala; 4'te açılan yazmaz.
+  if (version < 4) db.exec('PRAGMA user_version=4;');
   return db;
 }
 

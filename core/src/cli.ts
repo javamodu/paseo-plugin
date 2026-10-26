@@ -16,6 +16,7 @@ import {
 import { sampleHandoff } from './handoff.ts';
 import { sampleReceipt } from './reasoning-receipt.ts';
 import { evaluateArtifact } from './cli-evaluate.ts';
+import { runDaemon } from './daemon.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -187,8 +188,35 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
         return { code: 0, out: { runId, approvalId: req.approvalId, request: req.status, decision, status: dec.status, runState } };
       } catch (e: any) { return { code: 1, out: 'decide reddedildi: ' + e.message }; }
     }
+    case 'serve': {
+      // S4 Scheduler 2/2: tick DÖNGÜSÜ — daemon sürücüsü. Her tur ayrı `tick` ÇOCUK
+      // süreci (crash izolasyonu); cadence schedule.ts disipliniyle (misfire/overlap
+      // SKIP — catch-up fırtınası yok). SIGINT/SIGTERM temiz duruş. STOP mandalı her
+      // uyanışta defterden: mandalı kapalıyken çocuk HİÇ spawn edilmez, açılınca aynı
+      // occurrence adil yeniden denenir. 3 üst üste kırmızı çocuk → fail-closed exit.
+      const intervalMs = Number(flag('interval-ms') ?? 30_000);
+      if (!(Number.isFinite(intervalMs) && intervalMs >= 1000)) {
+        return { code: 1, out: 'serve: --interval-ms >= 1000 gerekli (cadence disiplini — hızlı döngü spam\'i kapı dışı)' };
+      }
+      const maxTicks = flag('max') !== undefined ? Number(flag('max')) : undefined;
+      if (maxTicks !== undefined && !(Number.isInteger(maxTicks) && maxTicks > 0)) {
+        return { code: 1, out: 'serve: --max pozitif tam sayı olmalı' };
+      }
+      let signalled = false;
+      const onSig = () => { signalled = true; };
+      process.on('SIGINT', onSig); process.on('SIGTERM', onSig);
+      try {
+        const res = await runDaemon({
+          intervalMs, maxTicks, dbPath: deps.dbPath, probePath: deps.probePath, env: deps.env,
+          shouldStop: () => signalled,
+        });
+        return { code: res.code, out: res.stats };
+      } finally {
+        process.removeListener('SIGINT', onSig); process.removeListener('SIGTERM', onSig);
+      }
+    }
     default:
-      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)' };
+      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)' };
   }
 }
 

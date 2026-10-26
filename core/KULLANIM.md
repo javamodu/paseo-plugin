@@ -20,7 +20,7 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 311/311, tam suit EXIT=0, 2026-10-26 gece vardiyası final koşumu — kanal-kaynaklı, son-kanit.json d=01:09:14 h=65daa1f x=0, log test-faz3-savasa-hazir-2026-10-26.log; lessons-canli (M14/M15 gerçek süreç deneyi+canary), a09-canli (gerçek lease timeout), capacity-canli (V3-S3.1/F5-C/SLOT gerçek workerlar + UNKNOWN slot tutma), m16-canli (gerçek çöküş→yedek→dönüş) dahil).
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 324/324, tam suit EXIT=0, 2026-10-26 S4 Scheduler 2/2 turu — kanal-kaynakli, son-kanit.json d=06:51:20 h=240dec6 x=0, etiket s4-scheduler-daemon, log test-s4-scheduler-daemon.log; +6 hermetik daemon (M08/M10/overlap/STOP/fail-closed/cadence-RED) + 3 canli daemon (gercek cocuk sureci tesisati) dahil).
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
 - Kapanis-kaniti kanali (K-0046 (e)/(f)): kabul.csv'ye sonek baglayacak koşumlar dogrudan `npm test` yerine kokten `powershell -ExecutionPolicy Bypass -File scripts\test-kanal.ps1 -Etiket <etiket>` ile koşulur — Tee logu `raporlar/kanit-hedef/test-<etiket>.log`'a iner, `son-kanit.json` {d,h,x,test,sureSn} yazar; sonek son-kanit.json'dan BIREBIR kopyalanir (elle yazilmaz).
 
@@ -69,6 +69,7 @@ node src/cli.ts status
 node src/cli.ts stop [--actor A] [--reason R]
 node src/cli.ts resume --confirm "I understand the risk" [--actor A] [--reason R]
 node src/cli.ts tick
+node src/cli.ts serve [--interval-ms N] [--max N]
 node src/cli.ts capsule --goal "..." --repo R --commit <64hex> [--allow KOMUT]... [--provider P [--model M]]
 node src/cli.ts approve --run <runId> --plan-hash <hash>
 node src/cli.ts dispatch --run <runId>
@@ -80,6 +81,7 @@ node src/cli.ts decide --run <runId> (--approve|--reject)
 - `stop` → global stop latch kurar; `{stopped:true}`. Exit 0.
 - `resume` → onay metni olmadan exit 1; dogru metinle `{resumed:true, commandId}`. Exit 0.
 - `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile + **sentPoll** (SENT oturumlarinin durum yoklamasi — S4 Scheduler; olum disarida olsa defterde gorunur). (R) 2026-10-26 SAVAS START canli kosum: `ORDU_LIVE=1 tick` → GERCEK Paseo spawn + SESSION_BOUND (run-ce03ca55; kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md) — adaptor wire EDILDI (onceki 'wire edilmedi' notu bayatti).
+- `serve` → tick DONGUSU — daemon surucusu (S4 Scheduler 2/2): her tur ayri `tick` cocuk surecinde (crash izolasyonu; probe/DURUM kapilari CLI'nin kendi exit kodlariyla yasar). Cadence `schedule.ts` disipliniyle (misfire/overlap SKIP — catch-up firtinasi yok; M08/M09/M10). STOP mandali her uyanista defterden okunur: mandal kapaliyken cocuk HIC spawn edilmez, acilinca ayni occurrence adil yeniden denenir. 3 ust uste kirmizi cocuk → fail-closed olum (exit, son cocugun kodu). SIGINT/SIGTERM temiz durus. Varsayilan aralik 30 sn (`--interval-ms`, 1000 alti RED). Sonsuz calisir; `--max N` tavanla sinirlandirilabilir. (R) 2026-10-26 canli koşum: uretim savas defterinde `serve --interval-ms 1000 --max 2` → 2/2 ok, sentPoll alive-running, overlap skip + cocuk bitince ayni occurrence adil retry dogal gozlendi (kanit raporlar/kanit-hedef/s4-scheduler-daemon-2026-10-26.md).
 - Kapsul dongusu: `capsule` (plan+run kurar; --provider codex/glm-5.3 canli olculmus — kimi-K3 API'de RED, K-0050) → `approve` (insan:cli aktoru, plan-hash birebir) → `dispatch` (outbox doldurur) → `tick` (ORDU_LIVE=1 ile gercek spawn) → `evaluate` (bagimsiz dosya degerlendirici) → `decide` (teslim karari).
 - CLI de `ORDU_DB` (varsayilan `data/ordu.sqlite`), `ORDU_PROBE` (varsayilan `evidence/probe-latest.json`), `ORDU_LIVE=1` (canli spawn beyani — YOKSA FATAL) ve `ORDU_PROVIDER` (dispatch aninda provider cozumu) okur.
 - Bilinmeyen komut → kullanim satiri + exit 1.
@@ -97,7 +99,7 @@ node src/cli.ts decide --run <runId> (--approve|--reject)
 - Ucretli/dis API kapali: tum testler hermetik; gercek LLM/Paseo cagrisi YOK.
 - Merge/deploy yok: core yalniz defter + dispatch + kabul kapilari; git merge ve yayinlama kapsam disi.
 - Paseo adaptoru WIRE EDILDI (R 2026-10-26 SAVAS START: run-ce03ca55 gercek spawn + ajan urunu + evaluate PASS + ACCEPTED — kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md; onceki 'wire edilmedi' siniri kapatildi). Probe receipt TAZE (R 2026-10-25: `npm run probe` EXIT=0, blocked listesi BOS, receipt a8580ad0). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; suit probe.mjs'i kosturmadigi icin latent kaliyordu (kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
-- SENT oturumlarin durum yoklamasi tick'in sentPoll baciyla yapilir (S4 Scheduler, 2026-10-26); olum disarida olsa defterde RUNNING kalmaz.
+- SENT oturumlarin durum yoklamasi tick'in sentPoll baciyla yapilir (S4 Scheduler, 2026-10-26); olum disarida olsa defterde RUNNING kalmaz. Periyodik otomatik koşum için `serve` (daemon sürücüsü) — tık'ler elle koşmak zorunda değilsin.
 - Pano read-only + stop/resume'dur; plan onayi/karar verme panodan YAPILMAZ.
 
 ## 9. Dogrulandi (2026-10-14, Windows, Node v24.18.0)
