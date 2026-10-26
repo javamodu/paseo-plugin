@@ -51,7 +51,7 @@ Check 'handoff dizini' ($null -ne $pHd) 'devir toreni ciktilari'
 # 2) Butce sinirlari
 $l0 = LineCount $pL0; if ($l0 -ge 0) { Check 'L0 butce <=200 satir' ($l0 -le 200) "$l0 satir" }
 $l1 = LineCount $pL1; if ($l1 -ge 0) { Check 'L1 butce <=100 satir' ($l1 -le 100) "$l1 satir" }
-$cm = LineCount $pL2; if ($cm -ge 0) { Check 'L2 CODEMAP butce <=130 satir' ($cm -le 130) "$cm satir (dokuman haritasi ~4-5k token; kod sembol haritasi ~1k)" }
+$cm = LineCount $pL2; if ($cm -ge 0) { Check 'L2 CODEMAP butce <=150 satir' ($cm -le 150) "$cm satir (tavan K-0048(ii) ile 130->150 revize — 468-dosya monorepo)" }
 
 # 3) CODEMAP tazeligi
 if ($pL2) {

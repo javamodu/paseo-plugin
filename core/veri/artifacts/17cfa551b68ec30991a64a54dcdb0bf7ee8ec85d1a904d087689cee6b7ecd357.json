@@ -1,0 +1,22 @@
+{
+  "evaluator": "cli-dosya-v1",
+  "attemptId": "att-dfed008b",
+  "artifactPath": "C:\\Users\\gatep\\AppData\\Local\\Temp\\ordu-kopru-a14\\artifacts\\teslim.txt",
+  "checks": [
+    {
+      "ad": "dosya-var",
+      "gecti": true
+    },
+    {
+      "ad": "bos-degil",
+      "gecti": true
+    },
+    {
+      "ad": "icerik-beklenti",
+      "gecti": false
+    }
+  ],
+  "verdict": "FAIL",
+  "exitCode": 1,
+  "at": "2026-10-26T02:49:15.617Z"
+}

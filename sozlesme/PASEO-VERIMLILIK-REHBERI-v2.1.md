@@ -45,7 +45,7 @@ Vektör DB yok; yapısal disiplin var. Her projede bu katmanları kur/koru:
 |---|---|---|---|
 | L0 Kurallar | AGENTS.md / ANAYASA | her zaman yüklü, küçük tutulur | ≤200 satır |
 | L1 Durum | STATE_BOARD.md | rolling window: son 3 damga tam metin, eskisi tek satır | ≤100 satır |
-| L2 İndeks | INDEX.md + CODEMAP.md + GLOSSARY.md | dosya ekle/sil/taşı → aynı commit'te güncelle; otomasyonla üretilir (scripts/codemap), elle düzenlenmez | CODEMAP ≤130 satır (kod haritası ~1k token; doküman haritası ~4-5k) |
+| L2 İndeks | INDEX.md + CODEMAP.md + GLOSSARY.md | dosya ekle/sil/taşı → aynı commit'te güncelle; otomasyonla üretilir (scripts/codemap), elle düzenlenmez | CODEMAP ≤150 satır (kod haritası ~1k token; doküman haritası ~4-5k — tavan K-0048(ii) ile 130→150 revize, 468-dosya monorepo gerçeği) |
 | L3 Raporlar | raporlar/<is>-<tarih>/ | append-only; insan için OZET.md + ajan için makine-okunur JSON yan dosya | — |
 | L4 Kararlar | kararlar/K-XXXX.md (ADR) | başlık · bağlam · karar · reddedilen alternatifler · sonuç | ≤1 sayfa |
 | L5 Dersler | DERSLER.md | negatif bilgi: "denendi, patladı, sebebi" + araç huyları; her oturumun açılış okuması | ≤200 satır |

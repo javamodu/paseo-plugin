@@ -1,4 +1,4 @@
-﻿# ANAYASA — paseo-plugin
+﻿# ANAYASA — ordu
 
 > Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md) bu belgeye tabidir.
 > Ajan bu belgeyi değiştiremez; değişiklik önerisi kararlar/K-XXXX.md ile açılır, yalnız kullanıcı onaylar.
@@ -8,7 +8,7 @@
 - A1. Evrensellik: rehber ve şablonlarda uygulama/proje adı geçmez; "<proje>" yer tutucu kullanılır.
 - A2. Kanıt disiplini: ölçüm yoksa (T) tahmin, resmî ölçüm (R), tek-kaynak iddia * işaretli. Ölçümsüz yüzde YAZILMAZ.
 - A3. Bütçe hijyeni: rehber ≤150 satır, bu belge ≤60 satır; aşan içerik işaretçiyle alt dosyaya taşınır.
-- A4. Sürüm senkronu: rehber ve plan aynı sürüm numarasını taşır (şu an v2.0).
+- A4. Sürüm senkronu: rehber ve plan aynı sürüm numarasını taşır (şu an v2.1 — K-0043 ile senkronlandı).
 
 ## 2. SSOT Maddeleri
 

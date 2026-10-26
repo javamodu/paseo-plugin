@@ -1,0 +1,210 @@
+{
+  "schema": "glm53-wrapper-benchmark/v1",
+  "generatedAt": "2026-10-24T19:50:12.947Z",
+  "mode": "live",
+  "taskPrompt": "Fix the failing test in `index.js`, run `node --test index.test.js`, and report the result.",
+  "networkStatus": "available",
+  "wrappers": [
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "version": "2.1.302 (Claude Code)",
+      "model": "glm-5.3",
+      "startup": {
+        "runsMs": [
+          84,
+          77,
+          77
+        ],
+        "averageMs": 79.33
+      },
+      "inventory": {
+        "model": "glm-5.3",
+        "version": "2.1.302",
+        "tools": [
+          "Task",
+          "Bash",
+          "CronCreate",
+          "CronDelete",
+          "CronList",
+          "DesignSync",
+          "Edit",
+          "EnterWorktree",
+          "ExitWorktree",
+          "Glob",
+          "Grep",
+          "ListAgents",
+          "Monitor",
+          "NotebookEdit",
+          "PowerShell",
+          "PushNotification",
+          "Read",
+          "ReportFindings",
+          "ScheduleWakeup",
+          "SendMessage",
+          "Skill",
+          "TaskStop",
+          "WaitForMcpServers",
+          "WebFetch",
+          "WebSearch",
+          "Workflow",
+          "Write"
+        ],
+        "toolCount": 27,
+        "permissionMode": "default",
+        "mcpServerCount": 1,
+        "skillCount": 26,
+        "pluginCount": 3
+      },
+      "live": {
+        "runDirectory": "D:\\Vibecode\\silinecek-task-graph\\benchmark\\glm53-wrapper\\runs\\claude-code-2026-10-24T19-45-49-035Z",
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 18242,
+        "stdoutChars": 85275,
+        "stderrChars": 74,
+        "outputLineCount": 247,
+        "stdoutPreview": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\claude-code-2026-10-24T19-45-49-035Z\",\"session_id\":\"7d7c4bba-a6e1-4963-be45-6747a4b66088\",\"tools\":[\"Task\",\"Bash\",\"CronCreate\",\"CronDelete\",\"CronList\",\"DesignSync\",\"Edit\",\"EnterWorktree\",\"ExitWorktree\",\"Glob\",\"Grep\",\"ListAgents\",\"Monitor\",\"NotebookEdit\",\"PowerShell\",\"PushNotification\",\"Read\",\"ReportFindings\",\"ScheduleWakeup\",\"SendMessage\",\"Skill\",\"TaskStop\",\"WaitForMcpServers\",\"WebFetch\",\"WebSearch\",\"Workflow\",\"Write\"],\"mcp_servers\":[{\"name\":\"stitch\",\"status\":\"pending\",\"source\":\"user\"}],\"model\":\"glm-5.3\",\"permissionMode\":\"bypassPermissions\",\"slash_commands\":[\"paseo\",\"paseo-advisor\",\"paseo-committee\",\"paseo-handoff\",\"paseo-help\",\"paseo-loop\",\"paseo-plugin\",\"skill-creator\",\"deep-research\",\"design\",\"design-sync\",\"dataviz\",\"update-config\",\"verify\",\"debug\",\"code-review\",\"simplify\",\"batch\",\"fewer-permission-prompts\",\"doctor\",\"loop\",\"claude-api\",\"workflow-authoring\",\"run\",\"run-skill-generator\",\"plugin-authoring\",\"advisor\",\"agents\",\"auto-mode-setup\",\"autocompact\",\"clear\",\"color\",\"compact\",\"config\",\"output-style\",\"context\",\"effort\",\"fast\",\"focus\",\"heapdump\",\"init\",\"mcp\",\"import\",\"model\",\"__remote-workflow\",\"workflow-launch-exec\",\"reload-plugins\",\"reload-skills\",\"rename\",\"security-review\",\"usage\",\"insights\",\"recap\",\"skill-doctor\",\"goal\",\"design-consent\",\"design-revoke\",\"list-agents\",\"team-onboarding\"],\"terminal_slash_commands\":[\"doctor\",\"color\",\"focus\",\"reload-plugins\"],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.302\",\"output_style\":\"default\",\"agents\":[\"claude\",\"Explore\",\"general-purpose\",\"Plan\",\"statusline-setup\"],\"skills\":[\"paseo\",\"paseo-advisor\",\"paseo-committee\",\"paseo-handoff\",\"paseo-help\",\"paseo-loop\",\"paseo-plugin\",\"skill-creator\",\"deep-research\",\"design\",\"design-sync\",\"dataviz\",\"update-config\",\"verify\",\"debug\",\"code-review\",\"simplify\",\"batch\",\"fewer-permission-prompts\",\"doctor\",\"loop\",\"claude-api\",\"workflow-authoring\",\"run\",\"run-skill-generator\",\"plugin-aut",
+        "stderrPreview": "[claude-code:unrecognized_model] {\"model\":\"glm-5.3\",\"query_source\":\"sdk\"}\n"
+      }
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "glm-5.3",
+      "startup": {
+        "runsMs": [
+          80,
+          77,
+          74
+        ],
+        "averageMs": 77
+      },
+      "inventory": {
+        "promptMessageCount": 3,
+        "promptTextLength": 8908,
+        "tools": null,
+        "toolCount": null,
+        "note": "Codex does not expose a tool inventory through its offline debug surface."
+      },
+      "live": {
+        "runDirectory": "D:\\Vibecode\\silinecek-task-graph\\benchmark\\glm53-wrapper\\runs\\codex-2026-10-24T19-46-07-879Z",
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 179069,
+        "stdoutChars": 36286,
+        "stderrChars": 0,
+        "outputLineCount": 70,
+        "stdoutPreview": "{\"type\":\"thread.started\",\"thread_id\":\"01a16f72-f888-7982-b721-860364054bef\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Model metadata for `glm-5.3` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"agent_message\",\"text\":\"I’ll inspect the test and implementation, then patch the root cause.\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_2\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\WINDOWS\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\\\" -Command 'Get-ChildItem -Force; Get-Content index.test.js; Get-Content index.js'\",\"aggregated_output\":\"\",\"exit_code\":null,\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_2\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\WINDOWS\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\\\" -Command 'Get-ChildItem -Force; Get-Content index.test.js; Get-Content index.js'\",\"aggregated_output\":\"\\r\\n\\r\\n    Directory: D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\codex-2026-10-24T19-46-07-879Z\\r\\n\\r\\n\\r\\nMode                 LastWriteTime         Length Name                                                                 \\r\\n----                 -------------         ------ ----                                                                 \\r\\n-a----        24.10.2026     20:50             60 index.js                                                             \\r\\n-a----        24.10.2026     20:50            173 index.test.js                                                        \\r\\nimport assert from 'node:assert/strict';\\r\\nimport test from 'node:test';\\r\\nimport { sum } from './index.js';\\r\\n\\r\\ntest('adds two numbers', () => {\\r\\n  assert.equal(sum(2, 3), 5);\\r\\n});\\r\\nexport function sum(left, right) {\\r\\n  return left - right;\\r\\n}\\r\\n\\r\\n\\r\\n\",\"exit_code\":0,\"status\":\"completed\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_3\"",
+        "stderrPreview": ""
+      }
+    },
+    {
+      "id": "opencode",
+      "label": "OpenCode",
+      "version": "1.19.3",
+      "model": "glm-5.3",
+      "startup": {
+        "runsMs": [
+          1175,
+          1267,
+          1173
+        ],
+        "averageMs": 1205
+      },
+      "inventory": {
+        "agentName": "build",
+        "mode": "primary",
+        "native": true,
+        "tools": [
+          "invalid",
+          "question",
+          "bash",
+          "read",
+          "glob",
+          "grep",
+          "edit",
+          "write",
+          "task",
+          "webfetch",
+          "todowrite",
+          "skill"
+        ],
+        "toolCount": 12,
+        "permissionCount": 15
+      },
+      "live": {
+        "runDirectory": "D:\\Vibecode\\silinecek-task-graph\\benchmark\\glm53-wrapper\\runs\\opencode-2026-10-24T19-49-14-411Z",
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 18470,
+        "stdoutChars": 9219,
+        "stderrChars": 0,
+        "outputLineCount": 14,
+        "stdoutPreview": "{\"type\":\"step_start\",\"timestamp\":1792871362397,\"sessionID\":\"ses_e908a243dffeIgjCTgNWF6H2tr\",\"part\":{\"id\":\"prt_16f75ef58001AyJsAnlZlIQ2ta\",\"messageID\":\"msg_16f75e1df001CIJummYoxxG07L\",\"sessionID\":\"ses_e908a243dffeIgjCTgNWF6H2tr\",\"type\":\"step-start\"}}\r\n{\"type\":\"tool_use\",\"timestamp\":1792871362925,\"sessionID\":\"ses_e908a243dffeIgjCTgNWF6H2tr\",\"part\":{\"type\":\"tool\",\"tool\":\"read\",\"callID\":\"call_60ea6ccda6874822b093fda4\",\"state\":{\"status\":\"completed\",\"input\":{\"filePath\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-24T19-49-14-411Z\\\\index.js\"},\"output\":\"<path>D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-24T19-49-14-411Z\\\\index.js</path>\\n<type>file</type>\\n<content>\\n1: export function sum(left, right) {\\n2:   return left - right;\\n3: }\\n\\n(End of file - total 3 lines)\\n</content>\",\"metadata\":{\"preview\":\"export function sum(left, right) {\\n  return left - right;\\n}\",\"truncated\":false,\"loaded\":[],\"display\":{\"type\":\"file\",\"path\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-24T19-49-14-411Z\\\\index.js\",\"text\":\"export function sum(left, right) {\\n  return left - right;\\n}\",\"lineStart\":1,\"lineEnd\":3,\"totalLines\":3,\"truncated\":false}},\"title\":\"Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-24T19-49-14-411Z\\\\index.js\",\"time\":{\"start\":1792871362793,\"end\":1792871362912}},\"id\":\"prt_16f75ef87001zpepv9nuYU9IFw\",\"sessionID\":\"ses_e908a243dffeIgjCTgNWF6H2tr\",\"messageID\":\"msg_16f75e1df001CIJummYoxxG07L\"}}\r\n{\"type\":\"tool_use\",\"timestamp\":1792871363371,\"sessionID\":\"ses_e908a243dffeIgjCTgNWF6H2tr\",\"part\":{\"type\":\"tool\",\"tool\":\"read\",\"callID\":\"call_1d1c4d9a70ff4f7b89bc3433\",\"state\":{\"status\":\"completed\",\"input\":{\"filePath\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-24T19-49-14-411Z\\\\index.test.js\"},\"output\":\"<path>D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\opencode-2026-10-2",
+        "stderrPreview": ""
+      }
+    },
+    {
+      "id": "kilocode",
+      "label": "Kilocode",
+      "version": "7.8.8",
+      "model": "glm-5.3",
+      "startup": {
+        "runsMs": [
+          1752,
+          1657,
+          1655
+        ],
+        "averageMs": 1688
+      },
+      "inventory": {
+        "agentName": "code",
+        "mode": "primary",
+        "native": true,
+        "tools": [
+          "invalid",
+          "question",
+          "bash",
+          "read",
+          "glob",
+          "grep",
+          "edit",
+          "write",
+          "task",
+          "webfetch",
+          "todowrite",
+          "skill",
+          "suggest",
+          "goal_report",
+          "goal",
+          "board_read",
+          "board_post",
+          "kilo_local_recall",
+          "background_process",
+          "schedule_wakeup",
+          "cancel_wakeup",
+          "cron_create",
+          "cron_list",
+          "cron_delete",
+          "agent_manager_models",
+          "link_pr"
+        ],
+        "toolCount": 26,
+        "permissionCount": 129
+      },
+      "live": {
+        "runDirectory": "D:\\Vibecode\\silinecek-task-graph\\benchmark\\glm53-wrapper\\runs\\kilocode-2026-10-24T19-49-44-819Z",
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 28125,
+        "stdoutChars": 9850,
+        "stderrChars": 0,
+        "outputLineCount": 13,
+        "stdoutPreview": "{\"type\":\"step_start\",\"timestamp\":1792871403601,\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"part\":{\"id\":\"prt_16f769046001gAWsAU942YlLzO\",\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"messageID\":\"msg_16f7688de001pMwwJ0s8V9zHIV\",\"type\":\"step-start\"}}\r\n{\"type\":\"tool_use\",\"timestamp\":1792871404271,\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"part\":{\"id\":\"prt_16f769181001u5vhakBM57Gv4h\",\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"messageID\":\"msg_16f7688de001pMwwJ0s8V9zHIV\",\"type\":\"tool\",\"callID\":\"call_2745d94b8ab2440c82b53365\",\"tool\":\"read\",\"state\":{\"status\":\"completed\",\"input\":{\"filePath\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\kilocode-2026-10-24T19-49-44-819Z\\\\index.js\"},\"output\":\"<path>D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\kilocode-2026-10-24T19-49-44-819Z\\\\index.js</path>\\n<type>file</type>\\n<content>\\n1: export function sum(left, right) {\\n2:   return left - right;\\n3: }\\n\\n(End of file - total 3 lines)\\n</content>\",\"title\":\"Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\kilocode-2026-10-24T19-49-44-819Z\\\\index.js\",\"metadata\":{\"preview\":\"export function sum(left, right) {\\n  return left - right;\\n}\",\"truncated\":false,\"loaded\":[],\"display\":{\"type\":\"file\",\"path\":\"D:\\\\Vibecode\\\\silinecek-task-graph\\\\benchmark\\\\glm53-wrapper\\\\runs\\\\kilocode-2026-10-24T19-49-44-819Z\\\\index.js\",\"text\":\"export function sum(left, right) {\\n  return left - right;\\n}\",\"lineStart\":1,\"lineEnd\":3,\"totalLines\":3,\"truncated\":false},\"approval\":{\"source\":\"agent\",\"agent\":\"code\",\"rule\":{\"permission\":\"read\",\"pattern\":\"*\",\"action\":\"allow\"}}},\"time\":{\"start\":1792871404178,\"end\":1792871404264}}}}\r\n{\"type\":\"tool_use\",\"timestamp\":1792871404597,\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"part\":{\"id\":\"prt_16f7692ad001ZhZO5AvS3ogtuh\",\"sessionID\":\"ses_e9089a671ffevMf1TyZaKAcNoP\",\"messageID\":\"msg_16f7688de001pMwwJ0s8V9zHIV\",\"type\":\"tool\",\"callID\":\"call_7aa6648cca264ac6a41ac269\",\"tool\":\"read\",\"state\":{\"status\":\"completed\",\"input\":{",
+        "stderrPreview": ""
+      }
+    }
+  ]
+}

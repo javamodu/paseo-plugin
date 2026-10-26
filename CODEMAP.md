@@ -1,12 +1,12 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 1c758b1 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 555d7fd — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `admin-onboarding.md` (6.1KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
 - `AGENTS.md` (1.3KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
-- `ANAYASA.md` (1.8KB) — ANAYASA — paseo-plugin | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
+- `ANAYASA.md` (1.8KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `arsiv/` (37 dosya: en yeni MASTER-SSOT-PLAN.md, HEDEF.md, AGENTS.md)
+- `arsiv/` (93 dosya: en yeni MASTER-SSOT-PLAN.md, HEDEF.md, AGENTS.md)
 - `core/` (87 dosya: en yeni KULLANIM.md, capacity-canli.test.ts, m16-canli.test.ts)
 - `DERSLER.md` (63.2KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
@@ -56,9 +56,12 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0040.md` (2.1KB) — K-0040 — cacheHitMinPct eşik kaynağının tekilleştirilmesi: hedefler.json = 40, saglik varsayılanı hizalanır — ONAYLANDI | Bağlam | Karar
 - `kararlar/K-0041.md` (2.5KB) — K-0041 — K-0029 (v0.17 state+test dalgası) geriye dönük kayıt: atıf boşluğu kapanır — ADAY | Bağlam | Karar
 - `kararlar/K-0042.md` (1.8KB) — K-0042 — K-0036 (ücretli/dis API yok politikası) geriye dönük kayıt — ADAY | Bağlam | Karar
+- `kararlar/K-0043.md` (1.3KB) — K-0043 — ANAYASA A4 sürüm senkronu + başlık: paseo-plugin → ordu — ONAYLANDI | Bağlam | Karar (uygulandı)
+- `kararlar/K-0044.md` (1.8KB) — K-0044 — Karar C: B11 kart anahtarları env'e taşıma — ONAYLANDI (uygulama restart penceresi) | Bağlam | Karar
 - `kararlar/K-0046.md` (9.5KB) — K-0046 — Aldatılamayan hedefleme: kanıt-üçleme kanalı + hız ölçüm payda kuralları — ONAYLANDI (kanal uygulanıyor) | Bağlam | Karar
-- `kararlar/K-0047.md` (2.4KB) — K-0047 — Kabul kapısı (b): madde-bazlı onay düdüğü kuralının kaydı — ÖNERİ | Bağlam | Karar (önerilen)
-- `kararlar/K-0048.md` (2.9KB) — K-0048 — K-0039/CODEMAP kapsam-bütçe: tavan 130 ↔ üretici çıktısı 141 çelişkisi — ÖNERİ | Bağlam | Karar (önerilen — seçenekler [insan])
+- `kararlar/K-0047.md` (2.5KB) — K-0047 — Kabul kapısı (b): madde-bazlı onay düdüğü kuralının kaydı — ONAYLANDI | Bağlam | Karar (önerilen)
+- `kararlar/K-0048.md` (3.2KB) — K-0048 — K-0039/CODEMAP kapsam-bütçe: tavan 130 ↔ üretici çıktısı 141 çelişkisi — ONAYLANDI (seçenek ii) | Bağlam | Karar (önerilen — seçenekler [insan])
+- `kararlar/K-0049.md` (2.2KB) — K-0049 — 4-puan köprüsü: F7-B/A14/A10/M17 kabul satır çevirileri — ONAYLANDI, UYGULANDI | Bağlam | Karar (madde-bazlı)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (5 dosya: en yeni BLUEPRINT.md, README.md, .pano-serve.js)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
@@ -80,7 +83,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/SSOT-INDEX.md` (2.2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
 - `plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md` (8.9KB) — UYGULAMA PLANI — SPRINT + LOC — 2026-10-26 (v2) | SPRINT 0 — Kayıp/güvenlik kalkanı (hemen; 0 kod LOC) | SPRINT 1 — Kabul köprüsü: %40,9 → %44 (4 puan; ~80 LOC)
 - `plugin/` (64 dosya: en yeni dedektor.test.ts, index.server.ts, pano-durdur.test.ts)
-- `raporlar/` (19 dosya: en yeni tam-analiz-6-dogrulayici-2026-10-26.md, savasa-hazir-2026-10-26.md, kalici-acik-defteri-2026-10-26.md)
+- `raporlar/` (20 dosya: en yeni yonetici-ozeti-2026-10-26.md, tam-analiz-6-dogrulayici-2026-10-26.md, savasa-hazir-2026-10-26.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
 - `raporlar/bench-glm-claude-2026-10-18/karsilama.md` (3.6KB) — GLM 5.3 — iki hat kıyaslaması · 2026-10-18 | Hükümler | Tel-düzey sağlıklı hız ölçümü (20:59, 3+3 tekrar, aynı prompt/parametre)
 - `raporlar/bench-glm-claude-2026-10-19/GECERSIZ-KOSUM-DAMGASI.md` (1.4KB) — GEÇERSİZ KOŞUM DAMGASI — bench-glm-claude-2026-10-19
@@ -96,6 +99,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/gelen-kutu/` (10 dosya: en yeni denetim-2026-10-13.md, denetim2-2026-10-13.md, codex-2026-10-14.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md` (1.1KB) — GLM 5.3 Sarmalayıcı Benchmark | Sonuçlar | Puanlama
+- `raporlar/kanit-hedef/a14-a10-canli-2026-10-26.md` (3.1KB) — A14+A10 CANLI CLI UCU KOŞUMU — 2026-10-26 (4-puan köprüsü turu) | Koşum dizisi (temiz koşum — run-89eed2dd) | Negatif kanıtlar (aynı turda, dürüst kırmızı)
 - `raporlar/kanit-hedef/f7a-pano-2026-10-26.md` (3KB) — F7-A pano render canlı kanıtı — 2026-10-26 | Kapsam-eşleme notu (K-0006/F5-A emsal deseni — sahte-yeşil şüphesini keser) | Kurulum (üretim DB/token'a SIFIR dokunuş)
 - `raporlar/kanit-hedef/hermetik-kanal-test-2026-10-25.md` (1.3KB) — Hermetik kanal testi — kilit-surum.ps1 Tee + son-kanit.json bacağı (K-0046 erata kanıtı, 2026-10-25 21:53) | Yeşil dal (kanal-test) | Kırmızı dal (kanal-kirmizi — test script exit 1)
 - `raporlar/model-benchmark-2026-10-24/OZET.md` (3KB) — Paseo Model Benchmark — Top 30 | Not | Top 30
