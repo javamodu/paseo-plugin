@@ -1,0 +1,5 @@
+{
+  "surum": 1,
+  "aciklama": "Bilinen-benign kirli dosya desenleri (bekci ciktilari) - uc kabinin ortak kirli-agac tanimi (A5-9). kilit-surum.ps1 + proje-panosu.ps1 buradan okur; bekci.ts (S3) ayni listeyi okuyacak. Desen, git status --short satirina alt-dizi olarak uygulanir. Liste disi her kirli dosya kapida KIRMIZI kalir (fail-closed).",
+  "desenler": ["telemetri-haftalik", ".verimlilik"]
+}

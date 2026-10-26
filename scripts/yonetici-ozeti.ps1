@@ -12,7 +12,9 @@ param(
   [string]$TokenRepo = '',     # cwd filtresi (ornek: -TokenRepo chinese-hsk); bos = tum projeler
   [switch]$SadeceToken         # repo bolumlerini atla: hizli Paseo-geneli veya proje-ozel token raporu
 )
-$ErrorActionPreference = 'SilentlyContinue'
+$ErrorActionPreference = 'Continue'
+# A5-12: LOC sayaci uzanti filtresi - binary (png/sqlite/zip...) okumasi hem yavas hem sacma satir sayar.
+$metinExt = @('.md','.txt','.ts','.tsx','.js','.jsx','.mjs','.cjs','.json','.ps1','.psm1','.py','.rb','.go','.rs','.java','.cs','.php','.sh','.bat','.sql','.html','.htm','.css','.scss','.yml','.yaml','.xml','.csv','.toml','.ini')
 Write-Host "=================== YONETICI OZETI ==================="
 Write-Host ("Repo: " + $Root + "  ·  " + (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 
@@ -21,10 +23,11 @@ if (-not $SadeceToken) {
 # 1) LOC
 $ext = @{}
 $totalFiles = 0; $totalLoc = 0
-Get-ChildItem $Root -Recurse -File | Where-Object { $_.FullName -notmatch '\\(\.git|node_modules|dist|build)\\' } | ForEach-Object {
+Get-ChildItem $Root -Recurse -File | Where-Object { $_.FullName -notmatch '\\(\.git|node_modules|dist|build)\\' -and ($metinExt -contains $_.Extension.ToLower()) } | ForEach-Object {
   $totalFiles++
   $e = if ($_.Extension) { $_.Extension } else { '(yok)' }
-  $n = (Get-Content $_.FullName -Encoding UTF8).Count
+  # A5-13: tek dosya okuma hatasi (kilit/binari kalan) tum raporu durdurmaz - atlanir.
+  try { $n = (Get-Content $_.FullName -Encoding UTF8).Count } catch { continue }
   $ext[$e] = @{ f = ($ext[$e].f + 1); loc = ($ext[$e].loc + $n) }
   $totalLoc += $n
 }
@@ -65,7 +68,7 @@ $sf = Get-ChildItem "$env:USERPROFILE\.codex\sessions" -Recurse -Filter *.jsonl 
 $grp = @{}; $sumIn = [long]0; $sumCch = [long]0; $sumOut = [long]0; $sumTur = 0; $sumDk = 0.0; $dosya = 0
 $minT = [datetime]::MaxValue; $maxT = [datetime]::MinValue
 foreach ($f in $sf) {
-  $lines = Get-Content $f.FullName
+  try { $lines = Get-Content $f.FullName } catch { continue }
   if (-not $lines) { continue }
   try { $meta = ($lines[0] | ConvertFrom-Json) } catch { continue }
   if ($meta.type -ne 'session_meta') { continue }
@@ -86,8 +89,10 @@ foreach ($f in $sf) {
   }
   $fi = [long]0; $fc = [long]0; $fo = [long]0
   foreach ($pt in $perTurn.Values) { $fi += $pt.inp; $fc += $pt.cch; $fo += $pt.outp }
-  $t0 = [datetime]$meta.timestamp
-  $t1 = [datetime](($lines[-1] | ConvertFrom-Json).timestamp)
+  # A5-13: bozuk meta/son-satir timestamp'i sure matematigini SAPTIRMAZ - oturum sure katkisi 0 kalir (kayit yine sayilir).
+  try { $t0 = [datetime]$meta.timestamp } catch { $t0 = [datetime]::MinValue }
+  try { $t1 = [datetime](($lines[-1] | ConvertFrom-Json).timestamp) } catch { $t1 = $t0 }
+  if ($t0 -eq [datetime]::MinValue) { $t1 = $t0 }
   $kc = $meta.payload.cwd
   if (-not $grp.ContainsKey($kc)) { $grp[$kc] = @{ n = 0; tur = 0; dk = 0.0; inp = [long]0; cch = [long]0; outp = [long]0 } }
   $g = $grp[$kc]
@@ -120,7 +125,8 @@ if ($dosya -eq 0) {
 # 6) Telemetri (plugin JSONL'i varsa)
 $j = "$Root\.verimlilik\telemetri.jsonl"
 if (Test-Path $j) {
-  $ev = Get-Content $j -Encoding UTF8 | ForEach-Object { $_ | ConvertFrom-Json }
+  # A5-13: bozuk jsonl satiri raporu durdurmaz - o satir atlanir (kalan olaylar sayilir).
+  $ev = Get-Content $j -Encoding UTF8 | ForEach-Object { try { $_ | ConvertFrom-Json } catch { $null } } | Where-Object { $null -ne $_ }
   $tur = @($ev | Where-Object tip -eq 'tur').Count
   $ch = @($ev | Where-Object { $_.tip -eq 'cache' -and $_.hit }).Count
   $ct = @($ev | Where-Object tip -eq 'cache').Count

@@ -5,9 +5,13 @@ param(
   [switch]$TestModu
 )
 $ErrorActionPreference = 'Continue'
-$SCRIPT_SURUM = '1.1.0'
+$SCRIPT_SURUM = '1.2.0'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 if (-not $CiktiKok) { $CiktiKok = Join-Path (Split-Path $PSScriptRoot -Parent) 'raporlar\proje-panosu' }
+# A5-9: TEK kirli-agac tanimi - benign liste kilit-surum.ps1/bekci(S3) ile AYNI kaynaktan (scripts/kirli-liste.json).
+$kirlilisteYolu = Join-Path $PSScriptRoot 'kirli-liste.json'
+try { $kirliDesenler = @((Get-Content $kirlilisteYolu -Raw -Encoding UTF8 | ConvertFrom-Json).desenler) } catch { Write-Host "FATAL: kirli-liste.json okunamadi: $kirlilisteYolu"; exit 1 }
+if (-not $kirliDesenler -or $kirliDesenler.Count -eq 0) { Write-Host "FATAL: kirli-liste.json desenler bos: $kirlilisteYolu"; exit 1 }
 
 function KovaBul([string]$repo) {
   $l0 = Test-Path -LiteralPath (Join-Path $repo 'AGENTS.md')
@@ -52,7 +56,8 @@ function RepoTara([string]$repo) {
   $ad = Split-Path $repo -Leaf
   $commit14 = 0
   try { $commit14 = [int](git -C $repo log --since='14 days ago' --oneline 2>$null | Measure-Object -Line).Lines } catch {}
-  $kirli = @((git -C $repo status --short 2>$null) | Where-Object { $_ -notmatch 'telemetri-haftalik|\.verimlilik' })
+  $kirliDurum = @((git -C $repo status --short 2>$null))
+  $kirli = @($kirliDurum | Where-Object { $s = $_; -not ($kirliDesenler | Where-Object { $s -like ("*" + $_ + "*") }) })
   $t = TelemetriOzet $repo
   return [ordered]@{
     ad = $ad; yol = $repo; kova = (KovaBul $repo)

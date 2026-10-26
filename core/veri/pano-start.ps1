@@ -7,6 +7,6 @@ if (-not $env:ORDU_PANO_TOKEN) {
   if (Test-Path $tokenDosya) { $env:ORDU_PANO_TOKEN = (Get-Content $tokenDosya -Raw).Trim() }
 }
 $env:ORDU_DB = 'D:\Vibecode\ordu\core\veri\ordu.sqlite'
-$env:ORDU_PANO_PORT = '8787'
+$env:ORDU_PANO_PORT = '8790'  # S2: 8787 deepseek-harness'ta (yabanci surec) — varsayilanla ayni kapi
 Set-Location 'D:\Vibecode\ordu\core'
 node src/pano-server.ts

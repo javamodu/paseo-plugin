@@ -20,8 +20,9 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 378/378, tam suit EXIT=0, 2026-10-26 F4 turu — kanal-kaynakli, son-kanit.json d=14:58:58 h=1ff7b35 x=0, etiket f4-silme, log test-f4-silme.log; F4 silme dalgasi — 0 kod/0 test, ayni suit; onceki F9 turu ayni suiti dogruladi [+7 F9 testi dahil]). Not: sureSn 30 (makine rahatken); F9 turunda ayni suit yuk altinda 122 sn surdu — sure makine yukune bagli.
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 378/378, tam suit EXIT=0, 2026-10-26 S2 turu — kanal-kaynakli, son-kanit.json d=15:26:41 h=fbd5607 x=0, etiket s2-script-hijyen, sureSn 36, log test-s2-script-hijyen.log; script hijyen dalgasi — sure sayisi degismedi; onceki turlar: F4 silme [ayni suit] ve F9 [+7 F9 testi]). Not: sure makine yukune bagli (yuk altinda 122-147 sn, rahat makinede 30-36 sn).
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
+- `pretest` kancasi (S2, 2026-10-26): `npm test` oncesi `node src/probe.mjs` otomatik kosar — probe'un package.json parse/BOM bozulmalari latent kalamaz, kanit receipt her kosumda tazelenir (evidence/probe-latest.json — IZLI dosya, taze receipt turla commitle). Probe exit 2 = Node 24 pin ihlali; blocked listesi tick'in B02 kapisinda zaten fail-closed.
 - Kapanis-kaniti kanali (K-0046 (e)/(f)): kabul.csv'ye sonek baglayacak koşumlar dogrudan `npm test` yerine kokten `powershell -ExecutionPolicy Bypass -File scripts\test-kanal.ps1 -Etiket <etiket>` ile koşulur — Tee logu `raporlar/kanit-hedef/test-<etiket>.log`'a iner, `son-kanit.json` {d,h,x,test,sureSn} yazar; sonek son-kanit.json'dan BIREBIR kopyalanir (elle yazilmaz).
 
 ## 3. Panoyu acma
@@ -35,7 +36,7 @@ Sunucu yalniz `http://127.0.0.1:<port>` dinler (public bind YOK). Ortam degisken
 | Degisken | Varsayilan | Anlam |
 |---|---|---|
 | `ORDU_DB` | `data/ordu.sqlite` | Kalici defter (SQLite) dosya yolu; klasor yoksa yaratilir |
-| `ORDU_PANO_PORT` | `8787` | Dinleme portu |
+| `ORDU_PANO_PORT` | `8790` | Dinleme portu (S2: 8787 degisti — 8787 deepseek-harness yabanci surecinde isgaldeydi, varsayilan portta EADDRINUSE; port doluysa bu env ile baska port ver) |
 | `ORDU_PANO_TOKEN` | rastgele UUID | API tokeni; vermezsen her acilista yenisi uretilir ve konsola basilir |
 
 Acilista konsola su satir basilir (token buradan alinir):
@@ -99,7 +100,7 @@ node src/cli.ts decide --run <runId> (--approve|--reject)
 
 - Ucretli/dis API kapali: tum testler hermetik; gercek LLM/Paseo cagrisi YOK.
 - Merge/deploy yok: core yalniz defter + dispatch + kabul kapilari; git merge ve yayinlama kapsam disi.
-- Paseo adaptoru WIRE EDILDI (R 2026-10-26 SAVAS START: run-ce03ca55 gercek spawn + ajan urunu + evaluate PASS + ACCEPTED — kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md; onceki 'wire edilmedi' siniri kapatildi). Probe receipt TAZE (R 2026-10-25: `npm run probe` EXIT=0, blocked listesi BOS, receipt a8580ad0). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; suit probe.mjs'i kosturmadigi icin latent kaliyordu (kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
+- Paseo adaptoru WIRE EDILDI (R 2026-10-26 SAVAS START: run-ce03ca55 gercek spawn + ajan urunu + evaluate PASS + ACCEPTED — kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md; onceki 'wire edilmedi' siniri kapatildi). Probe receipt TAZE (R 2026-10-26 S2: pretest kancasi KANAL ICINDE kostu — EXIT=0, blocked listesi BOS, receipt 4e1dd6c5; her npm test otomatik tazeler). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; SUIT PROBE.MJS'I KOSURMUYORDU (S2'ye kadar latent; artik pretest kancasinda — kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
 - SENT oturumlarin durum yoklamasi tick'in sentPoll baciyla yapilir (S4 Scheduler, 2026-10-26); olum disarida olsa defterde RUNNING kalmaz. Periyodik otomatik koşum için `serve` (daemon sürücüsü) — tık'ler elle koşmak zorunda değilsin.
 - Pano read-only + stop/resume'dur; plan onayi/karar verme panodan YAPILMAZ.
 

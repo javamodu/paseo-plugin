@@ -23,8 +23,21 @@ try {
   $commit = GitZorunlu @('rev-parse','--short','HEAD')
   $tagAd = "$Etiket-kilit"
   if (GitZorunlu @('tag','-l',$tagAd)) { throw "Tag zaten var: $tagAd (kilitler append-only)" }
-  $kirli = GitZorunlu @('status','--short')
-  if ($kirli) { throw "Calisma agaci kirli - once commit'le." }
+  # A5-9: TEK kirli-agac tanimi - benign liste (scripts/kirli-liste.json) kilit-surum/proje-panosu/bekci(S3) ayni okur.
+  # Bekci ciktilari (telemetri-haftalik/.verimlilik) bilincli-agent-commit DISI dosyalardir; liste DISI kirli dosya kilidi ENGELLER.
+  $kirliListeYolu = Join-Path $RepoKok 'scripts\kirli-liste.json'
+  try { $benignDesenler = @((Get-Content $kirliListeYolu -Raw -Encoding UTF8 | ConvertFrom-Json).desenler) } catch { throw ('A5-9 fail-closed: kirli-liste.json okunamadi (' + $kirliListeYolu + '): ' + $_.Exception.Message) }
+  if (-not $benignDesenler -or $benignDesenler.Count -eq 0) { throw ('A5-9 fail-closed: kirli-liste.json desenler bos/eksik - ' + $kirliListeYolu) }
+  $kirliTum = GitZorunlu @('status','--short')
+  $kirli = @()
+  foreach ($s in ($kirliTum -split "`n")) {
+    $satir = $s.Trim()
+    if (-not $satir) { continue }
+    $benign = $false
+    foreach ($d in $benignDesenler) { if ($satir -like "*$d*") { $benign = $true; break } }
+    if (-not $benign) { $kirli += $satir }
+  }
+  if ($kirli.Count -gt 0) { throw ("Calisma agaci kirli (" + $kirli.Count + " dosya, benign liste disi) - once commit'le: " + ($kirli -join ' | ')) }
   $doctor = $null
   $saglik = Join-Path $RepoKok 'scripts\saglik.ps1'
   if (Test-Path $saglik) {

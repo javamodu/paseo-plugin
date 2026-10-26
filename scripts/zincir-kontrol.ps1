@@ -1,7 +1,12 @@
-param([string]$RepoKok = (Get-Location).Path)
+# D2-21: -Kati bayragi - bekci baglaminda 'dizin yok' SESSIZ yesil degil kirmizidir (yol hatasi maskelemez).
+# Varsayilan davranis degismedi (saglik.ps1 cagrisi geriye donuk uyumlu).
+param([string]$RepoKok = (Get-Location).Path, [switch]$Kati)
 $ErrorActionPreference = 'Stop'
 $dir = Join-Path $RepoKok 'plans\handoff'
-if (-not (Test-Path $dir)) { Write-Host 'handoff dizini yok - zincir denetimi atlanir'; exit 0 }
+if (-not (Test-Path $dir)) {
+  if ($Kati) { Write-Host 'KATI KIRMIZI: handoff dizini yok - yol hatasi olabilir, zincir denetlenemez'; exit 1 }
+  Write-Host 'handoff dizini yok - zincir denetimi atlanir'; exit 0
+}
 $dosyalar = Get-ChildItem $dir -Filter 'HANDOFF-*.md' | Sort-Object Name
 if ($dosyalar.Count -le 1) { Write-Host "ZINCIR OK ($($dosyalar.Count) dosya - zincir gerektirmez)"; exit 0 }
 $hata = 0

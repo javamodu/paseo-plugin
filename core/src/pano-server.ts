@@ -189,7 +189,9 @@ if (process.argv[1] && process.argv[1].endsWith('pano-server.ts')) {
   const authToken = process.env.ORDU_PANO_TOKEN ?? randomUUID();
   const { port } = await createPanoServer({
     dbPath: process.env.ORDU_DB ?? 'data/ordu.sqlite',
-    port: Number(process.env.ORDU_PANO_PORT ?? 8787),
+    // S2 (2026-10-26): varsayilan 8787 -> 8790 — 8787 deepseek-harness koprusu (yabanci surec) tarafindan
+    // isgal edildi; varsayilan portta pano kalkamiyordu (EADDRINUSE). Testler port:0 kullanir (etkilenmez).
+    port: Number(process.env.ORDU_PANO_PORT ?? 8790),
     authToken,
   });
   console.log('pano: http://127.0.0.1:' + port + '  (x-pano-token: ' + authToken + ')');

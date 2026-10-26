@@ -9,6 +9,10 @@ param(
   [string]$Out = "",
   [int]$MaxItems = 3
 )
+# A5-10: sonundaki \ / normalize edilir - 'D:\x\' cagrisinda Substring($Root.Length+1) ilk karakteri yer.
+# Kok-dizin (uzunluk<3, or. 'D:') RED - harita kok icin uretilmez (fail-closed).
+$Root = $Root.TrimEnd('\','/')
+if ($Root.Length -lt 3) { throw "Root kok dizin olamaz: $Root" }
 if (-not $Out) { $Out = Join-Path $Root 'CODEMAP.md' }
 $codeExt = @('.ts','.tsx','.js','.jsx','.mjs','.py','.cs','.go','.rs','.java','.rb','.php','.ps1')
 $exclude = '\\(node_modules|\.git|dist|build|bin|obj|\.next|coverage|vendor|target|\.tmp-home|\.tmp-kilo|\.verimlilik|sorular)\\'
@@ -72,5 +76,7 @@ foreach ($f in $files) {
   $sig = if ($items) { ' — ' + ($items -join ' | ') } else { '' }
   $lines += "- ``$rel`` (${kb}KB)$sig"
 }
-Set-Content -Path $Out -Value ($lines -join "`r`n") -Encoding utf8
+# A5-11: BOM'suz yazim - kilit-surum/proje-panosu WriteAllText($false) kalibiyla hizali (encoding tutarliligi).
+$utf8Bomsuz = New-Object System.Text.UTF8Encoding($false)
+[IO.File]::WriteAllText($Out, ($lines -join "`r`n") + "`r`n", $utf8Bomsuz)
 Write-Host "CODEMAP guncellendi: $Out ($($files.Count) dosya, $($lines.Count) satir)"
