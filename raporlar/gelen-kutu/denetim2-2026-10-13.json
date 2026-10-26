@@ -100,7 +100,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "Izin akisinin kritik yarisina test ekle",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/permission.ts:63 (izinYanitla) + :94 (permissionKontrol) hala mevcut; plugin/test icinde 0 eslesme — testler yalniz senkron izinKarari/rolIzinKarari yarisini kapsiyor (dedektor.test.ts:90-119). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "D2-12",
@@ -109,7 +109,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "Yan-etki izolasyonlu yasam dongusu testi",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/bekci.ts:28 (gercekCalistir) + :202 (bekciBaslat) test disi; dedektor.test.ts:484-550 yalniz stub calistir ile bekciKontrol/bekciTara\u0027yi siniyor — gercek komut calistirma ve setInterval yasam dongusu test edilmiyor. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "D2-13",
@@ -163,7 +163,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "LRU tavani veya periyodik temizlik",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/ayar.ts:22 cache Map\u0027i hala cwd-anahtarli ve hicbir evict/LRU/temizlik yok (satir 33-45: yalniz get/set). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "D2-19",
@@ -172,7 +172,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Object.hasOwn(MODLAR, ad)",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — plugin/server/modlar.ts:81,103,158 uc yerde de Object.hasOwn(MODLAR, ...) kullaniliyor; \u0027in MODLAR\u0027 kullanimi kalmamis (grep teyit) — prototip zinciri tuzaği kapalı"
                      },
                      {
                          "id":  "D2-20",
@@ -181,7 +181,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Desen uzunluk tavani + derlenen regex cache",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/modlar.ts:61-64 guvenliRegex desen uzunluk tavi icermiyor (ReDoS acik) + :123 her modCoz cagrisinda modelDeseni regex\u0027i yeniden derleniyor (eslesmeCache yalniz JSON parse\u0027ini onbellekler — R3-09 cache). Onerinin iki bacagi da uygulanmamis. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "D2-21",
@@ -190,7 +190,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Bekci baglaminda exit 1 veya ayri bayrak",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — scripts/zincir-kontrol.ps1:4 (dizini yok → exit 0) + :6 (1 veya daha az dosya → ZINCIR OK, exit 0) — onerilen exit 1/ayrik bayrak uygulanmamis. Nuans: artik Write-Host ile mesaj basiyor (tamamen sessiz degil) ama bekci baglaminda gecis kapisi hala exit 0. Yeni tur ister — [insan]"
                      },
                      {
                          "id":  "D2-22",
@@ -199,7 +199,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Eslesmezse Warn/throw",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — scripts/kilit-surum.ps1:91-93 desen eslesmezse throw \u0027D2-22 fail-closed: surum.ts icinde PLUGIN_SURUM deseni eslesmedi — kilit engellendi\u0027 — damga sessizce atlanmiyor"
                      },
                      {
                          "id":  "D2-23",
@@ -208,7 +208,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "catch\u0027te en az SARI bas",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — scripts/saglik.ps1:21 catch artik hedefParseHata yakaliyor + :31 Check \u0027hedefler.json parse\u0027 false EKSIK uretiyor — sessiz default dusus kalkti, kapi kiriyor (denetim A5-15 ayni bulgu)"
                      },
                      {
                          "id":  "D2-24",
@@ -217,7 +217,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Dosya bolme veya node:test runner degerlendir",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/test/dedektor.test.ts bugun 1233 satir (bulgudaki 724\u0027ten %70 buyumus), ~361 assert (239\u0027dan artmis); kismi bolme oldu (kucukfix 51 / ordu 42 / pano-durdur 113 / planmd 63 satir) ama ana dosya tek basina buyumeye devam ediyor — kirilganlik azalmamis. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "D2-25",
@@ -226,7 +226,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Parantez v0.14/K-0026\u0027ya guncellensin",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — STATE_BOARD.md:3-5 \u0027Aktif is\u0027 bolumu tamamen yeniden yazilmis; v0.11 gibi bayat surum parantezi yok, icerik 2026-10-26 damgalariyla guncel"
                      },
                      {
                          "id":  "D2-26",
@@ -235,7 +235,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Tarih oneki zorunlu; pozitifler kanit/\u0027e tasinabilir",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — DERSLER.md (173 satir) tarih oneki hala tutarsiz: ilk ~44 kayit tarihsiz (satir 3-44), 62 oneksiz+sirasiz, 75-77 (R: tarih) bicimi, 89/91 farkli onek, 99 iki-nokta bicimi; bilgi pozitif/negatif ayrimi da yapilmamis. Doc temizlik turu — [insan]"
                      },
                      {
                          "id":  "D2-27",
@@ -244,7 +244,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Hata rozeti + salt-goruntu degrade metne eklensin",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — kararlar/K-0019.md:13 port cakismasini yalniz reload-cleanup baglaminda aniyo; EADDRINUSE hata-rozeti + salt-goruntu degrade davranisi metne hala tanimli degil (pano.ts:341-343 yalniz console.error logluyor — rozet/degrade degil). K kaydi gerekir — [insan]"
                      },
                      {
                          "id":  "D2-28",
@@ -253,7 +253,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Surum referanslari tazelensin, iki karar ayri surumlerde",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — kararlar/K-0019.md:30 \u0027Uygulama v0.12 konusu\u0027 + kararlar/K-0020.md:30 \u0027v0.12+\u0027 — surum referanslari tazelenmemis (plugin bugun v0.22, pano canli); iki karar hala TASLAK 2026-10-12 basligiyla duruyor. K kaydi tazeleme — [insan]"
                      },
                      {
                          "id":  "D2-29",
@@ -262,7 +262,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Regex\u0027i toleransli yap ya da durtme metnini regex\u0027e uydur",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — plugin/server/brief.ts:9 OGE_ANAHTAR deseni artik arac/kaynak yazimini esnek sayiyor (buyuk/kucuk harf /gi bayragi, cedilli-c, /kaynak eki opsiyonel, \u0027:\u0027 oncesi esnek bosluk) — dirtme metni ile regex uyumlu"
                      }
                  ]
 }

@@ -19,7 +19,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "v1.4 â†’ v2.0",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md:111 artik ilk damga at (kullandigin sozlesme surumunu de yaz: v2.1) diyor; REHBER icinde v1.4 gecmiyor (grep 0 eslesme)"
                      },
                      {
                          "id":  "A1-3",
@@ -28,7 +28,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "son madde 7 olmali",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — plugin/server/cekirdek.ts:26-32 devir listesi 1-7 duzgun numaralandirilmis (eski 5-6-5 deseni yok)"
                      },
                      {
                          "id":  "A1-4",
@@ -55,7 +55,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "10 bolum + Â§10 listeye",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — README.md:13 10 bolum + EK-5 diyor + REHBER v2.1 gercekten §1-§10 + EK-5 tasiyor; 9 bolum ifadesi README icinde kalmamis"
                      },
                      {
                          "id":  "A1-7",
@@ -64,7 +64,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "sayimi saglik.ps1\u0027den turet",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — README.md:30 18 kapi; -Jsonl ile 21 + admin-onboarding.md:87 ayni olcumden turetilmis sayiyi veriyor; eski 12+ kapi vs 16 kapi celiskisi ortadan kalkmis"
                      },
                      {
                          "id":  "A1-8",
@@ -73,7 +73,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "encoding hizalama karari",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — karisik encoding suruyor: admin-onboarding.md ve plugin/server/cekirdek.ts BOM\u0027suz; ANAYASA.md + REHBER v2.1 + scripts/saglik.ps1 BOM\u0027lu (EF BB BF). Risk azaltici: scripts/ icinde admin-onboarding/cekirdek referansi YOK — PS5.1 ANSI okuma senaryosu bugun gerceklesmiyor; md-duzeyi hizalama karari kayitli degil — [insan]"
                      },
                      {
                          "id":  "A2-1",
@@ -154,7 +154,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "turnId dedupe",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/index.server.ts:178-183 kabul blogunda turnId dedupe hala YOK (tam timeline'in son user mesaji her uygun turda kabulKaydet'e yeniden yaziliyor; telemetry.ts:400'de de dedupe yok); testler RET_DESENI'yi yalniz regex duzeyinde kapsiyor (dedektor.test.ts:293-297). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A2-10",
@@ -163,7 +163,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "tmp+rename; /^##\\s+Aktif\\s/i",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/bekci.ts:198 hala dogrudan writeFileSync (tmp+rename YOK — atomik degil) + :194 baslik hala birebir eslesme sarti (s.trim() === '## Aktif is'). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A2-11",
@@ -172,7 +172,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Buffer.subarray ile byte kesimi",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/degerlendirme.ts:24-25 hala byte olcup (Buffer.byteLength) UTF-16 slice ediyor (cokbaytli metinde ~2x tasima); Buffer.subarray uygulanmamis, test yok. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A2-12",
@@ -181,7 +181,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "sil",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/onboarding.ts:56-61 olu dal hala duruyor (b.tur>1 hic calismaz — onboardingTara yalniz agent.created'da cagriliyor; ilk cagrida her yoldan siliniyor). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A2-13",
@@ -190,7 +190,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "description-hash fallback",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — plugin/server/brief.ts:23-26 BK-01 fallback uygulandi: callId yoksa description-parmak izi dedupe ('m:'+uzunluk+ilk200); testi de VAR (dedektor.test.ts:888-889 'BK-01: callId'siz ayni metin ikinci taramada dedupe-lanir' + 875-879 A3-4 senaryosu)"
                      },
                      {
                          "id":  "A3-1",
@@ -271,7 +271,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "mock context allow/deny govdesi",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — permissionKontrol/izinYanitla (plugin/server/permission.ts:63,94) ve rolIzinKontrol (plugin/server/roller.ts:120) icin testlerde 0 eslesme; testlenen seyler yalniz saf karar fonksiyonlari (izinKarari dedektor.test.ts:90-119, rolIzinKarari :561-576). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A3-10",
@@ -280,7 +280,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "25 turluk pencere testi",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/bekci.ts:22 FAIL_PENCERE_TUR=20 + :57 slice; testler yalniz 6 turlu fixture kullaniyor (dedektor.test.ts:520) — 25 turluk pencere-kaymasi testi YOK. DUNKU BAGLANTI: bu bosluk 2026-10-26 telemetri-fail kok-nedeniyle dogrudan ortusuyor (DERSLER 172: pencere eski saglayiciya kayiyor — test korumasiz). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A3-11",
@@ -289,7 +289,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "bozuk satir + 2026-01-01 assert\u0027i",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — isoHafta yalniz tek noktada testli (dedektor.test.ts:327, 2026-10-12=W42); yil-siniri (2026-01-01 W01) testi YOK + rollup bozuk-jsonl-satir atlama davranisi (rollup.ts:101 catch dali) test kapsami disinda. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A3-12",
@@ -298,7 +298,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "regex assert",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — dedektor.test.ts:542 (eski 505 numarali satirin bugunku karsiligi) hala gevsek includes assert (\u0027| saglik-eksik |\u0027); regex assert uygulanmamis — format kirilsa sessiz kalir. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A4-1",
@@ -316,7 +316,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "md\u0027ye tam ISO damga",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/server/rollup.ts:152 md damgasi gun-bazli (ISO slice 10), :167 json\u0027a tam ISO yaziyor — tutarsizlik suruyor (2026-W44.md Uretim: 2026-10-26 vs W44.json 2026-10-26T01:46:31Z). v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A4-3",
@@ -325,7 +325,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "n= dipnotu",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — rollup.ts:110 ortTurSn yalniz turSn tasiyan kayitlar uzerinden hesaplaniyor; turSnAdet ne md\u0027ye ne json\u0027a yaziliyor — ortalamanin orneklem buyuklugu (n) dipnotu hala yok. v0.22-kilit — [insan] kuyrugu"
                      },
                      {
                          "id":  "A4-4",
@@ -334,7 +334,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "satirlara schemaSurum veya dokumante tolerans",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ESKI-GECERSIZ — txt-to-cad/.verimlilik/telemetri.jsonl bu repoda yok (txt-to-cad monorepo kapsami DISI ayri aile reposu — README:5: core/plugin/pano/referans/surumler; git log -- txt-to-cad bos). Halefi: koke birlesen telemetri satirlari basina pluginSurum damgasi tasiyor (son: v0.22) — 14-anahtar-kumesi sema evrimi problemi bu repoda artik mevcut degil"
                      },
                      {
                          "id":  "A4-5",
@@ -343,7 +343,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "tasarim kararini dokumante et",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — tasarim karari artik belgeli: kararlar/K-0030.md:12 Delta/kapsam alanlari rollup-only kalir (UI sismesi reddedildi) — tam onerin istedigi dokumantasyon; ayrica telemetri satirlari locDelta tasiyor + W44.json icinde delta nesnesi var"
                      },
                      {
                          "id":  "A4-6",
@@ -352,7 +352,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "izleme kurulumu dogrulanmali",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — paseo-verimlilik/.verimlilik/telemetri.jsonl yolu artik yok (plugin plugin/ altina tasindi, telemetri koke birlesti); halefi koke .verimlilik/telemetri.jsonl bugun 651.831 bayt, son kayit 2026-10-26T01:46:31Z pluginSurum=v0.22 — hook kurulu, veri aktif akiyor bulgusu ortadan kalkmis"
                      },
                      {
                          "id":  "A5-1",
@@ -433,7 +433,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "ortak haric-tutma filtresi",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — scripts/kilit-surum.ps1:26-27 untracked dahil her kirli satir kilidi dusuruyor; scripts/proje-panosu.ps1:55 ise telemetri-haftalik|.verimlilik filtresi uyguluyor — iki script arasindaki filtre tutarsizligi aynen duruyor. Script degisikligi yeni tur ister — [insan]"
                      },
                      {
                          "id":  "A5-10",
@@ -442,7 +442,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "TrimEnd normalizasyonu",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — scripts/codemap.ps1:42,50 Root sondaki ters-bolgu ile cagrilinca ilk karakter yeniyor (Substring Root.Length+1); param blogunda TrimEnd normalizasyonu yok"
                      },
                      {
                          "id":  "A5-11",
@@ -451,7 +451,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "BOM\u0027suz yazima hizala",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — scripts/codemap.ps1:72 Set-Content utf8 PS5.1\u0027de BOM\u0027lu yazar; bugun olcum: CODEMAP.md ilk 3 bayt EF BB BF; kilit-surum.ps1:18 + katman-kur.ps1:9 BOM\u0027suz (UTF8Encoding false) — encoding tutarsizligi suruyor"
                      },
                      {
                          "id":  "A5-12",
@@ -460,7 +460,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "uzanti listesi paylas",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — scripts/yonetici-ozeti.ps1:24-27 uzanti filtresi yok — binary dosyalari da satir saymak icin okuyor (ornek: pano/mockup13ekim.png)"
                      },
                      {
                          "id":  "A5-13",
@@ -469,7 +469,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "timestamp parse try/catch",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — yonetici-ozeti.ps1:15 global SilentlyContinue hala duruyor; :89-90 timestamp parse\u0027lari try/catch\u0027siz — bozuk son satirda sessiz null ile sure/paralellik matematigi sapar"
                      },
                      {
                          "id":  "A5-14",
@@ -478,7 +478,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "sablon+RepoKok toplu dogrulama",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK (KISMEN DUZELTILDI) — repo-kok isaret guard\u0027i 2026-10-14\u0027te eklendi (dd6501e; katman-kur.ps1:4-8 — yanlis yolda sifirdan agac riski KAPANDI); ama sablon toplu on-kontrol hala YOK (:16\u0027daki ReadAllText eksik sablonda firlatir → yarim kurulum riski suruyor)"
                      },
                      {
                          "id":  "A5-15",
@@ -487,7 +487,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "Warn bas",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — scripts/saglik.ps1:9-21 parse hatasi hedefParseHata degiskenine yakalaniyor; :31 \u0027hedefler.json parse\u0027 KONTROLUNU EKSIK uretiyor (fail-closed — sessiz yutulma kalkti; denetim2 D2-23 ayni bulgu, o da KAPALI)"
                      },
                      {
                          "id":  "A6-1",
@@ -514,7 +514,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "refetchInterval ekle veya vaadi duzelt",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/client/degerlendirme.tsx:11-15 refetchInterval YOK (kardes ekran plugin/client/telemetri.tsx:15\u0027te 10_000 var); plugin/OVERVIEW.md:8 oz-degerlendirme ekranlari 10 sn\u0027de bir tazelenir vaadi kodla tutarsiz. Dosya monorepo birlesimiyle plugin/client/\u0027a tasindi — kapsam gecerli. v0.22-kilit — [insan]"
                      },
                      {
                          "id":  "A6-4",
@@ -523,7 +523,7 @@
                          "etiket":  "(R)",
                          "siddet":  "dusuk",
                          "oneri":  "sil",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): ACIK — plugin/client/web.ts:1-12 hala diskte; openExternal repo genelinde hicbir yerde import edilmiyor; 2026-10-25 devir-taramasi da V-10 olarak ayni bulguyu listeliyor. v0.22-kilit — [insan]"
                      }
                  ]
 }

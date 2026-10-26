@@ -8,7 +8,7 @@
                          "etiket":  "(R)",
                          "siddet":  "orta",
                          "oneri":  "turnId telemetri.jsonl icinde zaten yaziliysa turKaydet atla (redelivery dedupe); turSayisi sayacini reload sonrasi son kayitli degerden hidrate et",
-                         "islenme":  null
+                         "islenme":  "G23 dogrulama (2026-10-26, salt-okur dogrulayici): KAPALI — plugin/server/telemetry.ts:57-84 hidrasyonYap: ajan basina ilk temasta telemetri.jsonl\u0027den turSayisi + bilinen turnId\u0027ler hidre ediliyor (:80 sayaç hidrasyonu, :75 kayitliTurIdler); :282-290 turKaydet redelivery dedupe (ayni turnId ikinci kez satir yazmaz; acik-state temizligi yine de yapilir); index.server.ts:208-210 event.turnId\u0027yi turKaydet\u0027e geciriyor. Kod yorumlari bunu acikca BK-02 (v0.23) olarak damgali — onerin iki bacagi (dedupe + hidrasyon) da uygulanmis"
                      }
                  ]
 }

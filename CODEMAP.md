@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 54fda5a — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD f2bc848 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -92,7 +92,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `raporlar/devir-tarama-6subagent-2026-10-25/OZET.md` (5KB) — DEVİR TARAMASI — 6-SUBAGENT (tam devir + plan girdisi) — 2026-10-25 18:50 | Ana-ajan bağımsız doğrulamaları (R) | Doğrulanan denetim maddeleri (önceki 20'lik listenin teyidi)
 - `raporlar/f3-restart-envanteri-2026-10-25/OZET.md` (2.2KB) — F3 RESTART ENVANTERİ — 2026-10-25 17:50 (A0) | Restart-öncesi durum (R, diskten) | Yapılanlar (restart'tan önce)
 - `raporlar/faz-analiz-2026-10-14/OZET.md` (1.8KB) — Faz Analizi: Sozlesme vs Firtina — 2026-10-14 (R: telemetri.jsonl, paseo-plugin 395 tur + txt-to-cad 168 tur) | paseo-plugin — uc faz (turSn>0 filtresi) | Surum trendi (paseo-plugin)
-- `raporlar/gelen-kutu/` (10 dosya: en yeni ana-ajan-2026-10-25.md, ordu-dc-dalga34-2026-10-25.md, codex-2026-10-14.md)
+- `raporlar/gelen-kutu/` (10 dosya: en yeni denetim-2026-10-13.md, denetim2-2026-10-13.md, codex-2026-10-14.md)
 - `raporlar/glm53-motor-matrisi-2026-10-19/OZET.md` (2.2KB) — GLM 5.3 Motor Matrisi — 2026-10-19 | Top30 Kaydı | Motor Durumu
 - `raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md` (1.1KB) — GLM 5.3 Sarmalayıcı Benchmark | Sonuçlar | Puanlama
 - `raporlar/kanit-hedef/f7a-pano-2026-10-26.md` (3KB) — F7-A pano render canlı kanıtı — 2026-10-26 | Kapsam-eşleme notu (K-0006/F5-A emsal deseni — sahte-yeşil şüphesini keser) | Kurulum (üretim DB/token'a SIFIR dokunuş)

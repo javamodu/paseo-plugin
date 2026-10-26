@@ -32,3 +32,9 @@ Kaynak: iki bağımsız 6-subagent dalga (dalga-3: SAG/DEF/SEC/TUR/ZIN/DOK + dal
 - **C-3 ÖLÇÜLDÜ** — saglik `-Jsonl .verimlilik/telemetri.jsonl` koşumu Katman B'yi ölçtü (cache-hit %97,0 OK / 1138 tur; dürtme 197 EKSIK — bilinen backlog). Parametre zorunluluğu K adayı olarak kayıtlı.
 - **B-4 (K-0041/K-0042) ADAY KAYITLAR YAZILDI** — `kararlar/K-0041.md` (K-0029 v0.17 state+test dalgası) + `kararlar/K-0042.md` (K-0036 ücretli-yok politikası); ikisi ADAY — onay [insan].
 - **Çapraz sorgu bulgusu**: K6 flake (79a011c'in bıraktığı) KÖKTEN düzeltildi — ölçüm noktası ölüm teyidi sonrasına taşındı; (R): iki üst üste tam süit 299/299 EXIT=0. Ayrıntı: `raporlar/capraz-sorgu-devir2038-2026-10-25/`.
+
+## D-3 kapanışı (2026-10-26 gece vardiyası; bu dosyanın son bekleyeni)
+
+- **D-3 (K-0039 kapanış yolu) KAPANDI** — sadeleştirme gece FAZ-3 adım 5/6'da gerçekleşti: kural-proxy **84→74** (EKSIK'ten SARI'ya), **10 madde birleşmesi** (önerilen 3'ün üzerinde — yalnız dalga-1 V2 doğrulayıcının onaylı AÇIK havuzundan; KAPALI ailelere sıfır dokunuş; W1 semantik diff KAYIP YOK 10/10 TAM). Kanıt: commit `72e6e80` + `kararlar/K-0039.md` kapanış eki ((R) ölçümler) + kanal koşumu h=65daa1f x=0 üstünde 311/311. Tavan 80'nin altına indi; hedef <40'ın devam turları ayrı kalem (STATE_BOARD Bekleyen onaylar madde 3).
+- Kalan bekleyen: YOK — bu dosya 13/13 işlendi.
+- Damga (R): 2026-10-26 (Get-Date ile ölçüldü), ajan = gece vardiyası manager (Claude glm-5.3, ordu; kullanıcı "devam" düdüğü), commit = G23 işleme turunun commit'i.
