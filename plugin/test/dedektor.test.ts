@@ -916,6 +916,10 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     fspM.writeFileSync(mTmp + "/.verimlilik/mod.json", JSON.stringify({ aktif: "serbest" }) + "\n");
     assert(amo(mTmp) === "serbest", "R3-09: ilk okuma diskten");
     fspM.writeFileSync(mTmp + "/.verimlilik/mod.json", JSON.stringify({ aktif: "cerrah" }) + " \n");
+    // R3-09: iki yazim ayni boyutta (20 bayt) — gecersizlik anahtari mtime'a kalir; bos makinede
+    // writeFileSync cifti ayni saat-tick'ine duserse cache bayat deger dondurup flake uretir.
+    // mtime'u deterministik ilerlet (DERSLER 27 test-tarafi ikizi).
+    fspM.utimesSync(mTmp + "/.verimlilik/mod.json", new Date(), new Date(Date.now() + 1000));
     assert(amo(mTmp) === "cerrah", "R3-09: dosya degisince cache gecersiz (mtime/boyut)");
     fspM.writeFileSync(mTmp + "/.verimlilik/ayar.json", JSON.stringify({ modlar: { eslesmeler: [{ provider: "codex", modelDeseni: "ozel", mod: "matbaa" }] } }));
     assert(eo2(mTmp)[0].mod === "matbaa", "R3-09: eslesme ilk okuma");
