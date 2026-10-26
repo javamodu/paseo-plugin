@@ -20,7 +20,7 @@ Beklenen: exit 0, `found 0 vulnerabilities`. Baska kurulum gerekmez (framework/d
 npm test
 ```
 
-- Beklenen: exit 0, tum testler PASS (son dogrulama: 378/378, tam suit EXIT=0, 2026-10-26 F9 turu — kanal-kaynakli, son-kanit.json d=13:58:06 h=e70dd55 x=0, etiket f9-ui-tester, log test-f9-ui-tester.log; +7 F9 testi [6 hermetik UI-tester adaptor + 1 K12-14 Paseo-kapali kompozit] dahil). Not: sureSn 122 — makine yuku baglamli (F9'siz suit ayni pencerede 147 sn; F8 turunda 22 sn idi — ortam farki).
+- Beklenen: exit 0, tum testler PASS (son dogrulama: 378/378, tam suit EXIT=0, 2026-10-26 F4 turu — kanal-kaynakli, son-kanit.json d=14:58:58 h=1ff7b35 x=0, etiket f4-silme, log test-f4-silme.log; F4 silme dalgasi — 0 kod/0 test, ayni suit; onceki F9 turu ayni suiti dogruladi [+7 F9 testi dahil]). Not: sureSn 30 (makine rahatken); F9 turunda ayni suit yuk altinda 122 sn surdu — sure makine yukune bagli.
 - Mutlak test sayisi sart degil (suite buyuyor); sart = exit 0 ve `fail 0`.
 - Kapanis-kaniti kanali (K-0046 (e)/(f)): kabul.csv'ye sonek baglayacak koşumlar dogrudan `npm test` yerine kokten `powershell -ExecutionPolicy Bypass -File scripts\test-kanal.ps1 -Etiket <etiket>` ile koşulur — Tee logu `raporlar/kanit-hedef/test-<etiket>.log`'a iner, `son-kanit.json` {d,h,x,test,sureSn} yazar; sonek son-kanit.json'dan BIREBIR kopyalanir (elle yazilmaz).
 
