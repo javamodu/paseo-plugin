@@ -7,7 +7,11 @@
 import { GateError } from './store.ts';
 
 export const PROVIDER_REGISTRY: Readonly<Record<string, readonly string[]>> = Object.freeze({
-  codex: Object.freeze(['kimi-K3', 'gpt-5.4']),
+  // glm-5.3 (SAVAS START 2026-10-26): kimi-K3 canli API'de RED — codex kartinin
+  // servisi model_not_allowed dondu ("Only glm-5.3 or codefastglm53unlimited"),
+  // request_id a50638f90f0c66c7 (kanit: raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md).
+  // kimi-K3 listede KALIR (kart degisirse geri doner); glm-5.3 canli olculmus modeldir.
+  codex: Object.freeze(['kimi-K3', 'gpt-5.4', 'glm-5.3']),
 });
 
 export const DEFAULT_PROVIDER = 'codex';

@@ -25,7 +25,7 @@ A16,S1,STOP latch + okuma sirasi,GECTI_HERMETIC,store+dispatcher spawn-0 kaniti
 A35,S1,rezervasyon mutasyon kapilari,GECTI,002-hardening probe-replay testleri
 A36,S1,stale-fence cidi,GECTI,commit+evidence fence bagliligi testleri
 M01,EDIT,config reject + prompt yetki genisletmez,GECTI_HERMETIC,PASS 2026-10-14 gecesi: test/m01-a15-m11.test.ts 11/11, npm test 234/234 exit 0 (bilinmeyen anahtar damitilir, prompt butceyi genisletemez)
-M02,RESOURCE,live slot sayimi,NOT_RUN,V3-S3.1 (A24 ile)
+M02,RESOURCE,live slot sayimi,GECTI_CANLI,SAVAS START 2026-10-26 (K-0050): canli tick ORDU_LIVE=1 — gercek Paseo spawn (codex/glm-5.3 oturum 8f1a97c6) SESSION_BOUND + ajan gercek dosya yazdi + evaluate PASS 3/3 + decide APPROVED -> runState ACCEPTED (run-ce03ca55, apv-00454b81; uretim defteri). Kanit: raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md
 M03,DELIVERY,bundle bagliligi+idempotent teslim,GECTI_HERMETIC,test/m16-m03.test.ts 7/7 (cift teslim DUPLICATE RED + yanlis aday RED), npm test 186/186 exit 0 (2026-10-14); canli UI yolu NOT_RUN
 M04,REMOTE,erisim guvenligi,NOT_RUN,V3-S2.4 (A17 ile)
 M05,REMOTE,donmus rozet+requested!=confirmed,NOT_RUN,V3-S2.1 (A18/A20)

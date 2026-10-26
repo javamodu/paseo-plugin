@@ -1,0 +1,22 @@
+{
+  "evaluator": "cli-dosya-v1",
+  "attemptId": "att-ca389c9f",
+  "artifactPath": "D:\\Vibecode\\ordu\\raporlar\\kanit-hedef\\m02-savas-spawn-kaniti.txt",
+  "checks": [
+    {
+      "ad": "dosya-var",
+      "gecti": true
+    },
+    {
+      "ad": "bos-degil",
+      "gecti": true
+    },
+    {
+      "ad": "icerik-beklenti",
+      "gecti": true
+    }
+  ],
+  "verdict": "PASS",
+  "exitCode": 0,
+  "at": "2026-10-26T03:05:56.849Z"
+}
