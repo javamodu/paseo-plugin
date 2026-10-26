@@ -1,9 +1,11 @@
 // paseo-pano mini sunucu — K-0019 prototip. Bagimliliksiz node:http, yalniz 127.0.0.1.
+// D-1a (kapsul-tuval cekirdegi): PANO_PORT (test icin 0 = gecici port), GET /tuval, GET /api/graf.
 import http from "node:http";
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const PORT = 4377;
+const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
+const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
 const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
@@ -86,6 +88,20 @@ const sunucu = http.createServer((req, res) => {
     res.end(readFileSync(join(import.meta.dirname, "iskelet.html"), "utf8"));
     return;
   }
+  // D-1a: kapsul-tuval uretim yuzu (kapsul-tuval.html) + gorev-grafigi makine SSOT'u (salt-okur)
+  if (req.method === "GET" && url.pathname === "/tuval") {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+    res.end(readFileSync(join(import.meta.dirname, "kapsul-tuval.html"), "utf8"));
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/api/graf") {
+    if (!existsSync(GRAF_JSON)) { jsonYaz(res, 404, { hata: "graf SSOT yok: " + GRAF_JSON + " (fail-closed)" }); return; }
+    try {
+      const g = JSON.parse(readFileSync(GRAF_JSON, "utf8")); // her istekte diskten — bayat onbellek yok
+      jsonYaz(res, 200, g);
+    } catch (e) { jsonYaz(res, 500, { hata: "graf JSON bozuk: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
   if (req.method === "GET" && url.pathname === "/api/repolar") {
     jsonYaz(res, 200, { schemaSurum: 1, repolar: repolariBul().map((r) => r.ad) });
     return;
@@ -123,5 +139,5 @@ const sunucu = http.createServer((req, res) => {
 });
 
 sunucu.listen(PORT, "127.0.0.1", () => {
-  console.log("paseo-pano: http://127.0.0.1:" + PORT + " (yalniz yerel, TTL " + TTL_MS / 1000 + "sn, token " + (TOKEN ? "VAR" : "YOK-fail-closed") + ")");
+  console.log("paseo-pano: http://127.0.0.1:" + sunucu.address().port + " (yalniz yerel, TTL " + TTL_MS / 1000 + "sn, token " + (TOKEN ? "VAR" : "YOK-fail-closed") + ", graf " + (existsSync(GRAF_JSON) ? "VAR" : "YOK-fail-closed") + ")");
 });

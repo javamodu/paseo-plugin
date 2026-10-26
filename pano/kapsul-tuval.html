@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Kapsül Tuval — ordu</title>
+<style>
+  :root { --yesil:#2e7d32; --sari:#f9a825; --gri:#455a64; --mavi:#1565c0; --kirmizi:#c62828; }
+  * { box-sizing:border-box; margin:0; font:13px/1.45 "Segoe UI",system-ui,sans-serif; }
+  body { display:flex; flex-direction:column; height:100vh; background:#f4f6f8; }
+  header { display:flex; align-items:center; gap:12px; padding:8px 14px; background:#1b2733; color:#e8edf2; }
+  header b { letter-spacing:.5px; }
+  #meta { color:#9fb3c8; }
+  .modlar { margin-left:auto; display:flex; gap:6px; }
+  .modlar button, #yenile { padding:4px 12px; border:1px solid #456; border-radius:4px; background:#2b3b4a; color:#e8edf2; cursor:pointer; }
+  .modlar button.aktif { background:#4fc3f7; color:#10212b; font-weight:600; }
+  main { display:flex; flex:1; min-height:0; }
+  aside, section { min-height:0; }
+  #sol { width:270px; overflow-y:auto; background:#fff; border-right:1px solid #d8dee3; padding:10px; }
+  #sol h3 { font-size:12px; color:#546e7a; margin:8px 0 4px; }
+  .satir { display:block; width:100%; text-align:left; padding:5px 8px; margin:1px 0; border:0; border-radius:4px; background:none; cursor:pointer; }
+  .satir:hover { background:#eef3f6; }
+  .satir.secili { background:#d6ecf7; }
+  .satir .id { font-weight:700; margin-right:6px; }
+  #orta { flex:1; display:flex; flex-direction:column; min-width:0; }
+  #tuvalSarma { flex:1; overflow:auto; background:#fff; position:relative; }
+  #jsonview { flex:1; overflow:auto; margin:0; padding:14px; font:11px/1.5 Consolas,monospace; background:#10212b; color:#b2dfdb; white-space:pre; }
+  #detay { max-height:32%; overflow-y:auto; border-top:1px solid #d8dee3; background:#fff; padding:10px 14px; }
+  #detay h2 { font-size:14px; margin-bottom:6px; }
+  #detay table { border-collapse:collapse; }
+  #detay td { padding:2px 10px 2px 0; vertical-align:top; }
+  #detay td:first-child { color:#546e7a; white-space:nowrap; }
+  #sag { width:300px; background:#fff; border-left:1px solid #d8dee3; padding:10px; display:flex; flex-direction:column; }
+  #sag .panel-bas { font-size:12px; font-weight:700; color:#546e7a; padding-bottom:6px; border-bottom:1px solid #e3e8ec; }
+  #chatBos { margin-top:12px; color:#90a4ae; font-style:italic; padding:10px; background:#fafbfc; border:1px dashed #cfd8dc; border-radius:6px; }
+  svg text { pointer-events:none; }
+  .dugum rect { cursor:pointer; }
+  .dugum:hover rect { stroke-width:2.5; }
+  .bos { color:#90a4ae; padding:20px; text-align:center; }
+  #hata { color:var(--kirmizi); font-weight:600; padding:20px; }
+</style>
+</head>
+<body>
+<header>
+  <b>KAPSÜL TUVAL</b>
+  <span id="meta">yükleniyor…</span>
+  <span class="modlar">
+    <button id="mInsan" class="aktif">İNSAN OKUR</button>
+    <button id="mMakine">MAKİNE OKUR</button>
+  </span>
+  <button id="yenile" title="graf JSON'u diskten yeniden oku">↻ Yenile</button>
+</header>
+<main>
+  <aside id="sol"></aside>
+  <section id="orta">
+    <div id="tuvalSarma"><div id="hata" hidden></div><svg id="tuval"></svg></div>
+    <pre id="jsonview" hidden></pre>
+    <div id="detay"><div class="bos">düğüm seçilmedi — soldan listeden veya tuvalden seçin</div></div>
+  </section>
+  <aside id="sag">
+    <div class="panel-bas">SOHBET — koşum akışı</div>
+    <div id="chatBos">Bu panel D-2 dalgasında canlanır: canlı koşum (dispatch → coder → tester → ACCEPTED) notify.jsonl→SSE köprüsüyle insan-okur sohbet olarak akar. İnsan kartı düğmeleri daima PASİF kalır (onay insandadır).</div>
+  </aside>
+</main>
+<script>
+"use strict";
+// D-1a cekirdek: tek veri kaynagi = GET /api/graf (pano/server.js diskten okur).
+// Iki yuz (INSAN OKUR / MAKINE OKUR) ayni fetch yanitindan uretilir — cift SSOT imkansiz.
+const DURUMRENK = { HAZIR: "#2e7d32", BEKLE: "#f9a825", KAPALI: "#455a64", DEVAM: "#1565c0" };
+let G = null, secilen = null, mod = "insan";
+const $ = (id) => document.getElementById(id);
+
+async function yukle() {
+  try {
+    const r = await fetch("/api/graf");
+    if (!r.ok) { hataGoster("/api/graf " + r.status + " — graf SSOT okunamadi (fail-closed)"); return; }
+    G = await r.json();
+    $("hata").hidden = true;
+    metaYaz(); solYaz(); modUygula();
+  } catch (e) { hataGoster("baglanti yok — pano sunucusu kapali mi? (" + e.message + ")"); }
+}
+function hataGoster(m) { $("hata").hidden = false; $("hata").textContent = m; $("meta").textContent = "HATA"; }
+
+function metaYaz() {
+  const kapali = G.gorevler.filter((g) => /^KAPALI/.test(g.durum)).length;
+  $("meta").textContent = "graf " + G.grafSurumu + " · " + G.gorevler.length + " görev · " + G.kenarlar.length +
+    " kenar · kalan butce ~" + G.butceToplam.kodLocT.replace(/^.*toplam: /, "") + " kod (T)";
+  document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
+}
+
+// ---- sol panel: gorev listesi (INSAN OKUR sayilabilir yuzu) ----
+function solYaz() {
+  const gruplar = {};
+  for (const g of G.gorevler) {
+    const d = g.durum.split(" ")[0];
+    (gruplar[d] ??= []).push(g);
+  }
+  const sira = ["HAZIR", "BEKLE", "DEVAM", "KAPALI"];
+  let h = "";
+  for (const d of sira) {
+    if (!gruplar[d]) continue;
+    h += "<h3>" + d + " (" + gruplar[d].length + ")</h3>";
+    for (const g of gruplar[d]) {
+      h += '<button class="satir" data-id="' + g.id + '"><span class="id" style="color:' + (DURUMRENK[d] || "#666") + '">' +
+        g.id + (g.kapi ? " 🔒" : "") + "</span>" + kisa(g.gorev) + "</button>";
+    }
+  }
+  $("sol").innerHTML = h;
+  $("sol").querySelectorAll(".satir").forEach((b) => b.addEventListener("click", () => sec(b.dataset.id)));
+}
+function kisa(s) { return s.length > 34 ? s.slice(0, 32) + "…" : s; }
+
+// ---- orta: tuval (SVG) — deterministik DAG yatay-katman yerlesimi (drag D-3'te) ----
+function yerlesim() {
+  const duzey = {}, kalan = {};
+  for (const g of G.gorevler) { kalan[g.id] = (g.bagimli || []).length; }
+  const onlar = G.gorevler.filter((g) => kalan[g.id] === 0).map((g) => g.id);
+  const cocuklar = {};
+  for (const e of G.kenarlar) (cocuklar[e.dan] ??= []).push(e.ile);
+  let islenen = 0, halka = onlar;
+  for (const id of halka) duzey[id] = 0;
+  while (halka.length) {
+    const yeni = [];
+    for (const id of halka) {
+      islenen++;
+      for (const c of cocuklar[id] || []) { duzey[c] = Math.max(duzey[c] ?? 0, duzey[id] + 1); if (--kalan[c] === 0) yeni.push(c); }
+    }
+    halka = yeni;
+  }
+  if (islenen !== G.gorevler.length) return null; // dongu — cizilmez (on-simulasyon zaten karsilar)
+  const sutunlar = {};
+  for (const g of G.gorevler) { const d = duzey[g.id]; (sutunlar[d] ??= []).push(g); }
+  let maxS = 0, maxD = 0;
+  for (const g of G.gorevler) { g._x = 70 + duzey[g.id] * 190; g._y = 46 + sutunlar[duzey[g.id]].indexOf(g) * 74; maxS = Math.max(maxS, g._y + 90); maxD = Math.max(maxD, g._x + 200); }
+  return { w: maxD, h: maxS };
+}
+function tuvalCiz() {
+  const svg = $("tuval"), y = yerlesim();
+  if (!y) { hataGoster("graf döngülü — tuval çizilmez (ön-simülasyon kuralı)"); return; }
+  svg.setAttribute("width", y.w); svg.setAttribute("height", y.h);
+  svg.setAttribute("viewBox", "0 0 " + y.w + " " + y.h);
+  let h = "";
+  for (const e of G.kenarlar) {
+    const a = G.gorevler.find((g) => g.id === e.dan), b = G.gorevler.find((g) => g.id === e.ile);
+    h += '<line x1="' + (a._x + 150) + '" y1="' + (a._y + 22) + '" x2="' + b._x + '" y2="' + (b._y + 22) + '" stroke="#b0bec5" stroke-width="1.4"/>';
+  }
+  for (const g of G.gorevler) {
+    const renk = DURUMRENK[g.durum.split(" ")[0]] || "#666";
+    h += '<g class="dugum" data-id="' + g.id + '"><rect x="' + g._x + '" y="' + g._y + '" width="150" height="44" rx="6" fill="' +
+      renk + '" fill-opacity="0.14" stroke="' + renk + '" stroke-width="' + (secilen === g.id ? 2.6 : 1.4) + '"/>' +
+      '<text x="' + (g._x + 10) + '" y="' + (g._y + 18) + '" font-size="12" font-weight="700" fill="' + renk + '">' + g.id +
+      (g.kapi ? " 🔒" : "") + " · " + (g.rol || "").slice(0, 10) + '</text>' +
+      '<text x="' + (g._x + 10) + '" y="' + (g._y + 34) + '" font-size="10" fill="#546e7a">' + kisa(g.gorev).replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</text></g>";
+  }
+  svg.innerHTML = h;
+  svg.querySelectorAll(".dugum").forEach((n) => n.addEventListener("click", () => sec(n.dataset.id)));
+}
+function sec(id) {
+  secilen = id;
+  const g = G.gorevler.find((x) => x.id === id);
+  const ajan = (g.ajanlar || []).map((a) => a.rol + ":" + a.model).join("<br>") || "varsayılan kadro (JSON ajanKadrosu.varsayilan)";
+  const satirlar = [
+    ["görev", g.gorev], ["rol", g.rol], ["durum", g.durum], ["dizin", g.dizin], ["ölçüt", g.olcut],
+    ["bağımlılık", (g.bagimli || []).join(", ") || "—"], ["kapı", g.kapi || "—"],
+    ["LOC", (g.loc ?? 0) + " kod" + (g.testLoc ? " + " + g.testLoc + " test" : "")], ["ajanlar", ajan]];
+  let t = "";
+  for (const [k, v] of satirlar) t += "<tr><td>" + k + "</td><td>" + String(v).replace(/</g, "&lt;") + "</td></tr>";
+  $("detay").innerHTML = "<h2>" + g.id + (g.kapi ? " 🔒 " + g.kapi : "") + "</h2><table>" + t + "</table>";
+  document.querySelectorAll(".satir").forEach((b) => b.classList.toggle("secili", b.dataset.id === id));
+  tuvalCiz();
+}
+
+// ---- modlar: iki yuz ayni veriden ----
+function modUygula() {
+  $("mInsan").classList.toggle("aktif", mod === "insan");
+  $("mMakine").classList.toggle("aktif", mod === "makine");
+  $("tuvalSarma").hidden = mod !== "insan";
+  $("jsonview").hidden = mod !== "makine";
+  if (mod === "makine") $("jsonview").textContent = JSON.stringify(G, null, 2);
+  else tuvalCiz();
+}
+$("mInsan").addEventListener("click", () => { mod = "insan"; modUygula(); });
+$("mMakine").addEventListener("click", () => { mod = "makine"; modUygula(); });
+$("yenile").addEventListener("click", yukle);
+yukle();
+setInterval(yukle, 30_000); // hafif tazelik; yazma ucu yok (D-3)
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 9853bb1 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD ebc335c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -64,11 +64,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0049.md` (2.2KB) — K-0049 — 4-puan köprüsü: F7-B/A14/A10/M17 kabul satır çevirileri — ONAYLANDI, UYGULANDI | Bağlam | Karar (madde-bazlı)
 - `kararlar/K-0050.md` (2.5KB) — K-0050 — SAVAŞ START + M02 canlı döngü kapanışı — KAYIT (START düdüğü [insan]) | Karar (uygulandı) | Reddedilen alternatifler
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (5 dosya: en yeni BLUEPRINT.md, README.md, .pano-serve.js)
+- `pano/` (7 dosya: en yeni d1a-test.mjs, yerel-masaustu.ps1, server.js)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `plans/` (53 dosya: en yeni KAPSUL-TUVAL-UI-PLANI-2026-10-26.md, GOREV-GRAFIGI-SENERARYO-2026-10-26.md, A0-1.md)
 - `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
-- `raporlar/` (112 dosya: en yeni s3-plugin-v023-2026-10-26.md, kapsul-tuval-review-2026-10-26.md, 2026-W44.md)
+- `raporlar/` (113 dosya: en yeni 2026-W44.md, d1a-tuval-cekirdek-2026-10-26.md, gorev-grafigi-2026-10-26.md)
 - `README.md` (3.1KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -89,6 +89,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (8.5KB)
 - `scripts/zincir-kontrol.ps1` (1.3KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (48KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (48.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
