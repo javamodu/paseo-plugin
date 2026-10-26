@@ -12,6 +12,11 @@ export const PROVIDER_REGISTRY: Readonly<Record<string, readonly string[]>> = Ob
   // request_id a50638f90f0c66c7 (kanit: raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md).
   // kimi-K3 listede KALIR (kart degisirse geri doner); glm-5.3 canli olculmus modeldir.
   codex: Object.freeze(['kimi-K3', 'gpt-5.4', 'glm-5.3']),
+  // F6.5-A (Sprint 4, 2026-10-26): IKINCI provider — glm53u-codex, codefast GLM-5.3
+  // sinirsiz paket ucu (codex motoru, https://api.codefast.app/glm-53-unlimited-api/v1
+  // + /responses 200 — R 2026-10-19 prob). codex kartindan FARKLI endpoint/motor: rol
+  // bazinda farkli provider dispatch'in canli kanit ucu (F65-01 kapanisi).
+  'glm53u-codex': Object.freeze(['glm-5.3']),
 });
 
 export const DEFAULT_PROVIDER = 'codex';

@@ -20,11 +20,11 @@ test('M08 canlı scheduler döngüsü: gerçek duvar saatiyle koşum — benzers
   };
   const gate: GateState = { stopLatched: false, grantActive: true, overlapActive: false, settled: new Set() };
   const koşulan: string[] = [];
-  const tick = () => {
-    const plan = planOccurrences(spec, Date.now(), gate);
+  const tick = (nowMs: number = Date.now()) => {
+    const plan = planOccurrences(spec, nowMs, gate);
     for (const k of settleKeys(spec, plan)) gate.settled.add(k);
     for (const at of plan.emit) koşulan.push(occurrenceKey(spec, at));
-    return plan;
+    return { plan, nowMs };
   };
 
   // 1) GERÇEK zamanlı döngü: 700ms boyunca 60ms'de bir tick; 300ms aralıklı occurrence
@@ -36,13 +36,19 @@ test('M08 canlı scheduler döngüsü: gerçek duvar saatiyle koşum — benzers
   // 2) GERÇEK duraklatma (900ms tick yok) → kaçan occurrence'lar MISFIRE, yalnız EN SON
   await sleep(900);
   const p1 = tick();
-  assert.equal(p1.emit.length, 1, 'catch-up fırtınası YOK: duraklama sonrası tek tick yalnız EN SON occurrence hak eder');
-  assert.ok(p1.skipped.some((s) => s.reason === 'MISFIRE_SKIPPED'), 'duraklamada kaçan gerçek occurrence MISFIRE_SKIPPED');
+  assert.equal(p1.plan.emit.length, 1, 'catch-up fırtınası YOK: duraklama sonrası tek tik yalnız EN SON occurrence hak eder');
+  assert.ok(p1.plan.skipped.some((s) => s.reason === 'MISFIRE_SKIPPED'), 'duraklamada kaçan gerçek occurrence MISFIRE_SKIPPED');
   assert.ok(koşulan.length >= 3, 'toplam koşum arttı (misfire tek başına döngüyü durdurmaz)');
 
-  // 3) yerleşen kalıcı: hemen sonraki tick yeni emit ÜRETMEZ
-  const p2 = tick();
-  assert.equal(p2.emit.length, 0, 'yerleşen occurrence bir daha koşmaz (settled kalıcı)');
+  // 3) yerleşen kalıcı: BİR SONRAKİ occurrence SINIRININ hemen öncesindeki tik yeni emit
+  // ÜRETMEZ. Gözlem anı deterministik (sınır-öncesi son milisaniye): p1→p2 arasında
+  // gerçek zaman ilerlediği için aradaki tik duvar saatiyle yeni sınıra denk gelebilir
+  // (yük altında süreç ön kesmesi ε'yı büyütür — kanal koşumunda yaşandı); özellik aynı,
+  // an sabitlendi.
+  const t0ms = Date.parse(spec.startAt);
+  const sonrakiSinir = t0ms + spec.intervalMs * (Math.floor((p1.nowMs - t0ms) / spec.intervalMs) + 1);
+  const p2 = tick(Math.max(p1.nowMs, sonrakiSinir - 1));
+  assert.equal(p2.plan.emit.length, 0, 'yerleşen occurrence bir daha koşmaz (settled kalıcı)');
 
   // 4) rev bump → YENİ kimlik: aynı zaman aralığı yeni occurrence'lar doğurur
   const spec2 = { ...spec, revision: 2 };
