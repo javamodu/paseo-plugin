@@ -1,11 +1,12 @@
 // paseo-pano mini sunucu — K-0019 prototip. Bagimliliksiz node:http, yalniz 127.0.0.1.
 // D-1a (kapsul-tuval cekirdegi): PANO_PORT (test icin 0 = gecici port), GET /tuval, GET /api/graf.
 import http from "node:http";
-import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync, writeFileSync, renameSync, mkdirSync, openSync, writeSync, fsyncSync, closeSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
+const KAPSUL_DIR = process.env.ORDU_KAPSUL_DIR || join(import.meta.dirname, "..", "plans", "kapsuller");
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
 const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
@@ -79,6 +80,33 @@ function jsonYaz(res, kod, obj) {
   res.end(govde);
 }
 
+// D-1b: KT-08 8-eksen kapsul karti (graf SSOT'tan uretilir; deadline alani SSOT'ta YOK — uydurulmaz, durust "—")
+function kartIcerik(g, gorev) {
+  const varsayilan = (g.ajanKadrosu && g.ajanKadrosu.varsayilan) || {};
+  const kadro = (gorev.ajanlar && gorev.ajanlar.length)
+    ? gorev.ajanlar.map((a) => a.rol + " · " + a.model).join(" | ")
+    : Object.entries(varsayilan).map(([r, k]) => r + " · " + k.model).join(" | ");
+  const butce = (gorev.loc ?? 0) + " kod" + (gorev.testLoc ? " + " + gorev.testLoc + " test" : "") +
+    (gorev.locAralik ? " (aralik " + gorev.locAralik + ")" : "");
+  const satirlar = [
+    ["ID", gorev.id], ["Görev (hedef)", gorev.gorev], ["Rol", gorev.rol || "—"], ["Durum", gorev.durum || "—"],
+    ["Dizin", gorev.dizin || "—"], ["Ölçüt", gorev.olcut || "—"], ["Bütçe (LOC)", butce],
+    ["Deadline", gorev.deadline || "— (graf SSOT'ta görev-başı deadline alanı YOK — uydurulmaz)"],
+    ["Bağımlılık", (gorev.bagimli || []).join(", ") || "—"], ["Kapı", gorev.kapi || "—"],
+    ["Ajan kadrosu", kadro || "—"],
+  ];
+  let md = "# " + gorev.id + " — " + gorev.gorev + "\n\n" +
+    "> Kapsül kartı (KT-08 8-eksen). Üretim: " + new Date().toISOString() +
+    " · kaynak: `pano/server.js POST /api/kart` (graf SSOT diskten) · **MEVCUT MD EZİLMEZ** (kart yoksa doğar; varsa 409)\n\n" +
+    "| Eksen | Değer |\n|---|---|\n";
+  for (const [k, v] of satirlar) md += "| " + k + " | " + String(v).replace(/\|/g, "\\|") + " |\n";
+  if (gorev.not) md += "\nNot: " + gorev.not + "\n";
+  md += "\n## Bağlantı\n- graf SSOT (makine; çelişkide JSON kazanır): `plans/gorev-grafigi-2026-10-26.json`\n" +
+    "- insan-okur ikiz: `plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md`\n" +
+    "- bu kart tuvalden doğdu: `pano/kapsul-tuval.html` → POST /api/kart (token kapısı)\n";
+  return md;
+}
+
 const IZINLI_EMIRLER = new Set(["not-dus"]); // prototip dar-listesi: yalniz not
 
 const sunucu = http.createServer((req, res) => {
@@ -104,6 +132,40 @@ const sunucu = http.createServer((req, res) => {
   }
   if (req.method === "GET" && url.pathname === "/api/repolar") {
     jsonYaz(res, 200, { schemaSurum: 1, repolar: repolariBul().map((r) => r.ad) });
+    return;
+  }
+  // D-1b: kapsul kartlari — GET salt-okur; POST TEK yazici ucu (PANO_TOKEN fail-closed; MEVCUT MD EZILMEZ)
+  if (req.method === "GET" && url.pathname === "/api/kart") {
+    const id = url.searchParams.get("id") ?? "";
+    if (!/^[A-Za-z0-9._-]+$/.test(id)) { jsonYaz(res, 400, { hata: "gecersiz id (izinli: harf/rakam/._-)" }); return; }
+    const yol = join(KAPSUL_DIR, id + ".md");
+    if (!existsSync(yol)) { jsonYaz(res, 404, { hata: "kart yok: " + yol }); return; }
+    jsonYaz(res, 200, { id, yol, icerik: readFileSync(yol, "utf8") });
+    return;
+  }
+  if (req.method === "POST" && url.pathname === "/api/kart") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — kart yazma kapali (fail-closed)" }); return; }
+    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    let govde = "";
+    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
+    req.on("end", () => {
+      let id = null;
+      try { id = String(JSON.parse(govde).id ?? ""); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!/^[A-Za-z0-9._-]+$/.test(id)) { jsonYaz(res, 422, { hata: "gecersiz id (izinli: harf/rakam/._-; yol kacamasi RED)" }); return; }
+      if (!existsSync(GRAF_JSON)) { jsonYaz(res, 404, { hata: "graf SSOT yok — kart uretilmez (fail-closed): " + GRAF_JSON }); return; }
+      let g = null;
+      try { g = JSON.parse(readFileSync(GRAF_JSON, "utf8")); } catch { jsonYaz(res, 500, { hata: "graf JSON bozuk — kart uretilmez (fail-closed)" }); return; }
+      const gorev = g.gorevler.find((x) => x.id === id);
+      if (!gorev) { jsonYaz(res, 404, { hata: "graf SSOT'ta boyle bir gorev yok: " + id }); return; }
+      mkdirSync(KAPSUL_DIR, { recursive: true });
+      const yol = join(KAPSUL_DIR, id + ".md");
+      if (existsSync(yol)) { jsonYaz(res, 409, { hata: "kart ZATEN VAR — mevcut MD ezilmez (yazar kaydi: ilk uretim)", yol }); return; }
+      const tmp = yol + ".tmp-" + Date.now();
+      const fd = openSync(tmp, "w"); // tmp + fsync + rename: kismi yazis gorunmez (A2-10 kalibi)
+      try { writeSync(fd, kartIcerik(g, gorev), "utf8"); fsyncSync(fd); } finally { closeSync(fd); }
+      renameSync(tmp, yol);
+      jsonYaz(res, 201, { ok: true, id, yol, eksen: 8, yazar: "pano/server.js POST /api/kart" });
+    });
     return;
   }
   if (req.method === "GET" && url.pathname === "/api/veri") {
