@@ -17,6 +17,7 @@ import { sampleHandoff } from './handoff.ts';
 import { sampleReceipt } from './reasoning-receipt.ts';
 import { evaluateArtifact } from './cli-evaluate.ts';
 import { runDaemon } from './daemon.ts';
+import { openProductionNotify, type ExecSync } from './sender.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -24,6 +25,7 @@ export interface CliDeps {
   probePath: string;
   now?: () => Date;
   makeAdapter?: (probe: ReturnType<typeof loadVerifiedProbe>) => WorkerAdapter; // test enjeksiyonu
+  notifyExec?: ExecSync; // S4 Bildirim: üretim sender'ın gerçek dış çağrısının test enjeksiyonu
 }
 
 function defaultAdapter(probe: ReturnType<typeof loadVerifiedProbe>): WorkerAdapter {
@@ -188,6 +190,34 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
         return { code: 0, out: { runId, approvalId: req.approvalId, request: req.status, decision, status: dec.status, runState } };
       } catch (e: any) { return { code: 1, out: 'decide reddedildi: ' + e.message }; }
     }
+    case 'notify': {
+      // S4 Bildirim: ÜRETİM sender ucu — kuyruğu (opsiyonel --enqueue ile yeni kayıt)
+      // gerçek webhook'a boşalt. ORDU_NOTIFY_URL yoksa DÜRÜST RED: sessiz no-op YOK
+      // (notify.ts 'sender-yok' fail-closed'ının CLI yüzü). Yol pano-server ile aynı
+      // kökte: dirname(dbPath)/notify.jsonl — bildirim diske iner, pano oradan okur.
+      const wantsEnqueue = rest.includes('--enqueue');
+      const severity = flag('severity'); const title = flag('title'); const body = flag('body'); const dedupeKey = flag('dedupe-key');
+      if (wantsEnqueue && (!severity || !title || body === undefined || !dedupeKey))
+        return { code: 1, out: 'kullanim: ordu notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]' };
+      let p;
+      try {
+        p = openProductionNotify(deps.dbPath, deps.env, { ...(now ? { now } : {}), ...(deps.notifyExec ? { execSync: deps.notifyExec } : {}) });
+      } catch (e: any) { return { code: 1, out: 'notify reddedildi: ' + e.message }; }
+      if (!p.urlSet)
+        return { code: 1, out: 'notify reddedildi: ORDU_NOTIFY_URL ayarli degil — gercek sender ucu kapali (sessiz teslim YOK; kuyruk dokunulmadan birakildi)' };
+      let queued: object | undefined;
+      if (wantsEnqueue) {
+        try {
+          const rec = p.outbox.enqueue({ dedupeKey, severity: severity as any, title, body });
+          queued = { id: rec.id, dedupeKey: rec.dedupeKey, status: rec.status };
+        } catch (e: any) { return { code: 1, out: 'notify enqueue reddedildi: ' + e.message }; }
+      }
+      try {
+        const r = p.outbox.flush();
+        return { code: 0, out: { path: p.outbox.path, ...(queued ? { queued } : {}), ...r,
+          bekleyen: p.outbox.list().filter((x) => x.status === 'pending' || x.status === 'deferred').length } };
+      } catch (e: any) { return { code: 1, out: 'notify flush reddedildi: ' + e.message }; }
+    }
     case 'serve': {
       // S4 Scheduler 2/2: tick DÖNGÜSÜ — daemon sürücüsü. Her tur ayrı `tick` ÇOCUK
       // süreci (crash izolasyonu); cadence schedule.ts disipliniyle (misfire/overlap
@@ -216,7 +246,7 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       }
     }
     default:
-      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)' };
+      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)' };
   }
 }
 
