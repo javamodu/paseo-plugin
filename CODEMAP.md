@@ -1,4 +1,4 @@
-﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 437cc17 — elle duzenleme)
+﻿# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 1c758b1 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -78,7 +78,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `plans/PLAN.md` (42.4KB) — PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu | 0. Yonetisim karari (v1.0'in en buyuk acigi — KAPANDI) | 1. Amac (tek paragraf)
 - `plans/SAVASA-HAZIR-PLAN-2026-10-25.md` (5.1KB) — SAVAŞA HAZIR PLAN — 2026-10-25 18:50 (devir taraması çıktısı) | FAZ-1 — Fake-green/pano tamiri (denetim B, V-01..V-03, V-13) | FAZ-2 — Doküman/atık temizliği (denetim C/D/E, V-06, V-09..V-12, V-15, V-16)
 - `plans/SSOT-INDEX.md` (2.2KB) — SSOT-INDEX — ordu monorepo tek-doğru-kaynak haritası (F2-7) | Bileşen evleri | Eski SSOT kopyaları (y ASLA — yalnız arsiv/)
-- `plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md` (5.7KB) — UYGULAMA PLANI — SPRINT + LOC — 2026-10-26 | SPRINT 0 — Kayıp/güvenlik kalkanı (hemen; 0 kod LOC) | SPRINT 1 — Kabul köprüsü: %40,9 → %44 (4 puan; ~80 LOC)
+- `plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md` (8.9KB) — UYGULAMA PLANI — SPRINT + LOC — 2026-10-26 (v2) | SPRINT 0 — Kayıp/güvenlik kalkanı (hemen; 0 kod LOC) | SPRINT 1 — Kabul köprüsü: %40,9 → %44 (4 puan; ~80 LOC)
 - `plugin/` (64 dosya: en yeni dedektor.test.ts, index.server.ts, pano-durdur.test.ts)
 - `raporlar/` (19 dosya: en yeni tam-analiz-6-dogrulayici-2026-10-26.md, savasa-hazir-2026-10-26.md, kalici-acik-defteri-2026-10-26.md)
 - `raporlar/bench-free-2026-10-15/uygunluk.md` (3.8KB) — UYGUNLUK — paseo-plugin · 2026-10-17 | Kapı kırıkları | Hiç ölçülmemiş (hedef bekleniyor)
@@ -140,6 +140,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/yonetici-ozeti.ps1` (7.6KB)
 - `scripts/zincir-kontrol.ps1` (0.9KB)
 - `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (19.3KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `STATE_BOARD.md` (19.7KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

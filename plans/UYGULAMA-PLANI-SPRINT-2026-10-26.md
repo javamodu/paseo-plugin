@@ -1,6 +1,6 @@
-# UYGULAMA PLANI — SPRINT + LOC — 2026-10-26
+# UYGULAMA PLANI — SPRINT + LOC — 2026-10-26 (v2)
 
-Kaynak: raporlar/tam-analiz-6-dogrulayici-2026-10-26.md (6 doğrulayıcı turu, (R) kanıtlı). Bu plan REHBER:117 gereği ÖNERİDİR — her sprintin [insan] kapıları ayrı onay ister; ajan yalnız önerir. LOC değerleri (T) tahmindir (sözleşme kuralı: (R) resmî ölçüm, (T) tahmin).
+Kaynak: raporlar/tam-analiz-6-dogrulayici-2026-10-26.md (6 doğrulayıcı turu, (R) kanıtlı) + ERATA-1 (kullanıcı gözlemci CKR turunun 10 bulgusu — rakip sınıfı, tag boşluğu, bayat-kanıt, PLG-07, BDG kalemleri; tek-kaynaklı şeritler * ile). Bu plan REHBER:117 gereği ÖNERİDİR — her sprintin [insan] kapıları ayrı onay ister; ajan yalnız önerir. LOC değerleri (T) tahmindir (sözleşme kuralı: (R) resmî ölçüm, (T) tahmin).
 
 Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [insan] "kilit aç" düdüğüyle başlar (BK-02 örneği: "devam" düdüğüyle tek dal açıldı). Script/doc kalemleri yeni tur ister (yazıcı kendisi o turu koşar, ayrı commit).
 
@@ -21,6 +21,8 @@ Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [ins
 | M17 | kapsam kararı (V3-S4.4 şeridi) | 0 veya özellik ~120 | [insan] |
 | 6/6 N5/N5-2 | gözlemci turu — kullanıcının bağımsız oturumu | 0 | KULLANICI |
 
+**S1 kapanış ölçütleri — [insan] karar paketi (her biri ayrı düdük):** Karar C (kart anahtarları — env taşıma ya da K-0045; F4 önkoşusu) · K-0047 (madde-bazlı BAŞLA formatı) · K-0048 (CODEMAP kapsam: öneri (i) kapsam daraltma) · ANAYASA A4+başlık (K-0043; F4 silme güvenliği). Bu dört karar olmadan S1 "kabul %44" ölçütü tam kapanmaz ve START zinciri açılmaz — Sprint kapanışı bu paketle tanımlıdır.
+
 ## SPRINT 2 — Script hijyen dalgası (yeni tur; ~50 LOC, 6 açık kalem)
 
 | Madde | İş | LOC (T) |
@@ -32,8 +34,13 @@ Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [ins
 | A5-9 | kilit-surum.ps1 / proje-panosu.ps1 / bekci.ts:109 tek kirli-ağaç filtresi (ortak liste) | ~12 (script tarafı; bekci tarafı Sprint 3'e düşer) |
 | D2-21 | zincir-kontrol.ps1 exit 1 / ayrık bayrak | 2 |
 | K-0048 (i) | CODEMAP kapsam daraltma — saglik EKSİK'lerinden birini keser | ~10 |
+| **ERATA-1 kalemleri (v2 ekleme)** | | |
+| 8787 port (§2/5) | EADDRINUSE riski: core panosu 8787'de kalkamaz (deepseek-harness işgalde) — port kararı/dok kalemi (ya core varsayılanını değiştir ya dokümantasyon) | 0-3 |
+| probe.mjs kapsam (§2/6) | probe'u test süitine bağla (package.json test zincirine ekleme) — BOM-bug latent deseni tekrar etmesin | ~2 |
+| KULLANIM §6 (§2) | eksik CLI komut listesi: capsule/approve/dispatch/evaluate/decide (cli.ts:107-186) | 0 (doc) |
+| mockup13ekim kalıntısı (*, BDG) | pano/ altındaki statik mockup kalıntısının arsiv/'e taşınması (F4 silme dalgası öncesi) | 0 (git mv) |
 | A14-erata / D2-26 | DERSLER tarih öneki normalizasyonu (doc) | 0 |
-| **Toplam** | | **~48** |
+| **Toplam** | | **~52** |
 
 ## SPRINT 3 — Plugin v0.23 dalgası (tek [insan] "kilit aç" düdüğü; net ~+500 LOC, çoğu test)
 
@@ -47,6 +54,7 @@ Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [ins
 | A6-3 | degerlendirme.tsx refetchInterval 10_000 | 1 | — |
 | A3-9/D2-11 | permission/rol async sarmalayıcı testleri (permission.ts:63,94; roller.ts:120) | — | 120 |
 | A3-10 | bekci pencere-kayması testi (25 turlu fixture; DERSLER 172 kökü) | — | 60 |
+| **bekci.ts:52 (v2 — ERATA-1/9)** | telemetri-fail KOD düzeltmesi: toolCalls>0 filtresinin çağrı-izlenmeyen sağlayıcıyı dışlaması + pencere tarih damgası yazımı (A3-10 testi bu satırın korumasıdır — dipnot değil tablo kalemi) | 15 | (A3-10 kapsamında) |
 | A3-11 | isoHafta yıl-sınırı (2026-01-01=W01) + bozuk jsonl satır testi | — | 50 |
 | A3-12 | dedektor.test.ts:542 gevşek includes → regex assert | 2 | 3 |
 | A4-2/A4-3 | rollup damga tek-tip + ortTurSn n= dipnotu | 10 | 15 |
@@ -54,7 +62,12 @@ Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [ins
 | D2-20 | modelDeseni desen-uzunluk tavi + derleme cache | 20 | 25 |
 | D2-24 | dedektor.test.ts bölme (1233 satır → konu-dosyaları) | 0 (refactor) | 0 |
 | Sürüm | package.json 0.23.0 + v0.23-kilit (K kaydı + tag + doctor) | 2 | — |
-| **Toplam** | | **+83 / -22** | **~383** |
+| **ERATA-1 BDG kalemleri (*, v2 ekleme)** | | | |
+| ajanTemizle | 9-modül duplike kodun tekilleştirilmesi (refactor) | -100 (T) | mevcut testler koruma |
+| cacheHitPuan→delta | alan yeniden adlandırma + tüketici güncelleme | 20 | 20 |
+| **Toplam** | | **+18 net (düzeltmeler -132)** | **~403** |
+
+**Tag bağlam notu (R — ERATA-1/2):** `git tag -l "*kilit*"` bugün yalnız **v0.4–v0.8** döndürüyor — v0.13→v0.22 kilitleri `surumler/` dizin damgalarıdır, **git tag'i yok**. Sprint 3'ün v0.23-kilit tag'i **v0.8'den beri İLK gerçek tag** olacak; kilit döngüsü K-0007'nin tag bacağı bu sprintte ilk kez eksiksiz uygulanır.
 
 ## SPRINT 4 — Canlı kas (START sonrası; K3 penceresi; (T) geniş bant)
 
@@ -66,21 +79,26 @@ Kapsam kuralı: plugin sunucu kodu v0.22-kilit — Sprint 3'ün tamamı tek [ins
 | K13-01..04 | savaş senaryoları (5-LLM turnuvası, gece kesinti, izolasyon) | koşum ~150 |
 | F6.5 | 2-provider canlı spawn (registry genişletmesi) | ~60 |
 | Bildirim | gerçek sender ucu (outbox zaten sağlam) | ~80 |
+| **F8 (v2 — ERATA-1/8)** | turnuva protokolü (5-LLM çapraz eleştiri makinesi — "hiçbir rakipte olmayan" kalemi; K13-02 senaryosunun protokol kodu) | 400-700 |
+| **F9 (v2 — ERATA-1/8)** | UI-tester adaptörü (evaluator'ın tarayıcı yüzü) | 150-250 (T) |
+| **F4 silme dalgası (v2)** | 3 eski ev dizininin silinmesi (paseo-plugin · silinecek-task-graph · paseo-pano) — S0'daki FAZ-4.1 taşıma + Karar C önkoşullarıyla | 0 (koşum/kanıt) |
 
 ## Sprint LOC özeti (T)
 
 | Sprint | Net kod | Test | Kapı |
 |---|---|---|---|
 | 0 | 0 | 0 | [insan] ×2 + erata |
-| 1 | ~+60 | ~60 | [insan] |
-| 2 | ~+48 | — | yeni tur |
-| 3 | +83 / -22 | ~383 | [insan] kilit aç |
-| 4 | 590-1090 | ~350+ | START |
-| **Toplam** | **~800-1300** | **~800** | |
+| 1 | ~+60 | ~60 | [insan] + karar paketi |
+| 2 | ~+52 | — | yeni tur |
+| 3 | +18 net (düzeltmeler -132) | ~403 | [insan] kilit aç |
+| 4 | 1140-2140 | ~350+ | START |
+| **Toplam (T)** | **~1270-2270** | **~820** | |
+
+(v2 değişimi: S2 +4 kalem ~+52; S3 bekci.ts:52 +15 kod, ajanTemizle -100, cacheHitPuan +20 → net +18; S4 F8+F9+F4 satırları eklendi → bant genişledi. v1 sayıları git geçmişindedir.)
 
 ## Sıra bağımlılıkları
 
-Sprint 0 → 1 → (START) → 4; Sprint 2 ve 3 bağımsız paralel yürüyebilir (2 = ajan turu, 3 = [insan] kilit düdüğü sonrası). Sprint 3'ün A3-10'u DERSLER 172 kök-onarımını test korumasına alar — telemetri-fail sağırlığının kod düzeltmesi de aynı düdükle kuyruğa girer (bekci.ts:52 filtre + pencere tarih damgası, ~15 LOC + test).
+Sprint 0 → 1 → (START) → 4; Sprint 2 ve 3 bağımsız paralel yürüyebilir (2 = ajan turu, 3 = [insan] kilit düdüğü sonrası). Sprint 3'ün A3-10 testi + bekci.ts:52 kod satırı birlikte DERSLER 172'nin telemetri-fail sağırlığını kökten kapatır (test koruması + düzeltme aynı düdükte).
 
 ## Ölçüler (sözleşme disiplini)
 
@@ -91,3 +109,5 @@ Sprint 0 → 1 → (START) → 4; Sprint 2 ve 3 bağımsız paralel yürüyebili
 ---
 
 Damga (R): 2026-10-26 05:45 (Get-Date ile ölçüldü), ajan = yazıcı sentez (Claude glm-5.3, ordu), durum = ÖNERİ — [insan] onayı bekler (REHBER:117). Kardeş dosya: raporlar/tam-analiz-6-dogrulayici-2026-10-26.md.
+
+**v2 damgası (R):** 2026-10-26 06:05 (Get-Date ile ölçüldü), ajan = yazıcı (Claude glm-5.3, ordu) — kullanıcı gözlemci CKR turunun 10 bulgusu üzerine: S1'e karar paketi kapanış ölçütleri · S2'ye 8787/probe.mjs/KULLANIM §6/mockup kalıntısı · S3'e bekci.ts:52 kod satırı + tag bağlam notu + BDG kalemleri (ajanTemizle, cacheHitPuan→delta) · S4'e F8/F9/F4 satırları eklendi. Kaynak şeritler (CKR/PLG/RKP/BDG) tek-kaynaklı (*) — rapor ERATA-1'de aktarıldı. Durum = ÖNERİ sürüyor.

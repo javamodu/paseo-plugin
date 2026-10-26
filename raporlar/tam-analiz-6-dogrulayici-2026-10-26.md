@@ -76,3 +76,18 @@ FAZ durumu: FAZ-1 6/6 KAPALI · FAZ-2 KAPALI · FAZ-3 5/6 (kalan adım kullanıc
 ---
 
 Damga (R): 2026-10-26 05:45 (Get-Date ile ölçüldü — DERSLER 162), ajan = yazıcı sentez (Claude glm-5.3, ordu; 6 salt-okur doğrulayıcı turu), commit = bu kaydın commit'i. Kardeş dosya: plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md (sprint + LOC planı, (T) etiketli).
+
+## ERATA-1 (2026-10-26; kullanıcı gözlemci CKR turunun 10 bulgusu üzerine — yazıcı düzeltmesi)
+
+Kaynak: kullanıcının bağımsız gözlemci turu (CKR/PLG/RKP/BDG şeritleri) — aşağıdaki yeni iddialar tek-kaynaklıdır (*); yazıcı disk karşı-ölçümüyle teyit ettiklerini (R) ile işaretledi.
+
+1. **§6 rakip analizi EKSİKTİ — 6. kulvar cevapsız kalmış (kabul).** Yazıcı hatası: V6 doğrulayıcı prompt'una "web araması gerekmez, yalnız repo" yazdı — rakip adları bilinçli dışlandı. Doğrusu (*, RKP şeridi): gerçek rakip sınıfı **LangGraph + Microsoft Agent Framework**; ordu'nun 5 eksik ekseni: **MCP ekosistemi · ölçek (dağıtık/çok-konak) · model çeşitliliği · UI/operatör yüzeyi · hosted servis**. Repo kaynaklı §6 envanteri (güçler + NOT_RUN eksikler) yerinde duruyor; rakip sınıf adları bu eratayla katılır.
+2. **Sürüm-tag boşluğu (R — yazıcı karşı-ölçümü: `git tag -l "*kilit*"` = yalnız v0.4, v0.5.1, v0.5.3, v0.6, v0.7, v0.8).** "K-zinciri v0.13→v0.22 (10 kilit)" iddiası `surumler/` dizinlerine dayanıyor — **hiçbirinin git tag'i yok**. §3'ün "sürüm ucuuyarı"sı yalnız package.json 0.22.0'dan bahsediyordu; tag boşluğu yazılmamıştı. Sprint 3'ün v0.23-kilit tag'i v0.8'den beri İLK tag olacak (bkz. plan v2 bağlam notu).
+3. **§2 ölçüm temeli bayat kanıta yaslanmış (R — DERSLER 172'nin rapor içinde birebir ihlali).** Rapor "son-kanit h=65daa1f, 01:09" aktardı; diskte güncel kanıt **h=7e9cee5, 2026-10-26T04:27:29, x=0, test r309-sonrasi-7e9cee5** (yazıcı karşı-ölçümü, raporun 05:45 damgasından eski koşumu kaynak gösterdi). Düzeltme: güncel son kanıt 7e9cee5; 65daa1f (01:09) FAZ-3 final koşumudur, en güncel değildir.
+4. **§3'te PLG-07 düşmüş (*, PLG şeridi):** hedefler.json/eksen puanları 15 gündür güncellenmiyor — ULAŞMADI listesinde yoktu. §3 hükmü "hedefin büyük bölümü ulaşılmış" → doğrusu **"KISMEN ulaşılmış"** (canlı kanallar akıyor; kural-diyeti hedefi ve ölçüm-hedef tazeliği açık).
+5. **BDG şeridinin senteze girmeyen bulguları (*):** ajanTemizle 9-modül duplike kod · pano mockup kalıntısı (mockup13ekim) diskte · `cacheHitPuan`→delta alan yeniden adlandırma borcu. "28 ACIK" sayımı G23 envanterine yaslanıyor — bu bağımsız bulgular ayrı kalem olarak plan v2'de (S2/S3) yer aldı.
+6. **Plan eksikleri (6-10) plan v2'de kapatıldı:** 8787 EADDRINUSE · probe.mjs kapsam · KULLANIM §6 komut listesi sprint satırı oldu; [insan] karar paketi (Karar C, K-0047, K-0048, ANAYASA A4) sprint kapanış ölçütlerine bağlandı; S3'e bekci.ts:52 kod düzeltmesi tablo satırı oldu; S4'e F8 turnuva protokolü + F9 UI-tester adaptörü + F4 silme dalgası satırları eklendi. STATE_BOARD'a bu işin damgası vuruldu.
+7. **A14 eratası gözlemci tarafından doğrulandı:** gözlemci CKR şeridi defterin "komut YOK" iddiasını önce aktarmış, sonra yazıcının eratasının doğru olduğunu (R) okuyarak kabul etti — gözlemci zincirinin çalıştığının kanıtı.
+
+Erata damgası (R): 2026-10-26 06:05 (Get-Date ile ölçüldü), ajan = yazıcı (Claude glm-5.3, ordu; kullanıcı gözlemci CKR turu girdisiyle), commit = bu eratanın commit'i.
+
