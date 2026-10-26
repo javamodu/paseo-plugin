@@ -4,3 +4,5 @@
 arsiv/tmp-home*/
 node_modules/
 core/veri/pano-token.txt
+core/data/ordu.sqlite-shm
+core/data/ordu.sqlite-wal
