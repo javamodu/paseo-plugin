@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { openStore, recordCommand, setGlobalStop, reserveDispatch, takeLease } from '../src/store.ts';
-import { processOutbox, reconcileUnknown, type WorkerAdapter, type SpawnResult } from '../src/dispatcher.ts';
+import { processOutbox, reconcileUnknown, pollSentSessions, type WorkerAdapter, type SpawnResult } from '../src/dispatcher.ts';
 
 const H64 = (c: string) => c.repeat(64).slice(0, 64);
 
@@ -116,4 +116,58 @@ test('STALE: attempt RUNNING değilse (iptal/devir) spawn EDİLMEZ', async () =>
   assert.equal(r.result, 'stale');
   assert.equal(a.spawnCalls.length, 0);
   assert.equal((db.prepare("SELECT status FROM outbox WHERE dispatch_key='dk-1'").get() as any).status, 'STALE');
+});
+
+// S4 Scheduler — SENT yoklaması (SAVAS START canlı bulgusu: ölü harici oturum
+// defterde RUNNING görünüyordu; run-c0ea713b kanıtı — DERSLER 173)
+test('SENT-poll: ölü oturum + RUNNING attempt → dead-released (release+FAILED+node READY+olay)', async () => {
+  const db = rigged();
+  const a = new FakeAdapter([{ outcome: 'OK', externalSessionId: 'ses-7' }]);
+  await processOutbox(db, a); // SENT + SESSION_BOUND
+  db.prepare("UPDATE nodes SET state='RUNNING' WHERE run_id='run-1' AND id='n-1'").run();
+  a.lookups.set('dk-1', 'DEAD');
+  const p = await pollSentSessions(db, a);
+  assert.deepEqual(p, { polled: 1, outcomes: ['dead-released'] });
+  assert.equal((db.prepare("SELECT status FROM outbox WHERE dispatch_key='dk-1'").get() as any).status, 'DEAD_CONFIRMED');
+  assert.equal((db.prepare("SELECT state FROM attempts WHERE id='att-1'").get() as any).state, 'FAILED');
+  assert.equal((db.prepare("SELECT state FROM nodes WHERE run_id='run-1' AND id='n-1'").get() as any).state, 'READY');
+  assert.equal((db.prepare("SELECT state FROM reservations WHERE attempt_id='att-1'").get() as any).state, 'RELEASED');
+  assert.ok(evTypes(db).includes('CANCEL_CONFIRMED'));
+});
+
+test('SENT-poll: ALIVE → alive-running; durum/olay DEĞİŞMEZ (spam yok)', async () => {
+  const db = rigged();
+  const a = new FakeAdapter([{ outcome: 'OK', externalSessionId: 'ses-8' }]);
+  await processOutbox(db, a);
+  const evBefore = (db.prepare('SELECT COUNT(*) c FROM events').get() as any).c;
+  a.lookups.set('dk-1', 'ALIVE');
+  const p = await pollSentSessions(db, a);
+  assert.deepEqual(p, { polled: 1, outcomes: ['alive-running'] });
+  assert.equal((db.prepare("SELECT status FROM outbox WHERE dispatch_key='dk-1'").get() as any).status, 'SENT');
+  assert.equal((db.prepare("SELECT state FROM attempts WHERE id='att-1'").get() as any).state, 'RUNNING');
+  assert.equal((db.prepare('SELECT COUNT(*) c FROM events').get() as any).c, evBefore, 'ALIVE gözlemi olay ÜRETMEZ');
+});
+
+test('SENT-poll: terminal attempte regresyon YOK (DONE düzeyi korunur)', async () => {
+  const db = rigged();
+  const a = new FakeAdapter([{ outcome: 'OK', externalSessionId: 'ses-9' }]);
+  await processOutbox(db, a);
+  db.prepare("UPDATE attempts SET state='ACCEPTED' WHERE id='att-1'").run();
+  db.prepare("UPDATE nodes SET state='DONE' WHERE run_id='run-1' AND id='n-1'").run();
+  a.lookups.set('dk-1', 'DEAD');
+  const p = await pollSentSessions(db, a);
+  assert.deepEqual(p, { polled: 1, outcomes: ['dead-observed'] });
+  assert.equal((db.prepare("SELECT status FROM outbox WHERE dispatch_key='dk-1'").get() as any).status, 'DEAD_CONFIRMED');
+  assert.equal((db.prepare("SELECT state FROM attempts WHERE id='att-1'").get() as any).state, 'ACCEPTED', 'terminal attempt FAILED edilmez');
+  assert.equal((db.prepare("SELECT state FROM nodes WHERE run_id='run-1' AND id='n-1'").get() as any).state, 'DONE', 'DONE node READY edilmez');
+});
+
+test('SENT-poll: UNKNOWN → still-unknown; dokunma yok', async () => {
+  const db = rigged();
+  const a = new FakeAdapter([{ outcome: 'OK', externalSessionId: 'ses-10' }]);
+  await processOutbox(db, a);
+  a.lookups.set('dk-1', 'UNKNOWN');
+  const p = await pollSentSessions(db, a);
+  assert.deepEqual(p, { polled: 1, outcomes: ['still-unknown'] });
+  assert.equal((db.prepare("SELECT status FROM outbox WHERE dispatch_key='dk-1'").get() as any).status, 'SENT');
 });

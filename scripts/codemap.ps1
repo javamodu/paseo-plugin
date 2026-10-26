@@ -27,8 +27,11 @@ $lines += ''
 # kullanici onayiyla 1a secildi (capraz-sorgu EK karar listesi). CODEMAP buyur → L2 EKSIK bilincli kirmizi, kayitli.
 # K-0037 (F2-7 uygulama): plans/handoff/ esik-5 hattina girer; monorepo bilesen dizinleri (ADR hedef yapi)
 # KLASOR-TOPAKLAMA kuraliyle esiksiz TEK SATIR'a iner — 384 map-dosyasi buna karsin 130 satir butcesi korunur.
-$topakOn = @('raporlar/','kanit/','plans/arsiv/','plans/handoff/')
-$zorlaTopak = @('core/','plugin/','pano/','referans/','arsiv/','surumler/')
+# 2026-10-26 (S2 — K-0048(i) uygulama, SAVAS START turu): raporlar/ + plans/ KLASOR-TOPAKLAMA'ya girdi —
+# savas ureretimi K-0048(ii) tavanini (150) 30 dk icinde asti (151 satir; 531 dosya) -> (ii) tek basina
+# yetersiz KANITLANDI, (i) kapsam daraltma zorunlu oldu. Kod sembol haritasi TAM KALIR (scripts/ + kararlar/ dosya-duzeyi).
+$topakOn = @('kanit/')
+$zorlaTopak = @('core/','plugin/','pano/','referans/','arsiv/','surumler/','raporlar/','plans/')
 $esik = 5
 function Get-TopakKey([string]$rel) {
   foreach ($p in $zorlaTopak) { if ($rel.StartsWith($p)) { return $p } }

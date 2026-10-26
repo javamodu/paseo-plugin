@@ -69,13 +69,19 @@ node src/cli.ts status
 node src/cli.ts stop [--actor A] [--reason R]
 node src/cli.ts resume --confirm "I understand the risk" [--actor A] [--reason R]
 node src/cli.ts tick
+node src/cli.ts capsule --goal "..." --repo R --commit <64hex> [--allow KOMUT]... [--provider P [--model M]]
+node src/cli.ts approve --run <runId> --plan-hash <hash>
+node src/cli.ts dispatch --run <runId>
+node src/cli.ts evaluate --run <runId> --attempt <attemptId> --artifact <yol> [--expect metin]
+node src/cli.ts decide --run <runId> (--approve|--reject)
 ```
 
 - `status` → JSON: globalStop, pendingOutbox, reserved, unknown, son 5 olay. Exit 0.
 - `stop` → global stop latch kurar; `{stopped:true}`. Exit 0.
 - `resume` → onay metni olmadan exit 1; dogru metinle `{resumed:true, commandId}`. Exit 0.
-- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile. (R) 2026-10-25 22:02 canli kosum (temp ORDU_DB): probe receipt TAZE + yetenek kapilari acik → dispatch IDLE, exit 0 (log: raporlar/kanit-hedef/core-cli-faz3-2026-10-25.log). Paseo adaptoru hala wire EDILMEDI — gercek kapsul yaratilmaz, outbox bos kalir (fail-closed).
-- CLI de `ORDU_DB` (varsayilan `data/ordu.sqlite`) ve `ORDU_PROBE` (varsayilan `evidence/probe-latest.json`) okur.
+- `tick` → tek dispatch gecisi: probe dogrular, B02 yetenek kapisi, outbox + reconcile + **sentPoll** (SENT oturumlarinin durum yoklamasi — S4 Scheduler; olum disarida olsa defterde gorunur). (R) 2026-10-26 SAVAS START canli kosum: `ORDU_LIVE=1 tick` → GERCEK Paseo spawn + SESSION_BOUND (run-ce03ca55; kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md) — adaptor wire EDILDI (onceki 'wire edilmedi' notu bayatti).
+- Kapsul dongusu: `capsule` (plan+run kurar; --provider codex/glm-5.3 canli olculmus — kimi-K3 API'de RED, K-0050) → `approve` (insan:cli aktoru, plan-hash birebir) → `dispatch` (outbox doldurur) → `tick` (ORDU_LIVE=1 ile gercek spawn) → `evaluate` (bagimsiz dosya degerlendirici) → `decide` (teslim karari).
+- CLI de `ORDU_DB` (varsayilan `data/ordu.sqlite`), `ORDU_PROBE` (varsayilan `evidence/probe-latest.json`), `ORDU_LIVE=1` (canli spawn beyani — YOKSA FATAL) ve `ORDU_PROVIDER` (dispatch aninda provider cozumu) okur.
 - Bilinmeyen komut → kullanim satiri + exit 1.
 
 ## 7. Kanit dosyalari
@@ -90,7 +96,8 @@ node src/cli.ts tick
 
 - Ucretli/dis API kapali: tum testler hermetik; gercek LLM/Paseo cagrisi YOK.
 - Merge/deploy yok: core yalniz defter + dispatch + kabul kapilari; git merge ve yayinlama kapsam disi.
-- Paseo adaptoru wire edilmedi — dispatch gercek kapsul yaratmaz (outbox IDLE). Probe receipt artik TAZE (R 2026-10-25: `npm run probe` EXIT=0, blocked listesi BOS, receipt a8580ad0; tick exit 0). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; suit probe.mjs'i kosturmadigi icin latent kaliyordu (kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
+- Paseo adaptoru WIRE EDILDI (R 2026-10-26 SAVAS START: run-ce03ca55 gercek spawn + ajan urunu + evaluate PASS + ACCEPTED — kanit raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md; onceki 'wire edilmedi' siniri kapatildi). Probe receipt TAZE (R 2026-10-25: `npm run probe` EXIT=0, blocked listesi BOS, receipt a8580ad0). Not: package.json UTF-8 BOM bugu duzeltildi — probe.mjs JSON.parse BOM'da coker; suit probe.mjs'i kosturmadigi icin latent kaliyordu (kanit logu: raporlar/kanit-hedef/core-probe-faz3-2026-10-25.log).
+- SENT oturumlarin durum yoklamasi tick'in sentPoll baciyla yapilir (S4 Scheduler, 2026-10-26); olum disarida olsa defterde RUNNING kalmaz.
 - Pano read-only + stop/resume'dur; plan onayi/karar verme panodan YAPILMAZ.
 
 ## 9. Dogrulandi (2026-10-14, Windows, Node v24.18.0)

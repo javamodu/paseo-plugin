@@ -5,7 +5,7 @@ import { mkdirSync } from 'node:fs';
 import { createHash, randomUUID } from 'node:crypto';
 import { dirname } from 'node:path';
 import { openStore, recordCommand, setGlobalStop, pendingCapacity } from './store.ts';
-import { processOutbox, reconcileUnknown, type WorkerAdapter } from './dispatcher.ts';
+import { processOutbox, reconcileUnknown, pollSentSessions, type WorkerAdapter } from './dispatcher.ts';
 import { loadVerifiedProbe, spawnBlockedReason } from './capabilities.ts';
 import { PaseoWorkerAdapter } from './paseo-adapter.ts';
 import { makeSafePaseoTransport } from './paseo-transport.ts';
@@ -102,7 +102,10 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       }
       const r1 = await processOutbox(db, adapter, { ...(livePrompt ? { prompt: livePrompt } : {}), ...(liveCwd ? { cwd: liveCwd } : {}) });
       const r2 = await reconcileUnknown(db, adapter);
-      return { code: 0, out: { outbox: r1, reconcile: r2 } };
+      // S4 Scheduler: SENT oturumlarının durum yoklaması (kimi-K3 ölümünün defterde
+      // görünmez kaldığı canlı bulgunun kapanışı — DERSLER 173, K-0050)
+      const r3 = await pollSentSessions(db, adapter);
+      return { code: 0, out: { outbox: r1, reconcile: r2, sentPoll: r3 } };
     }
     case 'capsule': {
       // kapsul yasam dongusu 1/4: tek node'lu minimal plan + run (e2e-s11 deseni).

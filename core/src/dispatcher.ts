@@ -206,3 +206,46 @@ export async function reconcileUnknown(db: DatabaseSync, adapter: WorkerAdapter)
   }
   return { reconciled: outcomes.length, outcomes };
 }
+
+// S4 Scheduler (SAVAS START 2026-10-26 canlı bulgu — DERSLER 173): SENT satırları
+// için durum yoklaması. reconcileUnknown yalnız SENDING/UNKNOWN bakar; SESSION_BOUND
+// olmuş ama harici oturumu ÖLMÜŞ satır defterde RUNNING görünür (kanıt: run-c0ea713b,
+// raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md). Gözlem zararsızdır:
+//   ALIVE   → dokunma (olay YOK — her tick'te olay spam üretilmez)
+//   DEAD    → attempt RUNNING ailesindeyse reconcile'ın DEAD dalıyla AYNI kapanış
+//             (release + FAILED + node READY + CANCEL_CONFIRMED); attempt zaten
+//             terminalse (CANDIDATE_FROZEN/ACCEPTED/FAILED) yalnız gözlem — DONE
+//             düzeyine REGRESYON YOK
+//   UNKNOWN → sabırla bekle; kör karar yok
+export async function pollSentSessions(db: DatabaseSync, adapter: WorkerAdapter) {
+  const rows = db.prepare("SELECT * FROM outbox WHERE status='SENT' ORDER BY rowid").all() as any[];
+  const outcomes: string[] = [];
+  for (const row of rows) {
+    const status = await adapter.lookup(row.dispatch_key);
+    const attempt = db.prepare('SELECT run_id,node_id,state FROM attempts WHERE id=?').get(row.attempt_id) as any;
+    if (status === 'DEAD') {
+      const running = attempt && (attempt.state === 'RUNNING' || attempt.state === 'CANCEL_REQUESTED');
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        db.prepare("UPDATE outbox SET status='DEAD_CONFIRMED' WHERE id=? AND status='SENT'").run(row.id);
+        if (running) {
+          db.prepare("UPDATE reservations SET state='RELEASED' WHERE attempt_id=? AND state IN('ACTIVE','UNKNOWN')").run(row.attempt_id);
+          db.prepare("UPDATE attempts SET state='FAILED' WHERE id=?").run(row.attempt_id);
+          db.prepare("UPDATE nodes SET state='READY' WHERE run_id=? AND id=?").run(attempt.run_id, attempt.node_id);
+          appendEvent(db, {
+            type: 'CANCEL_CONFIRMED', actorId: 'core', causationId: row.command_id,
+            runId: attempt.run_id, attemptId: row.attempt_id,
+            payload: { runId: attempt.run_id, attemptId: row.attempt_id, externalState: 'CONFIRMED_DEAD' },
+          });
+        }
+        db.exec('COMMIT');
+        outcomes.push(running ? 'dead-released' : 'dead-observed');
+      } catch (e) { db.exec('ROLLBACK'); throw e; }
+    } else if (status === 'ALIVE') {
+      outcomes.push('alive-running');
+    } else {
+      outcomes.push('still-unknown');
+    }
+  }
+  return { polled: outcomes.length, outcomes };
+}
