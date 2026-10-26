@@ -4,6 +4,7 @@ import type { PluginHookContext } from "@getpaseo/plugin/server";
 import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { katmanKokuBul } from "./sozlesme";
 import { telemetriYaz } from "./telemetry";
+import { temizlikKaydet } from "./temizlik";
 
 const MIN_BRIEF_UZUNLUK = 30;
 const OGE_ANAHTAR = /(?:^|[^\p{L}\p{N}_])(Hedef|[C\u00C7][i\u0131]kt[i\u0131](\s+format[i\u0131])?|Ara[c\u00E7](\/kaynak)?|(G[o\u00F6]rev\s+)?S[i\u0131]n[i\u0131]r[i\u0131]?|Kabul(\s+kriteri)?|B[u\u00FC]t[c\u00E7]e)\s*:/giu;
@@ -94,11 +95,11 @@ export function _testIcinBriefSifirla(): void {
   gorulenler.clear();
 }
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => {
   durum.delete(agentId);
   gorulenler.delete(agentId);
-}
+});
 
 export async function briefKontrol(
   agentId: string,

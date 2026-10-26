@@ -2,6 +2,7 @@ import type { PluginHookAgent, PluginHookContext } from "@getpaseo/plugin/server
 import { telemetriYaz, sonAktifSureKaydet } from "./telemetry";
 import { ayarOku, VARSAYILAN_AYAR, type VerimlilikAyar } from "./ayar";
 import { modCoz } from "./modlar";
+import { temizlikKaydet } from "./temizlik";
 
 const TARAMA_MS = 60_000;
 const YAZICI_STALL_ESIK_MS = 15 * 60_000;
@@ -31,10 +32,8 @@ interface PitbullState {
 
 const durum = new Map<string, PitbullState>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  durum.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => durum.delete(agentId));
 const PLUGIN_BASLANGIC = Date.now();
 
 function stateAl(agentId: string): PitbullState {

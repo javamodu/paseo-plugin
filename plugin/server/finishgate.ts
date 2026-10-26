@@ -1,6 +1,7 @@
 import type { PluginHookContext } from "@getpaseo/plugin/server";
 import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { editliMi, latestOutputText, sonKullaniciMesajiIndex, toolCallOzetleri } from "./inspect";
+import { temizlikKaydet } from "./temizlik";
 
 const TAMAMLANMA_DESENI = /\b(tamam(landı|landi)?|bitti|hazır|hazir|geçti|gecti|başarılı|basarili|passed|done|complet(ed|e)|yeşil|yesil)\b/i;
 const DOGRULAMA_DESENI = /\b(npm\s+(run\s+)?(test|typecheck|lint|build)|npx\s+(tsc|vitest|jest|tsx\s+test)|pnpm\s+(test|typecheck|lint)|yarn\s+(test|build)|tsc\b|pytest|vitest|jest|mocha|cargo\s+test|go\s+test|dotnet\s+test|saglik\.ps1|zincir-kontrol\.ps1)/i;
@@ -8,10 +9,8 @@ const MAKS_ARDISIK_DURTME = 2;
 
 const durum = new Map<string, number>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  durum.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => durum.delete(agentId));
 
 export async function finishGateKontrol(
   agentId: string,

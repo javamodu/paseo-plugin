@@ -8,6 +8,7 @@ import { katmanKokuBul } from "./sozlesme";
 import { PLUGIN_SURUM } from "./surum";
 import { rolCoz } from "./roller";
 import { haftalikRollup } from "./rollup";
+import { temizlikKaydet } from "./temizlik";
 
 export interface TelemetriKayit {
   ts: string;
@@ -116,7 +117,9 @@ function sonAktifSureAl(agentId: string): number | null {
   return v ?? null;
 }
 
-export function ajanTemizle(agentId: string): void {
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri —
+// telemetry'in ozel mantigi: kayitliTurIdler onek-temizligi + acik tur sayacinin dusurulmesi).
+temizlikKaydet((agentId) => {
   turSayaclari.delete(agentId);
   locBaslangiclari.delete(agentId);
   sonAktifSure.delete(agentId);
@@ -129,7 +132,7 @@ export function ajanTemizle(agentId: string): void {
   if (turBaslangiclari.delete(agentId)) {
     aktifTur = Math.max(0, aktifTur - 1);
   }
-}
+});
 export function _testIcinAktifTur(): number {
   return aktifTur;
 }

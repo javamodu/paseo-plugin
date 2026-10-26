@@ -21,6 +21,18 @@ export const VARSAYILAN_AYAR: VerimlilikAyar = {
 
 const cache = new Map<string, { mt: number; boyut: number; ayar: VerimlilikAyar }>();
 
+// D2-18 (v0.23): cache anahtari cwd'dir — cok-repo makinede (ordu dongusu repolari gezer)
+// sinirsiz buyume. Map giris-sirasi LRU: get/set MRU'yu sona tasir, tavan asiminda
+// en bastaki (en eski erisilen) giris atilir. Ayar Okuma dogrulugu degismez (mt+boyut anahtari).
+const AYAR_CACHE_TAVAN = 100;
+function cacheYaz(cwd: string, giris: { mt: number; boyut: number; ayar: VerimlilikAyar }): void {
+  cache.set(cwd, giris);
+  if (cache.size > AYAR_CACHE_TAVAN) {
+    const enEski = cache.keys().next().value;
+    if (enEski !== undefined) cache.delete(enEski);
+  }
+}
+
 function sayiAl(deger: unknown, min: number, maks: number, dusus: number): number {
   return typeof deger === "number" && Number.isFinite(deger) && deger >= min && deger <= maks ? deger : dusus;
 }
@@ -42,9 +54,13 @@ export function ayarOku(cwd: string): VerimlilikAyar {
       bekciKapali: ham.bekciKapali === true,
       k3Bitis: typeof ham.k3Bitis === "string" && ham.k3Bitis.trim() !== "" ? ham.k3Bitis : null,
     };
-    cache.set(cwd, { mt: st.mtimeMs, boyut: st.size, ayar });
+    cacheYaz(cwd, { mt: st.mtimeMs, boyut: st.size, ayar });
     return ayar;
   } catch {
     return VARSAYILAN_AYAR;
   }
+}
+
+export function _testIcinCacheBoyutu(): number {
+  return cache.size;
 }

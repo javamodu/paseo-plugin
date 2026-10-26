@@ -133,25 +133,29 @@ export function haftalikRollup(cwd: string, simdi = new Date()): string | null {
     : tur > 0
       ? "koşul oluşmadı (koşul: editli completed tur + ardışık kullanıcı mesajı; tek-tur ajanlarda oluşmaz)"
       : "—";
-  let deltaObj: { tur: number | null; kabulPuan: number | null; pitbull: number | null; cacheHitPuan: number | null } | null = null;
+  let deltaObj: { tur: number | null; kabulPuan: number | null; pitbull: number | null; cacheHitDelta: number | null } | null = null;
   const oncekiYol = join(dir, oncekiHaftaAd + ".json");
   if (existsSync(oncekiYol)) {
     try {
       const o = JSON.parse(readFileSync(oncekiYol, "utf8")) as Record<string, unknown>;
       const fark = (a: number | null, b: unknown): number | null => (a === null || typeof b !== "number" ? null : Math.round((a - (b as number)) * 10) / 10);
-      deltaObj = { tur: fark(tur, o.tur), kabulPuan: fark(kabulOrani, o.kabulOrani), pitbull: fark(pitbull, o.pitbull), cacheHitPuan: fark(ortCache, o.ortCacheHit) };
+      // v0.23 (BDG): alan adi cacheHitPuan → cacheHitDelta — deger FARK (puan degil);
+      // eski haftalik json'lardaki gecmis 'delta.cacheHitPuan' alanlari veri olarak oldugu gibi kalir.
+      deltaObj = { tur: fark(tur, o.tur), kabulPuan: fark(kabulOrani, o.kabulOrani), pitbull: fark(pitbull, o.pitbull), cacheHitDelta: fark(ortCache, o.ortCacheHit) };
     } catch { deltaObj = null; }
   }
   const imzali = (n: number | null, birim = ""): string => (n === null ? "—" : (n > 0 ? "+" : "") + n + birim);
   const deltaSatir = deltaObj
-    ? "- Önceki haftaya göre (" + oncekiHaftaAd + "): tur " + imzali(deltaObj.tur) + " · kabul " + imzali(deltaObj.kabulPuan, " puan") + " · pitbull " + imzali(deltaObj.pitbull) + " · cache-hit " + imzali(deltaObj.cacheHitPuan, " puan")
+    ? "- Önceki haftaya göre (" + oncekiHaftaAd + "): tur " + imzali(deltaObj.tur) + " · kabul " + imzali(deltaObj.kabulPuan, " puan") + " · pitbull " + imzali(deltaObj.pitbull) + " · cache-hit " + imzali(deltaObj.cacheHitDelta, " puan")
     : "- Önceki hafta (" + oncekiHaftaAd + "): veri yok — baz hafta, trend hesaplanamaz";
   const md = [
     "# Telemetri Haftalık Özet — " + hafta,
     "",
-    "Kaynak: .verimlilik/telemetri.jsonl (mekanik rollup, LLM'siz; yalnız " + hafta + " kayıtları) · Üretim: " + simdi.toISOString().slice(0, 10),
+    "Kaynak: .verimlilik/telemetri.jsonl (mekanik rollup, LLM'siz; yalnız " + hafta + " kayıtları) · Üretim: " + simdi.toISOString() + " (A4-2: tam ISO — json damgasıyla tek-tip)",
     "",
-    "- Tur: " + tur + " · ort. tur süresi: " + (ortTurSn !== null ? ortTurSn + "sn" : "—") + " · aktif: " + (ortAktifSn !== null ? ortAktifSn + "sn" : "—") + " (bekleme-haric, v0.22)",
+    // A4-3: ortalamalar örneklem büyüklüğünü dipnot olarak taşır (n=) — 2/157 örneklemde
+    // "ortalama" tek başına yanıltıcıdır (n=0'a yakın değer raporun güvenilirliğini ele verir).
+    "- Tur: " + tur + " · ort. tur süresi: " + (ortTurSn !== null ? ortTurSn + "sn (n=" + turSnAdet + ")" : "—") + " · aktif: " + (ortAktifSn !== null ? ortAktifSn + "sn (n=" + aktifAdet + ")" : "—") + " (bekleme-haric, v0.22)",
     "- Kabul oranı: " + oran + " (desen tabanlı, T)",
     "- Dürtmeler: loop " + loop + " · finish-gate " + fg + " · pitbull " + pitbull,
     "- Anlaşılmazlık: " + karisiklik,

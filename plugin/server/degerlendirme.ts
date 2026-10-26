@@ -22,7 +22,13 @@ export function sonDegerlendirmeOku(cwd: string): DegerlendirmeOzet {
     const son = raporlar[0];
     let icerik = readFileSync(join(dir, son), "utf8");
     if (Buffer.byteLength(icerik, "utf8") > MAX_ICERIK_BYTES) {
-      icerik = icerik.slice(0, MAX_ICERIK_BYTES) + "\n\n...(kirpildi)";
+      // A2-11 (v0.23): String.slice UTF-16 kod-birim keser — cokbaytli metinde 24KB butce ~48KB'a tasardi
+      // ve karakteri ortadan bolebilir. Buffer uzerinden bayt-hizali kesim; kesim noktasi devam-baytina
+      // denk gelirse karakterin ONCESINE gerilenir (p, lead baytin indeksine duser).
+      const buf = Buffer.from(icerik, "utf8");
+      let p = MAX_ICERIK_BYTES;
+      while (p > 0 && (buf[p] & 0xc0) === 0x80) p--;
+      icerik = buf.subarray(0, p).toString("utf8") + "\n\n...(kirpildi)";
     }
     return { dosya: son, icerik, kilitler };
   } catch {

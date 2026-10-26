@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD fbd5607 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD f992e46 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -66,9 +66,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (5 dosya: en yeni BLUEPRINT.md, README.md, .pano-serve.js)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (53 dosya: en yeni KAPSUL-TUVAL-UI-PLANI-2026-10-26.md, GOREV-GRAFIGI-SENERARYO-2026-10-26.md, A0-1.md)
-- `plugin/` (64 dosya: en yeni dedektor.test.ts, index.server.ts, pano-durdur.test.ts)
-- `raporlar/` (110 dosya: en yeni s2-script-hijyen-2026-10-26.md, 2026-W44.md, kapsul-tuval-review-2026-10-26.md)
+- `plans/` (53 dosya: en yeni GOREV-GRAFIGI-SENERARYO-2026-10-26.md, KAPSUL-TUVAL-UI-PLANI-2026-10-26.md, A0-1.md)
+- `plugin/` (68 dosya: en yeni OVERVIEW.md, dedektor.test.ts, ayar-modlar.test.ts)
+- `raporlar/` (111 dosya: en yeni 2026-W44.md, OZET.md, gorev-grafigi-2026-10-26.md)
 - `README.md` (3.1KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {

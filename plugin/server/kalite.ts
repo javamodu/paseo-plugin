@@ -1,4 +1,5 @@
 import type { ToolCallOzeti } from "./inspect";
+import { temizlikKaydet } from "./temizlik";
 
 export const BASARISIZ_ORAN_ESIK = 0.10;
 export const BASARISIZ_MIN_CAGRI = 5;
@@ -6,10 +7,8 @@ const COOLDOWN_MS = 10 * 60_000;
 
 const cooldown = new Map<string, number>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  cooldown.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => cooldown.delete(agentId));
 
 // Tur bazinda basarisiz cagri orani esigi asilirsa tek durtme (cooldown'lu).
 export function basarisizOranMesaji(agentId: string, ozetler: readonly ToolCallOzeti[], simdi = Date.now()): string | null {

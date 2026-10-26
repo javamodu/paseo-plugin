@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync, mkdirSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { katmanKokuBul } from "./sozlesme";
+import { temizlikKaydet } from "./temizlik";
 import type { AgentUsage } from "@getpaseo/protocol/agent-types";
 
 export type ModAd = "atolye" | "firtina" | "matbaa" | "cerrah" | "serbest";
@@ -58,9 +59,18 @@ export const VARSAYILAN_ESLESME: ModEslesme[] = [
   { provider: "cf-opensource", modelDeseni: "glm|deepseek", mod: "cerrah" },
 ];
 
+const DESEN_UZUNLUK_TAVAN = 200;
+// D2-20 (v0.23): kullanici tarafindan ayar.json'a yazilabilen modelDeseni regex vektorudur —
+// uzun desen ReDoS tuzagi tasiyabilir. Tavan ustu desen DERLENMEZ (eslesmez), derlenen desenler
+// cache'lenir (guvenliRegex her modCoz cagrisinda tekrar derlemiyordu).
+const desenCache = new Map<string, RegExp | null>();
 function guvenliRegex(desen: string): RegExp | null {
-  if (!desen) return null;
-  try { return new RegExp(desen, "i"); } catch { return null; }
+  if (!desen || desen.length > DESEN_UZUNLUK_TAVAN) return null;
+  if (desenCache.has(desen)) return desenCache.get(desen) ?? null;
+  let re: RegExp | null = null;
+  try { re = new RegExp(desen, "i"); } catch { re = null; }
+  desenCache.set(desen, re);
+  return re;
 }
 
 // R3-09: pitbullTara her 60sn taramada stall'lu ajan basina modCoz cagirir — mtime+boyut anahtarli cache (ayarOku deseni).
@@ -134,10 +144,8 @@ export function contextRotOrani(usage: AgentUsage | null): number | null {
 // Context Rot freni cooldown (ATOLYE): reload'da sifirlanir — kabul edilebilir (tur basina max 1 durtme).
 const rotSonDurtme = new Map<string, number>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  rotSonDurtme.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => rotSonDurtme.delete(agentId));
 const ROT_COOLDOWN_MS = 30 * 60 * 1000;
 export function rotDurtmeliMi(agentId: string, simdi: number): boolean {
   const son = rotSonDurtme.get(agentId);

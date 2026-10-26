@@ -3,15 +3,14 @@ import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { sonKullaniciMesajiIndex, toolCallOzetleri } from "./inspect";
 import { telemetriYaz } from "./telemetry";
 import { ayarOku } from "./ayar";
+import { temizlikKaydet } from "./temizlik";
 
 export const KAPSAM_TAVAN = 3;
 
 const durum = new Map<string, number>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  durum.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => durum.delete(agentId));
 
 export function kapsamSay(timeline: readonly AgentTimelineItem[]): { dosyalar: string[]; pencere: number } {
   const sonMesaj = sonKullaniciMesajiIndex(timeline);

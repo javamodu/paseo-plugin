@@ -1,7 +1,7 @@
 {
   "probe": "ordu-v3/B00",
   "schemaVersion": 1,
-  "generatedAt": "2026-10-26T12:26:15.920Z",
+  "generatedAt": "2026-10-26T13:22:30.672Z",
   "node": "v24.18.0",
   "nodeEngines": ">=24.0.0 <25",
   "depsExact": {
@@ -31,5 +31,5 @@
     "cancelConfirm": "paseo stop --help erisilebilir (interrupt semantigi)"
   },
   "note": "blocked listesi bos olmadan worker spawn YOK (fail-closed, A01). sandboxEstablished yalniz config-kanitidir; davranissal sandbox kaniti ayri gate ister.",
-  "probeReceiptHash": "4e1dd6c5bcf8464e992715906e7f31314dbf287eb66c95701bf8491ae64c731b"
+  "probeReceiptHash": "deb385acb2ce214990f9704760e77e53929e726c6e9bca8844418586f38b103b"
 }

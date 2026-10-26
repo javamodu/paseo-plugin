@@ -12,6 +12,8 @@ export function DegerlendirmeEkrani({ theme, layout, params }: PluginScreenProps
     queryKey: ["son-degerlendirme", cwd],
     queryFn: () => cagir({ cwd }),
     enabled: cwd.length > 0,
+    // A6-3 (v0.23): OVERVIEW'in "10sn tazelenir" vaadi — oz-degerlendirme ekrani da periyodik ceker.
+    refetchInterval: 10_000,
   });
   const styles = useMemo(
     () => ({

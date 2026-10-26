@@ -1,10 +1,9 @@
 import type { PluginServerContext } from "@getpaseo/plugin/server";
 import type { PluginHookAgent } from "@getpaseo/plugin/server";
 import type { PaseoApi } from "@getpaseo/client";
-import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { sozlesmeEnjekte, telemetriOzet, sonDegerlendirme, modDurum, modAyarla, panoDurum, orduEmir } from "./shared/contracts";
 import { enjeksiyonMetni } from "./server/sozlesme";
-import { kabulKaydet, karisiklikKaydet, lintKaydet, telemetriOzetle, turBaslat, turKaydet } from "./server/telemetry";
+import { lintKaydet, telemetriOzetle, turBaslat, turKaydet } from "./server/telemetry";
 import { loopKontrol } from "./server/loopguard";
 import { finishGateKontrol } from "./server/finishgate";
 import { permissionKontrol } from "./server/permission";
@@ -17,7 +16,7 @@ import { kapsamKontrol } from "./server/kapsam";
 import { onboardingKontrol, onboardingTara } from "./server/onboarding";
 import { enjekteHandler } from "./server/enjekte";
 import { editliMi, turCagrilari } from "./server/inspect";
-import { KARISIKLIK_DESENI, RET_DESENI } from "./server/desenler";
+import { kabulTakipIsle } from "./server/kabultakip";
 import { sonDegerlendirmeOku } from "./server/degerlendirme";
 import { basarisizOranMesaji } from "./server/kalite";
 import { modCoz, modDurumOku, modAyarla as modAyarlaUygula, contextRotOrani, rotDurtmeliMi } from "./server/modlar";
@@ -27,17 +26,7 @@ import { orduDongu, orduAyarOku, aktifWorkerSay, MANAGER_BRIEF } from "./server/
 import { repolariBul } from "./server/planmd";
 
 
-interface TurState {
-  oncekiEditliCompleted: boolean;
-  oncekiCompleted: boolean;
-}
-
-const turDurumu = new Map<string, TurState>();
 let paseoRef: PaseoApi | null = null;
-
-function kullaniciMesajlari(timeline: readonly AgentTimelineItem[]): string[] {
-  return timeline.filter((i) => i.type === "user_message").map((i) => (i as { text: string }).text);
-}
 
 export default function contribute(server: PluginServerContext) {
   const removers: Array<() => void> = [];
@@ -175,20 +164,17 @@ export default function contribute(server: PluginServerContext) {
       }
 
       try {
-        const state = turDurumu.get(agentId) ?? { oncekiEditliCompleted: false, oncekiCompleted: false };
-        const mesajlar = kullaniciMesajlari(event.timeline);
-        const buTurunPromptu = mesajlar.length > 0 ? mesajlar[mesajlar.length - 1] : "";
-        if (state.oncekiEditliCompleted && mesajlar.length >= 2) {
-          const ret = RET_DESENI.test(buTurunPromptu);
-          kabulKaydet(event.agent.cwd, agentId, event.agent.provider, !ret, "onceki-tur-prompt-deseni(T)");
-        }
-        if (state.oncekiCompleted && mesajlar.length >= 2 && KARISIKLIK_DESENI.test(buTurunPromptu)) {
-          karisiklikKaydet(event.agent.cwd, agentId, event.agent.provider, "onceki-tur-prompt-deseni(T)");
-        }
-        const editli = editliTur;
-        state.oncekiCompleted = event.outcome.kind === "completed";
-        state.oncekiEditliCompleted = event.outcome.kind === "completed" && editli;
-        turDurumu.set(agentId, state);
+        // A2-9 (v0.23): kabul/karisiklik takibi server/kabultakip.ts'e tasindi —
+        // turnId + prompt kimligi dedupe'u durtmeli turda cift sayimi engeller.
+        kabulTakipIsle({
+          agentId,
+          cwd: event.agent.cwd,
+          provider: event.agent.provider,
+          turnId: event.turnId,
+          timeline: event.timeline,
+          completed: event.outcome.kind === "completed",
+          editli: editliTur,
+        });
       } catch (error) {
         console.error("[paseo-verimlilik] kabul takip hatasi", error);
       }
@@ -249,7 +235,6 @@ export default function contribute(server: PluginServerContext) {
     server.on("agent.closed", (event) => {
       aktifAjanlar.delete(event.agent.id);
       aktifTurler.delete(event.agent.id);
-      turDurumu.delete(event.agent.id);
       const kapananAbone2 = aktiviteAbonelikleri.get(event.agent.id);
       if (kapananAbone2) { aktiviteAbonelikleri.delete(event.agent.id); try { kapananAbone2(); } catch { /* abonelik zaten kopuk olabilir */ } }
       ajanTemizleHepsi(event.agent.id);

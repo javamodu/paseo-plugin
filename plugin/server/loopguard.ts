@@ -1,6 +1,7 @@
 import type { PluginHookContext } from "@getpaseo/plugin/server";
 import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { sonKullaniciMesajiIndex, toolCallOzetleri } from "./inspect";
+import { temizlikKaydet } from "./temizlik";
 
 const PENCERE = 8;
 const TEKRAR_ESIGI = 3;
@@ -13,10 +14,8 @@ interface LoopState {
 
 const durum = new Map<string, LoopState>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  durum.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => durum.delete(agentId));
 
 function loopVarMi(hashler: string[]): string | null {
   if (hashler.length >= TEKRAR_ESIGI) {

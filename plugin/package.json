@@ -1,7 +1,7 @@
 {
   "name": "paseo-verimlilik",
   "private": true,
-  "version": "0.22.0",
+  "version": "0.23.0",
   "files": [
     "paseo-plugin.json",
     "OVERVIEW.md",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "tsx test/dedektor.test.ts && tsx test/planmd.test.ts && tsx test/ordu.test.ts && tsx test/kucukfix.test.ts && tsx test/pano-durdur.test.ts"
+    "test": "tsx test/dedektor.test.ts && tsx test/planmd.test.ts && tsx test/ordu.test.ts && tsx test/kucukfix.test.ts && tsx test/pano-durdur.test.ts && tsx test/bekci.test.ts && tsx test/kabul-rollup.test.ts && tsx test/izin.test.ts && tsx test/ayar-modlar.test.ts"
   },
   "devDependencies": {
     "@getpaseo/client": "0.11.2",

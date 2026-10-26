@@ -5,6 +5,7 @@ import type { AgentTimelineItem } from "@getpaseo/protocol/agent-types";
 import { latestOutputText } from "./inspect";
 import { telemetriYaz } from "./telemetry";
 import { katmanKokuBul, sonHandoffDosyasi } from "./sozlesme";
+import { temizlikKaydet } from "./temizlik";
 
 export function sonHandoff(cwd: string): string | null {
   return sonHandoffDosyasi(cwd);
@@ -19,20 +20,17 @@ const ECHO_SINYALLERI = [
 interface Beklenti {
   tip: "echo" | "iskelet";
   hedef: string;
-  tur: number;
 }
 
 const beklentiler = new Map<string, Beklenti>();
 
-// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler.
-export function ajanTemizle(agentId: string): void {
-  beklentiler.delete(agentId);
-}
+// K-0025 (A2-1): agent.closed sonrasi bellek sizintisini onler (v0.23: temizlik kayit defteri).
+temizlikKaydet((agentId) => beklentiler.delete(agentId));
 
 export function onboardingTara(agentId: string, cwd: string): void {
   const handoff = sonHandoff(cwd);
   if (handoff) {
-    beklentiler.set(agentId, { tip: "echo", hedef: handoff, tur: 0 });
+    beklentiler.set(agentId, { tip: "echo", hedef: handoff });
     return;
   }
   const kok = katmanKokuBul(cwd);
@@ -40,7 +38,7 @@ export function onboardingTara(agentId: string, cwd: string): void {
   const l1 = existsSync(join(kok, "STATE_BOARD.md"));
   const l5 = existsSync(join(kok, "DERSLER.md"));
   if (!l0 && !l1 && !l5) {
-    beklentiler.set(agentId, { tip: "iskelet", hedef: "L0/L1/L5", tur: 0 });
+    beklentiler.set(agentId, { tip: "iskelet", hedef: "L0/L1/L5" });
   }
 }
 
@@ -53,11 +51,7 @@ export async function onboardingKontrol(
 ): Promise<boolean> {
   const b = beklentiler.get(agentId);
   if (!b) return false;
-  b.tur++;
-  if (b.tur > 1) {
-    beklentiler.delete(agentId);
-    return false;
-  }
+  // A2-12 (v0.23): eski 'b.tur > 1' dali olu koddu — kayit burada silindigi icin tur hic 1'i asmazdi.
   beklentiler.delete(agentId);
 
   if (b.tip === "echo") {

@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { PluginHookAgent } from "@getpaseo/plugin/server";
 import { katmanKokuBul } from "./sozlesme";
@@ -44,14 +44,23 @@ async function psKopru(repoKok: string, scriptAd: string, calistir: KomutCalisti
 function telemetriFailAnomali(repoKok: string): BekciAnomali | null {
   const dosya = join(repoKok, ".verimlilik", "telemetri.jsonl");
   if (!existsSync(dosya)) return null;
-  const turlar: { ok: number; fail: number }[] = [];
+  // v0.23 (bekci.ts:52 kok onarimi — DERSLER 172 + K-0046 teyit taramasi): eski toolCalls>0 filtresi
+  // cagri-izlenmeyen saglayicinin turlerini (claude daemon: 0/103 araclu tur) dislayip pencereyi
+  // eski kayitlara KAYDIRIYORDU (bayat veri 'son 20 turda' gibi guncel gorunurdu). Pencere artik
+  // TUR kayitlarinin son 20'udur — izlenmeyen turler pencerede yer isgal eder (0/0 katki; oran
+  // yalniz izlenen cagrilar uzerinden hesaplanir) ve pencereye tarih damgasi yazilir.
+  const turlar: { ts: number | null; ok: number; fail: number }[] = [];
   for (const satir of readFileSync(dosya, "utf8").split(/\r?\n/)) {
     if (!satir.trim()) continue;
     try {
-      const k = JSON.parse(satir) as { tip?: string; toolCalls?: number; failedCalls?: number };
-      if (k.tip === "tur" && typeof k.toolCalls === "number" && k.toolCalls > 0) {
-        turlar.push({ ok: k.toolCalls - (k.failedCalls ?? 0), fail: k.failedCalls ?? 0 });
-      }
+      const k = JSON.parse(satir) as { tip?: string; ts?: string; toolCalls?: number; failedCalls?: number };
+      if (k.tip !== "tur") continue;
+      const tsMs = typeof k.ts === "string" ? Date.parse(k.ts) : NaN;
+      turlar.push({
+        ts: Number.isNaN(tsMs) ? null : tsMs,
+        ok: Math.max(0, (k.toolCalls ?? 0) - (k.failedCalls ?? 0)),
+        fail: k.failedCalls ?? 0,
+      });
     } catch { /* bozuk satir atlanir */ }
   }
   const pencere = turlar.slice(-FAIL_PENCERE_TUR);
@@ -60,7 +69,12 @@ function telemetriFailAnomali(repoKok: string): BekciAnomali | null {
   const fail = pencere.reduce((a, t) => a + t.fail, 0);
   const oran = toplam > 0 ? fail / toplam : 0;
   if (oran <= FAIL_ORAN_ESIK) return null;
-  return { anahtar: "telemetri-fail", detay: "son " + pencere.length + " turda basarisiz cagri %" + Math.round(oran * 100) + " (" + fail + "/" + toplam + ")" };
+  // Pencere tarih damgasi: bayat pencere artik kendini ele verir (DERSLER 172'nin
+  // 'pencere tarih araligi VERMEZ' dersinin kapanisi). ts'siz kayit ? ile gosterilir.
+  const ilkTs = pencere.find((t) => t.ts !== null)?.ts ?? null;
+  const sonTs = [...pencere].reverse().find((t) => t.ts !== null)?.ts ?? null;
+  const damga = (ms: number | null): string => (ms === null ? "?" : new Date(ms).toISOString().slice(0, 16).replace("T", " "));
+  return { anahtar: "telemetri-fail", detay: "son " + pencere.length + " turda basarisiz cagri %" + Math.round(oran * 100) + " (" + fail + "/" + toplam + "), pencere " + damga(ilkTs) + ".." + damga(sonTs) + " UTC" };
 }
 
 const GELEN_KUTU_ESIK_MS = 24 * 60 * 60_000;
@@ -88,6 +102,24 @@ function gelenKutuBekleyen(repoKok: string, simdiMs: number): BekciAnomali | nul
   return { anahtar: "gelen-kutu-bekleyen", detay: eski.length + " madde 24s+ islenmemis (toplam bekleyen " + bekleyen + "): " + eski.slice(0, 3).join(", ") };
 }
 
+// A5-9 (S3 bacağı, v0.23): kirli-ağaç tanımı TEK KAYNAK — scripts/kirli-liste.json (kilit-surum.ps1
+// + proje-panosu.ps1 aynı listeyi okur). Dosya YOKSA yabancı repo'dur: gömülü varsayılan (aynı iki
+// desen) uygulanır. Dosya VAR ama okunamıyorsa/bozuksa: fail-closed — desen listesi boş döner ve
+// tüm kirli satırlar raporlanır (kilit-surum'un JSON-okunamazsa RED davranışının bekci ikizi).
+function kirliDesenlerOku(repoKok: string): string[] {
+  const yol = join(repoKok, "scripts", "kirli-liste.json");
+  try {
+    if (!existsSync(yol)) return ["telemetri-haftalik", ".verimlilik"];
+    const ham = JSON.parse(readFileSync(yol, "utf8")) as { desenler?: unknown };
+    if (!Array.isArray(ham.desenler) || ham.desenler.length === 0 || !ham.desenler.every((d) => typeof d === "string")) {
+      return [];
+    }
+    return ham.desenler;
+  } catch {
+    return [];
+  }
+}
+
 export async function bekciKontrol(repoKok: string, calistir: KomutCalistir = gercekCalistir): Promise<BekciAnomali[]> {
   const anomaliler: BekciAnomali[] = [];
   const saglik = await psKopru(repoKok, "saglik.ps1", calistir);
@@ -106,7 +138,13 @@ export async function bekciKontrol(repoKok: string, calistir: KomutCalistir = ge
   if (existsSync(join(repoKok, "STATE_BOARD.md"))) {
     const st = await calistir(["git", "status", "--short"], repoKok);
     if (st.kod === 0 && st.cikti.trim().length > 0) {
-      const kirli = st.cikti.trim().split(/\r?\n/).filter((l) => !/raporlar[\/\\]telemetri-haftalik[\/\\]/.test(l) && !/\.verimlilik[\/\\]/.test(l));
+      // A5-9: desenler kirli-liste.json'dan; kirli-liste-bozuk anomalisi desen listesinin
+      // bosalmasini aciklar (fail-closed durum kendini etiketler).
+      const desenler = kirliDesenlerOku(repoKok);
+      if (desenler.length === 0) {
+        anomaliler.push({ anahtar: "kirli-liste-bozuk", detay: "scripts/kirli-liste.json okunamadi/bozuk — tum kirli dosyalar raporlanir (fail-closed)" });
+      }
+      const kirli = st.cikti.trim().split(/\r?\n/).filter((l) => !desenler.some((d) => l.includes(d)));
       if (kirli.length > 0) {
         anomaliler.push({ anahtar: "git-drift", detay: kirli.length + " kirli dosya, aktif tur yok" });
       }
@@ -179,6 +217,12 @@ export async function bekciTara(
 
 const PANO_ISARET_ONEK = "- bekci raporu:";
 
+// A2-10 (v0.23): birebir "## Aktif iş" eslesmesi kirilgandi — sondaki bosluk/ekstra bosluk basligi kaciriyordu.
+// Bosluk-normalize karsilastirma (buyuk-kucuk harf bilincli DOKUNULMAZ: Turkce İ/i case-folding tuzagi).
+function aktifIsBasligiMi(s: string): boolean {
+  return s.replace(/\s+/g, " ").trim() === "## Aktif iş";
+}
+
 export function panoIsaretciYaz(repoKok: string, gun: string): boolean {
   const panoYol = join(repoKok, "STATE_BOARD.md");
   if (!existsSync(panoYol)) return false;
@@ -191,11 +235,14 @@ export function panoIsaretciYaz(repoKok: string, gun: string): boolean {
     if (satirlar[mevcutIdx] === isaretci) return false;
     satirlar[mevcutIdx] = isaretci;
   } else {
-    const aktifIdx = satirlar.findIndex((s) => s.trim() === "## Aktif iş");
+    const aktifIdx = satirlar.findIndex(aktifIsBasligiMi);
     if (aktifIdx < 0) return false;
     satirlar.splice(aktifIdx + 1, 0, isaretci);
   }
-  writeFileSync(panoYol, satirlar.join(eol), "utf8");
+  // A2-10 (v0.23): tmp+rename atomik — yari-yazilmis STATE_BOARD.md okuyucuya asla dusmez.
+  const tmpYol = panoYol + ".bekci-tmp";
+  writeFileSync(tmpYol, satirlar.join(eol), "utf8");
+  renameSync(tmpYol, panoYol);
   return true;
 }
 

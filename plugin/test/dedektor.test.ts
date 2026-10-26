@@ -25,11 +25,18 @@ assert(farkli[0].hash !== farkli[1].hash, "farkli komut farkli hash");
 assert(kuralSayisi(CEKIRDEK) > 10, "CEKIRDEK kural sayisi pozitif: " + kuralSayisi(CEKIRDEK));
 assert(kuralSayisi(CEKIRDEK) < KURAL_BLOK, "CEKIRDEK tek basina blok esiginin altinda");
 
-const enj = enjeksiyonMetni("D:\\Vibecode\\paseo-plugin", "MEVCUT PROMPT");
+// v0.23: eski test D:\Vibecode\paseo-plugin GERCEK reposunu sabitliyordu — F4 silme dalgasi
+// (2026-10-26, commit fbd5607) repoyu silince v0.22-kilit altinda test kirdi kaldı (plugin
+// süiti o turdan beri koşulmamıştı). Hermetik fixture'a taşındı (canlı-repo-yolu testte sabitlenmez).
+const anFix = fspM.mkdtempSync(osM.tmpdir() + "/anayasa-");
+fspM.writeFileSync(anFix + "/ANAYASA.md", "- ust kural 1\n- ust kural 2");
+fspM.writeFileSync(anFix + "/AGENTS.md", "- proje kurali 1");
+const enj = enjeksiyonMetni(anFix, "MEVCUT PROMPT");
 assert(enj.metin.startsWith("# SÖZLEŞME ÇEKİRDEK"), "enjeksiyon CEKIRDEK ile baslar (cache dostu)");
 assert(enj.metin.endsWith("MEVCUT PROMPT"), "mevcut prompt sonda korunur");
-assert(enj.metin.includes("ANAYASA.md VAR"), "paseo-plugin reposunda ANAYASA tespit edildi");
+assert(enj.metin.includes("ANAYASA.md VAR"), "ANAYASA'li fixture'da ust-otorite satiri duser");
 assert(enj.kuralToplam > kuralSayisi(CEKIRDEK), "proje kurallari toplama eklendi: " + enj.kuralToplam);
+fspM.rmSync(anFix, { recursive: true, force: true });
 
 
 
@@ -350,7 +357,11 @@ assert(izinKarari("rg fix src/") === "allow", "okuyucu komutta arguman serbest (
   const roJson = JSON.parse(fsp.readFileSync(roDosya2!.replace(".md", ".json"), "utf8"));
   assert(roJson.hafta === "2026-W42" && roJson.tur === 2 && roJson.ortCacheHit === 90, "makine-okunur json yan dosya dogru");
   const roMd3 = fsp.readFileSync(haftalikRollup(roTmp, new Date("2026-10-12T20:00:00"))!, "utf8");
-  assert(roMd3 === roMd2, "ayni veri ayni raporu uretir (deterministik, canli hafta guncel)");
+  // A4-2 (v0.23): damga artik tam ISO (saat hassasiyetinde) — determinizm GORDE uzerinden
+  // tanimlanir; damga satiri bilincl Olarak tazeleecek.
+  const damgaDisi = (md: string) => md.split("\n").filter((l) => !l.startsWith("Kaynak:")).join("\n");
+  assert(damgaDisi(roMd3) === damgaDisi(roMd2), "ayni veri ayni rapor govdesini uretir (deterministik, canli hafta guncel)");
+  assert(roMd3 !== roMd2 && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/.test(roMd3), "A4-2: uretim damgasi saat-hassasiyetinde tazelenir");
   // TUR-1 kapanisi: eski kayit pct>100 (provider semantigi) okuma-aninda normalize edilir - dalga-3 TUR bulgusu
   fsp.appendFileSync(roTmp + "/.verimlilik/telemetri.jsonl", JSON.stringify({ ts: "2026-10-12T10:08:00Z", tip: "tur", agentId: "a", provider: "p", turSn: 50, detay: "in=1000 cacheHitPct=2253.1" }) + "\n");
   const roMdN = fsp.readFileSync(haftalikRollup(roTmp, new Date("2026-10-12T22:00:00"))!, "utf8");
@@ -469,15 +480,22 @@ assert(izinKarari("rg fix src/") === "allow", "okuyucu komutta arguman serbest (
     const { dirname, join } = await import("node:path");
     // F2-4: kilit tag'lerin evi artik repo-ici arsiv bundle'i (eski kaynak repo donduruldu,
     // uzerine toparlanma-* tag'i atildi; sync-baseline emsali goreli yol).
+    // S3 (v0.23): kilit tag'leri artik ORDU repo'da da yasar (v0.23-kilit — v0.8'den beri ilk
+    // gercek repo tag'i); drift bekcisi IKI kaynagi birlestirir (bundle = donmus tarihce).
     const here = dirname(fileURLToPath(import.meta.url));
     const bundle = join(here, "..", "..", "arsiv", "history", "paseo-verimlilik.bundle");
+    const repoKok = join(here, "..", "..");
     const etiketler = execSync("git ls-remote --tags " + JSON.stringify(bundle), { encoding: "utf8" })
       .split("\n").map((s: string) => s.trim()).filter(Boolean)
       .map((s: string) => s.split("\t")[1].replace(/^refs\/tags\//, ""))
       .filter((t: string) => t.endsWith("-kilit"))
       .map((t: string) => t.replace(/-kilit$/, ""));
-    const enYeni = etiketler.sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true })).pop();
-    assert(enYeni === PLUGIN_SURUM, "PLUGIN_SURUM en yeni kilit ile uyumlu (drift bekçisi): " + enYeni);
+    const repoEtiketler = execSync("git tag -l", { cwd: repoKok, encoding: "utf8" })
+      .split("\n").map((s: string) => s.trim()).filter(Boolean)
+      .filter((t: string) => t.endsWith("-kilit"))
+      .map((t: string) => t.replace(/-kilit$/, ""));
+    const enYeni = [...etiketler, ...repoEtiketler].sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true })).pop();
+    assert(enYeni === PLUGIN_SURUM, "PLUGIN_SURUM en yeni kilit ile uyumlu (drift bekçisi; bundle+repo birligi): " + enYeni);
   } catch { console.log("uyari: git tag okunamadi, drift bekçisi atlandi"); }
   fsp.rmSync(surTmp, { recursive: true, force: true });
 
@@ -539,7 +557,9 @@ assert(izinKarari("rg fix src/") === "allow", "okuyucu komutta arguman serbest (
   assert(t1.anomalili === 1 && t1.bildirilen === 1 && bGiden === 1, "bekciTara: anomali bildirilir");
   assert(fsp.existsSync(cTmp + "/raporlar/takip-sozlesme/2026-10-12.md"), "bekciTara: rapor dosyasi olusur");
   const rIcerik = fsp.readFileSync(cTmp + "/raporlar/takip-sozlesme/2026-10-12.md", "utf8");
-  assert(rIcerik.includes("| saglik-eksik |"), "bekciTara: rapor satiri anahtar icerir");
+  // A3-12 (v0.23): gevsek includes yerine bicim assert'i — '- HH:MM | anahtar | detay' kalibi
+  // kirilirsa (orn. ayirici degisirse) test artik SESSIZ gecmez.
+  assert(/^- \d{2}:\d{2} \| saglik-eksik \| \d+ EKSIK, \d+ SARI$/m.test(rIcerik), "bekciTara: rapor satiri 'HH:MM | anahtar | detay' biciminde (A3-12)");
   const t2 = await bekciTara(bHarita, () => false, bGonder, stubEksik, new Date("2026-10-12T19:00:00Z"));
   assert(t2.anomalili === 1 && t2.bildirilen === 0 && bGiden === 1, "bekciTara: ayni gun ayni anahtar tekrar bildirilmez (dedupe)");
   const t3 = await bekciTara(bHarita, () => true, bGonder, stubEksik, gun);
@@ -575,9 +595,12 @@ assert(izinKarari("rg fix src/") === "allow", "okuyucu komutta arguman serbest (
   assert(rolIzinKarari(mkReq({ command: "git status" }), coderR) === "allow", "coder: tam profil mevcut davranis");
   assert(rolIzinKarari(mkReq({ command: "git commit -m x" }), coderR) === null, "coder: commit kullaniciya birakilir (mevcut polis)");
   const { enjeksiyonMetni: enj2 } = await import("../server/sozlesme");
-  const rolEnj = enj2("D:\\Vibecode\\paseo-plugin", "MP", ROLLER.reviewer.sistemEki);
+  // v0.23: ikinci sabit paseo-plugin yolu da hermetik fixture'a tasindi (F4 repoyu sildi)
+  const rolTmp = fsp.mkdtempSync(os.tmpdir() + "/rol-");
+  const rolEnj = enj2(rolTmp, "MP", ROLLER.reviewer.sistemEki);
   assert(rolEnj.metin.includes("## Rol") && rolEnj.metin.includes("REVIEWER"), "enjeksiyon: rol blogu cekirdek sonrasi duser");
   assert(rolEnj.metin.indexOf("## Rol") < rolEnj.metin.indexOf("## Proje katman"), "enjeksiyon: rol isaretcilerden once (cache dostu)");
+  fsp.rmSync(rolTmp, { recursive: true, force: true });
 
   // v0.10.1: bekci gelen-kutu-bekleyen (K-0017)
   const gkTmp = fsp.mkdtempSync(os.tmpdir() + "/gk-");
@@ -703,20 +726,20 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     assert(ryg("raporlar/..") === false, "kok traversal normalize sonrasi reddedilir");
   }
   // v0.13 (K-0025, A2-1): agent.closed tum ajan-state haritalarini temizler
+  // v0.23 (BDG): per-modul ajanTemizle export'lari kaldirildi — temizlik kayit defteri yurutur.
   {
-    const { pitbullTurBasladi: ptb, _testIcinDurumVer: pdv, ajanTemizle: pTemizle } = await import("../server/pitbull");
+    const { pitbullTurBasladi: ptb, _testIcinDurumVer: pdv } = await import("../server/pitbull");
     ptb("kapandi-1");
     assert(pdv("kapandi-1") !== undefined, "pitbull durumu seed'lendi");
-    pTemizle("kapandi-1");
-    assert(pdv("kapandi-1") === undefined, "ajanTemizle pitbull durumunu sildi");
     const { ajanTemizleHepsi: ath } = await import("../server/temizlik");
     ath("kapandi-1");
-    assert(true, "ajanTemizleHepsi tum modullerde hatasiz calisti");
+    assert(pdv("kapandi-1") === undefined, "ajanTemizleHepsi pitbull durumunu sildi");
   }
 
   // v0.14 (K-0026, A3-1): loopguard — 3x hash, A-B-A, insan kapisi
   {
-    const { loopKontrol: lk, ajanTemizle: lTemizle } = await import("../server/loopguard");
+    const { loopKontrol: lk } = await import("../server/loopguard");
+    const { ajanTemizleHepsi: athLg } = await import("../server/temizlik");
     const giden: string[] = [];
     const ctx = { paseo: { agents: { ref: () => ({ send: async (m: string) => { giden.push(m); } }) } } } as never;
     const tl = (cmds: string[]) => cmds.map((c) => tc("exec", "shell", { command: c }));
@@ -728,10 +751,10 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     assert(giden.length === 2, "2. durtme gonderildi");
     assert(await lk("lg-1", tl(["c3", "c3", "c3"]), ctx) === false, "3. farkli bulgu: insan kapisi, durtme yok");
     assert(giden.length === 2, "insan kapisinda susuldu");
-    lTemizle("lg-1");
+    athLg("lg-1");
     assert(await lk("lg-1", tl(["x", "y", "x", "y"]), ctx) === true, "A-B-A-B deseni yakalanir");
     assert(await lk("lg-2", tl(["t1", "t2", "t3"]), ctx) === false, "uc farkli cagri: loop yok");
-    lTemizle("lg-1"); lTemizle("lg-2");
+    athLg("lg-1"); athLg("lg-2");
   }
   // v0.14 (K-0026, A3-2): enjekteHandler — archived atlama, cwd=null, mod=kapali
   {
@@ -811,12 +834,13 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
 
   // v0.17/0.18 (K-0029): A2-6 acik-tur dusumu + A2-8 rollup seyreklestirme + A3-3..A3-8
   {
-    const { turBaslat: tb2, ajanTemizle: tTemizle, _testIcinAktifTur: atf, turKaydet: tk4, _testIcinRollupSayisi: rs } = await import("../server/telemetry");
+    const { turBaslat: tb2, _testIcinAktifTur: atf, turKaydet: tk4, _testIcinRollupSayisi: rs } = await import("../server/telemetry");
+    const { ajanTemizleHepsi: athT } = await import("../server/temizlik");
     tb2("a26-1"); tb2("a26-2");
     assert(atf() === 2, "A2-6: iki acik tur sayili");
-    tTemizle("a26-1");
+    athT("a26-1");
     assert(atf() === 1, "A2-6: kapanan ajanin acik turu dusuldu");
-    tTemizle("a26-2"); tTemizle("hic-yok");
+    athT("a26-2"); athT("hic-yok");
     assert(atf() === 0, "A2-6: sifirin altina dusmez");
     const sTmp = fspM.mkdtempSync(osM.tmpdir() + "/a28-");
     const once = rs();
@@ -828,7 +852,8 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
   }
   // BK-02 (v0.23): turnId dedupe + reload sonrasi turSayisi hidrasyonu
   {
-    const { turKaydet: tk9, turBaslat: tb9, ajanTemizle: tTemizle9, telemetriDosyasi: td9, _testIcinAktifTur: atf9 } = await import("../server/telemetry");
+    const { turKaydet: tk9, turBaslat: tb9, telemetriDosyasi: td9, _testIcinAktifTur: atf9 } = await import("../server/telemetry");
+    const { ajanTemizleHepsi: athT9 } = await import("../server/temizlik");
     const dTmp = fspM.mkdtempSync(osM.tmpdir() + "/bk02-");
     const girdi9 = { turnId: "dup-1", outcome: { kind: "completed" }, timeline: [], usage: null, model: null, mod: null, loopDurtme: false, finishGateDurtme: false } as const;
     const turSatirlari9 = () => fspM.readFileSync(td9(dTmp), "utf8").trim().split("\n").map((l) => JSON.parse(l)).filter((k) => k.tip === "tur");
@@ -843,7 +868,7 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     tk9({ agent: { id: "bk02-b", cwd: dTmp, provider: "codex" }, ...girdi9, turnId: "b-1" } as never);
     tb9("bk02-b", dTmp);
     tk9({ agent: { id: "bk02-b", cwd: dTmp, provider: "codex" }, ...girdi9, turnId: "b-2" } as never);
-    tTemizle9("bk02-b");
+    athT9("bk02-b");
     const sayi9 = tb9("bk02-b", dTmp);
     assert(sayi9 === 3, "BK-02: reload sonrasi turSayisi jsonl'dan hidre edilir (2 kayit + yeni tur = 3), gelen=" + sayi9);
     tk9({ agent: { id: "bk02-b", cwd: dTmp, provider: "codex" }, ...girdi9, turnId: "b-3" } as never);
@@ -852,7 +877,7 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     tk9({ agent: { id: "bk02-b", cwd: dTmp, provider: "codex" }, ...girdi9, turnId: "b-1" } as never);
     const bAdet9 = turSatirlari9().filter((k) => k.agentId === "bk02-b").length;
     assert(bAdet9 === 3, "BK-02: reload sonrasi eski turnId yeniden islenmez, adet=" + bAdet9);
-    tTemizle9("bk02-a"); tTemizle9("bk02-b");
+    athT9("bk02-a"); athT9("bk02-b");
     fspM.rmSync(dTmp, { recursive: true, force: true });
   }
   {
@@ -867,7 +892,8 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     fspM.rmSync(bTmp, { recursive: true, force: true });
   }
   {
-    const { briefKontrol: bk2, ajanTemizle: bTemizle } = await import("../server/brief");
+    const { briefKontrol: bk2 } = await import("../server/brief");
+    const { ajanTemizleHepsi: athB } = await import("../server/temizlik");
     const bTmp2 = fspM.mkdtempSync(osM.tmpdir() + "/a37-");
     const giden3: string[] = [];
     const ctx3 = { paseo: { agents: { ref: () => ({ send: async (m: string) => { giden3.push(m); } }) } } } as never;
@@ -877,7 +903,7 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     assert(fspM.readFileSync(bTmp2 + "/.verimlilik/telemetri.jsonl", "utf8").includes("zayif-brief"), "A3-7: telemetri yazildi");
     assert(await bk2("a37", bTmp2, "codex", idssiz, ctx3) === false, "A3-7: cooldown ikinci durtmeyi engeller");
     assert(giden3.length === 1, "A3-4: callId'siz item yeniden sayilir ama cooldown susar");
-    bTemizle("a37");
+    athB("a37");
     fspM.rmSync(bTmp2, { recursive: true, force: true });
   }
   {
@@ -1063,14 +1089,15 @@ assert(modCoz(mTmp, "codex", undefined)?.ad === "firtina", "undefined model: pro
     fspM.rmSync(aTmp, { recursive: true, force: true });
   }
   {
-    const { kapsamKontrol: kk2, ajanTemizle: kTemizle } = await import("../server/kapsam");
+    const { kapsamKontrol: kk2 } = await import("../server/kapsam");
+    const { ajanTemizleHepsi: athK } = await import("../server/temizlik");
     const kTmp = fspM.mkdtempSync(osM.tmpdir() + "/a38-");
     const giden4: string[] = [];
     const ctx4 = { paseo: { agents: { ref: () => ({ send: async (m: string) => { giden4.push(m); } }) } } } as never;
     const dort = ["a.ts", "b.ts", "c.ts", "d.ts"].map((f) => tc("edit", "edit", { filePath: f }));
     assert(await kk2("a38", kTmp, "codex", dort, ctx4) === true, "A3-8: 4 biricik dosya tavan-asim durtmesi");
     assert(giden4[0].includes("kapsam"), "A3-8: durtme metni kapsam icerir");
-    kTemizle("a38");
+    athK("a38");
     fspM.rmSync(kTmp, { recursive: true, force: true });
   }
 
