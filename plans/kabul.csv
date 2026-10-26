@@ -91,17 +91,17 @@ F7-B,F7,tam bagimsizlik kapisi (Paseosuz tam dongu),PASS,KAPSAM-YENIDEN-OKUMA (K
 F2-CANLI,F2,gercek kimi-K3 coder uctan uca dongu,PASS,"PASS 2026-10-14: capsule run-e264c0a2 -> approve -> dispatch -> tick(spawn bound, session baaadd6c) -> evaluator PASS(3 kontrol, candidate f1318a30) -> decide APPROVED -> RUN_ACCEPTED; pano /api/status verifiedDeliveries=1; npm test 252/252 exit 0"
 K12-01,F8,bes bagimsiz model iki tur,NOT_RUN,birlesik liste 12: ilk cevaplar bagimsiz; tum surumler+review kayitli
 K12-02,F8,rubric degisikligi yeniden degerlendirme,NOT_RUN,birlesik liste 12
-K12-03,F2,ajan kendi ciktisina PASS gonderir,NOT_RUN,birlesik liste 12: kabul olusmaz
-K12-04,P0,yasak dosya/symlink/shell bypass,NOT_RUN,birlesik liste 12: engellenir + audit olusur
-K12-05,P0,ayni task iki kez claim,NOT_RUN,birlesik liste 12: yetkisiz ikinci sahip calisamaz
-K12-06,P0,ayni kimlik farkli payload conflict,NOT_RUN,birlesik liste 12: acik red
-K12-07,P1,API kopmasi + model degisimi,NOT_RUN,birlesik liste 12: kor cift is yok; handoff dogrulanir
-K12-08,P0,eski ajan gec sonuc/yazma,NOT_RUN,birlesik liste 12: stale sonuc + yetkisiz yazma engellenir
-K12-09,P0,restart + kalici STOP,NOT_RUN,birlesik liste 12: STOP unutulmaz; yeni dispatch baslamaz
-K12-10,P1,vekil grant ici/disi karar,NOT_RUN,birlesik liste 12: ici uygulanir disi reddedilir
+K12-03,F2,ajan kendi ciktisina PASS gonderir,PASS,test/k12-cok-ajan.test.ts (R): ajan oz-PASS beyani bagimsiz dosya degerlendiricisinde FAIL (icerik-beklenti kirmizi) + FAIL kaniti DEFTERDE (evidence satiri) → node FAILED → teslim istenemez (/tum node DONE/ RED) → run ASLA ACCEPTED olmaz ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-04,P0,yasak dosya/symlink/shell bypass,PASS,test/k12-cok-ajan.test.ts (R): (1) ajan sunugu sembolik bag → YENI sembolik-bag-yasak kontrolu (cli-evaluate; M26 deseninin degerlendirici ucu) kirmizi + FAIL kaniti defterde; Windows ayricaliksiz ortamda junction varyanti (lstat isSymbolicLink=true OL-CULDU) ayni kod yolundan tetiklenir + okuma EISDIR → aday asamasinda RED (fail-closed; deftere sahte kanit dusmez) (2) shell metakarakterleri dispatch anahtarinda TEK argv ogesi (P0-4) (3) probe-receipt/worktree bacaklari F1-G-CANLI emsalinde kanitli (M26/M31) ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-05,P0,ayni task iki kez claim,PASS,test/k12-cok-ajan.test.ts (R): node RUNNING → ikinci dispatch ACIK RED + ayni attempte dolaysiz ikinci rezervasyon RED (dispatch kapisi) → defterde tek sahip (tek PENDING outbox + tek ACTIVE rezervasyon); yetkili tek yol takeLease devri (fence 1→2) ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-06,P0,ayni kimlik farkli payload conflict,PASS,test/k12-cok-ajan.test.ts (R): ayni idempotencyKey + ayni payload → DUPLICATE (tek mantiksal kosu; A05) + ayni kimlik FARKLI payload → command_id_conflict ACIK RED (P0-6 sessiz ortme yok) + defterde tek komut satiri ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-07,P1,API kopmasi + model degisimi,PASS,test/k12-cok-ajan.test.ts (R): adaptor koptu → UNKNOWN + tekrar gecisinde spawn YOK (A08 kor cift is yok); FALLBACK_MODEL grant ici model APPROVED + grant disi model /R3 RED/ (talep aninda); handoffsuz dispatch RED (plan 20.4); yeni kosu glm-5.3’e cozulur (provider+model F6.5 ikilisi) ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-08,P0,eski ajan gec sonuc/yazma,PASS,test/k12-cok-ajan.test.ts (R): eski fence(1) ile commitCandidate /stale-uygunsuz commit reddi/ + eski fence ile recordEvidence /stale fence/ (A36) — kimlik degil CITI sinar; yeni sahip yeni fence ile yazar ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-09,P0,restart + kalici STOP,PASS,test/k12-cok-ajan.test.ts (R) GERCEK dosya defteri: kurulum → STOP → db.close (surec olur) → yeniden acilis → processOutbox blocked=global_stop + spawn 0 (STOP unutulmaz) → mandal acilinca bekleyen is tek geciste bound ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
+K12-10,P1,vekil grant ici/disi karar,PASS,test/k12-cok-ajan.test.ts (R): vekil grant ICI karar APPROVED + approvals satirinda grant bagi; uc DISI kapi: baska run kapsamli grant talebi /R3 RED/ (talep aninda) + uydurma grant kiligi RED + baska grant altindaki onayi baglama RED ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
 K12-11,P1,deadline dolmasi,NOT_RUN,birlesik liste 12: yeni is kapanir + kapanis politikasi
 K12-12,P0,gorunmeyen alt ajan dispatch reddi,NOT_RUN,birlesik liste 12: 5 sart yoksa red
-K12-13,P1,iki task eszamanli karismaz,NOT_RUN,birlesik liste 12: cikti/izin/butce/oturum ayrimi
+K12-13,P1,iki task eszamanli karismaz,PASS,test/k12-cok-ajan.test.ts (R): iki eszamanli kosu — oturum/dispatch anahtari/run ayri; settle kendi rununa yazar (spent_tokens 10+10; BUDGET_SETTLED); run-A pause (reservation_admit tetigi) run-A n2 claim RED iken run-B n2 SERBEST; aday karmalari tekil (A04 input hash bagimliligi) ·d:2026-10-26T09:26:21.0897080+03:00 ·h:4ee1d4b ·x:0
 K12-14,F9,Paseo kapali bagimsiz teslim,NOT_RUN,birlesik liste 12: runner arayuz bagimsizligi
 K13-01,F4,gozetimsiz giris kapisi 6 kosul,NOT_RUN,"PLAN bol.22: reconcile/iptal/olcum/dosya-shell/grant-revoke/eski-sahip-yazma canli kanitlari"
 K13-02,F8,senaryo A arastirma uctan uca,NOT_RUN,"PLAN bol.23: 5 model -> rubric -> capraz elestiri -> revizyon -> yeniden degerlendirme -> kanitli sentez"

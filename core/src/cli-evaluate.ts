@@ -9,7 +9,7 @@
 // evaluatorHash: bu modülün kaynak metninin sha256'sı — evaluator kimliği
 // receipt'te koda bağlıdır, taklit edilemez beyan değildir.
 import { createHash } from 'node:crypto';
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, lstatSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { DatabaseSync } from 'node:sqlite';
@@ -29,6 +29,12 @@ export function evaluateArtifact(
 
   const abs = resolve(o.artifactPath);
   const checks: { ad: string; gecti: boolean }[] = [];
+  // K12-04 (P0): ajan sunuğu SEMBOLİK BAĞ olamaz — symlink artifact başka bir dosyaya
+  // kaçar (M26 deseninin değerlendirici ucu; junction-dizin ise readFileSync zaten EISDIR
+  // verir). Kontrol kaydı FAIL kanıtı olarak DEFTERE düşer (audit = evidence satırı).
+  let sembolik = false;
+  try { sembolik = lstatSync(abs).isSymbolicLink(); } catch { /* yok say: dosya-var kontrolu ele alır */ }
+  checks.push({ ad: 'sembolik-bag-yasak', gecti: !sembolik });
   let content: Buffer | null = null;
   try {
     content = readFileSync(abs);
