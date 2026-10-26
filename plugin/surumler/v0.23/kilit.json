@@ -1,0 +1,15 @@
+{
+  "etiket": "v0.23-kilit",
+  "tarih": "2026-10-26",
+  "commit": "9853bb1",
+  "doctor": {
+    "ok": 1,
+    "eksik": 0,
+    "sari": 0,
+    "kaynak": "npm test+typecheck"
+  },
+  "hedefler": null,
+  "eksenPuanlari": null,
+  "ekOzet": "446 assertion yesil (9 test dosyasi) + tsc --noEmit exit 0",
+  "not": "S3 dalgasi: A2-9 kabul turnId tekillestirme (kabultakip.ts), A2-10 bekci tmp+rename + toleransli baslik, A2-11 Unicode-sinir kirpma, A2-12 onboarding tur alani, A6-3 refetchInterval, A6-4 web.ts silinisi, A3-9/D2-11 izin testleri, A3-10 telemetri-fail pencere kaymasi, A3-11 ISO hafta sinirlari, A3-12 rollup bicim, A4-2/A4-3 damga+adet, D2-18 ayar LRU, D2-20 desen tavani, ajanTemizle dedupe, cacheHitPuan->cacheHitDelta. Kilit ELLE damgalandi (durust not): kilit-surum.ps1 F1 birliginden kalma cift-ev varsayimi (RepoKok hem scripts/kirli-liste.json hem server/surum.ts bekler — tek kok ikisini tasiyamaz) + paralel-oturum kirli-agac; doctor kapilari GERCEK kosuldu (npm test 446 ok EXIT=0, tsc EXIT=0) ve drift bekcisi v0.23-kilit ile yesil."
+}
