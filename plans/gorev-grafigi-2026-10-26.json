@@ -1,0 +1,91 @@
+{
+  "schemaSurum": 1,
+  "grafSurumu": "v6",
+  "grafSurumGecmisi": [
+    { "surum": "v1", "tarih": "2026-10-26T12:05:00+03:00", "neden": "ilk kurulum" },
+    { "surum": "v2", "tarih": "2026-10-26T12:20:00+03:00", "neden": "on-simulasyon bulgulari: (a) loc degerleri aralik UST ucagi tek deger yazilmisti -> orta noktaya cekildi (2615>2600 tavan idi, simdi 2265); (b) K1'in 10 bagimliligi gorev tablosunda vardi ama kenarlar dizisinde yoktu -> eklendi; (c) testLoc toplam 920 ~ tavan 950 olarak netlestirildi" },
+    { "surum": "v3", "tarih": "2026-10-26T14:40:00+03:00", "neden": "kullanici istegi: her kapsulde atan ajanlarin model/izin/yetki/rolleri gorev kartinin ICINDE olmali -> ajanKadrosu (varsayilan sablon) + gorev-basina 'ajanlar' ezbir-alan (A1/S7 turnuva: 2 CODER 2 provider); insan-yuz kart yeri plans/kapsuller/<ID>.md" },
+    { "surum": "v4", "tarih": "2026-10-26T16:05:00+03:00", "neden": "kullanici onayi ('ekle'): A0-5 dugumu — L-RT uretim LocalLauncher (git worktree + provider CLI suresi + durable pid registry; ORDU_RUNTIME=local yolu) + provider->CLI binary esleme tablosu (claude-code, gemini-cli; registry bilincli girisleri). Paseo'suz masaustu otonomisinin koşum bacağı" },
+    { "surum": "v5", "tarih": "2026-10-26T15:47:53+03:00 (disk mtime ölçümü — ilk yazımda 17:10 tahminle üretilmişti, düzeltildi)", "neden": "10-subagent plan denetimi duzeltme turu (V2/V4/V6/V8/V10 bulgulari): (a) S5/S6 senaryolari SEN/MERD'de tanimli ama graf SSOT'sunda YOKTU -> dugum + S1 kenarlari eklendi (JSON-kazanir kurali geregince secilebilir olmaliydilar); (b) A1/A3 olcut metinlerindeki '+150/+100 test' testLoc (130/90) ile celisiyordu -> olcutler 130/90'a cekildi; (c) v2 gecmis metni netlesti: v1 testLoc 920 idi, v2 duzeltmesiyle 890 (MD §8 ile birebir); (d) S3 dizin alani 'pano-4378' port bulanikligi yaratıyordu -> 'plugin pano koprugu (4378)' (kod gercegi: pano/server.js 4377, core pano 8790, plugin kopru 4378); (e) A1 durumu BEKLE idi ama F8 gercekte KAPALI (commit e70dd55 + kabul.csv K12-01/02+K13-02 PASS 13:31) -> gerceklik tazelemesi: KAPALI; kalan kod butcesi ~2015 (T); (f) testLoc tavi 950->1050 (S5/S6 +60); (g) DAMGA DUZELTMESI: bu gecmisteki v4 (16:05) ve v5 (ilk hali 17:10) tarihleri yazici saatinin TAHMINLE uretimiydi — disk mtime 15:47:53 olculup v5 duzeltildi; v4'un gercek degeri olcumsum kaldi (~15:3x-15:4x araligi (T)). Ders: damga saati daima Get-Date/disk-mtime ile olculur, tahminle yazilmaz (DERSLER-162)" },
+    { "surum": "v6", "tarih": "2026-10-26T17:02:00+03:00 (Get-Date ölçümü)", "neden": "S3-plugin-dalgası kapanışı sonrası gerçeklik tazelemesi (kapanış bu oturumca diskten bağımsız doğrulandı: commit 76a8b0b/9853bb1/a6fd75f + tag + son-kanit birebir): (a) T0 -> KAPALI (F6.5-A commit 80fdb4a, kanal x=0, kabul F65-01 PASS 10:46 — graf kurulurken 'DEVAM-dokunma' idi, o dalga çoktan kapandı); (b) K1 ölçütü tazelendi — v0.23-kilit tag'i 2026-10-26 16:2x'te plugin S3 dalgasında DOĞDU (commit 9853bb1, v0.8'den beri ilk gerçek tag): graf K1 kapanışı kendi Z1'inden sonra SIRADAKI kilit penceresinde tag'ler (v0.24+ [insan] sürüm kararı); (c) kilit-surum.ps1'in çift-ev kusuru (tek RepoKok hem scripts/kirli-liste.json hem server/surum.ts taşıyamıyor) RED kaydına geçti — onarım ayrı kalem, graf dışı; (d) İSİM-UZAYI DİPNOTU: bu grafın S3'ü = STOP/kesinti SENARYOSU ([insan], BEKLE) — plugin dalgalarının S3'ü (v0.23 kod dalgası, KAPALI) ile ALAKASIZ; iki ID uzayı ayrı belgelerde yaşar" }
+  ],
+  "is": "otonom-gorev-grafigi-bulutu",
+  "tarih": "2026-10-26T12:05:00+03:00",
+  "insanOkurIkiz": "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
+  "kural": "ajan gorev secerken yalniz bu dosyadan okur; MD insan icindir; celiskide JSON kazanir + rapor edilir; her kapsulun ajan kadrosu (model/izin/yetki/rol) bu dosyada + gorev.ajanlar ezbir-alani; kapsul kartlari plans/kapsuller/<ID>.md; modeller core/src/providers.ts registry'sinden — registry-disi RED (fail-closed)",
+  "ajanKadrosu": {
+    "kaynakModeller": "core/src/providers.ts registry (R: codex/glm-5.3 + glm53u-codex/glm-5.3 F6.5-A'da canli; registry-disi model RED). A0-5 (v4): claude-code + gemini-cli bilincli girisler + provider->CLI binary eslemesi L-RT launcher'inda — Paseo ACIK ve KAPALI iki yol da ayni kadroyu kullanir",
+    "varsayilan": {
+      "MANAGER": { "model": "codex/glm-5.3", "izin": { "dizin": ["plans/", "raporlar/ (append-only)"], "komutlar": ["node"], "rate": "tur-limiti" }, "yetki": ["READY sec", "kapsul uret", "replan TASLAGI"] },
+      "CODER": { "model": "codex/glm-5.3", "izin": { "dizin": "kapsul dizini (gorevde belirtilen; disi YASAK)", "komutlar": ["npm test", "node", "git add (fence'li)"], "rate": "butce LOC + token" }, "yetki": ["yaz", "test kos", "commit adayi"] },
+      "TESTER": { "model": "glm53u-codex/glm-5.3", "izin": { "dizin": "tum repo SALT-OKUR", "komutlar": ["npm test", "node"], "rate": "eval 1/kosum" }, "yetki": ["PASS/FAIL", "yeniden-uretim talimati (max 2)"], "not": "bilincl 2. provider — kod-yolu + model bagimsizligi" },
+      "INSAN-VEKILI-PROXY": { "model": "glm53u-codex/glm-5.3", "izin": { "dizin": "salt-okur + defter (karta YAZMA YOK)", "komutlar": ["reconcile", "sweep"], "rate": "tikanma basina 1" }, "yetki": ["devral", "gorev bol / yeniden sirala", "retry+failover"], "yetkiYasak": "yetkiMatrisi false kolonlari ASLA" },
+      "GOZLEMCI": { "model": "codex/glm-5.3", "izin": { "dizin": "salt-okur", "komutlar": [], "rate": "kapanis basina 1" }, "yetki": ["meta-olcum M1-M3", "alarm uret"] }
+    },
+    "kapsulKartlari": "plans/kapsuller/<ID>.md — gorev karti + ajan kadrosu tablosu + korunmalar (insan-okur MD; makine yuzune bu JSON)",
+    "not": "gorev 'ajanlar' alani varsayilani EZER (ornek A1/S7 turnuva: 2 CODER 2 provider)"
+  },
+  "roller": {
+    "KULLANICI": { "yapar": ["hedef koyar", "kapi dugdugu", "kill-switch STOP/kill-9"] },
+    "MANAGER": { "yapar": ["graf tutar", "READY sec", "kapsul uret", "metrik oku", "replan TASLAGI"], "yapmaz": ["gorev degistirme", "kabul cevirme", "kalite kapis dusurme"] },
+    "CODER": { "yapar": ["kapsuldeki dizinde is", "kanit dosyasi + sonek-hash", "butce icinde kal"], "yapmaz": ["kapsam disi", "hedef yeniden yorumlama", "insan onayini kendi gecme", "test atlama/sasma"] },
+    "TESTER": { "yapar": ["kaniti diskten oku", "olcut vs kanit", "FAIL->yeniden-uretim talimati (max 2)", "altin-set ile kendi isabeti olculur"], "yapmaz": ["kod degistirme", "coder'a ipucu", "PASS tahmini"] },
+    "INSAN-VEKILI-PROXY": { "yapar": ["checkpoint'ten devral", "gorev bol/yeniden sirala (hedef ayni)", "retry/provider-failover", "oncelik dusurme"], "yapmaz": ["insan kartina ONAY (EK-2)", "silme", "kabul cevirisi", "kapsam buyutme", "hedef/olcut degistirme", "anahtar/para"] },
+    "GOZLEMCI": { "yapar": ["M1-M3 meta-olcum", "alarm uret"], "yapmaz": ["karara mudahale"] }
+  },
+  "yetkiMatrisi": {
+    "surecApiOlumu": { "karar": "retry+failover+backoff", "yetki": true },
+    "asiliRun": { "karar": "sweep+kart veya temiz oldur+checkpoint devam", "yetki": true },
+    "gorev2xKirmizi": { "karar": "gorevu bol (hedef ayni)", "yetki": true },
+    "siraTikali": { "karar": "bagimsiz READY'ye gec", "yetki": true },
+    "butceTukeniyor": { "karar": "dusuk oncelik ertele+rapor", "yetki": true },
+    "insanKarti": { "karar": "PENDING bekler", "yetki": false },
+    "silmeKabulCeviriKapsamHedefAnahtarPara": { "karar": "asla", "yetki": false }
+  },
+  "replanKurallari": {
+    "tetikler": ["plan-sapma>%25", "gorev 2x-2kirmizi", "metrik-drift alarmi", "benchmark gerileme", "insan kapsam dugdugu"],
+    "akis": "manager replan TASLAGI (hedef/olcut DOKUNULMAZ) -> [insan] varsa PENDING; insan YOKSA ve tetik metrik/benchmark ise proxy YALNIZ sira/bolme uygular -> grafSurumu v(n+1) + eski graf arsiv (append-only) + degisim nedeni kaydi"
+  },
+  "simulasyon": {
+    "onSimulasyon": ["DAG dogrulama (dongu yok)", "her BEKLE bagimliligi var", "her gorevde olcut+dizin+rol dolu", "butce/LOC tavan kontrolu", "kritik yolda insan kapilari isaretli"],
+    "tikandikca": "her tikanma graf olayi olarak kaydedilir + neden etiketi; ayni etiket 2 kez -> gorev otomatik bolunur veya bagimlilik yeniden baglanir -> v(n+1)",
+    "cikti": "raporlar/simulasyon/gorev-grafigi-<tarih>.md + .json; kosum ONCESI zorunlu"
+  },
+  "gorevler": [
+    { "id": "T0", "gorev": "F6.5-A 2-provider paketi commit", "rol": "paralel-yazici", "dizin": "core/src", "olcut": "commit hash; kanal x=0", "bagimli": [], "kapi": null, "loc": 5, "durum": "KAPALI (F6.5-A: commit 80fdb4a + kanal x=0 + kabul F65-01 PASS 2026-10-26T10:46 — graf v6 gerçeklik tazelemesi)" },
+    { "id": "S1", "gorev": "Ikinci canli run (claw-rehber ozeti)", "rol": "CODER+TESTER", "dizin": "raporlar/kanit-hedef", "olcut": "rapor satir sayisi = disk .md sayisi; TOPLAM:N birebir", "bagimli": [], "kapi": "[INSAN] kos dugdugu", "loc": 0, "durum": "HAZIR" },
+    { "id": "S3", "gorev": "STOP/kesinti kullanici eli", "rol": "KULLANICI", "dizin": "plugin pano koprugu (4378)", "olcut": "iptal zinciri defterde; kor cif is yok; 2. run ACCEPTED", "bagimli": ["S1"], "kapi": "[INSAN]", "loc": 0, "durum": "HAZIR" },
+    { "id": "S2", "gorev": "Es zamanli ikili (LMS+website)", "rol": "CODERx2+TESTER", "dizin": "raporlar/kanit-hedef", "olcut": "2 ACCEPTED + oturum/butce/cikti izolasyonu", "bagimli": ["S1"], "kapi": "[INSAN] kos", "loc": 0, "durum": "HAZIR" },
+    { "id": "S4", "gorev": "Gozlemci turu", "rol": "KULLANICI", "dizin": "ordu", "olcut": "kanit-uclume + 3 drift izi dogrulandi", "bagimli": ["S1"], "kapi": "[INSAN]", "loc": 0, "durum": "HAZIR" },
+    { "id": "S5", "gorev": "Deadline baskisi senaryosu (capsule --deadline; T5' ucu)", "rol": "CODER", "dizin": "core/src (--deadline bayragi + enforceDeadline cagracisi)", "olcut": "30 sn dolunca: yeni dispatch RED + RUNNING attempt CHECKPOINT'te kalir + insan karti DEADLINE_CLOSE PENDING + CRITICAL bildirim + run ASLA ACCEPTED olmaz; +30 test", "bagimli": ["S1"], "kapi": "[INSAN] kos", "loc": 30, "testLoc": 30, "durum": "BEKLE" },
+    { "id": "S6", "gorev": "Gece modu rozeti pano ucu (T4' ucu)", "rol": "CODER", "dizin": "core/src/pano (unattendedReadiness gorunumu)", "olcut": "rozet 'gozetimsiz-hazir' VEYA durust kirmizi + ADIYLA nedeni; +30 test", "bagimli": ["S1"], "kapi": "[INSAN] kos", "loc": 40, "testLoc": 30, "durum": "BEKLE" },
+    { "id": "A0-1", "gorev": "Paseo cancel bacadigi", "rol": "CODER", "dizin": "core/src + core/src/paseo-transport.ts", "olcut": "canli Paseo yolunda requestCancel RED degil; slot serbest; +40 test yesil", "bagimli": ["T0"], "kapi": null, "loc": 50, "testLoc": 40, "durum": "HAZIR" },
+    { "id": "A0-2", "gorev": "Asili run sweep", "rol": "CODER", "dizin": "core/src/supervisor.ts", "olcut": "RUNNING+kira suresi dolmus -> kart/temiz oldur; c0ea713b deseni kapanir; +40 test", "bagimli": [], "kapi": null, "loc": 60, "testLoc": 40, "durum": "HAZIR" },
+    { "id": "A0-3", "gorev": "Gozetimsiz kanit-uretici uc", "rol": "CODER", "dizin": "core/src/gozetimsiz.ts + daemon.ts", "olcut": "rozet 4/6 bayragi daemon tarafindan besleniyor; +60 test", "bagimli": ["A0-2"], "kapi": null, "loc": 100, "testLoc": 60, "durum": "BEKLE" },
+    { "id": "A0-4", "gorev": "Bildirim gercek sender", "rol": "CODER", "dizin": "core/src/notify.ts", "olcut": "insan karti kullaniciya ulasir (dedupe'li); +40 test", "bagimli": [], "kapi": null, "loc": 80, "testLoc": 40, "durum": "HAZIR" },
+    { "id": "A0-5", "gorev": "L-RT: uretim LocalLauncher + provider->CLI esleme (Paseo'suz koşum bacağı)", "rol": "CODER", "dizin": "core/src/local-runtime.ts (uretim launcher) + core/src/providers.ts (registry girisleri)", "olcut": "ORDU_RUNTIME=local ile gercek CLI sureci dogar (pid durable registry'de); providerCliPresent kirmizisi = spawn RED; claude-code + gemini-cli registry girisleri bilincli; kanal uclamesi x=0", "bagimli": [], "kapi": null, "loc": 230, "locAyrisim": "150 L-RT + 80 iki CLI eslemesi (~40/CLI; her yeni CLI ~+40)", "testLoc": 60, "durum": "HAZIR", "not": "ajanKadrosu'na CLI turleri acikca listelenir; registry-disi CLI fail-closed RED (K-0033) kalir" },
+    { "id": "S7", "gorev": "Mini turnuva (2 provider)", "rol": "MANAGER+TESTER", "dizin": "core", "olcut": "ayni gorev 2 provider; kiyas tablosu + bütce ayrimi", "bagimli": ["T0", "S1"], "kapi": "[INSAN] kos", "loc": 0, "durum": "BEKLE", "ajanlar": [{ "rol": "CODER", "model": "codex/glm-5.3" }, { "rol": "CODER", "model": "glm53u-codex/glm-5.3" }] },
+    { "id": "A1", "gorev": "F8 turnuva protokolü (insan-proxy)", "rol": "CODER", "dizin": "core/src", "olcut": "K12-01/02 + K13-02 kabul kapali; capraz-elestiri+revizyon+yeniden degerlendirme; +130 test", "bagimli": ["S7", "A0-1"], "kapi": "[INSAN] rubrik onayi", "loc": 550, "locAralik": "400-700", "testLoc": 130, "durum": "KAPALI (F8: commit e70dd55 + kabul.csv K12-01/02+K13-02 PASS 2026-10-26T13:31 — graf v5 gerceklik tazelemesi; olcutin kabul kismi diskte karsilikli)", "ajanlar": [{ "rol": "CODER", "model": "codex/glm-5.3" }, { "rol": "CODER", "model": "glm53u-codex/glm-5.3" }] },
+    { "id": "A2", "gorev": "Replan motoru", "rol": "CODER", "dizin": "core/src", "olcut": "DRIFT% surekli olculur; PLAN-18 otomatik tazelenir; +120 test", "bagimli": ["A1"], "kapi": "[INSAN] esik onayi", "loc": 325, "locAralik": "250-400", "testLoc": 120, "durum": "BEKLE" },
+    { "id": "A3", "gorev": "Deneyim->kural derleyicisi", "rol": "CODER", "dizin": "core/src + DERSLER.md", "olcut": "ders->aday->kural havuzu; tavan 80 kilidi; +90 test", "bagimli": ["A2"], "kapi": "[INSAN] kural onaylari toplu", "loc": 275, "locAralik": "200-350", "testLoc": 90, "durum": "BEKLE" },
+    { "id": "A4", "gorev": "Otonom suru surucusu", "rol": "CODER", "dizin": "core/src/daemon.ts", "olcut": "hedef+limit ver -> gece tur serisi; rozet yesilse acilir; +100 test", "bagimli": ["A3", "A0-3"], "kapi": "[INSAN] gece-modu acilis", "loc": 200, "locAralik": "150-250", "testLoc": 100, "durum": "BEKLE" },
+    { "id": "EK1-1", "gorev": "Benchmark regresyon defteri", "rol": "CODER", "dizin": "core/src/benchmark.ts", "olcut": "her kosum damgali; gerileme sinyali uretilir", "bagimli": [], "kapi": null, "loc": 100, "testLoc": 40, "durum": "HAZIR" },
+    { "id": "EK1-2", "gorev": "Drift sinyal birlestirici", "rol": "CODER", "dizin": "core/src", "olcut": "evaluator-kirmizi ∪ plan-sapma ∪ metrik-drift ∪ benchmark-gerileme -> tek yeniden-uretim karari (tavanli)", "bagimli": ["A1"], "kapi": null, "loc": 120, "testLoc": 50, "durum": "BEKLE" },
+    { "id": "EK1-3", "gorev": "Tikanma cozucu proxy", "rol": "CODER", "dizin": "core/src", "olcut": "yetki matrisi kodda; kart-onay YASAK testli (negatif test); devralma calisir", "bagimli": ["A0-2"], "kapi": null, "loc": 100, "testLoc": 50, "durum": "BEKLE" },
+    { "id": "EK1-4", "gorev": "Altin-set problari (M1)", "rol": "CODER", "dizin": "core/test", "olcut": "evaluator isabeti olculur; dusukse evaluator askida", "bagimli": ["A1"], "kapi": "[INSAN] altin-set esigi", "loc": 120, "testLoc": 50, "durum": "BEKLE" },
+    { "id": "EK1-5", "gorev": "Cift-sayim meta-metrik (M2)", "rol": "CODER", "dizin": "scripts + core/src", "olcut": "kritik yuzde 2 yoldan hesap; uyumsuzluk = metrik-drift alarmi", "bagimli": [], "kapi": null, "loc": 100, "testLoc": 50, "durum": "HAZIR" },
+    { "id": "EK1-6", "gorev": "Pano aksiyometri satirlari", "rol": "CODER", "dizin": "core/src/pano", "olcut": "dispatch->tur->evaluate->kapanis metrikleri panoda gorunur", "bagimli": ["A4"], "kapi": null, "loc": 80, "testLoc": 30, "durum": "BEKLE" },
+    { "id": "K1", "gorev": "Kapanis: Z1 + kilit tag", "rol": "MANAGER", "dizin": "repo", "olcut": "CODEMAP taze + doctor 0 EKSIK + kilit tag'i — NOT (v6): v0.23-kilit 2026-10-26 16:2x'te plugin S3 dalgasinda DOGDU (commit 9853bb1, v0.8'den beri ILK gercek tag); graf K1 kapanisi kendi Z1'inden sonra SIRADAKI kilit penceresinde tag'ler (v0.24+ [insan] surum karari)", "bagimli": ["A1", "A2", "A3", "A4", "EK1-1", "EK1-2", "EK1-3", "EK1-4", "EK1-5", "EK1-6"], "kapi": "[INSAN] tag onayi", "loc": 0, "testLoc": 0, "durum": "BEKLE" }
+  ],
+  "kenarlar": [
+    { "dan": "T0", "ile": "A0-1" }, { "dan": "T0", "ile": "S7" }, { "dan": "S1", "ile": "S3" }, { "dan": "S1", "ile": "S2" }, { "dan": "S1", "ile": "S4" },
+    { "dan": "S1", "ile": "S7" }, { "dan": "S1", "ile": "S5" }, { "dan": "S1", "ile": "S6" }, { "dan": "A0-2", "ile": "A0-3" }, { "dan": "S7", "ile": "A1" }, { "dan": "A0-1", "ile": "A1" },
+    { "dan": "A1", "ile": "A2" }, { "dan": "A2", "ile": "A3" }, { "dan": "A3", "ile": "A4" }, { "dan": "A0-3", "ile": "A4" },
+    { "dan": "A1", "ile": "EK1-2" }, { "dan": "A0-2", "ile": "EK1-3" }, { "dan": "A1", "ile": "EK1-4" }, { "dan": "A4", "ile": "EK1-6" },
+    { "dan": "A1", "ile": "K1" }, { "dan": "A2", "ile": "K1" }, { "dan": "A3", "ile": "K1" }, { "dan": "A4", "ile": "K1" },
+    { "dan": "EK1-1", "ile": "K1" }, { "dan": "EK1-2", "ile": "K1" }, { "dan": "EK1-3", "ile": "K1" }, { "dan": "EK1-4", "ile": "K1" },
+    { "dan": "EK1-5", "ile": "K1" }, { "dan": "EK1-6", "ile": "K1" }
+  ],
+  "kritikYol": ["T0", "S7", "A1", "A2", "A3", "A4", "K1"],
+  "butceToplam": { "kodLocT": "1900-2600 (v5 toplam: 2565; A1 KAPALI ~550 kod zaten diskte -> kalan ~2015 (T))", "testLocT": "1050 (v5 toplam: 1010 — S5/S6 +60 test ile tavan 950->1050)", "tavanKural": "yeni test ekliginde tavan BILINCLI revizyonla guncellenir (ayni grafSurumu kaydinda gerekceyle) — sessiz sifir-marj kilidi yok; tavan'siz buyume de yok", "ajanGunT": "7-8.5 (+0.5 A0-5; A1 kapali ~1 gun dususle ~6.5-7.5 (T))", "takvimGunT": "9-14", "insanAktifSaatT": 3.5 }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaSurum": 1,
+  "is": "10-subagent-ucdan-uca-plan-denetimi",
+  "tarih": "2026-10-26T16:15:00+03:00 (olcumlu — ilk yazımda 17:30 tahminle üretilmişti, düzeltildi)",
+  "ajan": "ana-oturum (Claude glm-5.3)",
+  "hedef": "KAPSUL-TUVAL-UI-PLANI + gorev-grafigi JSON/MD ikizi",
+  "dogrulayicilar": [
+    { "id": "V1", "odak": "graf-yapisal-saglamlilik", "verdict": "GRAF-SAGLAM", "bulguSayisi": 0 },
+    { "id": "V2", "odak": "loc-gerceklik", "verdict": "LOC-DUZELT", "bulguSayisi": 3, "onemli": "plan sayilari ~%20-25 iyimser (F9 +%28 emsal)" },
+    { "id": "V3", "odak": "teknik-fezibilite", "verdict": "FIZIBIL-HAZIR", "bulguSayisi": 0 },
+    { "id": "V4", "odak": "sozlesme-etiket-ihlali", "verdict": "IHLAL-VAR", "bulguSayisi": 4, "onemli": "etiketsiz (T) sayilar; kanit iddia bicimleri" },
+    { "id": "V5", "odak": "insan-kapi-envanteri", "verdict": "KAPILAR-TAM", "bulguSayisi": 1, "onemli": "16 kapi (11 graf + 5 UI); tek kalici kapi = AI-diff onayi (D-4)" },
+    { "id": "V6", "odak": "capraz-celiski", "verdict": "CELISKI-VAR", "bulguSayisi": 12, "onemli": "21<->22 gorev, v3 kalintisi, A1/A3 olcut-sayi, S5/S6 SSOT'ta YOK, port bulanikligi, A1 gercekte KAPALI" },
+    { "id": "V7", "odak": "mockup-saglamlilik", "verdict": "MOCKUP-SAGLAM", "bulguSayisi": 1, "onemli": "gorevAjanlari() yinelenen rolu tek provider'a cokertiyordu (A1/S7 2-CODER-2-provider) — D-0'da duzeltildi+dogrulandi" },
+    { "id": "V8", "odak": "risk-yonetilebilirlik", "verdict": "RISK-YONETILEBILIR", "bulguSayisi": 6, "onemli": "panzehir listesi: token+fsync, surum-guard, MD-ezmez, port-probe, orphan-kancasi, ASCII ps1" },
+    { "id": "V9", "odak": "paseo-bagimsizligi", "verdict": "PASEO-BAGIMSIZLIK-SAGLAM", "bulguSayisi": 0, "onemli": "pano/server.js zero-dep (R); L-RT/A0-5 kok dugum" },
+    { "id": "V10", "odak": "kapsam-tamligi", "verdict": "KAPSAM-EKSIK", "bulguSayisi": 3, "onemli": "eski D-2 katlanir (~1 dalga tasarruf); D-2 chat ertelenebilir; Karar-kutusu kapsam-disi beyani" }
+  ],
+  "uygulananDuzeltmeler": [
+    "graf JSON v5: S5/S6 dugum + kenar (24 dugum/29 kenar), A1 olcut +130, A3 +90, S3 dizin netligi, A1 -> KAPALI gerceklik tazelemesi, butce 2565/1010 tavi 2600/1050",
+    "on-simulasyon yeniden kosum 8/8 PASS (programatik, gecici script silindi)",
+    "UI plan rev ~17:20: graf v5, 24 gorev, mockup 329 (R), D-1 bolunmesi (D-1a/D-1b), eski D-2 katlama, LOC yastigi, TOPLAM ~2355 (T), panzehirler, erteleme kurali, kapsam-disi beyani",
+    "SENARYO MD: S5/S6 satirlari, A1 KAPALI, olcut hizalama, §11 v5",
+    "mockup D-0: gorevAjanlari satir-satir isleme (V7 bug fixi, onceki tur)"
+  ],
+  "finalOneri": {
+    "genelToplamLoc": "~2355 (T) = 330 ham satir (R, D-0) + ~1595 (T, uretim, yastikli) + ~430 (T, test)",
+    "dalgaDizisi": [
+      { "id": "D-1a", "ad": "masaustu cekirdegi", "loc": 395, "kapi": "D-1a ac teyidi" },
+      { "id": "D-1b", "ad": "kapsuller kartlasir + vurgu", "loc": 260, "kapi": "ilk kart yazimi (1 kez)" },
+      { "id": "D-2", "ad": "chat canli (ertelenebilir)", "loc": 480, "kapi": "canli izleme teyidi" },
+      { "id": "D-3", "ad": "edit + surukle", "loc": 500, "kapi": "ilk edit-yazim (1 kez)", "not": "tavanda; asarsa bolunur" },
+      { "id": "D-4", "ad": "AI edit kapisi", "loc": 410, "kapi": "her AI-diff (kalici)" }
+    ],
+    "insanKapilari": { "uiToplamDakika": 40, "grafKapisi": 11, "grafAktifSaat": 3.5 },
+    "grafTarafiSiradaki": "S7 mini-turnuva [insan] dugdugu (kritik yol; A1 KAPALI)"
+  },
+  "durustNotlar": [
+    "10 salt-okur dogrulayici + 1 yazici (EK-3 uyumlu); dogrulayici dosyaya dokunmadi",
+    "V2/V4 bulgularinin bir kisim bicim/etiket sinifi — (T) etiketiyle cozuldu, sayi maskesi yok",
+    "A1 KAPALI tazelemesi denetim-oncesi disk gercegiydi (F8 13:31); plan 12:05'te kurulmustu — bayatlik sinifi",
+    "disDenetimSonrasi (16:15): damga saatleri tahminle uretilmisti (17:1x-17:3x iddialar vs disk 15:47-15:54) — olcumlu degerlerle duzeltildi; simulasyon JSON ikizi v5'e tazelendi; S3 paralel dalga beyani OZET.md EK bolumunde; S3 dosyalari bu oturumun commit kapsamina ASLA girmez (baskasinin kirli dosyasi)"
+  ],
+  "insanOkurIkiz": "raporlar/plan-kontrol-10subagent-2026-10-26/OZET.md"
+}

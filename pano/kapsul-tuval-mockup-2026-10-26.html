@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>KAPSÜL TUVAL — kapsüllenmiş otonomi (mockup 2026-10-26)</title>
+<style>
+  :root{--ink:#0f172a;--mut:#64748b;--bg:#eef2f7;--card:#fff;--line:#d7dee8;
+        --green:#16a34a;--amber:#d97706;--red:#dc2626;--blue:#2563eb;--gray:#94a3b8}
+  *{box-sizing:border-box;margin:0;font:13px/1.45 system-ui,"Segoe UI",sans-serif}
+  body{background:var(--bg);color:var(--ink);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  header{display:flex;align-items:center;gap:14px;padding:8px 14px;background:var(--card);border-bottom:1px solid var(--line)}
+  header b{font-size:15px}
+  .chip{padding:1px 8px;border-radius:10px;background:#f1f5f9;border:1px solid var(--line);font-size:11px;color:var(--mut)}
+  .chip.g{color:var(--green);border-color:#bbf7d0}
+  .toggle{margin-left:auto;display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .toggle button{padding:4px 12px;border:0;background:var(--card);cursor:pointer;font-weight:600;color:var(--mut)}
+  .toggle button.on{background:var(--ink);color:#fff}
+  main{flex:1;display:grid;grid-template-columns:270px 1fr 300px;gap:8px;padding:8px;min-height:0}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:auto;display:flex;flex-direction:column}
+  .ph{padding:8px 12px;border-bottom:1px solid var(--line);font-weight:700;font-size:12px;letter-spacing:.4px;color:var(--mut)}
+  .sec{padding:8px 10px;border-bottom:1px solid var(--line)}
+  .sec h4{font-size:11px;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+  .sword{display:flex;gap:6px;align-items:center;padding:3px 6px;background:#fdf2f8;border:1px solid #fbcfe8;border-radius:6px;margin:3px 0;font-size:12px}
+  .sword i{font-style:normal;font-size:10px;color:#be185d;font-weight:700}
+  .bar{height:5px;border-radius:3px;background:#e2e8f0;overflow:hidden;margin:2px 0 6px}
+  .bar span{display:block;height:100%}
+  .score td{padding:1px 4px;font-size:12px}
+  .acc{border-bottom:1px solid var(--line)}
+  .acc>button{width:100%;text-align:left;padding:7px 10px;background:none;border:0;cursor:pointer;font-weight:600;display:flex;gap:6px;align-items:center}
+  .acc>button::before{content:"▸";color:var(--mut);transition:.15s}
+  .acc.open>button::before{transform:rotate(90deg)}
+  .acc .body{display:none}
+  .acc.open .body{display:block}
+  .task{display:flex;gap:6px;align-items:center;padding:4px 10px 4px 22px;cursor:pointer;font-size:12px}
+  .task:hover,.task.sel{background:#eef4ff}
+  .tid{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--blue);font-weight:700}
+  .st{margin-left:auto;font-size:10px;padding:0 6px;border-radius:8px;font-weight:700}
+  .st.hazir{color:var(--green);background:#dcfce7}.st.bekle{color:var(--gray);background:#f1f5f9}
+  .st.insan{color:var(--amber);background:#fef3c7}.st.devam{color:var(--blue);background:#dbeafe}
+  #kapsul{border-bottom:1px solid var(--line);padding:8px 12px;background:#f8fafc}
+  #kapsul .kv{display:grid;grid-template-columns:74px 1fr;gap:1px 8px;font-size:12px}
+  #kapsul .kv b{color:var(--mut);font-weight:600;font-size:11px}
+  #tuval{flex:1;overflow:auto;position:relative;background:
+    radial-gradient(circle,#dbe3ee 1px,transparent 1px) 0 0/22px 22px}
+  #jsonview{display:none;margin:10px;padding:10px;background:#0f172a;color:#a5f3fc;border-radius:8px;
+    font:11px/1.5 ui-monospace,Consolas,monospace;white-space:pre;overflow:auto}
+  #mdview{display:none;margin:10px;padding:16px;background:#fffdf5;border:1px dashed var(--amber);border-radius:8px;
+    font:12px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow:auto;max-height:520px}
+  .legend{padding:6px 12px;border-top:1px solid var(--line);font-size:11px;color:var(--mut);display:flex;gap:10px;flex-wrap:wrap}
+  .lg{display:flex;gap:4px;align-items:center}
+  .dot{width:9px;height:9px;border-radius:3px;border:1.5px solid}
+  #chat{display:flex;flex-direction:column}
+  #feed{flex:1;overflow:auto;padding:8px;display:flex;flex-direction:column;gap:8px}
+  .msg{max-width:92%;padding:6px 9px;border-radius:9px;border:1px solid var(--line);background:#fff}
+  .msg .who{font-size:10px;font-weight:700;letter-spacing:.3px}
+  .msg .tm{float:right;font-size:9px;color:var(--gray)}
+  .msg.m .who{color:var(--blue)}.msg.c .who{color:#7c3aed}.msg.t .who{color:var(--green)}
+  .msg.v .who{color:var(--red)}.msg.k .who{color:var(--amber)}.msg.sys{background:#f1f5f9;font-size:11px;color:var(--mut)}
+  .card{border:1.5px solid var(--amber);background:#fffbeb}
+  .btn{padding:3px 10px;border-radius:6px;border:1px solid var(--line);background:#fff;cursor:not-allowed;opacity:.55;font-size:11px;font-weight:700}
+  .btn.ok{color:var(--green);border-color:#bbf7d0}.btn.no{color:var(--red);border-color:#fecaca}
+  footer{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line)}
+  footer input{flex:1;border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+  footer button{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:5px 14px;cursor:pointer}
+  svg .node rect{fill:#fff;stroke:var(--gray);stroke-width:1.5;rx:8}
+  svg .node.hazir rect{stroke:var(--green)}
+  svg .node.insan rect{stroke:var(--amber)}
+  svg .node.devam rect{stroke:var(--blue);stroke-dasharray:4 3}
+  svg .node.sel rect{stroke-width:3;stroke:var(--blue)}
+  svg .node text{font:11px system-ui}
+  svg .node .id{font:700 11px ui-monospace,Consolas,monospace;fill:var(--blue)}
+  svg .edge{stroke:var(--gray);stroke-width:1.5;fill:none;marker-end:url(#arw)}
+  .roles{display:flex;gap:3px}.roles i{font-style:normal;font-size:9px;font-weight:800;padding:0 4px;border-radius:6px;border:1px solid}
+  .rM{color:var(--blue);border-color:#bfdbfe}.rC{color:#7c3aed;border-color:#ddd6fe}
+  .rT{color:var(--green);border-color:#bbf7d0}.rV{color:var(--red);border-color:#fecaca}
+  .rD{color:#0891b2;border-color:#a5f3fc}.rK{color:var(--amber);border-color:#fde68a}
+</style>
+</head>
+<body>
+<header>
+  <b>⬡ KAPSÜL TUVAL</b><span class="chip">kapsüllenmiş otonomi</span>
+  <span class="chip">repo: ordu</span><span class="chip">graf v3</span>
+  <span class="chip g">ön-simülasyon 5/5</span>
+  <div class="toggle">
+    <button id="btInsan" class="on" onclick="mod('insan')">İNSAN OKUR</button>
+    <button id="btMakine" onclick="mod('makine')">MAKİNE OKUR</button>
+    <button id="btMd" onclick="mod('kart')">KAPSÜL KARTI (MD)</button>
+  </div>
+</header>
+<main>
+  <!-- SOL: PLANLAR -->
+  <div class="panel" id="sol">
+    <div class="ph">SOL · PLANLAR / AKORDİYON</div>
+    <div class="sec">
+      <h4>ANAYASA dikey kılıçları (değişmez hedefler)</h4>
+      <div class="sword"><i>V-1</i> AI ile video üret (Remotion)</div>
+      <div class="sword"><i>V-2</i> AI ile web-site üret</div>
+      <div class="sword"><i>V-3</i> ajan-sürüsü verimlilik sözleşmesi</div>
+    </div>
+    <div class="sec">
+      <h4>PLAN PUANI (risk·hız·kalite·hedef-uyum)</h4>
+      <table class="score" style="width:100%">
+        <tr><td>risk</td><td>2.6/5</td><td>kolay (onarım ağırlıklı)</td></tr>
+        <tr><td>hız</td><td>4.2/5</td><td>paralel dalga geniş</td></tr>
+        <tr><td>kalite</td><td>4.0/5</td><td>her iş testli + kapılı</td></tr>
+        <tr><td>uyum</td><td>4.6/5</td><td>V-3'e dikey, V-1/V-2 altyapı</td></tr>
+      </table>
+      <div class="bar"><span style="width:84%;background:var(--green)"></span></div>
+      <div style="font-size:11px;color:var(--mut)">TOPLAM 84/100 (T — mockup değerleri)</div>
+    </div>
+    <div id="akordiyon"></div>
+  </div>
+
+  <!-- ORTA: TUVAL -->
+  <div class="panel">
+    <div class="ph">ORTA · GÖREV GRAFI TUVALI — aktif kapsül görünümü</div>
+    <div id="kapsul"></div>
+    <div id="tuval">
+      <svg id="graf" width="1560" height="620" viewBox="0 0 1560 620"></svg>
+      <pre id="jsonview"></pre>
+      <pre id="mdview"></pre>
+    </div>
+    <div class="legend">
+      <span class="lg"><span class="dot" style="border-color:var(--green)"></span>HAZIR</span>
+      <span class="lg"><span class="dot" style="border-color:var(--gray)"></span>BEKLE (bağımlılık)</span>
+      <span class="lg"><span class="dot" style="border-color:var(--amber)"></span>insan kapısı</span>
+      <span class="lg"><span class="dot" style="border-color:var(--blue);border-style:dashed"></span>paralel yazıcıda</span>
+      <span class="lg">roller: <span class="roles"><i class="rM">M</i><i class="rC">C</i><i class="rT">T</i><i class="rV">V</i><i class="rD">D</i><i class="rK">K</i></span>
+      M=manager C=coder T=tester V=vekil(proxy) D=drift-gözlemci K=insan-kapısı</span>
+    </div>
+  </div>
+
+  <!-- SAĞ: CHAT -->
+  <div class="panel" id="chat">
+    <div class="ph">SAĞ · KAPSÜL SOHBET (canlı akış)</div>
+    <div id="feed"></div>
+    <footer>
+      <input id="giris" placeholder="düdük: 'S1 koş' / 'A0 dalgası başla'…">
+      <button onclick="gonder()">GÖNDER</button>
+    </footer>
+  </div>
+</main>
+
+<script>
+/* TEK VERİ KAYNAĞI — gorev-grafigi-2026-10-26.json (v2) alt kümesi, birebir şema.
+   İnsan yüzü (SVG) ve makine yüzü (JSON) BU DİZİDEN üretilir: deterministik, çift-yüz, tek doğru-kaynak. */
+const GOREVLER=[
+ {id:"T0",ad:"F6.5-A commit",x:20,y:40,rol:["Y"],durum:"devam",loc:5, sure:"bugün",dizin:"core/src",olcut:"commit hash; kanal x=0",kapi:null,
+  kap:{hedef:"2-provider paketini kilitle",dizin:"core/src",olcut:"kanal x=0 + hash",butce:"5 LOC",sure:"bugün",roller:"paralel-yazıcı"}},
+ {id:"S1",ad:"İkinci canlı run",x:20,y:150,rol:["C","T"],durum:"insan",loc:0,sure:"10 dk",dizin:"raporlar/kanit-hedef",olcut:"TOPLAM:N = disk sayısı",kapi:"[İNSAN] koş",
+  kap:{hedef:"claw-rehber kapsülü uçtan uca",dizin:"D:\\Vibecode\\claw-rehberleri",olcut:"rapor satır = .md sayısı",butce:"0 kod",sure:"~10 dk",roller:"C+T"}},
+ {id:"S3",ad:"STOP kesinti eli",x:230,y:30,rol:["K"],durum:"hazir",dep:["S1"],kapi:"[İNSAN]",olcut:"iptal zinciri defterde",dizin:"pano 4378"},
+ {id:"S2",ad:"Eşzamanlı ikili",x:230,y:100,rol:["C","T"],durum:"hazir",dep:["S1"],kapi:"[İNSAN] koş",olcut:"2 ACCEPTED + izolasyon",dizin:"raporlar/kanit-hedef"},
+ {id:"S4",ad:"Gözlemci turu",x:230,y:170,rol:["K","D"],durum:"hazir",dep:["S1"],kapi:"[İNSAN]",olcut:"kanıt-üçleme + 3 drift izi",dizin:"ordu"},
+ {id:"A0-1",ad:"Paseo cancel bacağı",x:230,y:250,rol:["C"],durum:"hazir",dep:["T0"],loc:50,sure:"0.5 gün",dizin:"core/src + paseo-transport",olcut:"canlı iptal RED değil; +40 test",kapi:null},
+ {id:"A0-2",ad:"Asılı run sweep",x:20,y:280,rol:["C"],durum:"hazir",loc:60,sure:"0.5 gün",dizin:"core/src/supervisor",olcut:"c0ea713b kapanır; +40 test",kapi:null},
+ {id:"A0-3",ad:"Gözetimsiz kanıt ucu",x:230,y:330,rol:["C"],durum:"bekle",dep:["A0-2"],loc:100,sure:"0.5 gün",dizin:"core/src/gozetimsiz+daemon",olcut:"rozet bayrakları beslenir",kapi:null},
+ {id:"A0-4",ad:"Bildirim sender",x:20,y:400,rol:["C"],durum:"hazir",loc:80,sure:"0.5 gün",dizin:"core/src/notify",olcut:"kart size ulaşır; +40 test",kapi:null},
+ {id:"S7",ad:"Mini turnuva (2 provider)",x:450,y:180,rol:["M","T"],durum:"bekle",dep:["T0","S1"],kapi:"[İNSAN] koş",olcut:"kıyas tablosu + bütçe ayrımı",dizin:"core",
+  ajanlar:[{rol:"C",model:"codex/glm-5.3"},{rol:"C",model:"glm53u-codex/glm-5.3"}]},
+ {id:"A1",ad:"F8 turnuva protokolü",x:670,y:180,rol:["C"],durum:"bekle",dep:["S7","A0-1"],loc:550,locAralik:"400-700",sure:"1-2 gün",dizin:"core/src",olcut:"K12-01/02+K13-02 kapanır",kapi:"[İNSAN] rubrik onayı",
+  ajanlar:[{rol:"C",model:"codex/glm-5.3"},{rol:"C",model:"glm53u-codex/glm-5.3"}]},
+ {id:"A2",ad:"Replan motoru",x:890,y:180,rol:["C","D"],durum:"bekle",dep:["A1"],loc:325,locAralik:"250-400",sure:"1-1.5 gün",dizin:"core/src",olcut:"DRIFT% sürekli ölçülür",kapi:"[İNSAN] eşik onayı"},
+ {id:"A3",ad:"Deneyim→kural derleyici",x:1110,y:180,rol:["C"],durum:"bekle",dep:["A2"],loc:275,locAralik:"200-350",sure:"1 gün",dizin:"core/src + DERSLER",olcut:"kural tavanı 80 kilidi",kapi:"[İNSAN] kural onayları"},
+ {id:"A4",ad:"Otonom sürü sürücüsü",x:1330,y:180,rol:["M","C"],durum:"bekle",dep:["A3","A0-3"],loc:200,locAralik:"150-250",sure:"1 gün",dizin:"core/src/daemon",olcut:"gece modu rozeti açılır",kapi:"[İNSAN] gece-modu"},
+ {id:"EK1-3",ad:"Tıkanma çözücü vekil",x:450,y:330,rol:["V"],durum:"bekle",dep:["A0-2"],loc:100,sure:"0.5 gün",dizin:"core/src",olcut:"yetki matrisi kodda; kart YASAK testli",kapi:null},
+ {id:"K1",ad:"Kapanış v0.23 + tag",x:1330,y:400,rol:["M","K"],durum:"bekle",dep:["A1","A2","A3","A4","EK1-3"],kapi:"[İNSAN] tag onayı",olcut:"CODEMAP taze + doctor 0 EKSIK",dizin:"repo"}
+];
+const KENARLAR=[["T0","A0-1"],["T0","S7"],["S1","S3"],["S1","S2"],["S1","S4"],["S1","S7"],
+ ["A0-2","A0-3"],["A0-2","EK1-3"],["S7","A1"],["A0-1","A1"],["A1","A2"],["A2","A3"],["A3","A4"],
+ ["A0-3","A4"],["A1","K1"],["A2","K1"],["A3","K1"],["A4","K1"],["EK1-3","K1"]];
+const FAZLAR=[
+ {ad:"FAZ-0 · Onarım",puan:{risk:2,hiz:5,kalite:4,uyum:5},acik:true,ids:["A0-1","A0-2","A0-3","A0-4"]},
+ {ad:"FAZ-0s · Canlı senaryolar",puan:{risk:1,hiz:5,kalite:5,uyum:5},ids:["S1","S2","S3","S4"]},
+ {ad:"FAZ-1 · Turnuva (L2 proxy)",puan:{risk:4,hiz:3,kalite:4,uyum:5},ids:["S7","A1"]},
+ {ad:"FAZ-2 · Replan (L3)",puan:{risk:3,hiz:3,kalite:4,uyum:4},ids:["A2"]},
+ {ad:"FAZ-3 · Öğrenme (L4)",puan:{risk:3,hiz:4,kalite:3,uyum:4},ids:["A3"]},
+ {ad:"FAZ-4 · Sürü (L5)",puan:{risk:5,hiz:3,kalite:3,uyum:5},ids:["A4","EK1-3"]},
+ {ad:"KAPANIŞ",puan:{risk:2,hiz:5,kalite:5,uyum:5},ids:["K1"]}
+];
+const DURUMTR={hazir:"HAZIR",bekle:"BEKLE",insan:"İNSAN",devam:"DEVAM"};
+const ROLTR={M:"manager",C:"coder",T:"tester",V:"vekil",D:"drift",K:"insan-kapı",Y:"paralel-yazıcı"};
+
+/* AJAN KADROSU — her kapsülün model·izin·yetki şablonu.
+   Modeller registry-canlı 2 provider (R: F6.5-A: codex/glm-5.3 + glm53u-codex/glm-5.3);
+   registry-dışı model RED (fail-closed). TESTER bilinçli 2. provider → model-bağımsız değerlendirme.
+   Görev 'ajanlar' alanı varsayılanı EZER (turnuva: 2 CODER 2 provider). */
+const KADRO={
+ M:{model:"codex/glm-5.3",izin:{dizin:"plans/ + raporlar/ (append-only)",komutlar:["node"],rate:"tur-limiti"},yetki:["READY seç","kapsül üret","replan TASLAĞI"]},
+ C:{model:"codex/glm-5.3",izin:{dizin:"kapsül dizini (görevdeki; dışı YASAK)",komutlar:["npm test","node","git add (fence'li)"],rate:"bütçe LOC + token"},yetki:["yaz","test koş","commit adayı"]},
+ T:{model:"glm53u-codex/glm-5.3",izin:{dizin:"TÜM REPO salt-okur",komutlar:["npm test","node"],rate:"eval 1/koşum"},yetki:["PASS/FAIL","yeniden-üretim talimatı (≤2)"]},
+ V:{model:"glm53u-codex/glm-5.3",izin:{dizin:"salt-okur + defter (kart YAZMA YOK)",komutlar:["reconcile","sweep"],rate:"tıkanma başına 1"},yetki:["devral","böl/yeniden sırala","retry+failover"]},
+ D:{model:"codex/glm-5.3",izin:{dizin:"salt-okur",komutlar:[],rate:"kapanış başına 1"},yetki:["meta-ölçüm M1-M3","alarm üret"]}
+};
+function gorevAjanlari(g){
+ // V7 bulgusu (2026-10-26): find(rol===r) yinelenen rolde ilk eşleşmeyi alıyordu —
+ // S7/A1'in 2 CODER 2 provider'ı tek provider'a çöküyordu. Ajanlar listesi SATIR SATIR işlenir.
+ if(g.ajanlar) return g.ajanlar.map(a=>({rol:a.rol,...(KADRO[a.rol]||{}),...a}));
+ return (g.rol||[]).map(r=>({rol:r,...(KADRO[r]||{})}));
+}
+let SECILI=null, MOD="insan";
+
+/* SOL akordiyon */
+const G=Object.fromEntries(GOREVLER.map(g=>[g.id,g]));
+document.getElementById("akordiyon").innerHTML=FAZLAR.map((f,i)=>`
+ <div class="acc ${f.acik?"open":""}">
+  <button onclick="this.parentElement.classList.toggle('open')">${f.ad}
+   <span class="st ${f.puan.risk>3?"insan":"hazir"}" style="margin-left:auto">r${f.puan.risk} h${f.puan.hiz} k${f.puan.kalite} u${f.puan.uyum}</span></button>
+  <div class="body">${f.ids.map(id=>{const g=G[id];return`
+   <div class="task" data-id="${id}" onclick="sec('${id}')">
+    <span class="tid">${id}</span>${g.ad}
+    <span class="st ${g.durum}">${DURUMTR[g.durum]||g.durum}</span></div>`}).join("")}
+  </div></div>`).join("");
+
+/* ORTA tuval — SVG insan yüzü */
+function ciz(){
+ const s=document.getElementById("graf");
+ let h=`<defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+  <path d="M0,0 L7,3 L0,6 z" fill="#94a3b8"/></marker></defs>`;
+ for(const [a,b] of KENARLAR){const A=G[a],B=G[b];
+  const x1=A.x+165,y1=A.y+32,x2=B.x,y2=B.y+32;
+  h+=`<path class="edge" d="M${x1},${y1} C${x1+40},${y1} ${x2-40},${y2} ${x2},${y2}"/>`}
+ for(const g of GOREVLER){
+  h+=`<g class="node ${g.durum} ${SECILI===g.id?"sel":""}" transform="translate(${g.x},${g.y})" onclick="sec('${g.id}')" style="cursor:pointer">
+   <rect width="165" height="64" rx="8"/>
+   <text class="id" x="10" y="17">${g.id}</text>
+   <text x="42" y="17" font-weight="600">${g.ad}</text>
+   <text x="10" y="34" fill="#64748b" font-size="10">${g.loc!=null?g.loc+" LOC · ":""}${g.sure||""}${g.kapi?" 🔒":""}</text>
+   <text x="10" y="34" fill="#64748b" font-size="10" dy="14">${(g.dizin||"").slice(0,26)}</text>
+   <g transform="translate(10,48)"><rect width="${g.rol.length*18+2}" height="12" fill="none"/></g>
+   <text x="10" y="57" font-size="9" font-weight="800">
+    ${g.rol.map(r=>({M:"M",C:"C",T:"T",V:"V",D:"D",K:"K",Y:"P"}[r])).join(" · ")}</text>
+  </g>`}
+ s.innerHTML=h;
+}
+/* MAKİNE yüzü — aynı diziden JSON (birebir şema) */
+function jsonYuz(){
+ const j={schemaSurum:1,grafSurumu:"v3",kaynak:"plans/gorev-grafigi-2026-10-26.json (alt küme, birebir şema)",
+  ajanKadrosu:{varsayilan:Object.fromEntries(Object.entries(KADRO).map(([r,k])=>[ROLTR[r],{model:k.model,izin:k.izin,yetki:k.yetki}])),
+   not:"gorev.ajanlar varsayilani EZER; registry-disi model RED (fail-closed)"},
+  gorevler:GOREVLER.map(g=>({id:g.id,rol:g.rol,dizin:g.dizin,olcut:g.olcut,bagimli:g.dep||[],kapi:g.kapi||null,loc:g.loc??"-",durum:g.durum,
+   ajanlar:gorevAjanlari(g).filter(a=>KADRO[a.rol]).map(a=>({rol:ROLTR[a.rol],model:a.model}))})),
+  kenarlar:KENARLAR.map(([dan,ile])=>({dan,ile}))};
+ return JSON.stringify(j,null,1);
+}
+document.getElementById("jsonview").textContent=jsonYuz();
+
+/* KAPSÜL KARTI (MD) yüzü — aynı diziden markdown kartı (insan-okur, dosyaya yazılabilir) */
+function mdYaz(g){
+ const k=g.kap||{};
+ const satirlar=gorevAjanlari(g).map(a=>a.rol==="K"||a.rol==="Y"
+  ?`| ${a.rol} | — (insan/kullanıcı; model atanmaz) | kart onayı / kill-switch | ONAYLA · RED · STOP |`
+  :`| ${ROLTR[a.rol]} | \`${a.model}\` | ${a.izin?`${a.izin.dizin} · komut: [${(a.izin.komutlar||[]).join(", ")}] · rate: ${a.izin.rate}`:"—"} | ${(a.yetki||[]).join(", ")} |`).join("\n");
+ return `# KAPSÜL ${g.id} — ${g.ad}
+
+> ikiz: \`plans/gorev-grafigi-2026-10-26.json\` (v3) · kart yeri: \`plans/kapsuller/${g.id}.md\`
+> modeller registry'den: registry-dışı RED (fail-closed)
+
+## Görev kartı
+- **hedef:** ${k.hedef||g.ad}
+- **dizin/yetki:** ${k.dizin||g.dizin}
+- **ölçüt:** ${k.olcut||g.olcut}
+- **bütçe:** ${g.loc!=null?g.loc:0} LOC${g.locAralik?" ("+g.locAralik+")":""} · **süre:** ${g.sure||"—"}
+- **bağımlılık:** ${JSON.stringify(g.dep||[])} · **kapı:** ${g.kapi||"—"}
+- **durum:** ${DURUMTR[g.durum]||g.durum}
+
+## Ajan kadrosu
+| Rol | Model | İzin | Yetki |
+|---|---|---|---|
+${satirlar}
+
+## Koruma (değişmez)
+- vekil insan kartına ONAY veremez (EK-2) · yetki matrisi ❌ kolonları ASLA
+- hedef/ölçüt hiçbir ajan tarafından değiştirilemez · kapsül-dışı dizin YASAK
+- TESTER 2. provider (model-bağımsız değerlendirme); turnuvada 2 CODER 2 provider`;
+}
+document.getElementById("mdview").textContent=mdYaz(G["A0-1"]);
+
+/* Kapsül kartı (orta üst) */
+function kapsulYaz(g){
+ const k=g.kap||{hedef:g.ad,dizin:g.dizin,olcut:g.olcut,butce:(g.loc??"0")+" LOC",sure:g.sure||"—",roller:(g.rol||[]).map(r=>ROLTR[r]).join(" + ")};
+ const kadro=gorevAjanlari(g).map(a=>a.rol==="K"||a.rol==="Y"
+  ?`<div style="display:flex;gap:8px;font-size:11px;margin-top:2px"><b class="tid">${a.rol}</b><span>${ROLTR[a.rol]}</span><span style="color:var(--mut)">— insan/kullanıcı (model yok)</span></div>`
+  :`<div style="display:flex;gap:8px;font-size:11px;margin-top:2px"><b class="tid">${a.rol}</b>
+    <span style="font-family:ui-monospace,Consolas,monospace">${a.model}</span>
+    <span style="color:var(--mut);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.izin?a.izin.dizin:"—"}</span>
+    <span title="${(a.yetki||[]).join(", ")}" style="color:var(--blue)">${(a.yetki||[])[0]||""}</span></div>`).join("");
+ document.getElementById("kapsul").innerHTML=`<div class="kv">
+  <b>AKTİF KAPSÜL</b><span class="tid">${g.id}</span>
+  <b>hedef</b><span>${k.hedef}</span><b>dizin/yetki</b><span>${k.dizin} (salt-yaz bu görevde)</span>
+  <b>ölçüt</b><span>${k.olcut}</span><b>bütçe</b><span>${k.butce} · süre ${k.sure}</span>
+  <b>roller</b><span>${k.roller}</span>${g.kapi?`<b>KAPI</b><span style="color:var(--amber);font-weight:700">🔒 ${g.kapi}</span>`:""}</div>
+  <div style="margin-top:6px;border-top:1px dashed var(--line);padding-top:5px">
+   <div style="font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.5px">AJAN KADROSU — model · izin · yetki (ayrıntı: KAPSÜL KARTI modu)</div>
+   ${kadro}</div>`;
+}
+function sec(id){SECILI=id;document.querySelectorAll(".task").forEach(t=>t.classList.toggle("sel",t.dataset.id===id));
+ kapsulYaz(G[id]);if(MOD==="insan")ciz();if(MOD==="kart")document.getElementById("mdview").textContent=mdYaz(G[id]);}
+
+/* SAĞ chat — kapsül sohbet akışı (canlıda defter/notify'den beslenir) */
+const MESAJLAR=[
+ {r:"sys",t:"09:02",m:"dispatch: S1 kapsülü CODER'a verildi · bütçe 0 kod / 10 dk"},
+ {r:"c",t:"09:04",who:"CODER",m:"claw-rehberleri tarandı: 12 .md — rapor yazılıyor."},
+ {r:"t",t:"09:06",who:"TESTER",m:"bağımsız sayım: disk 12 .md · rapor 12 satır · TOPLAM:12 → PASS ✅"},
+ {r:"m",t:"09:07",who:"MANAGER",m:"kanıt-üçleme d·h·x yeşil → kabul satırı açıldı."},
+ {r:"v",t:"21:40",who:"VEKİL (proxy)",m:"A0-2 asılı run c0ea713b tespit → yetki matrisi: sweep+checkpoint EVET · kart onayı HAYIR → devralındı."},
+ {r:"t",t:"21:55",who:"TESTER",m:"A1 rubrik kapsülü 2× kırmızı → yeniden-üretim tavanı doldu."},
+ {r:"k",t:"22:00",who:"İNSAN KARTI",cls:"card",m:"A1 rubrik onayı bekliyor — sistem durdu ama ÖLMEDİ (checkpoint). Sizin dönüşünüzü bekler.",
+  btns:`<button class="btn ok">ONAYLA</button> <button class="btn no">RED</button>`},
+ {r:"d",t:"22:01",who:"GÖZLEMCİ (D)",m:"meta-metrik: tester isabeti 0.94 (altın-set) · metrik-drift alarmı yok."}
+];
+document.getElementById("feed").innerHTML=MESAJLAR.map(m=>`
+ <div class="msg ${m.r} ${m.cls||""}"><span class="tm">${m.t}</span>
+  <div class="who">${m.who||""}</div>${m.m}${m.btns?`<div style="margin-top:5px">${m.btns}</div>`:""}</div>`).join("");
+function gonder(){const i=document.getElementById("giris");if(!i.value.trim())return;
+ const d=document.createElement("div");d.className="msg sys";d.textContent="⚠ mockup — düdük kaydedildi (canlıda dispatch'e gider): "+i.value;
+ document.getElementById("feed").appendChild(d);i.value="";}
+
+/* mod geçişi: aynı veri, üç yüz — tuval (SVG) · JSON (makine) · MD kapsül kartı (insan-dosya) */
+function mod(m){MOD=m;
+ ["btInsan","btMakine","btMd"].forEach(id=>document.getElementById(id).classList.remove("on"));
+ document.getElementById({insan:"btInsan",makine:"btMakine",kart:"btMd"}[m]).classList.add("on");
+ document.getElementById("graf").style.display=m==="insan"?"":"none";
+ document.getElementById("jsonview").style.display=m==="makine"?"block":"none";
+ document.getElementById("mdview").style.display=m==="kart"?"block":"none";
+ if(m==="kart"&&SECILI)document.getElementById("mdview").textContent=mdYaz(G[SECILI]);}
+ciz();sec("A0-1");
+</script>
+</body>
+</html>

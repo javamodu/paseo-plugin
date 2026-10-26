@@ -1,0 +1,88 @@
+{
+  "schemaSurum": 1,
+  "taranan": "kapsul-tuval-review",
+  "tarih": "2026-10-26",
+  "maddeler": [
+    {
+      "id": "KT-01",
+      "baslik": "Karar kutusu (approve/decide) planda YOK: SP-3 'PENDING kart düğmeleri pasif kalır' — kullanıcı vizyonu 'tek pencereden izle + karar ver' (Karar kutusu); mevcut sınır bilinçli (core/KULLANIM.md:104). Yönetim değeri sürükle-bıraktan yüksek.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "karar-kutusu-kapsam",
+      "siddet": "yuksek",
+      "oneri": "Sınırın değişimi küçük [insan] kararı; D-3'e ~60-100 LOC /api/approve + /api/decide (core CLI spawn; confirm-sürtünme: yanlış/eksik metin 400) — 'izle → tek pencereden karar' döngüsü kapanır.",
+      "islenme": "islandi (ana oturum 16:2x): bilinçli kapsam-dışı BEYANI plana işlendi (rev ~15:54) — veri raporlar/simulasyon/*.json'da makine-okur; UI yüzü istenirse D-3'e dalga-içi artış (~60-100 LOC). Sınırın kaldırılması ayrı [insan] kararı olarak AÇIK."
+    },
+    {
+      "id": "KT-02",
+      "baslik": "UI hattı görev-grafiği ilk dalgasının DIŞINDA ayrı hat; tek yazıcıda A-onarımını bloklar; plan bu sıralamayı belirtmiyordu.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "hat-siralama-cakisma",
+      "siddet": "yuksek",
+      "oneri": "Eşzamanlı yazıcı tavanı 3 (emsal F6.5-A): UI hattı bir yazıcı, A0-onarım öbüründe paralel; S1 (0 kod) arada; açık sıra kuralı plana.",
+      "islenme": "kismen-islandi (16:2x): D-2 erteleme kuralı + UI hattının bağımsız-hat damgası plana girdi; paralel tavan 3 beyan edildi (plugin S3 yazarı + tuval yazıcısı, dosya kesişimi 0). KALAN: düdüklerin hangi OTURUMA gideceği kullanıcının dağıtım kararı (tuval yazıcısı ~%75 bağlamda — D-1a için taze oturum önerilir)."
+    },
+    {
+      "id": "KT-03",
+      "baslik": "POST /api/graf/yaz denetim izi tanımsız: grafi edit'lerinin append-only izi (aktör + neden + sürüm v→v+1) planda yoktu.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "yazma-denetim-izi",
+      "siddet": "orta",
+      "oneri": "Her yazma graph-edit günlüğüne düşsün (JSONL; R6'ya saygı); sürümleme kuralı UI yazma ucuna bağlansın.",
+      "islenme": "kismen-islandi (16:2x): D-3'e sürüm-guard (bayat grafSurumu RED) + grafSurumu v(n+1) neden'li kayıtlar + PANO_TOKEN + fsync gömüldü; ayrı JSONL edit günlüğü grafSurumGecmisi'ne bilinçli emanet — yeni kayıt formatı R6 gereği ayrı karar. KALAN: kayıtlarda AKTÖR (insan/ajan) alanı yok."
+    },
+    {
+      "id": "KT-04",
+      "baslik": "'Edit (insan VEYA ajan) JSON'a yazar' — ajanın doğrudan POST'u SP-5 taslak→diff→[insan] kapısını BYPASS edebilir; yazma ucunda aktör ayrımı ve negatif test yoktu.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "ajan-yazma-bypass",
+      "siddet": "yuksek",
+      "oneri": "Yazma ucu ajan-aktörlü doğrudan çağrıyı RED etsin (yalnız taslak yolu); negatif test; 'ilk onay sonrası serbest' yalnız insan aktöre.",
+      "islenme": "islandi (16:2x; doğrulandı satır 11): MİMARİ KARAR 4'e 'KT-04 kuralı (b8 incelemesi)' — yazma ucu ajan-aktörlü DOĞRUDAN çağrıyı RED eder, ajan yolu daima TASLAK, negatif testli."
+    },
+    {
+      "id": "KT-05",
+      "baslik": "Kabul satır eşleşmesi belirsiz: SP-1..5 kabul.csv'de yok; hangi ID'lerle yeni satır açılacağı ilan edilmemişti.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "kabul-satir-eslesme",
+      "siddet": "orta",
+      "oneri": "Yeni kabul satırları plan madde-ID'leriyle İLAN edilsin (K-0046 disiplini).",
+      "islenme": "islandi (16:2x): dalga kuralına 'kabul satırları D-1a..D-4 ID'leriyle yeni satır (K-0046)' cümlesi eklendi; her dalga kapanış şartında kabul satırı + son-kanit.json."
+    },
+    {
+      "id": "KT-06",
+      "baslik": "F9 ui-tester GET-only + baseUrl-parametreli: SP-4/5 POST uçları ayrı hermetik http test kolu ister; 'F9 DOM-seviye' etiketi fetch-seviye istemci için iddialıydı; 4377 GET uçları token'sız.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "test-araci-belirsizligi",
+      "siddet": "dusuk",
+      "oneri": "POST uçları için ayrı http test kolu plana adıyla; 'DOM-seviye' etiketi dürüstleştirilsin (F9 = fetch-seviye; gerçek DOM F7-A Paseo-browser ayrı kanal).",
+      "islenme": "kismen-islandi (16:2x): 'DOM-seviye' iddialı etiket plandan kalktı (doğrulandı — D-1a satırında artık F9 iddiası yok); GET'ler 127.0.0.1-sınırlı salt-okur gerekçesi beyan; POST kollarının her dalga kendi test hücresinde taşıdığı belirtildi. KALAN: D-1a'nın 90 test LOC'unun ARACI adsız — D-3 uygulamasında netleşecek."
+    },
+    {
+      "id": "KT-07",
+      "baslik": "Dosya evi karışıklığı: mockup pano/'da ama /api/graf core pano-server'da olacaktı; ui.js/kart üreticinin evi net değildi; BLUEPRINT (K-0019 ONAY BEKLER) referansı yoktu.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "dosya-evi-tutarsizligi",
+      "siddet": "dusuk",
+      "oneri": "Ev tek cümleyle netleşsin; core'a yazma ucu YASAK kuralı; BLUEPRINT ilişkisi bir satır.",
+      "islenme": "islandi (16:2x; doğrulandı satır 48): YEREL MASAÜSTÜ bölümüne 'aynı ev, ayrı hat değil' satırı; /api/graf pano/server.js'de (4377); core pano-server'a (8790 — 8787 yabancı süreçte, kod S2 notu) yazma ucu Riskler'de YASAK."
+    },
+    {
+      "id": "KT-08",
+      "baslik": "Kapsül kartı alanları: kart üreticisi 8-eksen kapsül formatını (hedef+ölçüt+dizin+bütçe+deadline+kadro) eksiksiz yansıtmalıydı — dikey hizalamanın tuval yüzü.",
+      "dosyaRef": "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md",
+      "etiket": "kart-8-eksen",
+      "siddet": "dusuk",
+      "oneri": "D-1b insan testi birebir karşılaştırmaya tüm eksen alanları dâhil edilsin.",
+      "islenme": "islandi (16:2x; pattern doğrulandı D-1b satırı): 'hedef+ölçüt+dizin+bütçe+deadline+kadro 8-eksen eksiksiz' ölçütü D-1b insan-okur testine eklendi."
+    },
+    {
+      "id": "KT-09",
+      "baslik": "Damga disiplini: graf v4 damgası 2026-10-26T16:05 ama duvar saati 15:11 (R, Get-Date) — ~54 dk ileride; plan rev etiketleri de ilerideydi; (R) etiketli damgalar ölçümsüz türetilmişti (DERSLER-162 ihlali riski).",
+      "dosyaRef": "plans/gorev-grafigi-2026-10-26.json",
+      "etiket": "damga-saat-sapmasi",
+      "siddet": "dusuk",
+      "oneri": "(R) damgalar Get-Date/disk mtime'dan ölçülerek yazılsın; v4 geçmiş kaydı gerçek zamana düzeltilsin; ileri-tarihli damga append-only geçmişin bütünlüğünü zedeler.",
+      "islenme": "islandi (dış gözlemci turu, OZET.md EK ~16:15 — bağımsız teyit): damgalar mtime/Get-Date ölçümlü yenilendi (graf v5 girişi 15:47:53 mtime; plan rev 15:54; OZET damgası ölçümlü); v4 gerçek saati tahminle geri yazılmadı, aralık (T) beyan edildi."
+    }
+  ]
+}
