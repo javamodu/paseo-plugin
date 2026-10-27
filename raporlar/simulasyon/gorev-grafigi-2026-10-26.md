@@ -101,3 +101,21 @@ Graf SSOT v11 (A0-2 KAPALI + A0-5 KAPALI + A0-3 HAZIR + bütçe bilinçli tavan 
 | 8 | gecmis-kuyrugu-kronoloji | PASS | v1..v11 kronolojik; grafSurumu alani v11; son giris v11 |
 
 KAPALI seti 8/24 (T0+S1+S7+A1+A2+A3+A0-2+A0-5). Durum dağılımı: KAPALI 8 / HAZIR 8 / BEKLE 8 — 24 düğümün üç eşit sınıfı. Kalan ölçümlü açık-plan: ~1120 kod / ~570 test (R/T: açık kart plan değerleri toplamı). **BÜTÇE BİLİNÇLİ REVİZYONU**: kodLocT tavan 2600→~3300, testLocT 1050→~2100 — kapalı-gerçekler plan üstü yaktı (A3 476/275, A0-2 262/60, A0-5 430/230 (R git-diff); gerekçe grafSurumGecmisi v11 kaydında — tavanKural gereği aynı sürüm kaydında). Kritik yol ucu: **A0-3→A4** (A0-3 HAZIR; W-A0-3 yazıcısı 1. deneme API-400 ile öldü [disk temiz — bağımsız doğrulandı], 2. deneme arka planda; kapanışı AYRI commit). [insan] sıradaki kapılar: **K-SADE kural sadeleştirme (EN ACİL — tavan 80 dolu)** · K-0044 · D-1b ELLE TEST · rpl-03579e06 replan onayı · S2/S5/S6 düdükleri · A4 gece-modu açılışı.
+
+
+## v12 yeniden koşum (A0-3 kapanışı, 2026-10-27T12:56:14+03:00 (koşum-anı ölçümü))
+
+Graf SSOT v12 (A0-3 KAPALI + A4 HAZIR + bütçe bilinçli tavan revizyonu ~3400/~2250) üzerinde 8/8 kontrol PASS — programatik, gerçek koşum (validator: core/tmp-graf-v12-kontrol.mjs — koşum sonrası silinir):
+
+| # | Kontrol | Sonuç | Kanıt |
+|---|---|---|---|
+| 1 | dugum-kenar-sayisi | PASS | 24 dugum / 29 kenar (yapi v11 ile ayni — yalniz durum alanlari degisti) |
+| 2 | kenar-uclari-gecerli | PASS | 29 kenar tamami gecerli dugum-id ciftine bagli (node programatik) |
+| 3 | DAG-dongu-yok | PASS | topolojik sira 24/24, disarida 0 — dongu 0 (node programatik) |
+| 4 | cekirdek-alan-dolulugu | PASS | 24/24 gorev (kapi string-YA-DA-null) |
+| 5 | BEKLE-bagimliligi-dolu | PASS | 7 BEKLE dugumunun her birinin bagimli dizisi dolu; bos: 0 |
+| 6 | KAPALI-seti | PASS | T0+S1+A0-2+A0-5+S7+A1+A2+A3+A0-3 = 9/24 (A0-3 kod dalgasi kapandi) |
+| 7 | butce-kalan-olcumlu | PASS | kalan acik-plan (R/T): kod 1020 / test 510; tavanlar v12 BILINCLI revizyon ~3400/~2250 (gerekce grafSurumGecmisi v12 kaydinda); A4 HAZIR — iki bagimliligi (A3, A0-3) KAPALI (durum-alani bagimlilikla tutarli) |
+| 8 | gecmis-kuyrugu-kronoloji | PASS | v1..v12 kronolojik (12 kayit); grafSurumu alani v12; son giris v12 |
+
+KAPALI seti **9/24** (T0+S1+S7+A1+A2+A3+A0-2+A0-5+A0-3). Durum dağılımı: KAPALI 9 / HAZIR 8 / BEKLE 7. Kalan ölçümlü açık-plan: ~1020 kod / ~510 test (R/T: açık kart plan değerleri toplamı). **BÜTÇE BİLİNÇLİ REVİZYONU (v12)**: kodLocT ~3300→~3400, testLocT ~2100→~2250 — A0-3 gerçeği (R) +207/+183 planın (100/60) üstünde yaktı (gerekçe grafSurumGecmisi v12 kaydında — tavanKural gereği aynı sürüm kaydında). Kritik yol ucu: **A4** (iki bağımlılığı da KAPALI; tek kapısı [İNSAN] gece-modu açılış — EK-2: ajan açamaz). [insan] sıradaki kapılar: **K-SADE kural sadeleştirme (EN ACİL — tavan 80 dolu)** · K-0044 · D-1b ELLE TEST · rpl-03579e06 replan onayı · S2/S5/S6 düdükleri · **A4 gece-modu açılışı (HAZIR — tek kapı bu)**.

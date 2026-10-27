@@ -13,6 +13,7 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { openStore } from './store.ts';
 import { planOccurrences, settleKeys, occurrenceKey, type ScheduleSpec } from './schedule.ts';
+import { besleDaemonKanitlari } from './gozetimsiz.ts';
 
 export interface TickOutcome { code: number; out: string; ms: number }
 
@@ -22,6 +23,7 @@ export interface DaemonStats {
   failed: number;         // nonzero exit / spawn hatası
   lastCode: number | null;
   skipped: { misfire: number; overlap: number; stopped: number }; // occurrence başına (tekil)
+  kanit: { besleme: number; hata: number }; // A0-3: gözetimsiz kanıt defterine yazılan kayıt sayısı / besleme hatası
   reason: 'max-ticks' | 'fail-closed' | 'signal';
 }
 
@@ -41,6 +43,7 @@ export interface DaemonOptions {
   stopLatched?: () => boolean;        // default: defterden dispatch_paused oku
   shouldStop?: () => boolean;         // dış duruş bayrağı (serve: SIGINT/SIGTERM)
   log?: (line: object) => void;       // heartbeat; default console.log JSON satırı
+  kanitDefteriYolu?: string;          // A0-3: verilirse BAŞARILI tick sonrası gozetimsiz rozetinin 4 defter-sorgulu bayrağı (1/2/3/5) kanıt defterine beslenir — opt-in; verilmedikçe besleme YOK → rozet tazelik kapısında kırmızı kalır (fail-closed)
 }
 
 const MAX_CONSECUTIVE_FAILURES = 3;
@@ -99,9 +102,31 @@ export async function runDaemon(opts: DaemonOptions): Promise<{ code: number; st
   const stats: DaemonStats = {
     ticks: 0, ok: 0, failed: 0, lastCode: null,
     skipped: { misfire: 0, overlap: 0, stopped: 0 }, reason: 'signal', // her dönüş yolunda üzerine yazılır
+    kanit: { besleme: 0, hata: 0 },
   };
   let inFlight: Promise<TickOutcome> | null = null;
   let consecutiveFailures = 0;
+
+  // A0-3 KANIT BESLEMESİ: BAŞARILI tick sonrası rozetin 4 defter-sorgulu bayrağını
+  // (koşul 1/2/3/5) kanıt defterine yazar (besleDaemonKanitlari — yeşile boyama YOK:
+  // kırmızı koşula kayıt girmez). KIRMIZI tick BESLEMEZ — kanıt eskir, rozet tazelik
+  // kapısında kırmızı düşer (fail-closed canlılık: daemon pazlasa gece modu kendiliğinden
+  // kapanır). Besleme hatası daemon'ı ÖLDÜRMEZ (kanıt yazılamadıysa rozet zaten kırmızıya
+  // düşer — sessiz yeşil yok; hata sayılır + loglanır, gözlemci kalınır).
+  const kanitBesle = () => {
+    if (!opts.kanitDefteriYolu) return;
+    try {
+      const db = openStore(opts.dbPath);
+      try {
+        const yazilan = besleDaemonKanitlari(db, opts.kanitDefteriYolu, now);
+        stats.kanit.besleme += yazilan.length;
+        log({ daemon: 'kanit-besleme', kayit: yazilan.length, bayraklar: yazilan });
+      } finally { db.close(); }
+    } catch (e: any) {
+      stats.kanit.hata++;
+      log({ daemon: 'kanit-besleme-hata', error: String(e?.message ?? e) });
+    }
+  };
 
   const countSkip = (at: Date, reason: 'misfire' | 'overlap' | 'stopped') => {
     const k = occurrenceKey(spec, at);
@@ -118,7 +143,7 @@ export async function runDaemon(opts: DaemonOptions): Promise<{ code: number; st
     p.then((o: TickOutcome) => {
       if (inFlight === p) inFlight = null;
       stats.lastCode = o.code;
-      if (o.code === 0) { stats.ok++; consecutiveFailures = 0; }
+      if (o.code === 0) { stats.ok++; consecutiveFailures = 0; kanitBesle(); } // A0-3: yeşil tick kanıt besler
       else { stats.failed++; consecutiveFailures++; }
       log({ daemon: 'tick-done', code: o.code, ms: o.ms, out: o.out.slice(0, 400) });
     }).catch((e: any) => {

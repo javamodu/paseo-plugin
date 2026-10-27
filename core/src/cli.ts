@@ -24,6 +24,7 @@ import {
   KURAL_ONAY_METNI, KURAL_PARTI_UST, KURAL_HEDEF_DOSYA,
   derslerOku, kuralSayaci, esikOku, adayUret, openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak,
 } from './kural.ts';
+import { KANIT_DEFTERI_YOLU } from './gozetimsiz.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -390,6 +391,11 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       try {
         const res = await runDaemon({
           intervalMs, maxTicks, dbPath: deps.dbPath, probePath: deps.probePath, env: deps.env,
+          // A0-3 wiring: serve döngüsü rozetin 4/6 defter-sorgulu bayrağını (koşul 1/2/3/5)
+          // BAŞARILI tick sonrası kanıt defterine besler — kırmızı koşul/koşum kayıt ÜRETMEZ
+          // (yeşile boyama yok; kanıt eskir → rozet fail-closed düşer). Yol ORDU_KANIT_DEFTERI
+          // env'iyle yönlendirilir; varsayılan üretim defteri gozetimsiz.ts KANIT_DEFTERI_YOLU.
+          kanitDefteriYolu: (deps.env.ORDU_KANIT_DEFTERI as string | undefined) || KANIT_DEFTERI_YOLU,
           shouldStop: () => signalled,
         });
         return { code: res.code, out: res.stats };

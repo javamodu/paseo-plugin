@@ -1,0 +1,27 @@
+A0-3 serve wiring üretim-şekli koşum kanıtı (geçici script core/tmp-a03-serve.mjs ile koşuldu; çıktı buraya kopyalandı — orijinal stdout verbatim).
+Yöntem: cliMain(['resume','--confirm','I understand the risk']) → taze temp DB'nin fail-closed doğumu (dispatch_paused=1) açılır → cliMain(['serve','--max','1','--interval-ms','1000'], {env: ORDU_RUNTIME=local + ORDU_KANIT_DEFTERI=temp-kanit.jsonl}).
+Koşum: 2026-10-27 12:22 (yerel) / damga 2026-10-27T09:22:14.171Z (UTC, kayıtların kendisinden).
+
+RESUME code=0 out={"resumed":true,"commandId":"38cdb87b-2905-4779-874b-4ec6197955e1"}
+{"daemon":"tick-launched","occurrence":"2026-10-27T09:22:03.403Z"}
+{"daemon":"kanit-besleme","kayit":4,"bayraklar":["uzlastirmaKanitli","iptalDogrulamaKanitli","kullanimOlcumuKanitli","grantEtkisiKanitli"]}
+{"daemon":"tick-done","code":0,"ms":10735,"out":"{\"outbox\":{\"idle\":true,\"processed\":0},\"reconcile\":{\"reconciled\":0,\"outcomes\":[]},\"sentPoll\":{\"polled\":0,\"outcomes\":[]},\"sweep\":{\"taranan\":0,\"asiliOnce\":0,\"dokunulan\":0,\"temizOldurulen\":0,\"kartAcilan\":0,\"kartZatenAcik\":0,\"kartKararli\":0,\"asiliKalan\":0,\"bulgular\":[]}}"}
+SERVE-KANIT code=0
+SERVE-KANIT stats={"ticks":1,"ok":1,"failed":0,"lastCode":0,"skipped":{"misfire":0,"overlap":0,"stopped":0},"reason":"max-ticks","kanit":{"besleme":4,"hata":0}}
+SERVE-KANIT kayit 1: {"bayrak":"uzlastirmaKanitli","kaynak":"daemon-tick","damga":"2026-10-27T09:22:14.171Z","turMs":1793092934171,"detay":"UNKNOWN rezervasyon yok — daemon tick dogrulamasi"}
+SERVE-KANIT kayit 2: {"bayrak":"iptalDogrulamaKanitli","kaynak":"daemon-tick","damga":"2026-10-27T09:22:14.171Z","turMs":1793092934171,"detay":"teyitsiz iptal talebi yok — daemon tick dogrulamasi"}
+SERVE-KANIT kayit 3: {"bayrak":"kullanimOlcumuKanitli","kaynak":"daemon-tick","damga":"2026-10-27T09:22:14.171Z","turMs":1793092934171,"detay":"usage_unknown=0 — daemon tick dogrulamasi"}
+SERVE-KANIT kayit 4: {"bayrak":"grantEtkisiKanitli","kaynak":"daemon-tick","damga":"2026-10-27T09:22:14.171Z","turMs":1793092934171,"detay":"sonlanmis granta bagli RUNNING attempt yok — daemon tick dogrulamasi"}
+SERVE-KANIT defter-satir=4
+
+SONRASI (kanıt bittikten sonraki temizlik bacağı — kanıtın parçası DEĞİL):
+node:fs rmSync EPERM: temp dizin silinemedi (sqlite tanıtıcı gecikmesi — Windows); koşumdan sonra PowerShell Remove-Item ile temizlendi.
+Script silindi (geçici dosya kuralı).
+
+=== ÜRETİM ROZET OKUMASI (fail-closed kanıtı; 2026-10-27 ~12:3x, script core/tmp-a03-rozet.mjs — sonrası silindi) ===
+Yöntem: unattendedReadinessBeslemeli(openStore('data/ordu.sqlite'), KANIT_DEFTERI_YOLU, 30 dk pencere) — gerçek üretim DB + gerçek (0 bayt) kanıt defteri; daemon üretimde koşmuyor.
+Çıktı verbatim:
+rozet: gozetimsiz-kullanilamaz
+6/6 koşul: "kanit ESKI ya da YOK — tazelik penceresi disinda (fail-closed)"
+Not: 1/2/3/5 çift-bacak detayı ESKI_KANIT'i yalnız DB-bacağı YEŞİL iken basar — yani üretim DB'de unknown=0, teyitsiz iptal=0, usage_unknown=0, grant-etkisi=0 (A0-2 sweep + settle sonrası sağlıklı); rozet yalnız KANIT bacağından kırmızı. Daemon beslemesi (serve) çalışmadan rozet AÇILMAZ — tasarımın kendisi.
+

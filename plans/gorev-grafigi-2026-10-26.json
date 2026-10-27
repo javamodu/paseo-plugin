@@ -1,6 +1,6 @@
 {
   "schemaSurum": 1,
-  "grafSurumu": "v11",
+  "grafSurumu": "v12",
   "grafSurumGecmisi": [
     {
       "surum": "v1",
@@ -56,10 +56,15 @@
       "surum": "v11",
       "tarih": "2026-10-27 11:53:37 (Get-Date ölçümü)",
       "neden": "A0 dalga 6-subagent ilk iki düğüm kapanışı — gerçeklik tazelemesi: (a) A0-2 → KAPALI (asılı run sweep; kanal d=2026-10-27T11:43:06.3865016+03:00 h=280d881 x=0 test=a02-sweep sureSn=56, 2. koşum 437/437; +262 kod [R git-diff]/359 test-15 vaka [B1 kart-döngüsü + B2 tx-dışı enqueue + B4 dispatchNode run-state kapısı]; üretim ölçümü (R): tick 11:20 asılı 3→0 [3 temiz-öldür]; dalga commit hash'i sonraki graf tazelemesinde girer [kendi commit'ine hash yazılamaz, v5-v10 emsali]). (b) A0-5 → KAPALI (L-RT local runner — Paseo'suz koşum bacağı; kanal d=2026-10-27T11:44:07.7627073+03:00 h=280d881 x=0 test=a05-lrt sureSn=60, 2. koşum 437/437; +430 kod [R: local-runtime 248 + providers 103 + capabilities 15 + probe 64]/407 test-12 vaka [B8 restart-körlüğü + B9 telafi-kill OS işlem-tablosu kanıtı]; canlı 3-koşum kırıl-ölç-düzelt: glm-5.3 headless 400 → model NULL AYNI 400 → codefastglm53unlimited UÇTAN UCA ACCEPTED 38.0 sn [METRİK] — PROVIDER_REGISTRY['claude-code'] ölçülmüş-tek'e düzeltildi). (c) A0-3 BEKLE→HAZIR (tek bağımlılığı A0-2 kapandı; W-A0-3 yazıcısı 1. deneme API-400 ile öldü [disk temiz — bağımsız doğrulandı], 2. deneme arka planda koşuyor; kapanışı AYRI commit). (d) replan bacağı: A0 dalga açılışı replan TASLAK'ıyla (rpl-03579e06 [insan] onayı bekler — EK-2; replan.jsonl defter + B7-ikizi eş-taslak idempotansı +20 kod/+28 test — dalga commit'ine girer). (e) BÜTÇE BİLİNÇLİ REVİZYONU (tavanKural gereği, bu kayıtta gerekçeyle): kodLocT tavan 2600→~3300, testLocT tavan 1050→~2100 — kapalı-gerçekler plan üstü yaktı (A3 476/275, A0-2 262/60, A0-5 430/230 [R]; denetçi B-vakaları + kanıt-yöntemi testleri hacmi büyüttü); kalan ölçümlü açık-plan: ~1120 kod/~570 test. (f) kira-canlı 2 run dürüst notu: A0-5'in kırık-model deneme bacakları (run-16efb6ef, run-e0fe70c6) 30 dk sessizlikte sweep kapanışı bekliyor."
+    },
+    {
+      "surum": "v12",
+      "tarih": "2026-10-27 12:47:40 (Get-Date ölçümü)",
+      "neden": "A0-3 kapanışı — A0 dalga üçüncü düğümü (dalga kapanışı 26a0561'den AYRI commit; graf v11'in (c) maddesi 'kapanışı AYRI commit' taahhüdü bu sürümde yerine geldi): (a) A0-3 → KAPALI (gozetimsiz rozet kanıt beslemesi; kanal d=2026-10-27T12:47:21.0584862+03:00 h=26a0561 x=0 test=a03-gozetimsiz-besleme sureSn=119 [2. koşum 449/449; 1. koşum x=1: tek kırmızı f3-crash V3-S1.4 bilinen 15sn manager yük-flake sınıfı — kanal öncesi %100 yük, 15dk 3x<%60 pencere açılmadı, a02/a05 deseni]; +207 kod [R git-diff: gozetimsiz +174, daemon +27, cli +6]/183 test-12 vaka [tazelik x2, yazım ucu, temiz besleme, kırmızı-beslemez, defter onarımı, beslemeli rozet x4, daemon döngüsü x3]; ölçüt üç katman: hermetik wiring + serve wiring üretim-şekli koşumu [a03-serve-wiring.log: kanit-besleme kayit=4, stats kanit:{besleme:4,hata:0}] + üretim rozeti fail-closed [gozetimsiz-kullanilamaz 6/6 ESKI_KANIT — DB bacağı yeşil, rozet yalnız kanıt bacağından kırmızı; daemon koşmadan rozet açılmaz — tasarımın kendisi]; kanıt: kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md). (b) A4 BEKLE→HAZIR (iki bağımlılığı da kapandı: A3 [v10] + A0-3 [bu sürüm]; kapı [INSAN] gece-modu açılış — EK-2: ajan açamaz). (c) KAPALI 9/24 (T0+S1+S7+A1+A2+A3+A0-2+A0-5+A0-3); durum dağılımı 9 KAPALI/8 HAZIR/7 BEKLE; kabul %65=81/124. (d) BÜTÇE BİLİNÇLİ REVİZYONU (tavanKural gereği, bu kayıtta gerekçeyle): kodLocT ~3300→~3400, testLocT ~2100→~2250 — A0-3 gerçeği (R) +207 kod/+183 test satırı planın (100/60) üstünde yaktı (ölçüt-kapsamı + fail-closed yönleri her biri kendi testini doğurdu — A3/A0-2/A0-5 deseni); kalan ölçümlü açık-plan: ~1020 kod/~510 test. (e) dalga commit hash'i 26a0561 v11 kaydından SONRA doğdu — A0-2/A0-5'nin 'sonraki tazelemede girer' taahhüdü v12 kapanış durum-stringlerinde yerine geldi (durum metinlerinde h=26a0561)."
     }
   ],
   "is": "otonom-gorev-grafigi-bulutu",
-  "tarih": "2026-10-27 11:53:37 (Get-Date ölçümü)",
+  "tarih": "2026-10-27 12:47:40 (Get-Date ölçümü)",
   "insanOkurIkiz": "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
   "kural": "ajan gorev secerken yalniz bu dosyadan okur; MD insan icindir; celiskide JSON kazanir + rapor edilir; her kapsulun ajan kadrosu (model/izin/yetki/rol) bu dosyada + gorev.ajanlar ezbir-alani; kapsul kartlari plans/kapsuller/<ID>.md; modeller core/src/providers.ts registry'sinden — registry-disi RED (fail-closed)",
   "ajanKadrosu": {
@@ -402,7 +407,7 @@
       "kapi": null,
       "loc": 100,
       "testLoc": 60,
-      "durum": "HAZIR"
+      "durum": "KAPALI (kod dalgası 2026-10-27: gozetimsiz rozet kanıt beslemesi; kanal d=2026-10-27T12:47:21.0584862+03:00 h=26a0561 x=0 test=a03-gozetimsiz-besleme sureSn=119 [2. koşum 449/449; 1. koşum x=1: tek kırmızı f3-crash V3-S1.4 bilinen 15sn manager yük-flake — kanal öncesi %100, 15dk pencere açılmadı, a02/a05 deseni]; +207 kod [R: gozetimsiz +174, daemon +27, cli +6]/183 test-12 vaka; ölçüt üç katman: hermetik wiring + serve wiring üretim-şekli koşumu [cli.ts serve → runDaemon kanitDefteriYolu: env ORDU_KANIT_DEFTERI || KANIT_DEFTERI_YOLU; a03-serve-wiring.log: kanit-besleme kayit=4 {uzlastirma, iptalDogrulama, kullanimOlcumu, grantEtkisi}, stats kanit:{besleme:4,hata:0}] + üretim rozeti fail-closed [gozetimsiz-kullanilamaz 6/6 ESKI_KANIT — DB bacağı yeşil (A0-2 sweep sonrası), rozet yalnız kanıt bacağından kırmızı; daemon koşmadan rozet açılmaz — tasarımın kendisi]; kırmızı tick BESLEMEZ; kanıt: kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md; dalga kapanışı 26a0561'den AYRI commit'tir)"
     },
     {
       "id": "A0-4",
@@ -524,7 +529,7 @@
       "loc": 200,
       "locAralik": "150-250",
       "testLoc": 100,
-      "durum": "BEKLE"
+      "durum": "HAZIR (v12: iki bağımlılığı da kapandı — A3 [v10] + A0-3 [v12]; tek kapısı [INSAN] gece-modu açılış — EK-2: ajan/proxy açamaz, kullanıcı düdüğü bekler)"
     },
     {
       "id": "EK1-1",
@@ -758,9 +763,9 @@
     "K1"
   ],
   "butceToplam": {
-    "kodLocT": "1900-2600 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~3300 (gerekçe: kapalı-gerçekler plan üstü yaktı — A3 476/275, A0-2 262/60, A0-5 430/230 [R git-diff ölçümü]; denetçi B-vakaları kendi testlerini doğurdu, probe.mjs +64 kanıt kodu; kapalı-gerçek ~2050 + dalga wiring 77 + açık-plan ~1120 ≈ 3250)",
-    "testLocT": "1050 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~2100 (gerekçe: A0-2 359/40 + A0-5 407/60 + replan-onay 28 [R] — kanıt-yöntemi testleri [B9 işlem-tablosu, B4 kapı izolasyonu] hacmi büyüttü; kapalı ~1529 + açık-plan ~570 ≈ 2100)",
-    "kalanOlcumlu": "v11: ~1120 kod/~570 test (R/T: AÇIK düğümlerin plan değerleri toplamı — kapalı düğümler gerçekle kapandığından kalan yalnız açık-kartları sayar)",
+    "kodLocT": "1900-2600 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~3300 → v12 BİLİNÇLİ REVİZYON ~3400 (gerekçe: kapalı-gerçekler plan üstü yaktı — A3 476/275, A0-2 262/60, A0-5 430/230, A0-3 207/100 [R git-diff ölçümü]; denetçi B-vakaları + fail-closed ölçüt-kapsamı kendi testlerini doğurdu, probe.mjs +64 kanıt kodu; kapalı-gerçek ~2257 + dalga wiring 77 + açık-plan ~1020 ≈ 3350-3400)",
+    "testLocT": "1050 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~2100 → v12 BİLİNÇLİ REVİZYON ~2250 (gerekçe: A0-2 359/40 + A0-5 407/60 + replan-onay 28 + A0-3 183/60 [R] — kanıt-yöntemi testleri [B9 işlem-tablosu, B4 kapı izolasyonu, tazelik/çift-bacak rozet] hacmi büyüttü; kapalı ~1712 + açık-plan ~510 ≈ 2220-2250)",
+    "kalanOlcumlu": "v12: ~1020 kod/~510 test (R/T: AÇIK düğümlerin plan değerleri toplamı — kapalı düğümler gerçekle kapandığından kalan yalnız açık-kartları sayar)",
     "tavanKural": "yeni test ekliginde tavan BILINCLI revizyonla guncellenir (ayni grafSurumu kaydinda gerekceyle) — sessiz sifir-marj kilidi yok; tavan'siz buyume de yok",
     "ajanGunT": "7-8.5 (+0.5 A0-5; A1 kapali ~1 gun dususle ~6.5-7.5 (T))",
     "takvimGunT": "9-14",
