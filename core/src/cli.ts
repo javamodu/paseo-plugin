@@ -19,6 +19,10 @@ import { evaluateArtifact } from './cli-evaluate.ts';
 import { runDaemon } from './daemon.ts';
 import { openProductionNotify, type ExecSync } from './sender.ts';
 import { kabulOku, olcDrift, olcSapma, replanTaslagi, replanOnayla, openReplanDefteri } from './replan.ts';
+import {
+  KURAL_ONAY_METNI, KURAL_PARTI_UST, KURAL_HEDEF_DOSYA,
+  derslerOku, kuralSayaci, esikOku, adayUret, openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak,
+} from './kural.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -259,6 +263,74 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
           taslak: t.oneriler.length > 0 ? { id: t.id, tetik: t.tetik, oneriSayisi: t.oneriler.length, onayKomutu: `ordu replan --onay ${t.id} --confirm "REPLAN ONAYLIYORUM"` } : undefined } };
       } catch (e: any) { return { code: 1, out: 'replan reddedildi: ' + e.message }; }
     }
+    case 'kural': {
+      // A3 (graf v8 kritik yol ucu): deneyim→kural derleyicisi CLI yüzü.
+      // K-0051: hedef AGENTS.md; ilk toplu onay <= 5 (kademeli); sentez ajan turu
+      // ayrı kayıttır (ajan:llm — onay DEĞİL). Ölçüm/aday koşusu ↔ [insan] onay kapısı.
+      // Aktör daima 'insan:cli' (EK-2: ajan/proxy onaylayamaz — kuralOnayla RED eder).
+      const kok = flag('kok') ?? deps.env.ORDU_KOK ?? '..';
+      const derslerEv = flag('dersler') ?? kok + '/DERSLER.md';
+      const hedefEv = kok + '/' + KURAL_HEDEF_DOSYA; // K-0051 karar 1: hedef SABİT — flag yok (sayac havuzu dışı hedef tavan kilidini körletirdi, denetçi B2)
+      const hedeflerYolu = flag('hedefler') ?? kok + '/hedefler.json';
+      const onayId = flag('onay');
+      if (onayId) {
+        try {
+          const r = kuralOnayla({
+            defter: openKuralDefteri(deps.dbPath), taslakId: onayId,
+            confirm: flag('confirm') ?? '', actor: 'insan:cli', hedefEv, kok, hedeflerYolu, ...(now ? { now } : {}),
+          });
+          return { code: 0, out: r };
+        } catch (e: any) { return { code: 1, out: 'kural onay reddedildi: ' + e.message }; }
+      }
+      const sentezId = flag('sentez');
+      if (sentezId) {
+        const adayOnEk = flag('aday'); const metin = flag('metin');
+        if (!adayOnEk || metin === undefined)
+          return { code: 1, out: 'kullanim: ordu kural --sentez <taslakId> --aday <anahtar-on-ek> --metin "..." (sentez ajan:llm turu — onay degil)' };
+        try {
+          const d = openKuralDefteri(deps.dbPath);
+          d.sentezKaydet(sentezId, adayOnEk, metin, 'ajan:llm', now);
+          return { code: 0, out: { sentez: true, taslakId: sentezId, defterYolu: d.path } };
+        } catch (e: any) { return { code: 1, out: 'kural sentez reddedildi: ' + e.message }; }
+      }
+      const limit = flag('limit') !== undefined ? Number(flag('limit')) : 3;
+      if (!(Number.isInteger(limit) && limit >= 1 && limit <= KURAL_PARTI_UST))
+        return { code: 1, out: `kural: --limit 1-${KURAL_PARTI_UST} olmali (K-0051 kademeli guven)` };
+      try {
+        const tarama = derslerOku(derslerEv);
+        const sayac = kuralSayaci(kok);
+        const esik = esikOku(hedeflerYolu);
+        const mevcut = sayac.dosyaBasi.flatMap((d) => d.satirlar);
+        const sonuc = adayUret(tarama, mevcut, limit);
+        const defter = openKuralDefteri(deps.dbPath);
+        defter.taramaKaydet({ maddeSayisi: tarama.maddeler.length, altDersSayisi: tarama.altDersler.length, adaySayisi: sonuc.adaylar.length, sayac: sayac.toplam }, now);
+        let taslikBilgi: object | undefined;
+        if (sonuc.adaylar.length > 0) {
+          // B7 (üretim bulgusu): aynı aday-anahtar seti için ONAYSIZ taslak zaten varsa
+          // yenisi DOĞMAZ — mevcut döner (sentez kayıtları taslağa bağlı kalır; spam yok).
+          const onayliIdler = new Set(defter.onaylar().map((a) => a.taslakId));
+          const eslesen = eslesenTaslak(defter.taslaklar(), onayliIdler, sonuc.adaylar);
+          if (eslesen) {
+            taslikBilgi = { id: eslesen.id, adaySayisi: eslesen.adaylar.length, mevcut: true, onayKomutu: `ordu kural --onay ${eslesen.id} --confirm "${KURAL_ONAY_METNI}"` };
+          } else {
+            const t = {
+              id: 'krl-' + randomUUID().slice(0, 8), at: now().toISOString(), tip: 'TASLAK' as const,
+              sayac: sayac.toplam, esik: esik.kirmizi, adaylar: sonuc.adaylar, dusenler: sonuc.dusenler, kalan: sonuc.kalan,
+            };
+            defter.taslakKaydet(t);
+            taslikBilgi = { id: t.id, adaySayisi: sonuc.adaylar.length, onayKomutu: `ordu kural --onay ${t.id} --confirm "${KURAL_ONAY_METNI}"` };
+          }
+        }
+        return { code: 0, out: {
+          sayac: { toplam: sayac.toplam, dosyaBasi: sayac.dosyaBasi.map((d) => ({ yol: d.yol, sayi: d.sayi })) },
+          esik,
+          dersler: { madde: tarama.maddeler.length, altDers: tarama.altDersler.length, anomali: tarama.anomaliler.length, ev: derslerEv },
+          adaylar: sonuc.adaylar.map((a) => ({ anahtar: a.anahtar.slice(0, 12), satir: a.kaynakSatir, metin: a.hamMetin.slice(0, 120), ...(a.cakisanTahmin ? { cakisanTahmin: a.cakisanTahmin } : {}) })),
+          dusenler: sonuc.dusenler, kalan: sonuc.kalan, defterYolu: kuralYolu(deps.dbPath),
+          ...(taslikBilgi ? { taslak: taslikBilgi } : {}),
+        } };
+      } catch (e: any) { return { code: 1, out: 'kural reddedildi: ' + e.message }; }
+    }
     case 'serve': {
       // S4 Scheduler 2/2: tick DÖNGÜSÜ — daemon sürücüsü. Her tur ayrı `tick` ÇOCUK
       // süreci (crash izolasyonu); cadence schedule.ts disipliniyle (misfire/overlap
@@ -287,7 +359,7 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       }
     }
     default:
-      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)|replan [--esik N --hedef N --plan P --kabul K]|replan --onay <taslakId> --confirm "REPLAN ONAYLIYORUM"' };
+      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)|replan [--esik N --hedef N --plan P --kabul K]|replan --onay <taslakId> --confirm "REPLAN ONAYLIYORUM"|kural [--kok R] [--limit 1-5]|kural --sentez <taslakId> --aday <on-ek> --metin "..."|kural --onay <taslakId> --confirm "KURALLARI ONAYLIYORUM"' };
   }
 }
 

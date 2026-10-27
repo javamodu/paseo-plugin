@@ -1,9 +1,9 @@
 {
   "schemaSurum": 1,
   "is": "on-simulasyon-gorev-grafigi",
-  "tarih": "2026-10-27T09:10:14+03:00 (Get-Date olcumu)",
+  "tarih": "2026-10-27T09:51:18+03:00 (Get-Date olcumu)",
   "hedefGraf": "plans/gorev-grafigi-2026-10-26.json",
-  "grafSurumu": "v9",
+  "grafSurumu": "v10",
   "kosumGecmisi": [
     {
       "tarih": "2026-10-26T12:25:00+03:00",
@@ -382,12 +382,67 @@
         "EK1-2/EK1-4 (A1 KAPALI ile cozuldu)",
         "S2/S3/S4/S5/S6 (kendi [insan] dudukleri)"
       ]
+    },
+    {
+      "tarih": "2026-10-27T09:51:18+03:00 (Get-Date olcumu)",
+      "grafSurumu": "v10",
+      "kontroller": [
+        {
+          "id": 1,
+          "ad": "dugum-kenar-sayisi",
+          "sonuc": "PASS",
+          "kanit": "24 dugum / 29 kenar (yapi v9 ile ayni — yalniz durum alanlari degisti)"
+        },
+        {
+          "id": 2,
+          "ad": "kenar-uclari-gecerli",
+          "sonuc": "PASS",
+          "kanit": "kenarlarin tamami gecerli dugum-id ciftine bagli (node programatik, 29 kenar)"
+        },
+        {
+          "id": 3,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "topolojik sira 24/24, disarida 0 — 0 dongu (node programatik)"
+        },
+        {
+          "id": 4,
+          "ad": "cekirdek-alan-dolulugu",
+          "sonuc": "PASS",
+          "kanit": "24/24 gorev (id/gorev/rol/dizin/olcut/durum string + bagimli dizi + loc sayi + kapi tanimli)"
+        },
+        {
+          "id": 5,
+          "ad": "BEKLE-bagimliligi-dolu",
+          "sonuc": "PASS",
+          "kanit": "9 BEKLE dugumunun her birinin bagimli dizisi dolu"
+        },
+        {
+          "id": 6,
+          "ad": "KAPALI-seti",
+          "sonuc": "PASS",
+          "kanit": "T0+S1+S7+A1+A2+A3 = 6/24 (A3 kod dalgasi kapandi)"
+        },
+        {
+          "id": 7,
+          "ad": "butce-tavan",
+          "sonuc": "PASS",
+          "kanit": "kod plan 2565 (T); KAPALI kod 1356 (T0 5 + A1 550 + A2 325 + A3 gercegi (R) 476; S1/S7 kosum dalgasi 0 kod) -> kalan ~1209 (olculmus); test kalan ~368 (olculmus: 760 - A3 392)"
+        },
+        {
+          "id": 8,
+          "ad": "gecmis-kuyrugu-kronoloji",
+          "sonuc": "PASS",
+          "kanit": "v1..v10 kronolojik; v10 girisi grafSurumGecmisi son sirasinda; grafSurumu alani v10"
+        }
+      ],
+      "not": "A3 kod dalgasi kapanisi sonrasi yeniden kosum — 8/8 PASS programatik (graf SSOT v10 uzerinde gercek kosuldu; kopya degil)."
     }
   ],
   "tikanmaOlaylari": [],
   "insanKapilariSirada": [
-    "A3 başla (kritik yol ucu — dalga üretimde)",
-    "A0 dalgası başla",
+    "A0 dalgası başla (A0-2/A0-4/A0-5/EK1-1/EK1-5 paralel hazır; kritik yol ucu A0-2→A0-3→A4)",
+    "krl-b0cb1576 kural toplu onayı (sayaç 77→80; core/ dizininden CLI)",
     "S2/S5/S6 koş (senaryo düdükleri)",
     "G1 madenci fırlat"
   ],

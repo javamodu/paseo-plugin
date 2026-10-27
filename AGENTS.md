@@ -12,3 +12,6 @@ Bu repo evrensel ajan verimlilik sözleşmesi paketidir. Çalışma kuralları: 
 ## Yapı
 
 - Kök: sözleşme/plan/şablon/fermanlar · `kanit/` 10 dosyalık araştırma · `scripts/` otomasyon · `kararlar/` ADR+K kararları · `raporlar/` append-only · `plans/handoff/` devir törenleri · `arsiv/` tarih damgalı eski SSOT + history bundle'ları · bileşen evleri (F1/F2 birleşimi): `core/` ordu-core (defter+dispatch+kabul) · `plugin/` paseo-verimlilik (v0.22-kilit) · `pano/` pano iskelet/mockup · `referans/` salt-okur (kapsul-final, ordu-v3) · `surumler/` kök kilit sürümleri · `sorular/`, `veri/` yardımcı.
+- PowerShell here-string kapanisi '@ daima satir basinda (kolon 0) olmalidir; girintili kapanis parser hatasi verir. (A3 K-0051; kaynak DERSLER satır 3)
+- Remove-Item ortam politika engeline takilabilir; silme gerektiren yerlerde Move-Item tercih edilir. (A3 K-0051; kaynak DERSLER satır 4)
+- PowerShell cift tirnagi $ degiskenini genisletir; $ iceren eslestirme metinleri tek tirnakla tanimlanir. (A3 K-0051; kaynak DERSLER satır 5)

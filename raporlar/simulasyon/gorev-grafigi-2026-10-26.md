@@ -67,3 +67,20 @@ Graf v9: **24 düğüm / 29 kenar / 8/8 kontrol PASS** (programatik: node -e top
 Değişiklikler: (a) **S7 → KAPALI** (SIRALI iki zincir: P1 run-1bcba32d [codex/glm-5.3] + P2 run-9b2607fc [glm53u-codex/glm-5.3], her ikisi ACCEPTED — UNKNOWN→recovered [A08], TESTER 10↔10↔TOPLAM:10 ×2, evaluate PASS 4/4 ×2; **KISYAS: candidateHash b7449cd9… AYNI / artifactHash YOL-FARKLI — tek değişken provider doğrulandı**; kanal d/h/x YOK — GECTI_CANLI sınıfı, M02/S1 emsali); (b) grafSurumu v8→v9 + geçmiş girişi (damga 09:00:14 Get-Date ölçümü); (c) KAPALI seti **T0+S1+S7+A1+A2 = 5/24**; (d) testLoc yalnız 6 senaryo düğümünde YOK (T0/S1/S3/S2/S4/S7 — 0-test sınıfı) dürüst sınıf notuyla ölçüldü.
 Kalan butce: kod ~1685 (T) / **test 760 (ÖLÇÜLDÜ — dürüst düzeltme: v7/v8 kayıtlarında taşınan 890, A1'in 130 testLoc'u hiç düşülmemişti; v9 koşumu 1010 − 250 [A1 130 + A2 120] = 760)**. Kritik yol: T0✓ → S7✓ → A1✓ → A2✓ → A3 → A4 → K1 — **A3 kritik yol ucu (kod dalgası kanal taşır; kanal koşumu bekleniyor).**
 Bulgu kaydı: kapsül üretimi bileşik komuta GÖMÜLMEZ (CLI idempotent değil — P2 öncesi tek bileşik komut deftere 3 uyuk kapsül bıraktı) — DERSLER'de.
+
+## v10 yeniden koşum (A3 kapanışı, 2026-10-27T09:51:18+03:00 (Get-Date olcumu))
+
+Graf SSOT v10 (A3 KAPALI) üzerinde 8/8 kontrol PASS — programatik, gerçek koşum:
+
+| # | Kontrol | Sonuç | Kanıt |
+|---|---|---|---|
+| 1 | dugum-kenar-sayisi | PASS | 24 dugum / 29 kenar (yapi v9 ile ayni — yalniz durum alanlari degisti) |
+| 2 | kenar-uclari-gecerli | PASS | kenarlarin tamami gecerli dugum-id ciftine bagli (node programatik, 29 kenar) |
+| 3 | DAG-dongu-yok | PASS | topolojik sira 24/24, disarida 0 — 0 dongu (node programatik) |
+| 4 | cekirdek-alan-dolulugu | PASS | 24/24 gorev (id/gorev/rol/dizin/olcut/durum string + bagimli dizi + loc sayi + kapi tanimli) |
+| 5 | BEKLE-bagimliligi-dolu | PASS | 9 BEKLE dugumunun her birinin bagimli dizisi dolu |
+| 6 | KAPALI-seti | PASS | T0+S1+S7+A1+A2+A3 = 6/24 (A3 kod dalgasi kapandi) |
+| 7 | butce-tavan | PASS | kod plan 2565 (T); KAPALI kod 1356 (T0 5 + A1 550 + A2 325 + A3 gercegi (R) 476; S1/S7 kosum dalgasi 0 kod) -> kalan ~1209 (olculmus); test kalan ~368 (olculmus: 760 - A3 392) |
+| 8 | gecmis-kuyrugu-kronoloji | PASS | v1..v10 kronolojik; v10 girisi grafSurumGecmisi son sirasinda; grafSurumu alani v10 |
+
+KAPALI seti 6/24 (T0+S1+S7+A1+A2+A3). Kalan ~1209 kod / ~368 test (ölçümlü — A3 gerçeği 476/392 düştü). Kritik yol ucu: A0-2→A0-3→A4. [insan] sıradaki kapılar: A0 dalgası · krl-b0cb1576 toplu onayı (sayaç 77→80) · S2/S5/S6 · G1.
