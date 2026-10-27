@@ -1,9 +1,9 @@
 {
   "schemaSurum": 1,
   "is": "on-simulasyon-gorev-grafigi",
-  "tarih": "2026-10-27T09:51:18+03:00 (Get-Date olcumu)",
+  "tarih": "2026-10-27T11:58:00+03:00 (Get-Date olcumu)",
   "hedefGraf": "plans/gorev-grafigi-2026-10-26.json",
-  "grafSurumu": "v10",
+  "grafSurumu": "v11",
   "kosumGecmisi": [
     {
       "tarih": "2026-10-26T12:25:00+03:00",
@@ -437,6 +437,61 @@
         }
       ],
       "not": "A3 kod dalgasi kapanisi sonrasi yeniden kosum — 8/8 PASS programatik (graf SSOT v10 uzerinde gercek kosuldu; kopya degil)."
+    },
+    {
+      "tarih": "2026-10-27T11:58:00+03:00 (Get-Date olcumu)",
+      "grafSurumu": "v11",
+      "kontroller": [
+        {
+          "id": 1,
+          "ad": "dugum-kenar-sayisi",
+          "sonuc": "PASS",
+          "kanit": "24 dugum / 29 kenar (yapi v10 ile ayni — yalniz durum alanlari degisti)"
+        },
+        {
+          "id": 2,
+          "ad": "kenar-uclari-gecerli",
+          "sonuc": "PASS",
+          "kanit": "29 kenar tamami gecerli dugum-id ciftine bagli"
+        },
+        {
+          "id": 3,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "topolojik sira 24/24, disarida 0 — dongu 0"
+        },
+        {
+          "id": 4,
+          "ad": "cekirdek-alan-dolulugu",
+          "sonuc": "PASS",
+          "kanit": "24/24 gorev (kapi string-YA-DA-null)"
+        },
+        {
+          "id": 5,
+          "ad": "BEKLE-bagimliligi-dolu",
+          "sonuc": "PASS",
+          "kanit": "8 BEKLE dugumunun her birinin bagimli dizisi dolu; bos: 0"
+        },
+        {
+          "id": 6,
+          "ad": "KAPALI-seti",
+          "sonuc": "PASS",
+          "kanit": "T0+S1+A0-2+A0-5+S7+A1+A2+A3 = 8/24 (A0-2 + A0-5 kod dalgasi kapandi)"
+        },
+        {
+          "id": 7,
+          "ad": "butce-kalan-olcumlu",
+          "sonuc": "PASS",
+          "kanit": "kalan acik-plan (R/T): kod 1120 / test 570; tavanlar v11 BILINCLI revizyon ~3300/~2100 (gerekce grafSurumGecmisi v11 kaydinda); A0-3 HAZIR — tek bagimliligi A0-2 KAPALI (durum-alani bagimlilikla tutarli)"
+        },
+        {
+          "id": 8,
+          "ad": "gecmis-kuyrugu-kronoloji",
+          "sonuc": "PASS",
+          "kanit": "v1..v11 kronolojik; grafSurumu alani v11; son giris v11"
+        }
+      ],
+      "not": "A0-2 + A0-5 kod dalgasi kapanisi sonrasi yeniden kosum — 8/8 PASS programatik (graf SSOT v11 uzerinde gercek kosuldu; kopya degil; validator core/tmp-graf-v11-kontrol.mjs — kosum sonrasi silinir)."
     }
   ],
   "tikanmaOlaylari": [],

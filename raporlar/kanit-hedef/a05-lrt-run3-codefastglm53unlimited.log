@@ -1,0 +1,2 @@
+[claude-code:unrecognized_model] {"model":"codefastglm53unlimited","query_source":"sdk"}
+- Değişiklik sonrası: `scripts\codemap.ps1` çalıştır (CODEMAP tazelenir), `scripts\saglik.ps1` yeşil kalmalı.

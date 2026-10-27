@@ -84,3 +84,20 @@ Graf SSOT v10 (A3 KAPALI) üzerinde 8/8 kontrol PASS — programatik, gerçek ko
 | 8 | gecmis-kuyrugu-kronoloji | PASS | v1..v10 kronolojik; v10 girisi grafSurumGecmisi son sirasinda; grafSurumu alani v10 |
 
 KAPALI seti 6/24 (T0+S1+S7+A1+A2+A3). Kalan ~1209 kod / ~368 test (ölçümlü — A3 gerçeği 476/392 düştü). Kritik yol ucu: A0-2→A0-3→A4. [insan] sıradaki kapılar: A0 dalgası · krl-b0cb1576 toplu onayı (sayaç 77→80) · S2/S5/S6 · G1.
+
+## v11 yeniden koşum (A0-2 + A0-5 kapanışı, 2026-10-27T11:58:00+03:00 (Get-Date olcumu))
+
+Graf SSOT v11 (A0-2 KAPALI + A0-5 KAPALI + A0-3 HAZIR + bütçe bilinçli tavan revizyonu) üzerinde 8/8 kontrol PASS — programatik, gerçek koşum (validator: core/tmp-graf-v11-kontrol.mjs — koşum sonrası silindi):
+
+| # | Kontrol | Sonuç | Kanıt |
+|---|---|---|---|
+| 1 | dugum-kenar-sayisi | PASS | 24 dugum / 29 kenar (yapi v10 ile ayni — yalniz durum alanlari degisti) |
+| 2 | kenar-uclari-gecerli | PASS | 29 kenar tamami gecerli dugum-id ciftine bagli |
+| 3 | DAG-dongu-yok | PASS | topolojik sira 24/24, disarida 0 — dongu 0 |
+| 4 | cekirdek-alan-dolulugu | PASS | 24/24 gorev (kapi string-YA-DA-null) |
+| 5 | BEKLE-bagimliligi-dolu | PASS | 8 BEKLE dugumunun her birinin bagimli dizisi dolu; bos: 0 |
+| 6 | KAPALI-seti | PASS | T0+S1+A0-2+A0-5+S7+A1+A2+A3 = 8/24 (A0-2 + A0-5 kod dalgasi kapandi) |
+| 7 | butce-kalan-olcumlu | PASS | kalan acik-plan (R/T): kod 1120 / test 570; tavanlar v11 BILINCLI revizyon ~3300/~2100 (gerekce grafSurumGecmisi v11 kaydinda); A0-3 HAZIR — tek bagimliligi A0-2 KAPALI (durum-alani bagimlilikla tutarli) |
+| 8 | gecmis-kuyrugu-kronoloji | PASS | v1..v11 kronolojik; grafSurumu alani v11; son giris v11 |
+
+KAPALI seti 8/24 (T0+S1+S7+A1+A2+A3+A0-2+A0-5). Durum dağılımı: KAPALI 8 / HAZIR 8 / BEKLE 8 — 24 düğümün üç eşit sınıfı. Kalan ölçümlü açık-plan: ~1120 kod / ~570 test (R/T: açık kart plan değerleri toplamı). **BÜTÇE BİLİNÇLİ REVİZYONU**: kodLocT tavan 2600→~3300, testLocT 1050→~2100 — kapalı-gerçekler plan üstü yaktı (A3 476/275, A0-2 262/60, A0-5 430/230 (R git-diff); gerekçe grafSurumGecmisi v11 kaydında — tavanKural gereği aynı sürüm kaydında). Kritik yol ucu: **A0-3→A4** (A0-3 HAZIR; W-A0-3 yazıcısı 1. deneme API-400 ile öldü [disk temiz — bağımsız doğrulandı], 2. deneme arka planda; kapanışı AYRI commit). [insan] sıradaki kapılar: **K-SADE kural sadeleştirme (EN ACİL — tavan 80 dolu)** · K-0044 · D-1b ELLE TEST · rpl-03579e06 replan onayı · S2/S5/S6 düdükleri · A4 gece-modu açılışı.

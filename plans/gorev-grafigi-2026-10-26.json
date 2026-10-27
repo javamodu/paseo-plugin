@@ -1,6 +1,6 @@
 {
   "schemaSurum": 1,
-  "grafSurumu": "v10",
+  "grafSurumu": "v11",
   "grafSurumGecmisi": [
     {
       "surum": "v1",
@@ -51,10 +51,15 @@
       "surum": "v10",
       "tarih": "2026-10-27 09:44:00 (Get-Date ölçümü)",
       "neden": "A3 kod dalgası kapanışı — gerçeklik tazelemesi: (a) A3 → KAPALI (kanal d=2026-10-27T09:43:17.0929164+03:00 h=bbbd393 x=0 test=a3-kural-derleyici sureSn=86 (4. koşum; YEŞİL)); kalan ~1685 kod/~760 test (v9 ölçümü) → A3 gerçeği (R) 476 kod/392 test satırı (20 test) düştü → kalan ~1209 kod/~368 test (ölçümlü); plan (T) 275/90 — denetçi B1-B5 + üretim bulguları B6/B7 hacmi büyüttü (kanıt raporu dürüst not d). (b) kritik yol ucu artık A0-2→A0-3→A4 zinciri (A4 bağımlılığı A0-3 açık; A3 tarafı tamam). (c) kural.jsonl üretim defteri 8 kayıt (tarama 74 → taslak → sentez×3 → onay 77 → tarama 77 → pending krl-b0cb1576 [insan] onayı bekler — EK-2). (d) kanal 4-koşum ortam-flake geçmişi (A3-ilişkisiz kırmızılar) kanıt raporunda dürüst not (b)."
+    },
+    {
+      "surum": "v11",
+      "tarih": "2026-10-27 11:53:37 (Get-Date ölçümü)",
+      "neden": "A0 dalga 6-subagent ilk iki düğüm kapanışı — gerçeklik tazelemesi: (a) A0-2 → KAPALI (asılı run sweep; kanal d=2026-10-27T11:43:06.3865016+03:00 h=280d881 x=0 test=a02-sweep sureSn=56, 2. koşum 437/437; +262 kod [R git-diff]/359 test-15 vaka [B1 kart-döngüsü + B2 tx-dışı enqueue + B4 dispatchNode run-state kapısı]; üretim ölçümü (R): tick 11:20 asılı 3→0 [3 temiz-öldür]; dalga commit hash'i sonraki graf tazelemesinde girer [kendi commit'ine hash yazılamaz, v5-v10 emsali]). (b) A0-5 → KAPALI (L-RT local runner — Paseo'suz koşum bacağı; kanal d=2026-10-27T11:44:07.7627073+03:00 h=280d881 x=0 test=a05-lrt sureSn=60, 2. koşum 437/437; +430 kod [R: local-runtime 248 + providers 103 + capabilities 15 + probe 64]/407 test-12 vaka [B8 restart-körlüğü + B9 telafi-kill OS işlem-tablosu kanıtı]; canlı 3-koşum kırıl-ölç-düzelt: glm-5.3 headless 400 → model NULL AYNI 400 → codefastglm53unlimited UÇTAN UCA ACCEPTED 38.0 sn [METRİK] — PROVIDER_REGISTRY['claude-code'] ölçülmüş-tek'e düzeltildi). (c) A0-3 BEKLE→HAZIR (tek bağımlılığı A0-2 kapandı; W-A0-3 yazıcısı 1. deneme API-400 ile öldü [disk temiz — bağımsız doğrulandı], 2. deneme arka planda koşuyor; kapanışı AYRI commit). (d) replan bacağı: A0 dalga açılışı replan TASLAK'ıyla (rpl-03579e06 [insan] onayı bekler — EK-2; replan.jsonl defter + B7-ikizi eş-taslak idempotansı +20 kod/+28 test — dalga commit'ine girer). (e) BÜTÇE BİLİNÇLİ REVİZYONU (tavanKural gereği, bu kayıtta gerekçeyle): kodLocT tavan 2600→~3300, testLocT tavan 1050→~2100 — kapalı-gerçekler plan üstü yaktı (A3 476/275, A0-2 262/60, A0-5 430/230 [R]; denetçi B-vakaları + kanıt-yöntemi testleri hacmi büyüttü); kalan ölçümlü açık-plan: ~1120 kod/~570 test. (f) kira-canlı 2 run dürüst notu: A0-5'in kırık-model deneme bacakları (run-16efb6ef, run-e0fe70c6) 30 dk sessizlikte sweep kapanışı bekliyor."
     }
   ],
   "is": "otonom-gorev-grafigi-bulutu",
-  "tarih": "2026-10-27 09:44:00 (Get-Date ölçümü)",
+  "tarih": "2026-10-27 11:53:37 (Get-Date ölçümü)",
   "insanOkurIkiz": "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
   "kural": "ajan gorev secerken yalniz bu dosyadan okur; MD insan icindir; celiskide JSON kazanir + rapor edilir; her kapsulun ajan kadrosu (model/izin/yetki/rol) bu dosyada + gorev.ajanlar ezbir-alani; kapsul kartlari plans/kapsuller/<ID>.md; modeller core/src/providers.ts registry'sinden — registry-disi RED (fail-closed)",
   "ajanKadrosu": {
@@ -383,7 +388,7 @@
       "kapi": null,
       "loc": 60,
       "testLoc": 40,
-      "durum": "HAZIR"
+      "durum": "KAPALI (kod dalgası 2026-10-27: asılı run sweep; kanal d=2026-10-27T11:43:06.3865016+03:00 h=280d881 x=0 test=a02-sweep sureSn=56 [2. koşum 437/437; 1. koşum x=1: iskelet fake B8-interface + 3 bilinen yük-flake]; 6-sınıf karar kaskadı asiliIcDurum + asiliKartAc B1 [kart VARSA — PENDING VEYA kararlı — yenisi doğmaz] + sweepAsiliRunlar B2 [enqueue tx DIŞINDA try/catch, bildirimHata alanı] + dispatchNode B4 kapısı [run READY/RUNNING değilse GateError] + cli tick r4 wiring; üretim (R): tick 11:20 asılı 3→0 — run-c0ea713b [DERSLER-173 deseni] + 2 çöp-kapsül run'ı temiz-öldürüldü, RUN_FAILED olayları defterde; sınıf dökümü: 3 temiz-öldür + 1 dokunulmadı + 0 kart; hermetik 15/15 [a0-2-sweep.test.ts 359 satır — B1/B2/B4 denetçi vakaları]; kanıt: kanit-hedef/a02-sweep-2026-10-27.md; dalga commit hash'i sonraki tazelemede girer)"
     },
     {
       "id": "A0-3",
@@ -397,7 +402,7 @@
       "kapi": null,
       "loc": 100,
       "testLoc": 60,
-      "durum": "BEKLE"
+      "durum": "HAZIR"
     },
     {
       "id": "A0-4",
@@ -422,7 +427,7 @@
       "loc": 230,
       "locAyrisim": "150 L-RT + 80 iki CLI eslemesi (~40/CLI; her yeni CLI ~+40)",
       "testLoc": 60,
-      "durum": "HAZIR",
+      "durum": "KAPALI (kod dalgası 2026-10-27: L-RT local runner — Paseo'suz koşum bacağı; kanal d=2026-10-27T11:44:07.7627073+03:00 h=280d881 x=0 test=a05-lrt sureSn=60 [2. koşum 437/437]; LocalCliLauncher: cliOfProvider → providerCliPresent kırmızı=RED → M26 path guard → git worktree add --detach → detached spawn → pid DURABLE registry fsync'li [B8 diskten son-kayıt-kazanır] → B9 yazım hatasında telafi kill + RED; LocalRuntimeAdapter LOCAL_REQUIRED_CAPS + ORDU_RUNTIME=local beyanı + LocalLaunchRed→FATAL [U3] / genel→UNKNOWN [A08]; canlı (R) 3-koşum kırıl-ölç-düzelt: 1) --model glm-5.3 API 400 [headless sdk sorgu kaynağına kapalı — etkileşim oturumda ÇALIŞIR], 2) model NULL AYNI 400 [tanı zinciri: proxy /v1/models + minimal /v1/messages + temiz-env], 3) codefastglm53unlimited UÇTAN UCA ACCEPTED — capsule→approve→dispatch→ORDU_RUNTIME=local tick→spawn pid 25684→evaluate PASS 4/4 [candidate bf6940151, artifact 4a70609d]→decide apv-6a32589b; METRİK: duvar-süresi 38.0 sn [Paseo'suz ilk gerçek CLI koşumu]; PROVIDER_REGISTRY['claude-code']=['codefastglm53unlimited'] ölçülmüş-tek [kırık-ölçülmüş model registry'ye YAZILMAZ — koşum 1 hatası dalga içinde düzeltildi]; hermetik 12/12 [a0-5-lrt.test.ts 407 satır; B9 kanıtı OS işlem tablosu taraması]; kanıt: kanit-hedef/a05-lrt-2026-10-27.md + run{1,2,3} log kopyaları; dalga commit hash'i sonraki tazelemede girer)",
       "not": "ajanKadrosu'na CLI turleri acikca listelenir; registry-disi CLI fail-closed RED (K-0033) kalir"
     },
     {
@@ -753,8 +758,9 @@
     "K1"
   ],
   "butceToplam": {
-    "kodLocT": "1900-2600 (v5 toplam: 2565; A1 KAPALI ~550 kod zaten diskte -> kalan ~2015 (T))",
-    "testLocT": "1050 (v5 toplam: 1010 — S5/S6 +60 test ile tavan 950->1050)",
+    "kodLocT": "1900-2600 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~3300 (gerekçe: kapalı-gerçekler plan üstü yaktı — A3 476/275, A0-2 262/60, A0-5 430/230 [R git-diff ölçümü]; denetçi B-vakaları kendi testlerini doğurdu, probe.mjs +64 kanıt kodu; kapalı-gerçek ~2050 + dalga wiring 77 + açık-plan ~1120 ≈ 3250)",
+    "testLocT": "1050 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~2100 (gerekçe: A0-2 359/40 + A0-5 407/60 + replan-onay 28 [R] — kanıt-yöntemi testleri [B9 işlem-tablosu, B4 kapı izolasyonu] hacmi büyüttü; kapalı ~1529 + açık-plan ~570 ≈ 2100)",
+    "kalanOlcumlu": "v11: ~1120 kod/~570 test (R/T: AÇIK düğümlerin plan değerleri toplamı — kapalı düğümler gerçekle kapandığından kalan yalnız açık-kartları sayar)",
     "tavanKural": "yeni test ekliginde tavan BILINCLI revizyonla guncellenir (ayni grafSurumu kaydinda gerekceyle) — sessiz sifir-marj kilidi yok; tavan'siz buyume de yok",
     "ajanGunT": "7-8.5 (+0.5 A0-5; A1 kapali ~1 gun dususle ~6.5-7.5 (T))",
     "takvimGunT": "9-14",

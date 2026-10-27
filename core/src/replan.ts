@@ -172,6 +172,26 @@ export function replanTaslagi(sapma: SapmaOlcumu, drift: DriftOlcumu, now: () =>
   return { id: 'rpl-' + randomUUID().slice(0, 8), at: now().toISOString(), tip: 'TASLAK', tetik, sapma, drift, oneriler };
 }
 
+// ---- B7 eş-taslak imzası (kural.ts ikizi; üretim bulgusu: replan'ın ölçüm kaydı
+// icerikHash'le idempotent ama TASLAK yüzü değildi — çift gözlemsel koşum aynı
+// öneri setiyle YİNENEN taslak doğuruyordu). İmza öneri KİMLİK kümesinden
+// (satirId+eskiDurum+kabulId) kurulur; id/at/tetik bilinçli dışarıda (zaman/koşul
+// değişkeni, eylem yükü değil). ONAYSIZ eş-taslak → mevcut döner, kayıt doğmaz;
+// onaylı taslak eşleşmez (onay tüketti — hücre arada tazelenmemişse yeni taslak
+// meşrudur). ----
+export function replanTaslakImzasi(oneriler: ReplanOneri[]): string {
+  return createHash('sha256').update(JSON.stringify(
+    oneriler.map((o) => [o.satirId, o.eskiDurum, o.kabulId]).sort(),
+  )).digest('hex');
+}
+
+export function eslesenReplanTaslagi(
+  taslaklar: ReplanTaslagi[], onayliIdler: Set<string>, oneriler: ReplanOneri[],
+): ReplanTaslagi | undefined {
+  const imza = replanTaslakImzasi(oneriler);
+  return taslaklar.find((t) => !onayliIdler.has(t.id) && replanTaslakImzasi(t.oneriler) === imza);
+}
+
 // ---- §18 tazeleme (MD-ezmez: yalnız Durum hücresi; eşleşmeyen satıra DOKUNULMAZ) ----
 export function plan18Tazele(md: string, oneriler: ReplanOneri[]): { md: string; uygulanan: number; dokunulmayan: string[] } {
   const satirlar = md.split(/\r?\n/);

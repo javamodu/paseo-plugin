@@ -1,0 +1,26 @@
+{
+  "evaluator": "cli-dosya-v1",
+  "attemptId": "att-3777dc23",
+  "artifactPath": "D:\\Vibecode\\ordu\\core\\data\\worktrees\\dk-run-f965340f-n1.log",
+  "checks": [
+    {
+      "ad": "sembolik-bag-yasak",
+      "gecti": true
+    },
+    {
+      "ad": "dosya-var",
+      "gecti": true
+    },
+    {
+      "ad": "bos-degil",
+      "gecti": true
+    },
+    {
+      "ad": "icerik-beklenti",
+      "gecti": true
+    }
+  ],
+  "verdict": "PASS",
+  "exitCode": 0,
+  "at": "2026-10-27T08:28:51.939Z"
+}

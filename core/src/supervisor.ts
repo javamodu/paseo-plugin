@@ -12,6 +12,7 @@ import { assertProviderModel } from './providers.ts';
 import { assertGrantAllows, assertGrantDispatchable, expireDueGrants, grantIdOfVekil, vekilActorOf, type GrantDecisionPayload } from './grants.ts';
 import { assertAltAjanGorunur } from './r8.ts';
 import { assertDispatchOpen } from './deadline.ts';
+import type { NotifyOutbox } from './notify.ts';
 
 const sha = (s: string) => createHash('sha256').update(s).digest('hex');
 const canonical = (v: unknown): string =>
@@ -114,6 +115,14 @@ export function dispatchNode(
   if (nodeState(db, runId, nodeId) !== 'PENDING') throw new GateError('node dispatch-edilebilir degil: ' + nodeState(db, runId, nodeId));
   // K12-11 (R4 §9.6): deadline dolunca yeni dispatch kapalı (kapanış politikası deadline.ts'te)
   assertDispatchOpen(db, runId, opts.now);
+  // A0-2 denetçi B4: FAILED/kapanmış run'a dispatch deliği — sweep'in kapattığı run
+  // içinde yeni attempt DOĞMAZ. Önceki hâl: `UPDATE runs SET state='RUNNING' WHERE
+  // state='READY'` sessiz no-op'la geçiyor, FAILED run içinde RUNNING attempt yaşayıp
+  // sweep kapsamının (yalnız RUNNING run tarar) dışına çıkıyordu.
+  const runDurum = (db.prepare('SELECT state FROM runs WHERE id=?').get(runId) as any)?.state as string | undefined;
+  if (runDurum === undefined) throw new GateError('A0-2: run yok — dispatch edilemez: ' + runId);
+  if (runDurum !== 'READY' && runDurum !== 'RUNNING')
+    throw new GateError('A0-2: run durumu dispatche kapalı: ' + runDurum + ' — kapanmış run içinde yeni attempt doğmaz (denetçi B4)');
   const planHash = (db.prepare('SELECT p.plan_hash FROM plans p JOIN runs r ON r.plan_id=p.id WHERE r.id=?').get(runId) as any).plan_hash as string;
   return tx(db, () => {
     const number = ((db.prepare('SELECT COALESCE(MAX(number),0) AS m FROM attempts WHERE run_id=? AND node_id=?').get(runId, nodeId) as any).m as number) + 1;
@@ -342,4 +351,257 @@ export function decideWithGrant(
   const version = (db.prepare('SELECT version FROM runs WHERE id=?').get(i.runId) as any).version as number;
   const res = decideApproval(db, req.approvalId, i.decision ?? 'APPROVED', vekilActorOf(i.grantId), version, i.payload);
   return { approvalId: req.approvalId, ...res };
+}
+
+// ---- A0-2 (graf v10): ASILI RUN SWEEP — RUNNING + kira suresi dolmus runlarin
+// tespiti ve kart/temiz oldurulmesi. c0ea713b deseni: olen dis oturum defterde
+// RUNNING gorunur (kanit: 71dda15 / DERSLER 173; run satiri RUNNING kalir).
+// Desen kaynaklari: deadline.ts (insan karti approvals SATIRIdir; RUNNING durumu
+// checkpoint olarak KORUNUR — surebaskisiyla kalite kapisi DUSMEZ) + dispatcher.ts
+// pollSentSessions (temiz kapanis: RELEASED + FAILED + CANCEL_CONFIRMED kaniti).
+// KURALLAR: (1) zaman ENJEKTE edilir — duvar saatine bagli mantik yok; (2) fail-closed —
+// olum KANITI olmayan asili run otomatik oldurulMEZ, insan karti acilir (A08: kor karar yok);
+// (3) YENI command.kind/Event.type YOK — kapali olay semasina dokunulmaz (R6; kart acilisi
+// approvals satirinda yasar, APPROVAL_REQUESTED olayi bilincli YOK — deadline.ts/R3 deseni);
+// (4) idempotent — kart varsa yenisi dogmaz, oldurulmus run yeniden taranmaz.
+// KIRA (lease) IKI KATMANLI: (a) attempt kirasi = attempts.lease_until (worker sozlesmesi;
+// takeLease yazar, dolmus kira = olum kaniti) ve (b) DEFTER KIRASI = runun son olay
+// etkinligi + outbox retry takvimi (sessizlik penceresi). Hiçbiri canli degilse run asilidir.
+
+// Insan karti eylem adi (approvals.action; sema CHECKsiz — DEADLINE_CLOSE emsali).
+export const ASILI_KART_ACTION = 'ASILI_RUN_CLOSE';
+// Defter kirasi varsayilan penceresi (dakika); taranan runun son etkinligi bu pencerenin
+// disindaysa defter sessizdir. Amac: taze kosumlari korumak (kira canli), cesne misleri
+// suvarmak. Sayi DEGER degil SÖZLEŞME — cagrıci istediği pencereyi enjekte eder.
+export const ASILI_KIRA_DAKIKA = 30;
+
+export type AsiliKarar =
+  | 'canli'         // attempt kirasi canli (lease_until gelecekte) — dokunma
+  | 'is-bekleyen'   // outbox PENDING — scheduler sahiplendi, dokunma
+  | 'kira-canli'    // defter taze (son etkinlik pencere icinde) — dokunma
+  | 'kart'          // asili ama olum kaniti yok / dis belirsizlik — approvals satiri (insan)
+  | 'temiz-oldur'   // asili + olum kanitli — deterministik FAILED kapanisi
+  | 'kabul-bekler'; // asili ama tum node DONE — kabul akisi (requestAcceptance) sahiplenir
+
+export interface AsiliBulgu { runId: string; karar: AsiliKarar; neden: string }
+export interface AsiliTaramaSonuc { taranan: number; asili: number; bulgular: AsiliBulgu[] }
+
+export interface SweepAsiliOpts {
+  now?: () => Date;
+  kiraDakika?: number;
+  actor?: string;
+  notify?: Pick<NotifyOutbox, 'enqueue'>;
+}
+
+export interface SweepSonuc {
+  taranan: number;
+  asiliOnce: number;
+  dokunulan: number;      // canli | is-bekleyen | kira-canli | kabul-bekler
+  temizOldurulen: number; // run FAILED'e indi (defter kapanisi kanitli)
+  kartAcilan: number;     // yeni approvals satiri (ASILI_RUN_CLOSE, PENDING)
+  kartZatenAcik: number;  // idempotent ikinci kosum — DUPLICATE
+  kartKararli: number;    // B1 (denetci): kart kararli (APPROVED/REJECTED) — yenisi DOGMAZ; kart onayinin yurutme semantigi A0-3 kalemidir
+  asiliKalan: number;     // kart sinifi hala RUNNING duruyor (kart cozulmedikce)
+  bulgular: (AsiliBulgu & { sonuc: 'dokunulmadi' | 'olduruldu' | 'kart-acildi' | 'kart-zaten-acik' | 'kart-kararli'; bildirimHata?: string })[];
+}
+
+const asiliSimdi = () => new Date();
+
+// ISO damga cozumleyici: gecersiz/bos metin KANIT DEGILDIR (null) — fail-closed tarafi:
+// bozuk lease ne canli sayilir ne dolmus.
+const parseIso = (v: unknown): number | null => {
+  if (typeof v !== 'string' || v === '') return null;
+  const t = Date.parse(v);
+  return Number.isNaN(t) ? null : t;
+};
+
+interface AsiliIcDurum {
+  bulgu: AsiliBulgu;
+  calisan: { id: string; state: string }[];
+  run: { id: string; version: number };
+}
+
+// Tek run icin karar kaskadi (salt-okuma; yazma YOK). Siralama kasitli:
+// yasam kanitlari once (yanlis oldurme riski asagi), sonra belirsizlik (kart),
+// en son olum kaniti (temiz). Kanitsiz son sinif daima karta duser.
+function asiliIcDurum(db: DatabaseSync, runId: string, nowMs: number, kiraMs: number): AsiliIcDurum | null {
+  const run = db.prepare('SELECT id, version FROM runs WHERE id=?').get(runId) as any;
+  if (!run) return null;
+  const attempts = db.prepare('SELECT id, state, lease_until FROM attempts WHERE run_id=?').all(runId) as any[];
+  const outbox = db.prepare(
+    'SELECT o.attempt_id AS attemptId, o.status, o.next_attempt_at AS nextAt FROM outbox o JOIN attempts a ON a.id=o.attempt_id WHERE a.run_id=?',
+  ).all(runId) as any[];
+  const rezervasyon = db.prepare(
+    'SELECT r.state FROM reservations r JOIN attempts a ON a.id=r.attempt_id WHERE a.run_id=?',
+  ).all(runId) as any[];
+  const calisan = attempts.filter((a) => a.state === 'RUNNING' || a.state === 'CANCEL_REQUESTED');
+
+  // (1) attempt kirasi: alinmis ve suresi GECMEMIS kira = yasiyorum kanitidir.
+  if (calisan.some((a) => { const t = parseIso(a.lease_until); return t !== null && t > nowMs; })) {
+    return { bulgu: { runId, karar: 'canli', neden: 'attempt kirasi canli (lease_until gelecekte)' }, calisan, run };
+  }
+  // (2) bekleyen dis is: outbox PENDING (retry takvimi dahil) schedulerin mulkudur.
+  if (outbox.some((o) => o.status === 'PENDING')) {
+    return { bulgu: { runId, karar: 'is-bekleyen', neden: 'outbox PENDING — scheduler sahiplendi, sweep karari yok' }, calisan, run };
+  }
+  // (3) defter kirasi: son olay etkinligi / retry takvimi pencere icindeyse defter konusuyor.
+  const horizonler: number[] = [];
+  const sonOlay = parseIso((db.prepare('SELECT MAX(created_at) AS m FROM events WHERE run_id=?').get(runId) as any).m);
+  if (sonOlay !== null) horizonler.push(sonOlay);
+  for (const o of outbox) { const t = parseIso(o.nextAt); if (t !== null) horizonler.push(t); }
+  const horizon = horizonler.length > 0 ? Math.max(...horizonler) : -Infinity;
+  if (horizon > nowMs - kiraMs) {
+    return { bulgu: { runId, karar: 'kira-canli', neden: 'defter taze (son etkinlik kira penceresi icinde)' }, calisan, run };
+  }
+  // KIRA DOLMUS — karar asamasi.
+  const belirsiz = outbox.some((o) => o.status === 'SENDING' || o.status === 'UNKNOWN')
+    || rezervasyon.some((r) => r.state === 'UNKNOWN');
+  if (belirsiz) {
+    return { bulgu: { runId, karar: 'kart', neden: 'dis belirsizlik (SENDING/UNKNOWN outbox veya UNKNOWN rezervasyon) — A08: insan karari' }, calisan, run };
+  }
+  if (calisan.length > 0) {
+    // olum kaniti: somut DOLMUS kira VEYA dis etki ole teyitli (DEAD_CONFIRMED/FAILED outbox —
+    // pollSentSessions/reconcileUnknown kapanis kanallarinin ayni delili).
+    const kanitli = calisan.every((a) => {
+      const t = parseIso(a.lease_until);
+      const disiOlu = outbox.some((o) => o.attemptId === a.id && (o.status === 'DEAD_CONFIRMED' || o.status === 'FAILED'));
+      return (t !== null && t <= nowMs) || disiOlu;
+    });
+    if (!kanitli) {
+      return { bulgu: { runId, karar: 'kart', neden: 'olum kaniti yok (lease NULL/bozuk + dis durum SENT/bilinmiyor) — insan karari' }, calisan, run };
+    }
+    return { bulgu: { runId, karar: 'temiz-oldur', neden: 'kira dolmus + olum kanitli (lapsed lease veya DEAD_CONFIRMED/FAILED outbox)' }, calisan, run };
+  }
+  // calisan attempt yok: tumu terminal. Is TAMAM ama kapanmamissa kabul akisi sahiplenir —
+  // oldurme YOK (basarili isi FAILED diye kaydetmek yalan olur).
+  if (allNodesDone(db, runId)) {
+    return { bulgu: { runId, karar: 'kabul-bekler', neden: 'kira dolmus ama tum node DONE — kabul akisi (requestAcceptance) sahiplenir' }, calisan, run };
+  }
+  return { bulgu: { runId, karar: 'temiz-oldur', neden: 'kira dolmus + tum attempt terminal, kalan is kaniti yok' }, calisan, run };
+}
+
+// Salt-okuma tarama: kanit raporlari ve metrik (asili run sayisi N) icin.
+export function asiliRunTarama(db: DatabaseSync, opts: { now?: () => Date; kiraDakika?: number } = {}): AsiliTaramaSonuc {
+  const nowMs = (opts.now ?? asiliSimdi)().getTime();
+  const kiraDakika = opts.kiraDakika ?? ASILI_KIRA_DAKIKA;
+  if (!(kiraDakika > 0)) throw new GateError('A0-2: kiraDakika pozitif olmali (0/negatif pencere anlamli degil)');
+  const bulgular: AsiliBulgu[] = [];
+  const runs = db.prepare("SELECT id FROM runs WHERE state='RUNNING' ORDER BY rowid").all() as any[];
+  for (const r of runs) {
+    const d = asiliIcDurum(db, r.id, nowMs, kiraDakika * 60_000);
+    if (d) bulgular.push(d.bulgu);
+  }
+  return {
+    taranan: bulgular.length,
+    asili: bulgular.filter((b) => b.karar === 'kart' || b.karar === 'temiz-oldur').length,
+    bulgular,
+  };
+}
+
+// Insan karti (deadline.ts deseni): idempotent — PENDING kart durdukca yenisi dogmaz.
+// expires_at SQL datetime bicimindedir (U7 karsilastirmasi ayni formatta calisir);
+// karar anindaki ZAMAN enjekte edilir, kart omru DB saatine guvenir (sonraki decide ucu).
+function asiliKartAc(db: DatabaseSync, run: { id: string }, actor: string): { approvalId: string; duplicate: boolean; kararli: boolean } {
+  return tx(db, () => {
+    // B1 (denetci): kart-dongusu kapanisi — bu action icin run'da kart VARSA (PENDING
+    // VEYA kararli) yenisi DOGMAZ. Onceki hali yalniz PENDING'i goruyordu: APPROVED/
+    // REJECTED kart sonrasi sweep yeni PENDING doguruyor, dongu + notify dedupe
+    // cakismasi (B2) yaratıyordu. Kart onayinin YURUTME semantigi (onay -> temiz-oldur
+    // tetikleyicisi) A0-3 wiring kalemidir; bu dal yalniz donguyu kapatir.
+    const varsa = db.prepare('SELECT id, decision FROM approvals WHERE run_id=? AND action=? LIMIT 1')
+      .get(run.id, ASILI_KART_ACTION) as any;
+    if (varsa) return { approvalId: varsa.id as string, duplicate: true, kararli: varsa.decision !== 'PENDING' };
+    const j = db.prepare(
+      'SELECT r.version, p.plan_hash AS planHash, p.policy_hash AS policyHash FROM runs r JOIN plans p ON p.id=r.plan_id WHERE r.id=?',
+    ).get(run.id) as any;
+    if (!j) throw new GateError('A0-2: run/plan satiri yok — kart acilamaz (fail-closed)');
+    const approvalId = 'apv-' + randomUUID().slice(0, 8);
+    db.prepare(
+      `INSERT INTO approvals(id,run_id,plan_hash,candidate_hash,policy_hash,expected_run_version,action,expires_at,decision)
+       VALUES(?,?,?,NULL,?,?,?,datetime('now','+2 day'),'PENDING')`,
+    ).run(approvalId, run.id, j.planHash, j.policyHash, j.version, ASILI_KART_ACTION);
+    return { approvalId, duplicate: false, kararli: false };
+  });
+}
+
+// Temiz oldurme: tek transaction — attempt FAILED + rezervasyon RELEASED +
+// CANCEL_CONFIRMED (TIMEOUT_UNCONFIRMED) + DONE olmayan node FAILED + run FAILED +
+// RUN_FAILED kaniti. Sonuc commitleri store kapilarindan gecer (A36: FAILED attemptte
+// gec commit zaten RED — fencing_yeterli).
+function asiliTemizOldur(
+  db: DatabaseSync, run: { id: string }, calisan: { id: string }[], actor: string, neden: string,
+): { oldurulenAttempt: number } {
+  return tx(db, () => {
+    for (const a of calisan) {
+      const u = db.prepare("UPDATE attempts SET state='FAILED' WHERE id=? AND state IN('RUNNING','CANCEL_REQUESTED')").run(a.id);
+      if (u.changes !== 1) throw new GateError('A0-2: attempt RUNNING ailesinde degilken oldurme reddi (tx geri alinir): ' + a.id);
+      db.prepare("UPDATE reservations SET state='RELEASED' WHERE attempt_id=? AND state IN('ACTIVE','UNKNOWN')").run(a.id);
+      appendEvent(db, {
+        type: 'CANCEL_CONFIRMED', actorId: actor, causationId: a.id, runId: run.id, attemptId: a.id,
+        payload: { runId: run.id, attemptId: a.id, externalState: 'TIMEOUT_UNCONFIRMED' },
+      });
+    }
+    db.prepare("UPDATE nodes SET state='FAILED' WHERE run_id=? AND state<>'DONE'").run(run.id);
+    const up = db.prepare("UPDATE runs SET state='FAILED' WHERE id=? AND state='RUNNING'").run(run.id);
+    if (up.changes !== 1) throw new GateError('A0-2: run RUNNING degilken temiz oldurme reddi (tx geri alinir): ' + run.id);
+    const sig = ('asili-run-kira-dolu: ' + neden).slice(0, 250); // RUN_FAILED failureSignature ust siniri 256
+    appendEvent(db, { type: 'RUN_FAILED', actorId: actor, causationId: run.id, runId: run.id, payload: { runId: run.id, failureSignature: sig } });
+    return { oldurulenAttempt: calisan.length };
+  });
+}
+
+// SWEEP: RUNNING runlari tarar, karari UYGULAR. Temiz oldurme run satirini kapatir
+// (sonraki tarama bulamaz — idempotent); kart sinifi RUNNING+asili kalir ve sayilir
+// (kart cozulmedikce gercek kapanis yok — durust sayac). Bildirim yalniz YENI kartta
+// gider (dedupe anahtari asili:<runId>; deadline.ts deseni).
+export function sweepAsiliRunlar(db: DatabaseSync, opts: SweepAsiliOpts = {}): SweepSonuc {
+  const nowMs = (opts.now ?? asiliSimdi)().getTime();
+  const kiraDakika = opts.kiraDakika ?? ASILI_KIRA_DAKIKA;
+  if (!(kiraDakika > 0)) throw new GateError('A0-2: kiraDakika pozitif olmali (0/negatif pencere anlamli degil)');
+  const actor = opts.actor ?? 'core';
+  const bulgular: SweepSonuc['bulgular'] = [];
+  const runs = db.prepare("SELECT id FROM runs WHERE state='RUNNING' ORDER BY rowid").all() as any[];
+  for (const r of runs) {
+    const d = asiliIcDurum(db, r.id, nowMs, kiraDakika * 60_000);
+    if (!d) continue;
+    const { bulgu, calisan, run } = d;
+    if (bulgu.karar === 'temiz-oldur') {
+      asiliTemizOldur(db, run, calisan, actor, bulgu.neden);
+      bulgular.push({ ...bulgu, sonuc: 'olduruldu' });
+      continue;
+    }
+    if (bulgu.karar === 'kart') {
+      const k = asiliKartAc(db, run, actor);
+      let bildirimHata: string | undefined;
+      if (!k.duplicate) {
+        // B2 (denetci): enqueue tx DISINDA yurutulur — notify dedupe cakismasi (ayni
+        // dedupeKey + farkli icerik: yeni approvalId body'de) sweep'i KESIYORDU. Bildirim
+        // hatasi kartin dogusunu BOZMAZ: bulguya durust not duser; B1 kart-dongusu
+        // kapali oldugundan sonraki kosum ayni icerikle yeniden denemez.
+        try {
+          opts.notify?.enqueue({
+            dedupeKey: 'asili:' + run.id, severity: 'CRITICAL',
+            title: 'asili run: ' + run.id,
+            body: `run ${run.id} kira dolmus ama otomatik oldurme kanitsiz: ${bulgu.neden}. Insan karari karti ${k.approvalId} (action ${ASILI_KART_ACTION}).`,
+          });
+        } catch (e) {
+          bildirimHata = String((e as Error).message).slice(0, 200);
+        }
+      }
+      bulgular.push({ ...bulgu, sonuc: k.kararli ? 'kart-kararli' : k.duplicate ? 'kart-zaten-acik' : 'kart-acildi', ...(bildirimHata ? { bildirimHata } : {}) });
+      continue;
+    }
+    bulgular.push({ ...bulgu, sonuc: 'dokunulmadi' }); // canli | is-bekleyen | kira-canli | kabul-bekler
+  }
+  return {
+    taranan: bulgular.length,
+    asiliOnce: bulgular.filter((b) => b.karar === 'kart' || b.karar === 'temiz-oldur').length,
+    dokunulan: bulgular.filter((b) => b.sonuc === 'dokunulmadi').length,
+    temizOldurulen: bulgular.filter((b) => b.sonuc === 'olduruldu').length,
+    kartAcilan: bulgular.filter((b) => b.sonuc === 'kart-acildi').length,
+    kartZatenAcik: bulgular.filter((b) => b.sonuc === 'kart-zaten-acik').length,
+    kartKararli: bulgular.filter((b) => b.sonuc === 'kart-kararli').length,
+    asiliKalan: bulgular.filter((b) => b.karar === 'kart').length,
+    bulgular,
+  };
 }

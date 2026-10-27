@@ -17,6 +17,19 @@ export const PROVIDER_REGISTRY: Readonly<Record<string, readonly string[]>> = Ob
   // + /responses 200 — R 2026-10-19 prob). codex kartindan FARKLI endpoint/motor: rol
   // bazinda farkli provider dispatch'in canli kanit ucu (F65-01 kapanisi).
   'glm53u-codex': Object.freeze(['glm-5.3']),
+  // A0-5 (L-RT, graf v4): Paseo'suz local koşumun kadro girişleri — CLI türleri
+  // CLI_REGISTRY'de, provider->CLI eşlemesi PROVIDER_CLI_MAP'te (aşağıda). Bu iki
+  // provider BİLİNÇLİ giriş: model kümeleri dürüst ölçümle sınırlı, serbest metin YOK.
+  // claude-code: (R, 2026-10-27 canlı koşum x2 + tanı) — `claude -p` headless yolu
+  //   (query_source=sdk) glm-5.3'te proxy 400 döndürdü (etkileşimli oturum ÇALIŞIR —
+  //   bu binary oturum env'i üzerinden glm-5.3 koşar; ama sdk sorgu kaynağına kapalı;
+  //   log: data/worktrees/dk-run-16efb6ef-n1.log ve dk-run-e0fe70c6-n1.log). Kırık-
+  //   ölçülmüş model registry'ye YAZILMAZ. codefastglm53unlimited AYNI yolda ölçülmüş-
+  //   ÇALIŞIR (tanı koşumu: çıktı TAMAM, exit 0) — headless kadronun tek ölçülmüş modeli.
+  // gemini-cli: ölçülmüş model YOK → boş küme: yalnız model NULL (CLI kendi
+  //   varsayılanına düşer); uydurma model id'si registry'ye YAZILMAZ.
+  'claude-code': Object.freeze(['codefastglm53unlimited']),
+  'gemini-cli': Object.freeze([]),
 });
 
 export const DEFAULT_PROVIDER = 'codex';
@@ -77,4 +90,94 @@ export function resolveProviderModel(
 // Spawn arg bicimi: 'provider/model'; model NULL ise provider tek basina.
 export function providerArgOf(pm: ProviderModel): string {
   return pm.model ? pm.provider + '/' + pm.model : pm.provider;
+}
+
+// ---------------------------------------------------------------------------
+// A0-5 (L-RT) — CLI TÜRLERİ REGISTRY + provider->CLI binary eşlemesi.
+// Graf notu (v4): "ajanKadrosu'na CLI türleri açıkça listelenir; registry-dışı CLI
+// fail-closed RED (K-0033) kalır" — bu tablo O listedir. Her giriş ~40 satır:
+// komut tespiti (cliPresent) + arg üretimi (buildArgs) + providerCliPresent
+// denetimi (launcher çağırır; kırmızıysa spawn RED — A0-5 ölçütü).
+// Arg bicimleri (T): headless bicimler bilincli secim; entegrasyon provasında
+// operatör gerçek CLI ile doğrular (sahte-CLI hermetik test bicimi kanıtlar).
+// ---------------------------------------------------------------------------
+
+import { execFileSync } from 'node:child_process';
+
+export interface CliTuru {
+  /** PATH'te aranacak binary (ör. 'claude', 'gemini'). */
+  readonly cmd: string;
+  /** Komut tespiti argv'si (varlık denetimi; ör. ['--version']). */
+  readonly detectArgs: readonly string[];
+  /** Arg üretimi: prompt (+ model varsa) -> CLI argv. cwd=worktreePath spawn'da verilir. */
+  readonly buildArgs: (o: { prompt: string; model: string | null }) => string[];
+}
+
+export const CLI_REGISTRY: Readonly<Record<string, CliTuru>> = Object.freeze({
+  // (1) claude-code — Claude Code CLI, headless print modu ('-p').
+  //     (R) glm-5.3 bu binary'de koşar (bu oturum); detectArgs '--version'.
+  'claude-code': Object.freeze({
+    cmd: 'claude',
+    detectArgs: Object.freeze(['--version']),
+    buildArgs: (o) => o.model === null ? ['-p', o.prompt] : ['-p', o.prompt, '--model', o.model],
+  }),
+  // (2) gemini-cli — Gemini CLI. Ölçülmemiş model id'si YOK: model NULL = CLI
+  //     varsayılanı; ölçüm sonrası PROVIDER_REGISTRY['gemini-cli'] büyür.
+  'gemini-cli': Object.freeze({
+    cmd: 'gemini',
+    detectArgs: Object.freeze(['--version']),
+    buildArgs: (o) => o.model === null ? ['-p', o.prompt] : ['-p', o.prompt, '--model', o.model],
+  }),
+});
+
+// provider -> CLI türü eşlemesi (bilinçli tablo, A0-5 ölçütü: "provider→CLI eşleme").
+// Paseo-native provider'lar (codex motoru) yerel 'codex' CLI'sine eşlenir — o CLI
+// girişi bu dalgada BILINCLI YOK (~+40/CLI sonraki dalga) -> cliOfProvider RED
+// (K-0033 fail-closed) ve Paseo açıkken onlar Paseo transport'unda koşar
+// ('provider/model' spawn arg'ı — iki yol aynı providers.ts kadrosunu paylaşır).
+export const PROVIDER_CLI_MAP: Readonly<Record<string, string>> = Object.freeze({
+  codex: 'codex',
+  'glm53u-codex': 'codex',
+  'claude-code': 'claude-code',
+  'gemini-cli': 'gemini-cli',
+});
+
+export interface CliCozum { adi: string; tur: CliTuru }
+
+// Eşleme çözümü: provider -> CLI türü. Registry-dışı provider = eşleme yok RED;
+// eşlenmiş CLI adı CLI_REGISTRY'de yoksa registry-dışı CLI RED (K-0033).
+export function cliOfProvider(provider: string): CliCozum {
+  const adi = PROVIDER_CLI_MAP[provider];
+  if (adi === undefined) throw new GateError('K-0033 RED: provider->CLI eslemesi yok: ' + provider);
+  const tur = CLI_REGISTRY[adi];
+  if (tur === undefined) throw new GateError('K-0033 RED: registry-disi CLI turu: ' + adi + ' (provider: ' + provider + ')');
+  return { adi, tur };
+}
+
+// providerCliPresent denetimi (probe.mjs B00 deseni): execFileSync cmd+tespit argv;
+// ENOENT (Windows .cmd shim'leri execFileSync'e görünmez) -> ComSpec shell fallback.
+// Denetim başarısız = false — "bilinmiyor" yetenek KAZANDIRMAZ (fail-closed dürüst probe).
+export type ExecFn = (cmd: string, args: string[]) => string;
+
+const defaultExec: ExecFn = (cmd, args) =>
+  execFileSync(cmd, args, { timeout: 8000, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+
+export function cliPresent(o: { cmd: string; args: readonly string[] }, injected?: { exec?: ExecFn }): boolean {
+  const exec = injected?.exec ?? defaultExec;
+  try {
+    exec(o.cmd, [...o.args]);
+    return true;
+  } catch (e) {
+    const msg = String((e as any)?.message ?? e);
+    if (!msg.includes('ENOENT')) return false;
+    // Windows .cmd shim kacagi (B00): cmd.exe /d /s /c "cmd args..." fallback
+    const comspec = process.env.ComSpec ?? 'cmd.exe';
+    const quoted = [o.cmd, ...o.args].map((a) => (/\s/.test(a) ? `"${a}"` : a)).join(' ');
+    try {
+      exec(comspec, ['/d', '/s', '/c', quoted]);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

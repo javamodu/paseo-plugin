@@ -12,6 +12,7 @@ import { openStore, setGlobalStop } from '../src/store.ts';
 import {
   kabulOku, plan18Oku, olcDrift, olcSapma, replanTaslagi, plan18Tazele,
   replanOnayla, openReplanDefteri, replanYolu, REPLAN_ONAY_METNI,
+  replanTaslakImzasi, eslesenReplanTaslagi,
 } from '../src/replan.ts';
 
 const g = () => join(mkdtempSync(join(tmpdir(), 'a2-replan-')));
@@ -190,4 +191,31 @@ test('A2 önerisiz taslak onayı RED (sapma aşımı §18 hücresi YAZMAZ — ö
   assert.equal(t.tetik, 'tetiklenmedi');
   defter.taslakKaydet(t);
   assert.throws(() => replanOnayla({ defter, taslakId: t.id, confirm: REPLAN_ONAY_METNI, actor: 'insan:cli', planEv: join(d, 'PLAN.md') }), /tazelenecek h/);
+});
+
+test('A2 B7 eş-taslak: aynı öneri imzası çift koşumda ikinci taslak DOĞURMAZ; kısmi küme eşleşmez; onaylı taslak eşleşmez', () => {
+  // Üretim bulgusu (canlı ilk kullanım): replan ölçüm kaydı icerikHash'le idempotent
+  // ama taslak yüzü değildi — çift gözlemsel koşum yinelenen taslak doğurdu.
+  const d = g();
+  const kabulEv = join(d, 'kabul.csv');
+  writeFileSync(kabulEv, KABUL_CSV, 'utf8');
+  const db = openStore();
+  const dbPath = join(d, 'data', 'ordu.sqlite');
+  const k = kabulOku(kabulEv);
+  const defter = openReplanDefteri(dbPath);
+  const sapma = olcSapma(db, k, {});
+  const drift = olcDrift(PLAN_MD, k);
+  const t1 = replanTaslagi(sapma, drift);
+  defter.taslakKaydet(t1);
+  // ikinci gözlemsel koşum: yeni id/at doğar ama eylem yükü (öneri kimlik kümesi) aynı
+  const t2 = replanTaslagi(sapma, drift);
+  assert.notEqual(t2.id, t1.id, 'hazırlık: iki ayrı taslak nesnesi');
+  assert.equal(replanTaslakImzasi(t1.oneriler), replanTaslakImzasi(t2.oneriler), 'aynı drift → aynı imza');
+  const eslesen = eslesenReplanTaslagi(defter.taslaklar(), new Set<string>(), t2.oneriler);
+  assert.ok(eslesen, 'onaysız eş-taslak bulunur');
+  assert.equal(eslesen!.id, t1.id, 'mevcut döner — kayıt doğmaz (CLI yüzü bu id ile devam eder)');
+  // kısmi küme eşleşmez (farklı eylem yükü = farklı taslak)
+  assert.equal(eslesenReplanTaslagi(defter.taslaklar(), new Set<string>(), t2.oneriler.slice(0, 1)), undefined, 'kısmi set eşleşmez');
+  // onay tüketti: onaylı taslak eş-taslak DEĞİL — yeniden ölçülen aynı öneri yeni taslak ister
+  assert.equal(eslesenReplanTaslagi(defter.taslaklar(), new Set([t1.id]), t2.oneriler), undefined, 'onaylı taslak eşleşmez (idempotans onaya karşı)');
 });

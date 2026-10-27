@@ -52,6 +52,7 @@ class FakeLauncher implements LocalLauncher {
     return { pid };
   }
   pidOf(dk: string) { return this.pids.get(dk); }
+  dispatchKeyOf() { return undefined; } // B8: arayüz sözleşmesi (iskelet fake'i — restart körlüğü a0-5 testinde kanıtlanır)
   async isAlive() { return this.alive; }
   async kill(pid: number) { this.kills.push(pid); this.alive = false; }
 }
@@ -72,6 +73,7 @@ test('local kanıt eksiği → FATAL, launcher\'a dokunulmaz; ORDU_RUNTIME beyan
   const guard: LocalLauncher = {
     async launch() { touched = true; return { pid: 1 }; },
     pidOf() { touched = true; return undefined; },
+    dispatchKeyOf() { touched = true; return undefined; }, // B8: arayüz sözleşmesi
     async isAlive() { return true; },
     async kill() { touched = true; },
   };

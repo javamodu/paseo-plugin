@@ -47,6 +47,17 @@ export function loadVerifiedProbe(path: string, opts: { maxAgeHours?: number; no
   return receipt;
 }
 
-export function spawnBlockedReason(receipt: ProbeReceipt): string | null {
-  return receipt.blocked.length > 0 ? 'capability-blocked: ' + receipt.blocked.join(',') : null;
+// ADR-012 §3: kapı RUNTIME-KAPSAMLI değerlendirilir — bir runtime'ın kendi ailesine
+// ait olmayan yeteneğin false'u o runtimeı bloklamaz (paseo ailesi kapalıyken local
+// koşum yaşar; tersi de). Ortak yetenekler (node/git/worktree-izolasyon gibi) iki
+// yolda da şarttır — aile listesi yalnız "öbür runtime'ın özeli"ni süzer.
+// A0-5 wiring (2026-10-27): LOCAL ailesi (L-RT) probe'a eklendi; spawnBlockedReason
+// artık çağıranın runtime'ını bilir (varsayılan paseo — geriye uyumlu).
+const PASEO_CAPS = ['paseoCliPresent', 'paseoDaemonReachable', 'structuredOutput', 'usageReporting', 'cancelConfirm', 'sandboxEstablished'];
+const LOCAL_CAPS = ['gitWorktreeProven', 'processRegistryDurable', 'cancelConfirmLocal', 'providerCliPresent'];
+
+export function spawnBlockedReason(receipt: ProbeReceipt, localRuntime = false): string | null {
+  const disKaps = new Set(localRuntime ? PASEO_CAPS : LOCAL_CAPS);
+  const kaps = receipt.blocked.filter((c) => !disKaps.has(c));
+  return kaps.length > 0 ? 'capability-blocked: ' + kaps.join(',') + (localRuntime ? ' (local-runtime kapsamı — ADR-012 §3)' : ' (paseo-runtime kapsamı — ADR-012 §3)') : null;
 }

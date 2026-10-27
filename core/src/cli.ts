@@ -3,22 +3,23 @@
 // B01 sözleşmesinden geçer (CLEAR_STOP evrensel onay metni ister — sürtünme bilinçli).
 import { mkdirSync, existsSync, readFileSync } from 'node:fs';
 import { createHash, randomUUID } from 'node:crypto';
-import { dirname } from 'node:path';
+import { dirname, resolve, join } from 'node:path';
 import { openStore, recordCommand, setGlobalStop, pendingCapacity } from './store.ts';
 import { processOutbox, reconcileUnknown, pollSentSessions, type WorkerAdapter } from './dispatcher.ts';
 import { loadVerifiedProbe, spawnBlockedReason } from './capabilities.ts';
 import { PaseoWorkerAdapter } from './paseo-adapter.ts';
 import { makeSafePaseoTransport } from './paseo-transport.ts';
+import { LocalRuntimeAdapter, LocalCliLauncher, type LocalCliBinding } from './local-runtime.ts';
 import {
   createRunPlan, approvePlan, readyNodes, dispatchNode, ensureStartCommand,
-  requestDelivery, decideApproval,
+  requestDelivery, decideApproval, sweepAsiliRunlar,
 } from './supervisor.ts';
 import { sampleHandoff } from './handoff.ts';
 import { sampleReceipt } from './reasoning-receipt.ts';
 import { evaluateArtifact } from './cli-evaluate.ts';
 import { runDaemon } from './daemon.ts';
 import { openProductionNotify, type ExecSync } from './sender.ts';
-import { kabulOku, olcDrift, olcSapma, replanTaslagi, replanOnayla, openReplanDefteri } from './replan.ts';
+import { kabulOku, olcDrift, olcSapma, replanTaslagi, replanOnayla, openReplanDefteri, eslesenReplanTaslagi } from './replan.ts';
 import {
   KURAL_ONAY_METNI, KURAL_PARTI_UST, KURAL_HEDEF_DOSYA,
   derslerOku, kuralSayaci, esikOku, adayUret, openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak,
@@ -33,7 +34,26 @@ export interface CliDeps {
   notifyExec?: ExecSync; // S4 Bildirim: üretim sender'ın gerçek dış çağrısının test enjeksiyonu
 }
 
-function defaultAdapter(probe: ReturnType<typeof loadVerifiedProbe>): WorkerAdapter {
+function defaultAdapter(probe: ReturnType<typeof loadVerifiedProbe>, env: NodeJS.ProcessEnv, dbPath: string): WorkerAdapter {
+  // A0-5 wiring (2026-10-27): ORDU_RUNTIME=local → L-RT üretim LocalLauncher
+  // (Paseo'suz koşum: gerçek CLI süreci + durable pid registry). repoPath kapsül
+  // varsayılan repo köküdür; registry/çıktı dbPath yanında yaşar (replan.jsonl/
+  // notify.jsonl konvansiyonu); cliBindings ORDU_CLI_* env ile gerçek binary
+  // bağlar (B00 Windows dersi: PATH'teki claude.exe doğrudan spawn olur; gemini
+  // npm .cmd shim'i ORDU_CLI_GEMINI_JS ile node+js-entry olarak bağlanır).
+  if (env.ORDU_RUNTIME === 'local') {
+    const dataKok = dirname(dbPath);
+    const kokRepo = env.ORDU_LOCAL_REPO ?? resolve(dirname(dataKok), '..');
+    const cliBindings: Record<string, LocalCliBinding> = {};
+    if (env.ORDU_CLI_CLAUDE_CODE) cliBindings['claude-code'] = { cmd: env.ORDU_CLI_CLAUDE_CODE, argvPrefix: [] };
+    if (env.ORDU_CLI_GEMINI_JS) cliBindings['gemini-cli'] = { cmd: process.execPath, argvPrefix: [env.ORDU_CLI_GEMINI_JS] };
+    return new LocalRuntimeAdapter(probe, new LocalCliLauncher({
+      repoPath: kokRepo,
+      worktreeRoot: join(dataKok, 'worktrees'),
+      registryPath: join(dataKok, 'local-pid.jsonl'),
+      cliBindings,
+    }), env);
+  }
   // P0-4: shell-string transport kaldirildi — execFileSync arg-array (paseo-transport.ts).
   const transport = makeSafePaseoTransport();
   return new PaseoWorkerAdapter(probe, transport);
@@ -90,9 +110,9 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       let probe;
       try { probe = loadVerifiedProbe(deps.probePath, { now }); }
       catch (e: any) { return { code: 1, out: 'probe doğrulanamadı: ' + e.message }; }
-      const blocked = spawnBlockedReason(probe);
+      const blocked = spawnBlockedReason(probe, deps.env.ORDU_RUNTIME === 'local'); // ADR-012 §3: kapı runtime-kapsamlı
       if (blocked) return { code: 2, out: { dispatch: 'BLOCKED', reason: blocked, note: 'B02 — yetenekler kanıtlanmadan worker yok' } };
-      const adapter = deps.makeAdapter?.(probe) ?? defaultAdapter(probe);
+      const adapter = deps.makeAdapter?.(probe) ?? defaultAdapter(probe, deps.env, deps.dbPath);
       // canlı coder akışı: prompt sabit yer tutucu değil, kapsülün ONAYLI hedefidir.
       // Zincir: outbox → attempt → run → plan → capsule.goal (salt-okunur bakış).
       // dispatcher ile AYNI secim filtresi (backoff dahil): cwd/prompt gercekten
@@ -113,7 +133,14 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       // S4 Scheduler: SENT oturumlarının durum yoklaması (kimi-K3 ölümünün defterde
       // görünmez kaldığı canlı bulgunun kapanışı — DERSLER 173, K-0050)
       const r3 = await pollSentSessions(db, adapter);
-      return { code: 0, out: { outbox: r1, reconcile: r2, sentPoll: r3 } };
+      // A0-2 (graf v10, wiring): asılı run sweep — RUNNING + kira-dolmuş runlar kart/
+      // temiz-öldürülür (c0ea713b deseni: ölen dış oturum defterde RUNNING kalıyordu).
+      // Kira disiplini (denetçi B3): defter kirası 30 dk; lease sözleşmeli worker
+      // geldiğinde kiraDakika ≥ lease süresi ×2 tutulmalı (bugün takeLease üretimde
+      // çağrılmıyor — kanıtlı-dal bugün tetiklenemez). Kart bildirimi bu dalgada
+      // notify'sız (kart approvals satırında görünür; CRITICAL notify A0-3 kalemi).
+      const r4 = sweepAsiliRunlar(db, { actor: 'tick' });
+      return { code: 0, out: { outbox: r1, reconcile: r2, sentPoll: r3, sweep: r4 } };
     }
     case 'capsule': {
       // kapsul yasam dongusu 1/4: tek node'lu minimal plan + run (e2e-s11 deseni).
@@ -257,10 +284,22 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
         const defter = openReplanDefteri(deps.dbPath);
         defter.olcumKaydet(sapma, drift, now);
         const t = replanTaslagi(sapma, drift, now);
-        if (t.oneriler.length > 0) defter.taslakKaydet(t);
+        // B7 (üretim bulgusu, kural.ts ikizi): aynı öneri imzası için ONAYSIZ taslak
+        // zaten varsa yenisi DOĞMAZ — mevcut döner (çift gözlemsel koşum spam üretmez).
+        let taslikBilgi: object | undefined;
+        if (t.oneriler.length > 0) {
+          const onayliIdler = new Set(defter.onaylar().map((a) => a.taslakId));
+          const eslesen = eslesenReplanTaslagi(defter.taslaklar(), onayliIdler, t.oneriler);
+          if (eslesen) {
+            taslikBilgi = { id: eslesen.id, tetik: eslesen.tetik, oneriSayisi: eslesen.oneriler.length, mevcut: true, onayKomutu: `ordu replan --onay ${eslesen.id} --confirm "REPLAN ONAYLIYORUM"` };
+          } else {
+            defter.taslakKaydet(t);
+            taslikBilgi = { id: t.id, tetik: t.tetik, oneriSayisi: t.oneriler.length, onayKomutu: `ordu replan --onay ${t.id} --confirm "REPLAN ONAYLIYORUM"` };
+          }
+        }
         return { code: 0, out: { drift, sapma, defterYolu: defter.path,
           esikNotu: esik === undefined ? 'esik TANIMSIZ — tetikleme kapali ([insan] esik onayi: --esik N verin)' : undefined,
-          taslak: t.oneriler.length > 0 ? { id: t.id, tetik: t.tetik, oneriSayisi: t.oneriler.length, onayKomutu: `ordu replan --onay ${t.id} --confirm "REPLAN ONAYLIYORUM"` } : undefined } };
+          ...(taslikBilgi ? { taslak: taslikBilgi } : {}) } };
       } catch (e: any) { return { code: 1, out: 'replan reddedildi: ' + e.message }; }
     }
     case 'kural': {
