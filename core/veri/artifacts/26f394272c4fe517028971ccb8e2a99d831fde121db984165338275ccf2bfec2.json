@@ -1,0 +1,26 @@
+{
+  "evaluator": "cli-dosya-v1",
+  "attemptId": "att-909895fe",
+  "artifactPath": "D:\\Vibecode\\ordu\\raporlar\\kanit-hedef\\s7-turnuva-p2-glm53u.md",
+  "checks": [
+    {
+      "ad": "sembolik-bag-yasak",
+      "gecti": true
+    },
+    {
+      "ad": "dosya-var",
+      "gecti": true
+    },
+    {
+      "ad": "bos-degil",
+      "gecti": true
+    },
+    {
+      "ad": "icerik-beklenti",
+      "gecti": true
+    }
+  ],
+  "verdict": "PASS",
+  "exitCode": 0,
+  "at": "2026-10-27T04:57:26.537Z"
+}

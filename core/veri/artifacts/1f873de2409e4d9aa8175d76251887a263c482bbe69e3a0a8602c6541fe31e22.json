@@ -1,0 +1,26 @@
+{
+  "evaluator": "cli-dosya-v1",
+  "attemptId": "att-65f755ea",
+  "artifactPath": "D:\\Vibecode\\ordu\\raporlar\\kanit-hedef\\s7-turnuva-p1-codex.md",
+  "checks": [
+    {
+      "ad": "sembolik-bag-yasak",
+      "gecti": true
+    },
+    {
+      "ad": "dosya-var",
+      "gecti": true
+    },
+    {
+      "ad": "bos-degil",
+      "gecti": true
+    },
+    {
+      "ad": "icerik-beklenti",
+      "gecti": true
+    }
+  ],
+  "verdict": "PASS",
+  "exitCode": 0,
+  "at": "2026-10-27T04:48:56.358Z"
+}
