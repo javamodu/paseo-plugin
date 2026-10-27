@@ -1,19 +1,44 @@
 {
   "schemaSurum": 1,
   "is": "on-simulasyon-gorev-grafigi",
-  "tarih": "2026-10-27T00:24:58+03:00 (Get-Date olcumu)",
+  "tarih": "2026-10-27T07:05:04+03:00 (Get-Date olcumu)",
   "hedefGraf": "plans/gorev-grafigi-2026-10-26.json",
-  "grafSurumu": "v7",
+  "grafSurumu": "v8",
   "kosumGecmisi": [
     {
       "tarih": "2026-10-26T12:25:00+03:00",
       "grafSurumu": "v2",
       "kontroller": [
-        { "id": 1, "ad": "DAG-dongu-yok", "sonuc": "PASS", "kanit": "topolojik sıralama 21/21 düğüm, 0 geri-kenar; kökler: T0,S1,A0-2,A0-4,EK1-1,EK1-5" },
-        { "id": 2, "ad": "bagimlilik-butunlugu", "sonuc": "v1-HATA v2-PASS", "kanit": "v1: K1'in 10 bağımlılığı kenarlar dizisinde yoktu; v2: +10 kenar → 27; programatik eksik-id 0" },
-        { "id": 3, "ad": "olcut-dizin-rol-dolu", "sonuc": "PASS", "kanit": "21/21 görev" },
-        { "id": 4, "ad": "butce-tavan", "sonuc": "v1-HATA v2-PASS", "kanit": "v1: 2615>2600 (üst-uç değerler); v2 orta-nokta: kod 2265 ∈ [1900,2600], test 890 ≤ 950" },
-        { "id": 5, "ad": "kritik-yol-kapi-zinciri", "sonuc": "PASS", "kanit": "T0→S7→A1→A2→A3→A4→K1 üzerinde insan kapıları işaretli (S7 koş, rubrik, eşik, gece-modu, tag)" }
+        {
+          "id": 1,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "topolojik sıralama 21/21 düğüm, 0 geri-kenar; kökler: T0,S1,A0-2,A0-4,EK1-1,EK1-5"
+        },
+        {
+          "id": 2,
+          "ad": "bagimlilik-butunlugu",
+          "sonuc": "v1-HATA v2-PASS",
+          "kanit": "v1: K1'in 10 bağımlılığı kenarlar dizisinde yoktu; v2: +10 kenar → 27; programatik eksik-id 0"
+        },
+        {
+          "id": 3,
+          "ad": "olcut-dizin-rol-dolu",
+          "sonuc": "PASS",
+          "kanit": "21/21 görev"
+        },
+        {
+          "id": 4,
+          "ad": "butce-tavan",
+          "sonuc": "v1-HATA v2-PASS",
+          "kanit": "v1: 2615>2600 (üst-uç değerler); v2 orta-nokta: kod 2265 ∈ [1900,2600], test 890 ≤ 950"
+        },
+        {
+          "id": 5,
+          "ad": "kritik-yol-kapi-zinciri",
+          "sonuc": "PASS",
+          "kanit": "T0→S7→A1→A2→A3→A4→K1 üzerinde insan kapıları işaretli (S7 koş, rubrik, eşik, gece-modu, tag)"
+        }
       ],
       "degisiklikler": [
         "loc üst-uç → orta nokta (A1 550, A2 325, A3 275, A4 200) + locAralik alanı",
@@ -21,38 +46,123 @@
         "testLocT tavan 950 netleştirildi"
       ],
       "sonuc": "GRAF-v2-KOSUMA-HAZIR",
-      "ilkDalgaHazir": ["S1", "A0-2", "A0-4", "EK1-1", "EK1-5", "A0-1(T0 sonrası)"]
+      "ilkDalgaHazir": [
+        "S1",
+        "A0-2",
+        "A0-4",
+        "EK1-1",
+        "EK1-5",
+        "A0-1(T0 sonrası)"
+      ]
     },
     {
       "tarih": "2026-10-26T15:49:00+03:00",
       "grafSurumu": "v5",
       "neden": "10-subagent plan denetimi duzeltme turu sonrasi yeniden kosum",
       "kontroller": [
-        { "id": 1, "ad": "DAG-dongu-yok", "sonuc": "PASS", "kanit": "24 düğüm / 29 kenar, 0 döngü (node tmp script, koşum sonrası silindi)" },
-        { "id": 2, "ad": "bagimlilik-butunlugu", "sonuc": "PASS", "kanit": "bagimli↔kenar çapraz kontrol: eksik 0 / fazla 0 (S1→S5, S1→S6 eklendi)" },
-        { "id": 3, "ad": "olcut-dizin-rol-dolu", "sonuc": "PASS", "kanit": "24/24 görev (S5/S6 dahil)" },
-        { "id": 4, "ad": "butce-tavan", "sonuc": "PASS", "kanit": "kod 2565 ≤ 2600 (A1 KAPALI: kalan ~2015); test 1010 ≤ 1050 (tavan v5'te 950→1050 bilinçli revizyon — S5/S6 +60 test)" },
-        { "id": 5, "ad": "kritik-yol-kapi-zinciri", "sonuc": "PASS", "kanit": "T0→S7→A1(KAPALI)→A2→A3→A4→K1; sıradaki insan düdüğü: S7 koş" }
+        {
+          "id": 1,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "24 düğüm / 29 kenar, 0 döngü (node tmp script, koşum sonrası silindi)"
+        },
+        {
+          "id": 2,
+          "ad": "bagimlilik-butunlugu",
+          "sonuc": "PASS",
+          "kanit": "bagimli↔kenar çapraz kontrol: eksik 0 / fazla 0 (S1→S5, S1→S6 eklendi)"
+        },
+        {
+          "id": 3,
+          "ad": "olcut-dizin-rol-dolu",
+          "sonuc": "PASS",
+          "kanit": "24/24 görev (S5/S6 dahil)"
+        },
+        {
+          "id": 4,
+          "ad": "butce-tavan",
+          "sonuc": "PASS",
+          "kanit": "kod 2565 ≤ 2600 (A1 KAPALI: kalan ~2015); test 1010 ≤ 1050 (tavan v5'te 950→1050 bilinçli revizyon — S5/S6 +60 test)"
+        },
+        {
+          "id": 5,
+          "ad": "kritik-yol-kapi-zinciri",
+          "sonuc": "PASS",
+          "kanit": "T0→S7→A1(KAPALI)→A2→A3→A4→K1; sıradaki insan düdüğü: S7 koş"
+        }
       ],
       "ekKontroller": [
-        { "id": 6, "ad": "olcut-testLoc-sayi-uyumu", "sonuc": "PASS", "kanit": "A1 '+130 test'↔130, A3 '+90 test'↔90 (V6 düzeltmesi)" },
-        { "id": 7, "ad": "gecmis-kuyrugu-grafSurumu", "sonuc": "PASS", "kanit": "son gecmiş sürümü = grafSurumu (v5)" },
-        { "id": 8, "ad": "S5/S6-secilebilirlik", "sonuc": "PASS", "kanit": "düğüm + kenar mevcut (SSOT tamlığı)" }
+        {
+          "id": 6,
+          "ad": "olcut-testLoc-sayi-uyumu",
+          "sonuc": "PASS",
+          "kanit": "A1 '+130 test'↔130, A3 '+90 test'↔90 (V6 düzeltmesi)"
+        },
+        {
+          "id": 7,
+          "ad": "gecmis-kuyrugu-grafSurumu",
+          "sonuc": "PASS",
+          "kanit": "son gecmiş sürümü = grafSurumu (v5)"
+        },
+        {
+          "id": 8,
+          "ad": "S5/S6-secilebilirlik",
+          "sonuc": "PASS",
+          "kanit": "düğüm + kenar mevcut (SSOT tamlığı)"
+        }
       ],
       "sonuc": "GRAF-v5-TAZE (8/8 PASS)",
-      "ilkDalgaHazir": ["S1", "A0-2", "A0-4", "A0-5", "EK1-1", "EK1-5", "A0-1(T0 sonrası)"]
+      "ilkDalgaHazir": [
+        "S1",
+        "A0-2",
+        "A0-4",
+        "A0-5",
+        "EK1-1",
+        "EK1-5",
+        "A0-1(T0 sonrası)"
+      ]
     },
     {
       "tarih": "2026-10-26T17:05:00+03:00 (Get-Date olcumu)",
       "grafSurumu": "v6",
       "neden": "S3-plugin dalgasi kapanisi sonrasi gerceklik tazelemesi (kapanis diskten bagimsiz dogrulandi: 76a8b0b/9853bb1/a6fd75f + tag v0.23-kilit + son-kanit birebir)",
       "kontroller": [
-        { "id": 1, "ad": "DAG-dongu-yok", "sonuc": "PASS", "kanit": "24 dugum / 29 kenar, 0 dongu" },
-        { "id": 2, "ad": "bagimlilik-butunlugu", "sonuc": "PASS", "kanit": "eksik 0 / fazla 0" },
-        { "id": 3, "ad": "olcut-dizin-rol-dolu", "sonuc": "PASS", "kanit": "24/24 gorev" },
-        { "id": 4, "ad": "butce-tavan", "sonuc": "PASS", "kanit": "kod 2565 (T0+A1 KAPALI: kalan ~2010) <= 2600; test 1010 <= 1050" },
-        { "id": 5, "ad": "kritik-yol-kapi-zinciri", "sonuc": "PASS", "kanit": "T0(KAPALI)->S7->A1(KAPALI)->A2->A3->A4->K1; A1 gercekte S7'yi beklemeden kapandi (F8) -> A2 bagimlilikca SERBEST; S7/S1 senaryolari [insan] duduk bekler ama kalan zinciri BLOKLAMAZ (A2->A3->A4->K1 tumu acik)" },
-        { "id": 6, "ad": "gecmis-kuyrugu-kronoloji", "sonuc": "PASS", "kanit": "v1..v6 kronolojik (v6 girisi ilk yazimda v5 onune takilmisti — kontrol yakaladi, duzeltildi)" }
+        {
+          "id": 1,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "24 dugum / 29 kenar, 0 dongu"
+        },
+        {
+          "id": 2,
+          "ad": "bagimlilik-butunlugu",
+          "sonuc": "PASS",
+          "kanit": "eksik 0 / fazla 0"
+        },
+        {
+          "id": 3,
+          "ad": "olcut-dizin-rol-dolu",
+          "sonuc": "PASS",
+          "kanit": "24/24 gorev"
+        },
+        {
+          "id": 4,
+          "ad": "butce-tavan",
+          "sonuc": "PASS",
+          "kanit": "kod 2565 (T0+A1 KAPALI: kalan ~2010) <= 2600; test 1010 <= 1050"
+        },
+        {
+          "id": 5,
+          "ad": "kritik-yol-kapi-zinciri",
+          "sonuc": "PASS",
+          "kanit": "T0(KAPALI)->S7->A1(KAPALI)->A2->A3->A4->K1; A1 gercekte S7'yi beklemeden kapandi (F8) -> A2 bagimlilikca SERBEST; S7/S1 senaryolari [insan] duduk bekler ama kalan zinciri BLOKLAMAZ (A2->A3->A4->K1 tumu acik)"
+        },
+        {
+          "id": 6,
+          "ad": "gecmis-kuyrugu-kronoloji",
+          "sonuc": "PASS",
+          "kanit": "v1..v6 kronolojik (v6 girisi ilk yazimda v5 onune takilmisti — kontrol yakaladi, duzeltildi)"
+        }
       ],
       "degisiklikler": [
         "T0 -> KAPALI (F6.5-A commit 80fdb4a, kanal x=0, kabul F65-01 PASS 10:46)",
@@ -61,19 +171,60 @@
         "isim-uzayi dipnotu: grafin S3'u (STOP senaryosu) != plugin dalgasinin S3'u (v0.23)"
       ],
       "sonuc": "GRAF-v6-TAZE (8/8 PASS)",
-      "ilkDalgaHazir": ["A2 (A1 KAPALI ile serbest — kritik yol ucu)", "S1", "S7 (senaryo dudugu; kritik yolu bloklamaz)", "A0-1 (T0 KAPALI)", "A0-2", "A0-4", "A0-5", "EK1-1", "EK1-5", "EK1-2/EK1-4 (A1 KAPALI ile bagimliligi cozuldu)"]
+      "ilkDalgaHazir": [
+        "A2 (A1 KAPALI ile serbest — kritik yol ucu)",
+        "S1",
+        "S7 (senaryo dudugu; kritik yolu bloklamaz)",
+        "A0-1 (T0 KAPALI)",
+        "A0-2",
+        "A0-4",
+        "A0-5",
+        "EK1-1",
+        "EK1-5",
+        "EK1-2/EK1-4 (A1 KAPALI ile bagimliligi cozuldu)"
+      ]
     },
     {
       "tarih": "2026-10-27T00:24:58+03:00 (Get-Date olcumu)",
       "grafSurumu": "v7",
       "neden": "A2 replan motoru dalgasi kapanisi sonrasi gerceklik tazelemesi (kapanis diskten bagimsiz dogrulandi: kanal son-kanit.json d=2026-10-27T00:12:39.7323672+03:00 h=45bd046 x=0 etiket a2-replan birebir + test-a2-replan.log + kanit raporu + kabul.csv A2 PASS)",
       "kontroller": [
-        { "id": 1, "ad": "DAG-dongu-yok", "sonuc": "PASS", "kanit": "24 dugum / 29 kenar, 0 dongu (topolojik tarama; node -e programatik)" },
-        { "id": 2, "ad": "bagimlilik-butunlugu", "sonuc": "PASS", "kanit": "kenar-uclarinin tamami gecerli-id; eksik 0 / fazla 0 (yapi v6 ile ayni — yalniz durum metinleri degisti)" },
-        { "id": 3, "ad": "olcut-dizin-rol-dolu", "sonuc": "PASS", "kanit": "24/24 gorev" },
-        { "id": 4, "ad": "butce-tavan", "sonuc": "PASS", "kanit": "kod plan 2565; KAPALI T0+A1+A2 = 880 -> kalan ~1685 <= 2600; test plan 1010; A2 testLoc 120 -> kalan 890 <= 1050" },
-        { "id": 5, "ad": "kritik-yol-kapi-zinciri", "sonuc": "PASS", "kanit": "T0(KAPALI)->S7->A1(KAPALI)->A2(KAPALI)->A3->A4->K1; A3 bagimlilikca SERBEST (tek bagimliligi A2 idi) — kritik yol ucu artik A3; S7/S1 [insan] dudukleri zinciri BLOKLAMAZ" },
-        { "id": 6, "ad": "gecmis-kuyrugu-kronoloji", "sonuc": "PASS", "kanit": "v1..v7 kronolojik; v7 girisi grafSurumGecmisi'nin son sirasinda" }
+        {
+          "id": 1,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "24 dugum / 29 kenar, 0 dongu (topolojik tarama; node -e programatik)"
+        },
+        {
+          "id": 2,
+          "ad": "bagimlilik-butunlugu",
+          "sonuc": "PASS",
+          "kanit": "kenar-uclarinin tamami gecerli-id; eksik 0 / fazla 0 (yapi v6 ile ayni — yalniz durum metinleri degisti)"
+        },
+        {
+          "id": 3,
+          "ad": "olcut-dizin-rol-dolu",
+          "sonuc": "PASS",
+          "kanit": "24/24 gorev"
+        },
+        {
+          "id": 4,
+          "ad": "butce-tavan",
+          "sonuc": "PASS",
+          "kanit": "kod plan 2565; KAPALI T0+A1+A2 = 880 -> kalan ~1685 <= 2600; test plan 1010; A2 testLoc 120 -> kalan 890 <= 1050"
+        },
+        {
+          "id": 5,
+          "ad": "kritik-yol-kapi-zinciri",
+          "sonuc": "PASS",
+          "kanit": "T0(KAPALI)->S7->A1(KAPALI)->A2(KAPALI)->A3->A4->K1; A3 bagimlilikca SERBEST (tek bagimliligi A2 idi) — kritik yol ucu artik A3; S7/S1 [insan] dudukleri zinciri BLOKLAMAZ"
+        },
+        {
+          "id": 6,
+          "ad": "gecmis-kuyrugu-kronoloji",
+          "sonuc": "PASS",
+          "kanit": "v1..v7 kronolojik; v7 girisi grafSurumGecmisi'nin son sirasinda"
+        }
       ],
       "degisiklikler": [
         "A2 -> KAPALI (kanal x=0 h=45bd046 etiket a2-replan; core/src/replan.ts + cli 'replan' + 11 hermetik test; tam suit 389/389; kabul A2 PASS)",
@@ -81,10 +232,92 @@
         "KAPALI seti: T0, A1, A2 (3/24)"
       ],
       "sonuc": "GRAF-v7-TAZE (6/6 PASS)",
-      "ilkDalgaHazir": ["A3 (A2 KAPALI ile serbest — kritik yol ucu; [insan] kural-onaylari kapisinda)", "S1", "S7 (senaryo dudugu; kritik yolu bloklamaz)", "A0-2", "A0-4", "A0-5", "EK1-1", "EK1-5", "EK1-2/EK1-4 (A1 KAPALI ile cozuldu)"]
+      "ilkDalgaHazir": [
+        "A3 (A2 KAPALI ile serbest — kritik yol ucu; [insan] kural-onaylari kapisinda)",
+        "S1",
+        "S7 (senaryo dudugu; kritik yolu bloklamaz)",
+        "A0-2",
+        "A0-4",
+        "A0-5",
+        "EK1-1",
+        "EK1-5",
+        "EK1-2/EK1-4 (A1 KAPALI ile cozuldu)"
+      ]
+    },
+    {
+      "tarih": "2026-10-27T07:05:04+03:00 (Get-Date olcumu)",
+      "grafSurumu": "v8",
+      "neden": "S1 kosum dalgasi kapanisi sonrasi gerceklik tazelemesi (kapsul run-f911b84d uctan uca ACCEPTED: kanit raporu raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md + kabul.csv S1-SEN GECTI_CANLI; kanal d/h/x kosum dalgasina ait DEGIL — M02 emsali, kanal kosumu kod+test dalgalarinda)",
+      "kontroller": [
+        {
+          "id": 1,
+          "ad": "DAG-dongu-yok",
+          "sonuc": "PASS",
+          "kanit": "24 dugum / 29 kenar, 0 dongu (topolojik tarama; node -e programatik)"
+        },
+        {
+          "id": 2,
+          "ad": "bagimlilik-butunlugu",
+          "sonuc": "PASS",
+          "kanit": "kenar-uclarinin tamami gecerli-id; eksik 0 / fazla 0 (yapi v7 ile ayni — yalniz durum metinleri degisti)"
+        },
+        {
+          "id": 3,
+          "ad": "olcut-dizin-rol-dolu",
+          "sonuc": "PASS",
+          "kanit": "24/24 gorev"
+        },
+        {
+          "id": 4,
+          "ad": "butce-tavan",
+          "sonuc": "PASS",
+          "kanit": "kod plan 2565; KAPALI T0+S1+A1+A2 = 880 (S1 kosum dalgasi 0 kod) -> kalan ~1685 <= 2600; test plan 1010; kalan 890 <= 1050"
+        },
+        {
+          "id": 5,
+          "ad": "kritik-yol-kapi-zinciri",
+          "sonuc": "PASS",
+          "kanit": "T0(KAPALI)->S7->A1(KAPALI)->A2(KAPALI)->A3->A4->K1; S1 KAPALI -> S7 bagimliligi (T0 commit + S1) TAMAM; A3 kritik yol ucu (bagimliligi A2 KAPALI)"
+        },
+        {
+          "id": 6,
+          "ad": "gecmis-kuyrugu-kronoloji",
+          "sonuc": "PASS",
+          "kanit": "v1..v8 kronolojik; v8 girisi grafSurumGecmisi son sirasinda"
+        },
+        {
+          "id": 7,
+          "ad": "KAPALI-seti",
+          "sonuc": "PASS",
+          "kanit": "T0+S1+A1+A2 = 4/24"
+        }
+      ],
+      "degisiklikler": [
+        "S1 -> KAPALI (kosum dalgasi: kapsul run-f911b84d uctan uca ACCEPTED — spawn UNKNOWN->recovered [A08, kor-retry yok], TESTER bagimsiz sayim 10<->10<->TOPLAM:10 birebir, evaluate PASS 4/4, decide apv-6cd2de76; kanal d/h/x YOK — GECTI_CANLI sinifi)",
+        "grafSurumu v7 -> v8 + gecmis girisi",
+        "KAPALI seti: T0, S1, A1, A2 (4/24); S1 bagimlilari S2/S3/S4/S5/S6 cozuldu + S7 bagimliligi (T0 commit + S1) TAMAM",
+        "bulgu kaydi: kapsul CLI ciktisi icerik dogrulamasi DEGILDIR (planHashOf nodes-only) — 4 cop kapsul teshisi DERSLER'e islendi; dispatcher FATAL reason kalici yapilmiyor (gozlemlenebilirlik acigi) — ders"
+      ],
+      "sonuc": "GRAF-v8-TAZE (7/7 PASS)",
+      "ilkDalgaHazir": [
+        "A3 (kritik yol ucu; [insan] kural-onaylari kapisinda; plan: plans/KUYRUK-PLAN-3SUBAGENT-2026-10-27.md)",
+        "S7 (T0+S1 bagimliligi TAMAM — kosulabilir; plan ayni dosyada)",
+        "S2/S3/S4/S5/S6 (S1 bagimliligi cozuldu — kendi [insan] dudukleri)",
+        "A0-2",
+        "A0-4",
+        "A0-5",
+        "EK1-1",
+        "EK1-5",
+        "EK1-2/EK1-4 (A1 KAPALI ile cozuldu)"
+      ]
     }
   ],
   "tikanmaOlaylari": [],
-  "insanKapilariSirada": ["S1 koş", "S7 koş", "A3 başla (kritik yol ucu)", "A0 dalgası başla", "G1 madenci fırlat"],
+  "insanKapilariSirada": [
+    "S7 koş",
+    "A3 başla (kritik yol ucu)",
+    "A0 dalgası başla",
+    "G1 madenci fırlat"
+  ],
   "insanOkurIkiz": "raporlar/simulasyon/gorev-grafigi-2026-10-26.md"
 }

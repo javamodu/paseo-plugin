@@ -53,3 +53,10 @@ Graf v7: **24 düğüm / 29 kenar / 6/6 kontrol PASS** (programatik: node -e top
 Değişiklikler: (a) **A2 → KAPALI** (kanal son-kanit.json birebir d=2026-10-27T00:12:39.7323672+03:00 h=45bd046 x=0 etiket a2-replan sureSn=114; core/src/replan.ts + cli 'replan' + 11 hermetik test, tam süit 389/389; kabul.csv A2 PASS); (b) grafSurumu v6→v7 + geçmiş girişi; (c) KAPALI seti T0+A1+A2 (3/24).
 Kalan butce: kod ~1685 (T) / test 890. Kritik yol: T0✓ → S7 → A1✓ → A2✓ → A3 → A4 → K1 — **A3 bağımlılıkça SERBEST (tek bağımlılığı A2 idi; kritik yol ucu artık A3).**
 Kırmızı-satır notu: A2 ölçütü "+120 test" plan (T) değeri — gerçek (R) 11 kırılım testi; dürüst fark kabul satırında ve kanıt raporunda aynen kayıtlı.
+
+## v8 yeniden koşum (2026-10-27 07:05 — Get-Date ölçümlü; S1 ikinci canlı run kapanışı sonrası gerçeklik tazelemesi)
+
+Graf v8: **24 düğüm / 29 kenar / 7/7 kontrol PASS** (programatik: node -e topolojik tarama + alan doluluğu + KAPALI-seti; kenar yapısı v7 ile aynı — yalnız durum metinleri değişti).
+Değişiklikler: (a) **S1 → KAPALI** (koşum dalgası: kapsül run-f911b84d uçtan uca ACCEPTED — spawn UNKNOWN→recovered [A08, kör-retry yok], TESTER bağımsız sayım 10↔10↔TOPLAM:10 birebir, evaluate PASS 4/4, decide apv-6cd2de76; kanal d/h/x YOK — GECTI_CANLI sınıfı, M02 emsali); (b) grafSurumu v7→v8 + geçmiş girişi; (c) KAPALI seti T0+S1+A1+A2 (4/24); (d) S1 bağımlıları S2/S3/S4/S5/S6 çözüldü + **S7 bağımlılığı (T0 commit + S1) TAMAM → S7 koşulabilir**.
+Kalan butce: kod ~1685 (T) / test 890 (S1 koşum dalga: 0 kod/0 test). Kritik yol: T0✓ → S7 → A1✓ → A2✓ → A3 → A4 → K1 — **A3 kritik yol ucu (bağımlılığı A2✓); S7 koşum-düdüğüyle paralel koşulabilir.**
+Bulgu kaydı: kapsül CLI çıktısı içerik doğrulaması DEĞİLDİR (`planHashOf` nodes-only) — 4 çöp kapsülün teşhisi DERSLER'e işlendi; dispatcher FATAL reason kalıcı yapılmıyor (gözlemlenebilirlik açığı — ders; onarım ayrı kalem).

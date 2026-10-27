@@ -46,7 +46,7 @@ Durum: `HAZIR`=bağımlılık tamam · `BEKLE`·`DALGA`·`[İNSAN]`=kapı · `DE
 | ID | Görev | Rol | Dizin | Ölçüt/metrik | Bağımlılık | LOC (T) | Durum |
 |---|---|---|---|---|---|---|---|
 | T0 | F6.5-A 2-provider paketi commit | paralel yazıcı | core/src | kanal x=0 zaten; commit hash | — | ~5 | **KAPALI (F6.5-A: commit 80fdb4a, kanal x=0, kabul F65-01 PASS 10:46)** |
-| S1 | İkinci canlı run (claw-rehber) | coder+tester | raporlar/kanit-hedef | rapor satır=disk .md sayısı | — | 0 | [İNSAN] "koş" |
+| S1 | İkinci canlı run (claw-rehber) | coder+tester | raporlar/kanit-hedef | rapor satır=disk .md sayısı | — | 0 | **KAPALI (v8: run-f911b84d uçtan uca ACCEPTED 2026-10-27 — spawn UNKNOWN→recovered [A08], TESTER bağımsız sayım 10↔10↔TOPLAM:10, evaluate PASS 4/4, decide apv-6cd2de76; kanal d/h/x koşum dalgasına ait değil [M02 emsali]; §14)** |
 | S3 | STOP/kesinti eli ile | KULLANICI | pano 4378 | iptal zinciri defterde | S1 | 0 | [İNSAN] |
 | S2 | Eşzamanlı ikili (LMS+website) | coder×2+tester | raporlar/kanit-hedef | 2 ACCEPTED + izolasyon | S1 | 0 | [İNSAN] "koş" |
 | S4 | Gözlemci turu | KULLANICI | ordu | 3 doğrulama + drift izleri | S1 | 0 | [İNSAN] |
@@ -70,7 +70,7 @@ Durum: `HAZIR`=bağımlılık tamam · `BEKLE`·`DALGA`·`[İNSAN]`=kapı · `DE
 | EK1-6 | Pano aksiyometri satırları | coder | core/src/pano | her adımın metriği görünür | A4 | 80 | BEKLE |
 | K1 | Kapanış: Z1 + kilit tag | manager | repo | CODEMAP taze + doctor 0 EKSIK + kilit tag — **NOT (v6): v0.23-kilit 16:2x'te plugin S3 dalgasında DOĞDU (9853bb1); graf K1 sıradaki kilit penceresinde tag'ler (v0.24+ [insan])** | tüm A+EK | 0 | BEKLE |
 
-Toplam (T, graf v7): ~2565 kod (T0+A1+A2 KAPALI — **kalan ~1685**) + ~1010 test (A2'nin 120'si kapandı — kalan 890) · kritik yol: T0✓→S7→A1✓→A2✓→A3→A4→K1 — **A2 kapandı → A3 bağımlılıkça SERBEST (kritik yol ucu); S1/S7 senaryoları [insan] düdük bekler ama zinciri bloklamaz.** A0-5 kritik yol DIŞI — paralel yetenek: Paseo'suz + claude-code/gemini-cli/codex CLI koşumu. K1 bağımlılığı "tüm A+EK" = A0-1..A4 + EK1-1..6 (A0-5 bilinçli HARİÇ: kritik yol dışı, paralel yetenek; S5/S6 da koşum-senaryosu olduğu için kapanışta zorunlu DEĞİL).
+Toplam (T, graf v8): ~2565 kod (T0+S1+A1+A2 KAPALI — **kalan ~1685**; S1 koşum dalgası: 0 kod/0 test) + ~1010 test (kalan 890) · kritik yol: T0✓→S7→A1✓→A2✓→A3→A4→K1 — **S1 kapandı → S7 bağımlılığı (T0 commit + S1) TAMAM — S7 koşulabilir; A3 kritik yol ucu (bağımlılığı A2✓).** A0-5 kritik yol DIŞI — paralel yetenek: Paseo'suz + claude-code/gemini-cli/codex CLI koşumu. K1 bağımlılığı "tüm A+EK" = A0-1..A4 + EK1-1..6 (A0-5 bilinçli HARİÇ: kritik yol dışı, paralel yetenek; S5/S6 da koşum-senaryosu olduğu için kapanışta zorunlu DEĞİL).
 
 > **İsim-uzayı dipnotu (v6):** bu belgenin S3'ü = STOP/kesinti SENARYOSU ([insan], BEKLE). Plugin dalgalarının S3'ü (v0.23 kod dalgası, 16:2x'te KAPALI: 76a8b0b/9853bb1/a6fd75f + tag v0.23-kilit) ile ALAKASIZDIR — iki ID uzayı farklı belgelerde yaşar, rapor okurken karıştırılmamalı.
 
@@ -155,3 +155,14 @@ A2 dalgası kapandı; kapanış diskten bağımsız doğrulandı (kanal son-kani
 - [insan] düdük bekleyenler: **S1 "koş"** (canlı senaryo) · S7 (mini-turnuva; zinciri bloklamaz) · "A3 başla" (kritik yol ucu) · S5/S6 (T4'/T5' uçları, S1 sonrası) · S3-STOP (kendi senaryosu) · K-0044 (paralel tarafın anahtar→env penceresi) · K1 tag onayı (v0.24+).
 - Dürüst kapsam: A2 ölçütü "+120 test" plan (T) değeri — gerçek (R) 11 hermetik kırılım testi (kabul satırında aynen böyle kayıtlı).
 - Kirli ağaç: bu oturumun A2 seti commit düdüğünde tek yazıcıyla girer; paralel tarafın dalga-ortası dosyalarına dokunulmaz.
+
+## 14. Graf v8 — FINAL durum (2026-10-27 07:05, Get-Date ölçümlü; S1 ikinci canlı run kapanışı sonrası)
+
+S1 koşum dalgası kapandı ([insan] "S1 koş" düdüğü + kullanıcının "otomatik yap" talimatıyla bu oturum zinciri işletti): kapsül **run-f911b84d uçtan uca ACCEPTED** — kanıt raporu raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md · kabul.csv **S1-SEN GECTI_CANLI** (kanal d/h/x koşum dalgasına ait DEĞİL — M02 emsali; kanal koşumu kod+test dalgalarında).
+
+**Graf v8 taze durumu (ön-simülasyon 7/7 PASS programatik: sürüm, DAG 24 düğüm/29 kenar 0 döngü, kenar uçları, alan doluluk, butçe kalan 1685, kronoloji v1..v8):**
+- KAPALI: **T0** (80fdb4a) · **S1** (run-f911b84d ACCEPTED) · **A1** (e70dd55) · **A2** (45bd046) — kalan kod ~1685 (T) / test 890.
+- S1'in bağımlıları çözüldü: **S2 · S3 · S4 · S5 · S6 SERBEST** (hepsi kendi [insan] düdüğünü bekler); **S7 bağımlılığı "T0 commit + S1" TAMAM → S7 koşulabilir.**
+- Bu dalganın canlı bulguları (DERSLER'e işlendi): (1) kapsül CLI çıktısı içerik doğrulaması DEĞİLDİR — `planHashOf(nodes)` goal/repo'yu hash'lemez; 4 çöp kapsül sağlıklı görünüp FATAL üretti (goal='$g' genişlememiş değişken + repo tırnağı değer içinde); (2) dispatcher FATAL reason kalıcı yapılmıyor — teşhis yan-kanıtla (transport repro + defter okuma) yapılabildi; (3) bash→node -e katmanı path tersbölülerini yer — path taşıyan argümanlar script dosyasında yaşar.
+- [insan] düdük bekleyenler: **"S7 koş"** (mini-turnuva; plan hazır: plans/KUYRUK-PLAN-3SUBAGENT-2026-10-27.md) · **"A3 başla"** (kritik yol ucu; plan hazır: aynı dosya) · S2 · S5/S6 (S1 sonrası) · S3-STOP (kendi senaryosu) · K-0044 (paralel tarafın anahtar→env penceresi) · K1 tag onayı (v0.24+) · D-1b ELLE TEST · D-2 chat (ertelenebilir).
+- Dürüst notlar: tanılama oturumu dk-test-s1repro silindi (amaç teşhisti); mahmur kapsül run-b0ce3f7e içerik doğrulamasız sürüldüğü için yandı (ders 1'in bedeli); 4 uyur çöp kapsül defterde append-only olarak durur (silinmez — kanıt zinciri).
