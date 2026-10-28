@@ -41,7 +41,9 @@ kırmızı düşürür. Yazıcı akışında tip kapısı commit öncesi zorunlu
 
 1. pre-flight sonda (§3) → kırmızıysa dur, brief sahibine dön.
 2. bağlam paketini oku (§2) — okunmayan dosyaya yazma yasak.
-3. kod + hedefli test (yalnız dokunulan bileşenin test dosyası).
+3. kod + hedefli test — seçim DETERMİNİSTİK: `node scripts/hedefli-test.mjs` (v9 V9-01:
+   ad-eşleşmesi + import taraması; kapsamsız-src çıktısı UYARIDIR — makine seçer, insan
+   doğrular; yanlış-altküme koşmak sahte-yeşil riskiydi).
 4. `npm run tip` (core/ dizininden) — YENİ-TIP-HATASI exit 1 = dur, düzelt.
 5. `node --test test/<hedef>.test.ts` — hedefli süit yeşil olmalı.
 6. teslim raporu (brief'in çıktı formatına göre) + kirli dosya listesiyle devir.

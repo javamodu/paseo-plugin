@@ -115,3 +115,28 @@ işlenen maddeye tarih + commit hash kapanış dalgasında append edilir (K-0052
 - **Kapsam:** dokunulan mevcut dosya 0 (kural ≤3); YENİ: 2 script + hook (izlenmeyen).
   KANAL koşulmadı (graf-dışı dalga — kanal kaydı A4 turunda duruyor, v8 emsali).
   Kalan v9 maddeleri (V9-01, V9-03..06) BEKLEYEN — bu dalga yalnız V9-02.
+
+## §V9-01 uygulama kaydı (2026-10-28 — ikinci dalga; kullanıcı "devam" emri)
+
+- **Dosyalar:** `scripts/hedefli-test.mjs` YENİ (~110 satır; saf çekirdek `hedefliSec`
+  export — test edilebilir + CLI kabuğu) + `scripts/hedefli-test.test.mjs` YENİ
+  (9 test: ad-eşleşmesi / import-taraması / çok-testli import [aşırı-seçim güvenli yön]
+  / değişen-test doğrudan / kapsamsız-uyarı / ilgisiz-yoksayma / .mjs modülü /
+  determinizm / temp-repo entegrasyonu [diff+untracked+fail-closed]) +
+  `plans/YAZAR-BRIEF-SABLON-2026-10-28.md` §5-adım-3 ince kanca (seçim deterministik —
+  yanlış-altküme koşmak sahte-yeşil riskiydi).
+- **Tasarım kararı (testin yakaladığı gerçek boşluk):** ilk sürüm yalnız `git diff`
+  okuyordu — entegrasyon testi UNTRACKED dosyanın diff'te GÖRÜNMEDiğini kanıtladı;
+  yazarın en sık çıktısı YENİ dosyadır → eksik-seçim (tehlikeli yön) olurdu. Düzeltme:
+  `git diff --name-only <taban>` + `git ls-files --others --exclude-standard`
+  (ignore sayılır — shm/wal/defterler dışarıda).
+- **KANIT (R):** kendi testleri **9/9** (5.0 sn; entegrasyon temp git repo'da);
+  gerçek-repo DRY-RUN 1 (taban HEAD): 249 değişen → 0 seçim 0 kapsamsız (core/src işi
+  yok — doğru boş); DRY-RUN 2 (taban 62d4fde, A4/v8/v9 öncesi — BİLİNEN-CEVAP):
+  **a4-gece.test.ts seçildi** + 11 test daha (cli/daemon/bildirim/f3/f65/paseo —
+  dokunulan modüllerle tutarlı) + **kapsamsız uyarısı GERÇEK boşluğu yakaladı:
+  core/src/tip-kapisi.mjs'in test dosyası YOK** (v8'de koşum-kanıtıyla geçmişti);
+  temsilci koşum (seçilen listeden a4-gece.test.ts): **11/11, 7.4 sn** — seçilen
+  liste koşulabilir.
+- **Tam süit (merge kapısı): 461/461 fail 0, 54.1 sn** (KANAL koşulmadı — graf-dışı,
+  v8 emsali). Kapsam: dokunulan mevcut dosya 1 (kural ≤3: brief şablonu); YENİ 2.
