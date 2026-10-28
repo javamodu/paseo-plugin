@@ -140,3 +140,29 @@ işlenen maddeye tarih + commit hash kapanış dalgasında append edilir (K-0052
   liste koşulabilir.
 - **Tam süit (merge kapısı): 461/461 fail 0, 54.1 sn** (KANAL koşulmadı — graf-dışı,
   v8 emsali). Kapsam: dokunulan mevcut dosya 1 (kural ≤3: brief şablonu); YENİ 2.
+
+## §V9-03 uygulama kaydı (2026-10-28 — üçüncü dalga; kullanıcı "devam" emri)
+
+- **Dosyalar:** `core/src/spawn-olcum.ts` YENİ (~28 satır: `SPAWN_OLCUM_DEFTERI_YOLU`
+  module-göreli [gozetimsiz KANIT_DEFTERI_YOLU deseni] + `SpawnOlcumKayit` tipi +
+  `spawnOlcumKaydet` [jsonlEkle — gece.jsonl fsync deseni]) + `core/src/dispatcher.ts`
+  ince kanca (~17 satır: opts'a opt-in `kanitDefteriYolu` [daemon A0-3 deseni — verilmedikçe
+  kayıt YOK, mevcut çağıranlar etkilenmez]; `performance.now` ile adapter.spawn duvar süresi;
+  kayıt hatası best-effort stderr — **ölçüm boru hattını düşüremez**) + `core/src/cli.ts`
+  kablolama (tick opts'una `SPAWN_OLCUM_DEFTERI_YOLU` — üretim verisi akmaya başlar) +
+  `core/test/spawn-olcum.test.ts` YENİ (5 test: kayıt formatı / entegrasyon opt-in
+  [provider-model nodes satırından çözülür] / opt-out dosya-dogrulmaz / ölçüm hatası boruyu
+  düşürmez / UNKNOWN da kayda girer) + `core/package.json` süit listesine kayıt (461→466) +
+  `scripts/yasak-liste.json`'a `spawn-olcum.jsonl` ASLA deseni (yeni üretim defteri).
+  Dokunulan mevcut dosya 3 (kural ≤3: dispatcher, cli, package.json).
+- **KANIT (R):** 5/5 kendi testi; hedefli üçlü (spawn-olcum+dispatcher+cli) 18/18;
+  **tip kapısı GEÇTİ** (borç 51 aynı, yeni 0 — ilk koşum +1 [testin JSON.parse map
+  geriçağrısı] TS kapı KOŞUMDAN ÖNCE yakaladı ve düzeltildi); **KANAL** `test-kanal.ps1
+  -Etiket v9-03`: 1. koşum x=1 (m16-canlı "yazıcı işareti 15sn içinde gelmedi" — 204 sn
+  toplam yük; bilinen yük-flake sınıfı, ev kuralı 2. koşum) → **2. koşum x=0, 97 sn,
+  466/466**; `core/data/spawn-olcum.jsonl` kanal koşumlarında 12 GERÇEK kayıt üretti
+  (OK 0-12 ms + FATAL — canlı testlerin fake/local adapter yolu; üretimde gerçek adapter
+  süresi birikir) — V8-06 artık ölçümlü zemine oturur.
+- **Dürüst notlar:** kanıt logu UTF-16'dır (Tee-Object deseni); ölçülen süre adapter
+  çağrısının duvar süresi (LLM tur süresi DEĞİL — V8-06 spawn-ekonomisi sorusu tam bu
+  çağrının maliyetiydi).

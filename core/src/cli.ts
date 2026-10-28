@@ -6,6 +6,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { dirname, resolve, join } from 'node:path';
 import { openStore, recordCommand, setGlobalStop, pendingCapacity } from './store.ts';
 import { processOutbox, reconcileUnknown, pollSentSessions, type WorkerAdapter } from './dispatcher.ts';
+import { SPAWN_OLCUM_DEFTERI_YOLU } from './spawn-olcum.ts';
 import { loadVerifiedProbe, spawnBlockedReason } from './capabilities.ts';
 import { PaseoWorkerAdapter } from './paseo-adapter.ts';
 import { makeSafePaseoTransport } from './paseo-transport.ts';
@@ -130,7 +131,7 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
         if (g?.goal) livePrompt = String(g.goal);
         if (g?.repo_id) liveCwd = String(g.repo_id);
       }
-      const r1 = await processOutbox(db, adapter, { ...(livePrompt ? { prompt: livePrompt } : {}), ...(liveCwd ? { cwd: liveCwd } : {}) });
+      const r1 = await processOutbox(db, adapter, { ...(livePrompt ? { prompt: livePrompt } : {}), ...(liveCwd ? { cwd: liveCwd } : {}), kanitDefteriYolu: SPAWN_OLCUM_DEFTERI_YOLU }); // v9 V9-03: tick spawn'ları ölçüm kanalına akar
       const r2 = await reconcileUnknown(db, adapter);
       // S4 Scheduler: SENT oturumlarının durum yoklaması (kimi-K3 ölümünün defterde
       // görünmez kaldığı canlı bulgunun kapanışı — DERSLER 173, K-0050)

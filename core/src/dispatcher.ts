@@ -7,6 +7,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { appendEvent } from './store.ts';
 import { resolveProviderModel, type ProviderModel } from './providers.ts';
+import { spawnOlcumKaydet } from './spawn-olcum.ts';
 
 export type SpawnResult =
   | { outcome: 'OK'; externalSessionId: string }
@@ -34,7 +35,7 @@ function latchOpen(db: DatabaseSync) {
   return (db.prepare('SELECT dispatch_paused FROM settings WHERE id=1').get() as any).dispatch_paused === 1;
 }
 
-export async function processOutbox(db: DatabaseSync, adapter: WorkerAdapter, opts: { now?: () => Date; prompt?: string; cwd?: string } = {}) {
+export async function processOutbox(db: DatabaseSync, adapter: WorkerAdapter, opts: { now?: () => Date; prompt?: string; cwd?: string; kanitDefteriYolu?: string } = {}) {
   const now = opts.now ?? (() => new Date());
   if (latchOpen(db)) return { blocked: 'global_stop', processed: 0 };
 
@@ -75,6 +76,7 @@ export async function processOutbox(db: DatabaseSync, adapter: WorkerAdapter, op
     }
   }
   let res: SpawnResult;
+  const olcumT0 = opts.kanitDefteriYolu ? performance.now() : 0;
   try {
     if (resolveFatal !== null) {
       res = { outcome: 'FATAL', reason: resolveFatal };
@@ -83,6 +85,20 @@ export async function processOutbox(db: DatabaseSync, adapter: WorkerAdapter, op
     }
   } catch {
     res = { outcome: 'UNKNOWN' }; // ağ/process belirsizliği = UNKNOWN, exception fırlatma
+  }
+
+  // v9 V9-03: spawn maliyeti ölçüm kanalı — OPT-IN (daemon A0-3 kanitDefteriYolu deseni:
+  // verilmedikçe kayıt YOK; mevcut çağıranlar/testler etkilenmez). Yalnız adapter.spawn GERÇEKten
+  // çağrıldığında kayda girer (resolveFatal dalında spawn yok → ölçüm de yok). Ölçüm kaydı boru
+  // hattını DÜŞÜREMEZ (gözlem üretimi bozmaz): yazma hatası best-effort stderr uyarısı, sonuç değişmez.
+  if (opts.kanitDefteriYolu && resolveFatal === null) {
+    try {
+      spawnOlcumKaydet(opts.kanitDefteriYolu, {
+        at: iso(now()), attemptId: row.attempt_id,
+        provider: resolved!.provider, model: resolved!.model ?? undefined,
+        outcome: res.outcome, sureMs: Math.max(0, Math.round(performance.now() - olcumT0)),
+      });
+    } catch (e: any) { process.stderr?.write?.('spawn-olcum kaydı yazılamadı (ölçüm best-effort): ' + String(e?.message ?? e) + '\n'); }
   }
 
   switch (res.outcome) {

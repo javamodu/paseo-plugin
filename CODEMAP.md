@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD a3f7fbe — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 1f1bf58 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -7,7 +7,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `ANAYASA.md` (1.8KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (99 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
-- `core/` (119 dosya: en yeni tip-kapisi.mjs, a4-gece.test.ts, gece.ts)
+- `core/` (121 dosya: en yeni spawn-olcum.test.ts, cli.ts, dispatcher.ts)
 - `DERSLER.md` (89.8KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
@@ -74,7 +74,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (8 dosya: en yeni d1b-test.mjs, server.js, d1a-test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (76 dosya: en yeni YAZAR-BRIEF-SABLON-2026-10-28.md, HANDOFF-2026-10-28-2100.md, KARAR-PAKETI-2026-10-28.md)
+- `plans/` (77 dosya: en yeni HANDOFF-2026-10-28-2134.md, YAZAR-BRIEF-SABLON-2026-10-28.md, HANDOFF-2026-10-28-2100.md)
 - `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
 - `raporlar/` (162 dosya: en yeni v9-kalite-koruyucu-hiz-2026-10-28.md, 2026-W44.md, v8-paralel-yazar-hizi-2026-10-28.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler

@@ -6,6 +6,7 @@
     "ordu.sqlite-shm",
     "ordu.sqlite-wal",
     "gece.jsonl",
+    "spawn-olcum.jsonl",
     "tmp-"
   ]
 }
