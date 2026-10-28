@@ -90,7 +90,7 @@ test('F4-A pozitif: Paseo kapalıyken pano read 200 — GET / ve /api/status, gl
 
     const st = await fetch(p.base + '/api/status', { headers: { 'x-pano-token': TOKEN } });
     assert.equal(st.status, 200);
-    const j = await st.json();
+    const j = (await st.json()) as Record<string, any>; // tip-borcu v9-06: fetch json() unknown — pano yanıtı gevşek kayda çözülür, alan iddiaları aynen
     assert.equal(j.globalStop, false, 'latch açık defterde 0 — pano da 0 okumalı');
     assert.ok(Array.isArray(j.runs), 'runs alanı');
     assert.ok('pendingDecisions' in j, 'pendingDecisions alanı');

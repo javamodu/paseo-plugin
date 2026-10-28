@@ -14,7 +14,7 @@ import { validateHandoff, requireHandoff, sampleHandoff, sampleStage } from '../
 const H64 = (c: string) => c.repeat(64).slice(0, 64);
 const jsonSchema = JSON.parse(readFileSync(new URL('../src/handoff.schema.json', import.meta.url), 'utf8'));
 const ajvJson = new Ajv({ allErrors: true, strict: false });
-addFormats(ajvJson);
+(addFormats as unknown as (a: Ajv) => void)(ajvJson); // tip-borcu v9-06: validate.ts deseni — ajv-formats nodenext tip çözümü çağrılabilir görünmüyor
 const validateJson = ajvJson.compile(jsonSchema);
 
 // İki şema (typebox ↔ handoff.schema.json) aynı vektörde aynı kararı vermeli.

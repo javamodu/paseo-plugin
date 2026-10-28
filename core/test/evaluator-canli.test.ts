@@ -132,7 +132,7 @@ test('A11+A13 canlı evaluator: GERÇEK git repo üzerinde GERÇEK test koşusu;
   // 2) GERÇEK kırmızı: 1 gerçek test gerçekten PATLADI → gerçek exit≠0 → FAIL
   const r2 = await ev(KOMUT_KIRMIZI);
   assert.equal(r2.verdict, 'FAIL', 'gerçek başarısız test FAIL');
-  assert.equal(r2.exitCode ?? 1, 1, 'node --test gerçek exit-1 taşıdı');
+  // tip-borcu v9-06: r2.exitCode evaluateAttempt DÖNÜŞÜNDE YOK (RunResult.exitCode kanıt KAYDINA düşer, satır 78) — bu iddia ?? 1 ile HER koşumda geçiyordu (sahte-yeşil, tip kapısı görünür kıldı). exit-1 anlamı üstteki verdict FAIL iddiasında zaten taşıyor.
   assert.equal(r2.tests, 1, 'gerçek kırmızı test sayıldı (failed=1)');
 
   // 3) A13 canlı varyant-1: exit-0 AMA protokol YOK → FAIL (exit-0 YETMEZ)
