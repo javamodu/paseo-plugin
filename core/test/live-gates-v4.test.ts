@@ -71,7 +71,7 @@ class RealNodeLauncher implements LocalLauncher {
   children = new Map<string, ChildProcess>();
   pids = new Map<string, number>();
   writerScript: string | null = null;
-  async launch(o: { dispatchKey: string }) {
+  async launch(o: { dispatchKey: string; attemptId?: string; prompt?: string }) {
     const script = this.writerScript ?? 'setInterval(function(){},1000)';
     const child = spawn(process.execPath, ['-e', script], { stdio: 'ignore' });
     if (child.pid === undefined) throw new Error('pid alinamadi');
@@ -81,6 +81,7 @@ class RealNodeLauncher implements LocalLauncher {
     return { pid: child.pid };
   }
   pidOf(dispatchKey: string) { return this.pids.get(dispatchKey); }
+  dispatchKeyOf(_attemptId: string): string | undefined { return undefined; } // tip-borcu v9-06: sahte attempt izlemez — cancel yolu UNKNOWN (fail-closed); gerçek impl git-worktree-launcher'da
   async isAlive(pid: number) {
     try { process.kill(pid, 0); return true; } catch (e: any) {
       if (e.code === 'ESRCH') return false;
