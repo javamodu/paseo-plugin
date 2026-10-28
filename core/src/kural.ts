@@ -275,7 +275,7 @@ export function eslesenTaslak(taslaklar: KuralTaslagi[], onayliTaslakIdler: Set<
 export function hedefYaz(ev: string, icerik: string): void {
   const tmp = ev + '.tmp-' + Date.now();
   const fd = openSync(tmp, 'w');
-  try { writeSync(fd, icerik, 'utf8'); fsyncSync(fd); } finally { closeSync(fd); }
+  try { writeSync(fd, icerik, null, 'utf8'); fsyncSync(fd); } finally { closeSync(fd); }
   renameSync(tmp, ev);
 }
 

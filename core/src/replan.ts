@@ -285,7 +285,7 @@ export function openReplanDefteri(dbPath: string): ReplanDefteri {
 export function planYaz(ev: string, icerik: string): void { // tmp+fsync+rename (A2-10 kalıbı)
   const tmp = ev + '.tmp-' + Date.now();
   const fd = openSync(tmp, 'w');
-  try { writeSync(fd, icerik, 'utf8'); fsyncSync(fd); } finally { closeSync(fd); }
+  try { writeSync(fd, icerik, null, 'utf8'); fsyncSync(fd); } finally { closeSync(fd); }
   renameSync(tmp, ev);
 }
 
