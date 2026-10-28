@@ -1,0 +1,11 @@
+{
+  "surum": 1,
+  "aciklama": "ASLA commite girmemesi gereken dosya desenleri (scripts/merge-guard.ps1 okur; v9 V9-02 — raporlar/gelen-kutu/v9-kalite-koruyucu-hiz-2026-10-28.md). kirli-liste.json'in ayna-goruntusudur: o benign kirli-agac tanimlar (OK tarafi), bu liste ASLA tarafini tanimlar. Desen, staged dosya yoluna (git diff --cached --name-only) alt-dizi olarak uygulanir; eslesme varsa pre-commit hook exit 1 (fail-closed). Dikkat: core/data/ altinda TRACKED meşru defterler vardir (kural.jsonl, gozetimsiz-kanit.jsonl, replan.jsonl, ordu.sqlite) — bu yuzden dizin-geneli desen YASAKTIR; yalniz ev kurallarinin acikca ASLA dedigi dosyalar listelenir.",
+  "desenler": [
+    "probe-latest.json",
+    "ordu.sqlite-shm",
+    "ordu.sqlite-wal",
+    "gece.jsonl",
+    "tmp-"
+  ]
+}

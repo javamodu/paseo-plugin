@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 0218cd8 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 8c93792 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -74,9 +74,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (8 dosya: en yeni d1b-test.mjs, server.js, d1a-test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (75 dosya: en yeni KARAR-PAKETI-2026-10-28.md, YAZAR-BRIEF-SABLON-2026-10-28.md, HANDOFF-2026-10-28-2031.md)
+- `plans/` (76 dosya: en yeni HANDOFF-2026-10-28-2100.md, KARAR-PAKETI-2026-10-28.md, YAZAR-BRIEF-SABLON-2026-10-28.md)
 - `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
-- `raporlar/` (161 dosya: en yeni 2026-W44.md, v8-paralel-yazar-hizi-2026-10-28.md, a4-gece-2026-10-28.md)
+- `raporlar/` (162 dosya: en yeni v9-kalite-koruyucu-hiz-2026-10-28.md, 2026-W44.md, v8-paralel-yazar-hizi-2026-10-28.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -86,6 +86,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (7.3KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
+- `scripts/merge-guard.ps1` (1.6KB)
 - `scripts/model-katalog.mjs` (9.7KB) — function md() {
 - `scripts/omp-kurulum-kapisi.mjs` (4.2KB)
 - `scripts/openrouter-pi-kapisi.mjs` (4.1KB)

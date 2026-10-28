@@ -1,0 +1,63 @@
+{
+  "schemaSurum": 1,
+  "baslik": "v9 - kalite-koruyucu hiz paketi (v8 sonrasi ek)",
+  "tarih": "2026-10-28",
+  "kaynak": "kullanici sorusu: 'kaliteyi dusurmeden nasil verimlilik artar hiz paketine ekle' — v8 (0218cd8 + kapanis 8c93792) KAPALI kaydina dokunulmadi (append-only: yeni surum dosyasi)",
+  "maddeler": [
+    {
+      "id": "V9-01",
+      "baslik": "Hedefli test secici (deterministik kapsam)",
+      "dosyaRef": "scripts/hedefli-test.mjs",
+      "etiket": "verimlilik",
+      "siddet": "orta",
+      "oneri": "YENI scripts/hedefli-test.mjs: degisen src dosyalarindan (git diff) test alt kumesini makine-secimli uretir — dosya-adi eslesmesi (src/x.ts <-> test/x.test.ts) + test dosyalarinin import taramasi; cikti node --test dosya listesi. Degisen dosyanin testi yoksa UYARI (kapama boslugu gorunur). K-0053 yazar akisinin 'hedefli test' adimi tahminden cikar — yanlis alt kume kosmak sahte-yesil riskiydi. ~80-150 kaynak + 60-100 test.",
+      "islenme": null
+    },
+    {
+      "id": "V9-02",
+      "baslik": "Merge-guard (yasak-desen pre-commit hook)",
+      "dosyaRef": "scripts/merge-guard.ps1",
+      "etiket": "verimlilik",
+      "siddet": "orta",
+      "oneri": "YENI scripts/yasak-liste.json (ASLA desenler: probe-latest.json, ordu.sqlite-shm/wal, core/data/* uretim defterleri, tmp-*) + scripts/merge-guard.ps1 + .git/hooks/pre-commit kurulum adimi. Staged alanda (git diff --cached --name-only) desen eslesirse exit 1 + sebep — kirli-liste.json deseninin ayna-goruntusu (benign liste OK tarafi, bu liste ASLA tarafi). 'Paralel yazicinin dosyasina dokunulMADI' kontrolu su an her commit'te ELLE yurutuluyor; tek ihlal geri-alinamaz. Hook sinifi kanitli (post-commit temp-repo 5 dk, AGENTS/K-0051). ~30-60 PS + temp-repo kaniti; kurulum repo-yerel.",
+      "islenme": null
+    },
+    {
+      "id": "V9-03",
+      "baslik": "Spawn maliyeti olcum kanali (V8-06 onkosulu)",
+      "dosyaRef": "core/src/cli.ts",
+      "etiket": "verimlilik",
+      "siddet": "dusuk",
+      "oneri": "Spawn basina sure/model kaydi kanit defterine (gece.jsonl deseni — jsonlEkle fsync'li). V8-06 (spawn ekonomisi) DEGERLENDIRILEMEDI cunku olcumsuz varsayimdi; N kosum veri biriktikten sonra V8-06 karara girer. ~20-50 + 20-40 test. Olc-sonra-karar.",
+      "islenme": null
+    },
+    {
+      "id": "V9-04",
+      "baslik": "Olcum cifti standardi (hiz kalemleri icin)",
+      "dosyaRef": "plans/uygulama-paketleri/DC-H1-2026-10-28/CALISTIRMA.md",
+      "etiket": "surec",
+      "siddet": "dusuk",
+      "oneri": "Her hiz kalemi kapanisinda ONCE/SONRA tablo (kanal sn, duvar suresi, x, tur sayisi) kanit raporunda; olcumsuz 'hizlandi' iddiasi kapanamaz. ONKOSUL: CALISTIRMA.md RBT-2026-10-28.2'nin untracked kirli dosyasi — V8-02b ile ayni sekilde RBT kapanisi onculu; bugun yazilmaz. 0 teknik LOC (~10 satir dokuman; kural sayacina girmez — paket dokumani).",
+      "islenme": null
+    },
+    {
+      "id": "V9-05",
+      "baslik": "Ders -> regresyon-test cifti",
+      "dosyaRef": "DERSLER.md",
+      "etiket": "kalite",
+      "siddet": "dusuk",
+      "oneri": "DERSLER.md'e giren tekrarlanabilir hata dersi ilgili dalgada +1 regression test dogurur (A3 emsali: ders -> a3-kural.test.ts vakasi). 'Ayni tuzaga iki kez dusmek hatadir'in mekanik karsiligi: her tekrar-hata turu 45-60 dk; maliyet tek seferlige cekilir. 0 sabit LOC; ders basina ~20-40 test satiri (surekli maliyet — durust not).",
+      "islenme": null
+    },
+    {
+      "id": "V9-06",
+      "baslik": "Tip-borcu 51 -> 0 sifirlama fisi (v8'den devralma; yalniz FISLEME teklifi)",
+      "dosyaRef": "core/src/tip-kapisi.mjs",
+      "etiket": "kalite",
+      "siddet": "orta",
+      "oneri": "v8 kaydinin bekleyen baci: 6 src + 45 test-fake; is basina <=3 dosya -> ~18 mini-dalga; her dustuste BILINEN_BORC AYRI commit'te iner (sessiz degil). Bu madde yalniz FISLEME teklifi — uygulama emri degil. Kalite-hiz bagi: borc 0'da tip kapisi 0->1 aninda kirmizi = REGRESYON YAKALAYICI (bugunku deger artis-yakalayici); B8 sinifinin gelecekteki tam-suit yakalanmasi (~102 sn + kapanis turu) saniyeye iner.",
+      "islenme": null
+    }
+  ],
+  "islenmeTarihi": null
+}
