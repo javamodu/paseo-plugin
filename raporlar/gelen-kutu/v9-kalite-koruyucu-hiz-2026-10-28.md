@@ -166,3 +166,45 @@ işlenen maddeye tarih + commit hash kapanış dalgasında append edilir (K-0052
 - **Dürüst notlar:** kanıt logu UTF-16'dır (Tee-Object deseni); ölçülen süre adapter
   çağrısının duvar süresi (LLM tur süresi DEĞİL — V8-06 spawn-ekonomisi sorusu tam bu
   çağrının maliyetiydi).
+
+## §V9-06 uygulama kaydı (2026-10-28 — tip-borcu 51→0 SIFIRLAMA; kullanici "06:00'a kadar otonom tamamla" emri = uygulama emri; 9 dalga)
+
+- **Yol (her düşüş AYRI ratchet commit'iyle, sessiz değil):** 51 → 48 `1ffefdd` → 46 `250cb51` →
+  44 `73dda2d` → 36 `aff770c` → 25 `aa274a9` → 17 `03614e7` → 14 `9ccc7ff` → 9 `ccd6fae` →
+  0 `ec96f29` + **KİLİT** `39f46e4` (BILINEN_BORC=0 — andan itibaren +1 yeni tip hatası anında
+  YENI-TIP-HATASI exit 1: kapı artış-yakalayıcıdan **REGRESYON-YAKALAYICIYA** döndü; v8-3b'nin
+  açılış notundaki taahhüt yerine geldi). tsc exit kodu 2→0 ilk kez.
+- **Kök-cause kümesi 1 (~28 hata): B8 aynası** — LocalLauncher'a giren `dispatchKeyOf` 11
+  sahte launcher'da yoktu (capacity/f3-live/f5/k13/live-gates-v3/v4/f9/e2e-s11/f3-crash sınıfları
+  + f1-gates/f65-rol-model obje literalleri). Stub bilinci: sahte attempt İZLEMEZ → undefined →
+  adapter cancel 'UNKNOWN' (fail-closed; gerçek impl git-worktree-launcher'da v9-06/c).
+- **Kök-cause kümesi 2:** ajv-formats nodenext tip tuzağı (validate/handoff/handoff.test —
+  çağrı noktasında lokal tip; DERSLER 2026-10-28 tur kaydı) · strict:false truthiness-daraltmama
+  (dispatcher `=== true`, minimal repro kanıtlı) · writeSync overload imzası (kural/replan) ·
+  sqlite variyad (a0-2-sweep) · ProbeReceipt doğru evi (a0-5-lrt) · executor imzası gerçeği
+  yansıtmıyordu (benchmark-canli) · f4-pano fetch unknown (tek gevşek kayıt).
+- **GERÇEK boşluklar (tip-borcu kozmetik değil — 2 kanıt):** (1) git-worktree-launcher'da
+  dispatchKeyOf FİİLEN eksikti → restart-sonrası cancel kör (B8) — uygulandı + regresyon testi
+  (git-worktree.test.ts 6/6); (2) evaluator-canli `r2.exitCode ?? 1` SAHTE-YEŞİL'di (dönüş tipinde
+  olmayan alan → `?? 1` her koşumda geçer) — iddia dürüstçe kaldırıldı, semantik verdict FAIL
+  iddiasında taşıyor.
+- **KANIT (R):** her dalga tsc sayımı + hedefli testler (32/32 · 33/33 · 6/6 · 5/5+2/2 · 7/7 ·
+  9/9 · 27/27 · 28/28 · 18/18); **tam KANAL -Etiket v9-06: 467/467 x=0 sureSn=125**
+  (h=39f46e4; 466→467: yeni B8 testi) + tip kapısı 0/0 GECTI; DERSLER.md +1 tur (4 ders).
+  Dalga-A ders kaydı: MANAGER_KAYNAGI şablon tuzak testler commit'ten ÖNCE yakaladı.
+
+## §V9-05 uygulama kaydı (2026-10-28 — ders→test çifti; politika olarak uygulandı)
+
+Bu turda çift İKİ emsale doğdu (politika kalıcı hale geldi): (1) MANAGER_KAYNAGI şablon-tuzağı
+dersi → hedefli koşumda kalan f3-crash testleri (kırıldı→düzeltüldü→yeşil — regression gerçek);
+(2) sahte-yeşil dersi (evaluator exitCode) → tip kapısı 0-ratchet (mekanik yakalayıcı: bu sınıf
+artık süitten ÖNCE kırmızı). Kalıcı kural formülasyonu: **DERSLER.md'e giren tekrarlanabilir
+hata dersi ilgili dalgada +1 regression testi veya mekanik kapı doğurur** — bu turun 2 örneği
+yukarıda; gelecek dersler için brief şablonu §5 zaten hedefli-test + tip kapısı adımlarını
+içeriyor. 0 sabit LOC (v9 tahminiyle birebir).
+
+## v9 kapanış durumu (2026-10-28 son)
+
+İşlendi: V9-01 · V9-02 · V9-03 · V9-05 · V9-06 (5/6). BEKLEYEN: **V9-04** (ölçüm çifti
+standardı — CALISTIRMA.md RBT-2026-10-28.2'nin untracked kirli dosyası; V8-02b ile AYNI önkoşul,
+RBT kapanışı bekler; bugün yazılmaz). Graf-dışı verimlilik paketinin DC bütçesine etkisi yok.
