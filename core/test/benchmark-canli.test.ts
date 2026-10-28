@@ -36,7 +36,7 @@ async function gercekKos(kod: string, zamanAsimiMs: number): Promise<{ durum: 'k
   return { durum: cikti.trim() === BEKLENEN_MEDYAN ? 'kabul' : 'red', sureMs };
 }
 
-function executor(kod: string, zamanAsimiMs: number): (ctx: { denemeNo: number }) => Promise<DenemeSonucu> {
+function executor(kod: (denemeNo: number) => string, zamanAsimiMs: number): (ctx: { denemeNo: number }) => Promise<DenemeSonucu> { // tip-borcu v9-06: imza string derken TUM cagiranlar fonksiyon geciyor — tip gercegi yansitmiyordu
   return async (ctx) => {
     const r = await gercekKos(kod(ctx.denemeNo), zamanAsimiMs);
     return {

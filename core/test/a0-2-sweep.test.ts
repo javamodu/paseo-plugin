@@ -73,7 +73,7 @@ const OK_ADAPTER: WorkerAdapter = {
   lookup: async () => 'ALIVE',
 };
 
-const tek = (db: DatabaseSync, sql: string, ...p: unknown[]) => (db.prepare(sql).get(...p) as any);
+const tek = (db: DatabaseSync, sql: string, ...p: any[]) => (db.prepare(sql).get(...p) as any); // tip-borcu v9-06: sqlite get variyad unknown[] reddeder
 
 test('A0-2 METRIK: asili run sayisi 3→0 — FATAL kapanisli 3 run (uretim RUNNING=3 sinifi) supurulur', async () => {
   const db = acilis();

@@ -18,7 +18,8 @@ import {
   CLI_REGISTRY, PROVIDER_CLI_MAP, PROVIDER_REGISTRY, cliOfProvider, cliPresent,
   assertProviderModel, resolveProviderModel, providerArgOf,
 } from '../src/providers.ts';
-import type { ProbeReceipt, LocalLauncher } from '../src/local-runtime.ts';
+import type { LocalLauncher } from '../src/local-runtime.ts';
+import type { ProbeReceipt } from '../src/capabilities.ts'; // tip-borcu v9-06: ProbeReceipt capabilities'te tanimli (local-runtime yeniden ihraç etmiyor)
 
 const dir = () => mkdtempSync(join(tmpdir(), 'ordu-a05-lrt-'));
 const uyu = (ms: number) => new Promise((r) => setTimeout(r, ms));
