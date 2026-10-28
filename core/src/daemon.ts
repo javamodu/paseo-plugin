@@ -50,7 +50,8 @@ const MAX_CONSECUTIVE_FAILURES = 3;
 
 // Çocuk süreç koşucusu: `node src/cli.ts <args>` — tek geçiş tick. Exit kodu + stdout
 // daemon'a döner; yorum DAEMONDA YAPILMAZ (kayıt memuru değil gözlemci — kapılar CLI'da).
-function spawnCliTick(opts: DaemonOptions): Promise<TickOutcome> {
+// A4 gece sürücüsü (gece.ts) sarmalayıcısı için dışa açıldı — davranış değişikliği YOK.
+export function spawnCliTick(opts: DaemonOptions): Promise<TickOutcome> {
   const cliPath = fileURLToPath(new URL('./cli.ts', import.meta.url));
   return new Promise((resolve) => {
     const t0 = Date.now();

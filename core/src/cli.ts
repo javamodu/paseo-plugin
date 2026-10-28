@@ -25,6 +25,7 @@ import {
   derslerOku, kuralSayaci, esikOku, adayUret, openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak,
 } from './kural.ts';
 import { KANIT_DEFTERI_YOLU } from './gozetimsiz.ts';
+import { geceModu, GECE_DEFTERI_YOLU } from './gece.ts';
 
 export interface CliDeps {
   dbPath: string;
@@ -371,6 +372,46 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
         } };
       } catch (e: any) { return { code: 1, out: 'kural reddedildi: ' + e.message }; }
     }
+    case 'gece': {
+      // A4 Otonom sürü sürücüsü — gece modu: hedef+limit ver → gece tur serisi.
+      // Açılış kapısı gözetimsiz rozetidir (fail-closed: rozet kırmızıysa 0 tur RED);
+      // canlılık her tur sonrası — rozet düşerse seri kendini kapatır; limit dolunca
+      // temiz kapanış. Otonom tur sayısı + ortalama süre gece defterine (gece.jsonl)
+      // yazılır; her çıkışta kapanış kaydı düşer ("neden açılmadı" da kalıcı bilgi).
+      const hedef = flag('hedef');
+      if (!hedef || !hedef.trim()) {
+        return { code: 1, out: 'gece: --hedef "..." zorunlu (gece hedefsiz açılmaz — ölçüm kaydı hedefsiz doğmaz)' };
+      }
+      const limitRaw = flag('limit');
+      const turLimiti = limitRaw !== undefined ? Number(limitRaw) : undefined;
+      if (turLimiti === undefined || !(Number.isInteger(turLimiti) && turLimiti > 0)) {
+        return { code: 1, out: 'gece: --limit pozitif tam sayı olmalı (tur tavanı — sonsuz gece yok)' };
+      }
+      const intervalMs = Number(flag('interval-ms') ?? 30_000);
+      if (!(Number.isFinite(intervalMs) && intervalMs >= 1000)) {
+        return { code: 1, out: 'gece: --interval-ms >= 1000 gerekli (cadence disiplini — serve ile aynı kapı)' };
+      }
+      const tazelikDk = flag('tazelik-dk') !== undefined ? Number(flag('tazelik-dk')) : undefined;
+      if (tazelikDk !== undefined && !(Number.isFinite(tazelikDk) && tazelikDk > 0)) {
+        return { code: 1, out: 'gece: --tazelik-dk pozitif sayı olmalı (rozet tazelik penceresi)' };
+      }
+      let signalled = false;
+      const onSig = () => { signalled = true; };
+      process.on('SIGINT', onSig); process.on('SIGTERM', onSig);
+      try {
+        const res = await geceModu({
+          hedef, turLimiti, intervalMs, dbPath: deps.dbPath,
+          kanitDefteriYolu: (deps.env.ORDU_KANIT_DEFTERI as string | undefined) || KANIT_DEFTERI_YOLU,
+          defterYolu: (deps.env.ORDU_GECE_DEFTERI as string | undefined) || GECE_DEFTERI_YOLU,
+          ...(tazelikDk !== undefined ? { tazelikMs: tazelikDk * 60_000 } : {}),
+          probePath: deps.probePath, env: deps.env,
+          shouldStop: () => signalled,
+        });
+        return { code: res.code, out: res.stats };
+      } finally {
+        process.removeListener('SIGINT', onSig); process.removeListener('SIGTERM', onSig);
+      }
+    }
     case 'serve': {
       // S4 Scheduler 2/2: tick DÖNGÜSÜ — daemon sürücüsü. Her tur ayrı `tick` ÇOCUK
       // süreci (crash izolasyonu); cadence schedule.ts disipliniyle (misfire/overlap
@@ -404,7 +445,7 @@ export async function cliMain(argv: string[], deps: CliDeps): Promise<{ code: nu
       }
     }
     default:
-      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)|replan [--esik N --hedef N --plan P --kabul K]|replan --onay <taslakId> --confirm "REPLAN ONAYLIYORUM"|kural [--kok R] [--limit 1-5]|kural --sentez <taslakId> --aday <on-ek> --metin "..."|kural --onay <taslakId> --confirm "KURALLARI ONAYLIYORUM"' };
+      return { code: 1, out: 'kullanım: ordu status|stop [--actor A --reason R]|resume --confirm "..."|tick [--probe yol]|serve [--interval-ms N] [--max N]|gece --hedef "..." --limit N [--interval-ms N] [--tazelik-dk N]|notify [--enqueue --severity INFO|WARN|CRITICAL --title T --body B --dedupe-key K]|capsule --goal "..." --repo R --commit <64hex> [--allow K]...|approve --run <runId> --plan-hash <hash>|dispatch --run <runId>|evaluate --run R --attempt A --artifact P [--expect M]|decide --run <runId> (--approve|--reject)|replan [--esik N --hedef N --plan P --kabul K]|replan --onay <taslakId> --confirm "REPLAN ONAYLIYORUM"|kural [--kok R] [--limit 1-5]|kural --sentez <taslakId> --aday <on-ek> --metin "..."|kural --onay <taslakId> --confirm "KURALLARI ONAYLIYORUM"' };
   }
 }
 
