@@ -12,7 +12,7 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const BILINEN_BORC = 25; // v9-06/e: 36->25 (dalga B: f3-live/f5-parallel/k13 sahte launcher)
+const BILINEN_BORC = 17; // v9-06/f: 25->17 (dalga C: live-gates-v3/v4 + f9)
 const TSC = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
 const TAVAN_MS = 120_000;
 
