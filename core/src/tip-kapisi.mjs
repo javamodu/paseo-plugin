@@ -12,7 +12,7 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const BILINEN_BORC = 46; // v9-06/b: 48->46 (kural/replan writeSync overload imzasi; dalgalar v9 md-de)
+const BILINEN_BORC = 44; // v9-06/c: 46->44 (git-worktree-launcher dispatchKeyOf B8 + test; dalgalar v9 md-de)
 const TSC = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
 const TAVAN_MS = 120_000;
 
