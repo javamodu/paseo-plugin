@@ -11,7 +11,7 @@
       "etiket": "verimlilik",
       "siddet": "orta",
       "oneri": "Yazar worktree'de branch'te kisa kanca commit'ler atar; dalga kapanisi merge aninda tam kanal + tip ile tek operator elinde kapatir. Duzeltme: merge-birimi yeniden tanimi 25.5 dokunusudur - L4 kayit sart; kayitsiz muafiyet gizli esik gevsetme sayilir.",
-      "islenme": null
+      "islenme": "2026-10-28 ADR-taslagi kararlar/K-0053.md DURUM:ONERI [insan] (0218cd8) — uygulama onaya bagli"
     },
     {
       "id": "V8-02",
@@ -20,7 +20,7 @@
       "etiket": "verimlilik",
       "siddet": "orta",
       "oneri": "2a: yazar kendi hedefli test + tip ile erken kirmizi gorur (sablona islendi). 2b: kapanis-taslak.ps1 graf/kabul/SENARYO yazan dalga-kapanis script'i - RBT-2026-10-28.2 kapanisi onkosulu (kirli dosya kilidi). Not: tur-2 'CALISTIRMA/dogrula.mjs/gorevler.json YOK' tespiti eskidi - RBT arada uretti.",
-      "islenme": null
+      "islenme": "2026-10-28 kismen — 2a YAZAR-BRIEF-SABLON'da (0218cd8); 2b kapanis-taslak.ps1 RBT kapanisi onkosuluyla BEKLEMEDE"
     },
     {
       "id": "V8-03",
@@ -29,7 +29,7 @@
       "etiket": "verimlilik",
       "siddet": "yuksek",
       "oneri": "3b UYGULANDI ratchet ile: tsc --noEmit hata sayisi BILINEN_BORC=51 taban cizgisini asarsa kirmizi (+N yeni tip hatasi), esit/alti yesil; tsc cokerse fail-closed. 3a REDDEDILDI - dinamik timeout esik gevsetmedir; alternatif: gercek-surec testleri (f3-crash/f3-live/manager) icin ayri seri-faz isi (bekleyen). Gece penceresi gereksiz - kanal politikasi zaten yuk-dengi (A4 kanali 36/31 tek kosum x=0).",
-      "islenme": null
+      "islenme": "2026-10-28 3b UYGULANDI ratchet ile (0218cd8); 3a REDDEDILDI (esik gevsetme) — seri-faz alternatifi bekleyen; gece penceresi gereksiz bulundu (kanal yuk-dengi)"
     },
     {
       "id": "V8-04",
@@ -38,7 +38,7 @@
       "etiket": "verimlilik",
       "siddet": "yuksek",
       "oneri": "Sablonda uygulandi: EK-3 4-oge brief govdesi + readFiles baglam paketi ('repoya bak' brief'i gecersiz) + minimal headless pre-flight sonda (W-A0-3 API-400 sinifini saniyelerde yakalar; probe.mjs CLI-varlik sondasiyla karismaz) + donmus arayuz sozlesmesi (B8 riski tip kapisiyla kapanir) + yazar/operator akislari + yapilmayacaklar.",
-      "islenme": null
+      "islenme": "2026-10-28 UYGULANDI plans/YAZAR-BRIEF-SABLON-2026-10-28.md (0218cd8)"
     },
     {
       "id": "V8-05",
@@ -47,7 +47,7 @@
       "etiket": "verimlilik",
       "siddet": "orta",
       "oneri": "Duzeltme: paralel esleme K-0053 onayina baglanir - oncesinde uygulanmaz (tek agacta kirli-dosya sahiplik cakismasi K-0053'siz cozumsuz).",
-      "islenme": null
+      "islenme": "2026-10-28 K-0053 onayina baglandi (0218cd8) — oncesinde uygulanmaz"
     },
     {
       "id": "V8-06",
@@ -65,7 +65,8 @@
       "etiket": "surec",
       "siddet": "orta",
       "oneri": "Uygulandi: 6 kapi sira kumelenir, her biri KENDI tam onay cumlesiyle (rpl-03579e06, K-0044 penceresi, K-0053, S0A_START + CALISTIRMA 2 kayit onkosulu, H1 butce paylari 5880-9450 T, S2/S5/S6 dudekleri - metinler graf sahibi turda, uydurma yok). Paket ONAY DEGILDIR (EK-2).",
-      "islenme": null
+      "islenme": "2026-10-28 UYGULANDI plans/KARAR-PAKETI-2026-10-28.md (0218cd8)"
     }
-  ]
+  ],
+  "islenmeTarihi": "2026-10-28 v8 kapanis commiti"
 }
