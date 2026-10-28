@@ -88,6 +88,15 @@ export class GitWorktreeLauncher implements LocalLauncher {
     return this.registry.get(dispatchKey)?.pid;
   }
 
+  // B8 (denetçi, tip-borcu v9-06/c): LocalLauncher sözleşmesine sonradan giren üye —
+  // restart-sonrası cancel körlüğü: bellek Map'i ölümlüdür, registry kaydı attemptId'yi
+  // DISKTE taşır; son launch kaydından dispatchKey çözülür (local-runtime.ts:28 sözleşme).
+  // Çözülemezse undefined → adapter 'UNKNOWN' (fail-closed: kör cancel YOK).
+  dispatchKeyOf(attemptId: string): string | undefined {
+    for (const e of this.registry.values()) if (e.attemptId === attemptId) return e.dispatchKey;
+    return undefined;
+  }
+
   // process.kill(pid, 0) varlık testi: ESRCH=öldü; EPERM/diğer=yaşıyor; belirsiz=null.
   async isAlive(pid: number): Promise<boolean | null> {
     try { process.kill(pid, 0); return true; }

@@ -67,6 +67,24 @@ test('RT.1: DURABLE registry restarti — yeni instance ayni pidOf gorur (pid ka
   }
 });
 
+test('RT.1 B8 (tip-borcu v9-06/c): dispatchKeyOf — attemptId→dispatchKey restart sonrasi DISKTE cozulur, bilinmeyen undefined', async () => {
+  const { root, ...o } = freshRepo();
+  const l1 = new GitWorktreeLauncher(o);
+  let pid = 0;
+  try {
+    pid = (await l1.launch({ dispatchKey: 'dk-b8', attemptId: 'att-b8', prompt: 'is' })).pid;
+    assert.equal(l1.dispatchKeyOf('att-b8'), 'dk-b8', 'ayni instance: kayittan cozulur');
+    // restart: yeni instance bellek Map'i bos ama durable registry'den cozer (cancel kör değil)
+    const l2 = new GitWorktreeLauncher(o);
+    assert.equal(l2.dispatchKeyOf('att-b8'), 'dk-b8', 'restart sonrasi DISKTE cozulmeli');
+    assert.equal(l2.dispatchKeyOf('yok-boyle-attempt'), undefined, 'bilinmeyen → undefined → adapter UNKNOWN (fail-closed)');
+  } finally {
+    await l1.kill(pid);
+    try { l1.removeWorktree('dk-b8'); } catch { /* noop */ }
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('RT.1: olsente kanit — pid yazilamassa launch hata verir (return yok, fail-closed)', async () => {
   const { root, ...o } = freshRepo();
   // worker aninda olurse bile pid gecerli; ama ornek: worker cmd gecersiz -> spawn throw etmez, pid yoksa throw
