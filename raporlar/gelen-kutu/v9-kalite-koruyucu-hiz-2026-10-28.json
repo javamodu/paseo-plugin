@@ -11,7 +11,7 @@
       "etiket": "verimlilik",
       "siddet": "orta",
       "oneri": "YENI scripts/hedefli-test.mjs: degisen src dosyalarindan (git diff) test alt kumesini makine-secimli uretir — dosya-adi eslesmesi (src/x.ts <-> test/x.test.ts) + test dosyalarinin import taramasi; cikti node --test dosya listesi. Degisen dosyanin testi yoksa UYARI (kapama boslugu gorunur). K-0053 yazar akisinin 'hedefli test' adimi tahminden cikar — yanlis alt kume kosmak sahte-yesil riskiydi. ~80-150 kaynak + 60-100 test.",
-      "islenme": null
+      "islenme": "2026-10-28 UYGULANDI scripts/hedefli-test.mjs + scripts/hedefli-test.test.mjs + YAZAR-BRIEF-SABLON §5-3 ince kanca (a3f7fbe) — 9/9 kendi testi; DRY-RUN bilinen-cevap [a4-gece.test.ts secildi]; kapsamsiz uyarisi tip-kapisi.mjs GERCEK boslugunu yuzeye cikardi; temsilci kosum 11/11; tam suit 461/461; UNTRACKED dosya goruslugu tasarim dersi kayda girdi"
     },
     {
       "id": "V9-02",
