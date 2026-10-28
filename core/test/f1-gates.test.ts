@@ -260,6 +260,7 @@ test('F1-G (M31): capability eksik — spawn FATAL, attempt FAILED + rezervasyon
     pidOf() { touched = true; return undefined; },
     async isAlive() { touched = true; return true; },
     async kill() { touched = true; },
+    dispatchKeyOf(_a: string): string | undefined { return undefined; }, // tip-borcu v9-06: guard-nesne attempt izlemez (cancel UNKNOWN fail-closed)
   };
   const a = new LocalRuntimeAdapter(receipt, guard, { ORDU_RUNTIME: 'local' });
   const r = await processOutbox(db, a);

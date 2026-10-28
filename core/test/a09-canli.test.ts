@@ -71,6 +71,7 @@ test('A09 canlı lease: GERÇEK süre-aşımı → devir (fence bump) → eski f
   // adapter.cancel gerçek pid'yi SIGKILL ile öldürür + OS ölümünü teyit eder
   const adapter: WorkerAdapter = {
     async spawn() { throw new Error('ULAŞILMAMALIYDI'); },
+    async lookup(_dk: string): Promise<'ALIVE' | 'DEAD' | 'UNKNOWN'> { return 'UNKNOWN' as const; }, // tip-borcu v9-06: WorkerAdapter sözleşme üyesi (cancel senaryosu lookup kullanmıyor — UNKNOWN dürüst)
     async cancel(attemptId: string): Promise<'CONFIRMED_DEAD' | 'REQUESTED' | 'UNKNOWN'> {
       assert.equal(attemptId, 'att-1');
       try { process.kill(eskiSahip.pid!, 'SIGKILL'); } catch { /* zaten olabilir */ }

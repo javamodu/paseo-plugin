@@ -214,6 +214,7 @@ test('LocalRuntimeAdapter: launcher cozulmus provider/model ile cagrilir', async
     pidOf: () => 4242,
     async isAlive() { return true; },
     async kill() {},
+    dispatchKeyOf(_a: string): string | undefined { return undefined; }, // tip-borcu v9-06: guard-nesne attempt izlemez (cancel UNKNOWN fail-closed)
   };
   const caps = { gitWorktreeProven: true, processRegistryDurable: true, cancelConfirmLocal: true, providerCliPresent: true };
   const adapter = new LocalRuntimeAdapter({ capabilities: caps } as any, launcher, { ORDU_RUNTIME: 'local' });
