@@ -12,7 +12,7 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const BILINEN_BORC = 9; // v9-06/h: 14->9 (dalga E: a0-2-sweep/a0-5-lrt/benchmark-canli)
+const BILINEN_BORC = 0; // v9-06/i: 9->0 KILIT (borc sifirlandi — andan itibaren yeni tip hatasi aninda kirmizi; kapisi regresyon-yakalayici)
 const TSC = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
 const TAVAN_MS = 120_000;
 
