@@ -45,6 +45,7 @@ class RealNodeLauncher implements LocalLauncher {
     return { pid: child.pid };
   }
   pidOf(dispatchKey: string) { return this.pids.get(dispatchKey); }
+  dispatchKeyOf(_attemptId: string): string | undefined { return undefined; } // tip-borcu v9-06: sahte attempt izlemez — cancel yolu UNKNOWN (fail-closed); gerçek impl git-worktree-launcher'da
   async isAlive(pid: number) {
     try { process.kill(pid, 0); return true; } catch (e: any) {
       if (e.code === 'ESRCH') return false;
