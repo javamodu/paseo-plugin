@@ -7,7 +7,10 @@ import { CommandSchema, EventSchema, commandPayloadBranches, eventPayloadBranche
 import { createHash } from 'node:crypto';
 
 const ajv = new Ajv({ allErrors: true, strict: false });
-addFormats(ajv);
+// tip-borcu v9-06: ajv-formats'in nodenext tip cozumu cagrilabilir gostermiyor (runtime kanitli:
+// dist/index.js module.exports = formatsPlugin + __esModule + exports.default). Bilinen cagri
+// sekli lokal tipte soylenir — davranis degisimi YOK, yalnizca tip-duzey duzeltme.
+(addFormats as unknown as (a: Ajv) => void)(ajv);
 
 export function canonicalJson(v: unknown): string {
   if (v === null || typeof v !== 'object') return JSON.stringify(v);

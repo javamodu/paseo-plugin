@@ -77,7 +77,7 @@ export type StageHandoff = Static<typeof StageHandoffSchema>;
 export type HandoffStage = StageHandoff['stage'];
 
 const ajv = new Ajv({ allErrors: true, strict: false });
-addFormats(ajv);
+(addFormats as unknown as (a: Ajv) => void)(ajv); // tip-borcu v9-06: validate.ts deseni
 const v = ajv.compile(StageHandoffSchema);
 
 export function validateHandoff(p: unknown): { ok: boolean; errors: string[] } {

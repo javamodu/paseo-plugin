@@ -71,7 +71,9 @@ export async function processOutbox(db: DatabaseSync, adapter: WorkerAdapter, op
       resolveFatal = 'node satiri yok: ' + attempt.run_id + '/' + attempt.node_id;
     } else {
       const cozum = resolveProviderModel({ provider: nodeRow.provider ?? undefined, model: nodeRow.model ?? undefined }, process.env);
-      if (cozum.ok) resolved = { provider: cozum.provider, model: cozum.model };
+      // tip-borcu v9-06: strict:false ortaminda truthiness literal-union'i daraltmiyor
+      // (repro kanitli) — `=== true` daraltir. Davranis degisimi YOK.
+      if (cozum.ok === true) resolved = { provider: cozum.provider, model: cozum.model };
       else resolveFatal = cozum.reason;
     }
   }
