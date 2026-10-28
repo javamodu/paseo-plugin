@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 8c93792 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 8486d1b — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -102,6 +102,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (66.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (65.7KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

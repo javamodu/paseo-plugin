@@ -20,7 +20,7 @@
       "etiket": "verimlilik",
       "siddet": "orta",
       "oneri": "YENI scripts/yasak-liste.json (ASLA desenler: probe-latest.json, ordu.sqlite-shm/wal, core/data/* uretim defterleri, tmp-*) + scripts/merge-guard.ps1 + .git/hooks/pre-commit kurulum adimi. Staged alanda (git diff --cached --name-only) desen eslesirse exit 1 + sebep — kirli-liste.json deseninin ayna-goruntusu (benign liste OK tarafi, bu liste ASLA tarafi). 'Paralel yazicinin dosyasina dokunulMADI' kontrolu su an her commit'te ELLE yurutuluyor; tek ihlal geri-alinamaz. Hook sinifi kanitli (post-commit temp-repo 5 dk, AGENTS/K-0051). ~30-60 PS + temp-repo kaniti; kurulum repo-yerel.",
-      "islenme": null
+      "islenme": "2026-10-28 UYGULANDI scripts/yasak-liste.json + scripts/merge-guard.ps1 + .git/hooks/pre-commit kurulumu (8486d1b) — temp-repo 4-kanit (yasakli staged exit 1 IPTAL / temiz staged exit 0 / gecmiste 1 commit / wal exit 1; KANIT-4 ilk kosum bash hatasiyla GECERSIZDI, gecerli kanit ikinci kosum) + gercek-repo dry-run staged-0 GECTI + dalga commitleri hook-tan gecti; tam suit 461/461 fail 0 83.2 sn; dizin-geneli desen bilincli YOK (core/data/ TRACKED mesru defterler — R: git ls-files)"
     },
     {
       "id": "V9-03",
@@ -59,5 +59,5 @@
       "islenme": null
     }
   ],
-  "islenmeTarihi": null
+  "islenmeTarihi": "2026-10-28 V9-02 uygulandi (8486d1b + kapanis commiti); kalan 5 madde BEKLEYEN (V9-01, V9-03, V9-04, V9-05, V9-06)"
 }
