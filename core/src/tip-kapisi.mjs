@@ -12,7 +12,7 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const BILINEN_BORC = 51;
+const BILINEN_BORC = 48; // v9-06/a: 51->48 (validate/handoff ajv-formats tip cast + dispatcher === true daralmasi; dalgalar v9 md'de)
 const TSC = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
 const TAVAN_MS = 120_000;
 
