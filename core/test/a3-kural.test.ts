@@ -11,7 +11,7 @@ import { join } from 'node:path';
 import {
   KURAL_ONAY_METNI, KURAL_PARTI_UST, KuralError,
   derslerOku, kuralSayaci, esikOku, adayUret, adayAnahtari,
-  openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak,
+  openKuralDefteri, kuralOnayla, kuralYolu, eslesenTaslak, provenansKayitlari,
 } from '../src/kural.ts';
 
 const g = () => mkdtempSync(join(tmpdir(), 'a3-kural-'));
@@ -283,6 +283,42 @@ test('A3 B6 provenans capasi: sentez INIS sonrasi ham-anahtar eslesmez — kayna
   defter.taslakKaydet(ikinci);
   assert.throws(() => kuralOnayla({ defter, taslakId: 'krl-prov2', confirm: KURAL_ONAY_METNI, actor: 'insan:cli', hedefEv, kok }), (e) => kodIle(e, 'bayat-taslak'));
   assert.equal(readFileSync(hedefEv, 'utf8').split(/\r?\n/).filter((l) => l.includes('provenans dersi')).length, 0, 'ham metin HIC inmedi (yalniz sentez metni indi)');
+});
+
+test('A3 B6 K-SADE birlesik satir (K-0052): TEK satirda COKLU provenans cumlecigi — matchAll 3 kayit cikarir; uc kaynagin adaylari DUSMEZ; sayac 3 satir yerine 1 sayar', () => {
+  const kok = g();
+  sayacKur(kok, { anayasa: 5, agents: 3, rehber: 5 });
+  const hedefEv = join(kok, 'AGENTS.md');
+  const { defter, taslak } = taslakKur(kok, ['birlesik ps dersi 3', 'birlesik ps dersi 4', 'birlesik ps dersi 5']);
+  kuralOnayla({ defter, taslakId: taslak.id, confirm: KURAL_ONAY_METNI, actor: 'insan:cli', hedefEv, kok });
+  assert.equal(kuralSayaci(kok).toplam, 16); // 13 + 3 inen satir
+  // K-SADE uygulamasi: 3 inen satiri TEK birlesik satira duzenle (ham capalari birebir tasinir)
+  const capalar = readFileSync(hedefEv, 'utf8').split(/\r?\n/)
+    .filter((l) => l.includes('kaynak DERSLER satır'))
+    .flatMap((l) => l.match(/\(A3 K-0051;[^)]*\)/g) ?? []);
+  assert.equal(capalar.length, 3);
+  const birlesik = '- Birlesik PS tuzak ailesi: uc ders tek satirda birlesti (K-0052). ' + capalar.join(' ');
+  const kalanSatirlar = readFileSync(hedefEv, 'utf8').split(/\r?\n/).filter((l) => !l.includes('kaynak DERSLER satır'));
+  writeFileSync(hedefEv, kalanSatirlar.concat([birlesik]).join('\n') + '\n');
+  // 1) sayac: birlesik satir TEK sayilir (K-SADE etkisinin miniaturu: 16 -> 14)
+  assert.equal(kuralSayaci(kok).toplam, 14);
+  // 2) provenansKayitlari: TEK satirdan 3 kayit cikarir (matchAll — V7-05/V7-06 capa bicimi)
+  const kayitlar = provenansKayitlari([birlesik]);
+  assert.equal(kayitlar.length, 3);
+  assert.deepEqual(kayitlar.map((k) => k.satir), [3, 4, 5]);
+  // ham capalari aday anahtarlarinin 16-hex onekleriyle eslesir (V7-06 bicimi)
+  for (const k of kayitlar) {
+    assert.ok(k.ham);
+    assert.ok(taslak.adaylar.some((a) => a.anahtar.startsWith(k.ham!)), 'ham capa aday anahtariyla eslesir');
+  }
+  // 3) yeniden olcum: uc kaynagin adaylari DAHA dogmaz (satir-no VEYA ham ikili sinyal)
+  const sayac2 = kuralSayaci(kok);
+  const r2 = adayUret(derslerOku(join(kok, 'DERSLER.md')), sayac2.dosyaBasi.flatMap((d) => d.satirlar), 3);
+  assert.equal(r2.adaylar.length, 0, 'birlesik satir da capayi tasir — adaylar donmez (cift-inis yok)');
+  // 4) B1 kapisI: birlesik sonrasi es-taslak ikinci onay bayat-taslak RED
+  const ikinci = { ...taslak, id: 'krl-birlesik2' };
+  defter.taslakKaydet(ikinci);
+  assert.throws(() => kuralOnayla({ defter, taslakId: 'krl-birlesik2', confirm: KURAL_ONAY_METNI, actor: 'insan:cli', hedefEv, kok }), (e) => kodIle(e, 'bayat-taslak'));
 });
 
 test('A3 B7 olcum idempotansi: ayni aday-anahtar seti icin YENI taslak DOGMAZ — onaysiz es-taslak doner (uretim bulgusu: her olcum kosumu yeni kayit dusuruyordu)', () => {

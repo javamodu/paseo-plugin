@@ -1,20 +1,25 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 26a0561 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 40b72a3 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `admin-onboarding.md` (6.1KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
-- `AGENTS.md` (2.5KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
+- `AGENTS.md` (2.4KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
 - `ANAYASA.md` (1.8KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `arsiv/` (93 dosya: en yeni MASTER-SSOT-PLAN.md, HEDEF.md, AGENTS.md)
-- `core/` (116 dosya: en yeni cli.ts, a0-3-gozetimsiz-besleme.test.ts, daemon.ts)
+- `arsiv/` (99 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
+- `core/` (116 dosya: en yeni a3-kural.test.ts, cli.ts, a0-3-gozetimsiz-besleme.test.ts)
 - `DERSLER.md` (88.4KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
+- `kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md` (2.6KB) — ADR eki — Üç denetçi sonrası DC planının sonlandırılması | Karar | Bütçe etkisi (T)
+- `kararlar/ADR-dc-h1-atomik-paketler-2026-10-28.md` (2.6KB) — ADR — DC-H1 uygulama paketlerinin atomikleştirilmesi | Karar | Kanıt ve sınır
+- `kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md` (3.1KB) — ADR — Tek ana planın insan kanıtlı, kademeli büyüme revizyonu | Bağlam | Karar
 - `kararlar/ADR-F65-rol-model.md` (9.8KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (UYGULANDI — kanıt: database/003-role-model.sql migration + test/f65-rol-model.test.ts 311-suitinde PASS; [insan] onay damgası bekler) | Baglam | Karar
+- `kararlar/ADR-kilit-oncesi-kapanis-2026-10-28.md` (2.6KB) — ADR — Kilit öncesi belge ve paket kapanışları | Karar | Kabul ve reddedilen yollar
 - `kararlar/ADR-R3-vekalet.md` (16.7KB) — ADR-R3 — Sinirli vekalet (grant): grant yeni `grants` tablosunda yasar; vekil karari mevcut approvals kapisindan `actor_id='vekil:<grantId>'` ile akar (UYGULANDI — kanıt: database/004-grants.sql migration + test/r3-grant.test.ts 311-suitinde PASS; [insan] onay damgası bekler) | Baglam | Karar
+- `kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md` (2.7KB) — ADR — Rapor birleştirme ve belge kilidi planının ana plana eklenmesi | Bağlam | Karar
 - `kararlar/ADR-toparlanma-monorepo.md` (7.9KB) — ADR — Toparlanma: tek dizin (monorepo) — TASLAK, onay bekler | Bağlam | Karar (önerilen)
 - `kararlar/K-0001.md` (0.6KB) — K-0001 — İki araştırma paketinin birleştirilmesi ve sürüm senkronu
 - `kararlar/K-0002.md` (1.6KB) — K-0002 — v2.0: 10-eksenli harness araştırması sentezi + reviewer denetimi
@@ -64,13 +69,14 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0049.md` (2.2KB) — K-0049 — 4-puan köprüsü: F7-B/A14/A10/M17 kabul satır çevirileri — ONAYLANDI, UYGULANDI | Bağlam | Karar (madde-bazlı)
 - `kararlar/K-0050.md` (2.5KB) — K-0050 — SAVAŞ START + M02 canlı döngü kapanışı — KAYIT (START düdüğü [insan]) | Karar (uygulandı) | Reddedilen alternatifler
 - `kararlar/K-0051.md` (2.9KB) — K-0051 — A3 deneyim→kural derleyicisi açılış kararları (hedef dosya / parti üst sınırı / sentez yüzeyi) — ONAYLANDI | Bağlam | Karar (3 madde, [insan] yanıtları)
+- `kararlar/K-0052.md` (4.9KB) — K-0052 — K-SADE kural sadeleştirme dalgası I: sayaç 80→38 (v7 paketi + OP-A) | Bağlam | Karar (kullanıcı, 2026-10-28 karar turu)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (8 dosya: en yeni d1b-test.mjs, server.js, d1a-test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (57 dosya: en yeni GOREV-GRAFIGI-SENERARYO-2026-10-26.md, A0-DALGA-6SUBAGENT-PLANI-2026-10-27.md, HANDOFF-2026-10-27-0955.md)
+- `plans/` (72 dosya: en yeni HANDOFF-2026-10-27-0955.md, SSOT-INDEX.md, PLAN.md)
 - `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
-- `raporlar/` (126 dosya: en yeni gorev-grafigi-2026-10-26.md, a03-gozetimsiz-besleme-2026-10-27.md, 2026-W44.md)
-- `README.md` (3.1KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | İçindekiler | Hızlı başlangıç (3 adım)
+- `raporlar/` (159 dosya: en yeni 2026-W44.md, OZET.md, dogrula.mjs)
+- `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
 - `scripts/bench-claude.mjs` (8KB) — function claude(prompt, ms = 240000) {
@@ -89,7 +95,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (8.5KB)
 - `scripts/zincir-kontrol.ps1` (1.3KB)
-- `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (14.7KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `STATE_BOARD.md` (64.5KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar (tam: son 3)
+- `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (12.4KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
+- `sozlesme/REHBER-EK-OTONOM.md` (1.5KB) — REHBER-EK — Otonom Mod (REHBER §7 devamı; K-0052 taşınması)
+- `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
+- `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
+- `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
+- `STATE_BOARD.md` (69.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

@@ -1,6 +1,6 @@
 ﻿# PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1)
 
-v2.1 — 2026-10-13 · v2.0 (2026-10-11, K-0002) üzerine: EK-5 Süre Ekonomisi eklendi + §5 K3 askı notu (K-0032: fırtına modu, ikinci emre kadar). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme. (K-0039 sadeleştirme 2026-10-26: madde birleştirme — semantik içerik korunmuştur.)
+v2.1 — 2026-10-13 · v2.0 (2026-10-11, K-0002) üzerine: EK-5 Süre Ekonomisi eklendi + §5 K3 askı notu (K-0032: fırtına modu, ikinci emre kadar). Uygulama-adı geçmez; "<proje>" yazan yerleri çalıştığın repo ile eşle. Öncelik sırası: kullanıcının açık oturum direktifi > proje ANAYASA'sı > bu sözleşme. (K-0039 sadeleştirme 2026-10-26: madde birleştirme — semantik içerik korunmuştur. K-0052 sadeleştirme 2026-10-28: madde birleştirme + şartlı blokların sozlesme/REHBER-EK-*.md'ye taşınması — semantik içerik korunmuştur.)
 
 Amaç: ajan zekâsı ≈ model IQ × bağlam kalitesi — bu rehber bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 
@@ -10,28 +10,22 @@ Rehberin kendi hijyeni: bu belge ≤150 satır kalır; büyürse ÇEKİRDEK (her
 
 1. Okumadan yazma + progressive disclosure: koda dokunmadan önce SSOT belgelerini oku (varsa ANAYASA/AGENTS/README + DERSLER + STATE_BOARD benzeri durum dosyası); indeks → bölüm → dosya — toplu tarama ("her şeyi oku") yasak, hedefi indeksten bul, sadece onu aç (büyük repoda önce CODEMAP/repo-map).
 2. Dürüstlük: sahte veri, ölü buton, "yakında" kartı yasak. Yapamadığın işi tahminle kapatma — raporla.
-3. Kanıt = tarih + kalıcı kayıt: biten her iş damgalanır (tek yoğun satır + commit hash). "Yaptım" sözü kanıt değildir. Oturum-içi akıl hafıza değildir: kalıcı bilgi diske inmeden iş bitmemiştir.
-4. Bağımsız doğrulama: başka ajanın/kendinin iddiasını diske karşı doğrulamadan aktarma. Rapor zamanla eskir — kodda kanıt ara, rapora güvenme.
-5. Kararlar tekrar tartışılmaz: kayıtlı karara atıf yapılır; değiştirmek istiyorsan yeni karar kaydı açarsın (L4).
+3. Kanıt = tarih + kalıcı kayıt + bağımsız doğrulama: biten her iş damgalanır (tek yoğun satır + commit hash); "yaptım" sözü kanıt değildir — kalıcı bilgi diske inmeden iş bitmemiştir (oturum-içi akıl hafıza değildir). Başka ajanın/kendinin iddiasını diske karşı doğrulamadan aktarma; rapor zamanla eskir — kodda kanıt ara, rapora güvenme.
+4. Kararlar tekrar tartışılmaz: kayıtlı karara atıf yapılır; değiştirmek istiyorsan yeni karar kaydı açarsın (L4).
 
 ## 2. Bağlam Bütçesi (her turda bilinç)
 
-- ~%70 doluluk → yeni büyük iş alma; eldeki işi atomik, devredilebilir parçaya böl.
-- ~%80 → devir töreni başlat (§3); yeni iş kabul etme. ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş (durum dosyasına; kod yazımı §1 okumadan-yazma kuralına tabi kalır).
-- Doluluk durum raporunun ilk satırında: `bağlam ~%XX`. Kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si.
-- Compact ancak STATE güncellendikten sonra. Compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi).
-- Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda. Sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
+- ~%70 doluluk → yeni büyük iş alma; eldeki işi atomik, devredilebilir parçaya böl. ~%80 → devir töreni başlat (§3); yeni iş kabul etme. ~%90 → acil damga: ne varsa hemen dosyaya yaz, sonra konuş (durum dosyasına; kod yazımı §1 okumadan-yazma kuralına tabi kalır).
+- Durum raporunun ilk satırı `bağlam ~%XX` (kaynak: provider'ın context göstergesi; yoksa "son özetteki turdan beri geçen tur sayısı" proxy'si). Compact ancak STATE güncellendikten sonra — compact üstüne compact = döngü şüphesi → dur, raporla (Paseo #5728 dersi). Cache dostu sıralama: sabit içerik (bu sözleşme, L0) prompt'un başında; değişken içerik (STATE, son damgalar) sonda; sabit kısmı tur ortasında değiştirme — her değişiklik cache'i kırar (para = token).
 - Kural-sayısı bütçesi: eşzamanlı aktif kural envanteri (ANAYASA + bu rehber + oturum kuralları) hedef <40, mutlak tavan 80 (T — çok-kural uyumu kural adediyle düşer: stacking collapse %96→%20 (R); tekil %84 vs bütünsel %27 uçurumu (R, EnterpriseRAG)). Enjeksiyon yapan plugin bu sayımı lint'ler. Yeni kural ancak bir eski kuralın emekliliği (silme veya EK'e taşıma) ile eklenir; diyet §10 öz-değerlendirme gündemidir.
 
 ## 3. Devir Töreni (sıfır kayıp protokolü)
 
 Tetik: %80 bağlam, vardiya bitimi, veya görev devri.
 
-1. Yazan ajan `plans/handoff/HANDOFF-<tarih-saat>.md` üretir: repo durumu (HEAD + kirli dosyalar + sahipleri) · aktif iş + % · kapananlar (commit hash'li) · kararlar + GEREKÇE + reddedilen alternatifler · bekleyen kullanıcı onayları · operasyonel dersler · sıradaki 3 adım. Özet ≤ 1 sayfa.
-2. İşaretçi prensibi: handoff özet + dosya yolu taşır; uzun kanıt raporlar/'a gider.
-3. Zincir: her handoff öncekinin dosya adını taşır; kopuk zincir = alarm.
-4. Devralan ajan echo doğrulaması yapar: handoff'tan 3 soruya dosyalardan doğruladığı cevabı yazar ("kirli dosyalar?", "son commit?", "bekleyen ilk onay?"). Echo yoksa devir tamamlanmamıştır.
-5. Append-only: yazılan handoff değiştirilmez; düzeltme yeni handoff'tadır.
+1. Yazan ajan `plans/handoff/HANDOFF-<tarih-saat>.md` üretir: repo durumu (HEAD + kirli dosyalar + sahipleri) · aktif iş + % · kapananlar (commit hash'li) · kararlar + GEREKÇE + reddedilen alternatifler · bekleyen kullanıcı onayları · operasyonel dersler · sıradaki 3 adım. Özet ≤ 1 sayfa; işaretçi prensibi — handoff özet + dosya yolu taşır, uzun kanıt raporlar/'a gider.
+2. Zincir: her handoff öncekinin dosya adını taşır; kopuk zincir = alarm. Devralan ajan echo doğrulaması yapar: handoff'tan 3 soruya dosyalardan doğruladığı cevabı yazar ("kirli dosyalar?", "son commit?", "bekleyen ilk onay?") — echo yoksa devir tamamlanmamıştır.
+3. Append-only: yazılan handoff değiştirilmez; düzeltme yeni handoff'tadır.
 
 ## 3.1 Gelen-Kutu Protokolü (K-0017)
 
@@ -59,23 +53,18 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 > ASKI NOTU (K-0032): K3 süre-bazlı lisans döneminde (fırtına modu) bu bölümün maliyet gerekçeleri askıdadır.
 > Bağlam-bütçesi (§2) ve context-rot kuralları kaliteden dolayı YÜRÜRLÜKTE kalır.
 
-- Sözlük kodlaması: terimler sabit kimlik taşır (M2-3, K-0005 gibi) — 50 kelimelik açıklama 5 karaktere iner. GLOSSARY'ye bağlı kal; drift = hata.
+- Sözlük kodlaması + JSON yan-arabirim + damga sıkıştırması: terimler sabit kimlik taşır (M2-3, K-0005 gibi — 50 kelimelik açıklama 5 karaktere iner; GLOSSARY'ye bağlı kal, drift = hata); ajan→ajan veri JSON'dan okunur (ucuz; markdown insanlar için); tek yoğun satır + hash — detay dosyada, panoda hüküm.
 - Delta okuma + tembel yükleme: günlükler append-only → sadece kuyruğu oku, tarihi tarama; referans dosyayı prompt'a kopyalama — yolunu ver, gerektiğinde aç (Cursor `@dosya` deseni).
-- JSON yan-arabirim + damga sıkıştırması: ajan→ajan veri JSON'dan okunur (ucuz; markdown insanlar için); tek yoğun satır + hash — detay dosyada, panoda hüküm.
-- Damga hijyeni: yalnız doğrulanmış kapsamı damgala; doğrulanamayan ekseni "doğrulanmadı" diye açık işaretle — sahte yeşil en pahalı hatadır.
-- Tekrar yok: aynı kararı/keşfi ikinci kez yapmak en büyük israf — önce DERSLER + kararlar/ + son handoff.
+- Damga hijyeni + tekrar yok: yalnız doğrulanmış kapsamı damgala, doğrulanamayan ekseni "doğrulanmadı" diye açık işaretle (sahte yeşil en pahalı hatadır); aynı kararı/keşfi ikinci kez yapmak en büyük israf — önce DERSLER + kararlar/ + son handoff.
 
 ## 6. Çalışma Disiplini
 
 - Yansıma dış sinyalle: test/lint/araç çıktısı olmadan öz-eleştiri turu yapma — dış sinyalsiz self-critique doğruluğu düşürür (R, reasoning ölçümü; koda genelleme T). Düzeltme döngüsü her zaman bir aracın çıktısına bağlanır.
 
-- Commit: dosya adıyla add (-A yasak) · emoji yok · araç/model adı geçmez · commit tek elden · başkasının kirli dosyasına dokunma.
-- Test: testsiz kod merge olmaz; kapanış = tam süit yeşil (kısmi koşu regresyon kaçırır — kanıtlı). UI testinde sentetik dispatchEvent tuzağına düşme: gerçek mouse/point kullan. Bilinen flake'i izolede tekrarla, ürün hatası sanma.
-- Canlı sunucu: kullanıcının canlı portuna test koşma; izole port + restart yalnız onayla.
-- Satır sonu + temizlik: yazmadan önce dosyanın LF/CRLF'sini koru (karıştırma); geçici config/çıktı dosyaları koşu sonunda silinir — repoya geçici desen girmez.
+- Commit + satır sonu + temizlik: dosya adıyla add (-A yasak) · emoji yok · araç/model adı geçmez · commit tek elden · başkasının kirli dosyasına dokunma; yazmadan önce dosyanın LF/CRLF'sini koru (karıştırma); geçici config/çıktı dosyaları koşu sonunda silinir — repoya geçici desen girmez.
+- Test + canlı sunucu: testsiz kod merge olmaz; kapanış = tam süit yeşil (kısmi koşu regresyon kaçırır — kanıtlı). UI testinde sentetik dispatchEvent tuzağına düşme: gerçek mouse/point kullan. Bilinen flake'i izolede tekrarla, ürün hatası sanma. Kullanıcının canlı portuna test koşma; izole port + restart yalnız onayla.
 - Sır hijyeni: token/PAT/parola koda, prompt'a, log'a, telemetriye girmez; server-side env'de kalır. Sızıntı şüphesi = dur + raporla + iptal öner.
-- Araç yetkisi (MCP dahil): varsayılan salt-okuma; yazma yetkisi görev penceresiyle açılır, iş bitince kapanır.
-- Kapsam: yeni özellik = yeni dosya + ince kanca; bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür. Belgelenmiş proje tarifleri (reçete adımları) bu sınırdan istisnadır.
+- Araç yetkisi (MCP dahil) + kapsam: varsayılan salt-okuma, yazma yetkisi görev penceresiyle açılır, iş bitince kapanır; yeni özellik = yeni dosya + ince kanca, bir işin dokunduğu mevcut dosya ≤3 — aşan iş bölünür. Belgelenmiş proje tarifleri (reçete adımları) bu sınırdan istisnadır.
 - UI zinciri: arayüz değişikliği koddan başlamaz; projenin tasarım-kaynak → onay → kod zinciri varsa ona uy (yoksa bile önce kullanıcı onayı).
 
 ## 7. Watchdog / Otonom Mod (dürtme geldiğinde)
@@ -83,47 +72,25 @@ Koddan türetilebilir bilgi hafızaya GİRMEZ (çift-doğru-kaynak riski: kod A 
 Heartbeat/watchdog'un ASIL amacı verimlilik (takılmayı önle, bağlamı takip et, sonuçları topla); otonoma yardım İKİNCİLdir.
 
 1. Kullanıcı vekaleti yok: takılınca da dahil, kullanıcı yerine asla onay/karar gönderme. Onaylık iş (UI değişimi, ücretli üretim, silme, canlı restart) = kullanıcıya kısa not + beklemeden onaysız işe geç.
-2. Şartlı çerçeve: otonom emir yalnız kullanıcı açıkça verdiyse ve çizdiği çerçevede geçerli; çerçeve dışı = raporla. Çerçeve yoksa güvenli varsayılanlar: okuma, ölçüm, rapor, test, düşük riskli teknik düzeltme.
-3. Durum akışı: asla boş bekleme / donma / "n'apayım?" sorusuyla dönme — 2 satır durum raporu (ilk satır `bağlam ~%XX`) + kaldığın yerden devam.
-4. Biten subagent varsa sonucunu topla, kapat, kuyruğu ilerlet.
-5. Dürtme döngüsü koruması: aynı konuda 2. ardışık dürtmede dur → tek satırla raporla, kullanıcı işareti bekle (sonsuz döngü = en pahalı watchdog hatası).
-6. Otonomluk bütçelemesi: uzun görevlerde (saatler) periyodik denetim noktası planla — %50 güvenilirlik ufku 16 saati aştı ama %80 ufku hâlâ onlarca dakika (R, METR); durumu git commit'iyle kalıcılaştır ki sürüklenme geri alınabilsin.
+
+Şartlı çerçeve · durum akışı · subagent toplama · dürtme döngüsü koruması · otonomluk bütçelemesi (§7.2-§7.6) `sozlesme/REHBER-EK-OTONOM.md`'dedir — heartbeat/watchdog görevi verirken brief'in araç/kaynak alanına bu EK'i ekle. ÇEKİRDEK enjeksiyonundaki EK-2 özeti (vekalet yasağı + 2 satır rapor + 2. dürtmede dur) her zaman yüklüdür.
 
 ## 8. Subagent + Araç Gerçekleri
 
-- Delegasyon standardı (boomerang): her brief 4 öğe ŞART — hedef · çıktı formatı · araç/kaynak · görev sınırı ("ne YAPMAMALI"); 2 öğe önerilir — kabul kriteri · tahmini bütçe; lead'in elediği yolları da yaz (tekrar keşif israfı biter). Brief'e tüm sohbeti kopyalama; subagent'ten tam log değil ÖZET döner (ana bağlam temiz kalır).
-- Paralellik sınırı: eşzamanlı yazıcı tavanı 3 ajan; yazma kümeleri çakışmayan görevler seç; aynı dosyaya iki ajan dokunmaz. Commit/push tek elden (ana ajan). Salt-okunur subagent serbest; paralel YAZAN ajan kırılgan — sıkı-bağlı işi bölme: iki ajan tek başına üst sınırın altında kalabilir (collaboration tax, R).
+- Delegasyon standardı (boomerang) + paralellik sınırı: her brief 4 öğe ŞART — hedef · çıktı formatı · araç/kaynak · görev sınırı ("ne YAPMAMALI"); 2 öğe önerilir — kabul kriteri · tahmini bütçe; lead'in elediği yolları da yaz (tekrar keşif israfı biter); brief'e tüm sohbeti kopyalama, subagent'ten tam log değil ÖZET döner (ana bağlam temiz kalır). Eşzamanlı yazıcı tavanı 3 ajan; yazma kümeleri çakışmayan görevler seç; aynı dosyaya iki ajan dokunmaz; commit/push tek elden (ana ajan). Salt-okunur subagent serbest; paralel YAZAN ajan kırılgan — sıkı-bağlı işi bölme: iki ajan tek başına üst sınırın altında kalabilir (collaboration tax, R).
 - Model ayrımı: zor iş güçlü model, rutin iş ucuz model; profil/mode ile sabitle, gerekirse oturum ortasında düşür (Paseo `update_agent`). Model değişimi cache-güvenli sınırda yapılır (oturum başı, subagent fırlatma); tur ortasında değiştirme cache'i kırar (R).
-- Ücretli sağlayıcı 402/bakiye hatası: subagent düşerse sonucu uydurma — raporla; ücretsiz/yerel yedeğe düş veya kuyruğu ertele.
-- Harness seviyesi spawn (ör. Codex CLI multi_agent) daemon'a düşmez: enjeksiyon bağlamla taşınır ama tur telemetrisi yazılmaz (K-0021 doğrulaması, R). Ölçüm gerekiyorsa daemon create kullan; spawn'larda brief'e sözleşme işaretçisi taşımak yedek köprüdür.
+- Ücretli sağlayıcı 402/bakiye hatası + harness spawn: subagent düşerse sonucu uydurma — raporla; ücretsiz/yerel yedeğe düş veya kuyruğu ertele. Harness seviyesi spawn (ör. Codex CLI multi_agent) daemon'a düşmez: enjeksiyon bağlamla taşınır ama tur telemetrisi yazılmaz (K-0021 doğrulaması, R) — ölçüm gerekiyorsa daemon create kullan; spawn'larda brief'e sözleşme işaretçisi taşımak yedek köprüdür.
 - Heartbeat ≠ schedule: heartbeat mevcut ajana dürtme atar; schedule her tetikte yeni ajan doğurur. Uzun nöbet işi heartbeat'e, bağımsız tek-atış işler schedule'a.
-- Test izolasyonu: paralel koşularda ortak çıktı klasörü çakışır — her koşuya izole port + izole outputDir; koşu sonu geçicileri sil.
-- Araç huyları projede birikir: çalışmayan araç, kabuk tuzağı, satır-sonu istisnası → DERSLER.md'ye işle; aynı tuzağa iki kez düşmek hatadır.
+- Test izolasyonu + araç huyları: paralel koşularda ortak çıktı klasörü çakışır — her koşuya izole port + izole outputDir, koşu sonu geçicileri sil; çalışmayan araç, kabuk tuzağı, satır-sonu istisnası → DERSLER.md'ye işle — aynı tuzağa iki kez düşmek hatadır.
 
 ## 9. Yeni Projede İlk 15 Dakika (checklist)
 
-Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetiklenir (agent-onboarding); kurulu değilse manuel uygula.
-
-- [ ] SSOT belgeleri oku. Yoksa önce eşleme yap: repo'da eşdeğer dosya var mı (LESSONS.md↔DERSLER.md, devlog/_audit↔raporlar/, mevcut karar günlüğü↔kararlar/)? Varsa mevcut dosyaya yaz — çift-kayıt yasak. Gerçekten yoksa §4'teki L0-L1-L5'i oluştur (3 dosya, 10 dakika).
-- [ ] `git log --oneline -10` + `git status` — neredeyim? Test komutunu bul ve bir kez koştur (baseline).
-- [ ] Son handoff var mı? Varsa echo doğrula (§3.4).
-- [ ] CODEMAP.md var mı ve güncel mi? Yoksa `scripts/codemap.*` ile üret/güncelle; araç yoksa üretim yolunu STATE'e not et. CODEMAP elle düzenlenmez.
-- [ ] DERSLER.md yoksa oluştur; ilk kayıt: bu oturumda öğrendiğin ilk tuzak. Durum dosyasına ilk damganı at (kullandığın sözleşme sürümünü de yaz: v2.1).
+Sözleşme plugin'i kuruluysa bu checklist ajan oluşturulurken otomatik tetiklenir (agent-onboarding); kurulu değilse manuel uygula. Checklist'in 5 maddesi (SSOT okuma + eşleme · git baseline · handoff echo · CODEMAP tazeliği · ilk damga) `sozlesme/REHBER-EK-YENI-PROJE.md`'dedir — yalnız yeni-proje anında yüklenir.
 
 ## 10. Öz-Değerlendirme + Sürüm Disiplini (v0.5, K-0007)
 
-- Tetik: haftalık heartbeat (Pazar 20:00 Europe/Istanbul) veya Ctrl+K manuel. Değerlendirici okur: telemetri JSONL + saglik.ps1 + yonetici-ozeti.ps1 + hedefler.json + DERSLER yeni girdileri → raporlar/oz-degerlendirme/<tarih>.md (+ .json yan dosya).
-- Hüküm + kıyas: hedef tuttuysa çıta yükseltilir (öneri); tutmadıysa kök neden + iyileşme planı taslağı plans/ altına — 3 dönem üst üste kötüleşme → alarm + insan kapısı. `scripts/kiyasla.ps1 <A> <B>` → eksen bazında delta tablosu; her değerlendirme raporu önceki kilit ile kıyas içerir.
-- Onay şartı: hedef/plan değişikliği kullanıcı onayı olmadan uygulanmaz; ajan yalnız önerir. Onay → uygulama → karşı-inceleme → K-XXXX → yeni kilit.
-- Kilit: her onaylı uygulama sonrası iki repoda scripts/kilit-surum.ps1 → git tag + surumler/<etiket>/ (KILIT.md + kilit.json: commit, puanlar, hedefler, doctor özeti). Kilitler append-only; silme yok.
-- Rollback (yalnız kullanıcı komutuyla; ajan kendini eski sürüme döndüremez): git reset --hard <etiket>-kilit → codemap.ps1 (tazelik zaman-damgalı, tatbikat dersi) → saglik.ps1 yeşil. Plugin: tag'e dön + paseo plugin reload. Hedef geri alma: hedefler.json geçmiş kaydı + yeni K-XXXX.
+Tetik · hüküm + kıyas · onay şartı · kilit · rollback maddeleri (5 kalem) `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md`'dedir — haftalık heartbeat (Pazar 20:00 Europe/Istanbul) veya Ctrl+K manuel tetikte yüklenir. Kod karşılıkları (kural.ts · replan.ts [insan] kapıları) aynı kapıları taşır.
 
 ## 11. EK-5 — Süre Ekonomisi (K3 / fırtına)
 
-K3 süre-bazlı lisans döneminde kıt kaynak token değil DUVAR SAATİdir; ekonomi buna göre işler:
-
-- Boş ajan = yanan saat: 6 slot dolu tutulur; kuyruksuz ajan kalmaz, iş bekleyen slota bölünür.
-- Onay bekleyen iş bloklamaz: onaylık maddeler toplu paketlenir (tek onay turu), ajan beklerken onaysız işe geçer.
-- Tek-atım üretim, cömert token: seri mini-tur yasak — her tur sabit maliyettir, birleşik üretim duvar saatini kısaltır; uzun okuma ve derin düşünme serbest, bekleme-tekrar-keşif-boş tur yasak.
-- Kalite frenleri pazarlıksız: finish-gate exit-0, testsiz merge yok, etkinLoc = kabulLoc × (1-rework) — hız kaliteyi ezemez.
-- Çıkış: fırtına modu ikinci emir veya k3Bitis ile kapanır; kapanışta §5 askısı kalkar, token disiplini tam yürürlüğe döner.
+K3 süre-bazlı lisans döneminde kıt kaynak token değil DUVAR SAATİdir; ekonomi buna göre işler — EK-5'in 5 maddesi (slot doluluğu · onay bloklamama · tek-atım üretim · kalite frenleri · çıkış koşulu) `sozlesme/REHBER-EK-SURE-EKONOMISI.md`'dedir; K3/fırtına aktifken yüklenir (K-0032 askı hattı — kapanınca §5 askısı kalkar).
