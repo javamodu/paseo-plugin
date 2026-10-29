@@ -1,6 +1,8 @@
-// DALGA0-ARAYUZ-1 — pano/kapsul-tuval.html kaynak-duzeyi iddialari (node --test).
-// DOM render testi YOK; yeni bagimlilik YOK (yalniz node:test + node:fs + node:assert).
-// Her vaka ADIYLA kirmiziya duser (fail-closed): iddia kaynakta yoksa assert o vakanin adiyle patlar.
+// DALGA-0-2 — pano/kapsul-tuval.html kaynak-duzeyi iddialari (node --test).
+// DALGA-0-ARAYUZ-1 mirasi: ilk 8 vaka KORUNUR (esik gevsetilmez); 9-16 yeni (drawer,
+// iki temel, ORNEK-etiket sistemi, kopyala/EK-2, dis-fetch, reduced-motion, emoji,
+// viewBox zoom/pan). DOM render testi YOK; yeni bagimlilik YOK (yalniz node:test +
+// node:fs + node:assert). Her vaka ADIYLA kirmiziya duser (fail-closed).
 import { test } from "node:test";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
@@ -11,7 +13,7 @@ try {
 } catch {
   SRC = ""; // kaynak okunamazsa tum vakalar kendi adlariyla kirmiziya duser
 }
-const ok = (msg, cond) => assert.ok(cond, "KAYNAKTA YOK — " + msg);
+const ok = (msg, cond, detay) => assert.ok(cond, "KAYNAKTA YOK — " + msg + (detay ? " (" + detay + ")" : ""));
 
 // "@media ... kosul ..." sorgusunun govdesini suslu-parantez eslesmesiyle ceker (ic ice bloklar dahil).
 function mediaBlok(kosul) {
@@ -32,6 +34,12 @@ function mediaBlok(kosul) {
     }
     idx = m + 6;
   }
+}
+
+// id'li elemanin ACILIS etiketini dondurur (tek satirlik etiket; kapanis haric).
+function tagOf(id) {
+  const m = SRC.match(new RegExp('<[^<>]*id="' + id + '"[^<>]*>'));
+  return m ? m[0] : null;
 }
 
 test("1- viewport meta mevcut (mobil genislik sabiti)", () => {
@@ -95,4 +103,113 @@ test("8- DOM iskelet id'leri korunur (sol/orta/tuval/detay/sag/modlar/token)", (
   for (const id of ["sol", "orta", "tuvalSarma", "tuval", "jsonview", "detay", "sag", "mInsan", "mMakine", "yenile", "token", "hata"]) {
     ok('id="' + id + '" mevcut', SRC.includes('id="' + id + '"'));
   }
+});
+
+test("9- drawer kaynak-isaretleri: hamburger + aria-expanded senkronu + Esc + perde + 1023/1024 kirilimi", () => {
+  ok('hamburger/cekmece dugmesi (id="cekmeceBtn")', SRC.includes('id="cekmeceBtn"'));
+  ok('cekmece aria-expanded ilk deger ("false")', /id="cekmeceBtn"[^>]*aria-expanded="false"/.test(SRC));
+  ok("aria-expanded senkron fonksiyonu (drawerDurumYaz)", SRC.includes("function drawerDurumYaz("));
+  ok('aria-expanded runtime guncellemesi (setAttribute("aria-expanded"))', SRC.includes('setAttribute("aria-expanded"'));
+  ok('Escape kapatma dinleyicisi (e.key === "Escape")', SRC.includes('e.key === "Escape"'));
+  ok('overlay perde elemani (id="perde")', SRC.includes('id="perde"'));
+  ok('perde tikla-kapat dinleyicisi (JS kaynaginda)', SRC.includes('$("perde").addEventListener("click"'));
+  ok('drawer kapatma dugmesi (id="drawerKapa")', SRC.includes('id="drawerKapa"'));
+  const genis = mediaBlok("min-width:1024px");
+  ok("@media (min-width:1024px) blogu (drawer sabit sutun)", !!genis);
+  ok("genis ekranda kapanis (body.drawer-kapali #sol display:none)", /body\.drawer-kapali\s+#sol\s*\{[^}]*display:\s*none/.test(genis || ""));
+  const dar = mediaBlok("max-width:1023px");
+  ok("@media (max-width:1023px) blogu (drawer overlay)", !!dar);
+  ok("overlay kaydirma (transform:translateX(-103%))", (dar || "").includes("translateX(-103%)"));
+  ok("body.drawer-acik ile acilis (transform:none)", /body\.drawer-acik\s+#sol\s*\{[^}]*transform:\s*none/.test(dar || ""));
+  ok("body scroll kilidi (body.drawer-acik overflow:hidden)", /body\.drawer-acik\s*\{[^}]*overflow:\s*hidden/.test(dar || ""));
+});
+
+test("10- iki temel: IZLE/DENETLE/YONET nav + gorev agaci -> detay karti + kalp yuzu bilesenleri", () => {
+  ok('IZLE sekmesi (data-panel="panel-izle")', SRC.includes('data-panel="panel-izle"'));
+  ok('DENETLE sekmesi (data-panel="panel-denetle")', SRC.includes('data-panel="panel-denetle"'));
+  ok('YONET sekmesi (data-panel="panel-yonet")', SRC.includes('data-panel="panel-yonet"'));
+  ok("sekme etiketleri (IZLE/DENETLE/YONET metinleri)", SRC.includes(">İZLE<") && SRC.includes(">DENETLE<") && SRC.includes(">YÖNET<"));
+  ok("panel gizle/goster (hidden senkronu)", SRC.includes("p.hidden = p.id !== hedef"));
+  ok('detay karti kabugu (id="detay")', SRC.includes('id="detay"'));
+  ok("bagimlilik cipleri (bagimliChip + data-gec)", SRC.includes("bagimliChip") && SRC.includes("data-gec"));
+  ok('cipe dokunma zinciri gezinir: sec(dep) isleyicisi', SRC.includes('closest(".bagimliChip[data-gec]")'));
+  ok('ordu seridi (id="orduSeridi")', SRC.includes('id="orduSeridi"'));
+  ok("ordu seridi rolleri graf SSOT'tan uretir (G.roller)", SRC.includes("Object.keys(G.roller)"));
+  ok('kanit defteri govdesi (id="defterGovde" + role="log")', SRC.includes('id="defterGovde"') && SRC.includes('role="log"'));
+  ok('komut kutusu girisi (id="komut")', SRC.includes('id="komut"'));
+  ok('GENEL STATE seridi (id="rozetler" + role="status")', SRC.includes('id="rozetler"') && SRC.includes('role="status"'));
+  ok('onay bolumu (id="onayBolum")', SRC.includes('id="onayBolum"'));
+  const olum = (SRC.match(/data-not="/g) || []).length;
+  ok("olu dugme YOK: pasif dugmeler data-not ile bilgilendirir (>= 6)", olum >= 6, "bulunan: " + olum);
+});
+
+test("11- ORNEK-etiket sistemi: kalp-yuzu etiketli, graf-yuzu etiketsiz", () => {
+  ok('durusluk seridi (class="serit")', SRC.includes('class="serit"'));
+  ok('serit beyani "gercek bag D-2" icerir', SRC.includes("gerçek bağ D-2"));
+  const ornekli = ["orduSeridi", "kartlar", "onayBolum", "defterPanel", "komutKutusu", "denetimVeri", "sablonListe"];
+  for (const id of ornekli) {
+    const t = tagOf(id);
+    ok(id + " acilis etiketi bulundu", !!t);
+    ok(id + " data-ornek tasir (kalp-yuzu)", !!t && t.includes("data-ornek"));
+  }
+  const gercekli = ["agac", "detay", "rozetler", "tuval", "sol"];
+  for (const id of gercekli) {
+    const t = tagOf(id);
+    ok(id + " acilis etiketi bulundu", !!t);
+    ok(id + " data-ornek TASIMAZ (graf-yuzu)", !!t && !t.includes("data-ornek"));
+  }
+  const etiket = (SRC.match(/class="etiketOrnek"/g) || []).length;
+  ok("gorunur ORNEK rozeti >= 8 adet", etiket >= 8, "bulunan: " + etiket);
+});
+
+test("12- kopyala + EK-2: onay cumlesi STATIK HTML'de — GUI'de uretilmez/calistirilmaz", () => {
+  const ayir = SRC.indexOf("<script>");
+  const htmlKisim = ayir > 0 ? SRC.slice(0, ayir) : "";
+  const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
+  ok("panoya kopyala fonksiyonu (panoaYaz + navigator.clipboard)", SRC.includes("function panoyaYaz(") && SRC.includes("navigator.clipboard"));
+  const kopya = (SRC.match(/data-kopyala="/g) || []).length;
+  ok("data-kopyala dugmeleri (>= 3)", kopya >= 3, "bulunan: " + kopya);
+  ok('onay cumlesi STATIK HTML parcasi (REPLAN ONAYLIYORUM)', htmlKisim.includes("REPLAN ONAYLIYORUM"));
+  ok("onay cumlesi JS'te URETILMEZ (kopyalanabilir sabit disi yok)", !jsKisim.includes("REPLAN ONAYLIYORUM"));
+  ok("JS'te --confirm dizgisi YOK (onay komutu kurgulanmaz)", !jsKisim.includes("--confirm"));
+  ok('komut kutusu Enter -> yalniz panoyaYaz(tam) (olay.key !== "Enter" beklemesi)', SRC.includes('olay.key !== "Enter"') && SRC.includes("panoyaYaz(tam)"));
+});
+
+test("13- dis istek yalniz /api/graf + /api/kart — baska ag cagrisi YOK", () => {
+  const ayir = SRC.indexOf("<script>");
+  const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
+  const cagrilar = jsKisim.match(/fetch\(([^)]{0,60})\)/g) || [];
+  ok("en az 2 fetch cagrisi (graf + kart)", cagrilar.length >= 2, "bulunan: " + cagrilar.length);
+  for (const c of cagrilar) {
+    ok("fetch yalniz pano ucu: " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart"));
+  }
+  const dis = SRC.replace(/http:\/\/127\.0\.0\.1/g, "");
+  ok("CDN/webfont/dis URL YOK (yalniz 127.0.0.1 istisnasi)", !/https?:\/\//.test(dis));
+});
+
+test("14- prefers-reduced-motion: animasyon/akis kapanir", () => {
+  const b = mediaBlok("prefers-reduced-motion: reduce");
+  ok("@media (prefers-reduced-motion: reduce) blogu", !!b);
+  ok("animation: none !important", (b || "").includes("animation: none !important"));
+  ok("transition: none !important", (b || "").includes("transition: none !important"));
+});
+
+test("15- emoji YOK (inline SVG ikon + sistem font stack; eski kilit karakteri kalkti)", () => {
+  const emoji = SRC.match(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}\u{1F1E6}-\u{1F1FF}]/gu) || [];
+  ok("kaynakta emoji karakteri yok", emoji.length === 0, "bulunan: " + emoji.length);
+  ok("webfont/CDN YOK (system-ui font stack)", SRC.includes("system-ui"));
+  ok("eski kilit karakteri kaldirildi (K rozeti kaldi)", !SRC.includes("🔒"));
+});
+
+test("16- DAG: viewBox zoom/pan (tekerlek + surukle + pinch) — dongude-cizilmez korunur", () => {
+  ok("zoomAt (viewBox odakli zoom)", SRC.includes("function zoomAt("));
+  ok("sigdir (tum grafigi sigdir)", SRC.includes("function sigdir("));
+  ok("enBoyDuzelt (rect=0 tuzagina karsi koruma)", SRC.includes("function enBoyDuzelt("));
+  ok("vbUygula (viewBox uygular)", SRC.includes("function vbUygula("));
+  ok("tekerlek zoom dinleyicisi (passive:false + preventDefault)", /addEventListener\("wheel"[^]{0,160}preventDefault/.test(SRC));
+  ok('surukleme pan (pointerdown + pointermove)', SRC.includes('addEventListener("pointerdown"') && SRC.includes('addEventListener("pointermove"'));
+  ok("pinch zoom (2 isaretci mesafesi — pinchUzak)", SRC.includes("pinchUzak"));
+  ok("pointer-capture API'si KULLANILMAZ (click olumu tuzagi)", !SRC.includes("setPointerCapture"));
+  ok("zoom dugmeleri (zIn/zOut/zFit/z100)", ["zIn", "zOut", "zFit", "z100"].every((i) => SRC.includes('id="' + i + '"')));
+  ok("drag sonrasi tiklama yutulmaz (tasindi bayragi ile tiklama korunur)", SRC.includes("tasindi"));
 });
