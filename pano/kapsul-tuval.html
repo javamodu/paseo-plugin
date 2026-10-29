@@ -61,14 +61,8 @@
   .gizli { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
   .bosSatir { color:var(--ikincil); font-size:13px; padding:6px 2px; }
 
-  /* ÖRNEK-VERİ şeridi — dürüstlük beyanı (kalp yüzü canlı değil) */
-  .serit {
-    position:relative; z-index:2; text-align:center; padding:6px 16px;
-    background:linear-gradient(90deg, rgba(180,83,9,0.07), rgba(180,83,9,0.02));
-    border-bottom:1px solid rgba(180,83,9,0.22); color:var(--uyari);
-    font-size:12.5px; line-height:1.5; font-variant-numeric:tabular-nums;
-  }
-  .serit b { color:var(--uyari); font-weight:700; }
+  /* (ADIM-D sonrası) tepe dürüstlük şeridi KULLANICI EMRİYLE SÖKÜLDÜ — ÖRNEK etiketleri
+     bileşen bazında (kartlar/onaylar/defter/chat) yaşamaya DEVAM EDER (dürüstlük korunur) */
 
   /* ---- ÜST BAR: marka + hamburger + token (GENEL STATE rozetleri kullanıcı emriyle kalktı) ---- */
   .ustbar {
@@ -101,19 +95,28 @@
   main {
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
     display:grid; gap:0;
-    grid-template-columns:var(--solW) 14px minmax(0,1fr) 14px var(--sagW);
+    grid-template-columns:var(--solW) 6px minmax(0,1fr) 6px var(--sagW); /* duvar 14→6px — kullanıcı emri «paneller arası duvarı incelt» */
     width:100%; max-width:1760px; margin:0 auto; padding:12px 16px 16px;
     overflow:hidden;
   }
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
   #sag { display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; }
-  /* ---- ADIM-C: splitter (panel resize; pointer events = fare + dokunmatik) ---- */
+  /* BUG DÜZELTME (kullanıcı bildirimi: «sol paneli kapatınca orta kapanıyor»): display:none çocuk
+     grid AKIŞINDAN çıkar → kalan çocuklar sola kayar, #orta 0px'lik 1. kolona düşerdi. Çözüm:
+     AÇIK yerleşim — her çocuk kendi kolonuna sabitlenir; kapalı panelin hücresi BOŞ kalır, kayma OLMAZ. */
+  main > * { grid-row:1; }
+  main > #sol { grid-column:1; }
+  main > #splitSol { grid-column:2; }
+  main > #orta { grid-column:3; }
+  main > #splitSag { grid-column:4; }
+  main > #sag { grid-column:5; }
+  /* ---- ADIM-C: splitter (panel resize; pointer events = fare + dokunmatik) — duvar 6px ---- */
   .splitter {
-    min-height:0; width:14px; border-radius:4px; cursor:col-resize; touch-action:none;
+    min-height:0; width:6px; border-radius:3px; cursor:col-resize; touch-action:none;
     position:relative; background:transparent; border:0; padding:0;
   }
   .splitter::after {
-    content:""; position:absolute; top:calc(50% - 28px); left:6px; width:2px; height:56px;
+    content:""; position:absolute; top:calc(50% - 28px); left:2px; width:2px; height:56px;
     border-radius:2px; background:var(--cizgi); transition:transform .15s; /* E12: yalnız transform — renk anında değişir */
   }
   .splitter:hover::after, .splitter.aktif::after { background:var(--camgobegi); transform:scaleY(1.15); }
@@ -518,9 +521,9 @@
     #tuvalSarma { height:48vh; }
   }
   @media (min-width:1024px) {
-    body.drawer-kapali main { grid-template-columns:0px 0px minmax(0,1fr) 14px var(--sagW); }
+    body.drawer-kapali main { grid-template-columns:0px 0px minmax(0,1fr) 6px var(--sagW); }
     body.drawer-kapali #sol, body.drawer-kapali #splitSol { display:none; }
-    body.sag-kapali main { grid-template-columns:var(--solW) 14px minmax(0,1fr) 0px 0px; }
+    body.sag-kapali main { grid-template-columns:var(--solW) 6px minmax(0,1fr) 0px 0px; }
     body.sag-kapali #sag, body.sag-kapali #splitSag { display:none; }
     body.drawer-kapali.sag-kapali main { grid-template-columns:0px 0px minmax(0,1fr) 0px 0px; }
     #perde { display:none; }
@@ -546,14 +549,6 @@
 </style>
 </head>
 <body>
-
-<!-- ÖRNEK-VERİ şeridi: dürüstlük beyanı — kalp-yüzü verileri canlı değil -->
-<div class="serit" role="note">
-  KAPSÜL TUVAL · R2 ÜÇ SÜTUN (DALGA-0-2 · KAPI K2) — SOL: faz-akordiyonlu görev ağacı · ORTA: VS Code tarzı sekmeler (sabit: Görev haritası DAG · Kanıt defteri · Runlar-onaylar + seçilen görevlerin dinamik sekmeleri) · SAĞ: büyük AI CHAT (varsayılan) + ikon menüden ÖZET / KOMUT.
-  DAG <b>GERÇEK</b> (GET /api/graf — graf SSOT salt-okur, her istekte diskten) · kalp-yüzü verileri (ordu şeridi · run kartları · onay-bekleyenler · kanıt defteri · komut şablonları + karttaki kayıtlı denetim değerleri) <b>ÖRNEK — gerçek bağ D-2 dalgası</b>
-  · sağdaki AI CHAT: hedef cümle → <b>ŞABLON komut üretici</b> (canlı AI yanıtı D-4 dalgasında) · onay cümlesi GUI'de üretilmez/çalıştırılmaz (EK-2)
-  · ağ isteği yalnız /api/graf + /api/kart · üst mod-sekmeleri YOK — orta görev sekmeleri R2 emriyle VAR
-</div>
 
 <div class="isik isik-1" aria-hidden="true"></div>
 <div class="isik isik-2" aria-hidden="true"></div>

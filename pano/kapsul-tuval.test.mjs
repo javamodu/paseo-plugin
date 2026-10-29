@@ -174,8 +174,7 @@ test("10- R2 SEKME ÖZGÜRLÜĞÜ: ORTA görev sekmeleri tablist/role=tab TAŞIR
 });
 
 test("11- ÖRNEK-etiket sistemi: kalp-yüzü etiketli (chat dahil), graf-yüzü etiketsiz", () => {
-  ok('dürüstlük şeridi (class="serit")', SRC.includes('class="serit"'));
-  ok('şerit beyanı "gerçek bağ D-2" içerir', SRC.includes("gerçek bağ D-2"));
+  ok('tepe dürüstlük şeridi SÖKÜLDÜ (kullanıcı emri — class="serit" YOK; ÖRNEK etiketleri bileşenlerde kalır)', !SRC.includes('class="serit"'));
   const ornekli = ["kartlar", "onayBolum", "defterPanel", "denetimGecmis", "chatBolum"];
   for (const id of ornekli) {
     const t = tagOf(id);
@@ -365,7 +364,7 @@ test("23- E10 SSOT sayı disiplini (ADIM-D: ekran sayaçları SÖKÜLDÜ — sta
   ok("akordiyon sayı rozeti SÖKÜLDÜ (ADIM-D — akordiyonSayi YOK)", !jsKisim.includes("akordiyonSayi"));
   ok("document.title sayaçsız kimlik (ADIM-D — yalnız graf sürümü)", jsKisim.includes('document.title = "Kapsül Tuval — ordu " + G.grafSurumu;'));
   ok("statik HTML'de sabit görev sayısı YOK (40 görev vb.)", !/>\s*\d+\s*görev/.test(htmlKisim));
-  ok("seritte sayım iddiası YOK (yalnız kaynak beyanı)", !/class="serit"[^]{0,600}\d+ görev/.test(SRC));
+  ok("tepe şeridi YOK (kullanıcı emriyle söküldü — sayım iddiası da gitti)", !/class="serit"/.test(SRC));
 });
 
 test("24- E11 uydurma-veri YOK: her kalp-yüzü kabı ÖRNEK/ŞABLON-etiketli + kaynak beyanlı", () => {
@@ -442,7 +441,9 @@ test("26- AI CHAT (EK-ŞART 14:03 + R2): SAĞ BÜYÜK PANEL (VARSAYILAN) + ŞABL
 
 test("27- R2 ÜÇ SÜTUN · TEK VIEWPORT (ADIM-C: beş hücre — splitter'lı): grid + body scroll YOK + panel-içi kaydırma", () => {
   ok("main display:grid", /main\s*\{[^}]*display:\s*grid/.test(SRC));
-  ok("beş hücre izi (ADIM-C: --solW + 14px splitter + orta minmax(0,1fr) + 14px + --sagW; gap:0)", SRC.includes("grid-template-columns:var(--solW) 14px minmax(0,1fr) 14px var(--sagW)") && /main\s*\{[^}]*gap:\s*0/.test(SRC));
+  ok("grid AÇIK yerleşim (bug düzeltme: display:none çocuk yerleşimi KAYDIRMAZ — her çocuk sabit kolonda)",
+    SRC.includes("main > #orta { grid-column:3; }") && SRC.includes("main > #sag { grid-column:5; }") && SRC.includes("main > #sol { grid-column:1; }"));
+  ok("beş hücre izi (ADIM-C + duvar inceltme: --solW + 6px splitter + orta minmax(0,1fr) + 6px + --sagW; gap:0)", SRC.includes("grid-template-columns:var(--solW) 6px minmax(0,1fr) 6px var(--sagW)") && /main\s*\{[^}]*gap:\s*0/.test(SRC));
   ok("main viewport içinde esner (flex:1 1 auto + min-height:0)", /main\s*\{[^}]*flex:\s*1 1 auto/.test(SRC) && /main\s*\{[^}]*min-height:\s*0/.test(SRC));
   ok("tek viewport: body overflow:hidden (body scroll YOK — R2 emri)", /body\s*\{[^}]*overflow:\s*hidden/.test(SRC));
   ok("body height:100vh + flex kolon", /body\s*\{[^}]*height:\s*100vh/.test(SRC) && /body\s*\{[^}]*display:\s*flex/.test(SRC));
@@ -576,7 +577,7 @@ test("34- ADIM-C panel resize + sağ panel aç/kapa: splitter ×2 (pointer event
   ok("klavye erişimi (ArrowLeft/ArrowRight ±16px — WAI-ARIA separator)", SRC.includes('e.key !== "ArrowLeft"') && SRC.includes("ArrowLeft\" ? -16 : 16"));
   ok("aria-valuenow senkron (genislikUygula)", SRC.includes('setAttribute("aria-valuenow"'));
   ok('sağ panel düğmesi (id="sagPanelBtn" aria-pressed + aria-controls="sag")', /id="sagPanelBtn"[^>]*aria-pressed="true"[^>]*aria-controls="sag"/.test(SRC));
-  ok("body.sag-kapali kuralı (geniş ekran — panel + splitter gizlenir)", /body\.sag-kapali\s+main[^}]*grid-template-columns:\s*var\(--solW\)\s*14px\s*minmax\(0,1fr\)\s*0px\s*0px/.test(SRC) && /body\.sag-kapali\s+#sag,\s*body\.sag-kapali\s+#splitSag\s*\{[^}]*display:\s*none/.test(SRC));
+  ok("body.sag-kapali kuralı (geniş ekran — panel + splitter gizlenir; duvar 6px)", /body\.sag-kapali\s+main[^}]*grid-template-columns:\s*var\(--solW\)\s*6px\s*minmax\(0,1fr\)\s*0px\s*0px/.test(SRC) && /body\.sag-kapali\s+#sag,\s*body\.sag-kapali\s+#splitSag\s*\{[^}]*display:\s*none/.test(SRC));
   ok("ikisi de kapalı kombinasyonu (drawer-kapali + sag-kapali)", /body\.drawer-kapali\.sag-kapali\s+main/.test(SRC));
   ok("sağ panel durumu kalıcı (tuval-sagAcik)", SRC.includes('kaydet("tuval-sagAcik"'));
   ok("dar ekranda splitter gizli (<1024 tek kolon akış)", /@media \(max-width:1023px\)[^]{0,2000}\.splitter\s*\{\s*display:\s*none/.test(SRC));
