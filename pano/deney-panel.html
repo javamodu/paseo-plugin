@@ -7,7 +7,7 @@
 <title>G9 Deney Paneli — K10</title>
 <style>
 /* ---- renk tokenları: ana tuvalle aynı light aile ---- */
-:root{--zemin:#f4f6f9;--yuzey:#ffffff;--metin:#1a2332;--ikincil:#5b6b7f;--vurgu:#0e7490;--kenar:#d8e0ea;--yesil:#0f7b3d;--kirmizi:#c0392b;--sari:#a06a00;--vurguSoluk:#e3f1f4;--yesilSoluk:#e8f3ec;--kirmiziSoluk:#faecea;--sariSoluk:#fdf4e1;--griSoluk:#eef2f6}
+:root{--zemin:#f4f6f9;--yuzey:#ffffff;--metin:#1a2332;--ikincil:#5b6b7f;--vurgu:#0e7490;--kenar:#d8e0ea;--yesil:#0f7b3d;--kirmizi:#c0392b;--sari:#a06a00;--vurguSoluk:#e3f1f4;--yesilSoluk:#e8f3ec;--kirmiziSoluk:#faecea;--sariSoluk:#fdf4e1;--griSoluk:#eef2f6;--solW:260px;--sagW:360px}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{height:100%}
@@ -28,12 +28,29 @@ button{font-family:inherit}
 .rozet.tealDolu{background:var(--vurgu);border-color:var(--vurgu);color:#fff}
 @media (max-width:899px){.opsiyonel{display:none}}
 
-/* ---- üç sütun tek viewport ---- */
-.sutunlar{flex:1;min-height:0;display:grid;grid-template-columns:260px minmax(0,1fr) 360px;gap:10px;padding:10px}
-.sutun{min-height:0;min-width:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+/* ---- üç sütun + sürüklenebilir splitter'lar — tek viewport, taşma YOK ---- */
+.sutunlar{flex:1;min-height:0;display:grid;grid-template-columns:var(--solW) 8px minmax(0,1fr) 8px var(--sagW);gap:6px;padding:8px}
+.sutun{min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:8px;background:var(--yuzey);border:1px solid var(--kenar);border-radius:10px;padding:8px}
+.splitter{width:8px;min-height:0;border-radius:4px;cursor:col-resize;touch-action:none;position:relative;background:transparent;border:0;padding:0}
+.splitter::after{content:'';position:absolute;top:calc(50% - 28px);left:3px;width:2px;height:56px;border-radius:2px;background:var(--kenar);transition:background .15s,transform .15s}
+.splitter:hover::after,.splitter.aktif::after{background:var(--vurgu);transform:scaleY(1.15)}
+.splitter.aktif{background:var(--vurguSoluk)}
+
+/* ---- panel üstü ikon şeritleri (sol + sağ): dinamik panel değişimi ---- */
+.ikonSerit{flex:none;display:flex;gap:4px;align-items:center;padding:4px;background:var(--griSoluk);border:1px solid var(--kenar);border-radius:8px}
+.ikonDugme{width:44px;height:44px;flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--ikincil);cursor:pointer;transition:opacity .15s,transform .15s}
+.ikonDugme:hover{opacity:.85}
+.ikonDugme:active{transform:scale(.95)}
+.ikonDugme.aktif{background:var(--vurgu);color:#fff;border-color:var(--vurgu)}
+.ikonDugme[aria-pressed="true"]{background:var(--vurgu);color:#fff;border-color:var(--vurgu)}
+.ikonSerit .seritEtiket{flex:1;min-width:0;font-size:12.5px;font-weight:700;letter-spacing:.05em;color:var(--ikincil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:4px}
+
+/* ---- panel içerikleri: yalnız aktif görünür ---- */
+.panelGovde{display:none;flex:1;min-height:0;min-width:0;flex-direction:column;gap:8px}
+.panelGovde.aktif{display:flex}
 
 /* ---- kart / bölüm ---- */
-.bolum{background:var(--yuzey);border:1px solid var(--kenar);border-radius:8px;padding:10px 12px}
+.bolum{background:var(--zemin);border:1px solid var(--kenar);border-radius:8px;padding:10px 12px}
 .bolumEtiket{font-size:18px;font-weight:700;margin:0 0 8px}
 .bolumEtiket .ek{font-size:13px;font-weight:600;color:var(--ikincil)}
 .bolumEtiket.kucukBas{font-size:15px}
@@ -53,8 +70,21 @@ button{font-family:inherit}
 .dugme.kucuk{padding:4px 10px}
 .dugme svg{flex:none}
 
-/* ---- SOL: sağlayıcı kartları (akordiyon) ---- */
-.sagKart{border:1px solid var(--kenar);border-radius:8px;background:var(--yuzey);overflow:hidden;margin-bottom:8px;flex:none}
+/* ---- SOL · GRAF görünümü: görev düğümleri + bağımlılık okları (dikey zincir) ---- */
+.grafKutu{flex:1;min-height:0;display:flex;flex-direction:column;gap:0;overflow-y:auto;overflow-x:hidden}
+.grafDugum{position:relative;width:100%;min-height:44px;text-align:left;background:var(--zemin);border:1px solid var(--kenar);border-left:4px solid var(--kenar);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--metin);cursor:pointer;flex:none}
+.grafDugum:hover{background:var(--griSoluk)}
+.grafDugum.secili{border-left-color:var(--vurgu);background:var(--vurguSoluk)}
+.grafDugum.kapali{border-left-color:var(--yesil)}
+.grafDugum .gorevBas{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.gorevId{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:700;color:var(--vurgu);overflow-wrap:anywhere}
+.grafDugum .gorevMetin{display:block;margin-bottom:6px;overflow-wrap:anywhere}
+.grafDugum .gorevMeta{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ikincil);overflow-wrap:anywhere}
+.grafOk{flex:none;width:100%;display:flex;justify-content:center;padding:6px 0;color:var(--ikincil)}
+.grafOk svg{display:block}
+
+/* ---- SOL · sağlayıcı kartları (akordiyon) ---- */
+.sagKart{border:1px solid var(--kenar);border-radius:8px;background:var(--zemin);overflow:hidden;margin-bottom:8px;flex:none}
 .sagKartBas{width:100%;display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 10px;background:none;border:0;font-size:14px;font-weight:600;color:var(--metin);text-align:left;cursor:pointer}
 .sagKartBas:hover{background:var(--griSoluk)}
 .nokta{width:9px;height:9px;border-radius:50%;background:var(--yesil);flex:none}
@@ -65,7 +95,7 @@ button{font-family:inherit}
 .ok{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid var(--ikincil);flex:none;transition:transform .2s}
 .sagKart.acik .ok{transform:rotate(90deg)}
 .modelListe{border-top:1px solid var(--kenar)}
-.modelSatir{width:100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:44px;padding:6px 10px 6px 24px;background:var(--zemin);border:0;border-bottom:1px solid var(--kenar);font-size:14px;color:var(--metin);text-align:left;cursor:pointer}
+.modelSatir{width:100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:44px;padding:6px 10px 6px 24px;background:var(--yuzey);border:0;border-bottom:1px solid var(--kenar);font-size:14px;color:var(--metin);text-align:left;cursor:pointer}
 .modelSatir:last-child{border-bottom:0}
 .modelSatir:hover{background:var(--vurguSoluk)}
 .modelSatir.secili{background:var(--vurguSoluk);box-shadow:inset 3px 0 0 var(--vurgu)}
@@ -74,11 +104,10 @@ button{font-family:inherit}
 .modelAlt{font-size:11.5px;color:var(--ikincil);font-family:ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
 
 /* ---- ORTA: görev kartları ---- */
-.gorevKart{display:block;width:100%;min-height:44px;text-align:left;background:var(--yuzey);border:1px solid var(--kenar);border-left:4px solid var(--kenar);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:14px;color:var(--metin);cursor:pointer;flex:none}
+.gorevKart{display:block;width:100%;min-height:44px;text-align:left;background:var(--zemin);border:1px solid var(--kenar);border-left:4px solid var(--kenar);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:14px;color:var(--metin);cursor:pointer;flex:none}
 .gorevKart:hover{background:var(--griSoluk)}
 .gorevKart.secili{border-left-color:var(--vurgu);background:var(--vurguSoluk)}
 .gorevKart .gorevBas{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
-.gorevId{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:700;color:var(--vurgu);overflow-wrap:anywhere}
 .gorevKart .gorevMetin{display:block;margin-bottom:6px;overflow-wrap:anywhere}
 .gorevKart .gorevMeta{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ikincil);overflow-wrap:anywhere}
 
@@ -86,7 +115,7 @@ button{font-family:inherit}
 .altBaslik{font-size:13px;font-weight:700;letter-spacing:.04em;margin:8px 0 4px;color:var(--ikincil)}
 .altBaslik.teal{color:var(--vurgu)}
 .altBaslik.kirmizi{color:var(--kirmizi)}
-.atanabilirSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;background:var(--yuzey);flex:none}
+.atanabilirSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;background:var(--zemin);flex:none}
 .atanabilirSatir.uygun{border-left:4px solid var(--vurgu)}
 .atanabilirSatir.elenen{border-left:4px solid var(--kirmizi);opacity:.75}
 .satirUst{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -95,32 +124,50 @@ button{font-family:inherit}
 .gerekceSatir{font-size:12.5px;color:var(--kirmizi);margin-top:2px;overflow-wrap:anywhere}
 
 /* ---- ORTA: atamalar ---- */
-.atamaKart{border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;margin-bottom:8px;background:var(--yuzey);flex:none}
+.atamaKart{border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;margin-bottom:8px;background:var(--zemin);flex:none}
 .diffSatir{font-family:ui-monospace,Consolas,monospace;font-size:13px;margin-top:4px;overflow-wrap:anywhere}
 .metaSatir{font-size:12px;color:var(--ikincil);margin-top:4px;overflow-wrap:anywhere}
 
-/* ---- SAĞ: canlı akış ---- */
+/* ---- SAĞ · CHAT: üstte history (kayar) + altta sabit composer (zoocode deseni) ---- */
+.sohbet{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.chatHistory{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:8px;padding:4px 2px}
+.balonKutu{max-width:88%;padding:8px 12px;border-radius:12px;flex:none}
+.balonKutu .balonKim{font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:3px}
+.balonKutu .balonMetin{font-size:14.5px;overflow-wrap:anywhere;white-space:pre-wrap}
+.balonKutu .balonSaat{font-size:11px;opacity:.75;margin-top:3px;font-family:ui-monospace,Consolas,monospace}
+.balonKutu.insan{align-self:flex-end;background:var(--vurguSoluk);border:1px solid #b9dbe3;color:var(--metin);border-bottom-right-radius:4px}
+.balonKutu.insan .balonKim{color:var(--vurgu)}
+.balonKutu.operator{align-self:flex-start;background:var(--griSoluk);border:1px solid var(--kenar);color:var(--metin);border-bottom-left-radius:4px}
+.balonKutu.operator .balonKim{color:var(--ikincil)}
+.composer{flex:none;display:flex;gap:8px;align-items:flex-end;background:var(--griSoluk);border:1px solid var(--kenar);border-radius:10px;padding:8px}
+.composer textarea{flex:1;min-width:0;min-height:44px;max-height:132px;border:1px solid var(--kenar);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:16px;line-height:1.4;resize:none;background:var(--yuzey);color:var(--metin)}
+.composer textarea:focus{outline:2px solid var(--vurgu);outline-offset:-1px}
+
+/* ---- SAĞ · akış + ajanlar ---- */
 .canliBas{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .canliBas .bolumEtiket{margin:0}
 .logListe{display:flex;flex-direction:column;gap:2px}
-.logSatir{display:flex;gap:6px;align-items:baseline;border-left:3px solid var(--kenar);padding:3px 8px;font-size:13px;background:var(--zemin);border-radius:0 6px 6px 0}
+.logSatir{display:flex;gap:6px;align-items:baseline;border-left:3px solid var(--kenar);padding:3px 8px;font-size:13px;background:var(--yuzey);border-radius:0 6px 6px 0}
 .logSatir.mudahale{border-left-color:var(--sari)}
 .logT{color:var(--ikincil);font-family:ui-monospace,Consolas,monospace;font-size:12px;overflow-wrap:anywhere}
 .logTur{color:var(--vurgu);font-size:12px;font-weight:600;flex:none}
 .logMetin{flex:1;overflow-wrap:anywhere}
-
-/* ---- SAĞ: ajanlar + müdahale ---- */
-.ajanSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;flex:none}
+.ajanSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;background:var(--zemin);flex:none}
 .cubukKutu{display:flex;align-items:center;gap:8px;margin-top:4px}
 .cubukIz{height:8px;width:70px;background:var(--griSoluk);border:1px solid var(--kenar);border-radius:999px;overflow:hidden;flex:none}
 .cubukDol{height:100%;background:var(--vurgu)}
-#mudahaleMetin{width:100%;min-height:72px;margin-top:6px;border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:14px;resize:vertical;background:var(--yuzey);color:var(--metin)}
-#mudahaleGonder{margin-top:8px;width:100%}
 .bosSatir{font-size:13px;color:var(--ikincil);padding:4px 2px}
 
-/* ---- dar ekran: <1200 sağ alta, <900 tek sütun; body scroll döner ---- */
-@media (max-width:1199px){body{overflow:auto}.sutunlar{height:auto;grid-template-columns:260px minmax(0,1fr)}.sag{grid-column:1/-1}.sutun{overflow:visible}}
-@media (max-width:899px){.sutunlar{grid-template-columns:minmax(0,1fr)}.sol,.orta,.sag{grid-column:auto}}
+/* ---- dar ekran <1024: tek sütun akış (body scroll döner); splitter'lar kapalı ---- */
+@media (max-width:1023px){
+  body{overflow:auto}
+  .sutunlar{display:flex;flex-direction:column;height:auto;overflow:visible}
+  .splitter{display:none}
+  .sutun{overflow:visible}
+  .panelGovde,.panelGovde.aktif{display:flex}
+  .sohbet{min-height:320px}
+  .chatHistory{max-height:320px}
+}
 </style>
 </head>
 <body>
@@ -138,16 +185,37 @@ button{font-family:inherit}
 
 <main class="sutunlar">
 
-  <!-- SOL: sağlayıcılar & modeller -->
-  <section class="sutun sol" aria-label="Sağlayıcılar ve modeller">
-    <div class="rozetSatir">
-      <span id="rzAktif" class="rozet teal">AKTİF SAĞLAYICI –</span>
-      <span id="rzModel" class="rozet teal">MODEL –</span>
+  <!-- SOL: ikon menü — GRAF (varsayılan) / SAĞLAYICILAR -->
+  <section class="sutun sol" aria-label="Sol panel">
+    <div class="ikonSerit" role="toolbar" aria-label="Sol panel görünümleri">
+      <button id="ikSolGraf" class="ikonDugme" type="button" aria-pressed="false" title="Plan / görev grafiği (varsayılan)">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="7" height="5" rx="1.2"/><rect x="11" y="13" width="7" height="5" rx="1.2"/><path d="M5.5 7v3.5a2 2 0 0 0 2 2h4"/><path d="M11.5 9l-1.5 3.5L13 13"/></svg>
+      </button>
+      <button id="ikSolSaglayici" class="ikonDugme" type="button" aria-pressed="false" title="Sağlayıcılar ve modeller">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="4.5" rx="7" ry="2.8"/><path d="M3 4.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11"/><path d="M3 10c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></svg>
+      </button>
+      <span class="seritEtiket" id="solSeritEtiket">PLAN / GÖREV GRAFİ</span>
     </div>
-    <div id="saglayiciAlani"></div>
+    <div id="panelSolGraf" class="panelGovde">
+      <div class="rozetSatir">
+        <span id="rzGorev" class="rozet teal">GÖREV –</span>
+        <span id="rzKapali" class="rozet yesil">KAPALI –</span>
+      </div>
+      <div id="grafAlani" class="grafKutu"></div>
+      <div class="durustSatir duz">mini graf — tam DAG yüzü K8 (B7)</div>
+    </div>
+    <div id="panelSolSaglayici" class="panelGovde">
+      <div class="rozetSatir">
+        <span id="rzAktif" class="rozet teal">AKTİF SAĞLAYICI –</span>
+        <span id="rzModel" class="rozet teal">MODEL –</span>
+      </div>
+      <div id="saglayiciAlani"></div>
+    </div>
   </section>
 
-  <!-- ORTA: görev & atama -->
+  <div class="splitter" id="splitSol" role="separator" aria-label="Sol panel genişliği" aria-orientation="vertical" tabindex="0"></div>
+
+  <!-- ORTA: görev & atama (aynen) -->
   <section class="sutun orta" aria-label="Görev ve atama">
     <div class="durustSatir">TASLAK — AI-manager onayı K8'de; kalıcı sisteme yazmaz</div>
     <div class="bolum">
@@ -164,28 +232,51 @@ button{font-family:inherit}
     </div>
   </section>
 
-  <!-- SAĞ: canlı akış + müdahale -->
-  <section class="sutun sag" aria-label="Canlı akış ve müdahale">
-    <div class="bolum">
-      <div class="canliBas">
-        <div class="bolumEtiket">CANLI AKIŞ</div>
-        <span class="bos"></span>
-        <span id="cekimSaati" class="rozet">çekim –</span>
-        <span class="rozet">5 sn</span>
-        <button id="tazeleDugmesi" class="dugme kucuk" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M12.2 1.6v3h3"/></svg>TAZELE</button>
+  <div class="splitter" id="splitSag" role="separator" aria-label="Sağ panel genişliği" aria-orientation="vertical" tabindex="0"></div>
+
+  <!-- SAĞ: ikon menü — CHAT (varsayılan) / AKIŞ / AJANLAR -->
+  <section class="sutun sag" aria-label="Sağ panel">
+    <div class="ikonSerit" role="toolbar" aria-label="Sağ panel görünümleri">
+      <button id="ikSagChat" class="ikonDugme" type="button" aria-pressed="false" title="Operatör sohbeti (varsayılan)">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.2c0 3.5-3 6.3-6.7 6.3-.8 0-1.6-.1-2.3-.4L3.5 16l.9-3.1A6 6 0 0 1 3 9.2C3 5.7 6 2.9 9.7 2.9s6.8 2.8 6.8 6.3z"/></svg>
+      </button>
+      <button id="ikSagAkis" class="ikonDugme" type="button" aria-pressed="false" title="Canlı akış (log)">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h4l2-3 2 6 2-3h6"/><path d="M2 14h4l2-3 2 6 2-3h6"/></svg>
+      </button>
+      <button id="ikSagAjan" class="ikonDugme" type="button" aria-pressed="false" title="Ajanlar">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="12" height="8" rx="2"/><path d="M10 7V4"/><circle cx="10" cy="3" r="1"/><circle cx="7.5" cy="11" r=".9" fill="currentColor"/><circle cx="12.5" cy="11" r=".9" fill="currentColor"/></svg>
+      </button>
+      <span class="seritEtiket" id="sagSeritEtiket">OPERATÖR CHAT</span>
+    </div>
+    <div id="panelSagChat" class="panelGovde">
+      <div class="sohbet">
+        <div id="chatHistory" class="chatHistory" aria-label="Sohbet geçmişi"></div>
+        <div class="composer">
+          <textarea id="chatMetin" rows="1" aria-label="Operatöre mesaj" placeholder="Operatöre yaz — not mudahale defterine iner..."></textarea>
+          <button id="chatGonder" class="dugme teal" type="button" title="Gönder (Ctrl+Enter)">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 1.5 1.8 6.8l4.8 2 2 4.8L14.5 1.5z"/><path d="M6.6 8.8 14.5 1.5"/></svg>
+          </button>
+        </div>
+        <div class="durustSatir duz">OPERATÖR CHAT — yazdığın operatöre iner (müdahale defteri); canlı AI yanıtı K8 (D-4)</div>
       </div>
-      <div id="logListe" class="logListe"></div>
     </div>
-    <div class="bolum">
-      <div class="bolumEtiket kucukBas">AJANLAR</div>
-      <div id="ajanListe"></div>
+    <div id="panelSagAkis" class="panelGovde">
+      <div class="bolum">
+        <div class="canliBas">
+          <div class="bolumEtiket">CANLI AKIŞ</div>
+          <span class="bos"></span>
+          <span id="cekimSaati" class="rozet">çekim –</span>
+          <span class="rozet">5 sn</span>
+          <button id="tazeleDugmesi" class="dugme kucuk" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M12.2 1.6v3h3"/></svg>TAZELE</button>
+        </div>
+        <div id="logListe" class="logListe"></div>
+      </div>
     </div>
-    <div class="bolum">
-      <div class="bolumEtiket kucukBas">MÜDAHALE</div>
-      <div id="mudahaleListe" class="logListe"></div>
-      <textarea id="mudahaleMetin" rows="3" aria-label="Müdahale notu" placeholder="Operatör müdahale notu..."></textarea>
-      <button id="mudahaleGonder" class="dugme teal" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 1.5 1.8 6.8l4.8 2 2 4.8L14.5 1.5z"/><path d="M6.6 8.8 14.5 1.5"/></svg>GÖNDER</button>
-      <div class="durustSatir duz" style="margin-top:8px">OPERATÖR OKUR — ajan otomatik görmez; canlı AI bağlantısı K8 (D-4)</div>
+    <div id="panelSagAjan" class="panelGovde">
+      <div class="bolum">
+        <div class="bolumEtiket kucukBas">AJANLAR</div>
+        <div id="ajanListe"></div>
+      </div>
     </div>
   </section>
 
@@ -193,17 +284,24 @@ button{font-family:inherit}
 
 <script>
 'use strict';
-// G9 deney paneli (KAPI K10) — dar canlı DENEY; kalıcı sisteme yazmaz.
-// Yalnız aynı-origin /api/deney/* uçları; dış fetch yok. Sunucu tarafı ayrı yazılır.
+// G9 deney paneli (KAPI K10; R3-emri revizyonu: ikili ikon menü · sol GRAF varsayılan · sağ CHAT varsayılan
+// · sürüklenebilir splitter · tek viewport taşmasız · dokunmatik).
+// Yalnız aynı-origin /api/deney/* uçları; dış fetch yok.
 
 let durum = null;                  // GET /api/deney/durum son yanıtı (null: veri yok)
 let baglanti = true;               // son fetch başarılı mı (üst barda kırmızı rozet)
 let sonCekim = null;               // son başarılı çekim anı — ölçülür, tahmin edilmez
 let hataSayac = null;              // hata rozetini temizleyen zamanlayıcı
-let seciliGorev = null;            // orta sütunda seçili görev id (tazelemede korunur)
+let seciliGorev = null;            // seçili görev id (tazelemede korunur; GRAF + ORTA senkron)
 const acikSaglayicilar = new Set(); // açık sağlayıcı akordiyonları (tazelemede korunur)
+let solSekme = 'graf';             // sol panel aktif görünüm: 'graf' | 'saglayici'
+let sagSekme = 'chat';             // sağ panel aktif görünüm: 'chat' | 'akis' | 'ajan'
+let chatAltta = true;              // history scroll en altta mı (yeni mesajda alta in; kullanıcı yukarıdaysa karışma)
+let chatIlk = true;                // ilk render — alta sürelendir
 
 const GLM_UCLAR = ['glm53u-codex', 'glm53u-claude', 'claude-glm'];
+const SOL_SEKMELER = { graf: { dugme: 'ikSolGraf', panel: 'panelSolGraf', etiket: 'PLAN / GÖREV GRAFİ' }, saglayici: { dugme: 'ikSolSaglayici', panel: 'panelSolSaglayici', etiket: 'SAĞLAYICILAR & MODELLER' } };
+const SAG_SEKMELER = { chat: { dugme: 'ikSagChat', panel: 'panelSagChat', etiket: 'OPERATÖR CHAT' }, akis: { dugme: 'ikSagAkis', panel: 'panelSagAkis', etiket: 'CANLI AKIŞ' }, ajan: { dugme: 'ikSagAjan', panel: 'panelSagAjan', etiket: 'AJANLAR' } };
 
 // ---- küçük yardımcılar ----
 const $ = (id) => document.getElementById(id);
@@ -219,6 +317,8 @@ function saatBic(d) {
   const p = (n) => String(n).padStart(2, '0');
   return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
 }
+function kaydet(anahtar, deger) { try { localStorage.setItem(anahtar, deger); } catch (e) { /* gizli mod: sessiz */ } }
+function oku(anahtar) { try { return localStorage.getItem(anahtar); } catch (e) { return null; } }
 
 // ---- üst bar durum rozeti (kırmızı durum satırı) ----
 function hataGoster(metin) {       // 8 sn sonra kendini temizler
@@ -228,6 +328,58 @@ function hataGoster(metin) {       // 8 sn sonra kendini temizler
   r.hidden = false;
   if (hataSayac) clearTimeout(hataSayac);
   hataSayac = setTimeout(() => { r.hidden = true; hataSayac = null; }, 8000);
+}
+
+// ---- panel sekmeleri (ikon menü) ----
+function sekmeAyarla(taraf, ad) {
+  const tablo = taraf === 'sol' ? SOL_SEKMELER : SAG_SEKMELER;
+  if (!Object.prototype.hasOwnProperty.call(tablo, ad)) return;
+  if (taraf === 'sol') solSekme = ad; else sagSekme = ad;
+  kaydet('deney-' + taraf + 'Sekme', ad);
+  for (const k of Object.keys(tablo)) {
+    const bilgi = tablo[k];
+    const dugme = $(bilgi.dugme);
+    const panel = $(bilgi.panel);
+    const aktif = k === ad;
+    dugme.classList.toggle('aktif', aktif);
+    dugme.setAttribute('aria-pressed', aktif ? 'true' : 'false');
+    panel.classList.toggle('aktif', aktif);
+  }
+  $(taraf === 'sol' ? 'solSeritEtiket' : 'sagSeritEtiket').textContent = tablo[ad].etiket;
+}
+
+// ---- splitter (panel resize; pointer events = fare + dokunmatik) ----
+function genislikUygula(taraf, px) {
+  document.documentElement.style.setProperty(taraf === 'sol' ? '--solW' : '--sagW', Math.round(px) + 'px');
+}
+function splitterKur(id, taraf) {
+  const kolon = $(id);
+  const hareket = (ev) => {
+    let w = taraf === 'sol' ? basGenis + (ev.clientX - basX) : basGenis - (ev.clientX - basX);
+    const enAz = 180, enCok = Math.round(window.innerWidth * 0.45);
+    w = Math.max(enAz, Math.min(enCok, w));
+    genislikUygula(taraf, w);
+  };
+  let basX = 0, basGenis = 0;
+  kolon.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    try { kolon.setPointerCapture(e.pointerId); } catch (err) { /* pointer kayıp: sürükleme yine çalışır */ }
+    kolon.classList.add('aktif');
+    basX = e.clientX;
+    const kok = getComputedStyle(document.documentElement);
+    basGenis = parseInt(taraf === 'sol' ? kok.getPropertyValue('--solW') : kok.getPropertyValue('--sagW'), 10) || (taraf === 'sol' ? 260 : 360);
+    kolon.addEventListener('pointermove', hareket);
+  });
+  const bitis = () => {
+    kolon.classList.remove('aktif');
+    kolon.removeEventListener('pointermove', hareket);
+    const kok = getComputedStyle(document.documentElement);
+    const w = parseInt(taraf === 'sol' ? kok.getPropertyValue('--solW') : kok.getPropertyValue('--sagW'), 10);
+    if (isFinite(w) && w >= 180) kaydet('deney-' + taraf + 'W', String(w));
+  };
+  kolon.addEventListener('pointerup', bitis);
+  kolon.addEventListener('pointercancel', bitis);
+  kolon.addEventListener('lostpointercapture', bitis);
 }
 
 // ---- ağ ----
@@ -242,9 +394,12 @@ async function yukle() {
     baglanti = false;              // fail-closed: sahte veri üretilmez, rozet kırmızı
   }
   guvenli(renderUst, 'üst');
-  guvenli(renderSol, 'sol');
+  guvenli(renderSolGraf, 'sol-graf');
+  guvenli(renderSolSaglayici, 'sol-sağlayıcı');
   guvenli(renderOrta, 'orta');
-  guvenli(renderSag, 'sağ');
+  guvenli(renderSagChat, 'sağ-chat');
+  guvenli(renderSagAkis, 'sağ-akış');
+  guvenli(renderSagAjan, 'sağ-ajan');
   if (hataSayac === null) $('durumRozeti').hidden = true;
 }
 
@@ -266,8 +421,7 @@ function guvenli(fn, ad) {         // tek sütun hatası paneli boş bırakmaz
   try { fn(); } catch (e) { hataGoster('render (' + ad + '): ' + e.message); }
 }
 
-// ---- sağlayıcı verisi: alan adı API sözleşmesinde net yazılmadı —
-// bilinen adaylar sırayla denenir (envanter.saglayicilar > saglayicilar > providers) ----
+// ---- sağlayıcı verisi: envanter.saglayicilar > saglayicilar > providers adayları ----
 function saglayiciListe() {
   const d = durum || {};
   const e = d.envanter || {};
@@ -316,8 +470,87 @@ function renderUst() {
   $('ustWs').textContent = 'WS ' + (env.workspaceSayisi != null ? env.workspaceSayisi : '–');
 }
 
-// ---- render: SOL (sağlayıcılar & modeller) ----
-function renderSol() {
+// ---- render: SOL · GRAF (varsayılan) — görev düğümleri + bağımlılık okları ----
+function renderSolGraf() {
+  const gorevler = durum && Array.isArray(durum.gorevler) ? durum.gorevler : [];
+  const kapaliSay = gorevler.filter((g) => String(g.durum || '') === 'KAPALI').length;
+  $('rzGorev').textContent = 'GÖREV ' + gorevler.length;
+  $('rzKapali').textContent = 'KAPALI ' + kapaliSay;
+  const alan = $('grafAlani');
+  alan.textContent = '';
+  if (!gorevler.length) { alan.appendChild(bosSatir('(veri yok)')); return; }
+  // Düğüm sırası: bağımlılık grafiği — bagimli listesinde adı geçen görev SONRA çizilir (üstten alta akış)
+  const sirali = grafSirala(gorevler);
+  for (let i = 0; i < sirali.length; i++) {
+    alan.appendChild(grafDugum(sirali[i]));
+    if (i < sirali.length - 1) alan.appendChild(grafOkCiz(sirali[i + 1]));
+  }
+}
+
+function grafSirala(gorevler) {    // basit topolojik sıra (bagimli: önce olsun); döngüde dürüst ham sıra
+  const idler = gorevler.map((g) => String(g.id));
+  const kalan = new Set(idler);
+  const cikan = [];
+  while (kalan.size) {
+    let ilerledi = false;
+    for (const id of Array.from(kalan)) {
+      const g = gorevler.find((x) => String(x.id) === id);
+      const bagimli = Array.isArray(g.bagimli) ? g.bagimli : [];
+      if (bagimli.every((b) => !kalan.has(String(b)))) {
+        cikan.push(g); kalan.delete(id); ilerledi = true;
+      }
+    }
+    if (!ilerledi) { for (const id of kalan) cikan.push(gorevler.find((x) => String(x.id) === id)); break; }
+  }
+  return cikan;
+}
+
+function grafDugum(g) {            // görev düğümü: tıkla → seciliGorev senkronu (ORTA ile aynı)
+  const id = String(g.id != null ? g.id : '?');
+  const kapali = String(g.durum || '') === 'KAPALI';
+  const dugum = el('button', 'grafDugum' + (kapali ? ' kapali' : '') + (seciliGorev === id ? ' secili' : ''));
+  dugum.type = 'button';
+  const bas = el('span', 'gorevBas');
+  bas.appendChild(el('span', 'gorevId', id));
+  if (g.rol != null) bas.appendChild(el('span', 'rozet', String(g.rol)));
+  bas.appendChild(el('span', 'rozet ' + (kapali ? 'yesil' : 'teal'), kapali ? 'KAPALI' : 'AÇIK'));
+  dugum.appendChild(bas);
+  dugum.appendChild(el('span', 'gorevMetin', g.gorev != null ? g.gorev : ''));
+  const meta = [g.sonuc != null ? g.sonuc : ''];
+  dugum.appendChild(el('span', 'gorevMeta', meta.filter((x) => x !== '').join(' · ') || 'dizin: ' + (g.dizin != null ? g.dizin : '–')));
+  dugum.addEventListener('click', () => {
+    seciliGorev = (seciliGorev === id ? null : id);
+    renderSolGraf();
+    renderOrta();
+  });
+  return dugum;
+}
+
+function grafOkCiz(hedef) {        // bağımlılık oku — altındaki düğümün bagimli kaynakları etiketli
+  const kutu = el('div', 'grafOk');
+  const kaynaklar = Array.isArray(hedef.bagimli) ? hedef.bagimli.map(String).filter(Boolean) : [];
+  const baslik = kaynaklar.length ? kaynaklar.join(',') + ' sonrası' : 'sıra';
+  baslik.split('\n');
+  kutu.title = baslik;
+  kutu.appendChild(svgOk(baslik));
+  return kutu;
+}
+function svgOk(etiket) {
+  const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  s.setAttribute('width', '16'); s.setAttribute('height', '22'); s.setAttribute('viewBox', '0 0 16 22');
+  s.setAttribute('aria-hidden', 'true');
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('d', 'M8 1v16');
+  p.setAttribute('stroke', 'currentColor'); p.setAttribute('stroke-width', '1.6'); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('fill', 'none');
+  const u = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  u.setAttribute('d', 'M3.5 15.5 8 21l4.5-5.5');
+  u.setAttribute('stroke', 'currentColor'); u.setAttribute('stroke-width', '1.6'); u.setAttribute('stroke-linecap', 'round'); u.setAttribute('stroke-linejoin', 'round'); u.setAttribute('fill', 'none');
+  s.appendChild(p); s.appendChild(u);
+  return s;
+}
+
+// ---- render: SOL · SAĞLAYICILAR ----
+function renderSolSaglayici() {
   const d = durum || {};
   const env = d.envanter || {};
   $('rzAktif').textContent = 'AKTİF SAĞLAYICI ' + (env.aktifSaglayiciSayisi != null ? env.aktifSaglayiciSayisi : '–');
@@ -362,7 +595,7 @@ function sagKart(s) {              // sağlayıcı kartı: başlık tıkla → m
   bas.addEventListener('click', () => {
     if (acikSaglayicilar.has(s.id)) acikSaglayicilar.delete(s.id);
     else acikSaglayicilar.add(s.id);
-    renderSol();
+    renderSolSaglayici();
   });
   kart.appendChild(bas);
   const mliste = el('div', 'modelListe');
@@ -419,6 +652,7 @@ function gorevKart(g) {            // görev seç → ATANABİLİR AJANLAR tablo
   kart.addEventListener('click', () => {
     seciliGorev = (seciliGorev === id ? null : id);
     renderOrta();
+    renderSolGraf();
   });
   return kart;
 }
@@ -503,23 +737,43 @@ function atamaSatir(a) {           // atama taslağı: v{n} + diff (eski→yeni)
   return kart;
 }
 
-// ---- render: SAĞ (canlı akış + müdahale) ----
-function renderSag() {
+// ---- render: SAĞ · CHAT (üstte history + altta sabit composer) ----
+function chatKayitlar() {          // sohbet = mudahale defteri (insan) + log mudahale-yanit (operatör), zaman sıralı
+  const md = durum && Array.isArray(durum.mudahale) ? durum.mudahale : [];
+  const log = durum && Array.isArray(durum.log) ? durum.log : [];
+  const yanitlar = log.filter((s) => String(s.tur || '') === 'mudahale-yanit');
+  const tum = [];
+  for (const m of md) tum.push({ kim: 'insan', t: String(m.t || ''), metin: m.not != null ? String(m.not) : '' });
+  for (const y of yanitlar) tum.push({ kim: 'operator', t: String(y.t || ''), metin: y.metin != null ? String(y.metin) : '' });
+  tum.sort((a, b) => a.t.localeCompare(b.t));
+  return tum;
+}
+
+function renderSagChat() {
+  const kutu = $('chatHistory');
+  const altta = kutu.scrollTop + kutu.clientHeight >= kutu.scrollHeight - 48;
+  kutu.textContent = '';
+  const kayitlar = chatKayitlar();
+  if (!kayitlar.length) { kutu.appendChild(bosSatir('(sohbet yok — operatöre ilk notu sen yaz)')); }
+  for (const k of kayitlar) kutu.appendChild(balon(k));
+  if (chatIlk || altta || chatAltta) {
+    kutu.scrollTop = kutu.scrollHeight;  // yeni mesaj: kullanıcı en alttaysa takip et; yukarıdaysa karışma
+    chatAltta = true;
+  }
+  chatIlk = false;
+}
+
+function balon(k) {                // insan sağda teal, operatör solda gri (zoocode deseni)
+  const kutu = el('div', 'balonKutu ' + (k.kim === 'insan' ? 'insan' : 'operator'));
+  kutu.appendChild(el('div', 'balonKim', k.kim === 'insan' ? 'SEN (insan:web)' : 'OPERATÖR'));
+  kutu.appendChild(el('div', 'balonMetin', k.metin));
+  if (k.t) kutu.appendChild(el('div', 'balonSaat', k.t));
+  return kutu;
+}
+
+// ---- render: SAĞ · AKIŞ ----
+function renderSagAkis() {
   if (sonCekim) $('cekimSaati').textContent = 'çekim ' + saatBic(sonCekim);
-  renderLog();
-  renderAjanlar();
-  renderMudahale();
-}
-
-function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale sarı, hata kırmızı
-  const t = String(tur || '').toLowerCase();
-  if (t === 'hata') return 'var(--kirmizi)';
-  if (t === 'mudahale') return 'var(--sari)';
-  if (t.indexOf('envanter') === 0 || t.indexOf('workspace') === 0 || t.indexOf('ajan') === 0) return 'var(--vurgu)';
-  return 'var(--kenar)';
-}
-
-function renderLog() {
   const liste = $('logListe');
   liste.textContent = '';
   const log = durum && Array.isArray(durum.log) ? durum.log : [];
@@ -534,7 +788,16 @@ function renderLog() {
   }
 }
 
-function renderAjanlar() {
+function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale sarı, hata kırmızı
+  const t = String(tur || '').toLowerCase();
+  if (t === 'hata') return 'var(--kirmizi)';
+  if (t === 'mudahale') return 'var(--sari)';
+  if (t.indexOf('envanter') === 0 || t.indexOf('workspace') === 0 || t.indexOf('ajan') === 0) return 'var(--vurgu)';
+  return 'var(--kenar)';
+}
+
+// ---- render: SAĞ · AJANLAR ----
+function renderSagAjan() {
   const liste = $('ajanListe');
   liste.textContent = '';
   const a = durum && durum.ajanlar ? durum.ajanlar : {};
@@ -590,20 +853,6 @@ function doluCubuk(o) {            // dolu/esZamanli çubuğu (ÖRNEK ajanlar)
   return kutu;
 }
 
-function renderMudahale() {
-  const liste = $('mudahaleListe');
-  liste.textContent = '';
-  const md = durum && Array.isArray(durum.mudahale) ? durum.mudahale : [];
-  if (!md.length) { liste.appendChild(bosSatir('(veri yok)')); return; }
-  for (const m of md) {
-    const satir = el('div', 'logSatir mudahale');
-    satir.appendChild(el('span', 'logT', '[' + (m.t != null ? m.t : '') + ']'));
-    satir.appendChild(el('span', 'logTur', '(' + (m.kim != null ? m.kim : '?') + ')'));
-    satir.appendChild(el('span', 'logMetin', m.not != null ? m.not : ''));
-    liste.appendChild(satir);
-  }
-}
-
 // ---- eylemler (POST uçları) ----
 async function tercihSec(sagId, modelId) {
   try {
@@ -624,16 +873,18 @@ async function ata(dugme, ajanAd) {
   }
 }
 
-async function mudahaleYolla() {
-  const kutu = $('mudahaleMetin');
+async function chatYolla() {       // composer → mudahale defteri (aynı yazım ucu; canlı AI K8'de)
+  const kutu = $('chatMetin');
   const metin = kutu.value.trim();
-  if (!metin) { hataGoster('Müdahale notu boş'); return; }
-  const dugme = $('mudahaleGonder');
+  if (!metin) { hataGoster('Mesaj boş'); return; }
+  const dugme = $('chatGonder');
   dugme.disabled = true;
   try {
     await post('/api/deney/mudahale', { not: metin });
-    kutu.value = '';               // başarılıda kutu temizlenir
-    await yukle();                 // mudahale listesi tazelenir
+    kutu.value = '';
+    kutu.style.height = 'auto';
+    chatAltta = true;              // kendi mesajından sonra alta sürelendir
+    await yukle();                 // history tazelenir (yeni balon + olası operatör yanıtı)
   } catch (e) { hataGoster(e.message); }
   dugme.disabled = false;
 }
@@ -645,16 +896,48 @@ async function tazele() {
   dugme.disabled = false;
 }
 
+// composer yüksekliği içeriğe göre büyür (max 132px)
+function composerBoyut() {
+  const kutu = $('chatMetin');
+  kutu.style.height = 'auto';
+  kutu.style.height = Math.min(132, kutu.scrollHeight) + 'px';
+}
+
 // ---- başlangıç ----
 (function ilklendir() {
   const r = $('durumRozeti');      // spinner yerine dürüst YÜKLENİYOR etiketi
   r.textContent = 'YÜKLENİYOR';
   r.className = 'rozet';
   r.hidden = false;
-  ['gorevListe', 'atamaListe', 'logListe', 'ajanListe', 'mudahaleListe', 'saglayiciAlani']
+  ['gorevListe', 'atamaListe', 'logListe', 'ajanListe', 'saglayiciAlani', 'grafAlani', 'chatHistory']
     .forEach((id) => $(id).appendChild(bosSatir('YÜKLENİYOR')));
+  // kayıtlı tercihler: panel genişlikleri + aktif sekmeler
+  const solW = oku('deney-solW'), sagW = oku('deney-sagW');
+  if (solW && +solW >= 180) genislikUygula('sol', +solW);
+  if (sagW && +sagW >= 180) genislikUygula('sag', +sagW);
+  // ikon menüleri kur (varsayılan: sol GRAF, sağ CHAT — R3-emri)
+  $('ikSolGraf').addEventListener('click', () => sekmeAyarla('sol', 'graf'));
+  $('ikSolSaglayici').addEventListener('click', () => sekmeAyarla('sol', 'saglayici'));
+  $('ikSagChat').addEventListener('click', () => sekmeAyarla('sag', 'chat'));
+  $('ikSagAkis').addEventListener('click', () => sekmeAyarla('sag', 'akis'));
+  $('ikSagAjan').addEventListener('click', () => sekmeAyarla('sag', 'ajan'));
+  sekmeAyarla('sol', oku('deney-solSekme') === 'saglayici' ? 'saglayici' : 'graf');
+  sekmeAyarla('sag', (oku('deney-sagSekme') === 'akis' || oku('deney-sagSekme') === 'ajan') ? oku('deney-sagSekme') : 'chat');
+  // splitter'lar (resize; fare + dokunmatik)
+  splitterKur('splitSol', 'sol');
+  splitterKur('splitSag', 'sag');
+  // eylem bağları
   $('tazeleDugmesi').addEventListener('click', tazele);
-  $('mudahaleGonder').addEventListener('click', mudahaleYolla);
+  $('chatGonder').addEventListener('click', chatYolla);
+  $('chatMetin').addEventListener('input', composerBoyut);
+  $('chatMetin').addEventListener('keydown', (e) => {   // Ctrl+Enter gönder; Enter satır sonu (çok satırlı not)
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); chatYolla(); }
+  });
+  // history: kullanıcı yukarı kaydırınca otomatik takibi bırak; en alta dönünce geri aç
+  $('chatHistory').addEventListener('scroll', () => {
+    const k = $('chatHistory');
+    chatAltta = k.scrollTop + k.clientHeight >= k.scrollHeight - 48;
+  });
   window.addEventListener('error', (e) => hataGoster('beklenmeyen hata: ' + (e.message || '?')));
   window.addEventListener('unhandledrejection', (e) => {
     hataGoster('işlenmeyen promise: ' + (e.reason && e.reason.message ? e.reason.message : '?'));
