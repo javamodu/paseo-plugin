@@ -1,0 +1,46 @@
+{
+  "deney": "g9-cekirdek",
+  "kapi": "K9",
+  "tarih": "2026-10-29T16:23:25",
+  "tur": "DENAY",
+  "kaynakEmir": "tum sistemin kalbi ve basarisi graf icindeki yonetim metikleri isleyis hiyerarsi disiplinden geciyor dusun incele daralt hemen dar kapsamli test yapalim",
+  "dosyalar": [
+    { "yol": "pano/graf-yonetim.js", "loc": 151, "tur": "modul", "diskYazar": false },
+    { "yol": "pano/graf-yonetim.test.mjs", "loc": 200, "tur": "test", "vaka": 32 },
+    { "yol": "raporlar/deney-g9-cekirdek-2026-10-29/RAPOR.md", "tur": "rapor-insan" },
+    { "yol": "raporlar/deney-g9-cekirdek-2026-10-29/RAPOR.json", "tur": "rapor-makine" }
+  ],
+  "olcumler": {
+    "testKosum1Ms": 481.9,
+    "testKosum2Ms": 558.8,
+    "testGecen": 32,
+    "testKirmizi": 0,
+    "kosumSayisi": 2,
+    "nodeCheck": "OK-2-dosya",
+    "kapsulTuvalRegression": "33/33 fail 0 (dokunulmadi)",
+    "gercekSsotBaglanti": "plans/gorev-grafigi-2026-10-26.json 40 gorev (v29-v30)"
+  },
+  "duzeltme dongusu": {
+    "ilkKosum": "7 vaka kirmizi",
+    "kokNeden": "dizinKapsaminda() denetimi yanlis degiskende: Array.isArray(yol) — yol string",
+    "duzeltme": "typeof yol !== 'string' || !Array.isArray(izinliOnekler)",
+    "sonuc": "32/32 (tek satir duzeltme, arac cikisina bagli)"
+  },
+  "fonksiyonlar": ["izCoz", "dokumanCoz", "uygunluk", "atanabilirler", "atamaTaslakla", "onayla"],
+  "varsayimlar": [
+    { "id": "V1", "ad": "miras-daraltma-only", "icerik": "alt kapsam üst izni genişletemez; genişletme RED", "benzesim": "core/src/grants.ts buyutemez katman-a" },
+    { "id": "V2", "ad": "dokuman-kume", "icerik": "ajan birden fazla doküman okur; çakışmada dar kapsam kazanır" },
+    { "id": "V3", "ad": "onay-katmanlari", "icerik": "yönetim yazıları: ai-manager|insan:web; vekil/ajan RED; red gerekçeli" }
+  ],
+  "bulgular": [
+    { "id": "D-1", "ic": "SSOT gorev.dizin serbest metin ('core/ + ilgili politika/adaptor halkasi') — G9 yuzunde normalize/anlamsal esleme katmani gerek", "kanit": "v29b" },
+    { "id": "D-2", "ic": "daraltma-only varsayimi core grants.ts buyutemez ruhuyla uyumlu", "kanit": "v3/v5/v6/v8 + grants.ts R3" },
+    { "id": "D-3", "ic": "SSOT rol alani bilesik tasiyor ('MANAGER+TESTER') — filtre tam kapsama ister", "kanit": "v12/v13" }
+  ],
+  "scope": {
+    "sunlaraDokunulmadi": ["pano/server.js", "pano/kapsul-tuval.html", "core/", "scripts/"],
+    "yeniMevcutDosyaDegisikligi": 0,
+    "hat": "K-0053 YOK (denay — operatör doğrudan; dalgalar için hat aynen)"
+  },
+  "sonuc": "GECti — kalp zinciri (miras + gerekçeli atama + versiyon/diff + onay) saf modülde kanıtlandı; G9 yüzü (K8/B7) bu çekirdeğin üstüne oturur"
+}

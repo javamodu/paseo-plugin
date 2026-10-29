@@ -27,6 +27,7 @@
 | K6 H1 PAYLARI + DÜDÜKLER | BEKLİYOR | karar paketi cümleleri | bütçe payları + S2/S5/S6 düdükleri | plans/KARAR-PAKETI-2026-10-28.md |
 | K7 PUSH | BEKLİYOR | «push» | yerel commit'ler uzak repoya iner | AGENTS.md (push ayrı emir) |
 | K8 YÖNETİM ARAYÜZÜ (write-model) | BEKLİYOR | «DALGA-YÖNETİM başla» | admin her ekranı ön yüzden GÖRÜR + EDİTLER (plan/rol/ayar/onay; AI ile veya manuel); her edit **anında** MD + makine-okur çifte kayıt olarak diske iner — görev grafı + plan arkada makine-okur programlanır; izleme → yönetim dönüşür | plans/YONETIM-ARAYUZ-PLANI-2026-10-29.md |
+| K9 G9-ÇEKİRDEK DENAYI | GEÇİLDİ (2026-10-29 16:2x, kullanıcı emriyle açıldı+kapandı) — 32/32 ×2 koşum · 351 LOC · kanıt `raporlar/deney-g9-cekirdek-2026-10-29/RAPOR.json` | «dar kapsamlı test yapalım» (emir bu kez API değil DENAY açtı) | kalp zinciri saf modülde kanıtlandı: miras daraltma-only çözücü + doküman kümesi + **gerekçeli atama filtresi** (G9 «ajanları nasıl seçtik» çekirdeği) + versiyon/diff taslağı + onay disiplini — G9 yüzü (K8/B7) bu çekirdeğin üstüne oturur | raporlar/deney-g9-cekirdek-2026-10-29/ |
 
 **Geçiş sırası (öneri):** K1 → K2 → K8 → K3 → K5 → K4 → K7 → K6. Değişirse yalnız bu satır güncellenir.
 
