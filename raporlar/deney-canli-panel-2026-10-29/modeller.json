@@ -1,0 +1,58 @@
+{
+  "cekimTarihi": "2026-10-29T16:48:31",
+  "kaynak": "paseo MCP list_models (gerçek katalog)",
+  "modelSayisi": 40,
+  "saglayicilar": {
+    "glm53u-codex": [
+      { "id": "glm-5.3", "label": "GLM 5.3 (sinirsiz)", "isDefault": true, "ucretsiz": true, "not": "sinirsiz paket ucu" }
+    ],
+    "claude-glm": [
+      { "id": "glm-5.3", "label": "GLM 5.3 (gunluk)", "isDefault": true, "ucretsiz": false },
+      { "id": "glm-5.2", "label": "GLM 5.2 (yedek)", "isDefault": false, "ucretsiz": false }
+    ],
+    "openrouter": [
+      { "id": "cohere/north-mini-code:free", "label": "cohere/north-mini-code:free", "isDefault": true, "ucretsiz": true },
+      { "id": "dots-studio/dots-3-note-preview:free", "label": "dots-studio/dots-3-note-preview:free", "isDefault": false, "ucretsiz": true },
+      { "id": "google/gemma-4-26b-a4b-it:free", "label": "google/gemma-4-26b-a4b-it:free", "isDefault": false, "ucretsiz": true },
+      { "id": "google/gemma-4-31b-it:free", "label": "google/gemma-4-31b-it:free", "isDefault": false, "ucretsiz": true },
+      { "id": "liquid/lfm-2.5-2.6b:free", "label": "liquid/lfm-2.5-2.6b:free", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "label": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3-super-120b-a12b:free", "label": "nvidia/nemotron-3-super-120b-a12b:free", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3-ultra-550b-a55b:free", "label": "nvidia/nemotron-3-ultra-550b-a55b:free", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3.5-content-safety:free", "label": "nvidia/nemotron-3.5-content-safety:free", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3.5-lightning:free", "label": "nvidia/nemotron-3.5-lightning:free", "isDefault": false, "ucretsiz": true },
+      { "id": "poolside/laguna-s-2.1:free", "label": "poolside/laguna-s-2.1:free", "isDefault": false, "ucretsiz": true },
+      { "id": "poolside/laguna-xs-2.1:free", "label": "poolside/laguna-xs-2.1:free", "isDefault": false, "ucretsiz": true },
+      { "id": "thinkingmachines/inkling-small:free", "label": "thinkingmachines/inkling-small:free", "isDefault": false, "ucretsiz": true },
+      { "id": "thinkingmachines/inkling:free", "label": "thinkingmachines/inkling:free", "isDefault": false, "ucretsiz": true },
+      { "id": "deepseek/deepseek-v4.1-flash-1017", "label": "deepseek/deepseek-v4.1-flash-1017", "isDefault": false, "ucretsiz": false },
+      { "id": "stepfun/step-5-preview", "label": "StepFun/Step 5 Preview", "isDefault": false, "ucretsiz": false }
+    ],
+    "tokenharbor": [
+      { "id": "deepseek-v4-flash:free", "label": "DeepSeek V4 Flash (free)", "isDefault": true, "ucretsiz": true },
+      { "id": "deepseek-v4.1-flash:free", "label": "DeepSeek V4.1 Flash (free)", "isDefault": false, "ucretsiz": true },
+      { "id": "mimo-v2.5:free", "label": "MiMo V2.5 (free)", "isDefault": false, "ucretsiz": true },
+      { "id": "mimo-v2.6-flash:free", "label": "MiMo V2.6 Flash (free)", "isDefault": false, "ucretsiz": true },
+      { "id": "deepseek-v4.1-flash-1017", "label": "DeepSeek V4.1 Flash 1017 (ucretli 0.14/0.42)", "isDefault": false, "ucretsiz": false }
+    ],
+    "groq": [
+      { "id": "openai/gpt-oss-120b", "label": "openai/gpt-oss-120b", "isDefault": true, "ucretsiz": true },
+      { "id": "openai/gpt-oss-20b", "label": "openai/gpt-oss-20b", "isDefault": false, "ucretsiz": true },
+      { "id": "qwen/qwen3.8-27b", "label": "qwen/qwen3.8-27b", "isDefault": false, "ucretsiz": true },
+      { "id": "allam-2-7b", "label": "allam-2-7b", "isDefault": false, "ucretsiz": true }
+    ],
+    "nvidia": [
+      { "id": "nvidia/nemotron-3.5-super-vl-120b-a12b", "label": "nvidia/nemotron-3.5-super-vl-120b-a12b", "isDefault": true, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3-super-120b-a12b", "label": "nvidia/nemotron-3-super-120b-a12b", "isDefault": false, "ucretsiz": true },
+      { "id": "stepfun-ai/step-5-preview", "label": "stepfun-ai/step-5-preview", "isDefault": false, "ucretsiz": true },
+      { "id": "google/diffusiongemma-26b-a4b-it", "label": "google/diffusiongemma-26b-a4b-it", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/riva-translate-4b-instruct-v2", "label": "nvidia/riva-translate-4b-instruct-v2", "isDefault": false, "ucretsiz": true },
+      { "id": "meta/muse-glimmer-30b", "label": "meta/muse-glimmer-30b", "isDefault": false, "ucretsiz": true },
+      { "id": "meta/llama-3.2-11b-vision-instruct", "label": "meta/llama-3.2-11b-vision-instruct", "isDefault": false, "ucretsiz": true },
+      { "id": "poolside/laguna-xs-2.1", "label": "poolside/laguna-xs-2.1", "isDefault": false, "ucretsiz": true },
+      { "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning", "label": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning", "isDefault": false, "ucretsiz": true },
+      { "id": "google/gemma-4-31b-it", "label": "google/gemma-4-31b-it", "isDefault": false, "ucretsiz": true },
+      { "id": "z-ai/glm-5.3-flash", "label": "z-ai/glm-5.3-flash", "isDefault": false, "ucretsiz": true, "not": "1.2 tok/sn cok yavas (olcum)" }
+    ]
+  }
+}

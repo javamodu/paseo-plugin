@@ -1,0 +1,16 @@
+{
+  "cekimTarihi": "2026-10-29T16:48:31",
+  "kaynak": "paseo MCP list_workspaces + deney workspace",
+  "toplam": 35,
+  "deneyWorkspace": {
+    "workspaceId": "wks_bfaa2aa051492dab",
+    "projectId": "prj_2666befdfc29f0bb",
+    "cwd": "D:\\Vibecode\\deney-g9-repo",
+    "isolation": "local",
+    "title": "G9 deney — ornek mini proje"
+  },
+  "digerlerindenOrnek": [
+    { "workspaceId": "wks_c29d49b820d3bbc2", "cwd": "D:\\Vibecode\\ordu", "title": "BUNLARI YAPTIN MI 6 SUBAGENT İLE KONTROL ET DURUMU SONRA TEK" },
+    { "workspaceId": "wks_851445e933227979", "cwd": "D:\\Vibecode\\BUSINESS-REALITY-ENGINE", "title": "paseo plugin" }
+  ]
+}

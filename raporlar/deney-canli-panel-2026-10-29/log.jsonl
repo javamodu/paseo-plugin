@@ -1,0 +1,16 @@
+{"t":"2026-10-29T16:48:31","tur":"envanter","metin":"paseo MCP envanteri cekildi: 24 saglayici (15 aktif) + 6 saglayicinin 40 model listesi gercek kayittan diske indi"}
+{"t":"2026-10-29T16:48:31","tur":"repo","metin":"ornek mini repo hazir: D:/Vibecode/deney-g9-repo (README.md + src/selam.js, git init main)"}
+{"t":"2026-10-29T16:48:31","tur":"workspace","metin":"paseo workspace acildi: wks_bfaa2aa051492dab 'G9 deney - ornek mini proje' (local izolasyon)"}
+{"t":"2026-10-29T16:48:31","tur":"ajan-izleme","metin":"eszamanli paseo ajan sayisi: 1 (074a43f, glm53u-claude/glm-5.3, 28 Ekim'den beri running — kullanici durdurmadi). 429 kacinma: deney ajani FREE uctan dogacak (GLM paketini yuklemez)"}
+{"t":"2026-10-29T13:53:18","tur":"ajan","metin":"deney ajani dogdu: 5782a2ce (groq/openai/gpt-oss-120b, full-access, wks_bfaa2aa051492dab) — gorev: mini repo D1(README Kurulum)+D2(selam(isim)+3 vaka test)"}
+{"t":"2026-10-29T13:54:39","tur":"hata","metin":"deney ajani 5782a2ce (groq/openai/gpt-oss-120b) ERRORED: invalid JSON body — groq ucu govde hatasi; model id slash iceriyor olabilir. Yeniden dogus: tokenharbor/deepseek-v4-flash:free (slash-siz id)"}
+{"t":"2026-10-29T13:56:23","tur":"ajan","metin":"deney ajani v2 dogdu: c76fec4f (tokenharbor/deepseek-v4-flash:free, full-access, wks_bfaa2aa051492dab) — ayni gorev: mini repo D1+D2"}
+{"t":"2026-10-29T14:01:30","tur":"ajan-sonuc","metin":"c76fec4f BITTI — operator bagimsiz dogrulamasi: test 3/3 gecti; dosyalar README.md(Kurulum)+src/selam.js(isim parametreli)+test/selam.test.mjs(3 vaka)+package.json(test script). Gorev D1+D2 kapandi"}
+{"t":"2026-10-29T14:10:57.588Z","tur":"mudahale","metin":"mudahale kaydedildi (10 karakter)"}
+{"t":"2026-10-29T14:11:09","tur":"sunucu","metin":"izole deney sunucusu AYAKTA: 127.0.0.1:4930 (pano/deney-server.mjs; server.js dokunulmadi; write-set: tercih+atamalar+mudahale+log) — smoke: /deney 200 (31892 bayt) + durum ucu 24 saglayici/40 model/D1-D2 atanabilir gerekceli"}
+{"t":"2026-10-29T14:11:09","tur":"ekran","metin":"ekran goruntusu alindi: ekran-panel.png (78406 bayt, 1440x900) — Chrome headless"}
+{"t":"2026-10-29T14:12:35.989Z","tur":"atama","metin":"atama taslagi: D2 -> ORNEK-ece (surum 1)"}
+{"t":"2026-10-29T14:12:39.201Z","tur":"atama","metin":"atama taslagi: D1 -> ORNEK-ece (surum 1)"}
+{"t":"2026-10-29T14:12:51.793Z","tur":"mudahale","metin":"mudahale kaydedildi (19 karakter)"}
+{"t":"2026-10-29T14:18:01","tur":"mudahale-yanit","metin":"OPERATOR YANITI (glm-5.3): ben bu deneyin kaptani/operasyon ajanIyim — paneli, izole sunucuyu ve deney ajanini ben yazdim ve yonetiyorum. Mudahale kutusu dogrudan BANA yazar: senin notun diske indi, ben okudum, bu satiri cevap olarak yazdim (canli dongu kanitlandi). Canli AI sohbeti K8 D-4 kapisi."}
+{"t":"2026-10-29T14:18:01","tur":"yama","metin":"SOL SUTUN YAMASI: durum ucuna envanter.saglayicilar (kart basina modelleri gomulu) eklendi — kullanicinin sol sutun bos gorunumu raporu uzerine; panel degismedi, sunucu tek alan; restart izole 4930 (server.js dokunulmadi)"}

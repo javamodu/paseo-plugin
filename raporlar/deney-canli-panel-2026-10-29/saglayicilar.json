@@ -1,0 +1,31 @@
+{
+  "cekimTarihi": "2026-10-29T16:48:31",
+  "kaynak": "paseo MCP list_providers (gerçek daemon kaydı)",
+  "aktifSayisi": 15,
+  "list": [
+    { "id": "glm53u-codex", "label": "GLM 5.3 Sinirsiz (Codex Responses)", "enabled": true, "not": "codefast glm-53-unlimited-api; /responses 200" },
+    { "id": "glm53u-claude", "label": "GLM 5.3 Sinirsiz (Claude Code)", "enabled": true, "not": "glm-5.3-prime; tool call + streaming" },
+    { "id": "claude-glm", "label": "Codefast GLM 5.3 gunluk (Claude Code motoru)", "enabled": true, "not": "gunluk paket; glm-5.3 + glm-5.2 yedek" },
+    { "id": "openrouter", "label": "OpenRouter free yalniz", "enabled": true, "not": "14 free uc + 2 ucretli; 429 eszamanli riski free kumede" },
+    { "id": "tokenharbor", "label": "TokenHarbor", "enabled": true, "not": "varsayilan ucretsiz katman (4 free + 1 ucretli)" },
+    { "id": "groq", "label": "Groq", "enabled": true, "not": "4 sohbet modeli; openai/gpt-oss-120b varsayilan" },
+    { "id": "nvidia", "label": "NVIDIA NIM", "enabled": true, "not": "11 canli model (olcum 2026-10-16); nemotron ailesi" },
+    { "id": "codefast-os", "label": "Codefast Open Source", "enabled": true, "not": "PAYG bakiye gerekir" },
+    { "id": "deepseek", "label": "DeepSeek resmi API", "enabled": true, "not": "anahtar henuz yok - 401" },
+    { "id": "kilo-gw", "label": "Kilo Gateway (OpenAI-uyumlu)", "enabled": true, "not": "ai-gateway.kilo.ai" },
+    { "id": "kilo", "label": "Kilo", "enabled": true, "not": "acik kaynak coding agent" },
+    { "id": "qoder", "label": "Qoder CLI", "enabled": true, "not": "ai coding assistant" },
+    { "id": "claude", "label": "Claude", "enabled": true, "not": "Anthropic CLI" },
+    { "id": "codex", "label": "Codex", "enabled": true, "not": "OpenAI codex workspace agent" },
+    { "id": "opencode", "label": "OpenCode", "enabled": true, "not": "cok-saglayici kod asistani" },
+    { "id": "codefast", "label": "Codefast Kimi K3 limitsiz", "enabled": false, "not": "KAPALI" },
+    { "id": "kilo-gw-claude", "label": "Kilo Gateway (Anthropic-uyumlu)", "enabled": false, "not": "KAPALI: bakiye 402 + env override" },
+    { "id": "copilot", "label": "Copilot", "enabled": false, "not": "KAPALI" },
+    { "id": "pi", "label": "Pi CLI free", "enabled": false, "not": "KAPALI: OpenRouter + TokenHarbor free uclari" },
+    { "id": "omp", "label": "Oh My Pi", "enabled": false, "not": "KAPALI" },
+    { "id": "antigravity", "label": "Antigravity", "enabled": false, "not": "KAPALI" },
+    { "id": "muse", "label": "Muse Code", "enabled": false, "not": "KAPALI" },
+    { "id": "gemini", "label": "Gemini CLI", "enabled": false, "not": "KAPALI" },
+    { "id": "cline", "label": "Cline", "enabled": false, "not": "KAPALI" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "cekimTarihi": "2026-10-29T16:48:31",
+  "kaynak": "G9-ÇEKİRDEK deney envanteri (ORNEK ajanlar etiketli; kosan paseo ajan gercek)",
+  "kosanPaseo": [
+    {
+      "id": "074a43f2-f0bc-4177-a35a-096145be1b78",
+      "ad": "074a43f",
+      "gorev": "10 subagent oyle planla ki bu repoyu en ince detayina kadar",
+      "model": "glm53u-claude/glm-5.3",
+      "durum": "running",
+      "not": "2026-10-28'den beri; kullanici durdurmadi; eszamanli sayi=1"
+    }
+  ],
+  "ornek": [
+    { "ad": "ORNEK-ada", "roller": ["CODER"], "durum": "aktif", "dolu": 0, "limit": { "esZamanli": 2 }, "izin": { "dizin": ["D:/Vibecode/deney-g9-repo"] } },
+    { "ad": "ORNEK-berk", "roller": ["CODER"], "durum": "aktif", "dolu": 2, "limit": { "esZamanli": 2 }, "izin": { "dizin": ["D:/Vibecode/deney-g9-repo"] } },
+    { "ad": "ORNEK-cem", "roller": ["CODER", "TESTER"], "durum": "dinleniyor", "dolu": 0, "limit": { "esZamanli": 3 }, "izin": { "dizin": ["D:/Vibecode/deney-g9-repo"] } },
+    { "ad": "ORNEK-derya", "roller": ["CODER"], "durum": "aktif", "dolu": 1, "limit": { "esZamanli": 3 }, "izin": { "dizin": ["plans/"] } },
+    { "ad": "ORNEK-ece", "roller": ["CODER", "TESTER"], "durum": "aktif", "dolu": 1, "limit": { "esZamanli": 3 }, "izin": { "dizin": ["D:/Vibecode/deney-g9-repo"] } }
+  ]
+}

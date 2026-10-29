@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>G9 Deney Paneli — K10</title>
+<style>
+/* ---- renk tokenları: ana tuvalle aynı light aile ---- */
+:root{--zemin:#f4f6f9;--yuzey:#ffffff;--metin:#1a2332;--ikincil:#5b6b7f;--vurgu:#0e7490;--kenar:#d8e0ea;--yesil:#0f7b3d;--kirmizi:#c0392b;--sari:#a06a00;--vurguSoluk:#e3f1f4;--yesilSoluk:#e8f3ec;--kirmiziSoluk:#faecea;--sariSoluk:#fdf4e1;--griSoluk:#eef2f6}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;overflow:hidden;background:var(--zemin);color:var(--metin);font:16px/1.45 system-ui,"Segoe UI",sans-serif;display:flex;flex-direction:column}
+button{font-family:inherit}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---- üst bar: tek satır 46px ---- */
+.ustBar{height:46px;flex:none;display:flex;align-items:center;gap:8px;padding:0 12px;background:var(--yuzey);border-bottom:1px solid var(--kenar);overflow:hidden}
+.ustSimge{color:var(--vurgu);flex:none}
+.baslik{font-size:15px;font-weight:700;color:var(--vurgu);letter-spacing:.03em;white-space:nowrap}
+.bos{flex:1}
+.rozet{display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--kenar);background:var(--griSoluk);color:var(--ikincil);white-space:nowrap}
+.rozet.teal{background:var(--vurguSoluk);border-color:#b9dbe3;color:var(--vurgu)}
+.rozet.yesil{background:var(--yesilSoluk);border-color:#c2e0cd;color:var(--yesil)}
+.rozet.kirmizi{background:var(--kirmiziSoluk);border-color:#ecc7c0;color:var(--kirmizi)}
+.rozet.sari{background:var(--sariSoluk);border-color:#ecd9a8;color:var(--sari)}
+.rozet.tealDolu{background:var(--vurgu);border-color:var(--vurgu);color:#fff}
+@media (max-width:899px){.opsiyonel{display:none}}
+
+/* ---- üç sütun tek viewport ---- */
+.sutunlar{flex:1;min-height:0;display:grid;grid-template-columns:260px minmax(0,1fr) 360px;gap:10px;padding:10px}
+.sutun{min-height:0;min-width:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+
+/* ---- kart / bölüm ---- */
+.bolum{background:var(--yuzey);border:1px solid var(--kenar);border-radius:8px;padding:10px 12px}
+.bolumEtiket{font-size:18px;font-weight:700;margin:0 0 8px}
+.bolumEtiket .ek{font-size:13px;font-weight:600;color:var(--ikincil)}
+.bolumEtiket.kucukBas{font-size:15px}
+.rozetSatir{display:flex;gap:6px;flex-wrap:wrap;flex:none}
+.solBas{font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--ikincil);margin:2px 0 6px;flex:none}
+
+/* ---- dürüst etiket satırları ---- */
+.durustSatir{font-size:12.5px;color:var(--sari);background:var(--sariSoluk);border:1px solid #ecd9a8;border-radius:8px;padding:6px 10px;flex:none}
+.durustSatir.duz{color:var(--ikincil);background:var(--griSoluk);border-color:var(--kenar)}
+
+/* ---- düğmeler: dokunma hedefi >=44px; geçiş yalnız transform/opacity ---- */
+.dugme{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;min-width:44px;padding:8px 14px;border-radius:8px;border:1px solid var(--kenar);background:var(--yuzey);color:var(--metin);font-size:14px;font-weight:600;cursor:pointer;transition:opacity .15s,transform .15s}
+.dugme:hover{opacity:.85}
+.dugme:active{transform:scale(.97)}
+.dugme:disabled{opacity:.5;cursor:default}
+.dugme.teal{background:var(--vurgu);border-color:var(--vurgu);color:#fff}
+.dugme.kucuk{padding:4px 10px}
+.dugme svg{flex:none}
+
+/* ---- SOL: sağlayıcı kartları (akordiyon) ---- */
+.sagKart{border:1px solid var(--kenar);border-radius:8px;background:var(--yuzey);overflow:hidden;margin-bottom:8px;flex:none}
+.sagKartBas{width:100%;display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 10px;background:none;border:0;font-size:14px;font-weight:600;color:var(--metin);text-align:left;cursor:pointer}
+.sagKartBas:hover{background:var(--griSoluk)}
+.nokta{width:9px;height:9px;border-radius:50%;background:var(--yesil);flex:none}
+.nokta.kapali{background:#98a5b3}
+.sagGovde{flex:1;min-width:0;display:flex;flex-direction:column}
+.sagEtiket{overflow-wrap:anywhere}
+.sagAlt{font-size:11.5px;color:var(--ikincil);overflow-wrap:anywhere}
+.ok{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid var(--ikincil);flex:none;transition:transform .2s}
+.sagKart.acik .ok{transform:rotate(90deg)}
+.modelListe{border-top:1px solid var(--kenar)}
+.modelSatir{width:100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:44px;padding:6px 10px 6px 24px;background:var(--zemin);border:0;border-bottom:1px solid var(--kenar);font-size:14px;color:var(--metin);text-align:left;cursor:pointer}
+.modelSatir:last-child{border-bottom:0}
+.modelSatir:hover{background:var(--vurguSoluk)}
+.modelSatir.secili{background:var(--vurguSoluk);box-shadow:inset 3px 0 0 var(--vurgu)}
+.modelGovde{flex:1;min-width:120px;display:flex;flex-direction:column}
+.modelEtiket{overflow-wrap:anywhere}
+.modelAlt{font-size:11.5px;color:var(--ikincil);font-family:ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+
+/* ---- ORTA: görev kartları ---- */
+.gorevKart{display:block;width:100%;min-height:44px;text-align:left;background:var(--yuzey);border:1px solid var(--kenar);border-left:4px solid var(--kenar);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:14px;color:var(--metin);cursor:pointer;flex:none}
+.gorevKart:hover{background:var(--griSoluk)}
+.gorevKart.secili{border-left-color:var(--vurgu);background:var(--vurguSoluk)}
+.gorevKart .gorevBas{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.gorevId{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:700;color:var(--vurgu);overflow-wrap:anywhere}
+.gorevKart .gorevMetin{display:block;margin-bottom:6px;overflow-wrap:anywhere}
+.gorevKart .gorevMeta{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ikincil);overflow-wrap:anywhere}
+
+/* ---- ORTA: atanabilir tablo ---- */
+.altBaslik{font-size:13px;font-weight:700;letter-spacing:.04em;margin:8px 0 4px;color:var(--ikincil)}
+.altBaslik.teal{color:var(--vurgu)}
+.altBaslik.kirmizi{color:var(--kirmizi)}
+.atanabilirSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;background:var(--yuzey);flex:none}
+.atanabilirSatir.uygun{border-left:4px solid var(--vurgu)}
+.atanabilirSatir.elenen{border-left:4px solid var(--kirmizi);opacity:.75}
+.satirUst{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ajanAd{font-weight:600;font-size:14.5px;overflow-wrap:anywhere}
+.puan{font-size:13px;color:var(--ikincil);font-family:ui-monospace,Consolas,monospace}
+.gerekceSatir{font-size:12.5px;color:var(--kirmizi);margin-top:2px;overflow-wrap:anywhere}
+
+/* ---- ORTA: atamalar ---- */
+.atamaKart{border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;margin-bottom:8px;background:var(--yuzey);flex:none}
+.diffSatir{font-family:ui-monospace,Consolas,monospace;font-size:13px;margin-top:4px;overflow-wrap:anywhere}
+.metaSatir{font-size:12px;color:var(--ikincil);margin-top:4px;overflow-wrap:anywhere}
+
+/* ---- SAĞ: canlı akış ---- */
+.canliBas{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.canliBas .bolumEtiket{margin:0}
+.logListe{display:flex;flex-direction:column;gap:2px}
+.logSatir{display:flex;gap:6px;align-items:baseline;border-left:3px solid var(--kenar);padding:3px 8px;font-size:13px;background:var(--zemin);border-radius:0 6px 6px 0}
+.logSatir.mudahale{border-left-color:var(--sari)}
+.logT{color:var(--ikincil);font-family:ui-monospace,Consolas,monospace;font-size:12px;overflow-wrap:anywhere}
+.logTur{color:var(--vurgu);font-size:12px;font-weight:600;flex:none}
+.logMetin{flex:1;overflow-wrap:anywhere}
+
+/* ---- SAĞ: ajanlar + müdahale ---- */
+.ajanSatir{border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;margin-bottom:6px;flex:none}
+.cubukKutu{display:flex;align-items:center;gap:8px;margin-top:4px}
+.cubukIz{height:8px;width:70px;background:var(--griSoluk);border:1px solid var(--kenar);border-radius:999px;overflow:hidden;flex:none}
+.cubukDol{height:100%;background:var(--vurgu)}
+#mudahaleMetin{width:100%;min-height:72px;margin-top:6px;border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:14px;resize:vertical;background:var(--yuzey);color:var(--metin)}
+#mudahaleGonder{margin-top:8px;width:100%}
+.bosSatir{font-size:13px;color:var(--ikincil);padding:4px 2px}
+
+/* ---- dar ekran: <1200 sağ alta, <900 tek sütun; body scroll döner ---- */
+@media (max-width:1199px){body{overflow:auto}.sutunlar{height:auto;grid-template-columns:260px minmax(0,1fr)}.sag{grid-column:1/-1}.sutun{overflow:visible}}
+@media (max-width:899px){.sutunlar{grid-template-columns:minmax(0,1fr)}.sol,.orta,.sag{grid-column:auto}}
+</style>
+</head>
+<body>
+
+<header class="ustBar">
+  <svg class="ustSimge" width="17" height="17" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 1.5h3.6"/><path d="M7 1.5v4.6L3.4 11.9A1.9 1.9 0 0 0 5 14.7h6a1.9 1.9 0 0 0 1.6-2.8L9 6.1V1.5"/><path d="M4.9 10.4h6.2"/></svg>
+  <span class="baslik">G9 DENEY PANELİ</span>
+  <span class="rozet opsiyonel">DENEY</span>
+  <span id="baglantiRozeti" class="rozet kirmizi" hidden>BAĞLANTI YOK — tekrar deniyor</span>
+  <span id="durumRozeti" class="rozet" hidden></span>
+  <span class="bos"></span>
+  <span id="ustWs" class="rozet opsiyonel">WS –</span>
+  <span id="ustSaat" class="rozet">SUNUCU –</span>
+</header>
+
+<main class="sutunlar">
+
+  <!-- SOL: sağlayıcılar & modeller -->
+  <section class="sutun sol" aria-label="Sağlayıcılar ve modeller">
+    <div class="rozetSatir">
+      <span id="rzAktif" class="rozet teal">AKTİF SAĞLAYICI –</span>
+      <span id="rzModel" class="rozet teal">MODEL –</span>
+    </div>
+    <div id="saglayiciAlani"></div>
+  </section>
+
+  <!-- ORTA: görev & atama -->
+  <section class="sutun orta" aria-label="Görev ve atama">
+    <div class="durustSatir">TASLAK — AI-manager onayı K8'de; kalıcı sisteme yazmaz</div>
+    <div class="bolum">
+      <div class="bolumEtiket">GÖREVLER</div>
+      <div id="gorevListe"></div>
+    </div>
+    <div class="bolum" id="atanabilirBolum" hidden>
+      <div class="bolumEtiket">ATANABİLİR AJANLAR <span id="atanabilirBaslikEk" class="ek"></span></div>
+      <div id="atanabilirListe"></div>
+    </div>
+    <div class="bolum">
+      <div class="bolumEtiket">ATAMALAR</div>
+      <div id="atamaListe"></div>
+    </div>
+  </section>
+
+  <!-- SAĞ: canlı akış + müdahale -->
+  <section class="sutun sag" aria-label="Canlı akış ve müdahale">
+    <div class="bolum">
+      <div class="canliBas">
+        <div class="bolumEtiket">CANLI AKIŞ</div>
+        <span class="bos"></span>
+        <span id="cekimSaati" class="rozet">çekim –</span>
+        <span class="rozet">5 sn</span>
+        <button id="tazeleDugmesi" class="dugme kucuk" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M12.2 1.6v3h3"/></svg>TAZELE</button>
+      </div>
+      <div id="logListe" class="logListe"></div>
+    </div>
+    <div class="bolum">
+      <div class="bolumEtiket kucukBas">AJANLAR</div>
+      <div id="ajanListe"></div>
+    </div>
+    <div class="bolum">
+      <div class="bolumEtiket kucukBas">MÜDAHALE</div>
+      <div id="mudahaleListe" class="logListe"></div>
+      <textarea id="mudahaleMetin" rows="3" aria-label="Müdahale notu" placeholder="Operatör müdahale notu..."></textarea>
+      <button id="mudahaleGonder" class="dugme teal" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 1.5 1.8 6.8l4.8 2 2 4.8L14.5 1.5z"/><path d="M6.6 8.8 14.5 1.5"/></svg>GÖNDER</button>
+      <div class="durustSatir duz" style="margin-top:8px">OPERATÖR OKUR — ajan otomatik görmez; canlı AI bağlantısı K8 (D-4)</div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+'use strict';
+// G9 deney paneli (KAPI K10) — dar canlı DENEY; kalıcı sisteme yazmaz.
+// Yalnız aynı-origin /api/deney/* uçları; dış fetch yok. Sunucu tarafı ayrı yazılır.
+
+let durum = null;                  // GET /api/deney/durum son yanıtı (null: veri yok)
+let baglanti = true;               // son fetch başarılı mı (üst barda kırmızı rozet)
+let sonCekim = null;               // son başarılı çekim anı — ölçülür, tahmin edilmez
+let hataSayac = null;              // hata rozetini temizleyen zamanlayıcı
+let seciliGorev = null;            // orta sütunda seçili görev id (tazelemede korunur)
+const acikSaglayicilar = new Set(); // açık sağlayıcı akordiyonları (tazelemede korunur)
+
+const GLM_UCLAR = ['glm53u-codex', 'glm53u-claude', 'claude-glm'];
+
+// ---- küçük yardımcılar ----
+const $ = (id) => document.getElementById(id);
+
+function el(tag, cls, metin) {     // veri textContent ile konur — HTML'e asla gömülmez
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (metin !== undefined && metin !== null && metin !== '') e.textContent = String(metin);
+  return e;
+}
+function bosSatir(metin) { return el('div', 'bosSatir', metin); }
+function saatBic(d) {
+  const p = (n) => String(n).padStart(2, '0');
+  return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+
+// ---- üst bar durum rozeti (kırmızı durum satırı) ----
+function hataGoster(metin) {       // 8 sn sonra kendini temizler
+  const r = $('durumRozeti');
+  r.textContent = metin;
+  r.className = 'rozet kirmizi';
+  r.hidden = false;
+  if (hataSayac) clearTimeout(hataSayac);
+  hataSayac = setTimeout(() => { r.hidden = true; hataSayac = null; }, 8000);
+}
+
+// ---- ağ ----
+async function yukle() {
+  try {
+    const res = await fetch('/api/deney/durum');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    durum = await res.json();
+    baglanti = true;
+    sonCekim = new Date();
+  } catch (e) {
+    baglanti = false;              // fail-closed: sahte veri üretilmez, rozet kırmızı
+  }
+  guvenli(renderUst, 'üst');
+  guvenli(renderSol, 'sol');
+  guvenli(renderOrta, 'orta');
+  guvenli(renderSag, 'sağ');
+  if (hataSayac === null) $('durumRozeti').hidden = true;
+}
+
+async function post(u, govde) {    // tüm POST'lar JSON gövdeli; 400 → {hata} mesajı fırlar
+  const res = await fetch(u, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(govde)
+  });
+  if (!res.ok) {
+    let h = 'HTTP ' + res.status;
+    try { const j = await res.json(); if (j && j.hata) h = j.hata; } catch (e) { /* gövde JSON değil */ }
+    throw new Error(h);
+  }
+  return res;
+}
+
+function guvenli(fn, ad) {         // tek sütun hatası paneli boş bırakmaz
+  try { fn(); } catch (e) { hataGoster('render (' + ad + '): ' + e.message); }
+}
+
+// ---- sağlayıcı verisi: alan adı API sözleşmesinde net yazılmadı —
+// bilinen adaylar sırayla denenir (envanter.saglayicilar > saglayicilar > providers) ----
+function saglayiciListe() {
+  const d = durum || {};
+  const e = d.envanter || {};
+  const adaylar = [e.saglayicilar, d.saglayicilar, e.providers, d.providers];
+  let ham = null;
+  for (const a of adaylar) if (a) { ham = a; break; }
+  if (!ham) return null;
+  if (Array.isArray(ham)) return ham.map(sagKayitNormalize);
+  if (typeof ham === 'object') {   // providerId -> modeller haritası şekli de kabul
+    const cikan = [];
+    for (const k of Object.keys(ham)) cikan.push(sagKayitNormalize({ id: k, modeller: ham[k] }));
+    return cikan;
+  }
+  return null;
+}
+function sagKayitNormalize(s) {
+  if (typeof s === 'string') return { id: s, label: '', aktif: true, not: '', modeller: [] };
+  const id = String(s.id != null ? s.id : (s.ad != null ? s.ad : ''));
+  const aktif = s.aktif !== undefined ? !!s.aktif : (s.enabled !== undefined ? !!s.enabled : true);
+  const hamModeller = s.modeller || s.models || [];
+  return {
+    id: id,
+    label: s.label != null ? String(s.label) : '',
+    aktif: aktif,
+    not: s.not != null ? String(s.not) : '',
+    modeller: (Array.isArray(hamModeller) ? hamModeller : []).map(modelNormalize)
+  };
+}
+function modelNormalize(m) {
+  if (typeof m === 'string') return { id: m, label: '', ucretsiz: false, varsayilan: false, not: '' };
+  return {
+    id: String(m.id != null ? m.id : (m.ad != null ? m.ad : '')),
+    label: m.label != null ? String(m.label) : '',
+    ucretsiz: !!m.ucretsiz,
+    varsayilan: !!(m.isDefault !== undefined ? m.isDefault : m.varsayilan),
+    not: m.not != null ? String(m.not) : ''
+  };
+}
+
+// ---- render: üst bar ----
+function renderUst() {
+  $('baglantiRozeti').hidden = baglanti;
+  const d = durum || {};
+  $('ustSaat').textContent = 'SUNUCU ' + (d.sunucuSaati != null ? d.sunucuSaati : '–');
+  const env = d.envanter || {};
+  $('ustWs').textContent = 'WS ' + (env.workspaceSayisi != null ? env.workspaceSayisi : '–');
+}
+
+// ---- render: SOL (sağlayıcılar & modeller) ----
+function renderSol() {
+  const d = durum || {};
+  const env = d.envanter || {};
+  $('rzAktif').textContent = 'AKTİF SAĞLAYICI ' + (env.aktifSaglayiciSayisi != null ? env.aktifSaglayiciSayisi : '–');
+  $('rzModel').textContent = 'MODEL ' + (env.modelSayisi != null ? env.modelSayisi : '–');
+  const alan = $('saglayiciAlani');
+  alan.textContent = '';
+  const liste = saglayiciListe();
+  if (!liste) { alan.appendChild(bosSatir('(sağlayıcı listesi durum verisinde yok — envanter.saglayicilar bekleniyor)')); return; }
+  if (!liste.length) { alan.appendChild(bosSatir('(veri yok)')); return; }
+  if (d.tercih && d.tercih.provider) acikSaglayicilar.add(String(d.tercih.provider)); // seçim görünür kalsın
+  const glm = [], diger = [];
+  for (const s of liste) (GLM_UCLAR.indexOf(s.id) >= 0 ? glm : diger).push(s);
+  glm.sort((a, b) => GLM_UCLAR.indexOf(a.id) - GLM_UCLAR.indexOf(b.id));
+  if (glm.length) {
+    alan.appendChild(el('div', 'solBas', 'GLM 5.3'));
+    for (const s of glm) alan.appendChild(sagKart(s));
+  }
+  alan.appendChild(el('div', 'solBas', glm.length ? 'DİĞER SAĞLAYICILAR' : 'SAĞLAYICILAR'));
+  if (diger.length) { for (const s of diger) alan.appendChild(sagKart(s)); }
+  else alan.appendChild(bosSatir('(diğer sağlayıcı yok)'));
+}
+
+function sagKart(s) {              // sağlayıcı kartı: başlık tıkla → modeller açılır
+  const kart = el('div', 'sagKart');
+  const acik = acikSaglayicilar.has(s.id);
+  if (acik) kart.classList.add('acik');
+  const bas = el('button', 'sagKartBas');
+  bas.type = 'button';
+  bas.setAttribute('aria-expanded', acik ? 'true' : 'false');
+  const listeId = 'mod-' + s.id.replace(/[^a-zA-Z0-9]+/g, '-');
+  bas.setAttribute('aria-controls', listeId);
+  bas.appendChild(el('span', 'nokta' + (s.aktif ? '' : ' kapali')));
+  const govde = el('span', 'sagGovde');
+  govde.appendChild(el('span', 'sagEtiket', s.label || s.id));
+  const alt = [];
+  if (s.label && s.id && s.label !== s.id) alt.push(s.id);
+  if (s.not) alt.push(s.not);
+  if (alt.length) govde.appendChild(el('span', 'sagAlt', alt.join(' · ')));
+  bas.appendChild(govde);
+  if (!s.aktif) bas.appendChild(el('span', 'rozet', 'KAPALI'));
+  bas.appendChild(el('span', 'ok'));
+  bas.addEventListener('click', () => {
+    if (acikSaglayicilar.has(s.id)) acikSaglayicilar.delete(s.id);
+    else acikSaglayicilar.add(s.id);
+    renderSol();
+  });
+  kart.appendChild(bas);
+  const mliste = el('div', 'modelListe');
+  mliste.id = listeId;
+  if (!acik) mliste.hidden = true;
+  if (!s.modeller.length) mliste.appendChild(bosSatir('(model yok)'));
+  for (const m of s.modeller) mliste.appendChild(modelSatir(s, m));
+  kart.appendChild(mliste);
+  return kart;
+}
+
+function modelSatir(sag, m) {      // model tıkla → POST /api/deney/tercih
+  const secili = !!(durum && durum.tercih &&
+    String(durum.tercih.provider) === sag.id && String(durum.tercih.model) === m.id);
+  const satir = el('button', 'modelSatir' + (secili ? ' secili' : ''));
+  satir.type = 'button';
+  const govde = el('span', 'modelGovde');
+  govde.appendChild(el('span', 'modelEtiket', m.label || m.id));
+  const alt = [];
+  if (m.label && m.id && m.label !== m.id) alt.push(m.id);
+  if (m.not) alt.push(m.not);
+  if (alt.length) govde.appendChild(el('span', 'modelAlt', alt.join(' · ')));
+  satir.appendChild(govde);
+  if (m.ucretsiz) satir.appendChild(el('span', 'rozet yesil', 'ÜCRETSİZ'));
+  if (m.varsayilan) satir.appendChild(el('span', 'rozet', 'VARSAYILAN'));
+  if (secili) satir.appendChild(el('span', 'rozet tealDolu', 'SEÇİLİ'));
+  satir.addEventListener('click', () => tercihSec(sag.id, m.id));
+  return satir;
+}
+
+// ---- render: ORTA (görev & atama) ----
+function renderOrta() {
+  const d = durum || {};
+  const gorevler = Array.isArray(d.gorevler) ? d.gorevler : [];
+  if (seciliGorev && !gorevler.some((g) => String(g.id) === seciliGorev)) seciliGorev = null;
+  const liste = $('gorevListe');
+  liste.textContent = '';
+  if (!gorevler.length) { liste.appendChild(bosSatir('(veri yok)')); }
+  else { for (const g of gorevler) liste.appendChild(gorevKart(g)); }
+  renderAtanabilir();
+  renderAtamalar();
+}
+
+function gorevKart(g) {            // görev seç → ATANABİLİR AJANLAR tablosu açılır
+  const id = String(g.id != null ? g.id : '?');
+  const kart = el('button', 'gorevKart' + (seciliGorev === id ? ' secili' : ''));
+  kart.type = 'button';
+  const bas = el('span', 'gorevBas');
+  bas.appendChild(el('span', 'gorevId', id));
+  if (g.rol != null) bas.appendChild(el('span', 'rozet', String(g.rol)));
+  kart.appendChild(bas);
+  kart.appendChild(el('span', 'gorevMetin', g.gorev != null ? g.gorev : ''));
+  kart.appendChild(el('span', 'gorevMeta', 'dizin: ' + (g.dizin != null ? g.dizin : '–')));
+  kart.addEventListener('click', () => {
+    seciliGorev = (seciliGorev === id ? null : id);
+    renderOrta();
+  });
+  return kart;
+}
+
+function renderAtanabilir() {
+  const bolum = $('atanabilirBolum');
+  bolum.hidden = !seciliGorev;
+  if (!seciliGorev) return;
+  $('atanabilirBaslikEk').textContent = '— ' + seciliGorev;
+  const kayit = (durum && durum.atanabilir) ? durum.atanabilir[seciliGorev] : null;
+  const liste = $('atanabilirListe');
+  liste.textContent = '';
+  const uygunlar = kayit && Array.isArray(kayit.uygunlar) ? kayit.uygunlar : [];
+  const elenenler = kayit && Array.isArray(kayit.elenenler) ? kayit.elenenler : [];
+  if (kayit && kayit.hata) {       // sunucu tek görevin hatasını böyle taşır (fail-closed)
+    liste.appendChild(el('div', 'gerekceSatir', 'hata: ' + String(kayit.hata)));
+    return;
+  }
+  if (!kayit || (!uygunlar.length && !elenenler.length)) {
+    liste.appendChild(bosSatir('(veri yok)'));
+    return;
+  }
+  liste.appendChild(el('div', 'altBaslik teal', 'UYGUNLAR (' + uygunlar.length + ')'));
+  if (uygunlar.length) { for (const u of uygunlar) liste.appendChild(uygunSatir(u)); }
+  else { liste.appendChild(bosSatir('(uygun ajan yok)')); }
+  if (elenenler.length) {
+    liste.appendChild(el('div', 'altBaslik kirmizi', 'ELENENLER (' + elenenler.length + ')'));
+    for (const k of elenenler) liste.appendChild(elenenSatir(k));
+  }
+}
+
+function uygunSatir(u) {           // uygun ajan: ad + puan + ATA düğmesi
+  const satir = el('div', 'atanabilirSatir uygun');
+  const ust = el('div', 'satirUst');
+  ust.appendChild(el('span', 'ajanAd', u.ajan != null ? u.ajan : '?'));
+  ust.appendChild(el('span', 'puan', 'puan: ' + (u.puan != null ? u.puan : '–')));
+  ust.appendChild(el('span', 'bos'));
+  const dugme = el('button', 'dugme teal kucuk', 'ATA');
+  dugme.type = 'button';
+  dugme.addEventListener('click', () => { ata(dugme, u.ajan); });
+  ust.appendChild(dugme);
+  satir.appendChild(ust);
+  return satir;
+}
+
+function elenenSatir(k) {          // elenen ajan: her satırda GEREKÇE (neden: detay)
+  const satir = el('div', 'atanabilirSatir elenen');
+  const ust = el('div', 'satirUst');
+  ust.appendChild(el('span', 'ajanAd', k.ajan != null ? k.ajan : '?'));
+  satir.appendChild(ust);
+  const nedenler = Array.isArray(k.elenen) ? k.elenen : [];
+  if (!nedenler.length) satir.appendChild(el('div', 'gerekceSatir', '(gerekçe yok)'));
+  for (const n of nedenler) {
+    satir.appendChild(el('div', 'gerekceSatir',
+      (n.neden != null ? n.neden : '?') + ': ' + (n.detay != null ? n.detay : '')));
+  }
+  return satir;
+}
+
+function renderAtamalar() {
+  const liste = $('atamaListe');
+  liste.textContent = '';
+  const atamalar = durum && Array.isArray(durum.atamalar) ? durum.atamalar : [];
+  if (!atamalar.length) { liste.appendChild(bosSatir('(veri yok)')); return; }
+  for (const a of atamalar) liste.appendChild(atamaSatir(a));
+}
+
+function atamaSatir(a) {           // atama taslağı: v{n} + diff (eski→yeni) + TASLAK rozeti
+  const kart = el('div', 'atamaKart');
+  const ust = el('div', 'satirUst');
+  ust.appendChild(el('span', 'gorevId', a.gorevId != null ? a.gorevId : '?'));
+  ust.appendChild(el('span', 'ajanAd', a.ajanId != null ? a.ajanId : '?'));
+  ust.appendChild(el('span', 'rozet teal', 'v' + (a.surum != null ? a.surum : '?')));
+  if (a.onay != null) ust.appendChild(el('span', 'rozet ' + (a.onay === 'TASLAK' ? 'sari' : ''), String(a.onay)));
+  kart.appendChild(ust);
+  const farklar = Array.isArray(a.diff) ? a.diff : (a.diff ? [a.diff] : []);
+  for (const f of farklar) {
+    kart.appendChild(el('div', 'diffSatir', (f && f.alan != null ? f.alan : '?') + ': ' +
+      (f && f.eski != null ? f.eski : '–') + ' → ' + (f && f.yeni != null ? f.yeni : '–')));
+  }
+  kart.appendChild(el('div', 'metaSatir', [a.acan, a.tarih].filter((x) => x != null && x !== '').join(' · ')));
+  return kart;
+}
+
+// ---- render: SAĞ (canlı akış + müdahale) ----
+function renderSag() {
+  if (sonCekim) $('cekimSaati').textContent = 'çekim ' + saatBic(sonCekim);
+  renderLog();
+  renderAjanlar();
+  renderMudahale();
+}
+
+function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale sarı, hata kırmızı
+  const t = String(tur || '').toLowerCase();
+  if (t === 'hata') return 'var(--kirmizi)';
+  if (t === 'mudahale') return 'var(--sari)';
+  if (t.indexOf('envanter') === 0 || t.indexOf('workspace') === 0 || t.indexOf('ajan') === 0) return 'var(--vurgu)';
+  return 'var(--kenar)';
+}
+
+function renderLog() {
+  const liste = $('logListe');
+  liste.textContent = '';
+  const log = durum && Array.isArray(durum.log) ? durum.log : [];
+  if (!log.length) { liste.appendChild(bosSatir('(veri yok)')); return; }
+  for (const s of log) {
+    const satir = el('div', 'logSatir');
+    satir.style.borderLeftColor = turRenk(s.tur);
+    satir.appendChild(el('span', 'logT', '[' + (s.t != null ? s.t : '') + ']'));
+    satir.appendChild(el('span', 'logTur', '(' + (s.tur != null ? s.tur : '?') + ')'));
+    satir.appendChild(el('span', 'logMetin', s.metin != null ? s.metin : ''));
+    liste.appendChild(satir);
+  }
+}
+
+function renderAjanlar() {
+  const liste = $('ajanListe');
+  liste.textContent = '';
+  const a = durum && durum.ajanlar ? durum.ajanlar : {};
+  const kosan = Array.isArray(a.kosanPaseo) ? a.kosanPaseo : [];
+  const ornek = Array.isArray(a.ornek) ? a.ornek : [];
+  if (!kosan.length && !ornek.length) { liste.appendChild(bosSatir('(veri yok)')); return; }
+  if (kosan.length) {
+    liste.appendChild(el('div', 'altBaslik teal', 'KOŞAN (PASEO)'));
+    for (const k of kosan) {
+      const satir = el('div', 'ajanSatir');
+      const ust = el('div', 'satirUst');
+      ust.appendChild(el('span', 'ajanAd', k.ad != null ? k.ad : '?'));
+      if (k.durum != null) ust.appendChild(el('span', 'rozet', String(k.durum)));
+      satir.appendChild(ust);
+      satir.appendChild(el('div', 'metaSatir',
+        [k.model, k.gorev].filter((x) => x != null && x !== '').join(' · ') || '–'));
+      liste.appendChild(satir);
+    }
+  }
+  if (ornek.length) {
+    liste.appendChild(el('div', 'altBaslik', 'ÖRNEK'));
+    for (const o of ornek) {
+      const satir = el('div', 'ajanSatir');
+      const ust = el('div', 'satirUst');
+      ust.appendChild(el('span', 'rozet', 'ÖRNEK'));
+      ust.appendChild(el('span', 'ajanAd', o.ad != null ? o.ad : '?'));
+      if (o.durum != null) ust.appendChild(el('span', 'rozet', String(o.durum)));
+      satir.appendChild(ust);
+      const roller = Array.isArray(o.roller) ? o.roller.join(', ') : (o.roller != null ? String(o.roller) : '');
+      if (roller) satir.appendChild(el('div', 'metaSatir', 'roller: ' + roller));
+      satir.appendChild(doluCubuk(o));
+      liste.appendChild(satir);
+    }
+  }
+}
+
+function doluCubuk(o) {            // dolu/esZamanli çubuğu (ÖRNEK ajanlar)
+  const kutu = el('div', 'cubukKutu');
+  const limit = o && o.limit ? Number(o.limit.esZamanli) : NaN;
+  const dolu = Number(o ? o.dolu : NaN);
+  if (!isFinite(dolu) || !isFinite(limit) || limit <= 0) {
+    kutu.appendChild(el('span', 'metaSatir', 'dolu/esZamanli: ' +
+      (o && o.dolu != null ? o.dolu : '–') + '/' +
+      (o && o.limit && o.limit.esZamanli != null ? o.limit.esZamanli : '–')));
+    return kutu;
+  }
+  const iz = el('div', 'cubukIz');
+  const dol = el('div', 'cubukDol');
+  dol.style.width = Math.max(0, Math.min(100, (dolu / limit) * 100)) + '%';
+  iz.appendChild(dol);
+  kutu.appendChild(iz);
+  kutu.appendChild(el('span', 'metaSatir', dolu + '/' + limit));
+  return kutu;
+}
+
+function renderMudahale() {
+  const liste = $('mudahaleListe');
+  liste.textContent = '';
+  const md = durum && Array.isArray(durum.mudahale) ? durum.mudahale : [];
+  if (!md.length) { liste.appendChild(bosSatir('(veri yok)')); return; }
+  for (const m of md) {
+    const satir = el('div', 'logSatir mudahale');
+    satir.appendChild(el('span', 'logT', '[' + (m.t != null ? m.t : '') + ']'));
+    satir.appendChild(el('span', 'logTur', '(' + (m.kim != null ? m.kim : '?') + ')'));
+    satir.appendChild(el('span', 'logMetin', m.not != null ? m.not : ''));
+    liste.appendChild(satir);
+  }
+}
+
+// ---- eylemler (POST uçları) ----
+async function tercihSec(sagId, modelId) {
+  try {
+    await post('/api/deney/tercih', { provider: sagId, model: modelId });
+    await yukle();                 // SEÇİLİ rozeti sunucudaki tercih kaydından gelir
+  } catch (e) { hataGoster(e.message); }
+}
+
+async function ata(dugme, ajanAd) {
+  if (!seciliGorev || ajanAd == null) return;
+  dugme.disabled = true;
+  try {
+    await post('/api/deney/atama', { gorevId: seciliGorev, ajanAd: String(ajanAd) });
+    await yukle();                 // atamalar listesi sunucudan gelir (TASLAK satırı)
+  } catch (e) {
+    dugme.disabled = false;
+    hataGoster(e.message);
+  }
+}
+
+async function mudahaleYolla() {
+  const kutu = $('mudahaleMetin');
+  const metin = kutu.value.trim();
+  if (!metin) { hataGoster('Müdahale notu boş'); return; }
+  const dugme = $('mudahaleGonder');
+  dugme.disabled = true;
+  try {
+    await post('/api/deney/mudahale', { not: metin });
+    kutu.value = '';               // başarılıda kutu temizlenir
+    await yukle();                 // mudahale listesi tazelenir
+  } catch (e) { hataGoster(e.message); }
+  dugme.disabled = false;
+}
+
+async function tazele() {
+  const dugme = $('tazeleDugmesi');
+  dugme.disabled = true;
+  await yukle();
+  dugme.disabled = false;
+}
+
+// ---- başlangıç ----
+(function ilklendir() {
+  const r = $('durumRozeti');      // spinner yerine dürüst YÜKLENİYOR etiketi
+  r.textContent = 'YÜKLENİYOR';
+  r.className = 'rozet';
+  r.hidden = false;
+  ['gorevListe', 'atamaListe', 'logListe', 'ajanListe', 'mudahaleListe', 'saglayiciAlani']
+    .forEach((id) => $(id).appendChild(bosSatir('YÜKLENİYOR')));
+  $('tazeleDugmesi').addEventListener('click', tazele);
+  $('mudahaleGonder').addEventListener('click', mudahaleYolla);
+  window.addEventListener('error', (e) => hataGoster('beklenmeyen hata: ' + (e.message || '?')));
+  window.addEventListener('unhandledrejection', (e) => {
+    hataGoster('işlenmeyen promise: ' + (e.reason && e.reason.message ? e.reason.message : '?'));
+  });
+  yukle();
+  setInterval(yukle, 5000);        // 5 sn otomatik tazeleme
+})();
+</script>
+</body>
+</html>
