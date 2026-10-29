@@ -19,7 +19,7 @@
 
 | Kapı | Durum | Açan | Doğan iş (değer) | Asıl kayıt |
 |---|---|---|---|---|
-| K1 MOCKUP KABULÜ | GEÇİLDİ (2026-10-29 13:11, «DALGA-0-2 başla» — dalga açıldı; kapanış + K2 ayrı) | «DALGA-0-2 başla» ya da eksik listesi | gerçek inşa dalgası (fiş→yazar→merge+tam kanal) — mockup'taki yüz gerçek veriyle 4377/tuval'e iner | raporlar/arayuz-mockup-6sub-2026-10-29/ |
+| K1 MOCKUP KABULÜ | GEÇİLDİ (13:11) — R1 düzeltme bacağı AÇIK (13:56; TEKLIF-BIRLESIK onaylandı — taban 20767b8) | «DALGA-0-2 başla» ya da eksik listesi | gerçek inşa dalgası (fiş→yazar→merge+tam kanal) — mockup'taki yüz gerçek veriyle 4377/tuval'e iner | raporlar/arayuz-mockup-6sub-2026-10-29/ |
 | K2 GÖRSEL KABUL | SIRA K1'DE | elle gezme + cümle | DALGA-0 + 0-2 kabul damgası; arayüz hattı kapanır. İç kapılar: D-2 canlı akış → D-3 graf yazma → D-4 AI edit | plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md |
 | K3 REPLAN | BEKLİYOR | terminal (core/): `node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"` | drift düzelir, graf gerçeğe döner | plans/KARAR-PAKETI-2026-10-28.md |
 | K4 K-0044 PENCERE | BEKLİYOR | restart'ta birlikte; setx kullanıcı eliyle | ortam anahtarı referansı — değerler ekrana YAZILMAZ | kararlar/K-0044.md |
