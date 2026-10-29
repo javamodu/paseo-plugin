@@ -34,6 +34,7 @@
     --uyari:#b45309; --tehlike:#dc2626; --metin:#1a2332; --ikincil:#51617a;
     --cizgi:rgba(26,35,50,0.14); --glow:rgba(14,116,144,0.16);
     --radius:12px; --min-dokunma:44px;
+    --solW:280px; --sagW:380px; /* ADIM-C: panel genişlikleri — splitter sürükleyince değişir, localStorage'a düşer */
     --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
   }
   * { box-sizing:border-box; margin:0; font:inherit; }
@@ -91,19 +92,33 @@
   }
 
   /* =====================================================================
-     R2 ANA DÜZEN: TEK VIEWPORT — yatay grid ÜÇ SÜTUN: SOL akordiyon ·
-     ORTA sekmeli · SAĞ chat. main flex:1 + min-height:0; her sütun kendi
-     içinde kayar (overflow-y) — uzun sayfa scroll'u BİTER.
+     R2 ANA DÜZEN: TEK VIEWPORT — yatay grid BEŞ HÜCRE: SOL akordiyon ·
+     splitter · ORTA sekmeli · splitter · SAĞ panel (ADIM-C: genişlikler
+     --solW/--sagW CSS değişkeniyle yönetilir — sürükle/ok tuşları +
+     localStorage). main flex:1 + min-height:0; her sütun kendi içinde
+     kayar (overflow-y) — uzun sayfa scroll'u BİTER.
      ===================================================================== */
   main {
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
-    display:grid; gap:14px;
-    grid-template-columns:minmax(240px,300px) minmax(0,1fr) minmax(320px,400px);
+    display:grid; gap:0;
+    grid-template-columns:var(--solW) 14px minmax(0,1fr) 14px var(--sagW);
     width:100%; max-width:1760px; margin:0 auto; padding:12px 16px 16px;
     overflow:hidden;
   }
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
   #sag { display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; }
+  /* ---- ADIM-C: splitter (panel resize; pointer events = fare + dokunmatik) ---- */
+  .splitter {
+    min-height:0; width:14px; border-radius:4px; cursor:col-resize; touch-action:none;
+    position:relative; background:transparent; border:0; padding:0;
+  }
+  .splitter::after {
+    content:""; position:absolute; top:calc(50% - 28px); left:6px; width:2px; height:56px;
+    border-radius:2px; background:var(--cizgi); transition:transform .15s; /* E12: yalnız transform — renk anında değişir */
+  }
+  .splitter:hover::after, .splitter.aktif::after { background:var(--camgobegi); transform:scaleY(1.15); }
+  .splitter.aktif { background:var(--glow); }
+  .splitter:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-2px; }
   .bolum-etiket { /* R2: bölüm başlıkları BÜYÜK — 20px */
     display:flex; align-items:center; gap:10px; margin:2px 0 12px;
     font-size:20px; font-weight:800; color:var(--metin); letter-spacing:0.01em;
@@ -497,14 +512,18 @@
     .drawerKapa { display:inline-flex; }
     body { height:auto; overflow:auto; display:block; } /* tek-viewport yalnız geniş ekran — dar ekranda akış kayar */
     main { display:flex; flex-direction:column; height:auto; overflow:visible; padding:14px 14px 24px; }
+    .splitter { display:none; } /* ADIM-C: dar ekranda akış tek kolon — tutamaçlar anlamsız */
     #orta { min-height:70vh; }
     #sag { width:100%; min-height:60vh; }
     .grafKutu { overflow:visible; }
     #tuvalSarma { height:48vh; }
   }
   @media (min-width:1024px) {
-    body.drawer-kapali main { grid-template-columns:0px minmax(0,1fr) minmax(320px,400px); }
-    body.drawer-kapali #sol { display:none; }
+    body.drawer-kapali main { grid-template-columns:0px 0px minmax(0,1fr) 14px var(--sagW); }
+    body.drawer-kapali #sol, body.drawer-kapali #splitSol { display:none; }
+    body.sag-kapali main { grid-template-columns:var(--solW) 14px minmax(0,1fr) 0px 0px; }
+    body.sag-kapali #sag, body.sag-kapali #splitSag { display:none; }
+    body.drawer-kapali.sag-kapali main { grid-template-columns:0px 0px minmax(0,1fr) 0px 0px; }
     #perde { display:none; }
   }
 
@@ -555,6 +574,9 @@
   <button id="cekmeceBtn" class="cekmece" type="button" aria-expanded="false" aria-controls="sol" aria-label="görev ağacı menüsünü aç / kapat" title="görev ağacı menüsünü aç / kapat (dar ekran: overlay; geniş ekran: kenar sütunu)">
     <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 1 H17 M1 7 H17 M1 13 H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
+  <button id="sagPanelBtn" class="cekmece" type="button" aria-pressed="true" aria-controls="sag" aria-label="sağ paneli aç / kapat" title="sağ paneli aç / kapat (CHAT · PROJE · API — ADIM-C)">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 1 H17 V13 H1 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 1 V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
   <input id="token" type="password" autocomplete="off" placeholder="token" title="PANO_TOKEN — kapsül kartı oluşturma (POST /api/kart) token'ı; fail-closed: yazma ucu tokensız kırmızı">
 </header>
 
@@ -583,6 +605,9 @@
       · halka = aktif · <span class="kIsaret">K</span> = insan kapısı · satıra dokun → görev sekmesi açılır (kapsül kartı + denetim kanıtı)
     </p>
   </section>
+
+  <!-- ADIM-C: sol panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
+  <div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="280" tabindex="0"></div>
 
   <!-- ============ ORTA (#orta): VS CODE TARZI SEKMELER (R2 — sabit + seçilen görevlerin sekmeleri) ============ -->
   <section id="orta" aria-label="orta sütun — görev sekmeleri (sabit bölümler + seçilen görevler)">
@@ -730,6 +755,9 @@
       </section>
     </div>
   </section>
+
+  <!-- ADIM-C: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
+  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="380" tabindex="0"></div>
 
   <!-- ============ SAĞ (#sag): BÜYÜK AI CHAT (VARSAYILAN) + üstte ikon menü (CHAT/PROJE/API) ============
        K8 ADIM-B: ÖZET + KOMUT yüzleri KALDIRILDI (kullanıcı emri — state yüklü yüz sökümü);
@@ -1190,6 +1218,81 @@ $("perde").addEventListener("click", () => drawerKapa(true));
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && window.innerWidth < 1024 && drawerAcik()) drawerKapa(true);
 });
+
+/* ============ ADIM-C: PANEL RESIZE (splitter ×2 — pointer events, deney deseni) + SAĞ PANEL AÇ/KAPA ============ */
+function kaydet(anahtar, deger) { try { localStorage.setItem(anahtar, deger); } catch (e) { /* gizli mod: sessiz */ } }
+function oku(anahtar) { try { return localStorage.getItem(anahtar); } catch (e) { return null; } }
+function genislikUygula(taraf, px) {
+  document.documentElement.style.setProperty(taraf === "sol" ? "--solW" : "--sagW", Math.round(px) + "px");
+  const kolon = $(taraf === "sol" ? "splitSol" : "splitSag");
+  if (kolon) kolon.setAttribute("aria-valuenow", String(Math.round(px))); // WAI-ARIA separator değeri
+}
+function genislikKenetle(w) { // en az 180px (nefes alan alt sınır) · en çok 45vw (orta ezilmesin)
+  return Math.max(180, Math.min(Math.round(window.innerWidth * 0.45), w));
+}
+function splitterKur(id, taraf) {
+  const kolon = $(id);
+  const hareket = (ev) => {
+    let w = taraf === "sol" ? basGenis + (ev.clientX - basX) : basGenis - (ev.clientX - basX);
+    genislikUygula(taraf, genislikKenetle(w));
+  };
+  let basX = 0, basGenis = 0;
+  kolon.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    try { kolon.setPointerCapture(e.pointerId); } catch (err) { /* pointer kaybı: sürükleme yine çalışır */ }
+    kolon.classList.add("aktif");
+    basX = e.clientX;
+    const kok = getComputedStyle(document.documentElement);
+    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 280 : 380);
+    kolon.addEventListener("pointermove", hareket);
+  });
+  const bitis = () => {
+    kolon.classList.remove("aktif");
+    kolon.removeEventListener("pointermove", hareket);
+    const kok = getComputedStyle(document.documentElement);
+    const w = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
+    if (isFinite(w) && w >= 180) kaydet("tuval-" + taraf + "W", String(w));
+  };
+  kolon.addEventListener("pointerup", bitis);
+  kolon.addEventListener("pointercancel", bitis);
+  kolon.addEventListener("lostpointercapture", bitis);
+  kolon.addEventListener("keydown", (e) => { // klavye: ← daralt · → genişlet (±16px)
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const kok = getComputedStyle(document.documentElement);
+    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || 380;
+    const w = genislikKenetle(simdi + (e.key === "ArrowLeft" ? -16 : 16));
+    genislikUygula(taraf, w);
+    kaydet("tuval-" + taraf + "W", String(w));
+  });
+}
+splitterKur("splitSol", "sol");
+splitterKur("splitSag", "sag");
+// açılış: kayıtlı genişlikler (clamp'li — pencere arada küçümüş olabilir)
+for (const taraf of ["sol", "sag"]) {
+  const w = parseInt(oku("tuval-" + taraf + "W"), 10);
+  if (isFinite(w) && w >= 180) genislikUygula(taraf, genislikKenetle(w));
+}
+window.addEventListener("resize", () => { // 45vw tavanı pencereyle daralabilir — değerleri yeniden kenetle
+  for (const taraf of ["sol", "sag"]) {
+    const w = parseInt(getComputedStyle(document.documentElement).getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
+    if (isFinite(w)) genislikUygula(taraf, genislikKenetle(w));
+  }
+});
+/* sağ panel aç/kapa (üst bar düğmesi; <1024'te panel alta katlanır — sınıf yalnız >=1024 grid'ini etkiler) */
+const sagPanelBtn = $("sagPanelBtn");
+function sagAcik() { return !document.body.classList.contains("sag-kapali"); }
+function sagDurumYaz() { sagPanelBtn.setAttribute("aria-pressed", sagAcik() ? "true" : "false"); }
+sagPanelBtn.addEventListener("click", () => {
+  const kapali = document.body.classList.toggle("sag-kapali");
+  sagDurumYaz();
+  kaydet("tuval-sagAcik", kapali ? "0" : "1");
+  toast(kapali
+    ? "Sağ panel kapatıldı (CHAT · PROJE · API) — yeniden açmak için üstteki panel düğmesi."
+    : "Sağ panel açıldı — CHAT (varsayılan) · PROJE · API.");
+});
+if (oku("tuval-sagAcik") === "0") document.body.classList.add("sag-kapali");
+sagDurumYaz();
 
 /* ============ GÖREV SEKMESİ İÇERİĞİ: KAPSÜL KARTI (sec(id) detay — İNSAN/MAKİNE OKUR + bağımlılık çipleri) ============ */
 function kSatir(etiket, degerHtml) {

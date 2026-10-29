@@ -133,7 +133,7 @@ test("9- drawer kaynak-işaretleri: hamburger + aria-expanded senkronu + Esc + p
   ok('drawer kapatma düğmesi (id="drawerKapa")', SRC.includes('id="drawerKapa"'));
   const genis = mediaBlok("min-width:1024px");
   ok("@media (min-width:1024px) bloğu (drawer sabit sütun)", !!genis);
-  ok("geniş ekranda kapanış (body.drawer-kapali #sol display:none)", /body\.drawer-kapali\s+#sol\s*\{[^}]*display:\s*none/.test(genis || ""));
+  ok("geniş ekranda kapanış (body.drawer-kapali #sol + #splitSol display:none — ADIM-C: splitter da gizlenir)", /body\.drawer-kapali\s+#sol,\s*body\.drawer-kapali\s+#splitSol\s*\{[^}]*display:\s*none/.test(genis || ""));
   const dar = mediaBlok("max-width:1023px");
   ok("@media (max-width:1023px) bloğu (drawer overlay)", !!dar);
   ok("overlay kaydırma (transform:translateX(-103%))", (dar || "").includes("translateX(-103%)"));
@@ -242,7 +242,10 @@ test("16- DAG: viewBox zoom/pan (tekerlek + sürükle + pinch) — döngüde-çi
   ok("tekerlek zoom dinleyicisi (passive:false + preventDefault)", /addEventListener\("wheel"[^]{0,160}preventDefault/.test(SRC));
   ok('sürükleme pan (pointerdown + pointermove)', SRC.includes('addEventListener("pointerdown"') && SRC.includes('addEventListener("pointermove"'));
   ok("pinch zoom (2 işaretçi mesafesi — pinchUzak)", SRC.includes("pinchUzak"));
-  ok("pointer-capture API'si KULLANILMAZ (click ölümü tuzağı)", !SRC.includes("setPointerCapture"));
+  ok("pointer-capture yalnız splitter'da (DAG pan'ında KULLANILMAZ — click ölümü tuzağı)", (() => {
+    const yerler = SRC.split("setPointerCapture").length - 1;
+    return yerler === 1 && SRC.includes("kolon.setPointerCapture"); // ADIM-C splitter sürüklemesi meşru; DAG pan'ı dokunulmaz
+  })());
   ok("zoom düğmeleri (zIn/zOut/zFit/z100)", ["zIn", "zOut", "zFit", "z100"].every((i) => SRC.includes('id="' + i + '"')));
   ok("drag sonrası tıklama yutulmaz (tasindi bayrağı ile tıklama korunur)", SRC.includes("tasindi"));
 });
@@ -438,9 +441,9 @@ test("26- AI CHAT (EK-ŞART 14:03 + R2): SAĞ BÜYÜK PANEL (VARSAYILAN) + ŞABL
   ok("boş hedef cümlede dürüst uyarı (hedef cümle boş)", jsKisim.includes("Hedef cümle boş"));
 });
 
-test("27- R2 ÜÇ SÜTUN · TEK VIEWPORT: grid 3 kolon + body scroll YOK + panel-içi kaydırma", () => {
+test("27- R2 ÜÇ SÜTUN · TEK VIEWPORT (ADIM-C: beş hücre — splitter'lı): grid + body scroll YOK + panel-içi kaydırma", () => {
   ok("main display:grid", /main\s*\{[^}]*display:\s*grid/.test(SRC));
-  ok("üç kolon izi (sol minmax + orta minmax(0,1fr) + sağ minmax)", SRC.includes("grid-template-columns:minmax(240px,300px) minmax(0,1fr) minmax(320px,400px)"));
+  ok("beş hücre izi (ADIM-C: --solW + 14px splitter + orta minmax(0,1fr) + 14px + --sagW; gap:0)", SRC.includes("grid-template-columns:var(--solW) 14px minmax(0,1fr) 14px var(--sagW)") && /main\s*\{[^}]*gap:\s*0/.test(SRC));
   ok("main viewport içinde esner (flex:1 1 auto + min-height:0)", /main\s*\{[^}]*flex:\s*1 1 auto/.test(SRC) && /main\s*\{[^}]*min-height:\s*0/.test(SRC));
   ok("tek viewport: body overflow:hidden (body scroll YOK — R2 emri)", /body\s*\{[^}]*overflow:\s*hidden/.test(SRC));
   ok("body height:100vh + flex kolon", /body\s*\{[^}]*height:\s*100vh/.test(SRC) && /body\s*\{[^}]*display:\s*flex/.test(SRC));
@@ -557,4 +560,26 @@ test("33- K8 ADIM-B PROJE + API: GERÇEK 4930 uçları + fail-closed kırmızı 
   ok("PROJE seçim tazelemede korunur (oncekiProje)", jsKisim.includes("oncekiProje"));
   ok("sağlayıcı akordiyon tazelemede korunur (acikSagKartlar)", jsKisim.includes("acikSagKartlar"));
   ok("ÖRNEK ajanlar etiketli kalır (kalp-yüzü — etiketOrnek)", jsKisim.includes('class="etiketOrnek">ÖRNEK'));
+});
+
+test("34- ADIM-C panel resize + sağ panel aç/kapa: splitter ×2 (pointer events + klavye) + localStorage + 44px dokunma ritmi", () => {
+  ok(":root değişkenleri (--solW/--sagW)", SRC.includes("--solW:280px") && SRC.includes("--sagW:380px"));
+  ok("splitter CSS (col-resize + touch-action:none + ::after tutamaç)", /\.splitter\s*\{[^}]*cursor:\s*col-resize[^}]*touch-action:\s*none/.test(SRC) && SRC.includes(".splitter::after"));
+  ok('sol splitter elemanı (id="splitSol" role=separator tabindex)', /id="splitSol"[^>]*role="separator"[^>]*tabindex="0"/.test(SRC));
+  ok('sağ splitter elemanı (id="splitSag" role=separator tabindex)', /id="splitSag"[^>]*role="separator"[^>]*tabindex="0"/.test(SRC));
+  ok("splitterKur ×2 (pointer events — fare + dokunmatik; deney deseni)", SRC.includes('splitterKur("splitSol", "sol")') && SRC.includes('splitterKur("splitSag", "sag")'));
+  ok("pointer capture sürüklemede (setPointerCapture try/catch — kayıp tolere)", SRC.includes("kolon.setPointerCapture"));
+  ok("sürükleyici bitişler (pointerup/pointercancel/lostpointercapture)", ["pointerup", "pointercancel", "lostpointercapture"].every((i) => SRC.includes('addEventListener("' + i + '"')));
+  ok("genişlik alt sınırı 180px (nefes alan — clamp)", SRC.includes("Math.max(180,"));
+  ok("genişlik üst sınırı 45vw (orta ezilmez)", SRC.includes("window.innerWidth * 0.45"));
+  ok("localStorage kalıcılığı (kaydet tuval-solW/sagW + kaydet/oku sessiz catch)", SRC.includes('kaydet("tuval-" + taraf + "W"') && /function kaydet[^]{0,90}catch/.test(SRC));
+  ok("açıhta kayıtlı genişlik uygulanır (oku + genislikKenetle)", SRC.includes('oku("tuval-" + taraf + "W")'));
+  ok("klavye erişimi (ArrowLeft/ArrowRight ±16px — WAI-ARIA separator)", SRC.includes('e.key !== "ArrowLeft"') && SRC.includes("ArrowLeft\" ? -16 : 16"));
+  ok("aria-valuenow senkron (genislikUygula)", SRC.includes('setAttribute("aria-valuenow"'));
+  ok('sağ panel düğmesi (id="sagPanelBtn" aria-pressed + aria-controls="sag")', /id="sagPanelBtn"[^>]*aria-pressed="true"[^>]*aria-controls="sag"/.test(SRC));
+  ok("body.sag-kapali kuralı (geniş ekran — panel + splitter gizlenir)", /body\.sag-kapali\s+main[^}]*grid-template-columns:\s*var\(--solW\)\s*14px\s*minmax\(0,1fr\)\s*0px\s*0px/.test(SRC) && /body\.sag-kapali\s+#sag,\s*body\.sag-kapali\s+#splitSag\s*\{[^}]*display:\s*none/.test(SRC));
+  ok("ikisi de kapalı kombinasyonu (drawer-kapali + sag-kapali)", /body\.drawer-kapali\.sag-kapali\s+main/.test(SRC));
+  ok("sağ panel durumu kalıcı (tuval-sagAcik)", SRC.includes('kaydet("tuval-sagAcik"'));
+  ok("dar ekranda splitter gizli (<1024 tek kolon akış)", /@media \(max-width:1023px\)[^]{0,2000}\.splitter\s*\{\s*display:\s*none/.test(SRC));
+  ok("pencere daralınca 45vw yeniden kenetlenir (resize dinleyicisi)", /addEventListener\("resize"[^]{0,700}genislikKenetle/.test(SRC));
 });
