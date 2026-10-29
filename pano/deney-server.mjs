@@ -341,13 +341,99 @@ function mudahaleIsle(govde) {
       gunluk: { tur: 'hata', metin: 'mudahale RED: not uzun (' + not.length + ' karakter)' },
     };
   }
-  satirEkle('mudahale.jsonl', { t: sunucuSaati(), kim: AKTOR, not: kirpilmis });
-  // manager kuyrugu: her insan notu manager'a iletilecek ise olarak duser (operatör köprüsü paseo MCP ile manager'a tasir).
-  satirEkle('manager-kuyruk.jsonl', { t: sunucuSaati(), is: 'chat', not: kirpilmis });
+  const secim = {
+    provider: typeof govde.provider === 'string' ? govde.provider.slice(0, 100) : undefined,
+    model: typeof govde.model === 'string' ? govde.model.slice(0, 100) : undefined,
+    rol: typeof govde.rol === 'string' ? govde.rol.slice(0, 30) : undefined,
+  };
+  satirEkle('mudahale.jsonl', { t: sunucuSaati(), kim: AKTOR, not: kirpilmis, ...secim });
+  // manager kuyrugu: her insan notu manager'a iletilecek is olarak duser (operator kopru paseo MCP ile tasir;
+  // secilen model/rol kuyrukta tasinarak operator o modelde ajan dogurur ya da manager'a iletir).
+  satirEkle('manager-kuyruk.jsonl', { t: sunucuSaati(), is: 'chat', not: kirpilmis, ...secim });
+  const ozet = secim.provider
+    ? 'mudahale kaydedildi (' + kirpilmis.length + ' karakter) + kuyruga dustu [hedef ' + secim.provider + '/' + String(secim.model) + ' rol ' + String(secim.rol) + ']'
+    : 'mudahale kaydedildi (' + kirpilmis.length + ' karakter) + manager kuyruguna is dustu';
+  return { kod: 200, govde: { tamam: true }, gunluk: { tur: 'mudahale', metin: ozet } };
+}
+
+// POST /api/deney/api-test — {provider, model} -> manager-kuyruk.jsonl'a 'api-test' isi.
+// GERCEK cagriyi operator koprusu yapar (paseo MCP o modelde tek-soru spawn; ucretsiz uclar oncelik).
+// Sunucunun kendisi saglayici anahtarina erisemez — fail-closed: yalniz is kaydi dusulur, sahte test sonucu uretilmez.
+function apiTestIsle(govde) {
+  if (nesneDegil(govde)) {
+    return { kod: 400, govde: { hata: 'govde nesne degil' }, gunluk: { tur: 'hata', metin: 'api-test RED: govde nesne degil' } };
+  }
+  const provider = govde.provider;
+  const model = govde.model;
+  const sag = jsonOku(join(aktifDir, 'saglayicilar.json'));
+  const mod = jsonOku(join(aktifDir, 'modeller.json'));
+  const sagVar = !!(sag && Array.isArray(sag.list) && sag.list.some((s) => s && s.id === provider));
+  const modListe = mod && mod.saglayicilar && Array.isArray(mod.saglayicilar[provider]) ? mod.saglayicilar[provider] : [];
+  const modVar = modListe.some((m) => m && m.id === model);
+  if (!sagVar || !modVar) {
+    return {
+      kod: 400,
+      govde: { hata: 'saglayici/model bulunamadi' },
+      gunluk: { tur: 'hata', metin: 'api-test RED: saglayici/model bulunamadi (' + String(provider) + '/' + String(model) + ')' },
+    };
+  }
+  const t = sunucuSaati();
+  satirEkle('manager-kuyruk.jsonl', { t, is: 'api-test', provider, model });
   return {
     kod: 200,
-    govde: { tamam: true },
-    gunluk: { tur: 'mudahale', metin: 'mudahale kaydedildi (' + kirpilmis.length + ' karakter) + manager kuyruguna is dustu' },
+    govde: { tamam: true, t, not: 'test isi kuyruga dustu — operator kopru paseo MCP ile gercek cagriyi yapar, sonuc loga duser' },
+    gunluk: { tur: 'api-test', metin: 'test istendi: ' + provider + '/' + model + ' — kopru kuyruga dustu' },
+  };
+}
+
+// POST /api/deney/ajan-ata — {proje, ajanAd, provider, model, rol, gorev?, rolMd?} -> atamalar.jsonl 'ajan-atama'.
+// KADRO atamasi (spawn tanimi: hangi saglayici/model/rol hangi projede). Gorev->ORNEK TASLAK zinciri ayri
+// ucta (/api/deney/atama) yasar — graf-yonetim atamaTaslakla orada. rolMd ZORUNLU DEGIL (kullanici emri).
+function ajanAtaIsle(govde) {
+  if (nesneDegil(govde)) {
+    return { kod: 400, govde: { hata: 'govde nesne degil' }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: govde nesne degil' } };
+  }
+  const metinAlan = (ad, max, zorunlu) => {
+    const v = govde[ad];
+    if (typeof v !== 'string' || !v.trim()) {
+      if (zorunlu) return { hata: ad + ' zorunlu' };
+      return { deger: undefined };
+    }
+    return { deger: v.trim().slice(0, max) };
+  };
+  const proje = metinAlan('proje', 200, true);
+  if (proje.hata) return { kod: 400, govde: { hata: proje.hata }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: ' + proje.hata } };
+  const ajanAd = metinAlan('ajanAd', 100, true);
+  if (ajanAd.hata) return { kod: 400, govde: { hata: ajanAd.hata }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: ' + ajanAd.hata } };
+  const provider = metinAlan('provider', 100, true);
+  if (provider.hata) return { kod: 400, govde: { hata: provider.hata }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: ' + provider.hata } };
+  const model = metinAlan('model', 100, true);
+  if (model.hata) return { kod: 400, govde: { hata: model.hata }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: ' + model.hata } };
+  const rol = metinAlan('rol', 30, true);
+  if (rol.hata) return { kod: 400, govde: { hata: rol.hata }, gunluk: { tur: 'hata', metin: 'ajan-ata RED: ' + rol.hata } };
+  const gorev = metinAlan('gorev', 500, false);
+  const rolMd = metinAlan('rolMd', 200, false);
+  // provider envanterde VAR mi (kadro kaydi gercek uca baglanir — sahte saglayici yazilamaz).
+  const sag = jsonOku(join(aktifDir, 'saglayicilar.json'));
+  const sagVar = !!(sag && Array.isArray(sag.list) && sag.list.some((s) => s && s.id === provider.deger));
+  if (!sagVar) {
+    return {
+      kod: 400,
+      govde: { hata: 'saglayici bulunamadi: ' + provider.deger },
+      gunluk: { tur: 'hata', metin: 'ajan-ata RED: saglayici bulunamadi (' + provider.deger + ')' },
+    };
+  }
+  const t = sunucuSaati();
+  const kayit = {
+    t, tur: 'ajan-atama', acan: AKTOR,
+    proje: proje.deger, ajanAd: ajanAd.deger, provider: provider.deger, model: model.deger, rol: rol.deger,
+    gorev: gorev.deger, rolMd: rolMd.deger, durum: 'TANIM',
+  };
+  satirEkle('atamalar.jsonl', kayit);
+  return {
+    kod: 200,
+    govde: { tamam: true, kayit },
+    gunluk: { tur: 'ajan-atama', metin: 'kadro: ' + ajanAd.deger + ' [' + rol.deger + '] ' + provider.deger + '/' + model.deger + ' proje ' + proje.deger + (rolMd.deger ? ' rolMd ' + rolMd.deger : '') },
   };
 }
 
@@ -382,6 +468,8 @@ const UCLAR = {
   '/api/deney/atama': { POST: (q, r) => postIsci(q, r, 'atama', atamaIsle) },
   '/api/deney/mudahale': { POST: (q, r) => postIsci(q, r, 'mudahale', mudahaleIsle) },
   '/api/deney/manager-yanit': { POST: (q, r) => postIsci(q, r, 'manager-yanit', managerYanitIsle) },
+  '/api/deney/api-test': { POST: (q, r) => postIsci(q, r, 'api-test', apiTestIsle) },
+  '/api/deney/ajan-ata': { POST: (q, r) => postIsci(q, r, 'ajan-ata', ajanAtaIsle) },
 };
 
 export async function handler(req, res) {

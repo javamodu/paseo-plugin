@@ -146,6 +146,16 @@ button{font-family:inherit}
 .composer textarea{flex:1;min-width:0;min-height:44px;max-height:132px;border:1px solid var(--kenar);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:16px;line-height:1.4;resize:none;background:var(--yuzey);color:var(--metin)}
 .composer textarea:focus{outline:2px solid var(--vurgu);outline-offset:-1px}
 
+/* ---- composer üstü model/rol seçicileri + ATAMA formu ---- */
+.composerSecim{flex:none;display:flex;gap:8px;min-height:44px}
+.secici{flex:1;min-width:0;min-height:44px;border:1px solid var(--kenar);border-radius:8px;padding:6px 10px;font-family:inherit;font-size:14px;background:var(--yuzey);color:var(--metin);cursor:pointer}
+.secici:focus{outline:2px solid var(--vurgu);outline-offset:-1px}
+.formGrid{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center}
+.formEtiket{font-size:13px;font-weight:600;color:var(--ikincil);white-space:nowrap}
+.formGiris{width:100%;min-height:44px;border:1px solid var(--kenar);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:14px;background:var(--yuzey);color:var(--metin)}
+.formGiris:focus{outline:2px solid var(--vurgu);outline-offset:-1px}
+@media (max-width:1023px){.formGrid{grid-template-columns:1fr}.formEtiket{padding-top:4px}}
+
 /* ---- SAĞ · akış + ajanlar ---- */
 .canliBas{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .canliBas .bolumEtiket{margin:0}
@@ -188,14 +198,14 @@ button{font-family:inherit}
 
 <main class="sutunlar">
 
-  <!-- SOL: ikon menü — GRAF (varsayılan) / SAĞLAYICILAR -->
+  <!-- SOL: ikon menü — GRAF (varsayılan) / AKIŞ (canlı log) -->
   <section class="sutun sol" aria-label="Sol panel">
     <div class="ikonSerit" role="toolbar" aria-label="Sol panel görünümleri">
       <button id="ikSolGraf" class="ikonDugme" type="button" aria-pressed="false" title="Plan / görev grafiği (varsayılan)">
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="7" height="5" rx="1.2"/><rect x="11" y="13" width="7" height="5" rx="1.2"/><path d="M5.5 7v3.5a2 2 0 0 0 2 2h4"/><path d="M11.5 9l-1.5 3.5L13 13"/></svg>
       </button>
-      <button id="ikSolSaglayici" class="ikonDugme" type="button" aria-pressed="false" title="Sağlayıcılar ve modeller">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="4.5" rx="7" ry="2.8"/><path d="M3 4.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11"/><path d="M3 10c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></svg>
+      <button id="ikSolAkis" class="ikonDugme" type="button" aria-pressed="false" title="Canlı akış (log)">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h4l2-3 2 6 2-3h6"/><path d="M2 14h4l2-3 2 6 2-3h6"/></svg>
       </button>
       <span class="seritEtiket" id="solSeritEtiket">PLAN / GÖREV GRAFİ</span>
     </div>
@@ -207,12 +217,17 @@ button{font-family:inherit}
       <div id="grafAlani" class="grafKutu"></div>
       <div class="durustSatir duz">mini graf — tam DAG yüzü K8 (B7)</div>
     </div>
-    <div id="panelSolSaglayici" class="panelGovde">
-      <div class="rozetSatir">
-        <span id="rzAktif" class="rozet teal">AKTİF SAĞLAYICI –</span>
-        <span id="rzModel" class="rozet teal">MODEL –</span>
+    <div id="panelSolAkis" class="panelGovde">
+      <div class="bolum">
+        <div class="canliBas">
+          <div class="bolumEtiket kucukBas">CANLI AKIŞ</div>
+          <span class="bos"></span>
+          <span id="cekimSaati" class="rozet">çekim –</span>
+          <span class="rozet">5 sn</span>
+          <button id="tazeleDugmesi" class="dugme kucuk" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M12.2 1.6v3h3"/></svg>TAZELE</button>
+        </div>
+        <div id="logListe" class="logListe"></div>
       </div>
-      <div id="saglayiciAlani"></div>
     </div>
   </section>
 
@@ -237,45 +252,73 @@ button{font-family:inherit}
 
   <div class="splitter" id="splitSag" role="separator" aria-label="Sağ panel genişliği" aria-orientation="vertical" tabindex="0"></div>
 
-  <!-- SAĞ: ikon menü — CHAT (varsayılan) / AKIŞ / AJANLAR -->
+  <!-- SAĞ: ikon menü — CHAT (varsayılan, seçicili composer) / API (sağlayıcı-model-test) / ATAMA (proje kadrosu) -->
   <section class="sutun sag" aria-label="Sağ panel">
     <div class="ikonSerit" role="toolbar" aria-label="Sağ panel görünümleri">
-      <button id="ikSagChat" class="ikonDugme" type="button" aria-pressed="false" title="Operatör sohbeti (varsayılan)">
+      <button id="ikSagChat" class="ikonDugme" type="button" aria-pressed="false" title="Chat — model ve rol seçerek yaz (varsayılan)">
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.2c0 3.5-3 6.3-6.7 6.3-.8 0-1.6-.1-2.3-.4L3.5 16l.9-3.1A6 6 0 0 1 3 9.2C3 5.7 6 2.9 9.7 2.9s6.8 2.8 6.8 6.3z"/></svg>
       </button>
-      <button id="ikSagAkis" class="ikonDugme" type="button" aria-pressed="false" title="Canlı akış (log)">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h4l2-3 2 6 2-3h6"/><path d="M2 14h4l2-3 2 6 2-3h6"/></svg>
+      <button id="ikSagApi" class="ikonDugme" type="button" aria-pressed="false" title="Sağlayıcı, model ve API test yönetimi">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="4.5" rx="7" ry="2.8"/><path d="M3 4.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11"/><path d="M3 10c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></svg>
       </button>
-      <button id="ikSagAjan" class="ikonDugme" type="button" aria-pressed="false" title="Ajanlar">
+      <button id="ikSagAtama" class="ikonDugme" type="button" aria-pressed="false" title="Proje için ajan ata (sağlayıcı + ajan + rol + görev)">
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="12" height="8" rx="2"/><path d="M10 7V4"/><circle cx="10" cy="3" r="1"/><circle cx="7.5" cy="11" r=".9" fill="currentColor"/><circle cx="12.5" cy="11" r=".9" fill="currentColor"/></svg>
       </button>
-      <span class="seritEtiket" id="sagSeritEtiket">OPERATÖR CHAT</span>
+      <span class="seritEtiket" id="sagSeritEtiket">CHAT</span>
     </div>
     <div id="panelSagChat" class="panelGovde">
       <div class="sohbet">
         <div id="chatHistory" class="chatHistory" aria-label="Sohbet geçmişi"></div>
+        <div class="composerSecim">
+          <select id="secModel" class="secici" aria-label="Yanıt modeli seç" title="Bu mesajı hangi model yanıtlasın"></select>
+          <select id="secRol" class="secici" aria-label="Yanıt rolü seç" title="Yanıtlayan rol">
+            <option value="manager">manager</option>
+            <option value="coder">coder</option>
+            <option value="tester">tester</option>
+          </select>
+        </div>
         <div class="composer">
-          <textarea id="chatMetin" rows="1" aria-label="Operatöre mesaj" placeholder="Operatöre yaz — not mudahale defterine iner..."></textarea>
+          <textarea id="chatMetin" rows="1" aria-label="Mesaj" placeholder="Yaz — seçtiğin model/rol yanıtlar (Ctrl+Enter)"></textarea>
           <button id="chatGonder" class="dugme teal" type="button" title="Gönder (Ctrl+Enter)">
             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 1.5 1.8 6.8l4.8 2 2 4.8L14.5 1.5z"/><path d="M6.6 8.8 14.5 1.5"/></svg>
           </button>
         </div>
-        <div class="durustSatir duz">CHAT — yanıtlar MANAGER ajandan (GLM 5.3, izole paseo koşusu); yazdığın müdahale defterine iner, manager'a iletilir</div>
+        <div class="durustSatir duz">CHAT — yanıt seçtiğin modelden + rolden; seçim yoksa MANAGER (GLM 5.3)</div>
       </div>
     </div>
-    <div id="panelSagAkis" class="panelGovde">
+    <div id="panelSagApi" class="panelGovde">
+      <div class="rozetSatir">
+        <span id="rzAktif" class="rozet teal">AKTİF SAĞLAYICI –</span>
+        <span id="rzModel" class="rozet teal">MODEL –</span>
+        <span id="rzTercih" class="rozet">TERCİH –</span>
+      </div>
+      <div id="saglayiciAlani"></div>
+      <div class="durustSatir duz">TEST: model satırındaki TEST düğmesi gerçek çağrı kuyruğuna iş bırakır — operatör köprüsü paseo MCP ile o modelde çağrı yapar, sonuç akışta + logda (sunucu anahtara erişemez — sahte test sonucu üretilmez)</div>
+    </div>
+    <div id="panelSagAtama" class="panelGovde">
       <div class="bolum">
-        <div class="canliBas">
-          <div class="bolumEtiket">CANLI AKIŞ</div>
-          <span class="bos"></span>
-          <span id="cekimSaati" class="rozet">çekim –</span>
-          <span class="rozet">5 sn</span>
-          <button id="tazeleDugmesi" class="dugme kucuk" type="button"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M12.2 1.6v3h3"/></svg>TAZELE</button>
+        <div class="bolumEtiket kucukBas">AJAN ATAMA (proje kadrosu)</div>
+        <div class="formGrid">
+          <label class="formEtiket" for="atProje">Proje</label>
+          <select id="atProje" class="secici"><option value="D:/Vibecode/deney-g9-repo">deney-g9-repo</option></select>
+          <label class="formEtiket" for="atAjan">Ajan adı</label>
+          <input id="atAjan" class="formGiris" type="text" placeholder="ör. kodcu-1" maxlength="100">
+          <label class="formEtiket" for="atSaglayici">Sağlayıcı + model</label>
+          <select id="atSaglayici" class="secici"></select>
+          <label class="formEtiket" for="atRol">Rol</label>
+          <select id="atRol" class="secici">
+            <option value="manager">manager</option>
+            <option value="coder" selected>coder</option>
+            <option value="tester">tester</option>
+          </select>
+          <label class="formEtiket" for="atGorev">Görev (opsiyonel)</label>
+          <input id="atGorev" class="formGiris" type="text" placeholder="ör. D3: README'ye Katkı bölümü" maxlength="200">
+          <label class="formEtiket" for="atRolMd">rol.md (opsiyonel)</label>
+          <input id="atRolMd" class="formGiris" type="text" placeholder="ör. ROLLER/coder.md — zorunlu değil" maxlength="200">
         </div>
-        <div id="logListe" class="logListe"></div>
+        <button id="atGonder" class="dugme teal" type="button" style="margin-top:8px">KADROYA EKLE</button>
+        <div class="durustSatir duz">TANIM kaydı atamalar defterine iner (durum: TANIM); gerçek spawn operatör köprüsü ile — ORNEK etiketi kalkar</div>
       </div>
-    </div>
-    <div id="panelSagAjan" class="panelGovde">
       <div class="bolum">
         <div class="bolumEtiket kucukBas">AJANLAR</div>
         <div id="ajanListe"></div>
@@ -303,8 +346,9 @@ let chatAltta = true;              // history scroll en altta mı (yeni mesajda 
 let chatIlk = true;                // ilk render — alta sürelendir
 
 const GLM_UCLAR = ['glm53u-codex', 'glm53u-claude', 'claude-glm'];
-const SOL_SEKMELER = { graf: { dugme: 'ikSolGraf', panel: 'panelSolGraf', etiket: 'PLAN / GÖREV GRAFİ' }, saglayici: { dugme: 'ikSolSaglayici', panel: 'panelSolSaglayici', etiket: 'SAĞLAYICILAR & MODELLER' } };
-const SAG_SEKMELER = { chat: { dugme: 'ikSagChat', panel: 'panelSagChat', etiket: 'OPERATÖR CHAT' }, akis: { dugme: 'ikSagAkis', panel: 'panelSagAkis', etiket: 'CANLI AKIŞ' }, ajan: { dugme: 'ikSagAjan', panel: 'panelSagAjan', etiket: 'AJANLAR' } };
+const ROLLER = ['manager', 'coder', 'tester'];
+const SOL_SEKMELER = { graf: { dugme: 'ikSolGraf', panel: 'panelSolGraf', etiket: 'PLAN / GÖREV GRAFİ' }, akis: { dugme: 'ikSolAkis', panel: 'panelSolAkis', etiket: 'CANLI AKIŞ' } };
+const SAG_SEKMELER = { chat: { dugme: 'ikSagChat', panel: 'panelSagChat', etiket: 'CHAT' }, api: { dugme: 'ikSagApi', panel: 'panelSagApi', etiket: 'SAĞLAYICI & MODEL & TEST' }, atama: { dugme: 'ikSagAtama', panel: 'panelSagAtama', etiket: 'AJAN ATAMA' } };
 
 // ---- küçük yardımcılar ----
 const $ = (id) => document.getElementById(id);
@@ -398,11 +442,11 @@ async function yukle() {
   }
   guvenli(renderUst, 'üst');
   guvenli(renderSolGraf, 'sol-graf');
-  guvenli(renderSolSaglayici, 'sol-sağlayıcı');
+  guvenli(renderSolAkis, 'sol-akış');
   guvenli(renderOrta, 'orta');
   guvenli(renderSagChat, 'sağ-chat');
-  guvenli(renderSagAkis, 'sağ-akış');
-  guvenli(renderSagAjan, 'sağ-ajan');
+  guvenli(renderSagApi, 'sağ-api');
+  guvenli(renderSagAtama, 'sağ-atama');
   if (hataSayac === null) $('durumRozeti').hidden = true;
 }
 
@@ -552,12 +596,13 @@ function svgOk(etiket) {
   return s;
 }
 
-// ---- render: SOL · SAĞLAYICILAR ----
-function renderSolSaglayici() {
+// ---- render: SAĞ · API (sağlayıcı + model + tercihi seç + TEST; R3-2 emriyle sağ panelde) ----
+function renderSagApi() {
   const d = durum || {};
   const env = d.envanter || {};
   $('rzAktif').textContent = 'AKTİF SAĞLAYICI ' + (env.aktifSaglayiciSayisi != null ? env.aktifSaglayiciSayisi : '–');
   $('rzModel').textContent = 'MODEL ' + (env.modelSayisi != null ? env.modelSayisi : '–');
+  $('rzTercih').textContent = 'TERCİH ' + (d.tercih && d.tercih.provider ? d.tercih.provider + '/' + d.tercih.model : '–');
   const alan = $('saglayiciAlani');
   alan.textContent = '';
   const liste = saglayiciListe();
@@ -625,6 +670,11 @@ function modelSatir(sag, m) {      // model tıkla → POST /api/deney/tercih
   if (m.ucretsiz) satir.appendChild(el('span', 'rozet yesil', 'ÜCRETSİZ'));
   if (m.varsayilan) satir.appendChild(el('span', 'rozet', 'VARSAYILAN'));
   if (secili) satir.appendChild(el('span', 'rozet tealDolu', 'SEÇİLİ'));
+  const test = el('button', 'dugme kucuk', 'TEST');
+  test.type = 'button';
+  test.style.marginLeft = 'auto';
+  test.addEventListener('click', (ev) => { ev.stopPropagation(); apiTest(sag.id, m.id, test); });
+  satir.appendChild(test);
   satir.addEventListener('click', () => tercihSec(sag.id, m.id));
   return satir;
 }
@@ -752,7 +802,15 @@ function chatKayitlar() {          // sohbet = mudahale defteri (insan) + log ya
     else if (tur === 'manager-yanit') tum.push({ kim: 'manager', t: String(s.t || ''), metin: s.metin != null ? String(s.metin) : '' });
   }
   tum.sort((a, b) => a.t.localeCompare(b.t));
-  return tum;
+  // çift-iletem tekilleştirme: aynı METİNLİ yanıt balonları tek gösterilir (ham log aynen kalır —
+  // operatör köprüsü aynı yanıtı POST + elle iki kez yazabildi; defter ham, sunum tek).
+  const gorunen = new Set();
+  return tum.filter((k) => {
+    if (k.kim === 'insan') return true;
+    if (gorunen.has(k.metin)) return false;
+    gorunen.add(k.metin);
+    return true;
+  });
 }
 
 function renderSagChat() {
@@ -777,8 +835,8 @@ function balon(k) {                // insan sağda teal; manager solda dolu-teal
   return kutu;
 }
 
-// ---- render: SAĞ · AKIŞ ----
-function renderSagAkis() {
+// ---- render: SOL · AKIŞ (canlı log — 2. ikon) ----
+function renderSolAkis() {
   if (sonCekim) $('cekimSaati').textContent = 'çekim ' + saatBic(sonCekim);
   const liste = $('logListe');
   liste.textContent = '';
@@ -803,8 +861,9 @@ function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale s
   return 'var(--kenar)';
 }
 
-// ---- render: SAĞ · AJANLAR ----
-function renderSagAjan() {
+// ---- render: SAĞ · ATAMA (proje kadro formu + ajan listesi) ----
+function renderSagAtama() {
+  renderSeciciler();                    // chat model seçici + ATAMA sağlayıcı/model seçeneği
   const liste = $('ajanListe');
   liste.textContent = '';
   const a = durum && durum.ajanlar ? durum.ajanlar : {};
@@ -861,6 +920,52 @@ function doluCubuk(o) {            // dolu/esZamanli çubuğu (ÖRNEK ajanlar)
   return kutu;
 }
 
+// ---- seçicileri doldur (chat model/rol + ATAMA sağlayıcı-model) — R3-2 emri ----
+function renderSeciciler() {
+  const liste = saglayiciListe() || [];
+  const tercih = durum && durum.tercih;
+  const chatSec = $('secModel');
+  const onceki = chatSec.value;
+  chatSec.textContent = '';
+  let varsayilanDeger = '';
+  const opts = [];
+  const glm = [], diger = [];
+  for (const s of liste) {
+    if (!s.aktif && !GLM_UCLAR.includes(s.id)) continue;   // pasif sağlayıcı seçilemez (GLM uçları her zaman listede)
+    for (const m of s.modeller) {
+      const deger = s.id + '|' + m.id;
+      const etiket = (GLM_UCLAR.includes(s.id) ? '' : s.id + ' · ') + (m.label || m.id);
+      const opt = { deger, etiket };
+      if (GLM_UCLAR.includes(s.id)) glm.push(opt); else diger.push(opt);
+      if (tercih && String(tercih.provider) === s.id && String(tercih.model) === m.id) varsayilanDeger = deger;
+    }
+  }
+  if (!varsayilanDeger) {
+    const glm53 = glm.find((o) => o.deger.indexOf('glm-5.3') >= 0);
+    varsayilanDeger = (glm53 && glm53.deger) || (glm[0] && glm[0].deger) || '';
+  }
+  for (const o of glm.concat(diger)) {
+    const op = el('option', null, o.etiket);
+    op.value = o.deger;
+    chatSec.appendChild(op);
+  }
+  if (!chatSec.options.length) chatSec.appendChild(el('option', null, '(model yok)'));
+  chatSec.value = onceki || varsayilanDeger;
+  if (!chatSec.value && chatSec.options.length) chatSec.selectedIndex = 0;
+  // ATAMA sağlayıcı-model seçeneği: provider|model birleşik değer
+  const atSec = $('atSaglayici');
+  const atOnceki = atSec.value;
+  atSec.textContent = '';
+  for (const o of glm.concat(diger)) {
+    const op = el('option', null, o.etiket);
+    op.value = o.deger;
+    atSec.appendChild(op);
+  }
+  if (!atSec.options.length) atSec.appendChild(el('option', null, '(model yok)'));
+  atSec.value = atOnceki || varsayilanDeger;
+  if (!atSec.value && atSec.options.length) atSec.selectedIndex = 0;
+}
+
 // ---- eylemler (POST uçları) ----
 async function tercihSec(sagId, modelId) {
   try {
@@ -881,18 +986,70 @@ async function ata(dugme, ajanAd) {
   }
 }
 
-async function chatYolla() {       // composer → mudahale defteri (aynı yazım ucu; canlı AI K8'de)
+async function chatYolla() {       // composer → müdahale defteri; seçilen model/rol kuyrukta taşınır
   const kutu = $('chatMetin');
   const metin = kutu.value.trim();
   if (!metin) { hataGoster('Mesaj boş'); return; }
+  const secim = modelSecimAyristir($('secModel').value);   // {provider, model} | null (seçici yoksa)
+  const rol = $('secRol').value || 'manager';
+  const govde = { not: metin, rol };
+  if (secim) { govde.provider = secim.provider; govde.model = secim.model; }
   const dugme = $('chatGonder');
   dugme.disabled = true;
   try {
-    await post('/api/deney/mudahale', { not: metin });
+    await post('/api/deney/mudahale', govde);
     kutu.value = '';
     kutu.style.height = 'auto';
     chatAltta = true;              // kendi mesajından sonra alta sürelendir
-    await yukle();                 // history tazelenir (yeni balon + olası operatör yanıtı)
+    await yukle();                 // history tazelenir (yeni balon + olası manager yanıtı)
+  } catch (e) { hataGoster(e.message); }
+  dugme.disabled = false;
+}
+
+// provider|model birleşik değeri ayır (seçici değeri → {provider, model}).
+function modelSecimAyristir(deger) {
+  const s = String(deger || '');
+  const i = s.indexOf('|');
+  if (i <= 0 || i >= s.length - 1) return null;
+  return { provider: s.slice(0, i), model: s.slice(i + 1) };
+}
+
+// API TEST: seçilen sağlayıcı/model için gerçek çağrı kuyruğuna iş bırak (sunucu anahtara erişemez —
+// fail-closed: yalnız iş kaydı; gerçek çağrıyı operatör köprüsü paseo MCP ile yapar, sonuç akışta görünür).
+async function apiTest(sagId, modelId, dugme) {
+  if (dugme) { dugme.disabled = true; dugme.textContent = 'KUYRUKTA'; }
+  try {
+    await post('/api/deney/api-test', { provider: sagId, model: modelId });
+    const r = $('durumRozeti');
+    r.textContent = 'TEST KUYRUGA DUSTU: ' + sagId + '/' + modelId;
+    r.className = 'rozet teal';
+    r.hidden = false;
+    if (hataSayac) clearTimeout(hataSayac);
+    hataSayac = setTimeout(() => { r.hidden = true; hataSayac = null; }, 8000);
+  } catch (e) { hataGoster(e.message); }
+  if (dugme) { dugme.disabled = false; dugme.textContent = 'TEST'; }
+}
+
+// KADRO ATAMA: proje için ajan tanımı (sağlayıcı + model + rol + görev + opsiyonel rol.md) → atamalar defteri TANIM kaydı.
+async function ajanAta() {
+  const secim = modelSecimAyristir($('atSaglayici').value);
+  if (!secim) { hataGoster('Sağlayıcı/model seçilmedi'); return; }
+  const govde = {
+    proje: $('atProje').value,
+    ajanAd: $('atAjan').value.trim(),
+    provider: secim.provider,
+    model: secim.model,
+    rol: $('atRol').value,
+    gorev: $('atGorev').value.trim(),
+    rolMd: $('atRolMd').value.trim(),
+  };
+  if (!govde.ajanAd) { hataGoster('Ajan adı zorunlu'); return; }
+  const dugme = $('atGonder');
+  dugme.disabled = true;
+  try {
+    await post('/api/deney/ajan-ata', govde);
+    $('atAjan').value = '';
+    await yukle();                 // atamalar listesi tazelenir (TANIM satırı)
   } catch (e) { hataGoster(e.message); }
   dugme.disabled = false;
 }
@@ -923,20 +1080,21 @@ function composerBoyut() {
   const solW = oku('deney-solW'), sagW = oku('deney-sagW');
   if (solW && +solW >= 180) genislikUygula('sol', +solW);
   if (sagW && +sagW >= 180) genislikUygula('sag', +sagW);
-  // ikon menüleri kur (varsayılan: sol GRAF, sağ CHAT — R3-emri)
+  // ikon menüleri kur (R3-2: sol GRAF+AKIŞ; sağ CHAT+API+ATAMA — varsayılan sol GRAF, sağ CHAT)
   $('ikSolGraf').addEventListener('click', () => sekmeAyarla('sol', 'graf'));
-  $('ikSolSaglayici').addEventListener('click', () => sekmeAyarla('sol', 'saglayici'));
+  $('ikSolAkis').addEventListener('click', () => sekmeAyarla('sol', 'akis'));
   $('ikSagChat').addEventListener('click', () => sekmeAyarla('sag', 'chat'));
-  $('ikSagAkis').addEventListener('click', () => sekmeAyarla('sag', 'akis'));
-  $('ikSagAjan').addEventListener('click', () => sekmeAyarla('sag', 'ajan'));
-  sekmeAyarla('sol', oku('deney-solSekme') === 'saglayici' ? 'saglayici' : 'graf');
-  sekmeAyarla('sag', (oku('deney-sagSekme') === 'akis' || oku('deney-sagSekme') === 'ajan') ? oku('deney-sagSekme') : 'chat');
+  $('ikSagApi').addEventListener('click', () => sekmeAyarla('sag', 'api'));
+  $('ikSagAtama').addEventListener('click', () => sekmeAyarla('sag', 'atama'));
+  sekmeAyarla('sol', oku('deney-solSekme') === 'akis' ? 'akis' : 'graf');
+  sekmeAyarla('sag', (oku('deney-sagSekme') === 'api' || oku('deney-sagSekme') === 'atama') ? oku('deney-sagSekme') : 'chat');
   // splitter'lar (resize; fare + dokunmatik)
   splitterKur('splitSol', 'sol');
   splitterKur('splitSag', 'sag');
   // eylem bağları
   $('tazeleDugmesi').addEventListener('click', tazele);
   $('chatGonder').addEventListener('click', chatYolla);
+  $('atGonder').addEventListener('click', ajanAta);
   $('chatMetin').addEventListener('input', composerBoyut);
   $('chatMetin').addEventListener('keydown', (e) => {   // Ctrl+Enter gönder; Enter satır sonu (çok satırlı not)
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); chatYolla(); }
