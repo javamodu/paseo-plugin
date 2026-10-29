@@ -25,7 +25,7 @@
 2. **SAĞ DETAY PANELİ:** seçilen görevin kapsül kartı — ad, faz, durum, bağımlılıklar, atanan ajan (örnek), son kanıt (hash + tarih), varsa [insan] onay gereksinimi + kopyala butonu.
 3. **DURUM BOYUTLARI (kullanıcının 4 boyutu — dördü de görünür):** aktif olanlar (canlı vurgu) · mevcut durum (her satırda renk + nokta) · onay bekleyenler (ayrı görünür bölüm) · **genel state** (üst özet şerit).
 4. **KALP YÜZÜ (Temel 2):** ordu şeridi (KOMUTAN + 3 YAZARI + DENETÇİ + GÖZLEMCİ — rol adı + durum) · en az 2 run kartı (iş, durum, ilerleme, ölçüm satırı) · kanıt defteri akışı (örnek satırlar) · komut kutusu (öneri + kopyala).
-5. **İZLE / DENETLE / YÖNET edimleri görünür:** İZLE = canlı durum yüzü; DENETLE = denetim görünümü (test/kanal x=0 satırı, ölçüm çifti); YÖNET = dispatch/komut üretimi. Üç edimin karşılığı seçilebilir ya da bariz görünür.
+5. **İZLE / DENETLE / YÖNET edimleri TEK görünümde bağlamsal (R1 revizyonu, kullanıcı 2026-10-29: «izle denetle yönet diye ayrı ayrı buton yapmak nedir? daha user dostu»):** ayrı sekme/mod BUTONU YASAK. İzleme yüzü her zaman görünür (GENEL STATE şeridi + ordu şeridi + run kartları + akan defter); denetim kanıtı bağlamda inline (seçili görev kapsül kartının içinde kanıt/ölçüm satırları, kanal x=0); yönetim eylemi bağlamda (görev kartında fiş/komut üret butonları, onay kartında kopyala, alt komut kutusu). Mod değiştirme YOK — gezinme yalnız scroll + drawer.
 
 ## 4. Kalite kuralları (ölçülebilir — gözlemci kaynakta sayar)
 
