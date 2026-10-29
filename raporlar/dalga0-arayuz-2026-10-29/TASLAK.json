@@ -1,0 +1,50 @@
+{
+    "uretici":  "scripts/kapanis-taslak.ps1",
+    "kayitTuru":  "TASLAK",
+    "ssotYazar":  false,
+    "dalgaId":  "DALGA0-ARAYUZ-1",
+    "commits":  [
+                    "aefc03a",
+                    "f56052b",
+                    "ea78bd3"
+                ],
+    "kanal":  {
+                  "d":  "2026-10-29T11:22:32.4818965+03:00",
+                  "h":  "ea78bd3",
+                  "x":  0,
+                  "test":  "dalga0-arayuz-1",
+                  "sureSn":  206
+              },
+    "girdi":  {
+                  "turBas":  "2026-10-29 11:04:48",
+                  "turSon":  "2026-10-29 11:26:25"
+              },
+    "duvarSn":  1297,
+    "olcumCifti":  {
+                       "tabanVar":  true,
+                       "red":  false,
+                       "kanalSn":  {
+                                       "once":  166,
+                                       "sonra":  206
+                                   },
+                       "duvarSn":  {
+                                       "once":  null,
+                                       "sonra":  1297
+                                   },
+                       "x":  {
+                                 "once":  0,
+                                 "sonra":  0
+                             },
+                       "turKosum":  {
+                                        "once":  {
+                                                     "kosum":  1,
+                                                     "kaynak":  "taban kanal kaydi sayimi"
+                                                 },
+                                        "sonra":  {
+                                                      "tur":  1,
+                                                      "kosum":  1,
+                                                      "kaynak":  "girdi sayimi (tek tur penceresi + tek kanal JSON)"
+                                                  }
+                                    }
+                   }
+}
