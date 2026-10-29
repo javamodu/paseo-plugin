@@ -1,0 +1,51 @@
+{
+  "schemaSurum": 1,
+  "at": "2026-10-27T19:34:54.373Z",
+  "sourcePlan": "v2.10",
+  "node": "v24.18.0",
+  "kind": "isolated_characterization_not_product_acceptance",
+  "providerCalls": 0,
+  "productionDbOpened": false,
+  "observations": [
+    {
+      "id": "MAIN-LIFE-02",
+      "kind": "local_counterexample",
+      "finding": "dispatcher_death_sets_READY_while_readyNodes_selects_PENDING",
+      "nodeState": "READY",
+      "ready": [],
+      "poll": {
+        "polled": 1,
+        "outcomes": [
+          "dead-released"
+        ]
+      },
+      "scope": "in-memory ledger + fake adapter; no real process death",
+      "attemptId": "att-3df03c97"
+    },
+    {
+      "id": "MAIN-EVIDENCE-03",
+      "kind": "local_counterexample",
+      "finding": "same_content_hash_allows_cross_run_evidence_after_trusted_outcome_misuse",
+      "targetEvidenceCount": 0,
+      "targetState": "ACCEPTED",
+      "sourceEvidenceId": "a49ef24c-14b7-4a97-92a2-2589b268807d",
+      "scope": "trusted API calls in memory; not proof of remote or unprivileged access"
+    },
+    {
+      "id": "MAIN-TRUST-04",
+      "kind": "local_contract_characterization",
+      "finding": "receipt_relational_check_is_not_signature_authentication_without_callback",
+      "withoutVerifier": {
+        "ok": true,
+        "failures": []
+      },
+      "withRejectingVerifier": {
+        "ok": false,
+        "failures": [
+          "imza bagi: signature dogrulanamadi"
+        ]
+      },
+      "scope": "optional callback is documented; production trust boundary must require authentication explicitly"
+    }
+  ]
+}

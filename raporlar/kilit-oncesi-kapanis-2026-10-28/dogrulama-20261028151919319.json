@@ -1,0 +1,238 @@
+{
+  "schemaSurum": 1,
+  "kind": "closure-technical-validation-not-final-B5-or-product-acceptance",
+  "at": "2026-10-28T15:19:19.319Z",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "passed": true,
+  "assertions": 2951,
+  "links": 652,
+  "protectedComponentFiles": 248,
+  "preservedOutsideScopeFiles": 749,
+  "appendOnlyPrefixesPreserved": [
+    "plans/PLAN.md",
+    "raporlar/rapor-chatgpt-27ekim.md",
+    "raporlar/rapor-deepseek27ekim.md",
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+    "raporlar/rapor-birlesimi-2026-10-28/OZET.md"
+  ],
+  "historicalJsonFieldsPreserved": true,
+  "sourceIdentityMappings": 150,
+  "productGroups": 10,
+  "reviewFollowup01": {
+    "passed": true,
+    "scope": "exact effective READ_GIT/READ_ENV recipe equality",
+    "independentRetestClaimed": false
+  },
+  "independentReview": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+    "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+    "bytes": 1513
+  },
+  "packageTests": {
+    "passed": 27,
+    "total": 27,
+    "failed": 0,
+    "skipped": 0
+  },
+  "packageReport": {
+    "errors": [],
+    "tasks": 26,
+    "discoveryTasks": 4,
+    "conditionalTasks": 22,
+    "sprintSums": [
+      {
+        "id": "DC-S0",
+        "source": [
+          300,
+          600
+        ],
+        "tests": [
+          350,
+          650
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          650,
+          1250
+        ]
+      },
+      {
+        "id": "DC-S1",
+        "source": [
+          500,
+          800
+        ],
+        "tests": [
+          650,
+          950
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1150,
+          1750
+        ]
+      },
+      {
+        "id": "DC-S3",
+        "source": [
+          650,
+          1050
+        ],
+        "tests": [
+          900,
+          1400
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1550,
+          2450
+        ]
+      },
+      {
+        "id": "DC-S2",
+        "source": [
+          600,
+          950
+        ],
+        "tests": [
+          850,
+          1250
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1450,
+          2200
+        ]
+      },
+      {
+        "id": "DC-S4",
+        "source": [
+          180,
+          300
+        ],
+        "tests": [
+          300,
+          500
+        ],
+        "pilotSource": [
+          300,
+          500
+        ],
+        "pilotTests": [
+          300,
+          500
+        ],
+        "total": [
+          1080,
+          1800
+        ]
+      }
+    ],
+    "h1": [
+      5880,
+      9450
+    ],
+    "releasedTasks": 0
+  },
+  "humanMachineParity": true,
+  "actualConsumers": {
+    "metaYaz": true,
+    "stateHeaderParser": true,
+    "browserE2E": false,
+    "scope": "real function code with memory DOM/FS fixture; no server"
+  },
+  "stateLines": 100,
+  "ruleCount": 80,
+  "acceptance": {
+    "total": 135,
+    "green": 81,
+    "dcNotRun": 11
+  },
+  "executions": [
+    {
+      "id": "paket",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-28/paket-20261028151919319.log",
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/paket-20261028151919319.log",
+        "sha256": "4ff3a447fe02ea1bfe4c0294eb3729fafcd8914be7d24951c276c36f465540ce",
+        "bytes": 1716
+      }
+    },
+    {
+      "id": "test",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "--test",
+        "--test-reporter=spec",
+        "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.test.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-28/test-20261028151919319.log",
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/test-20261028151919319.log",
+        "sha256": "dbeca3c8940a4d85e1a2d13314b4d513b2521f0c815f56f0a2b97946c3b21c69",
+        "bytes": 2175
+      }
+    },
+    {
+      "id": "gorunum",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "plans/uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs",
+        "--check"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-28/gorunum-20261028151919319.log",
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/gorunum-20261028151919319.log",
+        "sha256": "8e1a51033382ba5c5b1b30d5605abfedaeb74272f148002b56e799a42254670d",
+        "bytes": 81
+      }
+    }
+  ],
+  "contentManifest": "raporlar/kilit-oncesi-kapanis-2026-10-28/aday-20261028151919319.json",
+  "contentManifestHash": "b4333ee82e6f4524dcbd745e3248c40fed768b12843c613bfb41eaba9814bb44",
+  "finalB5Accepted": false,
+  "warningsAcceptedByHuman": false,
+  "commitTagPushRun": false,
+  "fullProductRegressionRun": false,
+  "providerCalls": 0,
+  "productionDbOpened": false,
+  "productSourceChanged": false
+}

@@ -1,0 +1,178 @@
+{
+  "schemaSurum": 1,
+  "kind": "acyclic-hash-bound-document-evidence-not-B5",
+  "at": "2026-10-28T14:42:16.513Z",
+  "contentManifest": "raporlar/kilit-oncesi-kapanis-2026-10-28/aday-20261028144209942.json",
+  "stateSnapshot": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-20261028144122779.json",
+  "files": [
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/BAGIMSIZ-INCELEME.md",
+      "sha256": "ea115ea61c0071d735ba36eea329adf572a94a8ea2de097116fe794d8b4e409b",
+      "bytes": 2577
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/aday-20261028144209942.json",
+      "sha256": "f15a3ab6308ad0d914223913914e35fe75dcfa45fb22cb01cca372a15b6077dd",
+      "bytes": 12125
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+      "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+      "bytes": 1513
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/baslangic.json",
+      "sha256": "2124de88163e44d6141ca179a4f3fa510db37c8e27260ee6a4294c19f752fede",
+      "bytes": 157674
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/codemap-20261028144122779.log",
+      "sha256": "f4e1d1ba6e385d1ee6d6e01842a13d8215ddd4518aa8fd658a85353c33bbd30a",
+      "bytes": 72
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrulama-20261028144209942.json",
+      "sha256": "a45c82e6b93a3db89afc5643cc90f061f286d92ef6715bd41bac059c8315a809",
+      "bytes": 5443
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-20261028144122779.json",
+      "sha256": "78e357721738dda5badadfa85fdcc80618977abb9afecd86876cf9bfb54cd15b",
+      "bytes": 6307
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-oncesi-20261028144122779.json",
+      "sha256": "e9ab49c23c353723b9b29782f10693ce8956c94bee0a550684a9398204975124",
+      "bytes": 3565
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/gorunum-20261028144209942.log",
+      "sha256": "8e1a51033382ba5c5b1b30d5605abfedaeb74272f148002b56e799a42254670d",
+      "bytes": 81
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-test-20261028144122779.log",
+      "sha256": "7e2144a64a03d85de75cbc00766139017bb3f8ae9dfdb2378644fe63874d85d1",
+      "bytes": 539
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kapanis-denetimi-20261028144122779.log",
+      "sha256": "0ed2875a04f7339a327a0dcb3cceceb31ef6d854b539aaa74c809809920921c3",
+      "bytes": 4292
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kapanis.json",
+      "sha256": "78e357721738dda5badadfa85fdcc80618977abb9afecd86876cf9bfb54cd15b",
+      "bytes": 6307
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/paket-20261028144209942.log",
+      "sha256": "4ff3a447fe02ea1bfe4c0294eb3729fafcd8914be7d24951c276c36f465540ce",
+      "bytes": 1716
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028144122779.json",
+      "sha256": "fcdbef26e83189c093bfab8510412d6c4a9bee01a9ebfb6e0913606e0d202fae",
+      "bytes": 1864
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028144122779.log",
+      "sha256": "2220a6a5ca7090fdc662dade1fd1dffcbacf16d01352131a233d2ca450c078f1",
+      "bytes": 2700
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/sahiplik-20261028144122779.json",
+      "sha256": "acbe9a699e7baca12c204a2b0dd61b89d42dbdccd5c940fd6689d7328054c3cb",
+      "bytes": 11074
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/test-20261028144209942.log",
+      "sha256": "39a5f0fb01c631885c9b201d3fedc8810350f2e7fb7d76a0bc43d9f52e6eedb4",
+      "bytes": 2178
+    }
+  ],
+  "selfHashIncluded": false,
+  "humanAcceptance": null,
+  "productRelease": false,
+  "commands": [
+    {
+      "id": "kanit-test",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "--test",
+        "--test-reporter=spec",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-muhur.test.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-test-20261028144122779.log",
+        "sha256": "7e2144a64a03d85de75cbc00766139017bb3f8ae9dfdb2378644fe63874d85d1",
+        "bytes": 539
+      }
+    },
+    {
+      "id": "codemap",
+      "executable": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference = 'Stop'; & .\\scripts\\codemap.ps1"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/codemap-20261028144122779.log",
+        "sha256": "f4e1d1ba6e385d1ee6d6e01842a13d8215ddd4518aa8fd658a85353c33bbd30a",
+        "bytes": 72
+      }
+    },
+    {
+      "id": "saglik",
+      "executable": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/saglik.ps1"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028144122779.log",
+        "sha256": "2220a6a5ca7090fdc662dade1fd1dffcbacf16d01352131a233d2ca450c078f1",
+        "bytes": 2700
+      }
+    },
+    {
+      "id": "kapanis-denetimi",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrula-kapanis.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kapanis-denetimi-20261028144122779.log",
+        "sha256": "0ed2875a04f7339a327a0dcb3cceceb31ef6d854b539aaa74c809809920921c3",
+        "bytes": 4292
+      }
+    }
+  ],
+  "reviewFollowups": [
+    {
+      "id": "REVIEW-01",
+      "state": "VERIFIED_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrulama-20261028144209942.json"
+    },
+    {
+      "id": "REVIEW-02",
+      "state": "HASH_BOUND_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-manifesti-20261028144122779.json"
+    }
+  ],
+  "independentRetestClaimed": false
+}

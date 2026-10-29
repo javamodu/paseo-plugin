@@ -1,0 +1,14 @@
+✔ hash ve byte kimliği eş olan mevcut kanıt doğrulanır (42.6261ms)
+✔ kanıt değişirse eski hash kabul edilmez (53.4551ms)
+✔ byte sayısı değiştirilemez ve boş kanıt kabul edilmez (49.2359ms)
+✔ yinelenen yol ve manifestin kendisine bağlanması reddedilir (68.4583ms)
+✔ kök dışına çıkış ve mutlak yol reddedilir (49.9615ms)
+✔ olmayan dosya, boş veya bozuk manifest yeşil üretemez (16.3747ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1668.361

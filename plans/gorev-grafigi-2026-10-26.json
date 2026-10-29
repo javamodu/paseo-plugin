@@ -1,6 +1,6 @@
 {
   "schemaSurum": 1,
-  "grafSurumu": "v12",
+  "grafSurumu": "v14",
   "grafSurumGecmisi": [
     {
       "surum": "v1",
@@ -61,12 +61,22 @@
       "surum": "v12",
       "tarih": "2026-10-27 12:47:40 (Get-Date ölçümü)",
       "neden": "A0-3 kapanışı — A0 dalga üçüncü düğümü (dalga kapanışı 26a0561'den AYRI commit; graf v11'in (c) maddesi 'kapanışı AYRI commit' taahhüdü bu sürümde yerine geldi): (a) A0-3 → KAPALI (gozetimsiz rozet kanıt beslemesi; kanal d=2026-10-27T12:47:21.0584862+03:00 h=26a0561 x=0 test=a03-gozetimsiz-besleme sureSn=119 [2. koşum 449/449; 1. koşum x=1: tek kırmızı f3-crash V3-S1.4 bilinen 15sn manager yük-flake sınıfı — kanal öncesi %100 yük, 15dk 3x<%60 pencere açılmadı, a02/a05 deseni]; +207 kod [R git-diff: gozetimsiz +174, daemon +27, cli +6]/183 test-12 vaka [tazelik x2, yazım ucu, temiz besleme, kırmızı-beslemez, defter onarımı, beslemeli rozet x4, daemon döngüsü x3]; ölçüt üç katman: hermetik wiring + serve wiring üretim-şekli koşumu [a03-serve-wiring.log: kanit-besleme kayit=4, stats kanit:{besleme:4,hata:0}] + üretim rozeti fail-closed [gozetimsiz-kullanilamaz 6/6 ESKI_KANIT — DB bacağı yeşil, rozet yalnız kanıt bacağından kırmızı; daemon koşmadan rozet açılmaz — tasarımın kendisi]; kanıt: kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md). (b) A4 BEKLE→HAZIR (iki bağımlılığı da kapandı: A3 [v10] + A0-3 [bu sürüm]; kapı [INSAN] gece-modu açılış — EK-2: ajan açamaz). (c) KAPALI 9/24 (T0+S1+S7+A1+A2+A3+A0-2+A0-5+A0-3); durum dağılımı 9 KAPALI/8 HAZIR/7 BEKLE; kabul %65=81/124. (d) BÜTÇE BİLİNÇLİ REVİZYONU (tavanKural gereği, bu kayıtta gerekçeyle): kodLocT ~3300→~3400, testLocT ~2100→~2250 — A0-3 gerçeği (R) +207 kod/+183 test satırı planın (100/60) üstünde yaktı (ölçüt-kapsamı + fail-closed yönleri her biri kendi testini doğurdu — A3/A0-2/A0-5 deseni); kalan ölçümlü açık-plan: ~1020 kod/~510 test. (e) dalga commit hash'i 26a0561 v11 kaydından SONRA doğdu — A0-2/A0-5'nin 'sonraki tazelemede girer' taahhüdü v12 kapanış durum-stringlerinde yerine geldi (durum metinlerinde h=26a0561)."
+    },
+    {
+      "surum": "v13",
+      "tarih": "2026-10-27T18:41:25.530Z",
+      "neden": "Kullanici onayli tek plan v2.10 revizyonu: once insan kanitli DC-H1; sonra kademeli otomasyon. 9 eski KAPALI dugum korunur; 15 eski acik dugum bagimsiz secime kapali; 11 DC sprint + 5 insan kanit kapisi eklendi. Plan onayi uygulama/canli/harcama yetkisi DEGIL. Eski butce ikinci kez sayilmaz."
+    },
+    {
+      "surum": "v14",
+      "tarih": "2026-10-28T02:05:09.899Z",
+      "neden": "Uc tamamlanan bagimsiz salt-okur denetim + ana ajanin izole karsi ornekleri. Plan v2.10.1: S0a/b ayrimi; S1->S3->S2->S4; aktif/tarihsel bag ayrimi; kapida kanit kabul/baslatma kaydi; geriye uyumlu butce gorunumu; H1 5880-9450 / tum yol 12320-19390 teknik LOC yeniden tahmini (T) ONAY BEKLER. Eski 9 kapanis ve 135 kabul satiri degismedi. Uygulama/canli/harcama YOK."
     }
   ],
   "is": "otonom-gorev-grafigi-bulutu",
-  "tarih": "2026-10-27 12:47:40 (Get-Date ölçümü)",
+  "tarih": "2026-10-28T02:05:09.899Z",
   "insanOkurIkiz": "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
-  "kural": "ajan gorev secerken yalniz bu dosyadan okur; MD insan icindir; celiskide JSON kazanir + rapor edilir; her kapsulun ajan kadrosu (model/izin/yetki/rol) bu dosyada + gorev.ajanlar ezbir-alani; kapsul kartlari plans/kapsuller/<ID>.md; modeller core/src/providers.ts registry'sinden — registry-disi RED (fail-closed)",
+  "kural": "TEK politika otoritesi PLAN.md v2.10.1 bolum 25; bu JSON onun gorev projeksiyonu. MD ikiziyle veri celiskisinde JSON esas, ana plan asILMAZ. Yalniz aktif=true, secilebilir=true, bagimliliklari kanitli ve acik insan BASLAT emri olan is secilir. HAZIR yalniz bagimlilikca hazir demektir; uygulama yetkisi vermez. Eski acik isler tarihsel/devredilmis; cift butce/otonom baslatma YOK. Mevcut okuyucularin bu bayraklari runtime olarak uyguladigi KANITLANMIS DEGIL; sadece metadata. Aktif DC kenarlari ile tarihsel provenans ayri.",
   "ajanKadrosu": {
     "kaynakModeller": "core/src/providers.ts registry (R: codex/glm-5.3 + glm53u-codex/glm-5.3 F6.5-A'da canli; registry-disi model RED). A0-5 (v4): claude-code + gemini-cli bilincli girisler + provider->CLI binary eslemesi L-RT launcher'inda — Paseo ACIK ve KAPALI iki yol da ayni kadroyu kullanir",
     "varsayilan": {
@@ -256,6 +266,10 @@
     "silmeKabulCeviriKapsamHedefAnahtarPara": {
       "karar": "asla",
       "yetki": false
+    },
+    "kapsam": {
+      "v13Siniri": "Diger true yetkiler yalniz ayri acilmis gorev ve verilmis grant icinde gecerlidir; bu plan revizyonunda hicbir baslatma yetkisi YOK",
+      "otomatikOnay": false
     }
   },
   "replanKurallari": {
@@ -266,17 +280,18 @@
       "benchmark gerileme",
       "insan kapsam dugdugu"
     ],
-    "akis": "manager replan TASLAGI (hedef/olcut DOKUNULMAZ) -> [insan] varsa PENDING; insan YOKSA ve tetik metrik/benchmark ise proxy YALNIZ sira/bolme uygular -> grafSurumu v(n+1) + eski graf arsiv (append-only) + degisim nedeni kaydi"
+    "akis": "Manager yalniz TASLAK uretir; plan/graf degisimi acik insan onayi veya zaten verilmis dar ve kanitli yetki ister. Bu revizyonda otomatik sira/bolme uygulama yetkisi acilmadi; hedef/oracle/izin/butce buyutme YASAK."
   },
   "simulasyon": {
     "onSimulasyon": [
-      "DAG dogrulama (dongu yok)",
-      "her BEKLE bagimliligi var",
-      "her gorevde olcut+dizin+rol dolu",
-      "butce/LOC tavan kontrolu",
-      "kritik yolda insan kapilari isaretli"
+      "aktif altgraf DAG ve kenar/bagimli esligi",
+      "tarihsel baglar yurutme kenari DEGIL",
+      "kapi kabul kaydi ile baslatma izni ayri",
+      "butun yetkiler deny-default; metadata runtime guvence DEGIL",
+      "gercek okuyucu alan tipi ve metaYaz karakterizasyonu",
+      "kabul/sprint ve sayisal yeniden tahmin aritmetigi"
     ],
-    "tikandikca": "her tikanma graf olayi olarak kaydedilir + neden etiketi; ayni etiket 2 kez -> gorev otomatik bolunur veya bagimlilik yeniden baglanir -> v(n+1)",
+    "tikandikca": "Tikanma nedeni kayit + degisiklik ONERISI; uygulama yetkisi yoksa degistirme YOK; onayli revizyon ve arsiv sonrasi graf guncellenir.",
     "cikti": "raporlar/simulasyon/gorev-grafigi-<tarih>.md + .json; kosum ONCESI zorunlu"
   },
   "gorevler": [
@@ -289,7 +304,14 @@
       "bagimli": [],
       "kapi": null,
       "loc": 5,
-      "durum": "KAPALI (F6.5-A: commit 80fdb4a + kanal x=0 + kabul F65-01 PASS 2026-10-26T10:46 — graf v6 gerçeklik tazelemesi)"
+      "durum": "KAPALI (F6.5-A: commit 80fdb4a + kanal x=0 + kabul F65-01 PASS 2026-10-26T10:46 — graf v6 gerçeklik tazelemesi)",
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "S1",
@@ -300,7 +322,14 @@
       "bagimli": [],
       "kapi": "[INSAN] kos dugdugu",
       "loc": 0,
-      "durum": "KAPALI (koşum dalgası 2026-10-27: kapsül run-f911b84d uçtan uca ACCEPTED — approve insan:cli [kullanıcı otomasyon talimatıyla] → dispatch att-3f9cb985 → ORDU_LIVE=1 tick: spawn exec 120 sn aşımı UNKNOWN → reconcile lookup RECOVERED [A08 kör-retry yok, çift spawn yok] → Paseo oturum 35195156 codex/glm-5.3 auto 07:00:01-07:04:29 ~4.5 dk → artifact hedef-claw-rehber-ozeti.md: TESTER bağımsız sayım disk üst-seviye .md=10 ↔ veri satır=10 ↔ TOPLAM:10 birebir → evaluate PASS 4/4 [candidate b7449cd9, evidence e0c597e6] → decide apv-6cd2de76 ACCEPTED; kanal d/h/x koşum dalgasına ait DEĞİL [M02 emsali GECTI_CANLI]; dalga commit hash'i sonraki graf tazelemesinde girer; dürüst not: 4 çöp kapsül önceledi — 2 kullanıcı terminalinden [goal '$g' genişlememiş + repo tırnak-değerde], 1 operatör [node -e tersbölü yenmesi], teşhis+reçete kanıt raporunda ve DERSLER'de)"
+      "durum": "KAPALI (koşum dalgası 2026-10-27: kapsül run-f911b84d uçtan uca ACCEPTED — approve insan:cli [kullanıcı otomasyon talimatıyla] → dispatch att-3f9cb985 → ORDU_LIVE=1 tick: spawn exec 120 sn aşımı UNKNOWN → reconcile lookup RECOVERED [A08 kör-retry yok, çift spawn yok] → Paseo oturum 35195156 codex/glm-5.3 auto 07:00:01-07:04:29 ~4.5 dk → artifact hedef-claw-rehber-ozeti.md: TESTER bağımsız sayım disk üst-seviye .md=10 ↔ veri satır=10 ↔ TOPLAM:10 birebir → evaluate PASS 4/4 [candidate b7449cd9, evidence e0c597e6] → decide apv-6cd2de76 ACCEPTED; kanal d/h/x koşum dalgasına ait DEĞİL [M02 emsali GECTI_CANLI]; dalga commit hash'i sonraki graf tazelemesinde girer; dürüst not: 4 çöp kapsül önceledi — 2 kullanıcı terminalinden [goal '$g' genişlememiş + repo tırnak-değerde], 1 operatör [node -e tersbölü yenmesi], teşhis+reçete kanıt raporunda ve DERSLER'de)",
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "S3",
@@ -308,12 +337,27 @@
       "rol": "KULLANICI",
       "dizin": "plugin pano koprugu (4378)",
       "olcut": "iptal zinciri defterde; kor cif is yok; 2. run ACCEPTED",
-      "bagimli": [
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN]",
       "loc": 0,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S3",
+        "DC-S4"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S1",
+        "DC-S3"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "S2",
@@ -321,12 +365,26 @@
       "rol": "CODERx2+TESTER",
       "dizin": "raporlar/kanit-hedef",
       "olcut": "2 ACCEPTED + oturum/butce/cikti izolasyonu",
-      "bagimli": [
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] kos",
       "loc": 0,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-H2"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S1",
+        "DC-H2"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "S4",
@@ -334,12 +392,26 @@
       "rol": "KULLANICI",
       "dizin": "ordu",
       "olcut": "kanit-uclume + 3 drift izi dogrulandi",
-      "bagimli": [
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN]",
       "loc": 0,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S4"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S1",
+        "DC-S4"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "S5",
@@ -347,13 +419,27 @@
       "rol": "CODER",
       "dizin": "core/src (--deadline bayragi + enforceDeadline cagracisi)",
       "olcut": "30 sn dolunca: yeni dispatch RED + RUNNING attempt CHECKPOINT'te kalir + insan karti DEADLINE_CLOSE PENDING + CRITICAL bildirim + run ASLA ACCEPTED olmaz; +30 test",
-      "bagimli": [
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] kos",
       "loc": 30,
       "testLoc": 30,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S3"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S1",
+        "DC-S3"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "S6",
@@ -361,13 +447,27 @@
       "rol": "CODER",
       "dizin": "core/src/pano (unattendedReadiness gorunumu)",
       "olcut": "rozet 'gozetimsiz-hazir' VEYA durust kirmizi + ADIYLA nedeni; +30 test",
-      "bagimli": [
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] kos",
       "loc": 40,
       "testLoc": 30,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-H2"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S1",
+        "DC-H2"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "A0-1",
@@ -375,13 +475,27 @@
       "rol": "CODER",
       "dizin": "core/src + core/src/paseo-transport.ts",
       "olcut": "canli Paseo yolunda requestCancel RED degil; slot serbest; +40 test yesil",
-      "bagimli": [
-        "T0"
-      ],
+      "bagimli": [],
       "kapi": null,
       "loc": 50,
       "testLoc": 40,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-H1"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "T0"
+      ],
+      "v13YonlendirmeBagimli": [
+        "T0",
+        "DC-H1"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "A0-2",
@@ -393,7 +507,14 @@
       "kapi": null,
       "loc": 60,
       "testLoc": 40,
-      "durum": "KAPALI (kod dalgası 2026-10-27: asılı run sweep; kanal d=2026-10-27T11:43:06.3865016+03:00 h=280d881 x=0 test=a02-sweep sureSn=56 [2. koşum 437/437; 1. koşum x=1: iskelet fake B8-interface + 3 bilinen yük-flake]; 6-sınıf karar kaskadı asiliIcDurum + asiliKartAc B1 [kart VARSA — PENDING VEYA kararlı — yenisi doğmaz] + sweepAsiliRunlar B2 [enqueue tx DIŞINDA try/catch, bildirimHata alanı] + dispatchNode B4 kapısı [run READY/RUNNING değilse GateError] + cli tick r4 wiring; üretim (R): tick 11:20 asılı 3→0 — run-c0ea713b [DERSLER-173 deseni] + 2 çöp-kapsül run'ı temiz-öldürüldü, RUN_FAILED olayları defterde; sınıf dökümü: 3 temiz-öldür + 1 dokunulmadı + 0 kart; hermetik 15/15 [a0-2-sweep.test.ts 359 satır — B1/B2/B4 denetçi vakaları]; kanıt: kanit-hedef/a02-sweep-2026-10-27.md; dalga commit hash'i sonraki tazelemede girer)"
+      "durum": "KAPALI (kod dalgası 2026-10-27: asılı run sweep; kanal d=2026-10-27T11:43:06.3865016+03:00 h=280d881 x=0 test=a02-sweep sureSn=56 [2. koşum 437/437; 1. koşum x=1: iskelet fake B8-interface + 3 bilinen yük-flake]; 6-sınıf karar kaskadı asiliIcDurum + asiliKartAc B1 [kart VARSA — PENDING VEYA kararlı — yenisi doğmaz] + sweepAsiliRunlar B2 [enqueue tx DIŞINDA try/catch, bildirimHata alanı] + dispatchNode B4 kapısı [run READY/RUNNING değilse GateError] + cli tick r4 wiring; üretim (R): tick 11:20 asılı 3→0 — run-c0ea713b [DERSLER-173 deseni] + 2 çöp-kapsül run'ı temiz-öldürüldü, RUN_FAILED olayları defterde; sınıf dökümü: 3 temiz-öldür + 1 dokunulmadı + 0 kart; hermetik 15/15 [a0-2-sweep.test.ts 359 satır — B1/B2/B4 denetçi vakaları]; kanıt: kanit-hedef/a02-sweep-2026-10-27.md; dalga commit hash'i sonraki tazelemede girer)",
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A0-3",
@@ -401,13 +522,22 @@
       "rol": "CODER",
       "dizin": "core/src/gozetimsiz.ts + daemon.ts",
       "olcut": "rozet 4/6 bayragi daemon tarafindan besleniyor; +60 test",
-      "bagimli": [
-        "A0-2"
-      ],
+      "bagimli": [],
       "kapi": null,
       "loc": 100,
       "testLoc": 60,
-      "durum": "KAPALI (kod dalgası 2026-10-27: gozetimsiz rozet kanıt beslemesi; kanal d=2026-10-27T12:47:21.0584862+03:00 h=26a0561 x=0 test=a03-gozetimsiz-besleme sureSn=119 [2. koşum 449/449; 1. koşum x=1: tek kırmızı f3-crash V3-S1.4 bilinen 15sn manager yük-flake — kanal öncesi %100, 15dk pencere açılmadı, a02/a05 deseni]; +207 kod [R: gozetimsiz +174, daemon +27, cli +6]/183 test-12 vaka; ölçüt üç katman: hermetik wiring + serve wiring üretim-şekli koşumu [cli.ts serve → runDaemon kanitDefteriYolu: env ORDU_KANIT_DEFTERI || KANIT_DEFTERI_YOLU; a03-serve-wiring.log: kanit-besleme kayit=4 {uzlastirma, iptalDogrulama, kullanimOlcumu, grantEtkisi}, stats kanit:{besleme:4,hata:0}] + üretim rozeti fail-closed [gozetimsiz-kullanilamaz 6/6 ESKI_KANIT — DB bacağı yeşil (A0-2 sweep sonrası), rozet yalnız kanıt bacağından kırmızı; daemon koşmadan rozet açılmaz — tasarımın kendisi]; kırmızı tick BESLEMEZ; kanıt: kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md; dalga kapanışı 26a0561'den AYRI commit'tir)"
+      "durum": "KAPALI (kod dalgası 2026-10-27: gozetimsiz rozet kanıt beslemesi; kanal d=2026-10-27T12:47:21.0584862+03:00 h=26a0561 x=0 test=a03-gozetimsiz-besleme sureSn=119 [2. koşum 449/449; 1. koşum x=1: tek kırmızı f3-crash V3-S1.4 bilinen 15sn manager yük-flake — kanal öncesi %100, 15dk pencere açılmadı, a02/a05 deseni]; +207 kod [R: gozetimsiz +174, daemon +27, cli +6]/183 test-12 vaka; ölçüt üç katman: hermetik wiring + serve wiring üretim-şekli koşumu [cli.ts serve → runDaemon kanitDefteriYolu: env ORDU_KANIT_DEFTERI || KANIT_DEFTERI_YOLU; a03-serve-wiring.log: kanit-besleme kayit=4 {uzlastirma, iptalDogrulama, kullanimOlcumu, grantEtkisi}, stats kanit:{besleme:4,hata:0}] + üretim rozeti fail-closed [gozetimsiz-kullanilamaz 6/6 ESKI_KANIT — DB bacağı yeşil (A0-2 sweep sonrası), rozet yalnız kanıt bacağından kırmızı; daemon koşmadan rozet açılmaz — tasarımın kendisi]; kırmızı tick BESLEMEZ; kanıt: kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md; dalga kapanışı 26a0561'den AYRI commit'tir)",
+      "tarihselBagimli": [
+        "A0-2"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A0-2"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A0-4",
@@ -419,7 +549,20 @@
       "kapi": null,
       "loc": 80,
       "testLoc": 40,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S6"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [
+        "DC-S6"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "A0-5",
@@ -433,7 +576,14 @@
       "locAyrisim": "150 L-RT + 80 iki CLI eslemesi (~40/CLI; her yeni CLI ~+40)",
       "testLoc": 60,
       "durum": "KAPALI (kod dalgası 2026-10-27: L-RT local runner — Paseo'suz koşum bacağı; kanal d=2026-10-27T11:44:07.7627073+03:00 h=280d881 x=0 test=a05-lrt sureSn=60 [2. koşum 437/437]; LocalCliLauncher: cliOfProvider → providerCliPresent kırmızı=RED → M26 path guard → git worktree add --detach → detached spawn → pid DURABLE registry fsync'li [B8 diskten son-kayıt-kazanır] → B9 yazım hatasında telafi kill + RED; LocalRuntimeAdapter LOCAL_REQUIRED_CAPS + ORDU_RUNTIME=local beyanı + LocalLaunchRed→FATAL [U3] / genel→UNKNOWN [A08]; canlı (R) 3-koşum kırıl-ölç-düzelt: 1) --model glm-5.3 API 400 [headless sdk sorgu kaynağına kapalı — etkileşim oturumda ÇALIŞIR], 2) model NULL AYNI 400 [tanı zinciri: proxy /v1/models + minimal /v1/messages + temiz-env], 3) codefastglm53unlimited UÇTAN UCA ACCEPTED — capsule→approve→dispatch→ORDU_RUNTIME=local tick→spawn pid 25684→evaluate PASS 4/4 [candidate bf6940151, artifact 4a70609d]→decide apv-6a32589b; METRİK: duvar-süresi 38.0 sn [Paseo'suz ilk gerçek CLI koşumu]; PROVIDER_REGISTRY['claude-code']=['codefastglm53unlimited'] ölçülmüş-tek [kırık-ölçülmüş model registry'ye YAZILMAZ — koşum 1 hatası dalga içinde düzeltildi]; hermetik 12/12 [a0-5-lrt.test.ts 407 satır; B9 kanıtı OS işlem tablosu taraması]; kanıt: kanit-hedef/a05-lrt-2026-10-27.md + run{1,2,3} log kopyaları; dalga commit hash'i sonraki tazelemede girer)",
-      "not": "ajanKadrosu'na CLI turleri acikca listelenir; registry-disi CLI fail-closed RED (K-0033) kalir"
+      "not": "ajanKadrosu'na CLI turleri acikca listelenir; registry-disi CLI fail-closed RED (K-0033) kalir",
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "S7",
@@ -441,10 +591,7 @@
       "rol": "MANAGER+TESTER",
       "dizin": "core",
       "olcut": "ayni gorev 2 provider; kiyas tablosu + bütce ayrimi",
-      "bagimli": [
-        "T0",
-        "S1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] kos",
       "loc": 0,
       "durum": "KAPALI (koşum dalgası 2026-10-27: SIRALI iki zincir uçtan uca ACCEPTED — P1 run-1bcba32d codex/glm-5.3 [planHash 13075b3e — S1 node iskeletiyle AYNI] → approve insan:cli → dispatch att-65f755ea → ORDU_LIVE=1 tick: exec 120 sn aşımı UNKNOWN → reconcile lookup RECOVERED [A08; outbox SENT delivery_count=1] → Paseo oturum f0fcbd37 04:32:37-04:53:18 ~7.5 dk [usage R: in 106098/out 118/cached 105728] → artifact s7-turnuva-p1-codex.md: TESTER bağımsız sayım 10↔10↔TOPLAM:10 birebir → evaluate PASS 4/4 [evidence 2a9e3179] → decide apv-b37bab5f ACCEPTED; P2 run-9b2607fc glm53u-codex codefast ucu/glm-5.3 [planHash 493abfbf — provider düğüm iskeletine GİRER] aynı zincir att-909895fe → oturum 46e99bdb ~2.8 dk [in 78936/out 246/cached 78592] → evaluate PASS 4/4 [evidence 454be497] → decide apv-ac61da89 ACCEPTED; KISYAS: iki artefakt BAYT-BAYT AYNI [candidateHash b7449cd9 tek; artifactHash farkı yalnız yol kaynaklı], P2 ~2.7× hızlı [tek ölçüm — üstünlük iddiası YOK]; kanal d/h/x koşum dalgasına ait DEĞİL [GECTI_CANLI, M02/S1 emsali]; dürüst notlar: 3 çöp kapsül operatör bileşik-komut hatası [DERSLER'de], P2 oturumu CodexMcpElicitation izni bekliyor [EK-2 — onaylanMADI], S1 --commit 75a7c463 türetmesi bu oturumda yeniden üretilebildi [denetim alt-ajanının 'üretilemiyor' bulgusu yanlıştı]; dalga commit hash'i sonraki graf tazelemesinde girer)",
@@ -457,7 +604,20 @@
           "rol": "CODER",
           "model": "glm53u-codex/glm-5.3"
         }
-      ]
+      ],
+      "tarihselBagimli": [
+        "T0",
+        "S1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "T0",
+        "S1"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A1",
@@ -465,10 +625,7 @@
       "rol": "CODER",
       "dizin": "core/src",
       "olcut": "K12-01/02 + K13-02 kabul kapali; capraz-elestiri+revizyon+yeniden degerlendirme; +130 test",
-      "bagimli": [
-        "S7",
-        "A0-1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] rubrik onayi",
       "loc": 550,
       "locAralik": "400-700",
@@ -483,7 +640,20 @@
           "rol": "CODER",
           "model": "glm53u-codex/glm-5.3"
         }
-      ]
+      ],
+      "tarihselBagimli": [
+        "S7",
+        "A0-1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "S7",
+        "A0-1"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A2",
@@ -491,14 +661,23 @@
       "rol": "CODER",
       "dizin": "core/src",
       "olcut": "DRIFT% surekli olculur; PLAN-18 otomatik tazelenir; +120 test",
-      "bagimli": [
-        "A1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] esik onayi",
       "loc": 325,
       "locAralik": "250-400",
       "testLoc": 120,
-      "durum": "KAPALI (kanal d=2026-10-27T00:12:39.7323672+03:00 h=45bd046 x=0 etiket a2-replan; core/src/replan.ts + cli 'replan' + 11 hermetik test, tam suit 389/389; kabul.csv A2 PASS — graf v7 gerceklik tazelemesi; dalga commit hash'i sonraki graf tazelemesinde girer; [insan] esik onayi olcum-uzeri acik kapidir: 'replan --esik N --hedef N' olcum + 'replan --onay <id> --confirm \"REPLAN ONAYLIYORUM\"' kalici kapi)"
+      "durum": "KAPALI (kanal d=2026-10-27T00:12:39.7323672+03:00 h=45bd046 x=0 etiket a2-replan; core/src/replan.ts + cli 'replan' + 11 hermetik test, tam suit 389/389; kabul.csv A2 PASS — graf v7 gerceklik tazelemesi; dalga commit hash'i sonraki graf tazelemesinde girer; [insan] esik onayi olcum-uzeri acik kapidir: 'replan --esik N --hedef N' olcum + 'replan --onay <id> --confirm \"REPLAN ONAYLIYORUM\"' kalici kapi)",
+      "tarihselBagimli": [
+        "A1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A1"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A3",
@@ -506,14 +685,23 @@
       "rol": "CODER",
       "dizin": "core/src + DERSLER.md",
       "olcut": "ders->aday->kural havuzu; tavan 80 kilidi; +90 test",
-      "bagimli": [
-        "A2"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] kural onaylari toplu",
       "loc": 275,
       "locAralik": "200-350",
       "testLoc": 90,
-      "durum": "KAPALI (kod dalgası 2026-10-27: deneyim→kural derleyicisi; kanal d=2026-10-27T09:43:17.0929164+03:00 h=bbbd393 x=0 test=a3-kural-derleyici sureSn=86 (4. koşum; YEŞİL); DERSLER 177 madde/210 alt-ders taraması → 3 aday (ilk parti ≤5, K-0051) → taslak krl-d75544aa → sentez×3 (ajan:llm) → [insan] TOPLU onay 05:43:06Z (KURALLARI ONAYLIYORUM, insan:cli; uygulanan 3, sentezsiz 0) → AGENTS.md inişi (3 PowerShell-5.1 kuralı, provenans çapalı) → sayaç 74→77 ≤ tavan 80; B6 provenans çapası + B7 eş-taslak idempotansı ÜRETİM bulgusu olarak bulundu-kapatıldı (kanıt raporu); denetçi B1-B5 DÜZELT-İLE-DEVAM; hermetik 20/20; dalga commit hash'i sonraki graf tazelemesinde girer [kendi commit'ine hash yazılamaz, v5-v9 emsali])"
+      "durum": "KAPALI (kod dalgası 2026-10-27: deneyim→kural derleyicisi; kanal d=2026-10-27T09:43:17.0929164+03:00 h=bbbd393 x=0 test=a3-kural-derleyici sureSn=86 (4. koşum; YEŞİL); DERSLER 177 madde/210 alt-ders taraması → 3 aday (ilk parti ≤5, K-0051) → taslak krl-d75544aa → sentez×3 (ajan:llm) → [insan] TOPLU onay 05:43:06Z (KURALLARI ONAYLIYORUM, insan:cli; uygulanan 3, sentezsiz 0) → AGENTS.md inişi (3 PowerShell-5.1 kuralı, provenans çapalı) → sayaç 74→77 ≤ tavan 80; B6 provenans çapası + B7 eş-taslak idempotansı ÜRETİM bulgusu olarak bulundu-kapatıldı (kanıt raporu); denetçi B1-B5 DÜZELT-İLE-DEVAM; hermetik 20/20; dalga commit hash'i sonraki graf tazelemesinde girer [kendi commit'ine hash yazılamaz, v5-v9 emsali])",
+      "tarihselBagimli": [
+        "A2"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A2"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "aktif": false,
+      "secilebilir": false,
+      "uygulamaYetkisi": false,
+      "butceyeDahil": false
     },
     {
       "id": "A4",
@@ -521,15 +709,35 @@
       "rol": "CODER",
       "dizin": "core/src/daemon.ts",
       "olcut": "hedef+limit ver -> gece tur serisi; rozet yesilse acilir; +100 test",
-      "bagimli": [
-        "A3",
-        "A0-3"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] gece-modu acilis",
       "loc": 200,
       "locAralik": "150-250",
       "testLoc": 100,
-      "durum": "HAZIR (v12: iki bağımlılığı da kapandı — A3 [v10] + A0-3 [v12]; tek kapısı [INSAN] gece-modu açılış — EK-2: ajan/proxy açamaz, kullanıcı düdüğü bekler)"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR (v12: iki bağımlılığı da kapandı — A3 [v10] + A0-3 [v12]; tek kapısı [INSAN] gece-modu açılış — EK-2: ajan/proxy açamaz, kullanıcı düdüğü bekler)",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S5",
+        "DC-S6"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "A3",
+        "A0-3"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A3",
+        "A0-3",
+        "DC-H1"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false,
+      "yenidenAcmaOnkosullari": [
+        "DC-H1",
+        "ayri-insan-baslatma"
+      ]
     },
     {
       "id": "EK1-1",
@@ -541,7 +749,20 @@
       "kapi": null,
       "loc": 100,
       "testLoc": 40,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S8"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [
+        "DC-S8"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "EK1-2",
@@ -549,13 +770,28 @@
       "rol": "CODER",
       "dizin": "core/src",
       "olcut": "evaluator-kirmizi ∪ plan-sapma ∪ metrik-drift ∪ benchmark-gerileme -> tek yeniden-uretim karari (tavanli)",
-      "bagimli": [
-        "A1"
-      ],
+      "bagimli": [],
       "kapi": null,
       "loc": 120,
       "testLoc": 50,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S6",
+        "DC-S7"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "A1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A1",
+        "DC-S6"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "EK1-3",
@@ -563,13 +799,28 @@
       "rol": "CODER",
       "dizin": "core/src",
       "olcut": "yetki matrisi kodda; kart-onay YASAK testli (negatif test); devralma calisir",
-      "bagimli": [
-        "A0-2"
-      ],
+      "bagimli": [],
       "kapi": null,
       "loc": 100,
       "testLoc": 50,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S6",
+        "DC-S7"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "A0-2"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A0-2",
+        "DC-S6"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "EK1-4",
@@ -577,13 +828,27 @@
       "rol": "CODER",
       "dizin": "core/test",
       "olcut": "evaluator isabeti olculur; dusukse evaluator askida",
-      "bagimli": [
-        "A1"
-      ],
+      "bagimli": [],
       "kapi": "[INSAN] altin-set esigi",
       "loc": 120,
       "testLoc": 50,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S8"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "A1"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A1",
+        "DC-S8"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "EK1-5",
@@ -595,7 +860,20 @@
       "kapi": null,
       "loc": 100,
       "testLoc": 50,
-      "durum": "HAZIR"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "HAZIR",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-S8"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [],
+      "v13YonlendirmeBagimli": [
+        "DC-S8"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "EK1-6",
@@ -603,13 +881,27 @@
       "rol": "CODER",
       "dizin": "core/src/pano",
       "olcut": "dispatch->tur->evaluate->kapanis metrikleri panoda gorunur",
-      "bagimli": [
-        "A4"
-      ],
+      "bagimli": [],
       "kapi": null,
       "loc": 80,
       "testLoc": 30,
-      "durum": "BEKLE"
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-H2"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
+        "A4"
+      ],
+      "v13YonlendirmeBagimli": [
+        "A4",
+        "DC-H2"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
     },
     {
       "id": "K1",
@@ -617,7 +909,19 @@
       "rol": "MANAGER",
       "dizin": "repo",
       "olcut": "CODEMAP taze + doctor 0 EKSIK + kilit tag'i — NOT (v6): v0.23-kilit 2026-10-26 16:2x'te plugin S3 dalgasinda DOGDU (commit 9853bb1, v0.8'den beri ILK gercek tag); graf K1 kapanisi kendi Z1'inden sonra SIRADAKI kilit penceresinde tag'ler (v0.24+ [insan] surum karari)",
-      "bagimli": [
+      "bagimli": [],
+      "kapi": "[INSAN] tag onayi",
+      "loc": 0,
+      "testLoc": 0,
+      "durum": "BEKLE (v13: tarihsel acik is; DC sirasi veya ayri onay bekler; bagimsiz secilmez)",
+      "oncekiDurumV12": "BEKLE",
+      "aktif": false,
+      "secilebilir": false,
+      "devralanKimlikler": [
+        "DC-H4"
+      ],
+      "butceyeDahil": false,
+      "tarihselBagimli": [
         "A1",
         "A2",
         "A3",
@@ -629,146 +933,1010 @@
         "EK1-5",
         "EK1-6"
       ],
-      "kapi": "[INSAN] tag onayi",
+      "v13YonlendirmeBagimli": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "EK1-1",
+        "EK1-2",
+        "EK1-3",
+        "EK1-4",
+        "EK1-5",
+        "EK1-6",
+        "DC-H4"
+      ],
+      "iliskituru": "tarihsel-provenans-yurutme-degil",
+      "uygulamaYetkisi": false
+    },
+    {
+      "id": "DC-S0",
+      "gorev": "Taban ve sinirlar",
+      "rol": "MANAGER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Current suite baseline and hashes recorded; pilot task and oracle signed; isolation and usage source feasible; no code authority change without approved ADR.",
+      "bagimli": [],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 60,
+      "testLoc": 160,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 120,
+      "teknikLoc": 220,
+      "faz": "DC/F0",
+      "kabulId": "DC-S0",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "HAZIR (yalniz planlama; [INSAN] BASLAT emri YOK; secilebilir=false)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler",
+      "altAdimlar": [
+        {
+          "id": "DC-S0a",
+          "is": "Salt-okur kesif/tehdit modeli/ADR onerisi",
+          "baslatmaKarari": null,
+          "uygulamaYetkisi": false
+        },
+        {
+          "id": "DC-S0b",
+          "is": "Saglayicisiz zararsiz fixture ile hazir Windows sinirini kanitlama",
+          "ayriDarSinamaIzni": null,
+          "uygulamaYetkisi": false,
+          "harcamaYetkisi": false
+        }
+      ]
+    },
+    {
+      "id": "DC-G0",
+      "gorev": "Ortam/pilot/kabul ve fizibilite kaniti",
+      "rol": "KULLANICI+TESTER",
+      "dizin": "raporlar/ + plans/kabul.csv",
+      "olcut": "Ortam/pilot/kabul ve fizibilite kaniti",
+      "bagimli": [
+        "DC-S0"
+      ],
+      "kapi": "[INSAN] kanit kabul ve sonraki faz icin ayri devam",
       "loc": 0,
       "testLoc": 0,
-      "durum": "BEKLE"
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 0,
+      "teknikLoc": 0,
+      "faz": "DC/F0",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (ilgili sprint kaniti + insan karari)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "kapiSozlesmesi": {
+        "gerekliKabulIdleri": [
+          "DC-S0"
+        ],
+        "planSurumu": "v2.10.1",
+        "grafSurumu": "v14",
+        "planHash": null,
+        "grafHash": null,
+        "kanitRefleri": [],
+        "insanKanitKabulKarari": null,
+        "sonrakiFazBaslatmaKarari": null,
+        "karardaGerekliAlanlar": [
+          "kararId",
+          "dogrulanmisInsanKaynagi",
+          "kapsam",
+          "damga",
+          "planHash",
+          "grafHash",
+          "kanitRefleri",
+          "butce",
+          "deadline"
+        ],
+        "kararYoksa": "KAPALI"
+      }
+    },
+    {
+      "id": "DC-S1",
+      "gorev": "Onayli sozlesme ve tek kapi",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Changed goal/source/commands change approved contract identity; wrong source denied; unapproved or alternate pilot spawn denied; old records replay without rewriting.",
+      "bagimli": [
+        "DC-G0"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 400,
+      "testLoc": 480,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 60,
+      "teknikLoc": 880,
+      "faz": "DC/F1",
+      "kabulId": "DC-S1",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S2",
+      "gorev": "Korunan test ve teslim",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Wrong output, zero tests, modified tests, wrong evaluator/source and stale candidate denied; mere substring or file existence cannot accept a code task.",
+      "bagimli": [
+        "DC-S3"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 340,
+      "testLoc": 440,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 60,
+      "teknikLoc": 780,
+      "faz": "DC/F1",
+      "kabulId": "DC-S2",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S3",
+      "gorev": "Yasam dongusu ve tuketim",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Fault matrix passes for the selected runtime; two attempts cannot share one cancel proof; unknown consumption stays unknown and limits new work; STOP and deadline block new effects.",
+      "bagimli": [
+        "DC-S1"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 420,
+      "testLoc": 600,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 60,
+      "teknikLoc": 1020,
+      "faz": "DC/F1",
+      "kabulId": "DC-S3",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S4",
+      "gorev": "Insan kanitli somut pilot",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ayri pilot repo",
+      "olcut": "Three distinct useful deliveries and all ten named fault families have saved evidence; full suites pass; no unresolved ownership/usage; release and rollback human-approved.",
+      "bagimli": [
+        "DC-S2"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 180,
+      "testLoc": 300,
+      "pilotKodLoc": 320,
+      "pilotTestLoc": 280,
+      "dokumanLoc": 100,
+      "teknikLoc": 1080,
+      "faz": "DC/F1",
+      "kabulId": "DC-S4",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-H1",
+      "gorev": "Uc somut teslim ve on hata ailesi; insan kabul",
+      "rol": "KULLANICI+TESTER",
+      "dizin": "raporlar/ + plans/kabul.csv",
+      "olcut": "Uc somut teslim ve on hata ailesi; insan kabul",
+      "bagimli": [
+        "DC-S4"
+      ],
+      "kapi": "[INSAN] kanit kabul ve sonraki faz icin ayri devam",
+      "loc": 0,
+      "testLoc": 0,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 0,
+      "teknikLoc": 0,
+      "faz": "DC/F1",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (ilgili sprint kaniti + insan karari)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "kapiSozlesmesi": {
+        "gerekliKabulIdleri": [
+          "DC-S1",
+          "DC-S3",
+          "DC-S2",
+          "DC-S4"
+        ],
+        "planSurumu": "v2.10.1",
+        "grafSurumu": "v14",
+        "planHash": null,
+        "grafHash": null,
+        "kanitRefleri": [],
+        "insanKanitKabulKarari": null,
+        "sonrakiFazBaslatmaKarari": null,
+        "karardaGerekliAlanlar": [
+          "kararId",
+          "dogrulanmisInsanKaynagi",
+          "kapsam",
+          "damga",
+          "planHash",
+          "grafHash",
+          "kanitRefleri",
+          "butce",
+          "deadline"
+        ],
+        "kararYoksa": "KAPALI"
+      }
+    },
+    {
+      "id": "DC-S5",
+      "gorev": "Kalici sabit-plan surucusu",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Controller advances an approved fixed plan without manual per-step CLI; restart resumes without duplicate effects; final acceptance remains human.",
+      "bagimli": [
+        "DC-H1"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 460,
+      "testLoc": 520,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 70,
+      "teknikLoc": 980,
+      "faz": "DC/F2",
+      "kabulId": "DC-S5",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S6",
+      "gorev": "Sinirli onarim ve hazirlama",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Pre-authorized task sequence finishes or safely stops at cap; no manual rescue hidden from record; real usage, interventions, duplicate effects and unresolved cancel states reported.",
+      "bagimli": [
+        "DC-S5"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 340,
+      "testLoc": 460,
+      "pilotKodLoc": 60,
+      "pilotTestLoc": 100,
+      "dokumanLoc": 70,
+      "teknikLoc": 960,
+      "faz": "DC/F2",
+      "kabulId": "DC-S6",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-H2",
+      "gorev": "Sinirli otomatik hazirlama kaniti; final insan kabul",
+      "rol": "KULLANICI+TESTER",
+      "dizin": "raporlar/ + plans/kabul.csv",
+      "olcut": "Sinirli otomatik hazirlama kaniti; final insan kabul",
+      "bagimli": [
+        "DC-S6"
+      ],
+      "kapi": "[INSAN] kanit kabul ve sonraki faz icin ayri devam",
+      "loc": 0,
+      "testLoc": 0,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 0,
+      "teknikLoc": 0,
+      "faz": "DC/F2",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (ilgili sprint kaniti + insan karari)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "kapiSozlesmesi": {
+        "gerekliKabulIdleri": [
+          "DC-S5",
+          "DC-S6"
+        ],
+        "planSurumu": "v2.10.1",
+        "grafSurumu": "v14",
+        "planHash": null,
+        "grafHash": null,
+        "kanitRefleri": [],
+        "insanKanitKabulKarari": null,
+        "sonrakiFazBaslatmaKarari": null,
+        "karardaGerekliAlanlar": [
+          "kararId",
+          "dogrulanmisInsanKaynagi",
+          "kapsam",
+          "damga",
+          "planHash",
+          "grafHash",
+          "kanitRefleri",
+          "butce",
+          "deadline"
+        ],
+        "kararYoksa": "KAPALI"
+      }
+    },
+    {
+      "id": "DC-S7",
+      "gorev": "Stratejik replan onerisi",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "Blocked pilot gets a materially different valid strategy; old strategy control and new strategy compared at fixed budget; policy-expanding proposals rejected.",
+      "bagimli": [
+        "DC-H2"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 400,
+      "testLoc": 480,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 80,
+      "teknikLoc": 880,
+      "faz": "DC/F3",
+      "kabulId": "DC-S7",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S8",
+      "gorev": "Olculmus ogrenme ve kalibrasyon",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "A learning change has preregistered meaningful heldout benefit without safety regression or is honestly rejected; lesson/metric policy never silently promoted.",
+      "bagimli": [
+        "DC-S7"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 460,
+      "testLoc": 560,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 100,
+      "teknikLoc": 1020,
+      "faz": "DC/F3",
+      "kabulId": "DC-S8",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-H3",
+      "gorev": "Strateji onerisi ve ogrenme deneyi; insan karari",
+      "rol": "KULLANICI+TESTER",
+      "dizin": "raporlar/ + plans/kabul.csv",
+      "olcut": "Strateji onerisi ve ogrenme deneyi; insan karari",
+      "bagimli": [
+        "DC-S8"
+      ],
+      "kapi": "[INSAN] kanit kabul ve sonraki faz icin ayri devam",
+      "loc": 0,
+      "testLoc": 0,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 0,
+      "teknikLoc": 0,
+      "faz": "DC/F3",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (ilgili sprint kaniti + insan karari)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "kapiSozlesmesi": {
+        "gerekliKabulIdleri": [
+          "DC-S7",
+          "DC-S8"
+        ],
+        "planSurumu": "v2.10.1",
+        "grafSurumu": "v14",
+        "planHash": null,
+        "grafHash": null,
+        "kanitRefleri": [],
+        "insanKanitKabulKarari": null,
+        "sonrakiFazBaslatmaKarari": null,
+        "karardaGerekliAlanlar": [
+          "kararId",
+          "dogrulanmisInsanKaynagi",
+          "kapsam",
+          "damga",
+          "planHash",
+          "grafHash",
+          "kanitRefleri",
+          "butce",
+          "deadline"
+        ],
+        "kararYoksa": "KAPALI"
+      }
+    },
+    {
+      "id": "DC-S9",
+      "gorev": "Deterministik yetkili terfi",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "At least one genuine authorized promotion and one deliberately failing hold/revoke branch; no evaluator weakening or moving final target; existing human gates preserved.",
+      "bagimli": [
+        "DC-H3"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 380,
+      "testLoc": 520,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 80,
+      "teknikLoc": 900,
+      "faz": "DC/F4",
+      "kabulId": "DC-S9",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-S10",
+      "gorev": "Temsili kampanya ve surum",
+      "rol": "CODER+TESTER",
+      "dizin": "core/ + ilgili politika/adaptor halkasi",
+      "olcut": "All critical gates and declared performance requirements pass on the stated task distribution; otherwise no-go or honest narrower scope; task count alone never substitutes for statistical design.",
+      "bagimli": [
+        "DC-S9"
+      ],
+      "kapi": "[INSAN] BASLAT; sprint kapsami ve risk penceresi ayri",
+      "loc": 380,
+      "testLoc": 600,
+      "pilotKodLoc": 80,
+      "pilotTestLoc": 200,
+      "dokumanLoc": 120,
+      "teknikLoc": 1260,
+      "faz": "DC/F4",
+      "kabulId": "DC-S10",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (bagimlilik + [INSAN] BASLAT emri)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "butceTahminDurumu": "ilk-nominal-tarihce; §25.10 yeniden tahmin onayi bekler"
+    },
+    {
+      "id": "DC-H4",
+      "gorev": "Butun kritik kapilar ve temsili kampanya; surum onayi",
+      "rol": "KULLANICI+TESTER",
+      "dizin": "raporlar/ + plans/kabul.csv",
+      "olcut": "Butun kritik kapilar ve temsili kampanya; surum onayi",
+      "bagimli": [
+        "DC-S10"
+      ],
+      "kapi": "[INSAN] kanit kabul ve sonraki faz icin ayri devam",
+      "loc": 0,
+      "testLoc": 0,
+      "pilotKodLoc": 0,
+      "pilotTestLoc": 0,
+      "dokumanLoc": 0,
+      "teknikLoc": 0,
+      "faz": "DC/F4",
+      "aktif": true,
+      "secilebilir": false,
+      "butceyeDahil": true,
+      "uygulamaYetkisi": false,
+      "durum": "BEKLE (ilgili sprint kaniti + insan karari)",
+      "mevcutBayraklarinNiteligi": "planlama-metadatasi; tum mevcut okuyucularda uygulanmis runtime kapi iddiasi DEGIL",
+      "kararKaydi": null,
+      "kapiSozlesmesi": {
+        "gerekliKabulIdleri": [
+          "DC-S9",
+          "DC-S10"
+        ],
+        "planSurumu": "v2.10.1",
+        "grafSurumu": "v14",
+        "planHash": null,
+        "grafHash": null,
+        "kanitRefleri": [],
+        "insanKanitKabulKarari": null,
+        "sonrakiFazBaslatmaKarari": null,
+        "karardaGerekliAlanlar": [
+          "kararId",
+          "dogrulanmisInsanKaynagi",
+          "kapsam",
+          "damga",
+          "planHash",
+          "grafHash",
+          "kanitRefleri",
+          "butce",
+          "deadline"
+        ],
+        "kararYoksa": "KAPALI"
+      }
     }
   ],
   "kenarlar": [
     {
-      "dan": "T0",
-      "ile": "A0-1"
+      "dan": "DC-S0",
+      "ile": "DC-G0"
     },
     {
-      "dan": "T0",
-      "ile": "S7"
+      "dan": "DC-G0",
+      "ile": "DC-S1"
     },
     {
-      "dan": "S1",
-      "ile": "S3"
+      "dan": "DC-S3",
+      "ile": "DC-S2"
     },
     {
-      "dan": "S1",
-      "ile": "S2"
+      "dan": "DC-S1",
+      "ile": "DC-S3"
     },
     {
-      "dan": "S1",
-      "ile": "S4"
+      "dan": "DC-S2",
+      "ile": "DC-S4"
     },
     {
-      "dan": "S1",
-      "ile": "S7"
+      "dan": "DC-S4",
+      "ile": "DC-H1"
     },
     {
-      "dan": "S1",
-      "ile": "S5"
+      "dan": "DC-H1",
+      "ile": "DC-S5"
     },
     {
-      "dan": "S1",
-      "ile": "S6"
+      "dan": "DC-S5",
+      "ile": "DC-S6"
     },
     {
-      "dan": "A0-2",
-      "ile": "A0-3"
+      "dan": "DC-S6",
+      "ile": "DC-H2"
     },
     {
-      "dan": "S7",
-      "ile": "A1"
+      "dan": "DC-H2",
+      "ile": "DC-S7"
     },
     {
-      "dan": "A0-1",
-      "ile": "A1"
+      "dan": "DC-S7",
+      "ile": "DC-S8"
     },
     {
-      "dan": "A1",
-      "ile": "A2"
+      "dan": "DC-S8",
+      "ile": "DC-H3"
     },
     {
-      "dan": "A2",
-      "ile": "A3"
+      "dan": "DC-H3",
+      "ile": "DC-S9"
     },
     {
-      "dan": "A3",
-      "ile": "A4"
+      "dan": "DC-S9",
+      "ile": "DC-S10"
     },
     {
-      "dan": "A0-3",
-      "ile": "A4"
-    },
-    {
-      "dan": "A1",
-      "ile": "EK1-2"
-    },
-    {
-      "dan": "A0-2",
-      "ile": "EK1-3"
-    },
-    {
-      "dan": "A1",
-      "ile": "EK1-4"
-    },
-    {
-      "dan": "A4",
-      "ile": "EK1-6"
-    },
-    {
-      "dan": "A1",
-      "ile": "K1"
-    },
-    {
-      "dan": "A2",
-      "ile": "K1"
-    },
-    {
-      "dan": "A3",
-      "ile": "K1"
-    },
-    {
-      "dan": "A4",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-1",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-2",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-3",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-4",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-5",
-      "ile": "K1"
-    },
-    {
-      "dan": "EK1-6",
-      "ile": "K1"
+      "dan": "DC-S10",
+      "ile": "DC-H4"
     }
   ],
   "kritikYol": [
-    "T0",
-    "S7",
-    "A1",
-    "A2",
-    "A3",
-    "A4",
-    "K1"
+    "DC-S0",
+    "DC-G0",
+    "DC-S1",
+    "DC-S3",
+    "DC-S2",
+    "DC-S4",
+    "DC-H1",
+    "DC-S5",
+    "DC-S6",
+    "DC-H2",
+    "DC-S7",
+    "DC-S8",
+    "DC-H3",
+    "DC-S9",
+    "DC-S10",
+    "DC-H4"
   ],
   "butceToplam": {
-    "kodLocT": "1900-2600 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~3300 → v12 BİLİNÇLİ REVİZYON ~3400 (gerekçe: kapalı-gerçekler plan üstü yaktı — A3 476/275, A0-2 262/60, A0-5 430/230, A0-3 207/100 [R git-diff ölçümü]; denetçi B-vakaları + fail-closed ölçüt-kapsamı kendi testlerini doğurdu, probe.mjs +64 kanıt kodu; kapalı-gerçek ~2257 + dalga wiring 77 + açık-plan ~1020 ≈ 3350-3400)",
-    "testLocT": "1050 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~2100 → v12 BİLİNÇLİ REVİZYON ~2250 (gerekçe: A0-2 359/40 + A0-5 407/60 + replan-onay 28 + A0-3 183/60 [R] — kanıt-yöntemi testleri [B9 işlem-tablosu, B4 kapı izolasyonu, tazelik/çift-bacak rozet] hacmi büyüttü; kapalı ~1712 + açık-plan ~510 ≈ 2220-2250)",
-    "kalanOlcumlu": "v12: ~1020 kod/~510 test (R/T: AÇIK düğümlerin plan değerleri toplamı — kapalı düğümler gerçekle kapandığından kalan yalnız açık-kartları sayar)",
-    "tavanKural": "yeni test ekliginde tavan BILINCLI revizyonla guncellenir (ayni grafSurumu kaydinda gerekceyle) — sessiz sifir-marj kilidi yok; tavan'siz buyume de yok",
-    "ajanGunT": "7-8.5 (+0.5 A0-5; A1 kapali ~1 gun dususle ~6.5-7.5 (T))",
-    "takvimGunT": "9-14",
-    "insanAktifSaatT": 3.5
+    "etiket": "T",
+    "kapsam": "yalniz DC aktif dugumleri; eski acik/kapali isler tekrar sayilmaz",
+    "yeniOrduKodLocT": 2580,
+    "degisenOrduKodLocT": 1240,
+    "kodLocT": "3820 (ILK NOMINAL Ordu uygulama; taahhut degil; guncel H1 5880-9450 / tum yol 12320-19390 teknik LOC, onaysiz)",
+    "testLocT": 5120,
+    "pilotKodLocT": 460,
+    "pilotTestLocT": 580,
+    "dokumanLocT": 920,
+    "teknikLocT": 9980,
+    "riskRezervOrani": 0.35,
+    "riskRezervLocT": 3493,
+    "rezervliTeknikLocT": 13473,
+    "ilkTeslim": {
+      "teknikLocT": 3980,
+      "rezervliTeknikLocT": 5373,
+      "dokumanLocT": 400
+    },
+    "takvim": "LOC hizindan teslim tarihi turetilmedi",
+    "tavanKural": "Varsayim/kapsam/asim varsa yeni tahmin ve insan onayi; rezerv kaliteyi dusurme gerekcesi degil",
+    "orduUygulamaLocT": 3820,
+    "durum": "ILK_NOMINAL_TARIHCE_YETERLILIGI_TEYITSIZ",
+    "guncelAralikKaynak": "teknikButceGozdenGecirme",
+    "gorunumUyumluluk": "kodLocT legacy metin; aritmetik orduUygulamaLocT ve ayri sayisal alanlarda"
+  },
+  "planOtoritesi": "plans/PLAN.md v2.10.1 §25",
+  "onayKarari": "kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md",
+  "planOnayi": {
+    "durum": "ONAYLI",
+    "uygulamaBaslatmaYetkisi": false,
+    "canliKosumYetkisi": false,
+    "harcamaYetkisi": false,
+    "ilkPlanlananPaket": [
+      "DC/F0",
+      "DC/F1"
+    ],
+    "devamFazlariAyriOnay": true,
+    "butceYenidenTahminOnayi": null,
+    "sonlandirma": "v2.10.1 denetim ayrintisi; yeni yetki yok"
+  },
+  "butceGecmisi": [
+    {
+      "grafSurumu": "v12",
+      "butce": {
+        "kodLocT": "1900-2600 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~3300 → v12 BİLİNÇLİ REVİZYON ~3400 (gerekçe: kapalı-gerçekler plan üstü yaktı — A3 476/275, A0-2 262/60, A0-5 430/230, A0-3 207/100 [R git-diff ölçümü]; denetçi B-vakaları + fail-closed ölçüt-kapsamı kendi testlerini doğurdu, probe.mjs +64 kanıt kodu; kapalı-gerçek ~2257 + dalga wiring 77 + açık-plan ~1020 ≈ 3350-3400)",
+        "testLocT": "1050 (v5 tavan) → v11 BİLİNÇLİ REVİZYON ~2100 → v12 BİLİNÇLİ REVİZYON ~2250 (gerekçe: A0-2 359/40 + A0-5 407/60 + replan-onay 28 + A0-3 183/60 [R] — kanıt-yöntemi testleri [B9 işlem-tablosu, B4 kapı izolasyonu, tazelik/çift-bacak rozet] hacmi büyüttü; kapalı ~1712 + açık-plan ~510 ≈ 2220-2250)",
+        "kalanOlcumlu": "v12: ~1020 kod/~510 test (R/T: AÇIK düğümlerin plan değerleri toplamı — kapalı düğümler gerçekle kapandığından kalan yalnız açık-kartları sayar)",
+        "tavanKural": "yeni test ekliginde tavan BILINCLI revizyonla guncellenir (ayni grafSurumu kaydinda gerekceyle) — sessiz sifir-marj kilidi yok; tavan'siz buyume de yok",
+        "ajanGunT": "7-8.5 (+0.5 A0-5; A1 kapali ~1 gun dususle ~6.5-7.5 (T))",
+        "takvimGunT": "9-14",
+        "insanAktifSaatT": 3.5
+      },
+      "kaynak": "arsiv/plan-revizyonu-2026-10-27/gorev-grafigi-v12.json"
+    }
+  ],
+  "tarihselKenarlar": {
+    "surum": "v12",
+    "kaynak": "arsiv/plan-revizyonu-2026-10-27/gorev-grafigi-v12.json",
+    "kenarlar": [
+      {
+        "dan": "T0",
+        "ile": "A0-1"
+      },
+      {
+        "dan": "T0",
+        "ile": "S7"
+      },
+      {
+        "dan": "S1",
+        "ile": "S3"
+      },
+      {
+        "dan": "S1",
+        "ile": "S2"
+      },
+      {
+        "dan": "S1",
+        "ile": "S4"
+      },
+      {
+        "dan": "S1",
+        "ile": "S7"
+      },
+      {
+        "dan": "S1",
+        "ile": "S5"
+      },
+      {
+        "dan": "S1",
+        "ile": "S6"
+      },
+      {
+        "dan": "A0-2",
+        "ile": "A0-3"
+      },
+      {
+        "dan": "S7",
+        "ile": "A1"
+      },
+      {
+        "dan": "A0-1",
+        "ile": "A1"
+      },
+      {
+        "dan": "A1",
+        "ile": "A2"
+      },
+      {
+        "dan": "A2",
+        "ile": "A3"
+      },
+      {
+        "dan": "A3",
+        "ile": "A4"
+      },
+      {
+        "dan": "A0-3",
+        "ile": "A4"
+      },
+      {
+        "dan": "A1",
+        "ile": "EK1-2"
+      },
+      {
+        "dan": "A0-2",
+        "ile": "EK1-3"
+      },
+      {
+        "dan": "A1",
+        "ile": "EK1-4"
+      },
+      {
+        "dan": "A4",
+        "ile": "EK1-6"
+      },
+      {
+        "dan": "A1",
+        "ile": "K1"
+      },
+      {
+        "dan": "A2",
+        "ile": "K1"
+      },
+      {
+        "dan": "A3",
+        "ile": "K1"
+      },
+      {
+        "dan": "A4",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-1",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-2",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-3",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-4",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-5",
+        "ile": "K1"
+      },
+      {
+        "dan": "EK1-6",
+        "ile": "K1"
+      }
+    ],
+    "anlam": "provenans; aktif onkosul olarak yurutulmez"
+  },
+  "bagimlilikPolitikasi": "bagimli/kenarlar yalniz aktif DC yurutme altgrafi; tarihselBagimli/tarihselKenarlar provenans; devralanKimlikler kapsam yonlendirmesi, yuruyen onkosul degil",
+  "sonDenetimKarari": "kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md",
+  "teknikButceGozdenGecirme": {
+    "etiket": "T",
+    "durum": "YENIDEN_TAHMIN_INSAN_ONAYI_BEKLER",
+    "kaynak": "PLAN.md §25.10; V3 H1/ileri fazlar ve V1 S5-S6; ortak is bir kez",
+    "kalemler": [
+      {
+        "ids": [
+          "DC-S0"
+        ],
+        "orduKaynak": [
+          300,
+          600
+        ],
+        "orduTest": [
+          350,
+          650
+        ],
+        "pilot": [
+          0,
+          0
+        ],
+        "teknik": [
+          650,
+          1250
+        ]
+      },
+      {
+        "ids": [
+          "DC-S1"
+        ],
+        "orduKaynak": [
+          500,
+          800
+        ],
+        "orduTest": [
+          650,
+          950
+        ],
+        "pilot": [
+          0,
+          0
+        ],
+        "teknik": [
+          1150,
+          1750
+        ]
+      },
+      {
+        "ids": [
+          "DC-S3"
+        ],
+        "orduKaynak": [
+          650,
+          1050
+        ],
+        "orduTest": [
+          900,
+          1400
+        ],
+        "pilot": [
+          0,
+          0
+        ],
+        "teknik": [
+          1550,
+          2450
+        ]
+      },
+      {
+        "ids": [
+          "DC-S2"
+        ],
+        "orduKaynak": [
+          600,
+          950
+        ],
+        "orduTest": [
+          850,
+          1250
+        ],
+        "pilot": [
+          0,
+          0
+        ],
+        "teknik": [
+          1450,
+          2200
+        ]
+      },
+      {
+        "ids": [
+          "DC-S4"
+        ],
+        "orduKaynak": [
+          180,
+          300
+        ],
+        "orduTest": [
+          300,
+          500
+        ],
+        "pilot": [
+          600,
+          1000
+        ],
+        "teknik": [
+          1080,
+          1800
+        ]
+      },
+      {
+        "ids": [
+          "DC-S5",
+          "DC-S6"
+        ],
+        "orduKaynakTestBirlikte": [
+          1700,
+          3000
+        ],
+        "pilot": [
+          160,
+          160
+        ],
+        "teknik": [
+          1860,
+          3160
+        ]
+      },
+      {
+        "ids": [
+          "DC-S7",
+          "DC-S8",
+          "DC-S9",
+          "DC-S10"
+        ],
+        "orduKaynak": [
+          1800,
+          2700
+        ],
+        "orduTest": [
+          2500,
+          3800
+        ],
+        "pilot": [
+          280,
+          280
+        ],
+        "teknik": [
+          4580,
+          6780
+        ]
+      }
+    ],
+    "ilkTeslim": [
+      5880,
+      9450
+    ],
+    "tumYol": [
+      12320,
+      19390
+    ],
+    "eskiNominaleEkDegil": true,
+    "eskiRezervTekrarEklenmez": true,
+    "sart": "Hazir secili OS siniri ve kullanilabilir tuketim kaynagi; yoksa ayri altyapi tahmini",
+    "uygulamaYetkisi": false,
+    "butceOnayi": null
   }
 }

@@ -1,0 +1,130 @@
+{
+  "kind": "static-package-validation-not-product-tests",
+  "passed": true,
+  "errors": [],
+  "tasks": 26,
+  "discoveryTasks": 4,
+  "conditionalTasks": 22,
+  "sprintSums": [
+    {
+      "id": "DC-S0",
+      "source": [
+        300,
+        600
+      ],
+      "tests": [
+        350,
+        650
+      ],
+      "pilotSource": [
+        0,
+        0
+      ],
+      "pilotTests": [
+        0,
+        0
+      ],
+      "total": [
+        650,
+        1250
+      ]
+    },
+    {
+      "id": "DC-S1",
+      "source": [
+        500,
+        800
+      ],
+      "tests": [
+        650,
+        950
+      ],
+      "pilotSource": [
+        0,
+        0
+      ],
+      "pilotTests": [
+        0,
+        0
+      ],
+      "total": [
+        1150,
+        1750
+      ]
+    },
+    {
+      "id": "DC-S3",
+      "source": [
+        650,
+        1050
+      ],
+      "tests": [
+        900,
+        1400
+      ],
+      "pilotSource": [
+        0,
+        0
+      ],
+      "pilotTests": [
+        0,
+        0
+      ],
+      "total": [
+        1550,
+        2450
+      ]
+    },
+    {
+      "id": "DC-S2",
+      "source": [
+        600,
+        950
+      ],
+      "tests": [
+        850,
+        1250
+      ],
+      "pilotSource": [
+        0,
+        0
+      ],
+      "pilotTests": [
+        0,
+        0
+      ],
+      "total": [
+        1450,
+        2200
+      ]
+    },
+    {
+      "id": "DC-S4",
+      "source": [
+        180,
+        300
+      ],
+      "tests": [
+        300,
+        500
+      ],
+      "pilotSource": [
+        300,
+        500
+      ],
+      "pilotTests": [
+        300,
+        500
+      ],
+      "total": [
+        1080,
+        1800
+      ]
+    }
+  ],
+  "h1": [
+    5880,
+    9450
+  ],
+  "releasedTasks": 0
+}

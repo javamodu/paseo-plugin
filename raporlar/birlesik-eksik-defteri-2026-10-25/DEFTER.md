@@ -136,3 +136,33 @@ Tetik: kullanıcı "TUR 1 BAŞLA" düdüğü (TUR-1 paketi uygulandı) + ordu-dc
 - **"27 açık" → güncel sayım:** bu eratayla 5 madde kapandı (B4, B5, B6b, B20, D13) + 2 blok kapandı (B-5, B-6) → **fiili açık ≈ 22**; kesin yeniden sayım TUR 2 açılışında.
 
 Damga (R): 2026-10-25 20:04 (Get-Date ile ölçüldü), ajan = ana-ajan ordu-a4, commit = bu erata-2'nin commit'i.
+
+## DC EKİ — 28 Ekim 2026, kilit öncesi kaynak uzlaştırması
+
+**Kapsam emri:** “yukarıdaki kapanışları tamamla”. Yukarıdaki eski ~22/27/29 sayıları kendi tarihleriyle korunur; güncel bütün-repo açık sayısı olarak kullanılmaz. Bu defter tek açık-iş kaynağıdır. Yeni [DC makine eki](DC-2026-10-28.json) onun tarihli devamıdır; ikinci plan/otorite değildir.
+
+**Sayılabilir kaynak evreni:** Deepseek E-01..22; yerleşik üç denetçinin 20 ham maddesi; 40 M kontrolü; altı G rubrik kapısı; 12 O işletim metriği; altı P deneyi; dört MAIN gözlemi; 34 V7 kural önerisi; teknik rapor §4.1–4.6 = **150 kaynak kimliği**. Örtüşen anlatım ve aynı logdan gelen rapor bağımsız açık/deney diye toplanmaz. Bu evren eski gelen-kutu ve bütün arşivin yeniden sayımı değildir; kapsam dışı tarihsel birikim koordinatör sahipliğinde korunur.
+
+| Grup | Etkin açık iş / sorumluluk | Bağlı görev veya kapı |
+|---|---|---|
+| C01 | Gerçek OS sınırı ve kullanım fizibilitesi; keşif/tester | S0a/S0b, G0 |
+| C02 | Tam sözleşme, kalıcı uyumlu bağ ve onaylı kaynak; coder + ayrı tester | S1-01..03 |
+| C03 | Gerçek operatör ve bütün pilot girişleri; coder + ayrı tester | S1-04..05 |
+| C04 | Yazması kapanmış aday, korunan test ve yetkili makbuz; coder + ayrı tester | S2-01..04 |
+| C05 | Süreç/nesil, normal bitiş ve deneme bazlı iptal; coder + ayrı tester | S3-01..03 |
+| C06 | Dürüst kullanım, dış etki öncesi yetki ve STOP bakımı; coder + ayrı tester | S3-04..06 |
+| C07 | Kalıcı otomasyon, strateji, öğrenme ve terfi; kapı sonrası coder/tester | H1/H2/H3 sonrası S5..S10 ayrıntılandırması |
+| C08 | Tarihsel/aktif temsil ve gerçek insan karar bağı | Veri temsili kısmen düzelmiş; gerçek runtime/karar işi S0/S1/S4 |
+| C09 | Okuyucu/kart uyumu | Dar veri düzeltmesi korunur; genel okuyucu/başlatma garantisi henüz yok |
+| C10 | Pilot oracle, bütçe ve deney dürüstlüğü; koordinatör/tester/insan | S0a-04, S4-01..04 ve ilgili insan kararları |
+| K-SADE | 34 kural/varyant önerisi; ayrı insan kararı | Bu kapanışta uygulanmadı; kural tavanı/semantik korunur |
+
+Her grubun atomik görev, mevcut kabul kimliği, pozitif/negatif sınama, komut/ortam, eşik, kanıt kökü ve insan kapısı bağı [DC makine ekinde](DC-2026-10-28.json) bulunur. Gerçek ajan kimliği atanmamıştır; sorumlu rol başlatmada kişiye/ajana bağlanmadan iş açılmaz. Fişler [ATOM-H1-2026-10-28.2](../../plans/uygulama-paketleri/DC-H1-2026-10-28/OZET.md) projeksiyonudur.
+
+**Belgede kapananlar:** Tarihsel sıranın güncel çelişki sanılması; boş kararın sözleşmesizlik sayılması; S0 alt adımlarının yok sayılması; puan ölçeklerinin eşitlenmesi; boş denetim özeti; mevcut defterle bağlantısız risk anlatımı. Bunlar ürün kodundaki izolasyon, kimlik, imza, yaşam veya kullanım açıklarını kapatmadı. Kaynak raporların tarihli erataları özgün metni silmeden etkin yorumu gösterir.
+
+**İnsan kuyruğu:** A3 taslağı sonraki kayıtla zaten onaylı; K-0044 kararı verilmiş, uygulama penceresi bekler; eski replan güncel sürüm doğrulaması ister; eski A4 H1 öncesi açılamaz. Ürün/kabul/harcama yetkisi bu ekle genişlemedi.
+
+**Kanıt/kilit sınırı:** [Kapanış paketi](../kilit-oncesi-kapanis-2026-10-28/OZET.md) belge hazırlığı ve denetçi düzeltmelerini kaydeder. Belge kilidi adayı final insan kabulü değildir; commit/tag/push ayrı emirdir. Eski kanıt, runtime DB/JSONL ve başka ajanların değişiklikleri korunur.
+
+**Bağımsız inceleme sonrası komut projeksiyonu düzeltmesi:** S0a-01 salt-okur olmakla birlikte READ_GIT ve READ_ENV metadata reçetelerini gerçekten gerektirir; komutsuz fiş değildir. DC makine ekindeki tarihli `effectiveTestContractOverrides`, eski boş komut gösterimini bu iki kesin reçeteyle devralır. Diğer komutsuz kaynak incelemeleri için komut uydurulmaz. Bu düzeltme komutların ürün ortamında çalıştırıldığı anlamına gelmez.

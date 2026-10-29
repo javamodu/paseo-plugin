@@ -1,0 +1,44 @@
+{
+  "schemaSurum": 1,
+  "at": "2026-10-28T02:23:41.996Z",
+  "passed": true,
+  "kind": "plan-data-consumer-validation-not-product-acceptance",
+  "planVersion": "v2.10.1",
+  "graphVersion": "v14",
+  "notes": [
+    "All 144 protected source/test/schema files unchanged",
+    "v2.10/v13 archive bytes match pre-review snapshot",
+    "9 historical closures unchanged; all 24 old nodes are provenance, not active prerequisites",
+    "16-node active DAG; S3 precedes S2; all human acceptance and start decisions empty/closed",
+    "Acceptance ledger byte-identical: 81/135; 11 DC sprint records remain NOT_RUN",
+    "Replacement estimate H1 5880..9450, all 12320..19390; no extra reserve and no budget approval",
+    "Actual existing metaYaz with in-memory DOM succeeds; existing STATE header parser finds current stamp",
+    "Three effective native reviews / 20 findings / 10 groups; previous report prefix and score preserved"
+  ],
+  "nodes": 40,
+  "activeNodes": 16,
+  "activeEdges": 15,
+  "protectedCodeFiles": 144,
+  "links": 222,
+  "stateLines": 98,
+  "acceptance": {
+    "total": 135,
+    "green": 81,
+    "newSprintNotRun": 11
+  },
+  "estimates": {
+    "h1": [
+      5880,
+      9450
+    ],
+    "all": [
+      12320,
+      19390
+    ],
+    "approved": false
+  },
+  "executionAuthorized": false,
+  "productionCodeChanged": false,
+  "fullRegressionRun": false,
+  "actualBrowserE2E": false
+}

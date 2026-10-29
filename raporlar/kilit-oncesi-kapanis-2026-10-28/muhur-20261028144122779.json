@@ -1,0 +1,26 @@
+{
+  "schemaSurum": 1,
+  "kind": "evidence-hash-verification-not-human-acceptance",
+  "at": "2026-10-28T14:42:17.057Z",
+  "evidenceManifest": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-manifesti-20261028144122779.json",
+    "sha256": "3f917489b063b06120e2fcc75dccf9a9dd5dd9b2d164dd15e8118f0f509869b3",
+    "bytes": 6276
+  },
+  "contentManifest": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/aday-20261028144209942.json",
+    "sha256": "f15a3ab6308ad0d914223913914e35fe75dcfa45fb22cb01cca372a15b6077dd",
+    "bytes": 12125
+  },
+  "stateSnapshot": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-20261028144122779.json",
+  "finalB4Accepted": false,
+  "finalB5Accepted": false,
+  "commitTagPushRun": false,
+  "verification": {
+    "evidenceCount": 17,
+    "contentCount": 64,
+    "stateSnapshotMatches": true,
+    "hashesMatch": true
+  },
+  "whitespacePassed": true
+}

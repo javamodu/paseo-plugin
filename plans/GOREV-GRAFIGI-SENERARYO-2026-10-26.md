@@ -1,7 +1,7 @@
 # GÖREV GRAFİ BULUTU — MANAGER·CODER·TESTER·PROXY SENARYOSU (2026-10-26)
 
-> İnsan-okur ikiz. Makine-okur kardeş: `gorev-grafigi-2026-10-26.json` (aynı ID'ler). Ajan bu iki dosyayı SSOT kabul eder; çelişkide JSON kazanır (makine sözleşmesi) + rapor edilir.
-> Kurulum bitti: manager/coder/ordu belirlendi, hedefler kondu, kurulum-test aşaması çıkarıldı. Bu belge ARTIK ÇALIŞMA senaryosudur.
+> **GÜNCEL: graf v14 / ana plan v2.10.1 §25.** Politika otoritesi [`PLAN.md`](PLAN.md); bu belge [`görev grafiğinin`](gorev-grafigi-2026-10-26.json) insan görünümüdür. Güncel tablo ve bütçe yorumu §20'de. **Uygulama/canlı/harcama YOK; yeniden tahmin bütçesi onay bekler.** JSON/MD veri önceliği ana planı aşamaz.
+> **§1–19 tarihsel v1–v13 kayıtlarıdır.** Eski HAZIR, proxy yetkisi, bütçe ve “gece modu açılabilir” ifadeleri güncel emir değildir. v14'te tarihsel ilişkiler aktif kenarlardan ayrıldı; metadata gerçek okuyucularda uygulanan runtime güvence diye sunulmaz. Önceki kopyalar [`v12`](../arsiv/plan-revizyonu-2026-10-27/SENARYO-v12.md) ve [`v13`](../arsiv/plan-3-denetci-oncesi-2026-10-27/SENARYO-v13.md) korunur.
 
 ## 1. Roller — kim ne YAPAR, ne YAPMAZ
 
@@ -39,7 +39,7 @@ DÜDÜK: [A0-1, A0-2, EK1-3] bitir
 | İnsan kartı (onay isteyen her şey) | — | ❌ HAYIR: PENDING bekler |
 | Silme / kabul çevirisi / kapsam büyütme / hedef-ölçüt değişikliği / anahtar-para | — | ❌ HAYIR: asla |
 
-## 4. Görev tablosu (insan+makine ortak; JSON'da aynı ID'ler)
+## 4. Tarihsel görev tablosu (v12; güncel v13 tablosu §19)
 
 Durum: `HAZIR`=bağımlılık tamam · `BEKLE`·`DALGA`·`[İNSAN]`=kapı · `DEVAM`=paralel yazıcıda.
 
@@ -210,3 +210,99 @@ A0-3 (gozetimsiz rozet kanıt beslemesi) KAPALI — dalga kapanışı 26a0561'de
 - **BÜTÇE BİLİNÇLİ REVİZYONU (tavanKural gereği):** kodLocT ~3300→~3400, testLocT ~2100→~2250 — A0-3 gerçeği (R) +207 kod/+183 test planın (100/60) üstünde yaktı (ölçüt-kapsamı + fail-closed yönleri — A3/A0-2/A0-5 deseni); **kalan ölçümlü açık-plan: ~1020 kod / ~510 test**.
 - Dürüst notlar: +60 test planı → gerçek 12 test/183 satır; W-A0-3 1. deneme API-400 glm-5.3 (diske dokunmadı), 2. deneme 12/12 + regresyon 17/17; EPERM (rmSync sqlite tanıtıcı gecikmesi — temizlik koşum-dışı komutla); taze-DB mandalı dersi (serve öncesi resume şart — DERSLER'de); PS 5.1 commit -m çift tırnak bölmesi dersi (-F deseni — DERSLER'de).
 - [insan] düdük bekleyenler: **K-SADE kural sadeleştirme (EN ACİL — tavan 80 DOLDU; paket raporlar/gelen-kutu/v7; 15-30 dk karar turu)** · K-0044 (~15 dk) · D-1b ELLE TEST (5 dk) · rpl-03579e06 replan onayı (komut: core/ dizininden `node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"`) · S2 · S5/S6 · S3-STOP · S4 · **A4 gece-modu açılış (graf v12'de HAZIR — tek kapı bu)** · K1 tag (v0.24+).
+
+## 19. Graf v13 — Tarihsel uygulama projeksiyonu (güncel v14 §20)
+
+Graf damgasi (R): 2026-10-27T18:41:25.530Z. Karar: [onayli ADR](../kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md). Politika: [ana plan](PLAN.md).
+
+**PLAN ONAYLI; UYGULAMA/CANLI/HARCAMA EMRI YOK.** HAZIR bagimlilik hazirligidir; secilebilir=false ve uygulamaYetkisi=false iken is baslatilamaz. DC-S0 ilk planlanan istir, baslatilmadi. DC-H1 somut insan kaniti olmadan gece surucusu/otonomi acilmaz.
+
+Asagidaki tablo JSON graf v13 ile ayni 40 kimligi gosterir. Eski acik dugumlerin LOC degerleri tarihcedir ve yeni butceye eklenmez. 9 eski KAPALI kaydi degismedi; 15 eski acik kayit bagimsiz secime kapali.
+
+| ID | Rol | Gorev | Bagimlilik | Ordu uygulama LOC | Ordu test LOC | Pilot kod+test LOC | Durum |
+|---|---|---|---|---:|---:|---:|---|
+| T0 | paralel-yazici | F6.5-A 2-provider paketi commit | yok | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| S1 | CODER+TESTER | Ikinci canli run (claw-rehber ozeti) | yok | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| S3 | KULLANICI | STOP/kesinti kullanici eli | S1, DC-S3 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S3, DC-S4) |
+| S2 | CODERx2+TESTER | Es zamanli ikili (LMS+website) | S1, DC-H2 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-H2) |
+| S4 | KULLANICI | Gozlemci turu | S1, DC-S4 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S4) |
+| S5 | CODER | Deadline baskisi senaryosu (capsule --deadline; T5' ucu) | S1, DC-S3 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S3) |
+| S6 | CODER | Gece modu rozeti pano ucu (T4' ucu) | S1, DC-H2 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-H2) |
+| A0-1 | CODER | Paseo cancel bacadigi | T0, DC-H1 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-H1) |
+| A0-2 | CODER | Asili run sweep | yok | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A0-3 | CODER | Gozetimsiz kanit-uretici uc | A0-2 | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A0-4 | CODER | Bildirim gercek sender | DC-S6 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S6) |
+| A0-5 | CODER | L-RT: uretim LocalLauncher + provider->CLI esleme (Paseo'suz koşum bacağı) | yok | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| S7 | MANAGER+TESTER | Mini turnuva (2 provider) | T0, S1 | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A1 | CODER | F8 turnuva protokolü (insan-proxy) | S7, A0-1 | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A2 | CODER | Replan motoru | A1 | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A3 | CODER | Deneyim->kural derleyicisi | A2 | tarihsel | tarihsel | tarihsel | KAPALI (tarihsel kanit korunur) |
+| A4 | CODER | Otonom suru surucusu | A3, A0-3, DC-H1 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S5, DC-S6) |
+| EK1-1 | CODER | Benchmark regresyon defteri | DC-S8 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S8) |
+| EK1-2 | CODER | Drift sinyal birlestirici | A1, DC-S6 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S6, DC-S7) |
+| EK1-3 | CODER | Tikanma cozucu proxy | A0-2, DC-S6 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S6, DC-S7) |
+| EK1-4 | CODER | Altin-set problari (M1) | A1, DC-S8 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S8) |
+| EK1-5 | CODER | Cift-sayim meta-metrik (M2) | DC-S8 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-S8) |
+| EK1-6 | CODER | Pano aksiyometri satirlari | A4, DC-H2 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-H2) |
+| K1 | MANAGER | Kapanis: Z1 + kilit tag | A1, A2, A3, A4, EK1-1, EK1-2, EK1-3, EK1-4, EK1-5, EK1-6, DC-H4 | tarihsel | tarihsel | tarihsel | BEKLE (devralan: DC-H4) |
+| DC-S0 | MANAGER+TESTER | Taban ve sinirlar | yok | 60 | 160 | 0 | PLAN HAZIR; BASLAT YOK |
+| DC-G0 | KULLANICI+TESTER | Ortam/pilot/kabul ve fizibilite kaniti | DC-S0 | 0 | 0 | 0 | BEKLE (kanit + insan emri) |
+| DC-S1 | CODER+TESTER | Onayli sozlesme ve tek kapi | DC-G0 | 400 | 480 | 0 | BEKLE (kanit + insan emri) |
+| DC-S2 | CODER+TESTER | Korunan test ve teslim | DC-S1 | 340 | 440 | 0 | BEKLE (kanit + insan emri) |
+| DC-S3 | CODER+TESTER | Yasam dongusu ve tuketim | DC-S2 | 420 | 600 | 0 | BEKLE (kanit + insan emri) |
+| DC-S4 | CODER+TESTER | Insan kanitli somut pilot | DC-S3 | 180 | 300 | 600 | BEKLE (kanit + insan emri) |
+| DC-H1 | KULLANICI+TESTER | Uc somut teslim ve on hata ailesi; insan kabul | DC-S4 | 0 | 0 | 0 | BEKLE (kanit + insan emri) |
+| DC-S5 | CODER+TESTER | Kalici sabit-plan surucusu | DC-H1 | 460 | 520 | 0 | BEKLE (kanit + insan emri) |
+| DC-S6 | CODER+TESTER | Sinirli onarim ve hazirlama | DC-S5 | 340 | 460 | 160 | BEKLE (kanit + insan emri) |
+| DC-H2 | KULLANICI+TESTER | Sinirli otomatik hazirlama kaniti; final insan kabul | DC-S6 | 0 | 0 | 0 | BEKLE (kanit + insan emri) |
+| DC-S7 | CODER+TESTER | Stratejik replan onerisi | DC-H2 | 400 | 480 | 0 | BEKLE (kanit + insan emri) |
+| DC-S8 | CODER+TESTER | Olculmus ogrenme ve kalibrasyon | DC-S7 | 460 | 560 | 0 | BEKLE (kanit + insan emri) |
+| DC-H3 | KULLANICI+TESTER | Strateji onerisi ve ogrenme deneyi; insan karari | DC-S8 | 0 | 0 | 0 | BEKLE (kanit + insan emri) |
+| DC-S9 | CODER+TESTER | Deterministik yetkili terfi | DC-H3 | 380 | 520 | 0 | BEKLE (kanit + insan emri) |
+| DC-S10 | CODER+TESTER | Temsili kampanya ve surum | DC-S9 | 380 | 600 | 280 | BEKLE (kanit + insan emri) |
+| DC-H4 | KULLANICI+TESTER | Butun kritik kapilar ve temsili kampanya; surum onayi | DC-S10 | 0 | 0 | 0 | BEKLE (kanit + insan emri) |
+
+**Aktif butce (T):** 3.820 Ordu uygulama/degisiklik + 5.120 Ordu test + 1.040 ayri pilot = **9.980 teknik LOC**; yuzde 35 rezervli **13.473**, dokuman **920** ayrica. Ilk H1: **3.980**, rezervli **5.373**, dokuman **400** ayrica. Eski 1.020/510 kalan butcesi ikinci kez eklenmez.
+
+**Kritik yol:** DC-S0 -> DC-G0 -> DC-S1 -> DC-S2 -> DC-S3 -> DC-S4 -> DC-H1 -> DC-S5 -> DC-S6 -> DC-H2 -> DC-S7 -> DC-S8 -> DC-H3 -> DC-S9 -> DC-S10 -> DC-H4. Ilk planlanan paket DC/F0-F1; DC/F2-F4 ayri devam onayi ister. Kapi dugumlerinin 0 LOC olmasi insan zamani/harcamanin sifir oldugu anlamina gelmez.
+
+**Kabul:** DC-S0..DC-S10 yalniz NOT_RUN acildi. Yeni basari, test kosumu veya urun puani artisi yok.
+
+**Yetki:** Eski proxy tablosundaki izinler kendi basina gecerli yeni grant degildir; yalniz acilmis is ve verilmis dar yetki icinde uygulanabilir. Bu revizyonda otomatik replan, gece modu veya final kabul acilmadi.
+
+## 20. Graf v14 — Uc denetci sonrasi guncel projeksiyon
+
+Tek otorite: [PLAN v2.10.1 §25](PLAN.md). [Denetim karari](../kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md). [Bulgular](../raporlar/plan-3-denetci-2026-10-27/OZET.md).
+
+**UYGULAMA/CANLI/HARCAMA YOK; yeniden tahmin butcesi ONAY BEKLER.** Statik aktif/secilebilir/yetki alanlari planlama metadatasidir; mevcut tum okuyucularda uygulanmis runtime siniri iddia edilmez. Kart/tiklama gorev baslatma veya insan karari degildir.
+
+Aktif yurutme: **DC-S0 -> DC-G0 -> DC-S1 -> DC-S3 -> DC-S2 -> DC-S4 -> DC-H1 -> DC-S5 -> DC-S6 -> DC-H2 -> DC-S7 -> DC-S8 -> DC-H3 -> DC-S9 -> DC-S10 -> DC-H4**. DC-S0 icinde S0a salt-okur kesif, S0b ise ayri dar izinli saglayicisiz sinamadir. S3 yasam/yazma kapanisi S2 muhurlu aday/test kapisindan once gelir; sprint kimligi yeniden numaralanmaz.
+
+| ID | Onkosul | Ilk nominal teknik LOC (T, tarihsel) | Guncel karar |
+|---|---|---:|---|
+| DC-S0 | yok | 220 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-G0 | DC-S0 | 0 | Insan kanit karari ve sonraki faz baslatma kaydi AYRI, ikisi de bos |
+| DC-S1 | DC-G0 | 880 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S3 | DC-S1 | 1020 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S2 | DC-S3 | 780 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S4 | DC-S2 | 1080 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-H1 | DC-S4 | 0 | Insan kanit karari ve sonraki faz baslatma kaydi AYRI, ikisi de bos |
+| DC-S5 | DC-H1 | 980 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S6 | DC-S5 | 960 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-H2 | DC-S6 | 0 | Insan kanit karari ve sonraki faz baslatma kaydi AYRI, ikisi de bos |
+| DC-S7 | DC-H2 | 880 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S8 | DC-S7 | 1020 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-H3 | DC-S8 | 0 | Insan kanit karari ve sonraki faz baslatma kaydi AYRI, ikisi de bos |
+| DC-S9 | DC-H3 | 900 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-S10 | DC-S9 | 1260 | NOT_RUN; baslatma ve butce onayi yok |
+| DC-H4 | DC-S10 | 0 | Insan kanit karari ve sonraki faz baslatma kaydi AYRI, ikisi de bos |
+
+**Tarihce:** 24 eski dugum aktif yurutme/butce secimine kapali. 9 KAPALI durum ve kanit metni korunur; 15 acik is devredilmis/ertelenmistir. Eski baglar tarihselBagimli/tarihselKenarlar alaninda; aktif kenarlar yalniz 16 DC dugumu arasindadir (15 kenar). Tarihsel A1->A0-1 bagindan bugunku onkosul kapanisi sonucu cikarilmaz.
+
+**Kapilar:** DC-G0 [DC-S0]; DC-H1 [DC-S1,DC-S3,DC-S2,DC-S4]; DC-H2 [DC-S5,DC-S6]; DC-H3 [DC-S7,DC-S8]; DC-H4 [DC-S9,DC-S10]. Her karar plan/graf kimligi, kanit, dogrulanmis insan, kapsam, tarih, butce ve deadline baglar. Son sprint PASS karari, yeni faz baslatma yetkisi degildir. Bos kayit kirmizi kalir.
+
+**Guncel sartli yeniden tahmin (T): H1 5.880-9.450; butun yol 12.320-19.390 teknik LOC.** Eski 3.980/9.980 ve yuzde 35 rezervli rakamlar ilk nominal tarihcedir. Yeni aralik eski butceye EK DEGIL, ayni paketlerin yeniden tahmini; eski rezerv tekrar eklenmez. Hazir secili OS siniri ve kullanim kaynagi yoksa ayri altyapi tahmini ve insan karari gerekir.
+
+**Veri uyumlulugu:** Eski tuvalin metin bekledigi kodLocT gorunum metnidir; aritmetik orduUygulamaLocT ve diger sayisal alanlarda, guncel aralik teknikButceGozdenGecirme altindadir. Bu dar veri duzeltmesi urun kodunda genel tip/yetki denetimi yazildi demek degil.
+
+**Kabul:** DC-S0..S10 dahil 135 kayit degismedi; 11 yeni sprint NOT_RUN. Bu denetim kalite puani veya kabul yesili uretmez.

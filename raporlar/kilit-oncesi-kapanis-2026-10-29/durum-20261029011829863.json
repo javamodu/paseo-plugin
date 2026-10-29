@@ -1,0 +1,162 @@
+{
+  "schemaSurum": 1,
+  "kind": "document-closure-candidate-refresh-not-final-human-acceptance",
+  "revisionId": "RBT-2026-10-28.3",
+  "packageRevision": "ATOM-H1-2026-10-28.2",
+  "userInstruction": "devam (2026-10-29) + interaktif seçim: 15:26 adayı bayat — yeni kapanış turu bu oturumda",
+  "authority": "plans/PLAN.md §28",
+  "inheritedFrom": "raporlar/kilit-oncesi-kapanis-2026-10-28/kapanis.json (RBT-2026-10-28.2 son durumu)",
+  "baseline": "raporlar/kilit-oncesi-kapanis-2026-10-29/baslangic.json",
+  "canonicalLedger": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+  "historicalInitialState": "raporlar/rapor-birlesimi-2026-10-28/birlesim.json",
+  "effectiveSteps": [
+    {
+      "id": "RBT/B0",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/kilit-oncesi-kapanis-2026-10-29/baslangic.json"
+      ],
+      "meaning": "Taze başlangıç: HEAD 003f79e (v9-06 sonrası) ve bugünkü dosya kimlikleri; .2 baseline'ı (40b72a3) tarihsel kayıttır, geriye taşınmaz. Bu tur yalnız belge/paket kapanış tazelemesidir."
+    },
+    {
+      "id": "RBT/B1",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/rapor-chatgpt-27ekim.md §15",
+        "raporlar/rapor-deepseek27ekim.md §9"
+      ],
+      "meaning": "İnsan/makine erataları .2'den bayt-bayt devralındı (dosyalar değişmedi); ürün kapanışı değil."
+    },
+    {
+      "id": "RBT/B2",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json"
+      ],
+      "meaning": "150 kaynak kimliği eşlemesi değişmeden devralındı; eşleme .2 baseline sürümlerine bağlı (yazım bağlamı), kaynakların sonraki evrimi ayrı ölçülür."
+    },
+    {
+      "id": "RBT/B3",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/plan-3-denetci-2026-10-27/OZET.md",
+        "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+        "plans/AJAN-BASLANGIC.md",
+        "plans/VERI-YERLESIMI.md"
+      ],
+      "meaning": "Boş özet, defter eki, giriş ve veri politikası .2'den devralındı; ikinci otorite yok."
+    },
+    {
+      "id": "RBT/B4",
+      "state": "TECHNICAL_VALIDATION_RECORDED_WARNING_DECISIONS_PENDING",
+      "evidence": [
+        "raporlar/kilit-oncesi-kapanis-2026-10-29/dogrulama-20261029011907095.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-29/saglik-20261029011829863.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-29/kanit-manifesti-20261029011829863.json"
+      ],
+      "meaning": "Otomatik belge/paket kontrolleri tazelendi (.3: taze baseline + uyarlanmış denetim); .2 şartlı inceleme değişmeden devralındı. 0 EKSİK; tek SARI HERMETIC_31 (RULE_PROXY_80, K-0052 insan kararıyla çözüldü); B4 bütünüyle kabul edilmiş veya B5 geçmiş değildir."
+    },
+    {
+      "id": "RBT/B5",
+      "state": "WAITING_SEPARATE_HUMAN_ACCEPTANCE",
+      "evidence": [],
+      "meaning": "Aday içeriği, açık riskler ve kapsam gerçek insan tarafından kabul edilmedi; commit/tag/push ayrı."
+    }
+  ],
+  "declaredScope": {
+    "rawIdentityCount": 150,
+    "canonicalProductGroups": 10,
+    "separateRuleDecisionGroup": "K-SADE",
+    "originalRawCountsAreNotUniqueOpenCounts": true,
+    "wholeRepoOpenIssueCount": null,
+    "legacyBacklogFullRecount": false,
+    "productFindingsFixedByThisClosure": 0
+  },
+  "ownership": {
+    "preexistingChangesOwnedByThisAgent": false,
+    "outsideScopeChangesPreserved": true,
+    "stageAllAllowed": false,
+    "repoCleanClaimed": false,
+    "runtimeFilesOpenedOrMoved": false
+  },
+  "permissions": {
+    "documentClosureExecutionAuthorized": true,
+    "productExecutionAuthorized": false,
+    "s0aStarted": false,
+    "s0bBoundaryTestAuthorized": false,
+    "liveProviderOrSpendAuthorized": false,
+    "budgetApproved": false,
+    "kSadeImplemented": false,
+    "finalHumanAcceptance": null,
+    "commitTagPushAuthorized": false
+  },
+  "candidate": {
+    "state": "CONTENT_ADDRESSED_CANDIDATE_READY_FOR_HUMAN_REVIEW_NOT_LOCKED",
+    "humanDecision": null,
+    "tag": null,
+    "lockedCommit": null,
+    "noSelfHashCycle": true,
+    "contentManifest": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-29/aday-20261029011907095.json",
+      "sha256": "be1d743b23409cd59c6a191a901fae9fd925403776d9e060b2d16e88d6c42ed4",
+      "bytes": 26676
+    },
+    "validation": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-29/dogrulama-20261029011907095.json",
+      "sha256": "773f9459a04c340c789520eca2c4dcb1cb5cb4277f0e0abedbea2b1147a1dae3",
+      "bytes": 5519
+    },
+    "health": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-29/saglik-20261029011829863.json",
+      "sha256": "1541fbdcd325ebdbdd34622dde002147aa9b9b45a34c4d23ee8d5e45ea13fda9",
+      "bytes": 1843
+    },
+    "independentReview": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+      "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+      "bytes": 1513
+    },
+    "evidenceManifest": "raporlar/kilit-oncesi-kapanis-2026-10-29/kanit-manifesti-20261029011829863.json",
+    "sealingReceipt": "raporlar/kilit-oncesi-kapanis-2026-10-29/muhur-20261029011829863.json",
+    "stateSnapshot": "raporlar/kilit-oncesi-kapanis-2026-10-29/durum-20261029011829863.json"
+  },
+  "warnings": [
+    {
+      "id": "HERMETIC_31",
+      "owner": "TESTER / ILGILI_DC_KAPISI",
+      "state": "LIVE_EVIDENCE_NOT_CLAIMED",
+      "humanAcceptedForFinalLock": false,
+      "rationale": "Hermetik kayıt canlı başarıya dönüştürülmez; final kilit kararı değildir."
+    }
+  ],
+  "resolvedWarnings": [
+    {
+      "id": "RULE_PROXY_80",
+      "owner": "INSAN / K-SADE",
+      "state": "RESOLVED_BY_RECORDED_HUMAN_DECISION",
+      "record": "kararlar/K-0052.md (2026-10-28 19:41) — kural sayaç 80->38",
+      "humanAcceptedForFinalLock": false,
+      "rationale": "K-SADE ayrı insan kararıyla çözüldü; bu kapanış kural semantiğini değiştirmez, kararı devralır."
+    }
+  ],
+  "updatedAt": "2026-10-29T01:19:13.929Z",
+  "previousState": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-29/durum-oncesi-20261029011829863.json",
+    "sha256": "d560563806d6fcde1c37d3ee14e30703625d5b031cffe9df555878b7e7099ad8",
+    "bytes": 4669
+  },
+  "reviewFollowups": [
+    {
+      "id": "REVIEW-01",
+      "state": "VERIFIED_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-29/dogrulama-20261029011907095.json"
+    },
+    {
+      "id": "REVIEW-02",
+      "state": "HASH_BOUND_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-29/kanit-manifesti-20261029011829863.json"
+    }
+  ],
+  "finalB4Accepted": false
+}

@@ -1,0 +1,60 @@
+{
+  "schemaSurum": 1,
+  "kind": "plan-governance-validation-not-product-test",
+  "at": "2026-10-27T18:58:49.886Z",
+  "planVersion": "v2.10",
+  "graphVersion": "v13",
+  "passed": true,
+  "checks": [
+    "archive bytes match original hashes",
+    "evaluation report and 24 protected core/plugin source/test files unchanged",
+    "9 old closed nodes and 15 legacy-open identities preserved; old open selection disabled",
+    "40-node DAG / edge parity / complete gated critical path / A4 waits for H1",
+    "all execution/live/spend gates remain closed; draft is not active authority",
+    "active-only budget 9980 / reserved 13473; H1 3980 / reserved 5373",
+    "old acceptance byte prefix intact; 11 new NOT_RUN; 81/135 = 60 percent",
+    "main plan numeric table and scenario all-ID projection match graph",
+    "new document links valid; STATE budget <=100"
+  ],
+  "graph": {
+    "nodes": 40,
+    "edges": 59,
+    "active": 16,
+    "historicalClosed": 9,
+    "legacyOpen": 15
+  },
+  "budget": {
+    "etiket": "T",
+    "kapsam": "yalniz DC aktif dugumleri; eski acik/kapali isler tekrar sayilmaz",
+    "yeniOrduKodLocT": 2580,
+    "degisenOrduKodLocT": 1240,
+    "kodLocT": 3820,
+    "testLocT": 5120,
+    "pilotKodLocT": 460,
+    "pilotTestLocT": 580,
+    "dokumanLocT": 920,
+    "teknikLocT": 9980,
+    "riskRezervOrani": 0.35,
+    "riskRezervLocT": 3493,
+    "rezervliTeknikLocT": 13473,
+    "ilkTeslim": {
+      "teknikLocT": 3980,
+      "rezervliTeknikLocT": 5373,
+      "dokumanLocT": 400
+    },
+    "takvim": "LOC hizindan teslim tarihi turetilmedi",
+    "tavanKural": "Varsayim/kapsam/asim varsa yeni tahmin ve insan onayi; rezerv kaliteyi dusurme gerekcesi degil"
+  },
+  "acceptance": {
+    "previous": 124,
+    "current": 135,
+    "green": 81,
+    "newNotRun": 11,
+    "currentPercent": 60
+  },
+  "links": 54,
+  "stateLines": 97,
+  "productTestsRun": false,
+  "productionCodeChanged": false,
+  "executionAuthorized": false
+}

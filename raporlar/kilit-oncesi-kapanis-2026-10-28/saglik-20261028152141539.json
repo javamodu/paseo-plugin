@@ -1,0 +1,71 @@
+{
+  "schemaSurum": 1,
+  "at": "2026-10-28T15:21:41.539Z",
+  "ok": 18,
+  "missing": 0,
+  "warnings": 2,
+  "warningIds": [
+    "RULE_PROXY_80",
+    "HERMETIC_31"
+  ],
+  "humanAcceptedForFinalLock": false,
+  "commands": [
+    {
+      "id": "kanit-test",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "--test",
+        "--test-reporter=spec",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-muhur.test.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-test-20261028152141539.log",
+        "sha256": "b204f49a4b8143986faacf40cf07c3e0562e2c476d2643d1ffc3a343ace4d6c3",
+        "bytes": 532
+      }
+    },
+    {
+      "id": "codemap",
+      "executable": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference = 'Stop'; & .\\scripts\\codemap.ps1"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/codemap-20261028152141539.log",
+        "sha256": "197f6f595a426fd734dd36182d51e10c7a50ec519bf0ee820299457f37e8d56d",
+        "bytes": 72
+      }
+    },
+    {
+      "id": "saglik",
+      "executable": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/saglik.ps1"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "output": {
+        "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028152141539.log",
+        "sha256": "2220a6a5ca7090fdc662dade1fd1dffcbacf16d01352131a233d2ca450c078f1",
+        "bytes": 2700
+      }
+    }
+  ],
+  "codemap": {
+    "path": "CODEMAP.md",
+    "sha256": "2013bafe1ed3d812dff4e5e9d92d81b14f989e24e57290571aac5b2db144bbd5",
+    "bytes": 13305
+  }
+}

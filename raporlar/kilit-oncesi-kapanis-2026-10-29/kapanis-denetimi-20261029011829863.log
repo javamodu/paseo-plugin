@@ -1,0 +1,208 @@
+{
+  "schemaSurum": 1,
+  "kind": "closure-technical-validation-refresh-not-final-B5-or-product-acceptance",
+  "at": "2026-10-29T01:19:07.095Z",
+  "head": "003f79e6a426d81c8203721c426f2d277f27b38c",
+  "passed": true,
+  "assertions": 3021,
+  "links": 664,
+  "protectedComponentFiles": 248,
+  "preservedOutsideScopeFiles": 793,
+  "appendOnlyPrefixesPreserved": [
+    "plans/PLAN.md",
+    "raporlar/rapor-chatgpt-27ekim.md",
+    "raporlar/rapor-deepseek27ekim.md",
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+    "raporlar/rapor-birlesimi-2026-10-28/OZET.md"
+  ],
+  "historicalJsonFieldsPreserved": true,
+  "sourceIdentityMappings": 150,
+  "productGroups": 10,
+  "rbt2AdayPreserved": 57,
+  "baselineRevision": "RBT-2026-10-28.3",
+  "reviewFollowup01": {
+    "passed": true,
+    "scope": "exact effective READ_GIT/READ_ENV recipe equality",
+    "independentRetestClaimed": false
+  },
+  "independentReview": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+    "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+    "bytes": 1513
+  },
+  "packageTests": {
+    "passed": 27,
+    "total": 27,
+    "failed": 0,
+    "skipped": 0
+  },
+  "packageReport": {
+    "errors": [],
+    "tasks": 26,
+    "discoveryTasks": 4,
+    "conditionalTasks": 22,
+    "sprintSums": [
+      {
+        "id": "DC-S0",
+        "source": [
+          300,
+          600
+        ],
+        "tests": [
+          350,
+          650
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          650,
+          1250
+        ]
+      },
+      {
+        "id": "DC-S1",
+        "source": [
+          500,
+          800
+        ],
+        "tests": [
+          650,
+          950
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1150,
+          1750
+        ]
+      },
+      {
+        "id": "DC-S3",
+        "source": [
+          650,
+          1050
+        ],
+        "tests": [
+          900,
+          1400
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1550,
+          2450
+        ]
+      },
+      {
+        "id": "DC-S2",
+        "source": [
+          600,
+          950
+        ],
+        "tests": [
+          850,
+          1250
+        ],
+        "pilotSource": [
+          0,
+          0
+        ],
+        "pilotTests": [
+          0,
+          0
+        ],
+        "total": [
+          1450,
+          2200
+        ]
+      },
+      {
+        "id": "DC-S4",
+        "source": [
+          180,
+          300
+        ],
+        "tests": [
+          300,
+          500
+        ],
+        "pilotSource": [
+          300,
+          500
+        ],
+        "pilotTests": [
+          300,
+          500
+        ],
+        "total": [
+          1080,
+          1800
+        ]
+      }
+    ],
+    "h1": [
+      5880,
+      9450
+    ],
+    "releasedTasks": 0
+  },
+  "humanMachineParity": true,
+  "actualConsumers": {
+    "metaYaz": true,
+    "stateHeaderParser": true,
+    "browserE2E": false,
+    "scope": "real function code with memory DOM/FS fixture; no server"
+  },
+  "stateLines": 93,
+  "ruleCount": 38,
+  "acceptance": {
+    "total": 135,
+    "green": 81,
+    "dcNotRun": 11
+  },
+  "executions": [
+    {
+      "id": "paket",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-29/paket-20261029011907095.log"
+    },
+    {
+      "id": "test",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-29/test-20261029011907095.log"
+    },
+    {
+      "id": "gorunum",
+      "exitCode": 0,
+      "log": "raporlar/kilit-oncesi-kapanis-2026-10-29/gorunum-20261029011907095.log"
+    }
+  ],
+  "contentManifest": "raporlar/kilit-oncesi-kapanis-2026-10-29/aday-20261029011907095.json",
+  "contentManifestHash": "be1d743b23409cd59c6a191a901fae9fd925403776d9e060b2d16e88d6c42ed4",
+  "finalB5Accepted": false,
+  "warningsAcceptedByHuman": false,
+  "commitTagPushRun": false,
+  "fullProductRegressionRun": false,
+  "providerCalls": 0,
+  "productionDbOpened": false,
+  "productSourceChanged": false,
+  "report": "raporlar/kilit-oncesi-kapanis-2026-10-29/dogrulama-20261029011907095.json"
+}

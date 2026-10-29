@@ -1,6 +1,8 @@
 # PLAN.md (SSOT uygulama plani) — Ordu: Paseo-native, bagimsiz-core, ogrenen ajan ordusu
 > Dosya: plans/PLAN.md · Yetkili kopya budur (silinecek-task-graph'teki isaretci). Hedef otoritesi: plans/HEDEF.md · Kanit defteri: plans/kabul.csv
 
+> **Güncel yürütme revizyonu: v2.10.1 — 2026-10-28, üç bağımsız denetimle sonlandırıldı.** Onaylı yön v2.10'daki insan kanıtlı kademeli sıradır; teknik/kanıt ayrıntıları §25.6–25.11'de sıkılaştırıldı. Kararlar: [`ilk ADR`](../kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md), [`denetim eki`](../kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md). **Uygulama/canlı/harcama yetkisi YOK; yeniden tahmin bütçesi onay bekler.** §25.3–25.4 sayıları ilk nominal kayıttır; geçerli bütçe yorumu §25.10. Hedef ve invariant'lar korunur. Önceki kopyalar: [`v2.9`](../arsiv/plan-revizyonu-2026-10-27/PLAN-v2.9.md), [`v2.10`](../arsiv/plan-3-denetci-oncesi-2026-10-27/PLAN-v2.10.md).
+
 > Surum: v2.9 KILIT (kapsam) · 2026-10-14 · Durum: ONAYLANDI (K-0034 · 2026-10-25 · karar kaydı: kararlar/K-0034.md — MASTER-SSOT zinciri arşive indi, bu belge tek uygulama otoritesi) — TARIHLI KAYIT - son dis review 85/100 (GO: F0/F1 tasarim+hazirlik, NO-GO: gercek worker) | GUNCEL (2026-10-14): mimari GO; 4-duzeltme paketi islendi; gozetimsiz kullanim bol.22 canli kapilari gecmeden ACIK DEGIL · v2.7: schema/semantik ayrimi (§20.5), cekirdek tek-kural (§19), F7 referans temizligi, receipt ifade duzeltmesi (§18.2) · v2.7.1: 87/100 review tutarlilik patch'i (F7 LOC satiri, §17.3 F3 maddesi, §20.4 temizligi, §15 faz ref'leri) · v2.7.2: T-raporu ayrimlari islendi (§6.1 esleme tablosu, §7 imza tanimi, §16.2 KPI kapilari, §18 P0-4..7, T1/T2 kapsam notlari, regresyon-suite kurali) · ordu-core 102/102 exit 0 (R, 2026-10-14 erken baseline); GUNCEL olcum: 3.499 src + 4.915 test LOC, 252/252 exit 0 (R, 2026-10-14 ~16:45). v2.8: coder review R1-R5 islendi (REVIEW-v2.8-2026-10-14.md). v2.8.1: dis review 7 duzeltme islendi (bol.0 otorite tekillestirme, manager=onerir/derleyici=derler, vekil grant kararlari R3, faz bagimlilik sirasi + F6.5/F8/F9, gozetimsiz giris kapisi bol.22, release senaryolari bol.23, LOC olcum tanimi bol.11)
 > v1.0 DURUMU: SUPERSEDED — 3 bagimsiz review 65/64/60 puan verdi, ONAYLANMADI; bu surum 6-subagent derin analiz + review bulgularinin birlesimidir. v1.0 arsiv degeri tasir.
 > Hedef otoritesi: plans/HEDEF.md v1.3 (ordu monorepo — eski evi paseo-plugin workspace'i idi, F1'de köke taşındı) — bu plan hedefi degistiremez, hedef kendini kanitlanmis sayamaz. Kullanici hedefi degistirebilir; degisiklik onayli revizyonla (yeni HEDEF surumu + ADR) plana islenir.
@@ -136,6 +138,8 @@ Occurrence = scheduleId+revision+UTC instant (unique); DST kaybolan saat SKIP; k
 
 ## 10. Fazlar (fault-once — v1.0 ters cevrildi, v2.6'da fake-adaptor fault tabani gercek worker'in ONUNE alindi)
 
+> **v2.10 sıralama hükmü:** Aşağıdaki F0–F9 tablosu mevcut mimari/kabiliyet ailesini ve tarihsel faz kimliklerini korur. Bugünden sonraki uygulama önceliği ve faz geçişleri §25'teki DC sırasıdır; tarihsel sıra, DC/H1 öncesinde gece modu/paralellik açmak için kullanılamaz.
+
 | Faz | Icerik | Cikis kapisi (kabul.csv ID bagli) |
 |---|---|---|
 | F0 Baseline saglamlastir | ordu-core devral (102/102 korunur); Final hijyen borcu: manifest regen + schema `local` enum + K1 payload daraltma; md->manifest determinizm testi; LAN §2/§8 celiskisi ADR | mevcut A-kapilari PASS + F0-A: ayni md = ayni manifest (byte-esit) |
@@ -155,6 +159,8 @@ Occurrence = scheduleId+revision+UTC instant (unique); DST kaybolan saat SKIP; k
 Kural: kapilar kabul.csv'ye NOT_RUN olarak yazilir; PASS ancak kosulmus komut + exit-0 + artefaktla. PNG/konsol kontrolu tek basina kabul DEGILDIR.
 
 ## 11. LOC butcesi (durust, (T))
+
+> Bu bölümün aşağıdaki toplamı tarihsel tam-ürün tahminidir. **v2.10 kalan iş bütçesi §25.4'tedir**; iki toplam birleştirilmez. Eski kapalı modüller yeniden yapılacak iş diye sayılmaz.
 
 | Kalem | Tahmin |
 |---|---|
@@ -300,6 +306,8 @@ Her kosu receipt + kabul.csv satiri uretir; PASS ancak exit-0 + artefakt + 14-al
 
 ## 18. Kapanis listesi (tek liste — kod yeri + kabul testi + gercek kanit + durum)
 
+> **v2.10 güncellemesi:** Eski P kayıtları tarihsel problem/kanıt izidir; yeni sprint kabul kimlikleri DC-S0..DC-S10 olarak aynı kabul defterine yalnız NOT_RUN eklenir. Güncel yürütme sırası §25 ve onun graf projeksiyonudur. Aşağıdaki eski “CANLI KANIT YOK/UYGULAMA-EKSİK” hücreleri yeni bir ölçüm veya kapalı işin yeniden açılması sayılmaz.
+
 Yeni master plan YOK; bu liste tek takip yuzeyi. Kapanis teslim paketi (her satir icin): kucuk diff + gercek test ciktisi + kaynak/test hash + kalan NOT_RUN listesi — 'F1 suite' yazmasi tek basina kapanis kaniti DEGIL; her kapanisin gercek ID'si, sorumlusu ve kanit referansi kabul.csv'ye yazilir. Durum degerleri: TASARIM-EKSIK / UYGULAMA-EKSIK / KANIT-EKSIK / CANLI-PASS.
 
 | ID | Acik | Kod yeri | Kabul testi | Gercek kanit | Durum |
@@ -410,3 +418,320 @@ Senaryo A - Arastirma: 5 bagimsiz model -> kayit -> ortak rubric -> capraz elest
 - R7: uc cikti modu - F6.5 kapsamina alindi.
 - R8: gorunmeyen alt ajan kabul kurali - 5 sart (kimlik+ana gorev, yetki bagi, kullanim olcumu, yasam durumu uzlastirma, iptal+sahiplik) yoksa gozetimsiz dispatch RED (K12-12).
 - R9: gorev-turune gore kabul - ortak receipt zarfi + goreve ozel payload (arastirma/kod/UI); schema bicimi dogrular, semantik baglar ayrica denetlenir (bol.20.4/20.5).
+
+## 25. v2.10.1 — İnsan kanıtlı demir çekirdek ve kademeli büyüme (ONAYLI YÖN, DENETİMLİ AYRINTI)
+
+### 25.1. Otorite ve onayın kapsamı
+
+Kullanıcının “evet bu şekilde yapalım” onayı mevcut ana planın kontrollü revizyonuna yöneliktir. İkinci aktif plan kurulmaz. Karar kaydı: [`ADR`](../kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md). Önceki sürüm/graf/senaryo [`tarihçede`](../arsiv/plan-revizyonu-2026-10-27/README.md) korunur.
+
+- **Plan onaylı; uygulama başlatılmadı.** İlk planlanan paket DC/F0–F1'dir. Kod işine başlama, canlı sağlayıcı/harcama, kontrollü süreç sınaması, süreli otomasyon, nihai kabul ve sürüm/tag ayrı insan kapılarıdır.
+- Hedef, güvenlik invariant'ları, onay yetkisi, R6 kapalı kümesi ve donmuş çekirdek değişim protokolü korunur. Bu revizyon çalışma zamanı davranışını değiştirmez.
+- Makine görev seçimi [`görev grafiğinden`](gorev-grafigi-2026-10-26.json), insan görünümü [`senaryo ikizinden`](GOREV-GRAFIGI-SENERARYO-2026-10-26.md) okunur. İkisi bu planın projeksiyonudur; JSON üstünlüğü yalnız kendi MD ikiziyle veri uyuşmazlığı içindir, plan politikasını aşamaz.
+- DC/S0 gösterimi grafikte **DC-S0** kimliğidir. Eski S0/S1/A4 kimlikleriyle birleştirilmez. Eski kapalı işlerin kabulü ve kanıt metinleri aynen korunur.
+- Önceki [`taslak`](DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md) revizyonun tarihsel gerekçesidir; bağımsız çalışma otoritesi değildir. Rapor önerisi bir yetenek kapanış kanıtı sayılmaz.
+
+### 25.2. İlk ürün ve değişmez güven sınırı
+
+**H1 teslimi:** Tek operatör, tek kanıtlı yerel sağlayıcı, tek işçi ve insan onaylı hedef/kaynak/izin/test/bütçe. Günlük kod yolunda korunan gerçek görev testleri, dondurulmuş aday ve tam makbuz bağı; final kabulü insanın.
+
+Somut pilot **Görev Defteri CLI**: ayrı Git deposunda ekleme/listeleme, kalıcılık, tamamlama, durum filtresi ve doğru istatistik. Ordu defteri veya ikinci orkestrasyon otoritesi değildir. Üç ayrı teslim: kullanılabilir ilk sürüm → önceki sürümü bozmayan özellik → bağımsız regresyon testli düzeltme/değişiklik. İnsan terminalden gerçekten kullanır; üç teslim genel başarı olasılığı kanıtı değildir.
+
+**Önkoşul:** Worktree sandbox değildir. Uygulanabilir işçi sınırı, işçiden korunan değerlendirici ve gerçek kullanım kaynağı veya bağımsız uygulanabilir muhafazakâr limit DC/S0'da doğrulanmadan canlı pilot açılmaz. Bunlar yoksa durulur, altyapı ve bütçe ayrıca onaya çıkarılır.
+
+İlk üründe çoklu proje/paralellik, yeni pano/uzak erişim, sağlayıcı genişletmesi, beş model turnuvası, otomatik yeni hedef, otomatik kural yayımlama, final kabulü, merge/deploy yok. Pilotun alternatif dosya-kuyruğu başlatması kapalı/reddedilir; core STOP'unun eklentiyi kendiliğinden durdurduğu varsayılmaz.
+
+### 25.3. Bağlayıcı faz/sprint ve kanıt kapıları
+
+> Faz kapsamı korunur. **Gerçek geliştirme sırası DC-S0a → ayrı dar izin → DC-S0b → DC-G0 → DC-S1 → DC-S3 → DC-S2 → DC-S4 → DC-H1**; devamı DC-S5/S6 → H2 → DC-S7/S8 → H3 → DC-S9/S10 → H4. S3'ün S2'den önce gelmesi süreç/yazma kapanışı olmadan aday mühürleme iddiasını engeller; kimlikler yeniden numaralanmaz. Aşağıdaki LOC sütunları ilk nominal kayıttır, denetim sonrası yeterlilik taahhüdü değildir (§25.10).
+
+| Faz | Sprintler | Çıkış ve sonraki faza koşul | Ek teknik LOC (T) |
+|---|---|---|---:|
+| DC/F0 — Taban ve sınırlar | DC/S0 | Kaynak/ortam/süit tabanı; negatif test; pilot kabulü; G0 insan onayı ve uygulanabilir izolasyon/ölçüm | 220 |
+| DC/F1 — İnsan yönetimli sağlam ürün | DC/S1–S4 | H1: üç somut teslim; korunan test; on hata ailesi; insan kabulü | 3.760 |
+| DC/F2 — Sabit plan otomasyonu | DC/S5–S6 | H2: onaylı plan otomatik ilerler/onarır veya limitte durur; final insan kabulü korunur | 1.940 |
+| DC/F3 — Stratejik öneri ve öğrenme | DC/S7–S8 | H3: gerçek alternatif strateji ve sabit bütçeli gizli görev deneyi; plan/kural onayı insanın | 1.900 |
+| DC/F4 — Yetki içi deterministik iyileştirme | DC/S9–S10 | H4: korunan oracle ve sonlu terfi basamakları; gerileme kontrolü; temsili kampanya ve ayrı sürüm kararı | 2.160 |
+| **Toplam** | **11 sprint** | **Önceki kapı + yeni faz için ayrı insan emri olmadan ilerleme yok** | **9.980** |
+
+| Sprint / kabul kimliği | İş ve kabul koşulu | Teknik LOC (T) |
+|---|---|---:|
+| DC-S0 | Güncel taban/kimlikler; kırmızı testler; ADR/kabul; izolasyon ve kullanım kaynağı fizibilitesi. İmkânsız varsayımda canlıya geçmeden yeniden tahmin. | 220 |
+| DC-S1 | Tam sözleşme onayı ve doğru kaynak sabitleme; yanlış kaynak/onaysız/alternatif pilot başlatma reddi; eski kayıtları yeniden hashlememe. | 880 |
+| DC-S2 | Gerçek bağımsız test ve makbuz bağları; yanlış çıktı/sıfır test/değiştirilmiş test/bayat aday reddi. | 780 |
+| DC-S3 | Deneme bazlı iptal/ölüm teyidi, yeniden açılış, dürüst kullanım, STOP ve gerçek deadline; belirsizlikte slotu hayalen bırakmama. | 1.020 |
+| DC-S4 | Üç pilot teslimi, insan kara-kutu kullanımı, kanıt dışa aktarımı ve izole geri dönüş tatbikatı. | 1.080 |
+| DC-S5 | Mevcut deftere bağlı kalıcı sabit-plan sürücüsü: hazır işi gönder → adayı bul → korunan test → kayıt → sıradaki iş; yeni otoriter DB yok. | 980 |
+| DC-S6 | Mevcut sınırlı onarımı gerçekten çağır; hata başına tek karar, bildirim, deneme/süre/kullanım tavanı. Ayrı onaylı 30 dk ve en fazla 2 saat hazırlama penceresi. | 960 |
+| DC-S7 | Durum hücresi yenilemekten farklı görev/bağımlılık/strateji önerisi; deterministik kapsam/bütçe denetimi ve insan onaylı revizyon. | 880 |
+| DC-S8 | Sonraki görevde ders kullanımı; ders açık/kapalı gizli görev kıyası; hata tekrarı; altın set, bağımsız çift sayım ve canary/geri-al. Faydasız ders dürüstçe reddedilebilir. | 1.020 |
+| DC-S9 | Sabit hedef/oracle ve yetkili sonlu eşik basamakları; yeterli kanıtla yükselt, aksi durumda bekle/onar/geri-al; normalize karar tekrarı. | 900 |
+| DC-S10 | Ön-kayıtlı temsili kampanya, görev düzeyinde analiz ve kanıt denetimi; başarılı tamamlanma/güvenli duruş/müdahale ayrı; koşullar sağlanmazsa NO-GO. | 1.260 |
+
+Graf geçişleri DC-G0 (DC-S0 sonrası), DC-H1 (DC-S4 sonrası), DC-H2 (DC-S6 sonrası), DC-H3 (DC-S8 sonrası), DC-H4 (DC-S10 sonrası) insan kanıt kapılarıdır; kapı düğümlerinin LOC'u 0'dır. Her kapı kendi sprint kabul kayıtları ve insan kararıyla geçer; plan metninin varlığı kapıyı kapatmaz.
+
+H1'in on hata ailesi: yanlış çıktı, sıfır test, işçi ölümü, yönetici ölümü, çift gönderim, STOP/yeniden açılış, teyitsiz iptal, eski sahip yazısı, yanlış repo/commit, eksik/aşan kullanım. Yalnız son yeşil tekrar seçilmez; bütün tekrarlar kanıtlıdır.
+
+### 25.4. İlk nominal iş bütçesi (T; tarihsel taban, yürütme taahhüdü değil)
+
+| Sprint | Yeni Ordu kaynak | Değişen Ordu kaynak | Ordu test | Pilot kod | Pilot test | Teknik toplam |
+|---|---:|---:|---:|---:|---:|---:|
+| DC-S0 | 60 | 0 | 160 | 0 | 0 | 220 |
+| DC-S1 | 220 | 180 | 480 | 0 | 0 | 880 |
+| DC-S2 | 200 | 140 | 440 | 0 | 0 | 780 |
+| DC-S3 | 240 | 180 | 600 | 0 | 0 | 1.020 |
+| DC-S4 | 80 | 100 | 300 | 320 | 280 | 1.080 |
+| DC-S5 | 360 | 100 | 520 | 0 | 0 | 980 |
+| DC-S6 | 240 | 100 | 460 | 60 | 100 | 960 |
+| DC-S7 | 300 | 100 | 480 | 0 | 0 | 880 |
+| DC-S8 | 360 | 100 | 560 | 0 | 0 | 1.020 |
+| DC-S9 | 300 | 80 | 520 | 0 | 0 | 900 |
+| DC-S10 | 220 | 160 | 600 | 80 | 200 | 1.260 |
+| **Toplam** | **2.580** | **1.240** | **5.120** | **460** | **580** | **9.980** |
+
+| Kümülatif kilometre taşı | Ordu uygulama/değişiklik | Ordu test | Ayrı pilot kod/test | Teknik | Yüzde 35 rezervli | Doküman ayrıca |
+|---|---:|---:|---:|---:|---:|---:|
+| H1 | 1.400 | 1.980 | 600 | 3.980 | 5.373 | 400 |
+| H2 | 2.200 | 2.960 | 760 | 5.920 | 7.992 | 540 |
+| H3 | 3.060 | 4.000 | 760 | 7.820 | 10.557 | 720 |
+| H4 | 3.820 | 5.120 | 1.040 | 9.980 | 13.473 | 920 |
+
+LOC fiziksel iş tahminidir: değişen satır sprint başına bir kez sayılır; tekrar değişmesi yeniden iş maliyetidir, net depo büyümesi değil. Test LOC test adedi değildir. Mevcut çalışan modüller yeniden yazım diye, eski grafın açık bütçesi de ikinci kez toplama eklenmez. Göç/betik kaynak tahminine dâhil; üretilen log/veri ve doküman teknik toplam dışında.
+
+Yüzde 35 rezerv olasılıksal güven aralığı veya garantili tavan değil. İzolasyon, gerçek kullanım kaynağı, R6 değişikliği veya kapsam varsayımı bozulursa dur ve yeni tahmini onaya sun. Sprint nominali/rezervi kalite düşürme gerekçesi değildir. LOC'tan teslim tarihi veya sağlayıcı harcaması türetilmez.
+
+### 25.5. Eski işlerin devralınması ve uygulama disiplini
+
+Eski T0/S1/S7/A1/A2/A3/A0-2/A0-3/A0-5 kapanışları korunur. Eski A4, H1 öncesi seçilemez; kapsamı DC-S5/S6'da karşılanır. Eski açık senaryo, metrik ve pano işleri yeni DC işlerine yönlendirilir veya açıkça ertelenir; sahte kapanış ve çifte LOC yok. Yeni sprint satırları aynı kabul defterinde NOT_RUN; kapılar insan kanıt kararlarıdır.
+
+İlk kritik yolda bir yazıcı, ayrı tester ve salt-okur denetçi. Her atomik iş en fazla üç mevcut dosyaya dokunur; sprintin toplam dosyası bu sınırla karıştırılmaz. Yeni yetenek yeni halka + ince kancadır. Çekirdeğe dokunma §19'daki ADR/negatif test/uyumluluk kapısına tabidir; bu yönetişim ADR'si tek başına teknik çekirdek değişim onayı değildir.
+
+Her merge'de güncel tam regresyon ve değişen bileşenin tam süiti gerekir; geçmiş test sayısı yeni ölçüm yapılmış gibi sunulmaz. Kullanıcının çalışan süreç/portlarına dokunulmaz. Yetki, hedef, oracle veya bütçe ajan tarafından genişletilmez; kabul/tag/merge/deploy ayrı insan kararlarıdır. Rapor ve taslağın ana plana aktarılması ürün puanını veya mevcut kabul durumlarını iyileştirmiş sayılmaz.
+
+### 25.6. S0a/S0b — Keşif, izin ve gerçek sınır kanıtı ayrı teslimlerdir
+
+Üç salt-okur denetimin kararları ve ana ajanın karşı örnekleri [`denetim paketinde`](../raporlar/plan-3-denetci-2026-10-27/OZET.md) bulunur. Bu plan düzeltmeleri **ürün kodundaki açıkların giderildiği anlamına gelmez**.
+
+- **DC-S0a:** Salt-okur envanter, tehdit modeli, seçili Windows mekanizması, kullanım kaynağı ve kalıcı veri yerleşimi teknik ADR önerisi. Mevcut 220 LOC nominali gerçek izolasyon kurulmuş gibi kullanılamaz. Konfigürasyon/worktree varlığı G0 geçirmez.
+- **Ara izin:** İnsan, sağlayıcısız zararsız fixture ile yapılacak OS/süreç/dosya sınamasının tam kapsamını ayrıca onaylar. Bu denetim veya planın onayı bu izni vermez. Kod/göç uygulaması yine ayrı başlatma ve teknik ADR ister.
+- **DC-S0b:** Hazır sınırın gerçek seçili ortamda olumlu/olumsuz kanıtı: işçi ve aday kodunu çalıştıran test süreci core DB/onay kanalı/korunan suite/evaluator anahtarı/kullanıcı evi/ortak Git yönetim alanına erişemez; izinli pilot alanına yazabilir. Miras ortam, junction, üst dizin, çocuk süreç ve ağ/kimlik bilgisi kaçışları denetlenir. Test süreci güvenilmeyen adayı içe aktarır; imzalayıcı/operatör yetkilerini miras alamaz.
+- **G0:** Keşif önerisi, dar sınama izni ve davranışsal kanıt ayrı referanslarla insan tarafından kabul edilir. Hazır mekanizma veya bağımsız tüketim sınırı mümkün değilse durulur; genel VM/sandbox/kota aracısı bu bütçeye gizlenmez. Gerçek sağlayıcı yolu S3/S4'te ayrı canlı/harcama kapısından geçer.
+
+S0a/S0b aynı DC-S0 makro sprintinin atomik adımlarıdır; yeni genel başarı veya ek PASS satırı değildir. Teknik ADR kalıcı bağların aynı core defteri/göçte mi yoksa zorunlu doğrulanan artefaktta mı yaşayacağını belirlemeli; ikinci otoriter orkestrasyon DB'si yok. Yeni CLI fiili yeni kapalı command/event türü demek değildir; R6 değiştirmek ayrı politika kararıdır.
+
+### 25.7. S1 ve S2 — Kimlik, operatör ve bağımsız kanıtın tek sözleşmesi
+
+**S1'in atomik işleri:** (a) sürümlü kanonik tam sözleşme ve geçmiş okuma, (b) doğrulanmış repo/Git nesnesini çalıştırıcıya taşıma, (c) pilot için bütün alternatif operasyonel girişleri kapatma ve operatör kimliği sınırı.
+
+Tam sözleşme hedef, gerçek repo, Git nesne algoritması+commit/tree, izin, çözülmüş sağlayıcı/model, gerçek suite/evaluator/politika kimliği, bütçe/deadline ve sürümü bağlar. SHA-1/SHA-256 Git nesnesi ile sözleşmenin SHA-256 özeti ayrı alanlardır; yalnız biçim doğrulaması kaynak kanıtı değildir. Onay sonrası HEAD ilerlese de onaylı nesne açılır. Eski onay/kanıt yeniden hashlenmez ve daha geniş sözleşmeye sessiz taşınmaz; uyumluluk fixture'ı gerekir.
+
+**İnsan etiketi kimlik değildir.** İşçi bağlamından insan aktör adıyla approve/decide/resume/grant yaratma reddedilmeli; gerçek operatör aynı yetkili yüzeyi kullanabilmeli. Pilot kapsamındaki dosya-kuyruğu tüketicisi yanında manager/emir, plan-uygula ve diğer operasyonel girişler envantere girer. Yalnız bir dosyayı kaldırmak yeterli değildir; diğer kullanıcı projeleri izinsiz kapatılmaz. Statik graf bayrağı veya kilit simgesi bu OS/IPC/operatör sınırının yerine geçmez.
+
+**S2'nin değişmez adayı:** S3'ün normal bitiş/yazma kapanışı sözleşmesinden sonra işçi ve alt süreçlerin aday üzerinde yazma yetkisi kalmadığı kanıtlanır. Güvenilir süreç commit/tree, izlenmeyen dosya politikası ve içerik baytlarını mühürler; test için salt-okur doğrulama kopyası kurar. Kimlik/fence/izin/test sürümü yürütmeden **önce**, içerik tekrar **sonra** kontrol edilir. Test edilen baytlar teslim edilen baytlardır; rapor özeti disk baytlarından yeniden üretilir.
+
+Korunan suite ve runner gerçek testleri yürütür; işçinin bastığı pozitif JSON sayacı tek başına test oracle'ı değildir. Doğrulama makbuzu run+attempt+aday+tam sözleşme+evaluator/suite+ortam+grant/fence bağlarını zorunlu ve tek kapıda denetler; imza/yetkili üretici doğrulaması opsiyonel bırakılamaz. Muhakeme/örnek makbuzu yerine geçmez. Aynı içerik özeti başka run veya attempt'in PASS kanıtını kullanmaya izin vermez; gerçek evaluator kimliği kayıtlı kanıtın evaluator kimliğiyle de eşleşir.
+
+**S1/S2 kabulü:** Her sözleşme alanını tek tek değiştirince eski onay reddi; yanlış repo/nesne; sahte insan aktörü; diğer pilot başlatma girişi; sıfır test/sahte protokol; değişmiş suite/runner/aday; yanlış attempt/run/ortam/evaluator; eksik/revoke imza; geçersiz/bayat zaman/fence ayrı negatiflerdir. Başlangıçta bayat girdiyle runner hiç çağrılmamalı. Pozitif küçük kod işi de aynı kapıdan geçmelidir.
+
+### 25.8. S3 ve S5/S6 — Yaşam, kullanım ve kalıcı kontrol döngüsü
+
+**S3 sırası:** OS süreç kimliği ve bitiş/aday sonucu → kullanım mutabakatı → STOP/deadline/grant ve yeniden açılış entegrasyonu. PID tek başına sahiplik değildir; OS oluşturulma kimliği, süreç ağacı ve attempt/sahiplik nesli kalıcı bağlanır. Başkasının yeniden kullanılan PID'si öldürülmez. Normal başarılı exit, hazır aday, çökme, iptal isteği, ölüm teyidi ve UNKNOWN ayrı sonuçlardır. Normal bitişin yoklamada peşinen FAILED'a dönüşmesi ve READY/PENDING etiketi uyuşmazlığı kabulü geçemez.
+
+Lease dolması, sessizlik veya TIMEOUT_UNCONFIRMED **ölüm teyidi değildir**. Eski süreç/yazma yetkisi kesilmeden sahiplik devri veya kapasite bırakma yok; belirsizlikte rezervasyon tutulur. İptal teyidi run'a değil attempt+nesil+ilgili iptal talebine bağlanır; eski teyit yeni talebi örtemez. Kayıt yazılamadıktan sonraki telafi kill de doğrulanamazsa FATAL/serbest kapasite diye sunulmaz; UNKNOWN ve kart yolu kalır.
+
+Gerçek kullanım veya bağımsız uygulanabilir üst sınır başarılı/başarısız/iptal, alt süreç, test ve onarımın toplamını kapsar. Tahmini rezervasyon ölçülmüş tüketim değildir; UNKNOWN sıfır veya KNOWN'a çevrilmez. Gecikmiş/eksik/çift kullanım bildirimi idempotent mutabakatla ele alınır; veri/limit yoksa yeni etki başlamaz. Yetki dolanımı sayılacak yeni ölçüm aracısı gerekiyorsa ayrı onay/yeniden tahmin.
+
+**Dış etkinin hemen öncesi:** Kuyruktaki iş için güncel STOP, run durumu, sözleşme, fence, grant, deadline ve bütçe yeniden denetlenir. Kuyruğa kabul anındaki kontrol yeterli değildir. Kontrol–etki yarışında niyet, sahiplik ve uzlaştırma semantiği teknik ADR'de belirlenir. STOP/probe kırmızısı yeni üretimi kapatır, ancak iptal/ölüm teyidi/uzlaştırma gibi güvenlik bakımını körleştirmez. Kart açmak veya state'i RUNNING bırakmak checkpoint/yazma duruşu kanıtı değildir.
+
+**S5/S6:** Sabit plan sürücüsü mevcut tick'in takma adı değildir. Kalıcı geçiş tablosu; hazır işi sahiplenme, niyet → dış etki → kayıt, normal sonuç/aday keşfi, güvenli mühürleme, doğrulama, tek sınırlı repair, bildirim ve final insan kararını birbirine bağlar. Her sınırda yönetici ölümü/yeniden oynatma sınanır; aynı niyet çift spawn/test/onarım/bildirim doğurmaz. Gerçek kayıt yeri ve idempotency anahtarı S0 teknik ADR'sinde seçilir; tarihsel olayların anlamı değişmez.
+
+**S3 kabulüne ek:** İki attempt'te bir teyit; eski teyitten sonra yeni iptal; normal CLI exit; ebeveyni ölü yaşayan çocuk; PID yeniden kullanımı; lease dolarken yazan işçi; kuyruğa alındıktan sonra deadline/grant dolması; STOP altında ölüm teyidi; bilinmeyen kullanım ve yinelenen mutabakat. S5/S6 bu mekanizmaları ikinci kez yazmaz, üretim kontrol döngüsüne bağlar.
+
+### 25.9. İnsan kapısı, tarihçe ve gerçek okuyucu sözleşmesi
+
+**G0/H1/H2/H3/H4 kapı sözleşmesi:** Gerekli sprint kabul kimlikleri, ilgili plan/graf sürümü ve kimlikleri, sabit kanıt/artefakt referansları, insan karar kimliği+gerçek doğrulama kaynağı+kapsamı+tarihi, kapsam/bütçe/deadline ve gerekçe birlikte bağlanır. Karar veya kanıt yoksa alan NULL/boş ve kapı kapalıdır. “Son sprint PASS” insan kararının yerine geçmez. **Kapı kabulü ile sonraki fazı başlatma izni ayrı kayıtlardır.** S0b sınama izni de G0 kabulü değildir. Boşluk doldurmak için kapılara sahte PASS veya yeni keyfî kabul satırı eklenmez.
+
+Tarihsel düğümün kapanış metni/kanıtı korunur; eski bağımlılıkları provenans alanına taşınır. Aktif yürütme kenarları yalnız DC altgrafını tanımlar. Kapalı A1'in ertelenmiş A0-1'e tarihsel bağı, bugünkü önkoşul sağlandı iddiası yapılamaz. Eski açık iş devri/erteleme ilişkisi bağımlılık gibi yürütülmez; eski A4'ün yeniden açılması H1 ve ayrı emre bağlıdır. Bütün eski düğümler aktif seçime/bütçeye kapalı kalır.
+
+Grafın aktif/seçilebilir/yetki alanları bu tur **planlama metadatasıdır**; mevcut tüm okuyucuların uyguladığı teknik güvenlik kapıları değildir. Görsel seçme veya MD kartı yaratma dispatch değildir; bu ikisi çalıştırma/insan onayı kanıtı gösterilemez. S0/S1 gerçek operasyonel sınırda deny-default testlerini şart koşar. Yeni kartın ana plan üstünlüğünü, kaynak graf sürüm/özetini ve “anlık görüntü; başlatma yetkisi değil” durumunu taşıması; stale kartın çalıştırmaya dönüşmemesi mevcut kapsamın kabul maddesidir. Eski kart ezilmez.
+
+Graf üretimi gerçek okuyucu tip sözleşmesini korur. Eski tuvalin metin beklediği kod bütçesi alanı geriye uyumlu metin görünümüdür; yetkili aritmetik ayrı sayısal alanlarla yapılır. v13'te sayı yayımlayarak yapılan kırılma yalnız veri projeksiyonuyla giderilir; bu, genel pano yetki/tip denetimlerinin ürün kodunda tamamlandığı iddiası değildir. Durum başlığı mevcut okuyucunun sabit başlığıyla uyumlu tutulur. Her plan/graf revizyonunda gerçek okuyucu fonksiyonu ve aktif altgraf da sınanır; JSON parse/DAG tek başına yeterli değildir.
+
+### 25.10. Denetim sonrası bütçe kararı — ilk nominal yeterli kabul edilmedi (T)
+
+**§25.3–25.4'teki 3.980/9.980 ve yüzde 35 rezervli sayılar ilk nominal tarihçedir; yeterliliği onaylanmış teslim veya harcama tavanı değildir.** Denetimler, zaten kapsamdaki güvenlik/kanıt bağlarının işini büyüttü. Yeni tahminler eski toplamın üstüne eklenmez, aynı paketlerin **yerine geçen** keşif aralıklarıdır. Ürün yapıldı veya bütçe onaylandı sayılmaz.
+
+| Paket | Ordu kaynak işi (T) | Ordu test işi (T) | Ayrı pilot kod/test (T) | Teknik aralık (T) |
+|---|---:|---:|---:|---:|
+| DC-S0 (S0a+S0b) | 300–600 | 350–650 | 0 | 650–1.250 |
+| DC-S1 | 500–800 | 650–950 | 0 | 1.150–1.750 |
+| DC-S3 | 650–1.050 | 900–1.400 | 0 | 1.550–2.450 |
+| DC-S2 | 600–950 | 850–1.250 | 0 | 1.450–2.200 |
+| DC-S4 | 180–300 | 300–500 | 600–1.000 | 1.080–1.800 |
+| **H1 toplamı** | **2.230–3.700** | **3.050–4.750** | **600–1.000** | **5.880–9.450** |
+| DC-S5/S6 birlikte | kaynak/test birlikte 1.700–3.000 | ortak toplamda, ayrı tahmin yok | 160 | 1.860–3.160 |
+| DC-S7..S10 birlikte | 1.800–2.700 | 2.500–3.800 | 280 | 4.580–6.780 |
+| **Bütün yol** | ayrıştırma S0 sonrası | kaynak/test/pilot tek kez | toplamın içinde | **12.320–19.390** |
+
+Kaynaklar: [`V1 teknik inceleme`](../raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md), [`V3 paket tahminleri`](../raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md). V3'ün ilk bütün-yol aralığı S5/S6'yı eski 1.940'da tutuyordu; burada V1'in 1.700–3.000 Ordu aralığı ve 160 pilot bir kez kullanıldı. Birbiriyle örtüşen V1 alt kümeleri tekrar toplanmadı. Eski yüzde 35 rezerv bu aralığa yeniden eklenmez. Yeni risk payı S0 keşfinden sonra ayrıca önerilir.
+
+**Bağlayıcı bütçe sınırı:** Hazır seçili Windows sınırı ve kullanılabilir kullanım kaynağı varsayımı şartlıdır. Yoksa bu aralık geçersiz; genel VM/sandbox/kota aracısı ayrı onay/tahmin ister. Doküman, insan tanıklığı, kampanya süresi, sağlayıcı tüketimi ve dış altyapı saatleri LOC'den çıkarılmaz. Kaynak/test/göç/fixture, tekrar iş ve net depo büyümesi ayrı ölçülür. **Yeniden tahmin için açık insan kararı gelmeden artırılmış bütçe veya kod uygulaması açılmaz.**
+
+### 25.11. Somut kabul ve son durum
+
+Pilot oracle'ı adaydan önce dondurulur: A'da Unicode, bozuk giriş ve restart kalıcılığı; B'de yinelenen tamamlama, filtre/toplam ve A regresyonu; C'de önceden tutulmuş eski veriyle bakım/düzeltme ve gizli regresyon. İnsan kara-kutu kullanır; core'un kendi sayacını yeniden okumak bağımsız doğrulama değildir. On hata ailesi önce S0'da beklenen etkiyle tanımlanır, S1–S3'te mekanizma, S4'te aynı gerçek yol üzerinde ürün kanıtı olur; ikinci hata motoru yazılmaz.
+
+S7–S10'da özellik/üretim ile bakım/regresyon görevleri ayrı ailelerdir; yeni dış proje zorunlu değil. Öğrenme açık/kapalı durumu, strateji kontrolü, kullanılan ders sürümü ve korunan oracle ayrı tutulur. Executor hatası/timeout/iptal/güvenli duruş paydadan kaybolmaz; aynı görevin tekrarları bağımsız yeni görev değildir. Sıra dengelenir, görev düzeyinde belirsizlik ve ön-kayıtlı anlamlı kazanım aranır. Faydasız dersin reddi geçerli sonuç; veri yoksa başarı/fayda değeri boş kalır. Rubrik değişikliği yalnız sürüm değişimi, kanıtlı terfi denetimi ayrı mekanizmadır.
+
+**Son plan hükmü:** Kademeli hedef ve dar pilot korunur; plan sözleşmeleri bu ayrıntıyla sonlandırılmıştır. **Ürün/kod açıkları henüz kapalı değildir.** İlk eylem izin verilirse S0a keşiftir; S0b zararsız sınama izni, G0 kanıt kabulü, teknik uygulama ADR'si ve güncel bütçe ayrı kapılardır. Canlı pilot, gece modu, final kabul, harcama veya deployment bu sonlandırmayla açılmaz. Her kapanış güncel kod+test+kalıcı kanıtla yeniden değerlendirilir.
+
+## 26. RBT-2026-10-28.1 — Rapor birleştirme ve belge kilidi planı
+
+**Durum:** Kullanıcının “planı bu şekilde düzenle” emriyle plan düzenlemesi kayda alındı. **B0–B5 birleşim uygulaması tamamlanmadı; belge kilidi, final insan kabulü, commit/tag/push ve ürün çalıştırma yetkisi verilmedi.** Bu ek aynı ana planın belge yönetişimi işidir; ikinci aktif plan veya ürün sprinti değildir. Karar: [belge düzenleme ADR'si](../kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md). İnsan/makine planlama kaydı: [birleşim paketi](../raporlar/rapor-birlesimi-2026-10-28/OZET.md).
+
+### 26.1. Kapsam, otorite ve değişmezler
+
+Ürün yürütme revizyonu **v2.10.1 §25**, ürün grafiği **v14** olarak kalır. RBT kimliği yalnız bu belge düzenleme ekini sürümler; ürün/graf sürümünü veya evrensel sözleşme sürümünü artırmaz. RBT/B0–B5 kimlikleri DC-G0, DC-H1..H4 ve rapordaki G1..G6 kapılarıyla karıştırılmaz.
+
+- Birleşim; 27–28 Ekim değerlendirme/denetim raporları, bunların makine ikizleri, ilgili canlı kanıtlar, plan revizyonları, K-SADE, bekçi ve haftalık telemetri kayıtlarını kapsar. Eski raporlar yalnız provenans ve kapanış kontrolü için yüklenir; bütün arşivin veya ham logların yeniden okunduğu iddia edilmez.
+- Tek uygulama otoritesi bu plandır. [Görev grafiği](gorev-grafigi-2026-10-26.json) projeksiyon, [kabul defteri](kabul.csv) çalıştırılmış kabul kaydı, [mevcut birleşik eksik defteri](../raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md) açık-iş kaynağı olarak korunur. Yeni birleşim paketi bunları bağlar; ikinci görev/karar/orkestrasyon otoritesi kurmaz.
+- Ürün kodu, çalışma zamanı ayarı, hedef, oracle, kabul durumları, insan yetkisi ve bütçe bu belge işiyle değişmez. 81/135 ve 11 DC NOT_RUN, son kayıtlı başlangıçtır; yeni ölçüm olmadan güncel koşum sonucu veya ürün başarısı diye sunulmaz. Makine grafiği ve kabul defteri sırf raporları uzlaştırmak için yeniden yazılmaz.
+- Rapor gövdeleri ve eski kanıtlar korunur. Düzeltme tarihli ek ve makine kaydındaki etkin düzeltme ilişkisiyle yapılır; tarihsel değer silinmez, sessizce yeni sürümün kanıtı olmaz. Plan düzenlemesini onaylamak B5 final kabulü değildir.
+
+### 26.2. Kaynak envanteri ve tekilleştirme sözleşmesi
+
+Başlangıç kaynakları: [ChatGPT raporu](../raporlar/rapor-chatgpt-27ekim.md) ve [ikizi](../raporlar/rapor-chatgpt-27ekim.json); [Deepseek raporu](../raporlar/rapor-deepseek27ekim.md) ve [ikizi](../raporlar/rapor-deepseek27ekim.json); [V1](../raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md), [V2](../raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md), [V3](../raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md), [denetim kaydı](../raporlar/plan-3-denetci-2026-10-27/denetim.json) ve [kayıtlı doğrulama](../raporlar/plan-3-denetci-2026-10-27/dogrulama-son.json); [v2.10 revizyonu](../raporlar/plan-revizyonu-v210-2026-10-27/OZET.md) ve [v2.10.1 kararı](../kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md).
+
+Kanıt/işletim girdileri: [S1](../raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md), [S7](../raporlar/kanit-hedef/s7-turnuva-2026-10-27.md), [A3](../raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md), [A0-2](../raporlar/kanit-hedef/a02-sweep-2026-10-27.md), [A0-3](../raporlar/kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md), [A0-5](../raporlar/kanit-hedef/a05-lrt-2026-10-27.md), [K-SADE](../raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md), [27 Ekim bekçisi](../raporlar/takip-sozlesme/2026-10-27.md), [28 Ekim bekçisi](../raporlar/takip-sozlesme/2026-10-28.md) ve [W44 telemetrisi](../raporlar/telemetri-haftalik/2026-W44.md). Var olan makine ikizleri de envantere girer; bulunmayan ikiz varmış gibi gösterilmez.
+
+Her ham iddianın kimliği **kaynak yolu + özgün bulgu kimliği/bölüm + kaynak sürümü/içerik özeti** üçlüsüdür. Farklı raporlardaki V1/V2 adları aynı inceleme değildir. 20 ve 22 ham bulgu toplanıp 42 bağımsız açık veya deney diye sunulmaz; ortak loga dayanan raporlar bağımsız kanıt sayılmaz.
+
+Her iddia gerekçesiyle bir sınıfa bağlanır: **ürün açığı; plan/kabul ayrıntısı; rapor hatası/geçersizleşmiş iddia; tekrar; insan kararı/uygulama penceresi; tarihsel kanıt**. Birden fazla kanonik işe bağlanan iddia bölünme gerekçesi taşır. İşlenmemiş madde silinmez; “birleşime alındı”, “karar bekliyor” ve “üründe kapandı” ayrı durumlardır. Kanıt eksikse ölçülmedi/doğrulama bekliyor yazılır; sahte ret veya kapanış üretilmez.
+
+### 26.3. Uzlaştırmada uygulanacak yorum düzeltmeleri
+
+Bu tablo B1'in düzeltme kapsamını tanımlar; kaynak raporlara düzeltme eklenmiş veya ürün hataları giderilmiş demek değildir.
+
+| Konu | Etkin yorum ve B1 işlemi |
+|---|---|
+| E-04 sıra iddiası | [İnsan ikizinin §19'u](GOREV-GRAFIGI-SENERARYO-2026-10-26.md:214) v13 tarihçesidir; [§20](GOREV-GRAFIGI-SENERARYO-2026-10-26.md:273) güncel S1 → S3 → S2 sırasını taşır. Güncel çelişki diye sayma, tarihsel sırayı değiştirme. |
+| E-03 boş kararlar | §25.9 ve graf kapı sözleşmesi tanımlıdır. Kanıt/onay yokken boş karar doğru kapalı durumdur; çalışma zamanı uygulamasının doğrulandığı anlamına gelmez. |
+| E-11 S0 alt adımları | S0a/S0b grafın DC-S0 alt adımlarıdır; §25.6 gereği yeni genel PASS satırı değildir. Sırf görünürlük için yeni ürün düğümü/başarı ekleme. |
+| E-08/E-09 kabul bağı | NOT_RUN ölçüt yok demek değildir; §25.3/§25.7–11 ve graf ölçütleri vardır. Eksik test/eşik/kanıt bağlantısını somutlaştır; [kabul okuyucularını](../core/src/replan.ts:42) sınamadan CSV şemasını değiştirme. |
+| Üç puan ölçeği | 19/40 = %47,5 eşit ağırlıklı kontrol oranı; 48,75/100 ağırlıklı hazırlık endeksi; 3,9125/10 ayrı olgunluk değerlendirmesi. H1 5,775 ve H4 8,775 koşullu (T) projeksiyondur. Bunlar eşitlik/dönüşüm veya ürün başarısı değildir. |
+| Bütçe tarihçesi | 3.980/9.980 ilk nominal tarihçedir; aynı kapsam için doğrulanmış alternatif taahhüt değil. §25.10'daki H1 5.880–9.450 / bütün yol 12.320–19.390 yerine geçen (T) tahmin, onaysızdır; eski rezerv tekrar eklenmez. |
+| İnsan kuyruğu | [A3 taslağı onayı](../STATE_BOARD.md) verilmiştir; [K-0044](../kararlar/K-0044.md) kararı verilmiş, uygulama penceresi bekler. Eski replan sürüm/kapsam kontrolünden geçmeden uygulanmaz; eski A4, H1 ve ayrı emir öncesinde açılmaz. |
+| K-SADE sınırı | Kural sadeleştirmesi, kabul tablosu şeması değildir. 38'e iniş koşullu öneridir; özellikle V7-23'ün koruma yükleme riski ayrı karar ister. K-SADE bu belge işine veya salt-okur S0a'ya otomatik önkoşul yapılmaz. |
+| Boş denetim özeti | Atıf yapılan [denetim özeti](../raporlar/plan-3-denetci-2026-10-27/OZET.md) içerik kontrolünden geçmeli; yalnız dosyanın bulunması kapanış değildir. Tamamlama B3 işidir. |
+| Sağlık ve işletim | Bekçi raporları kendi ölçüm anlarının sinyalidir; eski 18 OK/0 EKSİK sonucu bugüne kopyalanmaz. Telemetri turları görev/ajan sayısı değildir; tahmini LOC/saat teslim tarihi veya kabul kanıtı yapılmaz. |
+
+Alternatif doğrudan başlatma, tam kaynak/onay bağı, gerçek izolasyon, zorunlu imza, deneme bazlı yaşam/iptal, gerçek kullanım ve dış etki öncesi güncel yetki/süre kontrolleri **ürün işi olarak açık** kalır. Rapor yorumunun düzeltilmesi bu güvenlik işlerinin kapanışı değildir.
+
+### 26.4. B0–B5 aşamaları ve geçiş koşulları
+
+| Kimlik | İş | Sorumlu / bağımlılık | Çıkış koşulu |
+|---|---|---|---|
+| RBT/B0 | Kaynakları sabitle: ölçülmüş zaman, HEAD, kirli dosya/sahip, kapsam kesim noktası, sürüm ve dosya özeti. | Operatör + salt-okur doğrulayıcı; ayrı birleşim başlatma/kapsam emri. | Kaynak baytları ve sahiplik biliniyor; eşzamanlı değişiklik sessizce sahiplenilmiyor. Plan düzenlemesinin başlangıç kaydı, bütün B0'ın yerine sayılmıyor. |
+| RBT/B1 | Ham iddiaları uzlaştır; §26.3 düzeltmelerini tarihli erata adaylarına, tekrarları kaynaklı eşlemeye bağla. | Tek yazıcı + ayrı denetçi; B0. | Kapsamdaki her iddianın gerekçeli karşılığı var; çözümlenmemiş kritik rapor çelişkisi yok. Ürün açıkları örtülmüyor. |
+| RBT/B2 | Geçerli işleri C01–C10 ve ilgili DC sprint/kabul kimliklerine bağla; mevcut eksik defterine tarihli ek tasarla. | Yazıcı + tester; B1. | Her açık işte sorumlu, önkoşul, pozitif/negatif sınama, eşik, kanal, kalıcı kanıt ve insan kapısı var. Kanıt yokken kapanış/yeşil üretme yok. |
+| RBT/B3 | Asgari belge birleşimi: özet/makine ikizi, kaynak erataları, boş denetim özeti, mevcut defter eki ve indeks/durum işaretçileri. | Tek yazıcı; B2, atomik dosya sahipliği. | İnsan/makine etkin sonuçları aynı; eski gövdeler ve kanıtlar korunmuş; ikinci aktif defter/plan yok. |
+| RBT/B4 | Kilit adayını bağımsız doğrula: eşlemeler, sayım/puan/bütçe, bağlantı/içerik, aktif graf/gerçek okuyucu, değişmezlik ve güncel sağlık. | Ayrı tester + salt-okur denetçi; B3. | Belge kontrolleri geçer; 0 EKSİK; her SARI için gerekçe/sahip/kabul kararı var. Kırmızı koşular ve kanıt sınırı saklanmıyor. |
+| RBT/B5 | Kapsamlı insan kararı sonrası aynı adayın değişmez belge kilidi; commit/tag/push kendi açık izinleriyle. | İnsan + operatör; B4 ve ayrı final kabulü. | Onaylı içerik ile kilitli içerik eş; karar/kanıt/commit bağlantısı yeniden doğrulanmış; ürün/canlı/harcama yetkisi açılmamış. |
+
+İlk durum **B0..B5 BAŞLATILMADI**; bu plan ekinin yazılması aşamaları geçmiş yapmaz. Bekçi/gelen-kutu birikimi B0'da güncel sayılır; 102 gibi eski toplamlar bugünkü ölçüm diye kullanılmaz. Kapsam dışındaki kayıtlar sahip ve gerekçeli devirle ayrılır; silinmez. Kapsam içi çözümsüz iddia varsa durum açık/doğrulama bekliyor kalır; B4/B5 geçti denmez.
+
+### 26.5. Kanonik iş ve kabul eşleme kaydı
+
+Her kayıtta kaynak kimlikleri, kanonik grup/iş, iddia sınıfı, kanıt türü/tarihi/sürümü, etkin hüküm ve gerekçe; açık ürün işinde ayrıca DC sprint/kabul kimliği, sorumlu, önkoşul, sınama komutu/ortamı, beklenen sonuç/eşik, kalıcı kanal/artefakt ve insan kapısı bulunur. Statik kaynak gözlemi, eski test kaydı, yeni koşum (R) ve değerlendirme/projeksiyon (T) birbirine dönüştürülmez. Aynı bulgunun plan netleştirmesi ile ürün onarımı ayrı tutulur.
+
+C01–C03 sınır/kaynak/operatör, C04 mühürlü aday ve korunan kanıt, C05–C06 yaşam/kullanım/duruş, C07 kalıcı sürücü/replan/öğrenme/terfi, C08–C10 temsil/okuyucu/pilot/bütçe grupları başlangıç taksonomisidir. C08/C09'daki kayıtlı veri düzeltmeleri yeniden açık hata diye sayılmaz; genel çalışma zamanı güvencesiyle karıştırılmaz. Yeni iddia sığmıyorsa gerekçeli ek gerekir; sınıfa zorla sokulmaz.
+
+Ölçüt boşluğu önce bu planın mevcut koşulları ve graf ölçütlerine referansla tamamlanır. Kabul şemasını değiştirmek; bütün okuyucular, eski kayıtlar ve sayım uyumluluğu sınanmadan yapılmaz. Gerekirse ayrı teknik ADR/test işi açılır; bu belge bütçesine kod/göç gizlenmez.
+
+### 26.6. Doğrulama ve belge kilidi kontrol listesi
+
+1. Kapsamdaki ham iddiaların tamamı gerekçeli eşlemeli; açık ürün işlerinin kapanış ölçütleri ve sahipleri kayıtlı; insan/makine sayımları eş. Tekil toplam ancak eşleme doğrulandıktan sonra verilir.
+2. Bütün etkin düzeltmeler insan ve makine kaydında, eski değerleri koruyan tarihli ilişkiyle görünür. Özellikle eski hazırlık toplamı ile etkin toplamı, hazırlık/olgunluk ve nominal/yeniden tahmin birbirine karışmaz.
+3. Bağlantı hedefi, varsa satır aralığı ve **içerik doluluğu** sınanır. Sadece varlık, JSON parse veya DAG döngüsüzlüğü yeterli değil; aktif altgraf ve mevcut okuyucu fonksiyonu da sınanır. Tarayıcı E2E yapılmadıysa yapıldı denmez.
+4. Ürün kaynakları, grafın yetki/bağımlılıkları, hedef ve kabul kayıtları başlangıç kimlikleriyle karşılaştırılır. S0a/S0b ve insan kapıları sahte PASS/kararla doldurulmaz. Belge birleşimi tek başına 81/135'i veya puanı değiştiremez.
+5. Her anlamlı değişiklik sonrası [CODEMAP üreticisi](../scripts/codemap.ps1) ve [sağlık kontrolü](../scripts/saglik.ps1) çalışır. Sağlık eşikleri gevşetilmez; 0 EKSİK gerekir. SARI kaydı, final kabulü ve ürün hazır kararı aynı şey değildir.
+6. Kod/göç/okuyucu/betik değişimi gerekirse ayrı teknik kapsam, ADR, negatif test, değişen bileşenin tam süiti ve §25.5'teki güncel tam regresyon kapısı uygulanır. Belge kontrolü tam ürün regresyonu veya canlı sağlayıcı kanıtı diye sunulmaz; izin gerektiren koşum kendiliğinden başlatılmaz.
+7. Bir yazıcı, ayrı doğrulayıcı ve salt-okur son denetçi; her atomik işte en fazla üç mevcut dosya; commit tek elden ve dosya adıyla. Kullanıcının süreç/portlarına ve başkasının kirli dosyalarına dokunulmaz. Yeni genel inceleme turu yerine yalnız çözümsüz iddia hedefli sınanır.
+
+Kilit kaydı; kapsam kimliği, onaylı kaynak özetleri, kanıt dizini, doğrulanmış insan karar kimliği/kapsamı, açık riskler ve yeniden açma koşullarını taşır. **Belge kilidi ürün sürümü değildir.** [Mevcut kilit betiği](../scripts/kilit-surum.ps1:93) eski bileşen yolu varsayımı ve tag/kilit-belgesi sırası nedeniyle bu iş için doğrudan çalıştırılmaz. Kullanılacak yöntem monorepo ve commit kapsamıyla izole doğrulanır; kayıt kendi hash/commit'ini döngüsel olarak içermez. Tag varsa karar ve kanıtı kapsayan kesin commit doğrulanır; sonradan değiştirilmez. Rollback ayrı kullanıcı emridir.
+
+### 26.7. Çıktılar, ayrı insan kapıları ve son hüküm
+
+[Birleşim paketi](../raporlar/rapor-birlesimi-2026-10-28/OZET.md) ve [makine ikizi](../raporlar/rapor-birlesimi-2026-10-28/birlesim.json) bu turda **planlama kaydıdır**. Tam birleşim/erata/eşleme B1–B3'te, güncel kilit kanıtı B4'te, final kilit kaydı yalnız B5'te üretilir. Hazırlık dosyası yaratmak kilit oluşturmak değildir. [Mevcut eksik defteri](../raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md) tarihli ekle genişletilir; ikinci açık-iş kaynağı açılmaz.
+
+Birleşimi başlatma/kapsam emri; B5 belge kabulü; commit/tag/push; K-SADE madde/varyant ve uygulaması; DC-S0a dar keşfi; S0b süreç sınaması; G0 kanıt kabulü; teknik ADR/kod/güncel bütçe; canlı/harcama ve sonraki DC fazları ayrı kararlardır. Tek cümle plan düzenleme emri bunları topluca vermez. K-SADE uygulanmadan rapor uzlaştırma ve izinli S0a keşfi yapılabilir; kuralların korunması yine zorunludur.
+
+**Hedeflenen B5 hükmü, henüz gerçekleşmiş sonuç değil:** “Rapor ve plan tabanı izlenebilir biçimde kilitli; ürün açıkları kayıtlı ve açık. Canlı pilot, gözetimsiz çalışma ve artırılmış bütçe için yetki yok. İlk ürün adımı ayrıca izin verilirse DC-S0a salt-okur keşfi.” Kanıt/karar eksikse **KİLİT YOK / NO-GO** kalır. Yeni kanıt, kaynak değişimi veya onaylı kapsam revizyonu yalnız yeni tarihli ek/sürümle yeniden açılır; eski kilit ve kanıt ezilmez.
+
+## 27. ATOM-H1-2026-10-28.1 — Ajan uygulama paketleri
+
+**Kapsam emri:** “uygulama paketini bu şekilde atomikleştir”. Bu emir görev fişlerinin hazırlanmasıdır; **S0a keşfi, S0b OS sınaması, ürün kodu, harcama, sprint kapanışı veya insan kabulü BAŞLATILMADI**. Ürün yürütme revizyonu v2.10.1, graf v14 ve kabul durumları korunur. Karar: [atomikleştirme ADR'si](../kararlar/ADR-dc-h1-atomik-paketler-2026-10-28.md).
+
+### 27.1. Tek kaynak ve görev kapsamı
+
+[Paket özeti](uygulama-paketleri/DC-H1-2026-10-28/OZET.md), [makine fişleri](uygulama-paketleri/DC-H1-2026-10-28/gorevler.json) ve [çalıştırma disiplini](uygulama-paketleri/DC-H1-2026-10-28/CALISTIRMA.md) bu ana planın projeksiyonudur; ikinci aktif plan veya orkestrasyon DB'si değildir. İnsan fişleri makine kaydından üretilir; çelişkide ana plan kazanır. [Görünüm denetimi](uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs) insan/makine eşliğini kontrol eder.
+
+| Sıra | Makro sprint | Atomik görev | Hazırlık durumu |
+|---|---|---:|---|
+| 1 | [DC-S0a](uygulama-paketleri/DC-H1-2026-10-28/S0a.md) | 4 | Kaynak/ortam, tehdit, kullanım/veri, ADR-oracle önerisi; brief tam, ayrı başlatma emri yok |
+| 2 | [DC-S0b](uygulama-paketleri/DC-H1-2026-10-28/S0b.md) | 3 | Pozitif sınır, kaçış negatifleri, bağımsız tüketim fizibilitesi; teknik ADR ve ayrı zararsız sınama izni bekler |
+| 3 | [DC-S1](uygulama-paketleri/DC-H1-2026-10-28/S1.md) | 5 | Tam sözleşme, kalıcı/uyumlu bağ, onaylı kaynak, alternatif giriş, operatör sınırı |
+| 4 | [DC-S3](uygulama-paketleri/DC-H1-2026-10-28/S3.md) | 6 | Süreç kimliği, bitiş/uzlaştırma, iptal nesli, kullanım, dış etki kontrolü, STOP bakımı |
+| 5 | [DC-S2](uygulama-paketleri/DC-H1-2026-10-28/S2.md) | 4 | Aday mühürleme, korunan runner, zorunlu makbuz/imza, günlük gerçek teslim |
+| 6 | [DC-S4](uygulama-paketleri/DC-H1-2026-10-28/S4.md) | 4 | Pilot A/B/C, hata aileleri/geri dönüş ve H1 insan kanıtı |
+
+Toplam **26 görev**, başlatılmış/yetkili görev **0**. S0a/S0b aynı DC-S0 makro kabulüne bağlıdır; diğer görevler kendi mevcut sprint kimliğine bağlanır. Yeni genel PASS/kabul satırı veya ürün graf düğümü açılmaz. S1/S3/S2/S4'ün **19 kod/pilot görevi** ve S0b'nin 3 görevi tasarım koşulludur; seçili OS/kalıcı veri/operatör/usage/oracle bağları S0 ADR'sinde teyit edilmeden çalıştırılabilir diye sunulmaz.
+
+### 27.2. Görevi ajana serbest bırakma
+
+Her fişte hedef/çıktı, kaynaklar, mevcut ve yeni kesin dosya **adayları**, bağımlılıklar, kapılar, pozitif/negatif kabul, komut/çalışma dizini/yan etkisi, kaynak-test-pilot LOC payı ve kanıt çifti bulunur. Gerçek ajan kimliği, ilgili kaynak/kirli dosya snapshot'ı, doğru kapsamlı insan emri, tasarım/write-set teyidi, bağımsız tester/denetçi ve yürütme bütçesi **başlatma anında** bağlanır. Bu bağlar yokken fiş hazır bir yürütme yetkisi değildir.
+
+En fazla üç mevcut dosya, tek kritik-yol yazıcısı ve dosya sahibi disiplini geçerlidir. Ek göç/arayüz/okuyucu dosyası gerekirse görev içinde sınırı genişletme; önce yeni atomik parça/paket revizyonu. Yeni test görevle birlikte mevcut test zincirine girer; hiçbir eski test çıkarılmaz. Hedefli test güncel tam regresyon yerine geçmez. Tam core testinin ön adımı probe çalıştırır; S0a'nın salt-okur kapsamına alınmaz. İzinsiz yerel süreç/ağ/üretim DB/sağlayıcı veya temizlik etkisi ihtimali varsa durulur.
+
+Pilot işçisinin yazma alanı ayrı pilot dosyalarıdır; çekirdek entegrasyon yazıcısı ve **korunan oracle sahibi güvenilir tester** ayrı kapsam kullanır. A/B/C kabul testleri adaydan önce korunan ayrı kökte dondurulur; işçiye suite/imza anahtarı/operatör yetkisi verilmez. Eski oracle/veri aday lehine değiştirilmez.
+
+### 27.3. LOC, kanıt ve sonraki fazlar
+
+Görev payları yeni **geçici (T)** ayrıştırmadır; §25.10 sprint toplamları aynen korunur: S0 650–1.250; S1 1.150–1.750; S3 1.550–2.450; S2 1.450–2.200; S4 1.080–1.800; **H1 5.880–9.450 teknik LOC**. Pilot 600–1.000 toplamı bu pakette kaynak 300–500/test 300–500 diye önerilmiştir; bu da onaysız tahmindir. S0a rapor/ADR'si teknik LOC değildir. Görev başına önerilen 8 tur/60 dk/60k token, verilmiş hak veya sağlayıcı harcama izni değildir; aşımda dur/yeniden tahmin, kaliteyi düşürme yok.
+
+[Paket denetçisi](uygulama-paketleri/DC-H1-2026-10-28/dogrula.mjs) görev/DAG, dosya sınırı/çakışma, kapalı izinler, LOC ve sonuç kaydı **biçimini** kontrol eder. Gerçek OS/kimlik sınırı, ürün testi veya insan kabulü değildir. Kaynak hash, gerçek komut/çıkış/kanıt ve pozitif/negatif gözlemle görev sonucu teslim edilir; ayrı tester denetimi ve mevcut insan kapıları gerekir. Görev raporu üretmek sprint PASS, G0/H1 kabulü veya sonraki fazı başlatma anlamına gelmez.
+
+[S5–S10 teslim ve ayrıntılandırma kapıları](uygulama-paketleri/DC-H1-2026-10-28/SONRAKI-FAZLAR.md): S5/S6 H1, S7/S8 H2, S9/S10 H3 sonrasındaki gerçek kanıta göre aynı paket ailesinde ayrıntılandırılır; ayrıca faz emri gerekir. Ortak tahminler S5/S6 1.860–3.160 ve S7–S10 4.580–6.780 (T) olarak kalır. Bütün yol 12.320–19.390 (T); tekil ileri-sprint bütçesi veya kesin dosya/komut bugün uydurulmaz. RBT ve K-SADE ürün keşfine otomatik önkoşul yapılmaz.
+
+## 28. RBT-2026-10-28.2 — Kilit öncesi etkin kapanış
+
+**Emir:** “yukarıdaki kapanışları tamamla”. Bu emir §26'daki belge birleşimini ve son denetimdeki kapsam/sonuç kaydı/hijyen/navigasyon düzeltmelerini açar; §25 ürün görevi, sağlayıcı harcaması, gerçek OS sınaması, final B5 kabulü veya commit/tag/push açmaz. [Kapanış ADR'si](../kararlar/ADR-kilit-oncesi-kapanis-2026-10-28.md), [kapanış kanıt paketi](../raporlar/kilit-oncesi-kapanis-2026-10-28/OZET.md).
+
+### 28.1. Başlangıç kayıtlarının üzerine etkin durum
+
+§26 ve §27'deki “başlatılmadı” ifadeleri o eklerin yazıldığı andaki başlangıçtır; gövdeler korunur. Belge birleşimi için sonraki emir ve kanıtın **etkin kaydı**, [birleşim makine kaydındaki kapanış ekidir](../raporlar/rapor-birlesimi-2026-10-28/birlesim.json). B0..B3 ancak dondurulmuş kaynak kimlikleri, kaynaklı eşleme/eratalar ve teslimlerle; B4 güncel doğrulama ve bağımsız incelemeyle kayda alınır. Aşama kapanışı bu plan metninin yazılmasından çıkarsanmaz.
+
+**B5 FINAL İNSAN KABULÜ YOK.** Sağlık/test yeşili veya kapsamı belli aday manifesti; B5'in kabul/commit/etiket sözleşmesini geçmiş yapmaz. Çalışma ağacı tamamen temizlenmiş iddiası verilmez; başkalarının ve runtime'ın değişiklikleri sahibinde kalır. Aday ile tam sürüm kilidi açıkça ayrıdır.
+
+### 28.2. Etkin ajan paketi ve sonuç sözleşmesi
+
+[ATOM-H1-2026-10-28.2](uygulama-paketleri/DC-H1-2026-10-28/OZET.md), §27'deki .1 yazımını belge/denetçi düzeyinde devralır; 26 görev ve H1 5.880–9.450 teknik LOC (T) zarfı korunur. Ürün yürütme revizyonu v2.10.1/graf v14 değişmez; yeni görev/kabul/PASS eklenmez. Gerçek ajan atamaları, OS/operatör/usage/oracle tasarımı ve bütün ürün insan kapıları boş kalır.
+
+- S0a başlatma kapsamı okuma/kanıt çiftinin yanında **yalnız S0a-04'te adı verilen TASLAK ADR önerisini** kapsayacak biçimde eşleştirildi; taslağı üretmek ADR onayı değildir.
+- Sonuç şeması **v2**: zorunlu okuma dosyalarının tamamı; izinli kaynak kimlikleri; görevin kendi kökünde mevcut/boş olmayan hash+byte kimlikli artefakt; komut kimliği/tam metin/çalışma dizini/çıkış/beklenen çıkış/çıktı referansı; her P/N gözleminin kayıtlı kanıt bağı gerekir. Eski v1 kayıtları tarihçe, yeni kapanış yerine kullanılamaz.
+- Başarısız komut, eksik kaynak veya hayali/boş/değişmiş artefakt kanıt kaydedildi sonucuna çevrilmez. Sonuç kendi hash'ini taşımaz; kanıt başka görev/üretim veri alanına kaçamaz. Denetçi komutu yeniden çalıştırmaz; semantik doğrulama, yetkili aktör ve insan kabulü ayrıca gerekir.
+- Pilot görev fişi çekirdek entegrasyon yazıcısını, yalnız pilot dosyalarıyla sınırlı işçiyi ve korunan oracle sahibi güvenilir testeri ayrı gösterir. Bu rol metni gerçek OS sınırının uygulanmış olduğu iddiası değildir.
+
+### 28.3. Kaynak erataları, açık-iş ve hijyen
+
+Kaynak raporların [ChatGPT §15 eratası](../raporlar/rapor-chatgpt-27ekim.md), [Deepseek §9 eratası](../raporlar/rapor-deepseek27ekim.md) ve makine ikizlerindeki tarihli etkin düzeltme ilişkileri eski gövde/alanları silmeden işlenir. [Üç-denetçi özeti](../raporlar/plan-3-denetci-2026-10-27/OZET.md) mevcut denetim/test kayıtlarından tamamlanır; yeni ürün ölçümü sayılmaz.
+
+**150 kaynak kimliği** [mevcut eksik defterinin DC ekine](../raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json) bağlanır. Bu 150 bağımsız açık/deney veya bütün-repo açık sayımı değildir. Kapsam ve beklenen kimlik kümeleri makine ekinde açık; C01–C10 ürün işleri açık, K-SADE ayrı insan kararı, eski backlog tarihli sahibiyle taşınır. Yeni bir açık-iş otoritesi kurulmaz.
+
+[Ajan başlangıcı](AJAN-BASLANGIC.md) doğru otoriteye navigasyondur; yeni kural veya izin değildir. [Veri yerleşimi](VERI-YERLESIMI.md) CLI ve pano veri köklerini kaynaklarıyla açıklar. İki DB eş kabul edilmez; üretim DB/JSONL/probe/config açma/göç/silme/restart yapılmaz. Her iki veri kökünün WAL/SHM dosyaları ve geçici araç dizini Git dışlanır; kalıcı DB/JSONL/artefaktlar körlemesine dışlanmaz veya silinmez.
+
+### 28.4. Manifest ve kilit adayı
+
+Adayın kapsamı; değiştirilen belge/paket kaynakları, makine eşlemesi ve ilgili karar/kanıt dosyalarının path+SHA-256+byte kimliğidir. Başlangıç HEAD tek başına kirli ağacı tanımlamadığından ilgili içerik kimlikleri ayrıca gerekir. Önceden kirli ürün/probe/telemetri/handoff/başka ajan dosyaları sahiplik dışı olarak listelenir; toplu stage, reset, stash, silme veya kendiliğinden commit yapılmaz.
+
+Doğrulama raporu adayın içerik manifestine bağlanır; manifest kendisinin hash'ini veya henüz var olmayan commit'ini içermez. Değişmez aday hazırlanması commit/tag veya temiz repo değildir. Final B5'te gerçek insan aynı manifest ve açık riskleri kabul eder; commit/tag/push için kendi açık emirleri ve kesin commit kapsamı gerekir. Yeni içerik/kanıt geldiğinde yeni tarihli aday üretilir; eski aday/kanıt ezilmez.

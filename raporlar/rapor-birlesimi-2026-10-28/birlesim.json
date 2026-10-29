@@ -1,0 +1,177 @@
+{
+  "schemaSurum": 1,
+  "kind": "consolidation-plan-edit-not-consolidation-or-lock-completion",
+  "revisionId": "RBT-2026-10-28.1",
+  "date": "2026-10-28",
+  "userInstruction": "planı bu şekilde düzenle",
+  "status": "PLAN_EDITED_CONSOLIDATION_NOT_STARTED",
+  "authority": {
+    "plan": "plans/PLAN.md",
+    "section": "26",
+    "productExecutionRevision": "v2.10.1",
+    "productExecutionSection": "25",
+    "graph": "plans/gorev-grafigi-2026-10-26.json",
+    "graphVersion": "v14",
+    "acceptanceLedger": "plans/kabul.csv",
+    "existingIssueLedger": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+    "decision": "kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md",
+    "secondActivePlanCreated": false,
+    "secondIssueLedgerCreated": false
+  },
+  "editEvidence": {
+    "baseline": "raporlar/rapor-birlesimi-2026-10-28/baslangic-duzenleme.json",
+    "meaning": "Baseline for this document edit only; not completion of full consolidation B0.",
+    "verificationRecordPlanned": "raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme.json"
+  },
+  "scope": {
+    "dates": ["2026-10-27", "2026-10-28"],
+    "primarySources": [
+      "raporlar/rapor-chatgpt-27ekim.md",
+      "raporlar/rapor-chatgpt-27ekim.json",
+      "raporlar/rapor-deepseek27ekim.md",
+      "raporlar/rapor-deepseek27ekim.json",
+      "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+      "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+      "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+      "raporlar/plan-3-denetci-2026-10-27/denetim.json",
+      "raporlar/plan-3-denetci-2026-10-27/dogrulama-son.json",
+      "raporlar/plan-revizyonu-v210-2026-10-27/OZET.md",
+      "raporlar/plan-revizyonu-v210-2026-10-27/dogrulama.json",
+      "kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md"
+    ],
+    "evidenceAndOperationalSources": [
+      "raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md",
+      "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md",
+      "raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md",
+      "raporlar/kanit-hedef/a02-sweep-2026-10-27.md",
+      "raporlar/kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md",
+      "raporlar/kanit-hedef/a05-lrt-2026-10-27.md",
+      "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md",
+      "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+      "raporlar/takip-sozlesme/2026-10-27.md",
+      "raporlar/takip-sozlesme/2026-10-28.md",
+      "raporlar/telemetri-haftalik/2026-W44.md",
+      "raporlar/telemetri-haftalik/2026-W44.json"
+    ],
+    "completeHistoricalArchiveRereadClaimed": false,
+    "allRawLogsRereadClaimed": false,
+    "sourceManifestComplete": false,
+    "fullSourceFreezeCompleted": false
+  },
+  "claimIdentity": ["sourcePath", "originalFindingIdOrSection", "sourceVersionOrContentHash"],
+  "claimClasses": [
+    "product_gap",
+    "plan_or_acceptance_detail",
+    "report_error_or_superseded_claim",
+    "duplicate",
+    "human_decision_or_implementation_window",
+    "historical_evidence"
+  ],
+  "canonicalGroupTaxonomy": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"],
+  "claimMappings": [],
+  "claimMappingsComplete": false,
+  "uniqueOpenIssueCount": null,
+  "mappingRequiredFields": [
+    "sourceIdentities", "canonicalGroupOrIssue", "claimClass", "evidenceKind",
+    "evidenceDateAndVersion", "effectiveVerdict", "rationale"
+  ],
+  "openProductIssueAdditionalFields": [
+    "dcSprintAndAcceptanceId", "owner", "prerequisites", "positiveAndNegativeTests",
+    "testCommandAndEnvironment", "expectedResultAndThreshold", "evidenceChannelAndArtifact", "humanGate"
+  ],
+  "reconciliationRequirements": [
+    { "id": "RBT-R01", "sources": ["E-04"], "action": "Distinguish historical v13 section 19 from current aligned v14 section 20; do not rewrite history.", "sourceErrataApplied": false },
+    { "id": "RBT-R02", "sources": ["E-03"], "action": "Empty gate decisions are required closed state, not absent contract or proof of a runtime defect.", "sourceErrataApplied": false },
+    { "id": "RBT-R03", "sources": ["E-11"], "action": "S0a/S0b are existing substeps of DC-S0; do not invent success rows or extra product nodes.", "sourceErrataApplied": false },
+    { "id": "RBT-R04", "sources": ["E-08", "E-09"], "action": "Link existing plan/graph criteria to acceptance evidence; NOT_RUN does not mean no criteria; schema changes require consumer compatibility work.", "sourceErrataApplied": false },
+    { "id": "RBT-R05", "sources": ["rapor-chatgpt section 14.3", "prior executive summary"], "action": "Separate unweighted 19/40 ratio, weighted readiness, and independent maturity assessment.", "sourceErrataApplied": false },
+    { "id": "RBT-R06", "sources": ["E-07", "prior executive summary"], "action": "Keep initial nominal as history and replacement estimate as conditional/unapproved; do not add old reserve again.", "sourceErrataApplied": false },
+    { "id": "RBT-R07", "sources": ["rapor-deepseek humanDecisionQueue"], "action": "Separate already approved A3 and K-0044 decisions from pending implementation windows; stale replan and old A4 require current authority checks.", "sourceErrataApplied": false },
+    { "id": "RBT-R08", "sources": ["K-SADE", "prior executive summary"], "action": "K-SADE is rule simplification, not CSV schema; 38 is a conditional proposal with explicit protection-loading risk; not automatic prerequisite for this work or read-only S0a.", "sourceErrataApplied": false },
+    { "id": "RBT-R09", "sources": ["E-22"], "action": "Complete the referenced empty reviewer summary in B3 and validate nonempty content, not existence alone.", "sourceErrataApplied": false },
+    { "id": "RBT-R10", "sources": ["watchdog 2026-10-28", "telemetry W44"], "action": "Re-measure health/backlog at cutoff; historical operational counts and LOC/hour are not current acceptance or delivery guarantees.", "sourceErrataApplied": false }
+  ],
+  "steps": [
+    { "id": "RBT/B0", "name": "source_freeze", "status": "NOT_STARTED", "dependsOn": [], "requires": ["separate_start_and_scope_order"], "exit": "Versioned source hashes, measured cutoff, HEAD, dirty-file ownership and complete in-scope manifest." },
+    { "id": "RBT/B1", "name": "claim_reconciliation", "status": "NOT_STARTED", "dependsOn": ["RBT/B0"], "exit": "Every claim classified with rationale; no unresolved critical report contradiction; product gaps remain explicit." },
+    { "id": "RBT/B2", "name": "acceptance_owner_mapping", "status": "NOT_STARTED", "dependsOn": ["RBT/B1"], "exit": "Each open issue has owner, DC/acceptance link, prerequisites, positive/negative tests, threshold, evidence channel and human gate." },
+    { "id": "RBT/B3", "name": "minimal_document_consolidation", "status": "NOT_STARTED", "dependsOn": ["RBT/B2"], "exit": "Human/machine effective results agree; append-only errata, nonempty reviewer summary and existing-ledger supplement; no second authority." },
+    { "id": "RBT/B4", "name": "independent_lock_candidate_validation", "status": "NOT_STARTED", "dependsOn": ["RBT/B3"], "exit": "Mappings, counts, arithmetic, links/content, active graph, actual consumers and preservation pass; health has zero missing checks; warnings have owner/rationale/decision." },
+    { "id": "RBT/B5", "name": "human_accepted_document_lock", "status": "NOT_STARTED", "dependsOn": ["RBT/B4"], "requires": ["separate_final_human_acceptance", "separate_permissions_for_commit_tag_push"], "exit": "Accepted and locked bytes match; decision/evidence/exact commit linked; no product or budget authority expansion." }
+  ],
+  "scoreInterpretation": {
+    "label": "T",
+    "creditedChecks": 19,
+    "totalChecks": 40,
+    "unweightedControlPercent": 47.5,
+    "weightedReadinessPoints": 48.75,
+    "readinessMaximum": 100,
+    "maturityScaleMaximum": 10,
+    "weightedMaturityExact": { "today": 3.9125, "h1": 5.775, "h4": 8.775 },
+    "scoresAreEquivalentConversions": false,
+    "milestoneMaturityMeasured": false,
+    "newProductScoreProduced": false
+  },
+  "budgetInterpretation": {
+    "label": "T",
+    "initialNominalHistory": { "h1": 3980, "all": 9980 },
+    "replacementH1": [5880, 9450],
+    "replacementAll": [12320, 19390],
+    "approved": false,
+    "oldReserveAddedAgain": false
+  },
+  "acceptanceBaseline": { "source": "existing records; preservation target, not new product run", "total": 135, "green": 81, "dcNotRun": 11, "modified": false },
+  "permissions": {
+    "planEditAuthorized": true,
+    "fullConsolidationStartAuthorized": false,
+    "finalDocumentLockAuthorized": false,
+    "productExecutionAuthorized": false,
+    "liveOrPaidRunAuthorized": false,
+    "budgetApproved": false,
+    "kSadeImplementationAuthorized": false,
+    "processBoundaryTestAuthorized": false,
+    "commitTagPushAuthorizedByThisInstruction": false
+  },
+  "lock": {
+    "state": "NOT_CREATED",
+    "finalHumanDecision": null,
+    "acceptedContentManifest": null,
+    "lockedCommit": null,
+    "tag": null,
+    "productRelease": false,
+    "existingReleaseScriptRun": false,
+    "releaseScriptCompatibilityRequired": true,
+    "reopenOnlyWithNewDatedEvidenceOrApprovedRevision": true
+  },
+  "editVerification": {
+    "initialDocumentChecks": "raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme.json",
+    "health": "raporlar/rapor-birlesimi-2026-10-28/saglik-duzenleme.json",
+    "meaning": "Measured checks of this plan edit only. Full consolidation B4/B5 remains NOT_STARTED; not a final lock or product acceptance."
+  },
+  "invariants": [
+    "Plan editing is not B0-B5 completion, product acceptance, execution or spending permission.",
+    "Product execution revision v2.10.1 and graph v14 remain unchanged.",
+    "Historical reports and acceptance rows are preserved; source errata and canonical mappings remain future work.",
+    "Static source observation, historical test result, new measured run and T assessment are distinct evidence kinds.",
+    "No CSV schema, product source, runtime configuration, target or oracle changes.",
+    "K-SADE is a separate human decision, not a hidden dependency of document consolidation or permitted S0a discovery.",
+    "Document checks are not a full product regression or representative autonomy campaign.",
+    "No self-referential hash/commit cycle; any tag must cover the exact approved decision/evidence content."
+  ],
+  "closureUpdate20261028": {
+    "at": "2026-10-28T13:32:15.912Z",
+    "revisionId": "RBT-2026-10-28.2",
+    "userInstruction": "yukarıdaki kapanışları tamamla",
+    "effectiveStateRef": "raporlar/kilit-oncesi-kapanis-2026-10-28/kapanis.json",
+    "canonicalMappingRef": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+    "initialFieldsAreHistorical": true,
+    "sourceErrataApplied": true,
+    "declaredIdentityCount": 150,
+    "declaredMappingsComplete": true,
+    "fullConsolidationStartAuthorized": true,
+    "productExecutionAuthorized": false,
+    "finalHumanAcceptance": null,
+    "commitTagPushAuthorized": false,
+    "meaning": "B0-B3 evidence recorded; effective B4 and B5 state is in effectiveStateRef. Historical initial status/permissions/steps remain untouched."
+  }
+}

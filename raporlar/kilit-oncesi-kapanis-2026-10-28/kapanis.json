@@ -1,0 +1,158 @@
+{
+  "schemaSurum": 1,
+  "kind": "document-closure-candidate-not-final-human-acceptance",
+  "revisionId": "RBT-2026-10-28.2",
+  "packageRevision": "ATOM-H1-2026-10-28.2",
+  "userInstruction": "yukarıdaki kapanışları tamamla",
+  "authority": "plans/PLAN.md §28",
+  "baseline": "raporlar/kilit-oncesi-kapanis-2026-10-28/baslangic.json",
+  "canonicalLedger": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+  "historicalInitialState": "raporlar/rapor-birlesimi-2026-10-28/birlesim.json",
+  "effectiveSteps": [
+    {
+      "id": "RBT/B0",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "baslangic.json"
+      ],
+      "meaning": "Bu kapanışın kaynak baytları/kirli ağacı; bütün tarihsel arşivin yeniden okunması değil."
+    },
+    {
+      "id": "RBT/B1",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/rapor-chatgpt-27ekim.md §15",
+        "raporlar/rapor-deepseek27ekim.md §9"
+      ],
+      "meaning": "İnsan/makine erataları eski gövde ve alanları korur; ürün kapanışı değil."
+    },
+    {
+      "id": "RBT/B2",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json"
+      ],
+      "meaning": "Beyan edilen 150 kaynak kimliği kapsamı; bütün-repo açık sayımı değildir."
+    },
+    {
+      "id": "RBT/B3",
+      "state": "EVIDENCE_RECORDED",
+      "evidence": [
+        "raporlar/plan-3-denetci-2026-10-27/OZET.md",
+        "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+        "plans/AJAN-BASLANGIC.md",
+        "plans/VERI-YERLESIMI.md"
+      ],
+      "meaning": "Boş özet, mevcut defter eki, giriş ve veri politikası; ikinci otorite yok."
+    },
+    {
+      "id": "RBT/B4",
+      "state": "TECHNICAL_VALIDATION_RECORDED_WARNING_DECISIONS_PENDING",
+      "evidence": [
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrulama-20261028152606837.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028152543439.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+        "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-manifesti-20261028152543439.json"
+      ],
+      "meaning": "Otomatik belge/paket kontrolleri ve bağımsız şartlı inceleme kayıtlı; iki takip ana ajan tarafından doğrulandı. 0 EKSİK; SARI insan kararları bekler, B4 bütünüyle kabul edilmiş veya B5 geçmiş değildir."
+    },
+    {
+      "id": "RBT/B5",
+      "state": "WAITING_SEPARATE_HUMAN_ACCEPTANCE",
+      "evidence": [],
+      "meaning": "Aday içeriği, açık riskler ve kapsam gerçek insan tarafından kabul edilmedi; commit/tag/push ayrı."
+    }
+  ],
+  "declaredScope": {
+    "rawIdentityCount": 150,
+    "canonicalProductGroups": 10,
+    "separateRuleDecisionGroup": "K-SADE",
+    "originalRawCountsAreNotUniqueOpenCounts": true,
+    "wholeRepoOpenIssueCount": null,
+    "legacyBacklogFullRecount": false,
+    "productFindingsFixedByThisClosure": 0
+  },
+  "ownership": {
+    "preexistingChangesOwnedByThisAgent": false,
+    "outsideScopeChangesPreserved": true,
+    "stageAllAllowed": false,
+    "repoCleanClaimed": false,
+    "runtimeFilesOpenedOrMoved": false
+  },
+  "permissions": {
+    "documentClosureExecutionAuthorized": true,
+    "productExecutionAuthorized": false,
+    "s0aStarted": false,
+    "s0bBoundaryTestAuthorized": false,
+    "liveProviderOrSpendAuthorized": false,
+    "budgetApproved": false,
+    "kSadeImplemented": false,
+    "finalHumanAcceptance": null,
+    "commitTagPushAuthorized": false
+  },
+  "candidate": {
+    "state": "CONTENT_ADDRESSED_CANDIDATE_READY_FOR_HUMAN_REVIEW_NOT_LOCKED",
+    "contentManifest": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/aday-20261028152606837.json",
+      "sha256": "733fc17e39dbd913d7abecc8e3b2af81ea2601d90572350ddd052e6c2f685823",
+      "bytes": 12125
+    },
+    "validation": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrulama-20261028152606837.json",
+      "sha256": "fc055a0e32c9f124fc7098db26c916b3a8cc04318badba033b3c390a698092e2",
+      "bytes": 5443
+    },
+    "independentReview": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+      "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+      "bytes": 1513
+    },
+    "lockedCommit": null,
+    "tag": null,
+    "humanDecision": null,
+    "noSelfHashCycle": true,
+    "health": {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/saglik-20261028152543439.json",
+      "sha256": "7903f6fdca435c57e09603ef92ae960279df9a7bcddec6b7e370a04eaac1f2bd",
+      "bytes": 1864
+    },
+    "evidenceManifest": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-manifesti-20261028152543439.json",
+    "sealingReceipt": "raporlar/kilit-oncesi-kapanis-2026-10-28/muhur-20261028152543439.json",
+    "stateSnapshot": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-20261028152543439.json"
+  },
+  "warnings": [
+    {
+      "id": "RULE_PROXY_80",
+      "owner": "INSAN / K-SADE",
+      "state": "SEPARATE_DECISION_PENDING",
+      "humanAcceptedForFinalLock": false,
+      "rationale": "Kural semantiği veya eşik bu görevde değiştirilmez."
+    },
+    {
+      "id": "HERMETIC_31",
+      "owner": "TESTER / ILGILI_DC_KAPISI",
+      "state": "LIVE_EVIDENCE_NOT_CLAIMED",
+      "humanAcceptedForFinalLock": false,
+      "rationale": "Hermetik kayıt canlı başarıya dönüştürülmez; final kilit kararı değildir."
+    }
+  ],
+  "updatedAt": "2026-10-28T15:26:09.235Z",
+  "previousState": {
+    "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/durum-oncesi-20261028152543439.json",
+    "sha256": "f29aa137741a3025e1156f509438847f19ddf11a299f5e1fc00318ac409ba12a",
+    "bytes": 6307
+  },
+  "reviewFollowups": [
+    {
+      "id": "REVIEW-01",
+      "state": "VERIFIED_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrulama-20261028152606837.json"
+    },
+    {
+      "id": "REVIEW-02",
+      "state": "HASH_BOUND_BY_MAIN_AGENT_AUTOMATION",
+      "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-manifesti-20261028152543439.json"
+    }
+  ],
+  "finalB4Accepted": false
+}

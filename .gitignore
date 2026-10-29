@@ -6,3 +6,6 @@ node_modules/
 core/veri/pano-token.txt
 core/data/ordu.sqlite-shm
 core/data/ordu.sqlite-wal
+core/veri/ordu.sqlite-shm
+core/veri/ordu.sqlite-wal
+.tmp-kilo/

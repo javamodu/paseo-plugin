@@ -1,0 +1,31 @@
+{
+  "hafta": "2026-W44",
+  "uretim": "2026-10-29T01:21:19.792Z",
+  "tur": 254,
+  "ortTurSn": 598,
+  "ortAktifSn": 396,
+  "kabul": 0,
+  "ret": 0,
+  "kabulOrani": null,
+  "loop": 0,
+  "finishGate": 0,
+  "pitbull": 5,
+  "karisiklik": 0,
+  "ortCacheHit": 83.8,
+  "altAjanTur": 17,
+  "kabulKayit": 0,
+  "delta": {
+    "tur": 86,
+    "kabulPuan": null,
+    "pitbull": 4,
+    "cacheHitDelta": -10
+  },
+  "toplamLocDelta": 21580,
+  "saatlikLoc": 575,
+  "reworkOrani": null,
+  "etkinLoc": 21580,
+  "ortDecodeTps": 483.2,
+  "testKirmiziOrani": null,
+  "halKirikOrani": null,
+  "ortStallSn": 11412
+}

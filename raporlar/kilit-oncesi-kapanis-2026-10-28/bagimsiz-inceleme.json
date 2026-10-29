@@ -1,0 +1,24 @@
+{
+  "schemaSurum": 1,
+  "kind": "independent-read-only-document-review-not-performance-trial",
+  "nativeTaskId": "01a182c1-65cb-7208-927c-e09a1178fb2c",
+  "date": "2026-10-28",
+  "verdict": "CONDITIONAL_CONTINUE_FOR_DOCUMENT_CANDIDATE",
+  "normalizedFaithfulSummary": true,
+  "verbatimTranscript": false,
+  "commandsRunByReviewer": false,
+  "filesWrittenByReviewer": false,
+  "testsRunByReviewer": false,
+  "productionDbOpened": false,
+  "providerCalls": 0,
+  "claimsRuntimeSafety": false,
+  "claimsFullProductRegression": false,
+  "claimsWholeRepoSecretScan": false,
+  "findings": [
+    { "id": "REVIEW-01", "severity": "low", "subject": "S0a-01 command projection", "requiredFollowup": "Match effective ledger metadata recipes to READ_GIT/READ_ENV in current task package", "followupOwner": "main-agent-automated-validation" },
+    { "id": "REVIEW-02", "severity": "candidate-evidence-condition", "subject": "Hash binding of state/baseline/logs", "requiredFollowup": "Create independent evidence manifest with hashes of content manifest, validation/logs, baseline, independent review and immutable state snapshot; no self-reference", "followupOwner": "main-agent-automated-validation" }
+  ],
+  "resolvedInReviewedScope": ["S0a draft ADR permission", "mandatory source/command/artifact metadata", "report errata and nonempty reviewer summary", "navigation/runtime path policy", "no implied final B5 or product authority"],
+  "finalHumanAcceptance": null,
+  "commitOrTagApproval": false
+}

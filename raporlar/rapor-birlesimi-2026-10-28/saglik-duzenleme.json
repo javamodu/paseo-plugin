@@ -1,0 +1,53 @@
+{
+  "schemaSurum": 1,
+  "kind": "plan-edit-health-not-product-acceptance",
+  "at": "2026-10-28T08:27:00.255Z",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "runs": [
+    {
+      "name": "codemap",
+      "at": "2026-10-28T08:26:55.834Z",
+      "command": {
+        "executable": "powershell",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "scripts/codemap.ps1"
+        ]
+      },
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "raporlar/rapor-birlesimi-2026-10-28/codemap-duzenleme.log"
+    },
+    {
+      "name": "saglik",
+      "at": "2026-10-28T08:27:00.253Z",
+      "command": {
+        "executable": "powershell",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "scripts/saglik.ps1"
+        ]
+      },
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "raporlar/rapor-birlesimi-2026-10-28/saglik-duzenleme.log"
+    }
+  ],
+  "result": {
+    "ok": 18,
+    "missing": 0,
+    "warnings": 2
+  },
+  "thresholdsChanged": false,
+  "fullRegressionRun": false,
+  "liveProviderCalls": 0,
+  "finalLockCreated": false
+}

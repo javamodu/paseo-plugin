@@ -1,0 +1,344 @@
+{
+  "schemaSurum": 1,
+  "kind": "content-addressed-document-candidate-not-tag-or-clean-tree",
+  "at": "2026-10-28T15:19:19.319Z",
+  "baseHead": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "revisionId": "RBT-2026-10-28.2",
+  "packageRevision": "ATOM-H1-2026-10-28.2",
+  "content": [
+    {
+      "path": ".gitignore",
+      "sha256": "53f0101fc69389bcad31067ba1b7481e5cda33efe5ad1078b73fbedf833ec8b0",
+      "bytes": 204
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8fb67a445324be6cd1995602be45993d03d14183a897fb4c534fd920e5d9d705",
+      "bytes": 2961
+    },
+    {
+      "path": "ANAYASA.md",
+      "sha256": "8730ab70a824800a2896d9bd47d73c606c5098209854bcdf40c93ed831d16d1d",
+      "bytes": 1859
+    },
+    {
+      "path": "CODEMAP.md",
+      "sha256": "06d7b539269b5b43b457c88fa7296a76dab86c0f3c69cff969f1145ebe6a0f1c",
+      "bytes": 13302
+    },
+    {
+      "path": "README.md",
+      "sha256": "6f2e7dae271ce27bcfa262671757efa1897e09fdf6d9946a70c5724b69e7f81a",
+      "bytes": 4122
+    },
+    {
+      "path": "STATE_BOARD.md",
+      "sha256": "47f521e7a4482d0ca73756e6c4ecd17586cd23eaba1677aed2237d357900e7d7",
+      "bytes": 70808
+    },
+    {
+      "path": "kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md",
+      "sha256": "4d3a2cb8efccffadfd0bc9da1fed008bcc4f122611e6f6d406329185a38052f3",
+      "bytes": 2652
+    },
+    {
+      "path": "kararlar/ADR-kilit-oncesi-kapanis-2026-10-28.md",
+      "sha256": "3bd8a6a694b81294523db6b6a1811b9a4b26ce603f9ba09afb6dfb6765dcea7a",
+      "bytes": 2612
+    },
+    {
+      "path": "plans/AJAN-BASLANGIC.md",
+      "sha256": "be5619a0e02ec596e1d1b266cd04a79a0199b79f6a9d098aaec180e4c13ba047",
+      "bytes": 2111
+    },
+    {
+      "path": "plans/PLAN.md",
+      "sha256": "fd3974b2ca1b87aaa31313e6cd1ae88b30993d1bd9dc5e7cc39ba74a2a1b52ba",
+      "bytes": 95394
+    },
+    {
+      "path": "plans/SSOT-INDEX.md",
+      "sha256": "9d97eb56673223d33059a71bd7f0be7d421daa62299bd997174c597c7a4c42a7",
+      "bytes": 3510
+    },
+    {
+      "path": "plans/VERI-YERLESIMI.md",
+      "sha256": "0a7b4ef3954a75db27273d93d05fefa558eb1c07b6207b4ccf0b20b1cf9d9f63",
+      "bytes": 3060
+    },
+    {
+      "path": "plans/gorev-grafigi-2026-10-26.json",
+      "sha256": "5a36fd5fb076286db92ae1774d85bb706280be3f5de7b49b95893c417370b2e8",
+      "bytes": 73839
+    },
+    {
+      "path": "plans/kabul.csv",
+      "sha256": "9a0bb9343a47d907bc475a6ffce674ec8cd55f7c7bd1943963dda6877d8fd46f",
+      "bytes": 47081
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/CALISTIRMA.md",
+      "sha256": "28e6f221cb49aea7c6393ab350d1456a4816cf7e674efcc2efecc6c744f0582c",
+      "bytes": 8845
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/OZET.md",
+      "sha256": "5d766206edbd96b408d48a29293a40908a039d4fff31503fb23cfc6250c3b1c0",
+      "bytes": 3275
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S0a.md",
+      "sha256": "2be104ac9197bf6b4133e741d3b1d5165e78746ab160e240a34059d5fc2fe800",
+      "bytes": 14073
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S0b.md",
+      "sha256": "22334641d7b2ac85871571df3ac786b58280a3daef57e5b4dd49cffd0c03c903",
+      "bytes": 10757
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S1.md",
+      "sha256": "30b9b9b684f68f0b721c32806e0ff6abd26522ad5d80964f5de9b69743bc8995",
+      "bytes": 17706
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S2.md",
+      "sha256": "f13739508de9f1bf005e9fd77edfe1fb6447332c3bd14a38aaf3754837c8c1dd",
+      "bytes": 13997
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S3.md",
+      "sha256": "91582e5d3f2d129189836eb65b876dd3f74bf7d50ad132052fe3b0351a3644b9",
+      "bytes": 20219
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/S4.md",
+      "sha256": "d533541f876f82f1e009cadf8c0318b80d06ed9833043287782d541b3bc10aab",
+      "bytes": 15804
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/SONRAKI-FAZLAR.md",
+      "sha256": "aa9b2d727683cc3e4271cec89311a79ba18fb15c5f65426d20a24e89550d9a91",
+      "bytes": 2739
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.mjs",
+      "sha256": "9b261baf2bb0735579520a6bea8601207f7e0ce3f34940f0b64d596beb8bef72",
+      "bytes": 17230
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.test.mjs",
+      "sha256": "b6bb9ab0d10b3789ace9125f514669116b890a0b095fdfabbfea3a66655de9f0",
+      "bytes": 10332
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/gorevler.json",
+      "sha256": "fb037bafb5fa2a9e175c0736bba7adc8b3bceb43f3df38381f4070220b49e74d",
+      "bytes": 53245
+    },
+    {
+      "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs",
+      "sha256": "3e270972187ee70183427587fd72ad7d3bcdf9b9d28e565c4c38793f74225acc",
+      "bytes": 12345
+    },
+    {
+      "path": "raporlar/OZET.md",
+      "sha256": "aee3958aa25298f6bdfb8f52ca4fd00f00f11c3b7142655166957114825fbe26",
+      "bytes": 2117
+    },
+    {
+      "path": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+      "sha256": "c95d881bf18373bd88fc5e5359d768972e199a14ec4faf99170142584c55be83",
+      "bytes": 139922
+    },
+    {
+      "path": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.json",
+      "sha256": "43f3f4a60b0e2a9f18f0a6c181a31b1784926f4a7d75174630c1646b7de3208b",
+      "bytes": 4477
+    },
+    {
+      "path": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+      "sha256": "25e2c0b610878e15fabc950137f5abad8a9abfa48b0bda39df297633ab41a5e0",
+      "bytes": 17633
+    },
+    {
+      "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+      "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc",
+      "bytes": 25745
+    },
+    {
+      "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md",
+      "sha256": "462febaa24a6e980b234bbc823a8ffb8d67fa8d99db1eed13672d644f971a9d2",
+      "bytes": 23727
+    },
+    {
+      "path": "raporlar/kanit-hedef/a02-sweep-2026-10-27.md",
+      "sha256": "3c92d64f9e1c5f15e552e44f06c0966950808206be77ae8235040cbf13a9620a",
+      "bytes": 8918
+    },
+    {
+      "path": "raporlar/kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md",
+      "sha256": "cd050def7b8474eab52ac7e224a361341872e22f43a808213054b2e3eec05786",
+      "bytes": 7112
+    },
+    {
+      "path": "raporlar/kanit-hedef/a05-lrt-2026-10-27.md",
+      "sha256": "2d1abd82e0d8ec5e172756d59b02742b7f7b5db986cd76a67371e6e28f89b139",
+      "bytes": 11614
+    },
+    {
+      "path": "raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md",
+      "sha256": "41513b3421d44dadc95d6bdc373fcada7cad658641b2c7b2f505be8eaf2a2b04",
+      "bytes": 9064
+    },
+    {
+      "path": "raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md",
+      "sha256": "a960d393a55e68622354ee5b6574dfcece8f585b02d500b6c6b16141ae437791",
+      "bytes": 7651
+    },
+    {
+      "path": "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md",
+      "sha256": "25c1c221a9ffe9ba72bb1a4abab616d71246707d68d5ed4d88e05cafc2e88d7d",
+      "bytes": 9348
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/BAGIMSIZ-INCELEME.md",
+      "sha256": "ea115ea61c0071d735ba36eea329adf572a94a8ea2de097116fe794d8b4e409b",
+      "bytes": 2577
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/OZET.md",
+      "sha256": "b7e284ea170e6a33792564886d80c5952fb1f55eecb2ce4fb60d2d064f1c4b38",
+      "bytes": 4348
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/bagimsiz-inceleme.json",
+      "sha256": "7e3c174001702cd84326ac11009100813e44368bad8a80dd6c2a807019a54a6d",
+      "bytes": 1513
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/dogrula-kapanis.mjs",
+      "sha256": "01383f90d4d6e5752cb60ba10abfc60481e49a9ba1143d93792046ab3b825b34",
+      "bytes": 17011
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/hazirla-esleme.mjs",
+      "sha256": "a69b43ac7b19282fc8bc93e3252b47d5fe118b27a837a6c64b439054b3624112",
+      "bytes": 15301
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-muhur.mjs",
+      "sha256": "0647deab0332e7698c0222a3dd6860ee8e737dda56a5ce8c6e51f512d4028b8c",
+      "bytes": 10736
+    },
+    {
+      "path": "raporlar/kilit-oncesi-kapanis-2026-10-28/kanit-muhur.test.mjs",
+      "sha256": "f34d8754565f19d7a2e962e6684138a4f7151876836b1771b7c20d15b918782f",
+      "bytes": 2512
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/OZET.md",
+      "sha256": "8c493fe5b07078a42501c392f7f842d8228ec01529f1df55dcbab4ad09c36f0e",
+      "bytes": 2732
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+      "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b",
+      "bytes": 5912
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+      "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef",
+      "bytes": 3585
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+      "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66",
+      "bytes": 4843
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/denetim.json",
+      "sha256": "ea07b50a5c546e57eefeb344cab02fa8de91f331b20f993f1de62abace16d61f",
+      "bytes": 9354
+    },
+    {
+      "path": "raporlar/plan-3-denetci-2026-10-27/dogrulama-son.json",
+      "sha256": "a7c155bbde13b3dc5952eccbc8f711a3514a6ce62c37857a7795af154db318c8",
+      "bytes": 1390
+    },
+    {
+      "path": "raporlar/plan-revizyonu-v210-2026-10-27/OZET.md",
+      "sha256": "3bba791a29352aa902663ec2777b8719fc6fedecea1f8a1ca7cd52d1f8cce666",
+      "bytes": 2858
+    },
+    {
+      "path": "raporlar/plan-revizyonu-v210-2026-10-27/dogrulama.json",
+      "sha256": "f47acca0658f6458646282e4bd44c87b5b03028372b5447d7d295cd4ca120ff7",
+      "bytes": 1935
+    },
+    {
+      "path": "raporlar/rapor-birlesimi-2026-10-28/OZET.md",
+      "sha256": "cfd653f4784394b839be9088149cf7b563c40210f0d35599712264b8812a21dc",
+      "bytes": 6361
+    },
+    {
+      "path": "raporlar/rapor-birlesimi-2026-10-28/birlesim.json",
+      "sha256": "0d763279b81b13ff0e66f25e3c991002a91bb528b6c2ebba493318628e59d8c6",
+      "bytes": 11275
+    },
+    {
+      "path": "raporlar/rapor-chatgpt-27ekim.json",
+      "sha256": "e8a2290b80dd931b17b9915b055e7fd32d385d10868cf2a1609e905fd1ab90b8",
+      "bytes": 28071
+    },
+    {
+      "path": "raporlar/rapor-chatgpt-27ekim.md",
+      "sha256": "f14cf4053e46a164ddff7d1242215c83a3ddadab899f159d56a0c8b40d943504",
+      "bytes": 75193
+    },
+    {
+      "path": "raporlar/rapor-deepseek27ekim.json",
+      "sha256": "c0a8bff4c5e361fe43b433ca94f77e0a7aa21932d7e258ce5fae6faf71f05bd1",
+      "bytes": 15094
+    },
+    {
+      "path": "raporlar/rapor-deepseek27ekim.md",
+      "sha256": "1b173a6dd11290f916827d234569be8f9057becb7e9164e5c061b75b7d9b9df5",
+      "bytes": 18276
+    },
+    {
+      "path": "raporlar/takip-sozlesme/2026-10-27.md",
+      "sha256": "c0c5a3900ef729a4124dc1d0c34121009f4f1e9cffbae7a1ccdf5ce73e709c77",
+      "bytes": 400
+    },
+    {
+      "path": "raporlar/takip-sozlesme/2026-10-28.md",
+      "sha256": "8e244a219828b03fe2999d30a97dd0030798cfc144b79d13fdb29e29ab1b39e6",
+      "bytes": 333
+    },
+    {
+      "path": "raporlar/telemetri-haftalik/2026-W44.json",
+      "sha256": "1d2fc23103cc8b42d4aa7f5e0cb93a61be8b0eb765957221670c90562957bfa2",
+      "bytes": 590
+    },
+    {
+      "path": "raporlar/telemetri-haftalik/2026-W44.md",
+      "sha256": "ced4e7557a1fa1f0f39793c4b30833849a3571d71cf6928cb64bdec0455f2630",
+      "bytes": 1017
+    }
+  ],
+  "outsideScopeChangesPreserved": [
+    "core/evidence/probe-latest.json",
+    "plans/handoff/HANDOFF-2026-10-25-2038.md",
+    "plans/handoff/HANDOFF-2026-10-27-0031.md",
+    "raporlar/takip-sozlesme/2026-10-25.md",
+    "raporlar/telemetri-haftalik/2026-W43.json",
+    "raporlar/telemetri-haftalik/2026-W43.md"
+  ],
+  "noSelfHash": true,
+  "repoCleanClaimed": false,
+  "productRelease": false,
+  "humanAcceptance": null,
+  "tag": null,
+  "lockedCommit": null
+}

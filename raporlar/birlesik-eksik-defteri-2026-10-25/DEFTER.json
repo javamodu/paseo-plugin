@@ -43,5 +43,15 @@
     "erata2": "bu commit"
   },
   "etiketNotu": "DEFTER govde madde satirlari etiketsizdir ((R)=1 yalniz damgada, (T)=0); geriye donuk etiketlenmez, bu kayitla sabitlenir",
-  "damga": "2026-10-25 19:26 (Get-Date olculdu), ajan = ordu-a4 ana-ajan, commit = bu yan-dosyanin commit'i"
+  "damga": "2026-10-25 19:26 (Get-Date olculdu), ajan = ordu-a4 ana-ajan, commit = bu yan-dosyanin commit'i",
+  "dc20261028": {
+    "at": "2026-10-28T12:43:20.561Z",
+    "supplement": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+    "rawIdentityCount": 150,
+    "wholeRepositoryOpenIssueCount": null,
+    "historicalCountsNotCurrent": true,
+    "existingLedgerRetained": true,
+    "sourceMappingsCompleteForDeclaredScope": true,
+    "productFindingsFixed": false
+  }
 }

@@ -2,7 +2,13 @@
 
 Her projede her AI ajanına uygulanabilen, uygulama-üstü verimlilik sözleşmesi + otomasyon araçları. Paseo (paseo.sh) içinde doğdu, herhangi bir ajan ortamında çalışır (Claude Code, Codex, Cursor, Cline, OpenCode...).
 
-Monorepo bileşen evleri (F1/F2 birleşimi; ayrıntı AGENTS.md "Yapı" bölümünde): `core/` ordu-core (defter+dispatch+kabul) · `plugin/` paseo-verimlilik (v0.22-kilit) · `pano/` pano iskelet/mockup · `referans/` salt-okur (kapsul-final, ordu-v3) · `surumler/` kök kilit sürümleri.
+Monorepo bileşen evleri (F1/F2 birleşimi; ayrıntı AGENTS.md "Yapı" bölümünde): `core/` ordu-core (defter+dispatch+kabul) · `plugin/` paseo-verimlilik (kayıtlı kilit v0.23-kilit; bugünkü belge değişiklikleri yeni ürün kilidi değildir) · `pano/` pano iskelet/mockup · `referans/` salt-okur (kapsul-final, ordu-v3) · `surumler/` kök kilit sürümleri.
+
+## Bu repoda çalışacak ajan için ilk yol
+
+[Kısa ajan başlangıcı](plans/AJAN-BASLANGIC.md) → [ANAYASA](ANAYASA.md) ve [AGENTS](AGENTS.md) → [CODEMAP](CODEMAP.md) → [SSOT indeksi](plans/SSOT-INDEX.md) → [ana ürün planı](plans/PLAN.md) → [atomik görev paketi](plans/uygulama-paketleri/DC-H1-2026-10-28/OZET.md). [STATE_BOARD](STATE_BOARD.md) güncel durumun kaynağıdır; eski START/gece modu damgaları bugünkü izin değildir. [Veri yerleşimi](plans/VERI-YERLESIMI.md) okunmadan runtime komutu çalıştırılmaz.
+
+Bu dosyanın aşağıdaki kurulum anlatımı **evrensel sözleşme paketine** aittir. [PASEO-VERIMLILIK-PLANI](PASEO-VERIMLILIK-PLANI.md) paket mimarisidir; ürün sprintlerinin tek uygulama otoritesi [plans/PLAN.md](plans/PLAN.md) olarak kalır. Görev fişinin veya belge kilit adayının varlığı başlatma/harcama/insan kabulü değildir.
 
 Amaç: **ajan zekâsı ≈ model IQ × bağlam kalitesi** — bu paket bağlam kalitesini maksimize eder, tokenı minimize eder, devirde kaybı sıfırlar.
 

@@ -1,0 +1,2224 @@
+{
+  "schemaSurum": 1,
+  "kind": "plan-edit-baseline-not-B0-consolidation-completion",
+  "at": "2026-10-28T08:10:11.679Z",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "initialGitStatus": " M CODEMAP.md\n M STATE_BOARD.md\n M core/evidence/probe-latest.json\n M plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md\n M plans/HEDEF.md\n M plans/PLAN.md\n M plans/SSOT-INDEX.md\n M plans/gorev-grafigi-2026-10-26.json\n M plans/handoff/HANDOFF-2026-10-25-2038.md\n M plans/handoff/HANDOFF-2026-10-27-0031.md\n M plans/kabul.csv\n M raporlar/OZET.md\n M raporlar/takip-sozlesme/2026-10-25.md\n M raporlar/telemetri-haftalik/2026-W43.json\n M raporlar/telemetri-haftalik/2026-W43.md\n?? arsiv/plan-3-denetci-oncesi-2026-10-27/\n?? arsiv/plan-revizyonu-2026-10-27/\n?? core/veri/ordu.sqlite-shm\n?? core/veri/ordu.sqlite-wal\n?? kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md\n?? kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md\n?? plans/CANLI-TEST-6SUBAGENT-PLANI-2026-10-26.md\n?? plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.json\n?? plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md\n?? plans/OTONOM-SURU-6SUBAGENT-PLANI-2026-10-26.md\n?? plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md\n?? raporlar/canli-test-6subagent-2026-10-26/\n?? raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.json\n?? raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.md\n?? raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.json\n?? raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.md\n?? raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.json\n?? raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.md\n?? raporlar/gelen-kutu/v4-drift-2026-10-26.json\n?? raporlar/gelen-kutu/v4-drift-2026-10-26.md\n?? raporlar/gelen-kutu/v5-metrik-2026-10-26.json\n?? raporlar/gelen-kutu/v5-metrik-2026-10-26.md\n?? raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.json\n?? raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.md\n?? raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json\n?? raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md\n?? raporlar/plan-3-denetci-2026-10-27/\n?? raporlar/plan-revizyonu-v210-2026-10-27/\n?? raporlar/rapor-chatgpt-27ekim-denetim.mjs\n?? raporlar/rapor-chatgpt-27ekim-deney-v2.json\n?? raporlar/rapor-chatgpt-27ekim-deney-v2.log\n?? raporlar/rapor-chatgpt-27ekim-deney.json\n?? raporlar/rapor-chatgpt-27ekim-deney.log\n?? raporlar/rapor-chatgpt-27ekim.json\n?? raporlar/rapor-chatgpt-27ekim.md\n?? raporlar/rapor-deepseek27ekim.json\n?? raporlar/rapor-deepseek27ekim.md\n?? raporlar/takip-sozlesme/2026-10-26.md\n?? raporlar/takip-sozlesme/2026-10-27.md\n?? raporlar/takip-sozlesme/2026-10-28.md\n?? raporlar/telemetri-haftalik/2026-W44.json\n?? raporlar/telemetri-haftalik/2026-W44.md\n",
+  "protectedFiles": [
+    "core/database/001-initial.sql",
+    "core/database/002-hardening.sql",
+    "core/database/003-role-model.sql",
+    "core/database/004-grants.sql",
+    "core/src/adapter-contract.ts",
+    "core/src/agent-lineage.ts",
+    "core/src/backup.ts",
+    "core/src/benchmark.ts",
+    "core/src/capabilities.ts",
+    "core/src/cli-evaluate.ts",
+    "core/src/cli.ts",
+    "core/src/contracts/command-payloads.ts",
+    "core/src/contracts/envelope.ts",
+    "core/src/contracts/event-payloads.ts",
+    "core/src/contracts/validate.ts",
+    "core/src/daemon.ts",
+    "core/src/deadline.ts",
+    "core/src/defter.ts",
+    "core/src/dispatcher.ts",
+    "core/src/evaluator.ts",
+    "core/src/git-worktree-launcher.ts",
+    "core/src/gozetimsiz.ts",
+    "core/src/grants.ts",
+    "core/src/handoff.schema.json",
+    "core/src/handoff.ts",
+    "core/src/kural.ts",
+    "core/src/lessons.ts",
+    "core/src/local-runtime.ts",
+    "core/src/modes.ts",
+    "core/src/notify.ts",
+    "core/src/pano-server.ts",
+    "core/src/pano-ui.ts",
+    "core/src/paseo-adapter.ts",
+    "core/src/paseo-transport.ts",
+    "core/src/probe.mjs",
+    "core/src/provider-bench.mjs",
+    "core/src/providers.ts",
+    "core/src/r8.ts",
+    "core/src/reasoning-receipt.ts",
+    "core/src/receipt-link.ts",
+    "core/src/replan.ts",
+    "core/src/schedule.ts",
+    "core/src/sender.ts",
+    "core/src/store.ts",
+    "core/src/supervisor.ts",
+    "core/src/telemetry.ts",
+    "core/src/turnuva.ts",
+    "core/src/ui-tester.ts",
+    "core/test/a0-2-sweep.test.ts",
+    "core/test/a0-3-gozetimsiz-besleme.test.ts",
+    "core/test/a0-5-lrt.test.ts",
+    "core/test/a09-canli.test.ts",
+    "core/test/a2-replan.test.ts",
+    "core/test/a3-kural.test.ts",
+    "core/test/adapter-contract.test.ts",
+    "core/test/adapter-evaluator.test.ts",
+    "core/test/agent-lineage.test.ts",
+    "core/test/benchmark-canli.test.ts",
+    "core/test/benchmark.test.ts",
+    "core/test/bildirim-canli.test.ts",
+    "core/test/bildirim-sender.test.ts",
+    "core/test/capacity-canli.test.ts",
+    "core/test/cli-capsule.test.ts",
+    "core/test/cli.test.ts",
+    "core/test/closure.test.ts",
+    "core/test/contracts.test.ts",
+    "core/test/daemon-canli.test.ts",
+    "core/test/daemon.test.ts",
+    "core/test/dispatcher.test.ts",
+    "core/test/e2e-s11.test.ts",
+    "core/test/evaluator-canli.test.ts",
+    "core/test/f1-fault.test.ts",
+    "core/test/f1-gates.test.ts",
+    "core/test/f3-crash.test.ts",
+    "core/test/f3-live.test.ts",
+    "core/test/f4-pano.test.ts",
+    "core/test/f4b-pano-ogrenme.test.ts",
+    "core/test/f5-parallel.test.ts",
+    "core/test/f65-2provider.test.ts",
+    "core/test/f65-rol-model.test.ts",
+    "core/test/f8-turnuva.test.ts",
+    "core/test/f9-paseo-kapali.test.ts",
+    "core/test/f9-ui-tester.test.ts",
+    "core/test/git-worktree.test.ts",
+    "core/test/handoff.test.ts",
+    "core/test/k12-cok-ajan.test.ts",
+    "core/test/k12-deadline-r8.test.ts",
+    "core/test/k13-gozetimsiz-canli.test.ts",
+    "core/test/k13-gozetimsiz.test.ts",
+    "core/test/k13-senaryo-a.test.ts",
+    "core/test/k13-senaryo.test.ts",
+    "core/test/lessons-canli.test.ts",
+    "core/test/lessons.test.ts",
+    "core/test/live-gates-v3.test.ts",
+    "core/test/live-gates-v4.test.ts",
+    "core/test/local-runtime.test.ts",
+    "core/test/m01-a15-m11.test.ts",
+    "core/test/m16-canli.test.ts",
+    "core/test/m16-m03.test.ts",
+    "core/test/metrics.test.ts",
+    "core/test/modes.test.ts",
+    "core/test/notify-canli.test.ts",
+    "core/test/notify.test.ts",
+    "core/test/paseo-adapter.test.ts",
+    "core/test/paseo-transport.test.ts",
+    "core/test/r3-grant.test.ts",
+    "core/test/reasoning-receipt.test.ts",
+    "core/test/receipt-link.test.ts",
+    "core/test/schedule-canli.test.ts",
+    "core/test/schedule.test.ts",
+    "core/test/store.test.ts",
+    "core/test/supervisor.test.ts",
+    "core/test/sync-baseline.test.ts",
+    "pano/.pano-serve.js",
+    "pano/BLUEPRINT.md",
+    "pano/DESIGN.md",
+    "pano/README.md",
+    "pano/d1a-test.mjs",
+    "pano/d1b-test.mjs",
+    "pano/iskelet.html",
+    "pano/kapsul-tuval-mockup-2026-10-26.html",
+    "pano/kapsul-tuval.html",
+    "pano/orkestra.html",
+    "pano/package.json",
+    "pano/server.js",
+    "pano/yerel-masaustu.bat",
+    "pano/yerel-masaustu.ps1",
+    "plugin/.gitignore",
+    "plugin/OVERVIEW.md",
+    "plugin/client/degerlendirme.tsx",
+    "plugin/client/mod.tsx",
+    "plugin/client/pano-panel.tsx",
+    "plugin/client/telemetri.tsx",
+    "plugin/index.client.tsx",
+    "plugin/index.server.ts",
+    "plugin/package-lock.json",
+    "plugin/package.json",
+    "plugin/paseo-plugin.json",
+    "plugin/server/ayar.ts",
+    "plugin/server/bekci.ts",
+    "plugin/server/brief.ts",
+    "plugin/server/cekirdek.ts",
+    "plugin/server/degerlendirme.ts",
+    "plugin/server/desenler.ts",
+    "plugin/server/enjekte.ts",
+    "plugin/server/finishgate.ts",
+    "plugin/server/inspect.ts",
+    "plugin/server/kabultakip.ts",
+    "plugin/server/kalite.ts",
+    "plugin/server/kapsam.ts",
+    "plugin/server/loopguard.ts",
+    "plugin/server/modlar.ts",
+    "plugin/server/onboarding.ts",
+    "plugin/server/ordu.ts",
+    "plugin/server/pano.ts",
+    "plugin/server/permission.ts",
+    "plugin/server/pitbull.ts",
+    "plugin/server/planmd.ts",
+    "plugin/server/roller.ts",
+    "plugin/server/rollup.ts",
+    "plugin/server/sozlesme.ts",
+    "plugin/server/surum.ts",
+    "plugin/server/telemetry.ts",
+    "plugin/server/temizlik.ts",
+    "plugin/shared/contracts.ts",
+    "plugin/surumler/v0.10.1/KILIT.md",
+    "plugin/surumler/v0.10.1/kilit.json",
+    "plugin/surumler/v0.10.2/KILIT.md",
+    "plugin/surumler/v0.10.2/kilit.json",
+    "plugin/surumler/v0.10.3/KILIT.md",
+    "plugin/surumler/v0.10.3/kilit.json",
+    "plugin/surumler/v0.10/KILIT.md",
+    "plugin/surumler/v0.10/kilit.json",
+    "plugin/surumler/v0.11/KILIT.md",
+    "plugin/surumler/v0.11/kilit.json",
+    "plugin/surumler/v0.12.1/KILIT.md",
+    "plugin/surumler/v0.12.1/kilit.json",
+    "plugin/surumler/v0.12/KILIT.md",
+    "plugin/surumler/v0.12/kilit.json",
+    "plugin/surumler/v0.13/KILIT.md",
+    "plugin/surumler/v0.13/kilit.json",
+    "plugin/surumler/v0.14/KILIT.md",
+    "plugin/surumler/v0.14/kilit.json",
+    "plugin/surumler/v0.15/KILIT.md",
+    "plugin/surumler/v0.15/kilit.json",
+    "plugin/surumler/v0.16/KILIT.md",
+    "plugin/surumler/v0.16/kilit.json",
+    "plugin/surumler/v0.17/KILIT.md",
+    "plugin/surumler/v0.17/kilit.json",
+    "plugin/surumler/v0.18/KILIT.md",
+    "plugin/surumler/v0.18/kilit.json",
+    "plugin/surumler/v0.19/KILIT.md",
+    "plugin/surumler/v0.19/kilit.json",
+    "plugin/surumler/v0.20/KILIT.md",
+    "plugin/surumler/v0.20/kilit.json",
+    "plugin/surumler/v0.21/KILIT.md",
+    "plugin/surumler/v0.21/kilit.json",
+    "plugin/surumler/v0.22/KILIT.md",
+    "plugin/surumler/v0.22/kilit.json",
+    "plugin/surumler/v0.23/KILIT.md",
+    "plugin/surumler/v0.23/kilit.json",
+    "plugin/surumler/v0.4/KILIT.md",
+    "plugin/surumler/v0.4/kilit.json",
+    "plugin/surumler/v0.5.1/KILIT.md",
+    "plugin/surumler/v0.5.1/kilit.json",
+    "plugin/surumler/v0.5.2/KILIT.md",
+    "plugin/surumler/v0.5.2/kilit.json",
+    "plugin/surumler/v0.5.4/KILIT.md",
+    "plugin/surumler/v0.5.4/kilit.json",
+    "plugin/surumler/v0.6/KILIT.md",
+    "plugin/surumler/v0.6/kilit.json",
+    "plugin/surumler/v0.7/KILIT.md",
+    "plugin/surumler/v0.7/kilit.json",
+    "plugin/surumler/v0.8/KILIT.md",
+    "plugin/surumler/v0.8/kilit.json",
+    "plugin/surumler/v0.9/KILIT.md",
+    "plugin/surumler/v0.9/kilit.json",
+    "plugin/test/ayar-modlar.test.ts",
+    "plugin/test/bekci.test.ts",
+    "plugin/test/dedektor.test.ts",
+    "plugin/test/izin.test.ts",
+    "plugin/test/kabul-rollup.test.ts",
+    "plugin/test/kucukfix.test.ts",
+    "plugin/test/ordu.test.ts",
+    "plugin/test/pano-durdur.test.ts",
+    "plugin/test/planmd.test.ts",
+    "plugin/tsconfig.json",
+    "scripts/bench-claude.mjs",
+    "scripts/bench-puanlari.json",
+    "scripts/bench.mjs",
+    "scripts/claude-glm.cmd",
+    "scripts/codemap.ps1",
+    "scripts/codex-failover.mjs",
+    "scripts/katman-kur.ps1",
+    "scripts/kilit-surum.ps1",
+    "scripts/kirli-liste.json",
+    "scripts/kiyasla.ps1",
+    "scripts/model-katalog.mjs",
+    "scripts/omp-kurulum-kapisi.mjs",
+    "scripts/openrouter-pi-kapisi.mjs",
+    "scripts/pi-erisim-kapisi.mjs",
+    "scripts/proje-panosu.ps1",
+    "scripts/saglik.ps1",
+    "scripts/test-kanal.ps1",
+    "scripts/uygunluk-hedefi.json",
+    "scripts/uygunluk.mjs",
+    "scripts/yonetici-ozeti.ps1",
+    "scripts/zincir-kontrol.ps1"
+  ],
+  "documents": [
+    "ANAYASA.md",
+    "AGENTS.md",
+    "sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md",
+    "plans/PLAN.md",
+    "plans/SSOT-INDEX.md",
+    "STATE_BOARD.md",
+    "raporlar/OZET.md",
+    "plans/HEDEF.md",
+    "plans/kabul.csv",
+    "plans/gorev-grafigi-2026-10-26.json",
+    "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
+    "hedefler.json",
+    "raporlar/rapor-chatgpt-27ekim.md",
+    "raporlar/rapor-chatgpt-27ekim.json",
+    "raporlar/rapor-deepseek27ekim.md",
+    "raporlar/rapor-deepseek27ekim.json",
+    "raporlar/plan-3-denetci-2026-10-27/OZET.md",
+    "raporlar/plan-3-denetci-2026-10-27/denetim.json",
+    "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+    "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+    "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.json",
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md",
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+    "raporlar/takip-sozlesme/2026-10-28.md",
+    "raporlar/telemetri-haftalik/2026-W44.md",
+    "raporlar/telemetri-haftalik/2026-W44.json"
+  ],
+  "files": {
+    "core/database/001-initial.sql": {
+      "sha256": "06716b653e94931b8c1b9ad1be80559fc727987a0c923e5a98d8ab2083d0d61f",
+      "bytes": 7367,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 123
+    },
+    "core/database/002-hardening.sql": {
+      "sha256": "30b9247817ea4c3f64e94c3d3ce768d085a1fe0969dfd93abeda5709fe5572ce",
+      "bytes": 2068,
+      "bom": false,
+      "crlf": 35,
+      "lfOnly": 0
+    },
+    "core/database/003-role-model.sql": {
+      "sha256": "9a0c31a5810c86c15548d67a9593020609d788e5d30997a7a5714039180d35e6",
+      "bytes": 347,
+      "bom": false,
+      "crlf": 1,
+      "lfOnly": 4
+    },
+    "core/database/004-grants.sql": {
+      "sha256": "70db559a17ad73b5d6a578386ce7a4354d2f738f65fe3456b24ab8c7af2bd77c",
+      "bytes": 3616,
+      "bom": false,
+      "crlf": 58,
+      "lfOnly": 0
+    },
+    "core/src/adapter-contract.ts": {
+      "sha256": "ef5ba9742790b6ccbc5e68c3470bc6e0327b06621edc8e983929ffcb0bb20bf6",
+      "bytes": 6532,
+      "bom": false,
+      "crlf": 110,
+      "lfOnly": 0
+    },
+    "core/src/agent-lineage.ts": {
+      "sha256": "7e02404dd2ab300d627632099d5dd70bcd8f84f89d47a03979b0981b8ac9f47d",
+      "bytes": 5140,
+      "bom": false,
+      "crlf": 81,
+      "lfOnly": 0
+    },
+    "core/src/backup.ts": {
+      "sha256": "ef34a2a73c5f1b4e1061f55d40be963447bb57a4888ca4d612dd00990c1823bc",
+      "bytes": 1410,
+      "bom": false,
+      "crlf": 27,
+      "lfOnly": 0
+    },
+    "core/src/benchmark.ts": {
+      "sha256": "2e59d6e14eb0361f5428a28e22e0a574b516af18884fbc0801429d5675be6fca",
+      "bytes": 9766,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 251
+    },
+    "core/src/capabilities.ts": {
+      "sha256": "f0c81827c3d25c7a21972873db4809be0295397430df41ad9f1b19b188062b01",
+      "bytes": 4077,
+      "bom": false,
+      "crlf": 63,
+      "lfOnly": 0
+    },
+    "core/src/cli-evaluate.ts": {
+      "sha256": "2cb1f706e9ccca1a024b7c8a0f4cc9ae1e7410a70547449e9e5b976b960a235b",
+      "bytes": 4201,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 86
+    },
+    "core/src/cli.ts": {
+      "sha256": "a15858fff34f2c46f654dad352573f6addc596655dfd2a5c0d6040a7b1edcd2a",
+      "bytes": 27771,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 420
+    },
+    "core/src/contracts/command-payloads.ts": {
+      "sha256": "6068490ea5d6b6f4be9a84abeb2a3b27a656ab454079df5f5729d5831ab2dcfa",
+      "bytes": 2899,
+      "bom": false,
+      "crlf": 76,
+      "lfOnly": 0
+    },
+    "core/src/contracts/envelope.ts": {
+      "sha256": "ecc494720a70cb8ab7a8213c268a7aa39df45da465761b84faf7f09804638d92",
+      "bytes": 1703,
+      "bom": false,
+      "crlf": 42,
+      "lfOnly": 0
+    },
+    "core/src/contracts/event-payloads.ts": {
+      "sha256": "fcf9457eea9d8fe75ebc93ad3b83035d841c8b8407aecf873984cb65706f969a",
+      "bytes": 4366,
+      "bom": false,
+      "crlf": 92,
+      "lfOnly": 0
+    },
+    "core/src/contracts/validate.ts": {
+      "sha256": "c6761fc140dde55e3042e47991af3220116ffe43e7235994d18b2db71f478c70",
+      "bytes": 2617,
+      "bom": false,
+      "crlf": 52,
+      "lfOnly": 0
+    },
+    "core/src/daemon.ts": {
+      "sha256": "13bbeda8298901bfeb9a9c0813a018f1ea511d057c372ffa38f0eb653f26c6dc",
+      "bytes": 10299,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 200
+    },
+    "core/src/deadline.ts": {
+      "sha256": "c7b14f43cfb7d91084aff1e2cce2315b7b713624fdd7cfb11aa6ce9686d6883b",
+      "bytes": 4350,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 69
+    },
+    "core/src/defter.ts": {
+      "sha256": "6260cf5ef6cceb907f1133cb815bbbe07876826d1aaea21631438f9b01100a6d",
+      "bytes": 2059,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 43
+    },
+    "core/src/dispatcher.ts": {
+      "sha256": "3268fd826665a5ab000639bc4aea782a0489941dc933c14b87f38ff33182f534",
+      "bytes": 14620,
+      "bom": false,
+      "crlf": 251,
+      "lfOnly": 0
+    },
+    "core/src/evaluator.ts": {
+      "sha256": "8daecda19e6f38a94d1272434cd0e437dd1d48ca7fbee312ec1a7ad771fe7db8",
+      "bytes": 3866,
+      "bom": false,
+      "crlf": 79,
+      "lfOnly": 0
+    },
+    "core/src/git-worktree-launcher.ts": {
+      "sha256": "8838e360760ef7efc396480f8be79a90ef1755db23a696d610af4425483abc1f",
+      "bytes": 5081,
+      "bom": false,
+      "crlf": 106,
+      "lfOnly": 0
+    },
+    "core/src/gozetimsiz.ts": {
+      "sha256": "e6c691706b36a2c81054db6685cb64d9e79a993376a75f091d5dca6ebc2d8eb6",
+      "bytes": 14532,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 210
+    },
+    "core/src/grants.ts": {
+      "sha256": "fa70a1dd2bab7e7e174ddc4444e729ec94d8b422a791cdb0aed8145552eb5791",
+      "bytes": 16428,
+      "bom": false,
+      "crlf": 300,
+      "lfOnly": 0
+    },
+    "core/src/handoff.schema.json": {
+      "sha256": "6d1c284f6a73733d946de628c751ede7315a8f9a78ffa3bf3243bdb3a9985354",
+      "bytes": 7169,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 327
+    },
+    "core/src/handoff.ts": {
+      "sha256": "52b29af43205d831654b0c3427504a6cc85398ba2d7176c920485ed26f896ea0",
+      "bytes": 5360,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 124
+    },
+    "core/src/kural.ts": {
+      "sha256": "6953165321117280191a5896aa9967072cf96f1bd90d042016fd87c7a44808b0",
+      "bytes": 22429,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 338
+    },
+    "core/src/lessons.ts": {
+      "sha256": "61a8490369ca469b0d387c7f21b63c398f59f77ea90a967e344fd7b582aa2076",
+      "bytes": 14380,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 340
+    },
+    "core/src/local-runtime.ts": {
+      "sha256": "bdb7aea4fab2ceda162cfa75092ad8a38de756a3f8c6cacd59b79b032b058d54",
+      "bytes": 17033,
+      "bom": false,
+      "crlf": 317,
+      "lfOnly": 0
+    },
+    "core/src/modes.ts": {
+      "sha256": "893924ec13019f08d723a3c13ddef1568130ea1379784c54eb7cfdcf52c9eb5a",
+      "bytes": 3396,
+      "bom": false,
+      "crlf": 78,
+      "lfOnly": 0
+    },
+    "core/src/notify.ts": {
+      "sha256": "f5b1668cad123e0a21af4d695102d3e601825a3172c1fd92bb41d225868cc844",
+      "bytes": 11714,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 294
+    },
+    "core/src/pano-server.ts": {
+      "sha256": "e19f75fe444b636ff76202979da815bdd03ad1f3655324d27d449df1ec588328",
+      "bytes": 9491,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 198
+    },
+    "core/src/pano-ui.ts": {
+      "sha256": "6b9540835c4b886ca3f83b73b49d913650827bec8c2597837ebcde8e5a481a8f",
+      "bytes": 9658,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 193
+    },
+    "core/src/paseo-adapter.ts": {
+      "sha256": "edfcadaeb0570a77ab6ac0bfe66cd622c3b93b70a4f804000ecb648732ac26d7",
+      "bytes": 3654,
+      "bom": false,
+      "crlf": 69,
+      "lfOnly": 0
+    },
+    "core/src/paseo-transport.ts": {
+      "sha256": "86cb63d93128fad952a8a93cf01fbddbbec8e7d3d784ba443c73b8da0a1e583c",
+      "bytes": 13111,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 255
+    },
+    "core/src/probe.mjs": {
+      "sha256": "6bd46992c534a7df1dbed0f56e480e1f5bdfe01cc2d1264a54e31c3885629bd8",
+      "bytes": 12028,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 229
+    },
+    "core/src/provider-bench.mjs": {
+      "sha256": "96780f0e7e6510e886446656a919f26847811ecd60e42d8ddd1ad15767c7beb0",
+      "bytes": 30522,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 684
+    },
+    "core/src/providers.ts": {
+      "sha256": "42a1fb73de0575fe9055e35cc68ff9c882c8a8b468ff7adb18fc2110ba50b49e",
+      "bytes": 9563,
+      "bom": false,
+      "crlf": 183,
+      "lfOnly": 0
+    },
+    "core/src/r8.ts": {
+      "sha256": "91bc2c2ee9b2ec1cae12f4845ec56364e7b7a3695b8282951d054f8784f549cb",
+      "bytes": 3462,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 46
+    },
+    "core/src/reasoning-receipt.ts": {
+      "sha256": "0ab380c556641df1fe4485ae8baee0140f2315d1003cd195f98aa743c27322b0",
+      "bytes": 3076,
+      "bom": false,
+      "crlf": 64,
+      "lfOnly": 0
+    },
+    "core/src/receipt-link.ts": {
+      "sha256": "3477bc4c493e76d1696338cd40e9c01da800dca71fc3fc974a3c801fc13dbc4e",
+      "bytes": 9990,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 192
+    },
+    "core/src/replan.ts": {
+      "sha256": "649027350504249ed81baa208d5b82ac5fedef32960edeffcb3973773abe5c9e",
+      "bytes": 16896,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 313
+    },
+    "core/src/schedule.ts": {
+      "sha256": "badfe29d9c23d2059a2835d1beef44efbba81c349975eaaa5724cba8c2224a14",
+      "bytes": 7215,
+      "bom": false,
+      "crlf": 135,
+      "lfOnly": 0
+    },
+    "core/src/sender.ts": {
+      "sha256": "182ed3b09fc5fddee3bd927052af62d0079a74938e33ff526001f8e7f9dc8701",
+      "bytes": 5056,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 98
+    },
+    "core/src/store.ts": {
+      "sha256": "e46ed62f7cfade8bc5197b9d20681ebc5bbfe75c74540c83ede9afbb62da9f05",
+      "bytes": 13415,
+      "bom": false,
+      "crlf": 279,
+      "lfOnly": 0
+    },
+    "core/src/supervisor.ts": {
+      "sha256": "ae73fc2364eb210719d02b3a4fc2806eae3e06e334689b692c725ac0ca9a0ad4",
+      "bytes": 38978,
+      "bom": false,
+      "crlf": 607,
+      "lfOnly": 0
+    },
+    "core/src/telemetry.ts": {
+      "sha256": "1ba4dfacd75cb907ceda6e3ae36b23db682c90e5791dc0050edbfbfe5894773d",
+      "bytes": 6817,
+      "bom": false,
+      "crlf": 95,
+      "lfOnly": 0
+    },
+    "core/src/turnuva.ts": {
+      "sha256": "3c6c2bb9343e54eadd992b13f05841280cbba9c3c0fa2060ee2496d9a41bf826",
+      "bytes": 25158,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 466
+    },
+    "core/src/ui-tester.ts": {
+      "sha256": "7b4e26e02cc01c94c209f508ba370d8deacbf0c37ca5297f56e02d1c20b2b6e2",
+      "bytes": 10873,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 256
+    },
+    "core/test/a0-2-sweep.test.ts": {
+      "sha256": "a17fb4316c89266de2edca637ce440eb7f5f252a458ae05a9167f9e3302e874e",
+      "bytes": 19523,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 359
+    },
+    "core/test/a0-3-gozetimsiz-besleme.test.ts": {
+      "sha256": "7c7161aa1db5dc3f992a7bc36f2a86216cce91f15609569ded3d9a0a5893d1ba",
+      "bytes": 11601,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 197
+    },
+    "core/test/a0-5-lrt.test.ts": {
+      "sha256": "3e983ae22ea619d895ad34abeaa6d05b5e0526dd5fb60286c654008c5089c9de",
+      "bytes": 24410,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 407
+    },
+    "core/test/a09-canli.test.ts": {
+      "sha256": "2247866198c438bc33513a912524b71050cd04f1775331e2e9f1b5661beed35c",
+      "bytes": 6265,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 100
+    },
+    "core/test/a2-replan.test.ts": {
+      "sha256": "40352866e739a8db8e9d8334f307c0b742869348ba80758aba0c4ca70a31c239",
+      "bytes": 11409,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 221
+    },
+    "core/test/a3-kural.test.ts": {
+      "sha256": "7a5d262a31660fd9a7bed13cc2c081030b99b8ea107af1320050d95fd4ac4ff8",
+      "bytes": 24008,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 392
+    },
+    "core/test/adapter-contract.test.ts": {
+      "sha256": "9a983758c98ebabc131258b881d3cf3974ef56d9b9b108c7b90cd2d341fbd302",
+      "bytes": 6433,
+      "bom": false,
+      "crlf": 101,
+      "lfOnly": 0
+    },
+    "core/test/adapter-evaluator.test.ts": {
+      "sha256": "da46891c9f361726f92f1026d7221d3368063159436a06d9a19758a6d8eda192",
+      "bytes": 12301,
+      "bom": false,
+      "crlf": 196,
+      "lfOnly": 0
+    },
+    "core/test/agent-lineage.test.ts": {
+      "sha256": "4c95b26218077d4b2eb9e498463dba76dac2fe9101ee0c592c54757309f9f81f",
+      "bytes": 4868,
+      "bom": false,
+      "crlf": 85,
+      "lfOnly": 0
+    },
+    "core/test/benchmark-canli.test.ts": {
+      "sha256": "48c115ce6bb87c484cd95d993afb7129ef25c5ee537f2d9ba47cd3ac3a16ed06",
+      "bytes": 6587,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 106
+    },
+    "core/test/benchmark.test.ts": {
+      "sha256": "111f8ae808f18735b3f1dc75d53f166b5a9512a39780a94b170683620fbdde76",
+      "bytes": 9146,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 193
+    },
+    "core/test/bildirim-canli.test.ts": {
+      "sha256": "9e39561fe80d8a46cb48b9d43ad1b6483dcdfb5e642d8705b054c3ac71f27884",
+      "bytes": 6079,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 108
+    },
+    "core/test/bildirim-sender.test.ts": {
+      "sha256": "00614722538531075733db543391cfa27f593577deb94d8da1ee9ac7e038b8dc",
+      "bytes": 8494,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 133
+    },
+    "core/test/capacity-canli.test.ts": {
+      "sha256": "8142f69e4501dfb0722e30a9645062f038788a016d8f3659e177030b54d17662",
+      "bytes": 15848,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 249
+    },
+    "core/test/cli-capsule.test.ts": {
+      "sha256": "1d67b605a8afd3270dabea6e769c3ea65ff47944402cb66eb8d1dfd01071ead0",
+      "bytes": 6292,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 134
+    },
+    "core/test/cli.test.ts": {
+      "sha256": "9b78ed8b409e77c9c1ab55f262001b986b8aa19f0426ef01b47f812be8e8b997",
+      "bytes": 6347,
+      "bom": false,
+      "crlf": 93,
+      "lfOnly": 11
+    },
+    "core/test/closure.test.ts": {
+      "sha256": "4bb54386526f4ea789c70c545802b560476fa0200019eeedd37dda1898f9f0ed",
+      "bytes": 7304,
+      "bom": false,
+      "crlf": 129,
+      "lfOnly": 0
+    },
+    "core/test/contracts.test.ts": {
+      "sha256": "fa1e219c2a64c1d53c274f7e3671e22e9e27726ef73f5c6b3a981598081e1e3d",
+      "bytes": 6444,
+      "bom": false,
+      "crlf": 141,
+      "lfOnly": 0
+    },
+    "core/test/daemon-canli.test.ts": {
+      "sha256": "dcc31c1e363d99a2fbe8176abf023ca28c43b13ae48c237f90c122abff619765",
+      "bytes": 3837,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 77
+    },
+    "core/test/daemon.test.ts": {
+      "sha256": "45c9463357930f4caa587e42023576b49f8d6cc05e9e511a381b4aa41bd4d624",
+      "bytes": 6353,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 131
+    },
+    "core/test/dispatcher.test.ts": {
+      "sha256": "08c5dd385423be8c104400041825aa791d071b0ccc63409fe37490acc43929b5",
+      "bytes": 9972,
+      "bom": false,
+      "crlf": 173,
+      "lfOnly": 0
+    },
+    "core/test/e2e-s11.test.ts": {
+      "sha256": "b2305999b187ae13dcab421b1856152f59874282a39b740bb16a4024bfcbdce2",
+      "bytes": 13353,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 247
+    },
+    "core/test/evaluator-canli.test.ts": {
+      "sha256": "93956513d64e28919a6125caf86ee10912047e5a0ad43264608ca496087f1e83",
+      "bytes": 9385,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 160
+    },
+    "core/test/f1-fault.test.ts": {
+      "sha256": "51eac36b7ddb2c35cb40ee973c256047cf9b11e0681576e072f1465f9518dfcb",
+      "bytes": 9281,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 175
+    },
+    "core/test/f1-gates.test.ts": {
+      "sha256": "336b2aacef15dc71acef5207a5a6e167e0b0600e1db40f86fbda17416e77e2e1",
+      "bytes": 16488,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 298
+    },
+    "core/test/f3-crash.test.ts": {
+      "sha256": "8d8b9fceb13d73d5558e378048f4b18358aed05f3d72e9c2764d0b0c29b8c276",
+      "bytes": 17591,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 314
+    },
+    "core/test/f3-live.test.ts": {
+      "sha256": "0ed976a11b64dd5106e8d3eb0846cb78c1acbc556fbe8bfcaca640a19ac6507a",
+      "bytes": 13396,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 260
+    },
+    "core/test/f4-pano.test.ts": {
+      "sha256": "a83746978e100982ed9a9a3f9dffe4760bbc7b50c491be2c64fbfa88195e208f",
+      "bytes": 9202,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 189
+    },
+    "core/test/f4b-pano-ogrenme.test.ts": {
+      "sha256": "ee96cce701484d924dcd699e6bd342cf7c3632d3aef4a29373d8ecb0f014e81a",
+      "bytes": 6053,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 161
+    },
+    "core/test/f5-parallel.test.ts": {
+      "sha256": "e50afc3d364136654ba4488fc4560590d230a5b8819a80af55e0a1b47ca5d81f",
+      "bytes": 18371,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 329
+    },
+    "core/test/f65-2provider.test.ts": {
+      "sha256": "c6964b9c243b4dc4aef9d87e82113ea29e22e2d1838a62013318be55016a130b",
+      "bytes": 6240,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 107
+    },
+    "core/test/f65-rol-model.test.ts": {
+      "sha256": "63c3b09ac1bc0d6462c6707d65d123dff2f874e525bee4e38d2111224f675124",
+      "bytes": 15231,
+      "bom": false,
+      "crlf": 246,
+      "lfOnly": 0
+    },
+    "core/test/f8-turnuva.test.ts": {
+      "sha256": "169af8746c5fbf859afe83688f6c98d8c68ab212283c645ca0f2afa734f1a3e0",
+      "bytes": 17964,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 259
+    },
+    "core/test/f9-paseo-kapali.test.ts": {
+      "sha256": "cf833a1f423933a7eedc9be58848b6c938c04f21730cd3c6a4e0ddb4410063ad",
+      "bytes": 9578,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 170
+    },
+    "core/test/f9-ui-tester.test.ts": {
+      "sha256": "97c4e0a789a82644f729e5e132214c9144e46566952cca503ba951ddad027ce3",
+      "bytes": 9876,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 196
+    },
+    "core/test/git-worktree.test.ts": {
+      "sha256": "edb9298bd6c9218298af8fe475c254bcb5c9a70850b97b414c73595da5de40b6",
+      "bytes": 7267,
+      "bom": false,
+      "crlf": 145,
+      "lfOnly": 0
+    },
+    "core/test/handoff.test.ts": {
+      "sha256": "bb8ffc426b324f8a0564b1de5a0aa20c4a3d0275126ae20a5ae7dfbbcece6887",
+      "bytes": 5366,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 107
+    },
+    "core/test/k12-cok-ajan.test.ts": {
+      "sha256": "9a744784892ee9766dab6a2a9cf8c41df417c8514bca51e8435d6eb9d3850986",
+      "bytes": 19630,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 325
+    },
+    "core/test/k12-deadline-r8.test.ts": {
+      "sha256": "1a07465f0bd81469b19781f9340c1f7b5eeb286b0984574dadd373e56377a229",
+      "bytes": 13135,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 200
+    },
+    "core/test/k13-gozetimsiz-canli.test.ts": {
+      "sha256": "c4d0db7c6b1dbee54bd0e27817b2fc710abb3c86f144ca1e58635dd246de1d00",
+      "bytes": 9449,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 148
+    },
+    "core/test/k13-gozetimsiz.test.ts": {
+      "sha256": "fc49f012b2b28a6c1e2610ead30ceef495f2b4cd7375cea8936a5777c758c87e",
+      "bytes": 6694,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 111
+    },
+    "core/test/k13-senaryo-a.test.ts": {
+      "sha256": "6bf0eb2a93a3732e82b4917b6e9c64e35cf3c2d32daffb92257ca1b1c0630a73",
+      "bytes": 9535,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 161
+    },
+    "core/test/k13-senaryo.test.ts": {
+      "sha256": "c15c6ce401f98577afa9788c2cc0de33200e7f17958ffa8101fd3f488283d644",
+      "bytes": 12984,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 188
+    },
+    "core/test/lessons-canli.test.ts": {
+      "sha256": "9e87d10a2cbe20b214f67d98a7e52294cf893aad08f1c4b503afb99fbce295be",
+      "bytes": 7844,
+      "bom": true,
+      "crlf": 129,
+      "lfOnly": 0
+    },
+    "core/test/lessons.test.ts": {
+      "sha256": "e7ac316f94ac9e485d6d859485f65db0defbdc9657a88c5381546f952bfb51be",
+      "bytes": 10065,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 197
+    },
+    "core/test/live-gates-v3.test.ts": {
+      "sha256": "69c1cbe9eaa3bf8e5140e8bb5874f6a233f403c358a6905b1eaf8cdfdd7973c7",
+      "bytes": 18268,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 325
+    },
+    "core/test/live-gates-v4.test.ts": {
+      "sha256": "ef7b271f1bf462204605e60b4102211aef33cf14df1beec49fa46f5c42b3c12d",
+      "bytes": 23708,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 392
+    },
+    "core/test/local-runtime.test.ts": {
+      "sha256": "b320c29ade0bbe134c41ba50fad97d70401ac14a17befa531cb6d8549c3b542c",
+      "bytes": 8964,
+      "bom": false,
+      "crlf": 142,
+      "lfOnly": 0
+    },
+    "core/test/m01-a15-m11.test.ts": {
+      "sha256": "ce2875783caac14d598c754698dc59ddb0a56725b893651028a3ed6eae5c67c7",
+      "bytes": 12384,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 230
+    },
+    "core/test/m16-canli.test.ts": {
+      "sha256": "82f5dacc8700f784aae454385daa428fa6a99ac6e868c8aab2beeef2b5ad63db",
+      "bytes": 5476,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 95
+    },
+    "core/test/m16-m03.test.ts": {
+      "sha256": "925828467a532ad3d336dcbda168d3b4fb72d2aa9505185186f0e345df55a911",
+      "bytes": 10130,
+      "bom": false,
+      "crlf": 195,
+      "lfOnly": 0
+    },
+    "core/test/metrics.test.ts": {
+      "sha256": "f9fd2cb558e1317bdf56b9e97c6b005e0a4c4fea02d33639bb32b117310eb1c1",
+      "bytes": 7456,
+      "bom": false,
+      "crlf": 126,
+      "lfOnly": 0
+    },
+    "core/test/modes.test.ts": {
+      "sha256": "a1551801a8a77c8b0f92bf862bbd2be33244301435ef56a1daeeef0757ad44fa",
+      "bytes": 6567,
+      "bom": false,
+      "crlf": 124,
+      "lfOnly": 0
+    },
+    "core/test/notify-canli.test.ts": {
+      "sha256": "754b58ce03833cceba07360a5bfe3e716f837f57a4fb5f24ada623a1dfb9d300",
+      "bytes": 7251,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 136
+    },
+    "core/test/notify.test.ts": {
+      "sha256": "29e0fef3129d4616f19fcfd8369250ba6a3bbf294d266eb0870de6929498682d",
+      "bytes": 8945,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 185
+    },
+    "core/test/paseo-adapter.test.ts": {
+      "sha256": "8daf77faceccf0e0b95f4681cb13c0385ef3dd55f1256ae97cb03fefaabe48e6",
+      "bytes": 9108,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 154
+    },
+    "core/test/paseo-transport.test.ts": {
+      "sha256": "403ec2d9d0ea98f8c3ce6b4d1c043621185c7574b2295466f1c2e5569b239993",
+      "bytes": 16102,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 287
+    },
+    "core/test/r3-grant.test.ts": {
+      "sha256": "8f36bbe0b0362aac09ed495dd20b15efdd82857f598f00c3a278aa0ced31a486",
+      "bytes": 29257,
+      "bom": false,
+      "crlf": 415,
+      "lfOnly": 0
+    },
+    "core/test/reasoning-receipt.test.ts": {
+      "sha256": "ecb2523bb13268a7667a78d9250aec20d7cbf207d7e56432433e225715a189e1",
+      "bytes": 4496,
+      "bom": false,
+      "crlf": 77,
+      "lfOnly": 0
+    },
+    "core/test/receipt-link.test.ts": {
+      "sha256": "49781989e1633f4b8518d8da5b9415210eb63478b6342902fec552c797cd1ad2",
+      "bytes": 6696,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 136
+    },
+    "core/test/schedule-canli.test.ts": {
+      "sha256": "76063f0ca5b44f557f80ee3c688ff15835ec87383882b1bdf30b31d0455e33f3",
+      "bytes": 4216,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 62
+    },
+    "core/test/schedule.test.ts": {
+      "sha256": "21101375e1af207cf3533ae156126801ca4463f257d1e3b76c6f22fd678400a4",
+      "bytes": 6341,
+      "bom": false,
+      "crlf": 110,
+      "lfOnly": 0
+    },
+    "core/test/store.test.ts": {
+      "sha256": "eb1155100acae43aefd84ab81ca8db0332ccc6deed51ca697617eddbdb672d3e",
+      "bytes": 14541,
+      "bom": false,
+      "crlf": 261,
+      "lfOnly": 0
+    },
+    "core/test/supervisor.test.ts": {
+      "sha256": "cd1e750fd4d2ca0c366d2f70fcff7e6030283a736d4751cce754bfd3c1116043",
+      "bytes": 7553,
+      "bom": false,
+      "crlf": 126,
+      "lfOnly": 0
+    },
+    "core/test/sync-baseline.test.ts": {
+      "sha256": "15fa20fee449a122d2b10e39ea56461aee1f8b0fcb1d5a7f8aba9e7a0a69c2b4",
+      "bytes": 2729,
+      "bom": false,
+      "crlf": 54,
+      "lfOnly": 0
+    },
+    "pano/.pano-serve.js": {
+      "sha256": "2bdf7b59ca448e9e5204a6416595cc25e7cb4f83ebd7eb5f71f131bc2974ec99",
+      "bytes": 775,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 15
+    },
+    "pano/BLUEPRINT.md": {
+      "sha256": "986805b32b3f078efce48bd9fd342f4a6105b53004c7b6375be3c7d601332b43",
+      "bytes": 12641,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 165
+    },
+    "pano/DESIGN.md": {
+      "sha256": "44c995dcf7126dce48ffa84381359f8e831d3ca92bcaff4862c77531fe63e9e9",
+      "bytes": 7611,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 115
+    },
+    "pano/README.md": {
+      "sha256": "638e2d6a70fb69d22a7c8532a73af89f334e0073d71b2bfa62cda5eea0a1211a",
+      "bytes": 1511,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 25
+    },
+    "pano/d1a-test.mjs": {
+      "sha256": "842aabf90c7af079829607e9c4853e0b566b29d1914fecb05200518a858e38d8",
+      "bytes": 4549,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 101
+    },
+    "pano/d1b-test.mjs": {
+      "sha256": "58fca899ac5e7d37ee45ef3280524bc08c402ab513cb88371d79988c0f510af2",
+      "bytes": 6581,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 134
+    },
+    "pano/iskelet.html": {
+      "sha256": "fb993806d75674d48a223d5d49408646c12056f40b5563013cd8323fdada9420",
+      "bytes": 4371,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 89
+    },
+    "pano/kapsul-tuval-mockup-2026-10-26.html": {
+      "sha256": "1ea8d8baadde295202afad504b996d0eb3d7083431990d8f529f81228ed8856a",
+      "bytes": 23820,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 330
+    },
+    "pano/kapsul-tuval.html": {
+      "sha256": "2c74978e334688249cee6ce53359db9e3dff09237e07b467b7f30635668ac3c5",
+      "bytes": 12735,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 228
+    },
+    "pano/orkestra.html": {
+      "sha256": "73fc464ae0463bd4e2e8d45d134c957a261f152b7b7bcb18e1c3f5e78a0b0085",
+      "bytes": 14695,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 307
+    },
+    "pano/package.json": {
+      "sha256": "69cab438af2fcab3dd6eef1d33f324245477a9675c1f94eccb18d2293b46ebc2",
+      "bytes": 270,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 11
+    },
+    "pano/server.js": {
+      "sha256": "bc1bca41a05f83faa285ada4c428a2a0e5ff0a5da55d4c38e43bac7f6bb0ff56",
+      "bytes": 10959,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 205
+    },
+    "pano/yerel-masaustu.bat": {
+      "sha256": "6a0c01cd5c5fcdbab05c48f62bd821da41dfb70f614d72f7a437e1c7190e4453",
+      "bytes": 172,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 3
+    },
+    "pano/yerel-masaustu.ps1": {
+      "sha256": "4e39b118a2d7910c5889f209a440674960e2d73c1d7388e0f63c3059a1460238",
+      "bytes": 1982,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 48
+    },
+    "plugin/.gitignore": {
+      "sha256": "42f5a57203723a3b2ad7c4a89fbccc4ab6be52c7d594fa6f213f1be460c84d72",
+      "bytes": 43,
+      "bom": true,
+      "crlf": 1,
+      "lfOnly": 3
+    },
+    "plugin/OVERVIEW.md": {
+      "sha256": "b4e5b77a9b46a02ec72438d653451b0f234e9f713ec6065f1e29fe1e52122393",
+      "bytes": 4650,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 32
+    },
+    "plugin/client/degerlendirme.tsx": {
+      "sha256": "64b34b4ce3f7ce5c07e484134681f208d15924a55297e76a57386d533af2d303",
+      "bytes": 2094,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 47
+    },
+    "plugin/client/mod.tsx": {
+      "sha256": "2b5d9911ad97c72ca7cefe139ed334cd4213bd5c2040d5be21850847c8e62c11",
+      "bytes": 2071,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 49
+    },
+    "plugin/client/pano-panel.tsx": {
+      "sha256": "725f3e1cbaccf5f72eac5876995ae890bac2cf3c9a20ec2fa90b92564986ceb9",
+      "bytes": 2817,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 67
+    },
+    "plugin/client/telemetri.tsx": {
+      "sha256": "0dc81a84090c1746efc3dc87ae39e46502de405f776eaea7704ccd3b837248b2",
+      "bytes": 3055,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 61
+    },
+    "plugin/index.client.tsx": {
+      "sha256": "ddb7d3c5ebe5461b903f22b437feb3cadace97b06c25cf53cf22e1ab3d2a1ad2",
+      "bytes": 3791,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 101
+    },
+    "plugin/index.server.ts": {
+      "sha256": "1cc2b683a49ed0c7c992425e38502707637abde90739d80eaa5dd05261499b54",
+      "bytes": 12841,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 284
+    },
+    "plugin/package-lock.json": {
+      "sha256": "da7be81d71f2de7b81d4b1a1d835b49d319db8a4b03f9a9d0f9c0990c9e925cf",
+      "bytes": 162262,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 4548
+    },
+    "plugin/package.json": {
+      "sha256": "fe4c6fddb2e1ce6281ed9ebd0a835cb250baa45deb77a1ae5ba85f63e104a7fd",
+      "bytes": 957,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 33
+    },
+    "plugin/paseo-plugin.json": {
+      "sha256": "1b7f06c8119f4d5d1cbba30c7b188017a169bb8c98cf95ea979f8e09e8ae329b",
+      "bytes": 87,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 0
+    },
+    "plugin/server/ayar.ts": {
+      "sha256": "95967ed2799c447110b50d4561c5f17696c6447d4b72653f884d7c817c16041d",
+      "bytes": 2493,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 66
+    },
+    "plugin/server/bekci.ts": {
+      "sha256": "33a62f0005b1a039ce76ca7b1b000e47de9d619b46d85f86b2af46ebc2868436",
+      "bytes": 12138,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 262
+    },
+    "plugin/server/brief.ts": {
+      "sha256": "934cc1583755882d6c0417845828511893e8952c74fa5fb064e57d75a25df21c",
+      "bytes": 6250,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 167
+    },
+    "plugin/server/cekirdek.ts": {
+      "sha256": "16cf45ab37145c9393e12217dcb6a20bde8a5b8e29f99643c4cb841340e433a6",
+      "bytes": 5444,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 62
+    },
+    "plugin/server/degerlendirme.ts": {
+      "sha256": "78afaa2aeaa6a31f8a96a024aa36eeeeb31e69dbd3e3ec54d82bb51878938abb",
+      "bytes": 1869,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 49
+    },
+    "plugin/server/desenler.ts": {
+      "sha256": "a40ff23516b70644d86b92d4e62fc49b2169301092dadba4ff6c15997ea5e3c5",
+      "bytes": 499,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 4
+    },
+    "plugin/server/enjekte.ts": {
+      "sha256": "ce157173b3644143905196b1b8e2052cb90775c80c62ef3fdb13b3a57dbd56ff",
+      "bytes": 3271,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 69
+    },
+    "plugin/server/finishgate.ts": {
+      "sha256": "953830d17b523404a156edc0b17890cdcd298af955f66f159e40fbfb41ff940a",
+      "bytes": 2585,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 54
+    },
+    "plugin/server/inspect.ts": {
+      "sha256": "6e62fa339246c5b12e5d646efc2dc21b5512e8bd53f422815cf1b9619549192c",
+      "bytes": 4429,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 120
+    },
+    "plugin/server/kabultakip.ts": {
+      "sha256": "44f1b331beaa870af27d13d2c4915652ead7b6cf6528fe2711e67a6a45eb59f2",
+      "bytes": 2984,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 68
+    },
+    "plugin/server/kalite.ts": {
+      "sha256": "5f0f1c82a9de7ecf23e53bbfa76eb2c5df779300b19851b2aaff036e3109a47d",
+      "bytes": 1274,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 28
+    },
+    "plugin/server/kapsam.ts": {
+      "sha256": "1be11497e11fda14509ce66952903071fe3aadd86f8f45c3769ace9f745fa57a",
+      "bytes": 1957,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 55
+    },
+    "plugin/server/loopguard.ts": {
+      "sha256": "accdb756319795ce7dd488cb7eca641f7b13d7dd71b65d1941ddafaf4366fb43",
+      "bytes": 2577,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 80
+    },
+    "plugin/server/modlar.ts": {
+      "sha256": "cbbf801be29e284939c637e4af20d8bb7c143c32481d2c719c58db11a96e9015",
+      "bytes": 8901,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 186
+    },
+    "plugin/server/onboarding.ts": {
+      "sha256": "f6b1242e69702840d7af8518efdb4cc4fd8782553e99d3218d5ab277660d4304",
+      "bytes": 3588,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 85
+    },
+    "plugin/server/ordu.ts": {
+      "sha256": "b62e62215f058046f2952ecad2b59d3f5679729d2b16a244e20e29ddff91292a",
+      "bytes": 7448,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 175
+    },
+    "plugin/server/pano.ts": {
+      "sha256": "b36f2f5d91e64fc7be1fd33106c49df0b5f042b8ade470f9c4ad0a90b4e93af1",
+      "bytes": 16337,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 360
+    },
+    "plugin/server/permission.ts": {
+      "sha256": "d075bf5764107df7252c627f2956b2b77d4b748c828de72f7352af7625a4465e",
+      "bytes": 4564,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 105
+    },
+    "plugin/server/pitbull.ts": {
+      "sha256": "e5e978adddfe4dda7f97ef3acb244c67a7b0269dc2af81cb57d622b7a4d3d2ce",
+      "bytes": 6607,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 155
+    },
+    "plugin/server/planmd.ts": {
+      "sha256": "16349561d3572067815bdc601ea850ca44e9ac163fa026b0209909a9ffbb03af",
+      "bytes": 8148,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 207
+    },
+    "plugin/server/roller.ts": {
+      "sha256": "bcd5f5b4c1850251c39c98aedd6e831881a248d7eda7be4cad4bc0cf046cb1c5",
+      "bytes": 5373,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 132
+    },
+    "plugin/server/rollup.ts": {
+      "sha256": "eff4141a7bfd32ae1f6684e98114741c35cc2711619867da82d66c3897e119f8",
+      "bytes": 11553,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 181
+    },
+    "plugin/server/sozlesme.ts": {
+      "sha256": "9b93dba7497995e0c99bfbd7c6c2d2787ffb123dd6fef187116ffe2786b90883",
+      "bytes": 6203,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 156
+    },
+    "plugin/server/surum.ts": {
+      "sha256": "8dbb5cf4fc93ee18c9f16d7e5d611fcf89e813df7370a3916cf7ffd37e2b729a",
+      "bytes": 141,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 2
+    },
+    "plugin/server/telemetry.ts": {
+      "sha256": "7e575022e9763c8ed29171304a81524edfece0ba7675fc1b89d945b6765cd7be",
+      "bytes": 19112,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 486
+    },
+    "plugin/server/temizlik.ts": {
+      "sha256": "c2a44975c8de054b9c6bca7b009a6cb1ce7713e8103299ddce206decd90a8654",
+      "bytes": 741,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 14
+    },
+    "plugin/shared/contracts.ts": {
+      "sha256": "3e1bf0dec023e28c3ebd76ca50cb0cc7e17ddf3b1f2732691ebd34b66c27accf",
+      "bytes": 2309,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 90
+    },
+    "plugin/surumler/v0.10.1/KILIT.md": {
+      "sha256": "6f601a47f4c6638c4f2cde5a6de6c757113dc947361c03e65041174ee6dcce39",
+      "bytes": 487,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10.1/kilit.json": {
+      "sha256": "b5347c9bd7a286cbf5fe873576374ad6ec6860bf5863e26a93dcdd8fe9afdd4e",
+      "bytes": 283,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10.2/KILIT.md": {
+      "sha256": "32efc279d56e10fe3253b95b088f39e7ea3533a6efff19f948f4ff3617769698",
+      "bytes": 442,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10.2/kilit.json": {
+      "sha256": "a7fbff4237fc795e06cd6343b08d79bc3ce08ee39e5b025f1bdaafdc439ae0ac",
+      "bytes": 238,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10.3/KILIT.md": {
+      "sha256": "841a0c3249d8c4059fa907d6b527a5bb17f057bfa44f19cd3daf7e7835ee3867",
+      "bytes": 476,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10.3/kilit.json": {
+      "sha256": "f32ea5d2096cd2588080add1ac2622bc97b88528b04ebc819241d037a858bd21",
+      "bytes": 272,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10/KILIT.md": {
+      "sha256": "94cfa83b9486fea9333b349df6bf4d9b4ba0f8d0d47bcacc14fc93f3dd7beece",
+      "bytes": 540,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.10/kilit.json": {
+      "sha256": "7b7b4e831531b2c51cf82e80021b5d900b1dccc033532df3981674527d1ac36e",
+      "bytes": 340,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.11/KILIT.md": {
+      "sha256": "0930c920eacb503aafc6a1d7d0277c31fb3b971455845bab1470044eb6aad2b9",
+      "bytes": 526,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.11/kilit.json": {
+      "sha256": "563db93d37db3d74c1dfa702d53a6e1523a1375a7998f6f5ebf91f9923e01c7a",
+      "bytes": 326,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.12.1/KILIT.md": {
+      "sha256": "da18451aed7a02433c467a4f4dc312a0983c4d0776a8984b7199ab997f940726",
+      "bytes": 465,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.12.1/kilit.json": {
+      "sha256": "6ca08d028f95cdde1bbca8c0f33eafe0019702de8a8983a9e6592194637ec9b5",
+      "bytes": 261,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.12/KILIT.md": {
+      "sha256": "467e486e51a9c2b115c60d64c0f32b9953320a05640b5937d65fccd6c675b96b",
+      "bytes": 508,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.12/kilit.json": {
+      "sha256": "fa19c536cb627e7d6766b542529c01010d7a5d4e38f5bf0a1a888fde52b16345",
+      "bytes": 308,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.13/KILIT.md": {
+      "sha256": "0fb1a522ce87f47b39a6a515aa4cc28262d9062da08e4a382bb656a5670f8a96",
+      "bytes": 554,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.13/kilit.json": {
+      "sha256": "00e6aa58e4e9de6267fc866ad1d4f8a6a8fa50be5c098ac4e00e4bec6cbc9173",
+      "bytes": 354,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.14/KILIT.md": {
+      "sha256": "baf55f131de4629473697e0af6f60d0301beb8d64ea526b45d2f79269aee04e5",
+      "bytes": 526,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.14/kilit.json": {
+      "sha256": "8a64bd4312fc6b65b7b88a1d9d473734e7da7a32bf75074268b35141df104150",
+      "bytes": 326,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.15/KILIT.md": {
+      "sha256": "bb6c161fc4260b8a6d84ed50f36f52039b451320c7c93293b796f37f938fd2fb",
+      "bytes": 555,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.15/kilit.json": {
+      "sha256": "933064a27de54747e05eb33630f103f355e987605f5fa147116e3f2ef75957f3",
+      "bytes": 355,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.16/KILIT.md": {
+      "sha256": "e403a42d93dd0da4ee4119e17f1e85e7a50259d268bc49808a9de0931503661c",
+      "bytes": 475,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.16/kilit.json": {
+      "sha256": "8cd248faa24542a50a4a8ff2ff67279311c6160854e984e10646e83325ebe123",
+      "bytes": 275,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.17/KILIT.md": {
+      "sha256": "9eb87d92f69825985c09e4b46f44c96025a8a39b5e18f7cde476ae11df6bd8b6",
+      "bytes": 449,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.17/kilit.json": {
+      "sha256": "7610d7a90732857b83376128d420e4d2895a654be8101327f448807460ce7618",
+      "bytes": 249,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.18/KILIT.md": {
+      "sha256": "0011f917785e0c416dce01b10d9fc83e534fc881989d9e93770395b69691de79",
+      "bytes": 478,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.18/kilit.json": {
+      "sha256": "9e1dfe69860c57a21fac053e80ddd2cca50ea8fbaaf8e749af4e57d6baa85fe3",
+      "bytes": 278,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.19/KILIT.md": {
+      "sha256": "9e5a0a64d9799213094ac0cfda42e94a1902c844f2758fcd7f497588d0ddb74a",
+      "bytes": 404,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.19/kilit.json": {
+      "sha256": "39ecdedc89d9adf7b6715d6721c2899d314d959402c15807b10dc72ab10c5bfc",
+      "bytes": 204,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.20/KILIT.md": {
+      "sha256": "b465d0dc0ae9d7ebf1987dedeb2addcc22f44eadb83c22fd5af31cb3ed6d5f2a",
+      "bytes": 404,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.20/kilit.json": {
+      "sha256": "cfcab5d53c226bb72c43ab6e3f525fbfbc8a53e1b382ead5d8a879f8c2aee3d6",
+      "bytes": 204,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.21/KILIT.md": {
+      "sha256": "861f5dae800781ca71009742d0b4db3010980aef5a4015eddabec786323b9f7d",
+      "bytes": 404,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.21/kilit.json": {
+      "sha256": "5f7aa397c58bbf9743f770d832e1264546a5585e91c016901db5d6b6e56aed15",
+      "bytes": 204,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.22/KILIT.md": {
+      "sha256": "d80130c2e8f8d7c5bd24d2be2bd099efee258e99c712129923e744b6196e2368",
+      "bytes": 534,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.22/kilit.json": {
+      "sha256": "ca42750dde8b64f4df20ad2dfa697c13b8c4738e4715ef68f642ebe948bf4ea5",
+      "bytes": 485,
+      "bom": false,
+      "crlf": 15,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.23/KILIT.md": {
+      "sha256": "b3fc968f0c23e43d9fcaf9981347ba54bcb46ffdd5fe9da3467f6f32ee0d64c6",
+      "bytes": 640,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 12
+    },
+    "plugin/surumler/v0.23/kilit.json": {
+      "sha256": "6cf1f5b46378e9913f33c68187fb0a19ffb55b58ac8d75e8d224ad5e4bae2bc9",
+      "bytes": 1054,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 15
+    },
+    "plugin/surumler/v0.4/KILIT.md": {
+      "sha256": "6ecd1e77d14caf344a002a191a21e750b21bd521fd35494ba708e8f619587c95",
+      "bytes": 442,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 9
+    },
+    "plugin/surumler/v0.4/kilit.json": {
+      "sha256": "bbb63706f40d444db051577421effcb4e11a6b16db745619d5f5a89af91ec87f",
+      "bytes": 332,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 9
+    },
+    "plugin/surumler/v0.5.1/KILIT.md": {
+      "sha256": "72898ede534b888bf0c799e313114e5aaa99e2c0babb2b386f4b0e3a12db84ad",
+      "bytes": 485,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.5.1/kilit.json": {
+      "sha256": "e5a18a4e45fe600cfc926b47e7de1715a387fff46f12223c5fd415839f8ecaca",
+      "bytes": 283,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.5.2/KILIT.md": {
+      "sha256": "927c2930ee3d416c7104640c2e3582dd665257e2ceb2660d5e95c9b68bfc7cd5",
+      "bytes": 468,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.5.2/kilit.json": {
+      "sha256": "fa1ed92a644d39b03feed3dab44b53390e66e5d95f472f41b19fae5a4b014678",
+      "bytes": 266,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.5.4/KILIT.md": {
+      "sha256": "5334e4863e07d424cef0efa2b9dc041194b4a5e88eccd7b84ef0d1def6cf2019",
+      "bytes": 474,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.5.4/kilit.json": {
+      "sha256": "3ada7c0be9356ef3bb56e13b0ed0bc16ae19cefedae1fec65a5d2b81a5e312c3",
+      "bytes": 272,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.6/KILIT.md": {
+      "sha256": "c04891d9cc75a4865dbcd9b868b23ffec6e512b034df8fc66431ddce6713537f",
+      "bytes": 485,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.6/kilit.json": {
+      "sha256": "3ba5acb676462e8cb1814c1a60535cfa08b32754c9adda214ac560cf72b1aaf9",
+      "bytes": 287,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.7/KILIT.md": {
+      "sha256": "0e0c80d1d0e1d18ee24d5657be2957482a212486813caf627c2fe48613f1274d",
+      "bytes": 492,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.7/kilit.json": {
+      "sha256": "eee61fffd539f0ad46469e4eb46aed69efeb7972eefe62e4dd6b34b5127acbc3",
+      "bytes": 294,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.8/KILIT.md": {
+      "sha256": "89224abf5f0a652f6ea5fc52586141b4c56def3a00feee1456f0a9bef9de74b4",
+      "bytes": 643,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.8/kilit.json": {
+      "sha256": "f39d4744317bdc176595ba5b6960d019758cd0adfc94bea2bafe04f211106ddd",
+      "bytes": 445,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.9/KILIT.md": {
+      "sha256": "009ab49e0a4ac94823e2f7f3a4afc8aec17db50b52f549bebe7254b72ff7b438",
+      "bytes": 543,
+      "bom": false,
+      "crlf": 17,
+      "lfOnly": 0
+    },
+    "plugin/surumler/v0.9/kilit.json": {
+      "sha256": "615cce769abdc3d9abf092737a3a4f3a062fabc29284fe637858dbe24ba57700",
+      "bytes": 345,
+      "bom": false,
+      "crlf": 10,
+      "lfOnly": 0
+    },
+    "plugin/test/ayar-modlar.test.ts": {
+      "sha256": "668174773c5ac9135b5495e947706a130d5ea5a439bf50d993f77ffb9a754ada",
+      "bytes": 2962,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 59
+    },
+    "plugin/test/bekci.test.ts": {
+      "sha256": "6b13833b8d06531e36c80afa1670e3b7cbf4adcee3518168ad79aa6b60900cc8",
+      "bytes": 6058,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 99
+    },
+    "plugin/test/dedektor.test.ts": {
+      "sha256": "9f28739bd51f02d4d489b15fcd3f938f8fb82f6abfdd0da1a6d348ccf672a7c3",
+      "bytes": 93129,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 1260
+    },
+    "plugin/test/izin.test.ts": {
+      "sha256": "d6ac055a93fb0a6908b1b44fb8446c83dd68d7a2a4ee58506a85bfda40b15a5e",
+      "bytes": 5497,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 81
+    },
+    "plugin/test/kabul-rollup.test.ts": {
+      "sha256": "7a3824c89f649e4cfd661cca99e6f37b1c995751086ddc9dee83c8c6dbe3a2fe",
+      "bytes": 8168,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 128
+    },
+    "plugin/test/kucukfix.test.ts": {
+      "sha256": "619c8d7f3eb9ea0fb037f28b8f7844b5635dcc39a4936de20481279291f78310",
+      "bytes": 3269,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 51
+    },
+    "plugin/test/ordu.test.ts": {
+      "sha256": "59c00076aaa4309d51da9b38f0e637289d2ff77f60c64ba5be2c01426fcfde54",
+      "bytes": 3035,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 42
+    },
+    "plugin/test/pano-durdur.test.ts": {
+      "sha256": "fe958d11cfdf60c160aab7f04e2de378169314d867e9f20fc047af86b32f9ab0",
+      "bytes": 5675,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 113
+    },
+    "plugin/test/planmd.test.ts": {
+      "sha256": "688f97a0be220ea1106e819939ded2e8ecb76f6544d0b0cf6fa7af043dfa0eba",
+      "bytes": 3433,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 63
+    },
+    "plugin/tsconfig.json": {
+      "sha256": "d32c033f8d4f1ae5783a6bcb2474c14c34ab0157705776a9577c31f6c66134d9",
+      "bytes": 952,
+      "bom": false,
+      "crlf": 23,
+      "lfOnly": 0
+    },
+    "scripts/bench-claude.mjs": {
+      "sha256": "cec267d363dd60ff08cfd212eee39681765f041e5537177a263e2649b6c194db",
+      "bytes": 8233,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 145
+    },
+    "scripts/bench-puanlari.json": {
+      "sha256": "775191e5dcdf93224c5f18e3dc9c97d0fbf71ef988381383d322e347bfbe8ce1",
+      "bytes": 5027,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 89
+    },
+    "scripts/bench.mjs": {
+      "sha256": "4568eee74b41982decd2a855607de287ea170c06d9ffc96fe4ccdad397f731fb",
+      "bytes": 21368,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 314
+    },
+    "scripts/claude-glm.cmd": {
+      "sha256": "033f869ac13af29f7c891390dbfe1e54d8e9eb00d3d7079d0fcd7353651f2b59",
+      "bytes": 657,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 14
+    },
+    "scripts/codemap.ps1": {
+      "sha256": "7daef6202f37ec056bcfeb6474b437076e04a132b32a8d606a2d9166d4d1177c",
+      "bytes": 5148,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 82
+    },
+    "scripts/codex-failover.mjs": {
+      "sha256": "2564587888857ccb33535ccfdccf9c909be4d8751adb07b2a797e2a1f2bf3085",
+      "bytes": 7649,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 130
+    },
+    "scripts/katman-kur.ps1": {
+      "sha256": "9fd35c93af8119c73a930b59d9f2e34ad354b04fd4eb089b979be15540ca5fcf",
+      "bytes": 1705,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 33
+    },
+    "scripts/kilit-surum.ps1": {
+      "sha256": "5b61defd4d4a50a4cc158d1b000be83383c4b5f4d6a7f706c1c37c09673d2cc8",
+      "bytes": 7478,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 132
+    },
+    "scripts/kirli-liste.json": {
+      "sha256": "8ca37a37aa0bc5ebc3ca05c5ddba2dc837766a3a6599deec3d03be7ba085b4c3",
+      "bytes": 398,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 5
+    },
+    "scripts/kiyasla.ps1": {
+      "sha256": "863ba071e5509ff3cb9d73a74dd6581537c23cfb1f25d1e89b3376b537e84eea",
+      "bytes": 1995,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 39
+    },
+    "scripts/model-katalog.mjs": {
+      "sha256": "863f11afa805c7baf2e3381b327ed4d841d504d82b5917c2907c1bba3e14cb24",
+      "bytes": 9918,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 162
+    },
+    "scripts/omp-kurulum-kapisi.mjs": {
+      "sha256": "b82f50d030900a6528bbcd749bbf6b2f06f773f2042b8a931ab392351bd7c887",
+      "bytes": 4258,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 56
+    },
+    "scripts/openrouter-pi-kapisi.mjs": {
+      "sha256": "cb87d61eec48981fc56ee0c0bd801f142d7d6216b43d76fe3086ef8cd17b4dd9",
+      "bytes": 4211,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 63
+    },
+    "scripts/pi-erisim-kapisi.mjs": {
+      "sha256": "f5a111c3fd079e3aa11ed231004c2de87fe17df63e57f4eca0692a5f97c610b6",
+      "bytes": 3743,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 62
+    },
+    "scripts/proje-panosu.ps1": {
+      "sha256": "ccfdd70bb7ffafc870511f52dbe36e68e27a197f456db467b43439a5d11b30c8",
+      "bytes": 9385,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 164
+    },
+    "scripts/saglik.ps1": {
+      "sha256": "283b4a9ed37830a3a9e1cb6c3879bcaeba0c8d0b9878665cfcb6cb83164aad8b",
+      "bytes": 10494,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 161
+    },
+    "scripts/test-kanal.ps1": {
+      "sha256": "c13079ace145125c91e8ea194f8514d18a9ea4e880b4886afb313b6392c5286f",
+      "bytes": 2205,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 41
+    },
+    "scripts/uygunluk-hedefi.json": {
+      "sha256": "4ebd17bd36b1a8a3b2dc910040ef89b5f8302b75a09ffb350b291304f2334144",
+      "bytes": 6792,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 115
+    },
+    "scripts/uygunluk.mjs": {
+      "sha256": "16917eb1b85e2f55baafc1adc039d738aacdfbd87119e916d8f95106fbe18430",
+      "bytes": 14470,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 236
+    },
+    "scripts/yonetici-ozeti.ps1": {
+      "sha256": "686e6b40f4adff1b96b8aefe1e14eb8b09862c9ab0e46d5f40dc110d49d5d89a",
+      "bytes": 8692,
+      "bom": true,
+      "crlf": 146,
+      "lfOnly": 0
+    },
+    "scripts/zincir-kontrol.ps1": {
+      "sha256": "f9a36e5da130b7e83e2f899cdba044996334aa6f9f6f88d78b1ccc326e9346e7",
+      "bytes": 1285,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 19
+    },
+    "ANAYASA.md": {
+      "sha256": "8730ab70a824800a2896d9bd47d73c606c5098209854bcdf40c93ed831d16d1d",
+      "bytes": 1859,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 39
+    },
+    "AGENTS.md": {
+      "sha256": "25a1e9706762b7f145cf485a278b9395493971d71bc0f6fbeac01380b7120d3f",
+      "bytes": 2517,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 20
+    },
+    "sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md": {
+      "sha256": "7777e2c7fcea11fe5ea696bb0d2c1294c090b47920e384125179a234a898614f",
+      "bytes": 15098,
+      "bom": true,
+      "crlf": 129,
+      "lfOnly": 0
+    },
+    "plans/PLAN.md": {
+      "sha256": "747f4239347ac3bb95173c92fb410b9e622597d0e01162c03ed9954f56d37f5a",
+      "bytes": 69349,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 586
+    },
+    "plans/SSOT-INDEX.md": {
+      "sha256": "bbdfde744b203df0299985fc932b0d462a866649f4a84f617d6e93402585d40c",
+      "bytes": 2608,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 34
+    },
+    "STATE_BOARD.md": {
+      "sha256": "abc61633a039f930b66701df10b18a03ba5b7e4e1082653347430b906df4bb58",
+      "bytes": 69535,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 98
+    },
+    "raporlar/OZET.md": {
+      "sha256": "7abca2c999c3337f3328a6b8884db70d2071b63543b08965385ab21a3d009e0c",
+      "bytes": 945,
+      "bom": true,
+      "crlf": 0,
+      "lfOnly": 6
+    },
+    "plans/HEDEF.md": {
+      "sha256": "efc62044eae59e549bf3617e58267dbc074f77e652292a4e6cfde6ae29aa6cea",
+      "bytes": 7414,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 87
+    },
+    "plans/kabul.csv": {
+      "sha256": "9a0bb9343a47d907bc475a6ffce674ec8cd55f7c7bd1943963dda6877d8fd46f",
+      "bytes": 47081,
+      "bom": false,
+      "crlf": 137,
+      "lfOnly": 0
+    },
+    "plans/gorev-grafigi-2026-10-26.json": {
+      "sha256": "5a36fd5fb076286db92ae1774d85bb706280be3f5de7b49b95893c417370b2e8",
+      "bytes": 73839,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 1942
+    },
+    "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md": {
+      "sha256": "f88c9e2fc2bc340581f654be6a3f78bb2e1a706895d366f24e997bea9d7f19f2",
+      "bytes": 43467,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 308
+    },
+    "hedefler.json": {
+      "sha256": "3629a4f68ab8be1d7cefe157b92c6b95b96857b90e81fdecd60a47793434c2c6",
+      "bytes": 1462,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 63
+    },
+    "raporlar/rapor-chatgpt-27ekim.md": {
+      "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33",
+      "bytes": 73362,
+      "bom": false,
+      "crlf": 605,
+      "lfOnly": 0
+    },
+    "raporlar/rapor-chatgpt-27ekim.json": {
+      "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104",
+      "bytes": 27450,
+      "bom": false,
+      "crlf": 442,
+      "lfOnly": 0
+    },
+    "raporlar/rapor-deepseek27ekim.md": {
+      "sha256": "371c110ec1ce82800127d501ebfc374e47ea2d6fcdb7e6a238ced4a8b1dea02b",
+      "bytes": 13932,
+      "bom": false,
+      "crlf": 155,
+      "lfOnly": 0
+    },
+    "raporlar/rapor-deepseek27ekim.json": {
+      "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a",
+      "bytes": 14372,
+      "bom": false,
+      "crlf": 323,
+      "lfOnly": 0
+    },
+    "raporlar/plan-3-denetci-2026-10-27/OZET.md": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 0
+    },
+    "raporlar/plan-3-denetci-2026-10-27/denetim.json": {
+      "sha256": "ea07b50a5c546e57eefeb344cab02fa8de91f331b20f993f1de62abace16d61f",
+      "bytes": 9354,
+      "bom": false,
+      "crlf": 105,
+      "lfOnly": 0
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md": {
+      "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b",
+      "bytes": 5912,
+      "bom": false,
+      "crlf": 26,
+      "lfOnly": 0
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md": {
+      "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef",
+      "bytes": 3585,
+      "bom": false,
+      "crlf": 18,
+      "lfOnly": 0
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md": {
+      "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66",
+      "bytes": 4843,
+      "bom": false,
+      "crlf": 29,
+      "lfOnly": 0
+    },
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md": {
+      "sha256": "3ed3c0cc0f3098578d9854d91b0a0adbc5a47abe8ad8e802d1b9488bdbbfb4fa",
+      "bytes": 13593,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 138
+    },
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.json": {
+      "sha256": "e15cc1bedaa9bc990883ea40b424d3266f4abbf64e5110f60359846215854012",
+      "bytes": 4099,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 47
+    },
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md": {
+      "sha256": "462febaa24a6e980b234bbc823a8ffb8d67fa8d99db1eed13672d644f971a9d2",
+      "bytes": 23727,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 253
+    },
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json": {
+      "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc",
+      "bytes": 25745,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 188
+    },
+    "raporlar/takip-sozlesme/2026-10-28.md": {
+      "sha256": "8e244a219828b03fe2999d30a97dd0030798cfc144b79d13fdb29e29ab1b39e6",
+      "bytes": 333,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 5
+    },
+    "raporlar/telemetri-haftalik/2026-W44.md": {
+      "sha256": "ced4e7557a1fa1f0f39793c4b30833849a3571d71cf6928cb64bdec0455f2630",
+      "bytes": 1017,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 14
+    },
+    "raporlar/telemetri-haftalik/2026-W44.json": {
+      "sha256": "1d2fc23103cc8b42d4aa7f5e0cb93a61be8b0eb765957221670c90562957bfa2",
+      "bytes": 590,
+      "bom": false,
+      "crlf": 0,
+      "lfOnly": 31
+    }
+  },
+  "fullConsolidationStarted": false,
+  "executionAuthorized": false,
+  "lockCreated": false
+}

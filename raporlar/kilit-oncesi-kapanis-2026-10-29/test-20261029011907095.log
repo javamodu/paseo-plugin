@@ -1,0 +1,35 @@
+✔ 26 görev, 4 salt-okur keşif, kapalı izinler ve H1 LOC toplamı geçerli (75.3303ms)
+✔ RED: örtük yürütme ve görev başlatma kararı (76.0991ms)
+✔ RED: insan kapısını paket yazarı dolduramaz (19.8235ms)
+✔ RED: mevcut dosya tavanı ve runtime veri yolu (52.8209ms)
+✔ RED: bağımlılık döngüsü (22.4543ms)
+✔ RED: aynı dosyada sırasız yazıcı (20.5849ms)
+✔ RED: görev LOC payları parent zarfını sessiz büyütemez (40.6102ms)
+✔ RED: S0a keşfine ürün testi veya kod yazımı eklenemez (54.918ms)
+✔ RED: S2 süreç/yazma kapanışını atlayamaz (23.9636ms)
+✔ RED: pilotta harcama/ortam kapısı kaldırılamaz (47.7385ms)
+✔ RED: negatif kanıt ve tam regresyon alanı eksik (60.3379ms)
+✔ RED: pilot işçisi korunan kabul oracle sahibi olamaz (33.738ms)
+✔ İnsan/makine fişleri aynı kaynaktan ve bayt eş üretilebilir (34.4313ms)
+✔ RED: görevde insan görünümüne yansımayan değişiklik drift olur (18.134ms)
+✔ Sonuç: gerekçeli BLOCKED kaydı kabul edilir, insan kapısı açılmaz (10.7353ms)
+✔ Sonuç RED: eksik kanıttan EVIDENCE_RECORDED yapılamaz (5.3004ms)
+✔ Sonuç RED: kapsam dışı değişiklik, bayat hash ve sahte insan kabulü (5.6349ms)
+✔ v2 kayıt: bütün kaynaklar, komutlar ve hash bağlı gerçek artefaktla biçim geçer (564.7007ms)
+✔ RED: denetimdeki boş-komut/tek-kaynak/hayali-kanıt karşı örneği (69.8601ms)
+✔ RED: komut cwd/exit/çıktı bağı eksik veya yanlış (187.0621ms)
+✔ RED: kaydedilen artefakt sonradan değişmiş (568.471ms)
+✔ RED: kanıt görevin kendi kökünün dışında veya sonuç dosyasının kendisi (399.5552ms)
+✔ RED: yinelenen kaynak veya check sahte tamlık sağlamaz (218.2041ms)
+✔ RED: bozuk sonuç nesnesi/liste denetçiyi patlatmadan reddedilir (13.6821ms)
+✔ RED: eski v1 sonuç kaydı etkin şema yerine geçmez (3.7341ms)
+✔ RED: S0a taslak ADR çıktısı insan kapısı kapsamından çıkarılamaz (22.1682ms)
+✔ RED: komut başarısızlığı beklenen çıkış denerek tamamlanmaya çevrilemez (530.0961ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4024.4158

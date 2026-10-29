@@ -1,0 +1,14 @@
+
+STDERR:
+file:///D:/Vibecode/ordu/raporlar/kilit-oncesi-kapanis-2026-10-29/dogrula-kapanis-v3.mjs:30
+const check = (name, ok) => { checks.push({ name, passed: !!ok }); if (!ok) throw new Error(name); };
+                                                                                  ^
+
+Error: outside-scope-unchanged:raporlar/telemetri-haftalik/2026-W44.json
+    at check (file:///D:/Vibecode/ordu/raporlar/kilit-oncesi-kapanis-2026-10-29/dogrula-kapanis-v3.mjs:30:83)
+    at file:///D:/Vibecode/ordu/raporlar/kilit-oncesi-kapanis-2026-10-29/dogrula-kapanis-v3.mjs:46:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.18.0

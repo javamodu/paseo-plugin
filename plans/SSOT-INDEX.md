@@ -13,7 +13,13 @@ Otorite: `kararlar/ADR-toparlanma-monorepo.md` (S6) · Bu dosya birleşim sonras
 | L4 kararlar | `kararlar/` | K-XXXX + ADR'ler (plans/ADR-* buraya taşındı) |
 | L5 dersler | `DERSLER.md` | birleşim: ordu + task-graph 2026-10-16'ya kadar; kesişim → `raporlar/ssot-birlesimi-2026-10-25/` |
 | Hedef | `plans/HEDEF.md` | task-graph HEDEF.md işaretçiydi → `arsiv/SSOT-eski-2026-10-25/` |
-| Plan | `PASEO-VERIMLILIK-PLANI.md` | kök |
+| Evrensel paket planı | [`PASEO-VERIMLILIK-PLANI.md`](../PASEO-VERIMLILIK-PLANI.md) | kök paket mimarisi; ürün sprint otoritesi değil |
+| Ürün uygulama planı | [`plans/PLAN.md`](PLAN.md) | v2.10.1 §25; tek aktif sıra, denetimli ayrıntı; yeni bütçe onay bekler |
+| Rapor birleşimi / belge kilidi | [`aynı ana plan §26`](PLAN.md:588) | RBT-2026-10-28.1; B0-B5 planlama, henüz birleşim/kilit yok; [paket](../raporlar/rapor-birlesimi-2026-10-28/OZET.md) ikinci uygulama otoritesi değil |
+| Ajan atomik uygulama fişleri | [`aynı ana plan §27`](PLAN.md) → [ATOM-H1 paketi](uygulama-paketleri/DC-H1-2026-10-28/OZET.md) | 26 görev; 4 S0a brief tam/başlatma yok, 22 tasarım koşullu; ürün grafiği/kabul defteri yerine geçmez |
+| Etkin belge kapanışı | [`aynı ana plan §28`](PLAN.md) → [kanıt paketi](../raporlar/kilit-oncesi-kapanis-2026-10-28/OZET.md) | RBT .2 / ATOM-H1 .2; kaynak erataları, sonuç v2, mevcut defter DC eki; B5 insan kabulü ayrı |
+| Ajan giriş / runtime yolları | [AJAN-BASLANGIC](AJAN-BASLANGIC.md) / [VERI-YERLESIMI](VERI-YERLESIMI.md) | Navigasyon ve mevcut yol politikası; ikinci plan veya runtime değişimi değil |
+| Görev projeksiyonu | [`görev grafiği`](gorev-grafigi-2026-10-26.json) | v14; aktif/tarihsel ilişki ayrı; metadata runtime yetki değil, başlatma kapalı |
 | Devir zinciri | `plans/handoff/` | append-only halkalar |
 | Kullanım kılavuzu | `core/KULLANIM.md` | ordu-core tek-dosya kılavuzu |
 

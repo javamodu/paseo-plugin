@@ -1,0 +1,354 @@
+{
+  "reportFile": "raporlar/rapor-deepseek27ekim.md",
+  "jsonFile": "raporlar/rapor-deepseek27ekim.json",
+  "date": "2026-10-28",
+  "timezone": "Europe/Istanbul (UTC+3)",
+  "author": "deepseek (ana ajan)",
+  "label": "T",
+  "measured": false,
+  "readOnlyReview": true,
+  "executionAuthorized": false,
+  "budgetApproved": false,
+  "scope": {
+    "plan": "plans/PLAN.md v2.10.1 §25",
+    "graph": "plans/gorev-grafigi-2026-10-26.json v14",
+    "graphHumanTwin": "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
+    "acceptanceLedger": "plans/kabul.csv",
+    "codeSurfaces": [
+      "core/src/receipt-link.ts",
+      "core/src/dispatcher.ts",
+      "core/src/cli.ts",
+      "core/src/capabilities.ts",
+      "plugin/server/ordu.ts",
+      "pano/kapsul-tuval.html",
+      "scripts/test-kanal.ps1"
+    ]
+  },
+  "method": {
+    "subagents": [
+      { "id": "V1", "focus": "teknik/mimari + guvenlik", "findingCount": 11 },
+      { "id": "V2", "focus": "yonetisim/otorite/insan kapisi + butce/LOC + kanit disiplini", "findingCount": 14 },
+      { "id": "V3", "focus": "uygulanabilirlik/sprint sirasi/pilot/olculebilirlik/risk", "findingCount": 9 }
+    ],
+    "verificationTurns": 2,
+    "newlyVerifiedToR": ["E-02", "E-04", "E-05", "E-06", "E-08"],
+    "limitations": [
+      "Bulgular plan-metni -> kod eslemesidir; plan kasitli olarak kapali oldugu icin 'eksik' = 'henuz yok / tutarsiz'.",
+      "Bu turda hicbir olgunluk puani, yesil oran veya yeni (R) iddiasi uretilmedi.",
+      "Kabul orani (81/135) ve yeni NOT_RUN sayisi (11) bu rapor tarafindan degistirilmedi."
+    ]
+  },
+  "activeChain": {
+    "declared": "DC-S0a -> ara dar izin -> DC-S0b -> DC-G0 -> DC-S1 -> DC-S3 -> DC-S2 -> DC-S4 -> DC-H1 -> DC-S5 -> DC-S6 -> DC-H2 -> DC-S7 -> DC-S8 -> DC-H3 -> DC-S9 -> DC-S10 -> DC-H4",
+    "graphNodes": 16,
+    "graphEdges": 15,
+    "gateNodesLoc": 0,
+    "humanTwinOrderConflict": true
+  },
+  "severityCounts": {
+    "Kritik": 3,
+    "Yuksek": 8,
+    "Orta": 9,
+    "Dusuk": 2,
+    "total": 22
+  },
+  "findings": [
+    {
+      "id": "E-01",
+      "severity": "Kritik",
+      "confidence": "T",
+      "title": "Gercek izolasyon/sandbox H1 sonuna dek yok; statik probe yeterli degil",
+      "evidence": ["plans/PLAN.md:440", "plans/PLAN.md:450", "core/src/capabilities.ts:59"],
+      "sources": ["V1#5", "V3"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-02",
+      "severity": "Kritik",
+      "confidence": "R",
+      "title": "Kimlik != operator siniri; plugin dosya-kuyrugu PLAN_APPROVED/A03 kapisini baypas ediyor",
+      "evidence": ["core/src/cli.ts:172", "plugin/server/ordu.ts:134", "plans/PLAN.md:528"],
+      "sources": ["V1#6"],
+      "verifiedInTurn": 2,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-03",
+      "severity": "Kritik",
+      "confidence": "R",
+      "title": "Kapi sozlesmesi alanlari bos -> mekanizma hic calismadi",
+      "evidence": ["plans/gorev-grafigi-2026-10-26.json:1016", "plans/gorev-grafigi-2026-10-26.json:1022", "plans/gorev-grafigi-2026-10-26.json:1023", "plans/gorev-grafigi-2026-10-26.json:1024", "plans/gorev-grafigi-2026-10-26.json:1025", "plans/gorev-grafigi-2026-10-26.json:79", "plans/PLAN.md:552"],
+      "sources": ["V2#5", "V2#6"],
+      "verifiedInTurn": 1,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-04",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "Sira celiskisi: insan ikizi S1->S2->S3, PLAN/graf S1->S3->S2",
+      "evidence": ["plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md:251", "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md:267", "plans/PLAN.md:446"],
+      "sources": ["V1#1"],
+      "verifiedInTurn": 1,
+      "status": "OPEN",
+      "note": "Sirada S3'un once gelmesi kasitli (PLAN.md:446); eksik olan ikiz metnin hizalanmamis olmasidir."
+    },
+    {
+      "id": "E-05",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "Makbuz imzasi opsiyonel; §25.7 '8 bag zorunlu' ile celisiyor",
+      "evidence": ["core/src/receipt-link.ts:182", "plans/PLAN.md:532"],
+      "sources": ["V1#7"],
+      "verifiedInTurn": 2,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-06",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "Kuyruktaki is icin deadline/grant dispatch aninda yeniden denetlenmiyor",
+      "evidence": ["core/src/dispatcher.ts:41", "plans/PLAN.md:544"],
+      "sources": ["V1#8"],
+      "verifiedInTurn": 2,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-07",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "Butce ikiligi: kabul.csv eski nominal + butceGecmisi yalniz v12; tekBA yeni aralik",
+      "evidence": ["plans/gorev-grafigi-2026-10-26.json:1635", "plans/gorev-grafigi-2026-10-26.json:1932", "plans/gorev-grafigi-2026-10-26.json:1940", "plans/PLAN.md:475", "plans/PLAN.md:560"],
+      "numbers": {
+        "nominalTeknikLoc": 9980,
+        "teknikButceGozdenGecirme": { "ilkTeslim": [5880, 9450], "tumYol": [12320, 19390] }
+      },
+      "sources": ["V1#11", "V2#1", "V2#2", "V3#3"],
+      "verifiedInTurn": 1,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-08",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "DC sprintleri olculemez: tumu NOT_RUN, semada bitis-olcutu/metrik/esik/kanal alani yok",
+      "evidence": ["plans/kabul.csv:127", "plans/kabul.csv:137", "plans/kabul.csv:1"],
+      "sources": ["V3#1"],
+      "verifiedInTurn": 2,
+      "status": "OPEN"
+    },
+    {
+      "id": "E-09",
+      "severity": "Yuksek",
+      "confidence": "T",
+      "title": "Olcum kanali mevcut ama DC sprintlerine baglanmamis",
+      "evidence": ["scripts/test-kanal.ps1:34", "plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md:105"],
+      "sources": ["V3#2"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-10",
+      "severity": "Yuksek",
+      "confidence": "T",
+      "title": "Birlesik risk defteri yok",
+      "evidence": ["plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md:54", "plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md:116", "plans/PASEO-VERIMLILIK-PLANI.md:106"],
+      "sources": ["V3#4"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-11",
+      "severity": "Yuksek",
+      "confidence": "R",
+      "title": "DC-G0 sozlesmesi eksik: gerekliKabulIdleri=['DC-S0'] iken §25.6 S0a/S0b'yi ayri teslim ister; ara izin grafta dugum degil",
+      "evidence": ["plans/gorev-grafigi-2026-10-26.json:1017", "plans/PLAN.md:516", "plans/gorev-grafigi-2026-10-26.json:976"],
+      "sources": ["V1#3", "V1#4"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-12",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "kodLocT serbest metin; metaYaz regex ile parse ediyor",
+      "evidence": ["plans/gorev-grafigi-2026-10-26.json:1599", "pano/kapsul-tuval.html:94"],
+      "sources": ["V1#9"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-13",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "Kanit dortlusu olmadan yesil satirlar",
+      "evidence": ["plans/kabul.csv:3", "plans/kabul.csv:25", "plans/kabul.csv:26", "plans/kabul.csv:58"],
+      "sources": ["V2#7"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-14",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "Odunc/karar kanit satirlari",
+      "evidence": ["plans/kabul.csv:90", "plans/kabul.csv:43"],
+      "sources": ["V2#8"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-15",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "Tarihsel S2/S3 ile yeni DC-S2/DC-S3 isim cakismasi",
+      "evidence": ["plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md:226"],
+      "sources": ["V1#10"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-16",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "Rollback/STOP 'yurutme' esigi belirsiz",
+      "evidence": ["plans/PLAN.md:463", "plans/PLAN.md:544"],
+      "sources": ["V3#5"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-17",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "H1/H4 projeksiyonu olcumle dogrulanamaz; 'olcum sozlesmesi' yok",
+      "evidence": ["raporlar/rapor-chatgpt-27ekim.md:594"],
+      "sources": ["V3#6"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-18",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "Insan kaniti formati/kaydi kismen acik",
+      "evidence": ["plans/PLAN.md:536", "plans/PLAN.md:582"],
+      "sources": ["V3#7"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-19",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "S0 ciktisi, sonraki sprintlerin LOC ayristirmasindan once gerekli",
+      "evidence": ["plans/PLAN.md:572"],
+      "sources": ["V3#8"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-20",
+      "severity": "Orta",
+      "confidence": "T",
+      "title": "DC-S3 kapsami DC-S1 sinirini asiyor",
+      "evidence": ["plans/PLAN.md:538"],
+      "sources": ["V1#2"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-21",
+      "severity": "Dusuk",
+      "confidence": "T",
+      "title": "H1 'on hata ailesi' sayiliyor ama gecme esigi tanimsiz",
+      "evidence": ["plans/PLAN.md:473", "plans/PLAN.md:582"],
+      "sources": ["V3#9"],
+      "status": "OPEN"
+    },
+    {
+      "id": "E-22",
+      "severity": "Dusuk",
+      "confidence": "R",
+      "title": "Atif yapilan ozet dosyasi gercekten bos",
+      "evidence": ["raporlar/plan-3-denetci-2026-10-27/OZET.md:1"],
+      "sources": ["V2#9"],
+      "verifiedInTurn": 1,
+      "status": "OPEN"
+    }
+  ],
+  "refutedClaims": [
+    {
+      "claim": "Sira kopuk / S3-S2 yer degisimi hatali",
+      "verdict": "REFUTED",
+      "confidence": "R",
+      "reason": "Kasitli: surec/yazma kapanisi olmadan aday muhurleme iddiasini engellemek icin S3 once geliyor.",
+      "evidence": ["plans/PLAN.md:446"],
+      "residualGap": "E-04"
+    }
+  ],
+  "verifiedClaims": [
+    { "claim": "Yetki/rol matrisi tutarli, kendini-genisletme kapali", "evidence": ["plans/gorev-grafigi-2026-10-26.json:149", "plans/gorev-grafigi-2026-10-26.json:222", "plans/gorev-grafigi-2026-10-26.json:264", "plans/gorev-grafigi-2026-10-26.json:266"] },
+    { "claim": "Kapi kabulu != sonraki faz baslangici ayrimi mevcut", "evidence": ["plans/PLAN.md:552", "plans/gorev-grafigi-2026-10-26.json:1025"] },
+    { "claim": "'Urun tamam degil' ile nihai hukum celismiyor", "evidence": ["plans/PLAN.md:586", "plans/PLAN.md:428", "STATE_BOARD.md:4"] },
+    { "claim": "Kapsam siniri sertlestirilmis", "evidence": ["plans/gorev-grafigi-2026-10-26.json:271", "plans/gorev-grafigi-2026-10-26.json:272", "plans/gorev-grafigi-2026-10-26.json:283"] },
+    { "claim": "135 satir / 81 yesil korunmus; 11 yeni NOT_RUN", "evidence": ["plans/kabul.csv:127", "kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md:16"] },
+    { "claim": "Eski rezerv ikinci kez eklenmiyor", "evidence": ["plans/gorev-grafigi-2026-10-26.json:1936", "plans/gorev-grafigi-2026-10-26.json:1937", "plans/PLAN.md:576"] },
+    { "claim": "Butce onayi bos", "evidence": ["plans/gorev-grafigi-2026-10-26.json:1632", "plans/gorev-grafigi-2026-10-26.json:1940", "plans/gorev-grafigi-2026-10-26.json:1939"] }
+  ],
+  "verdicts": {
+    "V1": { "domain": "teknik/guvenlik", "verdict": "oldugu gibi yurutulemez (kasitli)", "topRisks": ["gercek izolasyon yok", "kimlik/operator baypasi", "bagimlilik/kanit tutarsizligi"] },
+    "V2": { "domain": "yonetisim", "verdict": "yon onayina sunulabilir; isletimsel kapi NO-GO", "topRisks": ["butceGecmisi v13/v14 eksik", "sayi ikiligi", "kapi sozlesmesi hic calismadi"] },
+    "V3": { "domain": "uygulanabilirlik", "verdict": "oldugu gibi uygulanabilir degil (kasitli)", "topRisks": ["kabul-olcutu boslugu", "olcum kanali bagi kopuk", "S0 tek nokta arizasi + tek kisi"] }
+  },
+  "commonTopRisks": [
+    { "rank": 1, "title": "Olcum/kabul boslugu", "findings": ["E-08", "E-09", "E-17"] },
+    { "rank": 2, "title": "Gercek olmayan guven siniri", "findings": ["E-01", "E-02", "E-03"] },
+    { "rank": 3, "title": "Butce/kanit ikiligi", "findings": ["E-04", "E-07"] }
+  ],
+  "humanDecisionQueue": [
+    { "order": 1, "item": "K-SADE kural sadelestirmesi (80 satir tavan; FULL)", "urgency": "en acil" },
+    { "order": 2, "item": "DC-S0 baslangic kapsami (S0a kesif + S0b dar izin + davranissal kanit)" },
+    { "order": 3, "item": "DC-G0 kapisi kanit ayrimi" },
+    { "order": 4, "item": "Butce yeniden-hesap onayi", "evidence": ["plans/gorev-grafigi-2026-10-26.json:1632"] },
+    { "order": 5, "item": "K-0044 kart-anahtari env karari" },
+    { "order": 6, "item": "A3 bekleyen kural (krl-b0cb1576)" },
+    { "order": 7, "item": "Replan taslagi (rpl-03579e06)" },
+    { "order": 8, "item": "A4 gece-modu acilis kapisi" }
+  ],
+  "proposedRemediation": [
+    { "id": "P-1", "closes": ["E-08", "E-09"], "action": "kabul.csv semasina bitis_olcuttu/metrik/esik/kanal ekle; test-kanal.ps1 -> son-kanit.json referansla", "status": "NOT_APPLIED" },
+    { "id": "P-2", "closes": ["E-07"], "action": "butceGecmisi'ne v13/v14 ekle; kabul.csv DC nominalini tek kaynaga bagla", "status": "NOT_APPLIED" },
+    { "id": "P-3", "closes": ["E-05"], "action": "receipt-link verifySignature zorunlu (yoksa RED)", "status": "NOT_APPLIED" },
+    { "id": "P-4", "closes": ["E-06"], "action": "dispatcher.processOutbox dispatch oncesi deadline/grant yeniden denetimi", "status": "NOT_APPLIED" },
+    { "id": "P-5", "closes": ["E-04", "E-11"], "action": "ikiz sira satirlari (251, 267) + S0a/ara-izin/S0b dugumlerini PLAN §25 ile hizala", "status": "NOT_APPLIED" }
+  ],
+  "healthCheck": {
+    "codemap": { "files": 643, "lines": 97, "status": "OK" },
+    "saglik": { "sonuc": "18 OK, 0 EKSIK, 2 SARI", "sari": ["Kural-proxy (liste-satiri) < 40 (hedef) — 80 satir", "Kabul defteri hermetik — 31 GECTI_HERMETIC"] }
+  },
+  "invariants": [
+    "Bu rapor plana yurutme yetkisi vermez (uygulamaBaslatmaYetkisi=false, butceOnayi=null).",
+    "Hicbir olgunluk puani / yesil oran bu rapor tarafindan uretilmedi veya degistirilmedi.",
+    "Sadece rapor dosyasi + JSON ikizi + indeks satiri yazildi; incelenen dosyalarda degisiklik yok.",
+    "(R) etiketi yalniz ana ajanin kaynaktan dogruladigi iddialar icin kullanilir."
+  ],
+  "closureErrata20261028": {
+    "at": "2026-10-28T12:43:20.561Z",
+    "reportSection": "9",
+    "originalFindingsAndSeverityAreHistorical": true,
+    "refutedCurrentClaims": [
+      "E-04",
+      "E-11",
+      "E-15",
+      "E-20"
+    ],
+    "reinterpreted": [
+      "E-01",
+      "E-03",
+      "E-07",
+      "E-08",
+      "E-12",
+      "E-13",
+      "E-14",
+      "E-17"
+    ],
+    "documentClosed": [
+      "E-10",
+      "E-22"
+    ],
+    "canonicalMappingRef": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+    "originalFieldsPreserved": true,
+    "productFindingsFixed": false,
+    "humanQueueSupersededByCanonicalMapping": true,
+    "executionAuthorized": false
+  }
+}

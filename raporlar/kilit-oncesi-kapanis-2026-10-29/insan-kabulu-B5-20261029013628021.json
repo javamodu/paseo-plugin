@@ -1,0 +1,43 @@
+{
+  "schemaSurum": 1,
+  "kind": "b5-separate-human-acceptance-record",
+  "revisionId": "RBT-2026-10-28.3",
+  "acceptedAt": "2026-10-29T01:36:28.021Z",
+  "actor": "insan:kullanici-terminal",
+  "userWord": "Kabul",
+  "contentManifest": "raporlar/kilit-oncesi-kapanis-2026-10-29/aday-20261029011907095.json",
+  "contentManifestHash": "be1d743b23409cd59c6a191a901fae9fd925403776d9e060b2d16e88d6c42ed4",
+  "validation": "raporlar/kilit-oncesi-kapanis-2026-10-29/dogrulama-20261029011907095.json",
+  "receipt": "raporlar/kilit-oncesi-kapanis-2026-10-29/muhur-20261029011829863.json",
+  "receiptRecheckPassed": true,
+  "healthCounts": { "ok": 19, "missing": 0, "warnings": 1 },
+  "warningIdsAcceptedAsOpenRisks": ["HERMETIC_31"],
+  "resolvedWarningsInherited": ["RULE_PROXY_80 (K-0052)"],
+  "authorization": { "closureCommit": true, "push": false, "tagOrLock": false, "v9_04_processing": false, "temizlik177YolKarari": false },
+  "honestLimits": {
+    "productExecution": false,
+    "providerCalls": 0,
+    "productionDbOpened": false,
+    "repoCleanClaimed": false,
+    "humanAcceptanceNotWrittenIntoSealedState": true
+  },
+  "postSealDrift": {
+    "discoveredAt": "2026-10-29T01:44:30.018Z",
+    "note": "Mühürden (01:19:07) sonra, kabulden (01:36) önce/sonrasında hareketli yazıcılar; keşif commit hazırlığında, kabul VERİLDİKTEN sonra.",
+    "paths": [
+      { "path": "raporlar/telemetri-haftalik/2026-W44.json", "writtenAt": "2026-10-29T01:21:19Z", "adaySha256": "5bbb9fc1b7d5", "diskSha256": "aa799fd0a768" },
+      { "path": "raporlar/telemetri-haftalik/2026-W44.md", "writtenAt": "2026-10-29T01:21:19Z", "adaySha256": "9aedb75a90a5", "diskSha256": "247e1a7d9dbd" },
+      { "path": "CODEMAP.md", "writtenAt": "2026-10-29T01:44:30Z", "reason": "yeniden-mühür denemesinin codemap regen'i" }
+    ],
+    "matchingPaths": "68/71 commit ağacıyla birebir"
+  },
+  "reSealAttempt": {
+    "at": "2026-10-29T01:44:30Z",
+    "mandate": "ADR: aday içeriği değişirse önce manifest ve doğrulama yenilenir",
+    "result": "FAIL-CLOSED",
+    "failingCheck": "outside-scope-unchanged:raporlar/telemetri-haftalik/2026-W44.json (baseline 01:12'ye göre)",
+    "evidence": "raporlar/kilit-oncesi-kapanis-2026-10-29/kapanis-denetimi-20261029014430018.log",
+    "decision": "Yeni tur açılmadı — kabul .3 içindi; sapma operasyonel telemetri + üretilmiş harita; eski kanıt ezilmez, evrilmiş ağaç commit edilir",
+    "stateSnapshotStillMatches": true
+  }
+}

@@ -1,0 +1,26 @@
+
+Kontrol                                  Durum Detay                                                                   
+-------                                  ----- -----                                                                   
+ANAYASA.md (proje ust otoritesi)         OK    yoksa Ferman 3 ile kur                                                  
+L0 AGENTS.md                             OK    her zaman yuklu kurallar                                                
+L1 STATE_BOARD.md                        OK    k�k veya plans/ altinda                                                 
+L2 CODEMAP.md                            OK    codemap ureticisi ile uret                                              
+L5 DERSLER.md                            OK    acilis okumasi; negatif bilgi                                           
+L4 kararlar/ dizini                      OK    ADR: K-XXXX.md                                                          
+L3 raporlar/ dizini                      OK    append-only + OZET.md                                                   
+handoff dizini                           OK    devir toreni ciktilari                                                  
+L0 butce <=200 satir                     OK    15 satir                                                                
+L1 butce <=100 satir                     OK    93 satir                                                                
+L2 CODEMAP butce <=150 satir             OK    110 satir (tavan K-0048(ii) ile 130->150 revize - 468-dosya monorepo)   
+CODEMAP taze                             OK    en yeni kaynak: DERSLER.md                                              
+Handoff zinciri kopuksuz                 OK    onceki: HANDOFF-2026-10-28-2134                                         
+REHBER <=150 satir (kendi hijyen kurali) OK    96 satir                                                                
+REHBER (v*) mevcut                       OK    evrensel sozlesme                                                       
+codemap ureticisi kurulu                 OK    scripts/codemap.*                                                       
+Kural-proxy (liste-satiri) < 40 (hedef)  OK    38 satir                                                                
+Kabul defteri hermetik                   SARI  31 GECTI_HERMETIC - canli kanit adaylari (FAZ-3 turu: PASS'e ya da ka...
+Kabul orani (defter) >= %60 (hedef)      OK    %60 (81/135 madde)                                                      
+Gelen-kutu sema (schemaSurum=1)          OK    bozuk/eski sidecar: 0                                                   
+
+
+SONUC: 19 OK, 0 EKSIK, 1 SARI

@@ -1,0 +1,60 @@
+{
+  "schemaSurum": 1,
+  "kind": "document-closure-candidate-not-final-human-acceptance",
+  "revisionId": "RBT-2026-10-28.2",
+  "packageRevision": "ATOM-H1-2026-10-28.2",
+  "userInstruction": "yukarıdaki kapanışları tamamla",
+  "authority": "plans/PLAN.md §28",
+  "baseline": "raporlar/kilit-oncesi-kapanis-2026-10-28/baslangic.json",
+  "canonicalLedger": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+  "historicalInitialState": "raporlar/rapor-birlesimi-2026-10-28/birlesim.json",
+  "effectiveSteps": [
+    { "id": "RBT/B0", "state": "EVIDENCE_RECORDED", "evidence": ["baslangic.json"], "meaning": "Bu kapanışın kaynak baytları/kirli ağacı; bütün tarihsel arşivin yeniden okunması değil." },
+    { "id": "RBT/B1", "state": "EVIDENCE_RECORDED", "evidence": ["raporlar/rapor-chatgpt-27ekim.md §15", "raporlar/rapor-deepseek27ekim.md §9"], "meaning": "İnsan/makine erataları eski gövde ve alanları korur; ürün kapanışı değil." },
+    { "id": "RBT/B2", "state": "EVIDENCE_RECORDED", "evidence": ["raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json"], "meaning": "Beyan edilen 150 kaynak kimliği kapsamı; bütün-repo açık sayımı değildir." },
+    { "id": "RBT/B3", "state": "EVIDENCE_RECORDED", "evidence": ["raporlar/plan-3-denetci-2026-10-27/OZET.md", "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md", "plans/AJAN-BASLANGIC.md", "plans/VERI-YERLESIMI.md"], "meaning": "Boş özet, mevcut defter eki, giriş ve veri politikası; ikinci otorite yok." },
+    { "id": "RBT/B4", "state": "VALIDATION_PENDING", "evidence": [], "meaning": "Son otomatik kontroller ve bağımsız inceleme kaydı tamamlanmadan geçti sayılmaz; SARI kabulü insanda." },
+    { "id": "RBT/B5", "state": "WAITING_SEPARATE_HUMAN_ACCEPTANCE", "evidence": [], "meaning": "Aday içeriği, açık riskler ve kapsam gerçek insan tarafından kabul edilmedi; commit/tag/push ayrı." }
+  ],
+  "declaredScope": {
+    "rawIdentityCount": 150,
+    "canonicalProductGroups": 10,
+    "separateRuleDecisionGroup": "K-SADE",
+    "originalRawCountsAreNotUniqueOpenCounts": true,
+    "wholeRepoOpenIssueCount": null,
+    "legacyBacklogFullRecount": false,
+    "productFindingsFixedByThisClosure": 0
+  },
+  "ownership": {
+    "preexistingChangesOwnedByThisAgent": false,
+    "outsideScopeChangesPreserved": true,
+    "stageAllAllowed": false,
+    "repoCleanClaimed": false,
+    "runtimeFilesOpenedOrMoved": false
+  },
+  "permissions": {
+    "documentClosureExecutionAuthorized": true,
+    "productExecutionAuthorized": false,
+    "s0aStarted": false,
+    "s0bBoundaryTestAuthorized": false,
+    "liveProviderOrSpendAuthorized": false,
+    "budgetApproved": false,
+    "kSadeImplemented": false,
+    "finalHumanAcceptance": null,
+    "commitTagPushAuthorized": false
+  },
+  "candidate": {
+    "state": "PREPARING_NOT_LOCKED",
+    "contentManifest": null,
+    "validation": null,
+    "independentReview": null,
+    "lockedCommit": null,
+    "tag": null,
+    "humanDecision": null,
+    "noSelfHashCycle": true
+  },
+  "warnings": [
+    { "id": "RULE_PROXY_80", "owner": "INSAN / K-SADE", "state": "SEPARATE_DECISION_PENDING", "humanAcceptedForFinalLock": false, "rationale": "Kural semantiği veya eşik bu görevde değiştirilmez." },
+    { "id": "HERMETIC_31", "owner": "TESTER / ILGILI_DC_KAPISI", "state": "LIVE_EVIDENCE_NOT_CLAIMED", "humanAcceptedForFinalLock": false, "rationale": "Hermetik kayıt canlı başarıya dönüştürülmez; final kilit kararı değildir." }
+  ]
+}

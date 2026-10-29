@@ -1,0 +1,4311 @@
+{
+  "schemaSurum": 1,
+  "kind": "closure-scope-baseline-no-product-execution",
+  "at": "2026-10-28T12:19:19.678Z",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "userInstruction": "yukarıdaki kapanışları tamamla",
+  "gitStatus": [
+    " M CODEMAP.md",
+    " M STATE_BOARD.md",
+    " M core/evidence/probe-latest.json",
+    " M plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md",
+    " M plans/HEDEF.md",
+    " M plans/PLAN.md",
+    " M plans/SSOT-INDEX.md",
+    " M plans/gorev-grafigi-2026-10-26.json",
+    " M plans/handoff/HANDOFF-2026-10-25-2038.md",
+    " M plans/handoff/HANDOFF-2026-10-27-0031.md",
+    " M plans/kabul.csv",
+    " M raporlar/OZET.md",
+    " M raporlar/takip-sozlesme/2026-10-25.md",
+    " M raporlar/telemetri-haftalik/2026-W43.json",
+    " M raporlar/telemetri-haftalik/2026-W43.md",
+    "?? arsiv/plan-3-denetci-oncesi-2026-10-27/PLAN-v2.10.md",
+    "?? arsiv/plan-3-denetci-oncesi-2026-10-27/README.md",
+    "?? arsiv/plan-3-denetci-oncesi-2026-10-27/SENARYO-v13.md",
+    "?? arsiv/plan-3-denetci-oncesi-2026-10-27/graf-v13.json",
+    "?? arsiv/plan-3-denetci-oncesi-2026-10-27/snapshot.json",
+    "?? arsiv/plan-revizyonu-2026-10-27/PLAN-v2.9.md",
+    "?? arsiv/plan-revizyonu-2026-10-27/README.md",
+    "?? arsiv/plan-revizyonu-2026-10-27/SENARYO-v12.md",
+    "?? arsiv/plan-revizyonu-2026-10-27/baslangic.json",
+    "?? arsiv/plan-revizyonu-2026-10-27/gorev-grafigi-v12.json",
+    "?? core/veri/ordu.sqlite-shm",
+    "?? core/veri/ordu.sqlite-wal",
+    "?? kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md",
+    "?? kararlar/ADR-dc-h1-atomik-paketler-2026-10-28.md",
+    "?? kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md",
+    "?? kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md",
+    "?? plans/CANLI-TEST-6SUBAGENT-PLANI-2026-10-26.md",
+    "?? plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.json",
+    "?? plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md",
+    "?? plans/OTONOM-SURU-6SUBAGENT-PLANI-2026-10-26.md",
+    "?? plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/CALISTIRMA.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/OZET.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S0a.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S0b.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S1.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S2.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S3.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/S4.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/SONRAKI-FAZLAR.md",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.mjs",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.test.mjs",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/gorevler.json",
+    "?? plans/uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs",
+    "?? raporlar/canli-test-6subagent-2026-10-26/OZET.json",
+    "?? raporlar/canli-test-6subagent-2026-10-26/OZET.md",
+    "?? raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v4-drift-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v4-drift-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v5-metrik-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v5-metrik-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.json",
+    "?? raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.md",
+    "?? raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+    "?? raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/OZET.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-BRIEF.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-YONLENDIRME.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-baslatma-duzeltilmis.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-baslatma.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-bekleme-duzeltilmis.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-bekleme.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-ham-sonuc.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V1-yonlendirme-sonuc.txt",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-BRIEF.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-YONLENDIRME.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-baslatma-duzeltilmis.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-baslatma.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-bekleme.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-ham-sonuc.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V2-yonlendirme-sonuc.txt",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-BRIEF.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-YONLENDIRME.md",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-baslatma-duzeltilmis.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-baslatma.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-bekleme.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/V3-yonlendirme-sonuc.txt",
+    "?? raporlar/plan-3-denetci-2026-10-27/ajanlar-duzeltilmis.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/ajanlar.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.mjs",
+    "?? raporlar/plan-3-denetci-2026-10-27/baslangic-v210.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/denetim.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/dogrula.mjs",
+    "?? raporlar/plan-3-denetci-2026-10-27/dogrulama-son.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/hedefli-test.json",
+    "?? raporlar/plan-3-denetci-2026-10-27/hedefli-test.log",
+    "?? raporlar/plan-3-denetci-2026-10-27/paseo-denemeleri-sonuc.json",
+    "?? raporlar/plan-revizyonu-v210-2026-10-27/OZET.md",
+    "?? raporlar/plan-revizyonu-v210-2026-10-27/dogrulama.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/OZET.md",
+    "?? raporlar/rapor-birlesimi-2026-10-28/baslangic-duzenleme.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/birlesim.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/codemap-duzenleme.log",
+    "?? raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme-son.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/saglik-duzenleme.json",
+    "?? raporlar/rapor-birlesimi-2026-10-28/saglik-duzenleme.log",
+    "?? raporlar/rapor-chatgpt-27ekim-denetim.mjs",
+    "?? raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+    "?? raporlar/rapor-chatgpt-27ekim-deney-v2.log",
+    "?? raporlar/rapor-chatgpt-27ekim-deney.json",
+    "?? raporlar/rapor-chatgpt-27ekim-deney.log",
+    "?? raporlar/rapor-chatgpt-27ekim.json",
+    "?? raporlar/rapor-chatgpt-27ekim.md",
+    "?? raporlar/rapor-deepseek27ekim.json",
+    "?? raporlar/rapor-deepseek27ekim.md",
+    "?? raporlar/takip-sozlesme/2026-10-26.md",
+    "?? raporlar/takip-sozlesme/2026-10-27.md",
+    "?? raporlar/takip-sozlesme/2026-10-28.md",
+    "?? raporlar/telemetri-haftalik/2026-W44.json",
+    "?? raporlar/telemetri-haftalik/2026-W44.md",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/OZET.md",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/baslangic.json",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/codemap-paketleme-son.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/codemap-paketleme.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/dogrula-yazim.mjs",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/dogrulama-20261028103755753.json",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/dogrulama-20261028104340668.json",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/gorunum-20261028103755753.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/gorunum-20261028104340668.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/paket-20261028103755753.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/paket-20261028104340668.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/saglik-paketleme-son.json",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/saglik-paketleme-son.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/saglik-paketleme.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/test-20261028103755753.log",
+    "?? raporlar/uygulama-atomiklestirme-2026-10-28/test-20261028104340668.log"
+  ],
+  "trackedCount": 884,
+  "untrackedCount": 126,
+  "modifiedCount": 15,
+  "protectedComponentFiles": [
+    "core/database/001-initial.sql",
+    "core/database/002-hardening.sql",
+    "core/database/003-role-model.sql",
+    "core/database/004-grants.sql",
+    "core/src/adapter-contract.ts",
+    "core/src/agent-lineage.ts",
+    "core/src/backup.ts",
+    "core/src/benchmark.ts",
+    "core/src/capabilities.ts",
+    "core/src/cli-evaluate.ts",
+    "core/src/cli.ts",
+    "core/src/contracts/command-payloads.ts",
+    "core/src/contracts/envelope.ts",
+    "core/src/contracts/event-payloads.ts",
+    "core/src/contracts/validate.ts",
+    "core/src/daemon.ts",
+    "core/src/deadline.ts",
+    "core/src/defter.ts",
+    "core/src/dispatcher.ts",
+    "core/src/evaluator.ts",
+    "core/src/git-worktree-launcher.ts",
+    "core/src/gozetimsiz.ts",
+    "core/src/grants.ts",
+    "core/src/handoff.schema.json",
+    "core/src/handoff.ts",
+    "core/src/kural.ts",
+    "core/src/lessons.ts",
+    "core/src/local-runtime.ts",
+    "core/src/modes.ts",
+    "core/src/notify.ts",
+    "core/src/pano-server.ts",
+    "core/src/pano-ui.ts",
+    "core/src/paseo-adapter.ts",
+    "core/src/paseo-transport.ts",
+    "core/src/probe.mjs",
+    "core/src/provider-bench.mjs",
+    "core/src/providers.ts",
+    "core/src/r8.ts",
+    "core/src/reasoning-receipt.ts",
+    "core/src/receipt-link.ts",
+    "core/src/replan.ts",
+    "core/src/schedule.ts",
+    "core/src/sender.ts",
+    "core/src/store.ts",
+    "core/src/supervisor.ts",
+    "core/src/telemetry.ts",
+    "core/src/turnuva.ts",
+    "core/src/ui-tester.ts",
+    "core/test/a0-2-sweep.test.ts",
+    "core/test/a0-3-gozetimsiz-besleme.test.ts",
+    "core/test/a0-5-lrt.test.ts",
+    "core/test/a09-canli.test.ts",
+    "core/test/a2-replan.test.ts",
+    "core/test/a3-kural.test.ts",
+    "core/test/adapter-contract.test.ts",
+    "core/test/adapter-evaluator.test.ts",
+    "core/test/agent-lineage.test.ts",
+    "core/test/benchmark-canli.test.ts",
+    "core/test/benchmark.test.ts",
+    "core/test/bildirim-canli.test.ts",
+    "core/test/bildirim-sender.test.ts",
+    "core/test/capacity-canli.test.ts",
+    "core/test/cli-capsule.test.ts",
+    "core/test/cli.test.ts",
+    "core/test/closure.test.ts",
+    "core/test/contracts.test.ts",
+    "core/test/daemon-canli.test.ts",
+    "core/test/daemon.test.ts",
+    "core/test/dispatcher.test.ts",
+    "core/test/e2e-s11.test.ts",
+    "core/test/evaluator-canli.test.ts",
+    "core/test/f1-fault.test.ts",
+    "core/test/f1-gates.test.ts",
+    "core/test/f3-crash.test.ts",
+    "core/test/f3-live.test.ts",
+    "core/test/f4-pano.test.ts",
+    "core/test/f4b-pano-ogrenme.test.ts",
+    "core/test/f5-parallel.test.ts",
+    "core/test/f65-2provider.test.ts",
+    "core/test/f65-rol-model.test.ts",
+    "core/test/f8-turnuva.test.ts",
+    "core/test/f9-paseo-kapali.test.ts",
+    "core/test/f9-ui-tester.test.ts",
+    "core/test/git-worktree.test.ts",
+    "core/test/handoff.test.ts",
+    "core/test/k12-cok-ajan.test.ts",
+    "core/test/k12-deadline-r8.test.ts",
+    "core/test/k13-gozetimsiz-canli.test.ts",
+    "core/test/k13-gozetimsiz.test.ts",
+    "core/test/k13-senaryo-a.test.ts",
+    "core/test/k13-senaryo.test.ts",
+    "core/test/lessons-canli.test.ts",
+    "core/test/lessons.test.ts",
+    "core/test/live-gates-v3.test.ts",
+    "core/test/live-gates-v4.test.ts",
+    "core/test/local-runtime.test.ts",
+    "core/test/m01-a15-m11.test.ts",
+    "core/test/m16-canli.test.ts",
+    "core/test/m16-m03.test.ts",
+    "core/test/metrics.test.ts",
+    "core/test/modes.test.ts",
+    "core/test/notify-canli.test.ts",
+    "core/test/notify.test.ts",
+    "core/test/paseo-adapter.test.ts",
+    "core/test/paseo-transport.test.ts",
+    "core/test/r3-grant.test.ts",
+    "core/test/reasoning-receipt.test.ts",
+    "core/test/receipt-link.test.ts",
+    "core/test/schedule-canli.test.ts",
+    "core/test/schedule.test.ts",
+    "core/test/store.test.ts",
+    "core/test/supervisor.test.ts",
+    "core/test/sync-baseline.test.ts",
+    "pano/.pano-serve.js",
+    "pano/BLUEPRINT.md",
+    "pano/DESIGN.md",
+    "pano/README.md",
+    "pano/d1a-test.mjs",
+    "pano/d1b-test.mjs",
+    "pano/iskelet.html",
+    "pano/kapsul-tuval-mockup-2026-10-26.html",
+    "pano/kapsul-tuval.html",
+    "pano/orkestra.html",
+    "pano/package.json",
+    "pano/server.js",
+    "pano/yerel-masaustu.bat",
+    "pano/yerel-masaustu.ps1",
+    "plugin/.gitignore",
+    "plugin/OVERVIEW.md",
+    "plugin/client/degerlendirme.tsx",
+    "plugin/client/mod.tsx",
+    "plugin/client/pano-panel.tsx",
+    "plugin/client/telemetri.tsx",
+    "plugin/index.client.tsx",
+    "plugin/index.server.ts",
+    "plugin/package-lock.json",
+    "plugin/package.json",
+    "plugin/paseo-plugin.json",
+    "plugin/server/ayar.ts",
+    "plugin/server/bekci.ts",
+    "plugin/server/brief.ts",
+    "plugin/server/cekirdek.ts",
+    "plugin/server/degerlendirme.ts",
+    "plugin/server/desenler.ts",
+    "plugin/server/enjekte.ts",
+    "plugin/server/finishgate.ts",
+    "plugin/server/inspect.ts",
+    "plugin/server/kabultakip.ts",
+    "plugin/server/kalite.ts",
+    "plugin/server/kapsam.ts",
+    "plugin/server/loopguard.ts",
+    "plugin/server/modlar.ts",
+    "plugin/server/onboarding.ts",
+    "plugin/server/ordu.ts",
+    "plugin/server/pano.ts",
+    "plugin/server/permission.ts",
+    "plugin/server/pitbull.ts",
+    "plugin/server/planmd.ts",
+    "plugin/server/roller.ts",
+    "plugin/server/rollup.ts",
+    "plugin/server/sozlesme.ts",
+    "plugin/server/surum.ts",
+    "plugin/server/telemetry.ts",
+    "plugin/server/temizlik.ts",
+    "plugin/shared/contracts.ts",
+    "plugin/surumler/v0.10.1/KILIT.md",
+    "plugin/surumler/v0.10.1/kilit.json",
+    "plugin/surumler/v0.10.2/KILIT.md",
+    "plugin/surumler/v0.10.2/kilit.json",
+    "plugin/surumler/v0.10.3/KILIT.md",
+    "plugin/surumler/v0.10.3/kilit.json",
+    "plugin/surumler/v0.10/KILIT.md",
+    "plugin/surumler/v0.10/kilit.json",
+    "plugin/surumler/v0.11/KILIT.md",
+    "plugin/surumler/v0.11/kilit.json",
+    "plugin/surumler/v0.12.1/KILIT.md",
+    "plugin/surumler/v0.12.1/kilit.json",
+    "plugin/surumler/v0.12/KILIT.md",
+    "plugin/surumler/v0.12/kilit.json",
+    "plugin/surumler/v0.13/KILIT.md",
+    "plugin/surumler/v0.13/kilit.json",
+    "plugin/surumler/v0.14/KILIT.md",
+    "plugin/surumler/v0.14/kilit.json",
+    "plugin/surumler/v0.15/KILIT.md",
+    "plugin/surumler/v0.15/kilit.json",
+    "plugin/surumler/v0.16/KILIT.md",
+    "plugin/surumler/v0.16/kilit.json",
+    "plugin/surumler/v0.17/KILIT.md",
+    "plugin/surumler/v0.17/kilit.json",
+    "plugin/surumler/v0.18/KILIT.md",
+    "plugin/surumler/v0.18/kilit.json",
+    "plugin/surumler/v0.19/KILIT.md",
+    "plugin/surumler/v0.19/kilit.json",
+    "plugin/surumler/v0.20/KILIT.md",
+    "plugin/surumler/v0.20/kilit.json",
+    "plugin/surumler/v0.21/KILIT.md",
+    "plugin/surumler/v0.21/kilit.json",
+    "plugin/surumler/v0.22/KILIT.md",
+    "plugin/surumler/v0.22/kilit.json",
+    "plugin/surumler/v0.23/KILIT.md",
+    "plugin/surumler/v0.23/kilit.json",
+    "plugin/surumler/v0.4/KILIT.md",
+    "plugin/surumler/v0.4/kilit.json",
+    "plugin/surumler/v0.5.1/KILIT.md",
+    "plugin/surumler/v0.5.1/kilit.json",
+    "plugin/surumler/v0.5.2/KILIT.md",
+    "plugin/surumler/v0.5.2/kilit.json",
+    "plugin/surumler/v0.5.4/KILIT.md",
+    "plugin/surumler/v0.5.4/kilit.json",
+    "plugin/surumler/v0.6/KILIT.md",
+    "plugin/surumler/v0.6/kilit.json",
+    "plugin/surumler/v0.7/KILIT.md",
+    "plugin/surumler/v0.7/kilit.json",
+    "plugin/surumler/v0.8/KILIT.md",
+    "plugin/surumler/v0.8/kilit.json",
+    "plugin/surumler/v0.9/KILIT.md",
+    "plugin/surumler/v0.9/kilit.json",
+    "plugin/test/ayar-modlar.test.ts",
+    "plugin/test/bekci.test.ts",
+    "plugin/test/dedektor.test.ts",
+    "plugin/test/izin.test.ts",
+    "plugin/test/kabul-rollup.test.ts",
+    "plugin/test/kucukfix.test.ts",
+    "plugin/test/ordu.test.ts",
+    "plugin/test/pano-durdur.test.ts",
+    "plugin/test/planmd.test.ts",
+    "plugin/tsconfig.json",
+    "scripts/bench-claude.mjs",
+    "scripts/bench-puanlari.json",
+    "scripts/bench.mjs",
+    "scripts/claude-glm.cmd",
+    "scripts/codemap.ps1",
+    "scripts/codex-failover.mjs",
+    "scripts/katman-kur.ps1",
+    "scripts/kilit-surum.ps1",
+    "scripts/kirli-liste.json",
+    "scripts/kiyasla.ps1",
+    "scripts/model-katalog.mjs",
+    "scripts/omp-kurulum-kapisi.mjs",
+    "scripts/openrouter-pi-kapisi.mjs",
+    "scripts/pi-erisim-kapisi.mjs",
+    "scripts/proje-panosu.ps1",
+    "scripts/saglik.ps1",
+    "scripts/test-kanal.ps1",
+    "scripts/uygunluk-hedefi.json",
+    "scripts/uygunluk.mjs",
+    "scripts/yonetici-ozeti.ps1",
+    "scripts/zincir-kontrol.ps1"
+  ],
+  "files": {
+    ".gitignore": {
+      "sha256": "3acd4883af163c6bc5c289906b4a5476776ea001c50c38bcfc04c73eabce5edc",
+      "bytes": 142,
+      "bom": false
+    },
+    "AGENTS.md": {
+      "sha256": "25a1e9706762b7f145cf485a278b9395493971d71bc0f6fbeac01380b7120d3f",
+      "bytes": 2517,
+      "bom": true
+    },
+    "ANAYASA-SABLONU.md": {
+      "sha256": "36653c11d93ea2fefa00a0fc5446739839513c4bf8309970e578cc3e61d6df42",
+      "bytes": 2626,
+      "bom": true
+    },
+    "ANAYASA.md": {
+      "sha256": "8730ab70a824800a2896d9bd47d73c606c5098209854bcdf40c93ed831d16d1d",
+      "bytes": 1859,
+      "bom": true
+    },
+    "CODEMAP.md": {
+      "sha256": "f2257a33fe2d18947d359e74b673a30d5e630ee0888e44372b25157769be0ee4",
+      "bytes": 13136,
+      "bom": false
+    },
+    "DERSLER-SABLONU.md": {
+      "sha256": "b0a61e6ca67fd9de3c87ce8a6738812dbe7510ee3cd5544a9290b699fbe7ba02",
+      "bytes": 322,
+      "bom": false
+    },
+    "DERSLER.md": {
+      "sha256": "3ea125b2fa85bc8556f1a4989da1a2218fbaf76ade8cc8cbb5f38bad52e848cb",
+      "bytes": 90484,
+      "bom": false
+    },
+    "FERMANLAR.md": {
+      "sha256": "f254f6daed6a0727d3f1328f275a8a786a99bb29fda3cce8cf82046a270f96c3",
+      "bytes": 2894,
+      "bom": true
+    },
+    "HANDOFF-SABLONU.md": {
+      "sha256": "cf5a38552c68f4e486e6d4b0accedee4273d58962aab2d84cf652e557f212158",
+      "bytes": 419,
+      "bom": false
+    },
+    "LLM-PROVIDER-REHBERI.md": {
+      "sha256": "9a1ba461d3c4522d74704fbaebaaacd151252d2f533ebca6717b9b2bf9025d9a",
+      "bytes": 8905,
+      "bom": false
+    },
+    "PASEO-VERIMLILIK-PLANI.md": {
+      "sha256": "24bb3ed42ca456a690eb3e748c45f368df279774fae2d89d5eb31a999a45281b",
+      "bytes": 13018,
+      "bom": true
+    },
+    "README.md": {
+      "sha256": "25b4e563c4813df63b853655b8d51d539299b6a5182d153f3839da4017fa2795",
+      "bytes": 3158,
+      "bom": false
+    },
+    "STATE_BOARD-SABLONU.md": {
+      "sha256": "9a100b742b3bf376c91f199d776e542004ea932945cb9224d7345ae73eea1878",
+      "bytes": 270,
+      "bom": false
+    },
+    "STATE_BOARD.md": {
+      "sha256": "015e9216410578f6fbdca3ba60811bdccd325996d4480a72cad1a9d838d1b750",
+      "bytes": 70449,
+      "bom": true
+    },
+    "admin-onboarding.md": {
+      "sha256": "3a11b44a584d22537d175cfd796aefa6d5edaa839baf9bed058bc5b226ba34b1",
+      "bytes": 6264,
+      "bom": false
+    },
+    "arsiv/PASEO-VERIMLILIK-REHBERI-v2.0.md": {
+      "sha256": "59a892400567a623cf0fdb1ce7d7acbbf7ed59018bfb6ba5aa7f77a8c58fce3b",
+      "bytes": 14017,
+      "bom": true
+    },
+    "arsiv/SSOT-eski-2026-10-25/AGENTS.md": {
+      "sha256": "6c0c9f543d7da88e47444a3ac2f9c7fdbc904b7006f63d5d5de2e1d98d5fc517",
+      "bytes": 540,
+      "bom": false
+    },
+    "arsiv/SSOT-eski-2026-10-25/DERSLER.md": {
+      "sha256": "25c62cc7e726ddeb148e57832ac26d59dd4223c6e13a5ff4b969a99741faa640",
+      "bytes": 8462,
+      "bom": false
+    },
+    "arsiv/SSOT-eski-2026-10-25/HEDEF.md": {
+      "sha256": "0f20f93e2a08ee916a3754f63d0773b4cb1c469679ba16b0059b63d3175f9450",
+      "bytes": 84,
+      "bom": false
+    },
+    "arsiv/SSOT-eski-2026-10-25/MASTER-SSOT-PLAN.md": {
+      "sha256": "9d4ff272111f7a218f100954936b73fbeeaf175a429c817f1ba5dae9b7892df8",
+      "bytes": 365,
+      "bom": true
+    },
+    "arsiv/SSOT-eski-2026-10-25/STATE_BOARD.md": {
+      "sha256": "62d4d1a33239b75219287bd64546de9a3ad2ef9ee064f2497f47eaa6b74a8495",
+      "bytes": 996,
+      "bom": false
+    },
+    "arsiv/raporlar-silinecek-taskgraph/2026-W42.json": {
+      "sha256": "531ad7684001e2557154914db4bfa5c961aa1e8d55b10b6708fe157a345a7975",
+      "bytes": 499,
+      "bom": false
+    },
+    "arsiv/raporlar-silinecek-taskgraph/2026-W42.md": {
+      "sha256": "12570cfbc4ef5098ab590bfe9b4480c3347437501e937005bd29319c4927836b",
+      "bytes": 875,
+      "bom": false
+    },
+    "arsiv/raporlar-silinecek-taskgraph/2026-W43.json": {
+      "sha256": "3f732f7129230153e07aa7f2c4dd54cbbaaeea1a4fb580ab524bcd3e49f903a6",
+      "bytes": 586,
+      "bom": false
+    },
+    "arsiv/raporlar-silinecek-taskgraph/2026-W43.md": {
+      "sha256": "01fe64b1394b5653896601eea9c8ee5da27a91cd2d8bd9ae2e1dcf3791f38f6b",
+      "bytes": 989,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/.bench-data/codex-prompt-input.json": {
+      "sha256": "4ac09507d598c8cbb4bc3ca8d80a7484c0fc2075fc8684f0122c8b149bcf77bc",
+      "bytes": 9354,
+      "bom": true
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/.bench-data/kilo-agent.json": {
+      "sha256": "913153e7b62a5b7c2df0392a35f3c7ddf4078a884474404840908b039728ab5a",
+      "bytes": 14140,
+      "bom": true
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/.bench-data/opencode-agent.json": {
+      "sha256": "4bcee6c0984271834d6d72d355eb30aea2ad0e4394c147c26895899cd03b8159",
+      "bytes": 2162,
+      "bom": true
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/benchmark/glm53-wrapper/README.md": {
+      "sha256": "48a6ab977dd61f975a9cd546338b731368cdc9ef880d15c7386ced391438896d",
+      "bytes": 817,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/benchmark/glm53-wrapper/run.mjs": {
+      "sha256": "b973e37728b3d15b2750685c2d551993c039aead59618705c31e4098cf8e5230",
+      "bytes": 12574,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md": {
+      "sha256": "584eaf2a6d1ad4f3551b223364f60540aa8ad0741e960320a481b0156b0bce8e",
+      "bytes": 1151,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/glm53-wrapper-benchmark-2026-10-25/wrapper-benchmark-scored.json": {
+      "sha256": "860302dc51b70d731c1a5bda956dacd37d3b95e31c16c89e5626ec4701cc4361",
+      "bytes": 1453,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/glm53-wrapper-benchmark-2026-10-25/wrapper-benchmark.json": {
+      "sha256": "c8820366dc47874789f0e12f90a2c4e6b3e911f802c2e82a0fe7211844e914d8",
+      "bytes": 14265,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/model-benchmark-2026-10-24/OZET.md": {
+      "sha256": "c440b22644dfe9ac823a3b6aae1025777521c569c4d0ed5fb40ffbe2a7448609",
+      "bytes": 3052,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/model-benchmark-2026-10-24/top30.json": {
+      "sha256": "ff1fd52ac990b48cb4fbcb89b3d60d2fc97e82179b2f2451c8f95f5556ab0016",
+      "bytes": 4931,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/telemetri-haftalik/2026-W42.json": {
+      "sha256": "531ad7684001e2557154914db4bfa5c961aa1e8d55b10b6708fe157a345a7975",
+      "bytes": 499,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/telemetri-haftalik/2026-W42.md": {
+      "sha256": "12570cfbc4ef5098ab590bfe9b4480c3347437501e937005bd29319c4927836b",
+      "bytes": 875,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/telemetri-haftalik/2026-W43.json": {
+      "sha256": "3f732f7129230153e07aa7f2c4dd54cbbaaeea1a4fb580ab524bcd3e49f903a6",
+      "bytes": 586,
+      "bom": false
+    },
+    "arsiv/silinecek-task-graph-bench-ham-veri-2026-10-26/raporlar/telemetri-haftalik/2026-W43.md": {
+      "sha256": "01fe64b1394b5653896601eea9c8ee5da27a91cd2d8bd9ae2e1dcf3791f38f6b",
+      "bytes": 989,
+      "bom": false
+    },
+    "core/KANIT-baseline-2026-10-14.md": {
+      "sha256": "030b92153dda1ded88a1b27f1e506633a5a2e7939bf43270380a4faaad36567f",
+      "bytes": 1341,
+      "bom": false
+    },
+    "core/KULLANIM.md": {
+      "sha256": "27ca5f758bd7a85389a721b5d727a48821962594d22e7dae1e1d4c7a1f0c1161",
+      "bytes": 11647,
+      "bom": false
+    },
+    "core/README.md": {
+      "sha256": "618606ca92e24f06c68b8a2845c94996a36e313cbebac2ac058ca48e5ec6efd1",
+      "bytes": 8875,
+      "bom": false
+    },
+    "core/config/ordu.json": {
+      "sha256": "d536a52bd7ca4ce865ba875ff9251623cd9d37473914686332c56c33915dada1",
+      "bytes": 749,
+      "bom": false
+    },
+    "core/database/001-initial.sql": {
+      "sha256": "06716b653e94931b8c1b9ad1be80559fc727987a0c923e5a98d8ab2083d0d61f",
+      "bytes": 7367,
+      "bom": false
+    },
+    "core/database/002-hardening.sql": {
+      "sha256": "30b9247817ea4c3f64e94c3d3ce768d085a1fe0969dfd93abeda5709fe5572ce",
+      "bytes": 2068,
+      "bom": false
+    },
+    "core/database/003-role-model.sql": {
+      "sha256": "9a0c31a5810c86c15548d67a9593020609d788e5d30997a7a5714039180d35e6",
+      "bytes": 347,
+      "bom": false
+    },
+    "core/database/004-grants.sql": {
+      "sha256": "70db559a17ad73b5d6a578386ce7a4354d2f738f65fe3456b24ab8c7af2bd77c",
+      "bytes": 3616,
+      "bom": false
+    },
+    "core/evidence/WIN-NOTES.md": {
+      "sha256": "719ae6ee2afb1b858b299bc7307345163631756ccfa241f3592d3cde3d95b5f0",
+      "bytes": 857,
+      "bom": false
+    },
+    "core/evidence/bench-groq.json": {
+      "sha256": "34058ed9a8ec2d7702dede1a053a78465275c068c11f279c1bd8d858aa283aff",
+      "bytes": 9124,
+      "bom": false
+    },
+    "core/evidence/bench-now.json": {
+      "sha256": "3fc358bbf7d1ad6a433c02a121e63dc751907c5c6797635cadfc6393e1505810",
+      "bytes": 27162,
+      "bom": false
+    },
+    "core/evidence/bench-nvidia.json": {
+      "sha256": "379191d310952e7fe3eb88b2adbbc2930f1d4b3a918b2d48f94576f21c01cb3e",
+      "bytes": 48749,
+      "bom": false
+    },
+    "core/evidence/probe-latest.json": {
+      "sha256": "c88485d301e55cdefc4ed96904cf6a16d944fedf737e572b5fc16d0c8146ee3e",
+      "bytes": 1600,
+      "bom": false
+    },
+    "core/evidence/provider-bench-latest.json": {
+      "sha256": "b5ddf4cb0ebda798b1cd268a1522fcd2879cd111bf314c2fcb6f223e7c49b9bb",
+      "bytes": 3051,
+      "bom": false
+    },
+    "core/package-lock.json": {
+      "sha256": "31a9f7f96849a18f9cab0c4d5b010f9d58e521e34a4805b4eec7f8e712c279cd",
+      "bytes": 4146,
+      "bom": false
+    },
+    "core/package.json": {
+      "sha256": "baf2aa511d0352b1568a1f2e43208ea25a6b3ffdd4cb4cc4cfa7697bcb098eae",
+      "bytes": 2332,
+      "bom": false
+    },
+    "core/raporlar/S1.1-KANIT-2026-10-14.md": {
+      "sha256": "9e1afb5057efb84b524a8522673eb206d236617029ce35c01996380750f0ba8b",
+      "bytes": 5038,
+      "bom": false
+    },
+    "core/src/adapter-contract.ts": {
+      "sha256": "ef5ba9742790b6ccbc5e68c3470bc6e0327b06621edc8e983929ffcb0bb20bf6",
+      "bytes": 6532,
+      "bom": false
+    },
+    "core/src/agent-lineage.ts": {
+      "sha256": "7e02404dd2ab300d627632099d5dd70bcd8f84f89d47a03979b0981b8ac9f47d",
+      "bytes": 5140,
+      "bom": false
+    },
+    "core/src/backup.ts": {
+      "sha256": "ef34a2a73c5f1b4e1061f55d40be963447bb57a4888ca4d612dd00990c1823bc",
+      "bytes": 1410,
+      "bom": false
+    },
+    "core/src/benchmark.ts": {
+      "sha256": "2e59d6e14eb0361f5428a28e22e0a574b516af18884fbc0801429d5675be6fca",
+      "bytes": 9766,
+      "bom": false
+    },
+    "core/src/capabilities.ts": {
+      "sha256": "f0c81827c3d25c7a21972873db4809be0295397430df41ad9f1b19b188062b01",
+      "bytes": 4077,
+      "bom": false
+    },
+    "core/src/cli-evaluate.ts": {
+      "sha256": "2cb1f706e9ccca1a024b7c8a0f4cc9ae1e7410a70547449e9e5b976b960a235b",
+      "bytes": 4201,
+      "bom": false
+    },
+    "core/src/cli.ts": {
+      "sha256": "a15858fff34f2c46f654dad352573f6addc596655dfd2a5c0d6040a7b1edcd2a",
+      "bytes": 27771,
+      "bom": false
+    },
+    "core/src/contracts/command-payloads.ts": {
+      "sha256": "6068490ea5d6b6f4be9a84abeb2a3b27a656ab454079df5f5729d5831ab2dcfa",
+      "bytes": 2899,
+      "bom": false
+    },
+    "core/src/contracts/envelope.ts": {
+      "sha256": "ecc494720a70cb8ab7a8213c268a7aa39df45da465761b84faf7f09804638d92",
+      "bytes": 1703,
+      "bom": false
+    },
+    "core/src/contracts/event-payloads.ts": {
+      "sha256": "fcf9457eea9d8fe75ebc93ad3b83035d841c8b8407aecf873984cb65706f969a",
+      "bytes": 4366,
+      "bom": false
+    },
+    "core/src/contracts/validate.ts": {
+      "sha256": "c6761fc140dde55e3042e47991af3220116ffe43e7235994d18b2db71f478c70",
+      "bytes": 2617,
+      "bom": false
+    },
+    "core/src/daemon.ts": {
+      "sha256": "13bbeda8298901bfeb9a9c0813a018f1ea511d057c372ffa38f0eb653f26c6dc",
+      "bytes": 10299,
+      "bom": false
+    },
+    "core/src/deadline.ts": {
+      "sha256": "c7b14f43cfb7d91084aff1e2cce2315b7b713624fdd7cfb11aa6ce9686d6883b",
+      "bytes": 4350,
+      "bom": false
+    },
+    "core/src/defter.ts": {
+      "sha256": "6260cf5ef6cceb907f1133cb815bbbe07876826d1aaea21631438f9b01100a6d",
+      "bytes": 2059,
+      "bom": false
+    },
+    "core/src/dispatcher.ts": {
+      "sha256": "3268fd826665a5ab000639bc4aea782a0489941dc933c14b87f38ff33182f534",
+      "bytes": 14620,
+      "bom": false
+    },
+    "core/src/evaluator.ts": {
+      "sha256": "8daecda19e6f38a94d1272434cd0e437dd1d48ca7fbee312ec1a7ad771fe7db8",
+      "bytes": 3866,
+      "bom": false
+    },
+    "core/src/git-worktree-launcher.ts": {
+      "sha256": "8838e360760ef7efc396480f8be79a90ef1755db23a696d610af4425483abc1f",
+      "bytes": 5081,
+      "bom": false
+    },
+    "core/src/gozetimsiz.ts": {
+      "sha256": "e6c691706b36a2c81054db6685cb64d9e79a993376a75f091d5dca6ebc2d8eb6",
+      "bytes": 14532,
+      "bom": false
+    },
+    "core/src/grants.ts": {
+      "sha256": "fa70a1dd2bab7e7e174ddc4444e729ec94d8b422a791cdb0aed8145552eb5791",
+      "bytes": 16428,
+      "bom": false
+    },
+    "core/src/handoff.schema.json": {
+      "sha256": "6d1c284f6a73733d946de628c751ede7315a8f9a78ffa3bf3243bdb3a9985354",
+      "bytes": 7169,
+      "bom": false
+    },
+    "core/src/handoff.ts": {
+      "sha256": "52b29af43205d831654b0c3427504a6cc85398ba2d7176c920485ed26f896ea0",
+      "bytes": 5360,
+      "bom": false
+    },
+    "core/src/kural.ts": {
+      "sha256": "6953165321117280191a5896aa9967072cf96f1bd90d042016fd87c7a44808b0",
+      "bytes": 22429,
+      "bom": false
+    },
+    "core/src/lessons.ts": {
+      "sha256": "61a8490369ca469b0d387c7f21b63c398f59f77ea90a967e344fd7b582aa2076",
+      "bytes": 14380,
+      "bom": false
+    },
+    "core/src/local-runtime.ts": {
+      "sha256": "bdb7aea4fab2ceda162cfa75092ad8a38de756a3f8c6cacd59b79b032b058d54",
+      "bytes": 17033,
+      "bom": false
+    },
+    "core/src/modes.ts": {
+      "sha256": "893924ec13019f08d723a3c13ddef1568130ea1379784c54eb7cfdcf52c9eb5a",
+      "bytes": 3396,
+      "bom": false
+    },
+    "core/src/notify.ts": {
+      "sha256": "f5b1668cad123e0a21af4d695102d3e601825a3172c1fd92bb41d225868cc844",
+      "bytes": 11714,
+      "bom": false
+    },
+    "core/src/pano-server.ts": {
+      "sha256": "e19f75fe444b636ff76202979da815bdd03ad1f3655324d27d449df1ec588328",
+      "bytes": 9491,
+      "bom": false
+    },
+    "core/src/pano-ui.ts": {
+      "sha256": "6b9540835c4b886ca3f83b73b49d913650827bec8c2597837ebcde8e5a481a8f",
+      "bytes": 9658,
+      "bom": false
+    },
+    "core/src/paseo-adapter.ts": {
+      "sha256": "edfcadaeb0570a77ab6ac0bfe66cd622c3b93b70a4f804000ecb648732ac26d7",
+      "bytes": 3654,
+      "bom": false
+    },
+    "core/src/paseo-transport.ts": {
+      "sha256": "86cb63d93128fad952a8a93cf01fbddbbec8e7d3d784ba443c73b8da0a1e583c",
+      "bytes": 13111,
+      "bom": false
+    },
+    "core/src/probe.mjs": {
+      "sha256": "6bd46992c534a7df1dbed0f56e480e1f5bdfe01cc2d1264a54e31c3885629bd8",
+      "bytes": 12028,
+      "bom": false
+    },
+    "core/src/provider-bench.mjs": {
+      "sha256": "96780f0e7e6510e886446656a919f26847811ecd60e42d8ddd1ad15767c7beb0",
+      "bytes": 30522,
+      "bom": false
+    },
+    "core/src/providers.ts": {
+      "sha256": "42a1fb73de0575fe9055e35cc68ff9c882c8a8b468ff7adb18fc2110ba50b49e",
+      "bytes": 9563,
+      "bom": false
+    },
+    "core/src/r8.ts": {
+      "sha256": "91bc2c2ee9b2ec1cae12f4845ec56364e7b7a3695b8282951d054f8784f549cb",
+      "bytes": 3462,
+      "bom": false
+    },
+    "core/src/reasoning-receipt.ts": {
+      "sha256": "0ab380c556641df1fe4485ae8baee0140f2315d1003cd195f98aa743c27322b0",
+      "bytes": 3076,
+      "bom": false
+    },
+    "core/src/receipt-link.ts": {
+      "sha256": "3477bc4c493e76d1696338cd40e9c01da800dca71fc3fc974a3c801fc13dbc4e",
+      "bytes": 9990,
+      "bom": false
+    },
+    "core/src/replan.ts": {
+      "sha256": "649027350504249ed81baa208d5b82ac5fedef32960edeffcb3973773abe5c9e",
+      "bytes": 16896,
+      "bom": false
+    },
+    "core/src/schedule.ts": {
+      "sha256": "badfe29d9c23d2059a2835d1beef44efbba81c349975eaaa5724cba8c2224a14",
+      "bytes": 7215,
+      "bom": false
+    },
+    "core/src/sender.ts": {
+      "sha256": "182ed3b09fc5fddee3bd927052af62d0079a74938e33ff526001f8e7f9dc8701",
+      "bytes": 5056,
+      "bom": false
+    },
+    "core/src/store.ts": {
+      "sha256": "e46ed62f7cfade8bc5197b9d20681ebc5bbfe75c74540c83ede9afbb62da9f05",
+      "bytes": 13415,
+      "bom": false
+    },
+    "core/src/supervisor.ts": {
+      "sha256": "ae73fc2364eb210719d02b3a4fc2806eae3e06e334689b692c725ac0ca9a0ad4",
+      "bytes": 38978,
+      "bom": false
+    },
+    "core/src/telemetry.ts": {
+      "sha256": "1ba4dfacd75cb907ceda6e3ae36b23db682c90e5791dc0050edbfbfe5894773d",
+      "bytes": 6817,
+      "bom": false
+    },
+    "core/src/turnuva.ts": {
+      "sha256": "3c6c2bb9343e54eadd992b13f05841280cbba9c3c0fa2060ee2496d9a41bf826",
+      "bytes": 25158,
+      "bom": false
+    },
+    "core/src/ui-tester.ts": {
+      "sha256": "7b4e26e02cc01c94c209f508ba370d8deacbf0c37ca5297f56e02d1c20b2b6e2",
+      "bytes": 10873,
+      "bom": false
+    },
+    "core/test/a0-2-sweep.test.ts": {
+      "sha256": "a17fb4316c89266de2edca637ce440eb7f5f252a458ae05a9167f9e3302e874e",
+      "bytes": 19523,
+      "bom": false
+    },
+    "core/test/a0-3-gozetimsiz-besleme.test.ts": {
+      "sha256": "7c7161aa1db5dc3f992a7bc36f2a86216cce91f15609569ded3d9a0a5893d1ba",
+      "bytes": 11601,
+      "bom": false
+    },
+    "core/test/a0-5-lrt.test.ts": {
+      "sha256": "3e983ae22ea619d895ad34abeaa6d05b5e0526dd5fb60286c654008c5089c9de",
+      "bytes": 24410,
+      "bom": false
+    },
+    "core/test/a09-canli.test.ts": {
+      "sha256": "2247866198c438bc33513a912524b71050cd04f1775331e2e9f1b5661beed35c",
+      "bytes": 6265,
+      "bom": false
+    },
+    "core/test/a2-replan.test.ts": {
+      "sha256": "40352866e739a8db8e9d8334f307c0b742869348ba80758aba0c4ca70a31c239",
+      "bytes": 11409,
+      "bom": false
+    },
+    "core/test/a3-kural.test.ts": {
+      "sha256": "7a5d262a31660fd9a7bed13cc2c081030b99b8ea107af1320050d95fd4ac4ff8",
+      "bytes": 24008,
+      "bom": false
+    },
+    "core/test/adapter-contract.test.ts": {
+      "sha256": "9a983758c98ebabc131258b881d3cf3974ef56d9b9b108c7b90cd2d341fbd302",
+      "bytes": 6433,
+      "bom": false
+    },
+    "core/test/adapter-evaluator.test.ts": {
+      "sha256": "da46891c9f361726f92f1026d7221d3368063159436a06d9a19758a6d8eda192",
+      "bytes": 12301,
+      "bom": false
+    },
+    "core/test/agent-lineage.test.ts": {
+      "sha256": "4c95b26218077d4b2eb9e498463dba76dac2fe9101ee0c592c54757309f9f81f",
+      "bytes": 4868,
+      "bom": false
+    },
+    "core/test/benchmark-canli.test.ts": {
+      "sha256": "48c115ce6bb87c484cd95d993afb7129ef25c5ee537f2d9ba47cd3ac3a16ed06",
+      "bytes": 6587,
+      "bom": false
+    },
+    "core/test/benchmark.test.ts": {
+      "sha256": "111f8ae808f18735b3f1dc75d53f166b5a9512a39780a94b170683620fbdde76",
+      "bytes": 9146,
+      "bom": false
+    },
+    "core/test/bildirim-canli.test.ts": {
+      "sha256": "9e39561fe80d8a46cb48b9d43ad1b6483dcdfb5e642d8705b054c3ac71f27884",
+      "bytes": 6079,
+      "bom": false
+    },
+    "core/test/bildirim-sender.test.ts": {
+      "sha256": "00614722538531075733db543391cfa27f593577deb94d8da1ee9ac7e038b8dc",
+      "bytes": 8494,
+      "bom": false
+    },
+    "core/test/capacity-canli.test.ts": {
+      "sha256": "8142f69e4501dfb0722e30a9645062f038788a016d8f3659e177030b54d17662",
+      "bytes": 15848,
+      "bom": false
+    },
+    "core/test/cli-capsule.test.ts": {
+      "sha256": "1d67b605a8afd3270dabea6e769c3ea65ff47944402cb66eb8d1dfd01071ead0",
+      "bytes": 6292,
+      "bom": false
+    },
+    "core/test/cli.test.ts": {
+      "sha256": "9b78ed8b409e77c9c1ab55f262001b986b8aa19f0426ef01b47f812be8e8b997",
+      "bytes": 6347,
+      "bom": false
+    },
+    "core/test/closure.test.ts": {
+      "sha256": "4bb54386526f4ea789c70c545802b560476fa0200019eeedd37dda1898f9f0ed",
+      "bytes": 7304,
+      "bom": false
+    },
+    "core/test/contracts.test.ts": {
+      "sha256": "fa1e219c2a64c1d53c274f7e3671e22e9e27726ef73f5c6b3a981598081e1e3d",
+      "bytes": 6444,
+      "bom": false
+    },
+    "core/test/daemon-canli.test.ts": {
+      "sha256": "dcc31c1e363d99a2fbe8176abf023ca28c43b13ae48c237f90c122abff619765",
+      "bytes": 3837,
+      "bom": false
+    },
+    "core/test/daemon.test.ts": {
+      "sha256": "45c9463357930f4caa587e42023576b49f8d6cc05e9e511a381b4aa41bd4d624",
+      "bytes": 6353,
+      "bom": false
+    },
+    "core/test/dispatcher.test.ts": {
+      "sha256": "08c5dd385423be8c104400041825aa791d071b0ccc63409fe37490acc43929b5",
+      "bytes": 9972,
+      "bom": false
+    },
+    "core/test/e2e-s11.test.ts": {
+      "sha256": "b2305999b187ae13dcab421b1856152f59874282a39b740bb16a4024bfcbdce2",
+      "bytes": 13353,
+      "bom": false
+    },
+    "core/test/evaluator-canli.test.ts": {
+      "sha256": "93956513d64e28919a6125caf86ee10912047e5a0ad43264608ca496087f1e83",
+      "bytes": 9385,
+      "bom": false
+    },
+    "core/test/f1-fault.test.ts": {
+      "sha256": "51eac36b7ddb2c35cb40ee973c256047cf9b11e0681576e072f1465f9518dfcb",
+      "bytes": 9281,
+      "bom": false
+    },
+    "core/test/f1-gates.test.ts": {
+      "sha256": "336b2aacef15dc71acef5207a5a6e167e0b0600e1db40f86fbda17416e77e2e1",
+      "bytes": 16488,
+      "bom": false
+    },
+    "core/test/f3-crash.test.ts": {
+      "sha256": "8d8b9fceb13d73d5558e378048f4b18358aed05f3d72e9c2764d0b0c29b8c276",
+      "bytes": 17591,
+      "bom": false
+    },
+    "core/test/f3-live.test.ts": {
+      "sha256": "0ed976a11b64dd5106e8d3eb0846cb78c1acbc556fbe8bfcaca640a19ac6507a",
+      "bytes": 13396,
+      "bom": false
+    },
+    "core/test/f4-pano.test.ts": {
+      "sha256": "a83746978e100982ed9a9a3f9dffe4760bbc7b50c491be2c64fbfa88195e208f",
+      "bytes": 9202,
+      "bom": false
+    },
+    "core/test/f4b-pano-ogrenme.test.ts": {
+      "sha256": "ee96cce701484d924dcd699e6bd342cf7c3632d3aef4a29373d8ecb0f014e81a",
+      "bytes": 6053,
+      "bom": false
+    },
+    "core/test/f5-parallel.test.ts": {
+      "sha256": "e50afc3d364136654ba4488fc4560590d230a5b8819a80af55e0a1b47ca5d81f",
+      "bytes": 18371,
+      "bom": false
+    },
+    "core/test/f65-2provider.test.ts": {
+      "sha256": "c6964b9c243b4dc4aef9d87e82113ea29e22e2d1838a62013318be55016a130b",
+      "bytes": 6240,
+      "bom": false
+    },
+    "core/test/f65-rol-model.test.ts": {
+      "sha256": "63c3b09ac1bc0d6462c6707d65d123dff2f874e525bee4e38d2111224f675124",
+      "bytes": 15231,
+      "bom": false
+    },
+    "core/test/f8-turnuva.test.ts": {
+      "sha256": "169af8746c5fbf859afe83688f6c98d8c68ab212283c645ca0f2afa734f1a3e0",
+      "bytes": 17964,
+      "bom": false
+    },
+    "core/test/f9-paseo-kapali.test.ts": {
+      "sha256": "cf833a1f423933a7eedc9be58848b6c938c04f21730cd3c6a4e0ddb4410063ad",
+      "bytes": 9578,
+      "bom": false
+    },
+    "core/test/f9-ui-tester.test.ts": {
+      "sha256": "97c4e0a789a82644f729e5e132214c9144e46566952cca503ba951ddad027ce3",
+      "bytes": 9876,
+      "bom": false
+    },
+    "core/test/git-worktree.test.ts": {
+      "sha256": "edb9298bd6c9218298af8fe475c254bcb5c9a70850b97b414c73595da5de40b6",
+      "bytes": 7267,
+      "bom": false
+    },
+    "core/test/handoff.test.ts": {
+      "sha256": "bb8ffc426b324f8a0564b1de5a0aa20c4a3d0275126ae20a5ae7dfbbcece6887",
+      "bytes": 5366,
+      "bom": false
+    },
+    "core/test/k12-cok-ajan.test.ts": {
+      "sha256": "9a744784892ee9766dab6a2a9cf8c41df417c8514bca51e8435d6eb9d3850986",
+      "bytes": 19630,
+      "bom": false
+    },
+    "core/test/k12-deadline-r8.test.ts": {
+      "sha256": "1a07465f0bd81469b19781f9340c1f7b5eeb286b0984574dadd373e56377a229",
+      "bytes": 13135,
+      "bom": false
+    },
+    "core/test/k13-gozetimsiz-canli.test.ts": {
+      "sha256": "c4d0db7c6b1dbee54bd0e27817b2fc710abb3c86f144ca1e58635dd246de1d00",
+      "bytes": 9449,
+      "bom": false
+    },
+    "core/test/k13-gozetimsiz.test.ts": {
+      "sha256": "fc49f012b2b28a6c1e2610ead30ceef495f2b4cd7375cea8936a5777c758c87e",
+      "bytes": 6694,
+      "bom": false
+    },
+    "core/test/k13-senaryo-a.test.ts": {
+      "sha256": "6bf0eb2a93a3732e82b4917b6e9c64e35cf3c2d32daffb92257ca1b1c0630a73",
+      "bytes": 9535,
+      "bom": false
+    },
+    "core/test/k13-senaryo.test.ts": {
+      "sha256": "c15c6ce401f98577afa9788c2cc0de33200e7f17958ffa8101fd3f488283d644",
+      "bytes": 12984,
+      "bom": false
+    },
+    "core/test/lessons-canli.test.ts": {
+      "sha256": "9e87d10a2cbe20b214f67d98a7e52294cf893aad08f1c4b503afb99fbce295be",
+      "bytes": 7844,
+      "bom": true
+    },
+    "core/test/lessons.test.ts": {
+      "sha256": "e7ac316f94ac9e485d6d859485f65db0defbdc9657a88c5381546f952bfb51be",
+      "bytes": 10065,
+      "bom": false
+    },
+    "core/test/live-gates-v3.test.ts": {
+      "sha256": "69c1cbe9eaa3bf8e5140e8bb5874f6a233f403c358a6905b1eaf8cdfdd7973c7",
+      "bytes": 18268,
+      "bom": false
+    },
+    "core/test/live-gates-v4.test.ts": {
+      "sha256": "ef7b271f1bf462204605e60b4102211aef33cf14df1beec49fa46f5c42b3c12d",
+      "bytes": 23708,
+      "bom": true
+    },
+    "core/test/local-runtime.test.ts": {
+      "sha256": "b320c29ade0bbe134c41ba50fad97d70401ac14a17befa531cb6d8549c3b542c",
+      "bytes": 8964,
+      "bom": false
+    },
+    "core/test/m01-a15-m11.test.ts": {
+      "sha256": "ce2875783caac14d598c754698dc59ddb0a56725b893651028a3ed6eae5c67c7",
+      "bytes": 12384,
+      "bom": false
+    },
+    "core/test/m16-canli.test.ts": {
+      "sha256": "82f5dacc8700f784aae454385daa428fa6a99ac6e868c8aab2beeef2b5ad63db",
+      "bytes": 5476,
+      "bom": false
+    },
+    "core/test/m16-m03.test.ts": {
+      "sha256": "925828467a532ad3d336dcbda168d3b4fb72d2aa9505185186f0e345df55a911",
+      "bytes": 10130,
+      "bom": false
+    },
+    "core/test/metrics.test.ts": {
+      "sha256": "f9fd2cb558e1317bdf56b9e97c6b005e0a4c4fea02d33639bb32b117310eb1c1",
+      "bytes": 7456,
+      "bom": false
+    },
+    "core/test/modes.test.ts": {
+      "sha256": "a1551801a8a77c8b0f92bf862bbd2be33244301435ef56a1daeeef0757ad44fa",
+      "bytes": 6567,
+      "bom": false
+    },
+    "core/test/notify-canli.test.ts": {
+      "sha256": "754b58ce03833cceba07360a5bfe3e716f837f57a4fb5f24ada623a1dfb9d300",
+      "bytes": 7251,
+      "bom": false
+    },
+    "core/test/notify.test.ts": {
+      "sha256": "29e0fef3129d4616f19fcfd8369250ba6a3bbf294d266eb0870de6929498682d",
+      "bytes": 8945,
+      "bom": false
+    },
+    "core/test/paseo-adapter.test.ts": {
+      "sha256": "8daf77faceccf0e0b95f4681cb13c0385ef3dd55f1256ae97cb03fefaabe48e6",
+      "bytes": 9108,
+      "bom": false
+    },
+    "core/test/paseo-transport.test.ts": {
+      "sha256": "403ec2d9d0ea98f8c3ce6b4d1c043621185c7574b2295466f1c2e5569b239993",
+      "bytes": 16102,
+      "bom": false
+    },
+    "core/test/r3-grant.test.ts": {
+      "sha256": "8f36bbe0b0362aac09ed495dd20b15efdd82857f598f00c3a278aa0ced31a486",
+      "bytes": 29257,
+      "bom": false
+    },
+    "core/test/reasoning-receipt.test.ts": {
+      "sha256": "ecb2523bb13268a7667a78d9250aec20d7cbf207d7e56432433e225715a189e1",
+      "bytes": 4496,
+      "bom": false
+    },
+    "core/test/receipt-link.test.ts": {
+      "sha256": "49781989e1633f4b8518d8da5b9415210eb63478b6342902fec552c797cd1ad2",
+      "bytes": 6696,
+      "bom": false
+    },
+    "core/test/schedule-canli.test.ts": {
+      "sha256": "76063f0ca5b44f557f80ee3c688ff15835ec87383882b1bdf30b31d0455e33f3",
+      "bytes": 4216,
+      "bom": false
+    },
+    "core/test/schedule.test.ts": {
+      "sha256": "21101375e1af207cf3533ae156126801ca4463f257d1e3b76c6f22fd678400a4",
+      "bytes": 6341,
+      "bom": false
+    },
+    "core/test/store.test.ts": {
+      "sha256": "eb1155100acae43aefd84ab81ca8db0332ccc6deed51ca697617eddbdb672d3e",
+      "bytes": 14541,
+      "bom": false
+    },
+    "core/test/supervisor.test.ts": {
+      "sha256": "cd1e750fd4d2ca0c366d2f70fcff7e6030283a736d4751cce754bfd3c1116043",
+      "bytes": 7553,
+      "bom": false
+    },
+    "core/test/sync-baseline.test.ts": {
+      "sha256": "15fa20fee449a122d2b10e39ea56461aee1f8b0fcb1d5a7f8aba9e7a0a69c2b4",
+      "bytes": 2729,
+      "bom": false
+    },
+    "core/veri/artifacts/17cfa551b68ec30991a64a54dcdb0bf7ee8ec85d1a904d087689cee6b7ecd357.json": {
+      "sha256": "042499d23d727bbd1d54ffeb94e682009d41968e93ef721f40a988c029e0ec2d",
+      "bytes": 436,
+      "bom": false
+    },
+    "core/veri/artifacts/1e2f2891661c00c1edc825815bf8fd799f878ad564c7e75a8aaaa62d9f181f85.json": {
+      "sha256": "93780bb4771d3f73d99a5ae9e8bd4fa283d15550c8e72e2077e10615c3012a47",
+      "bytes": 425,
+      "bom": false
+    },
+    "core/veri/artifacts/1f873de2409e4d9aa8175d76251887a263c482bbe69e3a0a8602c6541fe31e22.json": {
+      "sha256": "d9cef1eb4d2d920a19f7bceebf302f12288fb581cdaef872b29c95b409388f57",
+      "bytes": 490,
+      "bom": false
+    },
+    "core/veri/artifacts/26f394272c4fe517028971ccb8e2a99d831fde121db984165338275ccf2bfec2.json": {
+      "sha256": "7e2c3aa1582459dfefd115f1dcbf1709da9fe765ab3e44cd58b42572a6dcda94",
+      "bytes": 491,
+      "bom": false
+    },
+    "core/veri/artifacts/42ddfc94ab1556a5e2a97cd47e0b138884cf750775621bf68a00f91cd76e9baf.json": {
+      "sha256": "2cd489aaa4bd001d8013b8efc2d7a22763587b53fcc4d2f799132d83b1d3a551",
+      "bytes": 494,
+      "bom": false
+    },
+    "core/veri/artifacts/4a70609d8a8544d258155d0164f0dd4e0811b7cc08d9d276acfe5c871eff9edb.json": {
+      "sha256": "eeb5d95935f6e13ff8f64255eeffb93e535e0522e92c6691aa38f1f4221c7a65",
+      "bytes": 490,
+      "bom": false
+    },
+    "core/veri/artifacts/75984bae0656465ce6726fb9cb91755f4199f9f715b8910fe9ac9e830aea096c.json": {
+      "sha256": "a73f734c38eb97db95e7b18d1a345bc2b7a84bdda926f90d57b39298a351a8f4",
+      "bytes": 427,
+      "bom": false
+    },
+    "core/veri/artifacts/accd2655952aab8d02963ab3cefa3fd5cf8fc362ae936ac247c8922abe751908.json": {
+      "sha256": "629e02e9033a9e55f87e1ca3a35bf9750d5c63c4bf13e42bd583beb6e6b95909",
+      "bytes": 492,
+      "bom": false
+    },
+    "core/veri/artifacts/b00d37847235f5d6960f8bff4ef80933dde36ec797dc4a909d4360709f0c3081.json": {
+      "sha256": "230aecbf137853af48480f52d7ea986a39742665b259305ae42e8700bac29bc3",
+      "bytes": 436,
+      "bom": false
+    },
+    "core/veri/artifacts/f6f9f35a5f447798c724a0cfcf741dabe0481aa1c34dea8de66790519ee9e87d.json": {
+      "sha256": "b8758ad94ba068b2703dca6362746845d0538417b01dd94ec3e7e0282ab8b91a",
+      "bytes": 492,
+      "bom": false
+    },
+    "core/veri/pano-start.ps1": {
+      "sha256": "3fec04ce748545dbed0c8c5556524e4cf541dc9d9a49b64f033ddd911c7f5e1b",
+      "bytes": 782,
+      "bom": false
+    },
+    "hedefler.json": {
+      "sha256": "3629a4f68ab8be1d7cefe157b92c6b95b96857b90e81fdecd60a47793434c2c6",
+      "bytes": 1462,
+      "bom": false
+    },
+    "kanit/01-paseo-dokuman-envanteri.md": {
+      "sha256": "d1d37b4797740d61047d932c7ca4cbc93410677d3b21a4887b57b6de0b4eb860",
+      "bytes": 11752,
+      "bom": true
+    },
+    "kanit/02-plugin-api.md": {
+      "sha256": "6fdb44299c99ec27c76a7314a4af572d6edee8a096b27d25f44b6f0470eb8e39",
+      "bytes": 10971,
+      "bom": false
+    },
+    "kanit/03-claude-code.md": {
+      "sha256": "475391e31f827e9c93e6be721554ee18e3c2d72ed1f43d4701a534a94ed2ce4f",
+      "bytes": 10200,
+      "bom": true
+    },
+    "kanit/04-cursor.md": {
+      "sha256": "5174315c2f591cc3cfa1f2853c05311c6c9fd95e75837c7155478c583bd01fc1",
+      "bytes": 5453,
+      "bom": true
+    },
+    "kanit/05-windsurf-cline-roo.md": {
+      "sha256": "64959dad067a7fc2f4334a341e1411e0600fc7a4c5204331d49fd8ddcd23c5db",
+      "bytes": 5630,
+      "bom": true
+    },
+    "kanit/06-aider-opencode.md": {
+      "sha256": "0a13bf52eee034190437a31ea6bcf6ecd74f9654ada6e517f93190c5551631bf",
+      "bytes": 4909,
+      "bom": true
+    },
+    "kanit/07-orkestrasyon.md": {
+      "sha256": "0d1dcd2d2f0c06b4102651c454eadcc7011852d3a82af1388cd63452c443691a",
+      "bytes": 3743,
+      "bom": true
+    },
+    "kanit/08-hafiza.md": {
+      "sha256": "9bb6f31b59385e03fb5ff2a51d30e94b876913e08114ca41fdbf9a4068c71726",
+      "bytes": 4652,
+      "bom": true
+    },
+    "kanit/09-token-verimliligi.md": {
+      "sha256": "ff2e844e745acbb7b9057e02632359ab51c8a41a27b960d1c480fc39815b3566",
+      "bytes": 4634,
+      "bom": true
+    },
+    "kanit/10-paseo-ekosistem.md": {
+      "sha256": "6e64fe3271dfc0b19add77831e4b5150dbc20dd1cd36bd2bf69437003562761a",
+      "bytes": 5346,
+      "bom": true
+    },
+    "kararlar/ADR-F65-rol-model.md": {
+      "sha256": "14dac10c1a440cc00cd9641fe0c1ebb445db733a83eeacc830efd2367c0e47bd",
+      "bytes": 10081,
+      "bom": false
+    },
+    "kararlar/ADR-R3-vekalet.md": {
+      "sha256": "a8639c0ad3a0d3bf52ef58ab6ca0877624e458ce32e670b416f8ebe40ccd1e37",
+      "bytes": 17061,
+      "bom": false
+    },
+    "kararlar/ADR-toparlanma-monorepo.md": {
+      "sha256": "874e778cb251b01943f52ed5dee3a58a960d6bd02968bcd1a2fa454f43451b20",
+      "bytes": 8104,
+      "bom": false
+    },
+    "kararlar/K-0001.md": {
+      "sha256": "c368b5d37b541c033c3d68aab8dbefa7d02782679034fb4fccd90b1b9b48e71f",
+      "bytes": 616,
+      "bom": true
+    },
+    "kararlar/K-0002.md": {
+      "sha256": "33563547e5071cea2f5c70514b6cc7cf0d743f251b38d878eab6e83c20db47e8",
+      "bytes": 1594,
+      "bom": true
+    },
+    "kararlar/K-0003.md": {
+      "sha256": "247ba7773315454a9b8bd592170e385f74d2ffc45db80d5d72299e6841594326",
+      "bytes": 1913,
+      "bom": false
+    },
+    "kararlar/K-0004.md": {
+      "sha256": "f13f10bb558794c3730536eda0b2152abb8def9405d307678b8b2b7e0dc36a8f",
+      "bytes": 1422,
+      "bom": false
+    },
+    "kararlar/K-0005.md": {
+      "sha256": "4520a4604ecf5efb7032ffd312ecf3c8c9cc44645509d88f0e598b813bd0fc89",
+      "bytes": 1597,
+      "bom": false
+    },
+    "kararlar/K-0006.md": {
+      "sha256": "1b30bef2295f26de5e4b63c03c2543621f1a719a85d6d99b1e1fd6c7c8681e0b",
+      "bytes": 1256,
+      "bom": false
+    },
+    "kararlar/K-0007.md": {
+      "sha256": "ba7481fd4b8b9c80aacca4c808e46be88002c06e1a3e1f5b306c0c95a0ec64c9",
+      "bytes": 2023,
+      "bom": false
+    },
+    "kararlar/K-0008.md": {
+      "sha256": "e1e368180fb69fdfff30a9f15c387d208ba213f1ebf7c13f3c5cbdaa3b71a954",
+      "bytes": 1717,
+      "bom": false
+    },
+    "kararlar/K-0009.md": {
+      "sha256": "449a54094ffb54d0d2beff7b9788e39e891dea8dd6911ee1629075dc0c0e0b82",
+      "bytes": 1620,
+      "bom": false
+    },
+    "kararlar/K-0010.md": {
+      "sha256": "fab3753242600e88a751da0b5f083c3a96eb00d3f731bb0309d3a9f68b8e20a5",
+      "bytes": 1620,
+      "bom": false
+    },
+    "kararlar/K-0011.md": {
+      "sha256": "03e2e97ad69eb11a365843a9bddc50fc6a3d5ef2d584de4fbe20bfe4d4052bcc",
+      "bytes": 1366,
+      "bom": false
+    },
+    "kararlar/K-0012.md": {
+      "sha256": "71acb1a3fa8abc4900d8772b8133632810e3c2471522aad754d531cfd7a9099e",
+      "bytes": 2454,
+      "bom": false
+    },
+    "kararlar/K-0013.md": {
+      "sha256": "a52e3e642302557b16d3a7dd941e15e78b22fecd88f464fbc675b2f90c74e5cf",
+      "bytes": 1924,
+      "bom": false
+    },
+    "kararlar/K-0014.md": {
+      "sha256": "59c724bc23159472a16d4548031cff23a08e30d5e414ca612c00311cf05063f5",
+      "bytes": 2505,
+      "bom": false
+    },
+    "kararlar/K-0015.md": {
+      "sha256": "dde755f7b6df370d0c7a1ecd3305bb6d135bd9c25689e5e4bf89d631f35d0252",
+      "bytes": 1450,
+      "bom": false
+    },
+    "kararlar/K-0016.md": {
+      "sha256": "cc87bac6fbfea8b822f219b0180910087cd555b42ffc189735ee7380ebc3e268",
+      "bytes": 1357,
+      "bom": false
+    },
+    "kararlar/K-0017.md": {
+      "sha256": "170eedd3fc3f7d968a1aa89a134b04acb1066012b261a6246e3eaeaceb7be1f1",
+      "bytes": 1511,
+      "bom": false
+    },
+    "kararlar/K-0018.md": {
+      "sha256": "4f4a6a60d8ada65418726efefb99f96acd32df1fd64ff1c3a1f7411b3145798a",
+      "bytes": 4397,
+      "bom": false
+    },
+    "kararlar/K-0019.md": {
+      "sha256": "570b7b72d9fca6e902b9a100010aabe7d811ad5ec74a595e7ce1a6bb427b2b90",
+      "bytes": 3876,
+      "bom": false
+    },
+    "kararlar/K-0020.md": {
+      "sha256": "57fb5434917a2aac63e4e5eba2d77110dd2325df62cbd8a473ad577187de2853",
+      "bytes": 4628,
+      "bom": false
+    },
+    "kararlar/K-0021.md": {
+      "sha256": "3b618fb1df7dc0eb22e64ba639c547a1c4ad1f28580a73fb9520ce218af99a02",
+      "bytes": 2974,
+      "bom": false
+    },
+    "kararlar/K-0022.md": {
+      "sha256": "aca7b080d26e3edb319813372a488adb3184b6769c5552a7639e49dc3a2a9ffc",
+      "bytes": 1767,
+      "bom": false
+    },
+    "kararlar/K-0023.md": {
+      "sha256": "70f0bf2fef96958ccf3aa7d2ba2bd7cc7fa5263c4988b8dde44d7d7e82030635",
+      "bytes": 1537,
+      "bom": false
+    },
+    "kararlar/K-0024.md": {
+      "sha256": "6933f67c2f80d07b59d492b0ef193f2aebde783312e6d07f2611e0b01ea3d226",
+      "bytes": 1634,
+      "bom": false
+    },
+    "kararlar/K-0025.md": {
+      "sha256": "a9f67f8c5b7c16b0d3d0e8310c40d141b8615690a5ff9f4fa9e4e8ed4b232626",
+      "bytes": 2222,
+      "bom": false
+    },
+    "kararlar/K-0026.md": {
+      "sha256": "ef0dd4829a96f11754c5ec0707d2b465d184fded7f4840e6c61e4f262cec61b0",
+      "bytes": 2543,
+      "bom": false
+    },
+    "kararlar/K-0027.md": {
+      "sha256": "fb8769e4af06699c36fe0e7e0e6902225a1ed759761737480f5d07139801734a",
+      "bytes": 2324,
+      "bom": false
+    },
+    "kararlar/K-0028.md": {
+      "sha256": "df5334be479f5e071a3d696eb4602e435bcd5a5286b5e8f80b9d9974cda78a70",
+      "bytes": 1881,
+      "bom": false
+    },
+    "kararlar/K-0030.md": {
+      "sha256": "2624f54dcd8f41074ff855fb9d1a1d8684361096f05402aa83f8278517cedc18",
+      "bytes": 2455,
+      "bom": false
+    },
+    "kararlar/K-0031.md": {
+      "sha256": "57a5dbad52ee04325a6f0da242677e2dcf4ca54818034eafab5691b4d772caab",
+      "bytes": 1819,
+      "bom": false
+    },
+    "kararlar/K-0032.md": {
+      "sha256": "6db47292af703fbe444f9e8932c266148562a68ffc26ad216a6cd9a6c0d6e1ac",
+      "bytes": 2265,
+      "bom": false
+    },
+    "kararlar/K-0033.md": {
+      "sha256": "ccdad372fd859818da5ed1c93b6c9087c4aa9ec4b792e00f1dbe5e07fbe818ad",
+      "bytes": 2920,
+      "bom": false
+    },
+    "kararlar/K-0034.md": {
+      "sha256": "164e6bb5645d217480dad3d43a9f5b7c89fef676ce847f30283cacf3893f8126",
+      "bytes": 1983,
+      "bom": false
+    },
+    "kararlar/K-0035.md": {
+      "sha256": "90aced5c0e72833eb593131eb0df3cce3c4215718a72fcf86035cb586109db63",
+      "bytes": 3572,
+      "bom": false
+    },
+    "kararlar/K-0037.md": {
+      "sha256": "6e9b369e219a689cf0924a73c2dec2336b268a7138c9cf213f3b5c2cc6a68ca9",
+      "bytes": 2434,
+      "bom": false
+    },
+    "kararlar/K-0038.md": {
+      "sha256": "85504a2f9ed33d6537b03c24beceacd6b441807fc7b7869ac93b72a7a8edad4b",
+      "bytes": 2058,
+      "bom": false
+    },
+    "kararlar/K-0039.md": {
+      "sha256": "1e8e44662774b732b9b188adc3aa4b5c50c123048596d6a4ff57a11a49aae4fb",
+      "bytes": 3931,
+      "bom": false
+    },
+    "kararlar/K-0040.md": {
+      "sha256": "d2c9d7f4b332da4ee62f939464e7ac1a4f488e9fcc1182a2845ca2e89bc5f407",
+      "bytes": 2138,
+      "bom": false
+    },
+    "kararlar/K-0041.md": {
+      "sha256": "8432ef775c189b46ed47239505f9f8e89b53b667558e4e72ebe154d67e4ebe3b",
+      "bytes": 2511,
+      "bom": false
+    },
+    "kararlar/K-0042.md": {
+      "sha256": "972cae66c370f266031bde5e66023adbc4ddee0d22d8fc2bcc8c47b9adf0231c",
+      "bytes": 1856,
+      "bom": false
+    },
+    "kararlar/K-0043.md": {
+      "sha256": "ef90e91d01d8828671017c7cc4c4ac4d35265ab54d98fedf3bca744490a9164c",
+      "bytes": 1288,
+      "bom": false
+    },
+    "kararlar/K-0044.md": {
+      "sha256": "4941652e3f1e85b01366dc3ad82f5e733dd016f9e8a55d25cc93fede88ddffd7",
+      "bytes": 1806,
+      "bom": false
+    },
+    "kararlar/K-0046.md": {
+      "sha256": "93fd64c34bab0847e7c24e72c066bae4be09f078655dd9f3e491959bb3c6192e",
+      "bytes": 9745,
+      "bom": false
+    },
+    "kararlar/K-0047.md": {
+      "sha256": "c0ac9a304b3329d2b27c7775ef9b2f37d7104faa894683d7ccd8a417937af08b",
+      "bytes": 2529,
+      "bom": false
+    },
+    "kararlar/K-0048.md": {
+      "sha256": "19d0e29cd7f7cbb3adcd99638e27cc7b6d6131766377a1215630b0a62bda18fc",
+      "bytes": 3273,
+      "bom": false
+    },
+    "kararlar/K-0049.md": {
+      "sha256": "6b02de08bd3169d97bf8143ac6ce3f934606946442fd2eada6f37ae348a6750a",
+      "bytes": 2274,
+      "bom": false
+    },
+    "kararlar/K-0050.md": {
+      "sha256": "3c6af3e27993828ecd53e36706e3a55d74467548a46761c658643aca5b03ecc8",
+      "bytes": 2578,
+      "bom": false
+    },
+    "kararlar/K-0051.md": {
+      "sha256": "f9638d9fd121dcf99478ab6ace409f144a194fbc96616a7dd912d5790b71468d",
+      "bytes": 2999,
+      "bom": false
+    },
+    "pano/BLUEPRINT.md": {
+      "sha256": "986805b32b3f078efce48bd9fd342f4a6105b53004c7b6375be3c7d601332b43",
+      "bytes": 12641,
+      "bom": false
+    },
+    "pano/DESIGN.md": {
+      "sha256": "44c995dcf7126dce48ffa84381359f8e831d3ca92bcaff4862c77531fe63e9e9",
+      "bytes": 7611,
+      "bom": false
+    },
+    "pano/README.md": {
+      "sha256": "638e2d6a70fb69d22a7c8532a73af89f334e0073d71b2bfa62cda5eea0a1211a",
+      "bytes": 1511,
+      "bom": false
+    },
+    "pano/d1a-test.mjs": {
+      "sha256": "842aabf90c7af079829607e9c4853e0b566b29d1914fecb05200518a858e38d8",
+      "bytes": 4549,
+      "bom": false
+    },
+    "pano/d1b-test.mjs": {
+      "sha256": "58fca899ac5e7d37ee45ef3280524bc08c402ab513cb88371d79988c0f510af2",
+      "bytes": 6581,
+      "bom": false
+    },
+    "pano/package.json": {
+      "sha256": "69cab438af2fcab3dd6eef1d33f324245477a9675c1f94eccb18d2293b46ebc2",
+      "bytes": 270,
+      "bom": false
+    },
+    "pano/yerel-masaustu.ps1": {
+      "sha256": "4e39b118a2d7910c5889f209a440674960e2d73c1d7388e0f63c3059a1460238",
+      "bytes": 1982,
+      "bom": false
+    },
+    "plans/A0-DALGA-6SUBAGENT-PLANI-2026-10-27.md": {
+      "sha256": "c0a853d7b5b4ab3897e1a13d2f02f4a4c9cfdacccc4bf6a0fcb5e86a7b7a88e7",
+      "bytes": 6271,
+      "bom": false
+    },
+    "plans/Agent-Ordu-Teknik-Brief-ve-Prompt.md": {
+      "sha256": "c15e2c6152a4cd8ec14aefb2e18ab872a81af9fd41008eb709bfb1e043c11730",
+      "bytes": 19554,
+      "bom": false
+    },
+    "plans/F3-TASLAK-2026-10-25.md": {
+      "sha256": "ccb4bb22c7b3e6da67e36576f0bfd5b9782af947de0a35b32cdecf03d589295b",
+      "bytes": 6390,
+      "bom": false
+    },
+    "plans/GOREV-GRAFIGI-SENERARYO-2026-10-26.md": {
+      "sha256": "f88c9e2fc2bc340581f654be6a3f78bb2e1a706895d366f24e997bea9d7f19f2",
+      "bytes": 43467,
+      "bom": false
+    },
+    "plans/HEDEF.md": {
+      "sha256": "efc62044eae59e549bf3617e58267dbc074f77e652292a4e6cfde6ae29aa6cea",
+      "bytes": 7414,
+      "bom": false
+    },
+    "plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md": {
+      "sha256": "4464ca104c39438696872512a500c866588be5415574954144e8594472a2340a",
+      "bytes": 13697,
+      "bom": true
+    },
+    "plans/KUYRUK-PLAN-3SUBAGENT-2026-10-27.md": {
+      "sha256": "f51de9ec2a2bb45babccf1a21197729ce56722ceb2baac24ee04a86a6ee4c381",
+      "bytes": 6312,
+      "bom": false
+    },
+    "plans/ORDU-SENERARYOLARI-2026-10-26.md": {
+      "sha256": "51e738284b444c24da9d3cee85669b808fa9e6f783141a56b2e8cea66280277f",
+      "bytes": 4972,
+      "bom": false
+    },
+    "plans/PLAN.md": {
+      "sha256": "e77fad0a071f8f9896211e470c8802dffe571133a44a32b0414dcac94f9b726d",
+      "bytes": 90219,
+      "bom": false
+    },
+    "plans/SAVASA-HAZIR-PLAN-2026-10-25.md": {
+      "sha256": "c9e915a787e632866c9e171307f0620c377bd135e6c7d37dd9da4583d504f868",
+      "bytes": 5249,
+      "bom": false
+    },
+    "plans/SSOT-INDEX.md": {
+      "sha256": "17fa2555a112be5cb0dee4cdd1c6386ff98157cb048bddbd55615349642f2c8a",
+      "bytes": 3082,
+      "bom": false
+    },
+    "plans/UYGULAMA-PLANI-SPRINT-2026-10-26.md": {
+      "sha256": "7384b42e75815b46b4d083fc2f9a05293959cc87741f422c8ca5b7474c356708",
+      "bytes": 9093,
+      "bom": false
+    },
+    "plans/arsiv/GECE-2026-10-14.md": {
+      "sha256": "a0c4087884e4e1286c7c5797bf90e9cc6cbbe1c168c7d045cca5549a9dd59579",
+      "bytes": 1811,
+      "bom": false
+    },
+    "plans/arsiv/GECE-RAPORU-2026-10-14.md": {
+      "sha256": "09b511070bd6ceb6b6a5bdf99f1bcdcbb9e914e7b3fb7c87896c2ad854e85b9b",
+      "bytes": 6143,
+      "bom": false
+    },
+    "plans/arsiv/MASTER-SSOT-PLAN-v2.7.2.md": {
+      "sha256": "8b81633f971c67c18ed52c72d79eefee08158f1d33d7f0b3de516d493bb92005",
+      "bytes": 34189,
+      "bom": false
+    },
+    "plans/arsiv/ORDU-CORE-BAGIMSIZLIK-PLAN.md": {
+      "sha256": "c6f1b2da888e44470c8ae10ff382aedefb665e3d4f087a96ba90b48ff88485c2",
+      "bytes": 8964,
+      "bom": true
+    },
+    "plans/arsiv/ORDU-PLAN-v1.md": {
+      "sha256": "19cf31d1aa7007cacc06c4aa5159f0a122e59b71bd311cf79e134cd8f43a381c",
+      "bytes": 26384,
+      "bom": false
+    },
+    "plans/arsiv/PLAN-eksik-kapatma-2026-10-12.md": {
+      "sha256": "61572723c1a46ced2e34d8a32b217be0b9a1b1ac70eaa097640a0722e50dc5b8",
+      "bytes": 3393,
+      "bom": false
+    },
+    "plans/arsiv/REVIEW-v2.8-2026-10-14.md": {
+      "sha256": "51ee65d9d34ea3e1b430c5b7a6a28507d653bec74c0517ab39beceff0c76450e",
+      "bytes": 6241,
+      "bom": false
+    },
+    "plans/gorev-grafigi-2026-10-26.json": {
+      "sha256": "5a36fd5fb076286db92ae1774d85bb706280be3f5de7b49b95893c417370b2e8",
+      "bytes": 73839,
+      "bom": false
+    },
+    "plans/handoff/ECHO-HANDOFF-2026-10-13-2014.md": {
+      "sha256": "ea1930b42e7f8031aaa2d497a33d2a4c20e544553ab2727ab2678cb1842fc72b",
+      "bytes": 1073,
+      "bom": true
+    },
+    "plans/handoff/HANDOFF-2026-10-11-1900.md": {
+      "sha256": "9df0e2940f4e36292442d8dfefcbe9b031d10452d50bd0538af5ea6db95ed413",
+      "bytes": 707,
+      "bom": true
+    },
+    "plans/handoff/HANDOFF-2026-10-11-2005.md": {
+      "sha256": "dc3739fa022711bc2a015b1feff608b63ec99937636512bf494cf8c2c52391f2",
+      "bytes": 3040,
+      "bom": true
+    },
+    "plans/handoff/HANDOFF-2026-10-12-1336.md": {
+      "sha256": "b8c339f5760fa015b5f72614d73770532b7498d94a366f384c1d84ec5d6093f8",
+      "bytes": 5939,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-12-2040.md": {
+      "sha256": "69e74a7b2ca3996a75b4e1acba00940c8a875475b7c2bc8a1eb158ba70922048",
+      "bytes": 2838,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-0047.md": {
+      "sha256": "789ed15c57d74321c79840d5c674ada3640716dddc5743a559bda7e393646ac4",
+      "bytes": 2002,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-0321.md": {
+      "sha256": "c104400f29a9616b8fb02235218c4a9bd18e788713b1c9fa0043d06aa40335f9",
+      "bytes": 2544,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-0445.md": {
+      "sha256": "eedac5fad098bf5e39c4a14397f5930ee8383d1034bdeb74c34fc2cbe454dd01",
+      "bytes": 1309,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-1200.md": {
+      "sha256": "81318360c2f85d125bd88df58e49e5acd2a9208eb6a0e63b02369e7adf4631c5",
+      "bytes": 4473,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-1450.md": {
+      "sha256": "0b6a2d20b74ed4f844f2f383e51b381f3defc27dc30629cf2c359001b9356f8a",
+      "bytes": 2330,
+      "bom": true
+    },
+    "plans/handoff/HANDOFF-2026-10-13-1515.md": {
+      "sha256": "74079bd1faa081358177a513ade829e75061e21a7ff60007c873a51b63294517",
+      "bytes": 2414,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-1707.md": {
+      "sha256": "d6d2f2ae61e102164bd79f6f1344698d17ce62d8e3cf606ff3191f279713b9a8",
+      "bytes": 2820,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-13-2014.md": {
+      "sha256": "1b24bee0f70c75f7c7f4238043100418f563efa1d7185de1ca168736f9cf7d37",
+      "bytes": 1775,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-14-0127.md": {
+      "sha256": "93be6a5c2d03caf8215033942a985e75c3aaaa8fab90d4b373fec079091d389a",
+      "bytes": 1513,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-14-0333.md": {
+      "sha256": "c0ba36a6e0ede285f490ed35b5425d8fa62de711faf41929ba13178f75ba6e23",
+      "bytes": 27536,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1350.md": {
+      "sha256": "6ecf3c82a900f934c4f0e50ba0ec0e1e8432f1861ba910e445c8095c78bcc222",
+      "bytes": 3155,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1542.md": {
+      "sha256": "4586446a7c8b086228fabbd5c362fb210f670504dbbd2bbd88756177da048d0a",
+      "bytes": 4652,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1640.md": {
+      "sha256": "8955fe36fe12d6ee0ef54d42964a01c8240b0e12c99877f05e88715c22e04fdb",
+      "bytes": 6501,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1716.md": {
+      "sha256": "76118f60bde533f3fd97bde1a9cd2ec792419eee7e54e0146114b989e1a7bc52",
+      "bytes": 5423,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1815.md": {
+      "sha256": "0d402a5458f74178e1de3f663a5123c9ddd03bb229655c2810b606a38923dcf3",
+      "bytes": 6195,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1930.md": {
+      "sha256": "345c3c1993ecb5efc1bc0d83446f2d38ef7763ea8f90e9bfb7c6971c86638efe",
+      "bytes": 5401,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-1955.md": {
+      "sha256": "b2451181b564db96d60078ecb179b4363a19c5ae2292d2a25c1c34305fe9946b",
+      "bytes": 4839,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-2005.md": {
+      "sha256": "89b2e7c18984859242f45c12e5fb89e2f7f29d40a2e2a712991ef6ef1a3f9b6d",
+      "bytes": 11336,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-25-2038.md": {
+      "sha256": "897ae2cb5997e9dba2ef095df6113d5a36fca5e0e78e12308e5989236fb7b385",
+      "bytes": 7251,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-27-0031.md": {
+      "sha256": "b7fb2b2b2ea274db1f6127203fc5ba6eb602501ede628ba7d558f3e5fb16d3d5",
+      "bytes": 3908,
+      "bom": false
+    },
+    "plans/handoff/HANDOFF-2026-10-27-0955.md": {
+      "sha256": "cab636c8bf1beb5738a135cfe38e08914aaa454e95cd099f00148ddb0fd4df8e",
+      "bytes": 3604,
+      "bom": false
+    },
+    "plans/kapsuller/A0-1.md": {
+      "sha256": "11b94e5252b67fefe9c39c9387e88e2811df0933083b6ff9e933cb2bd423e13e",
+      "bytes": 1935,
+      "bom": false
+    },
+    "plans/mockup/DESIGN.md": {
+      "sha256": "48c3127e9d57cf299dbbc85439225178df3769c4afd7e1567b7f2bdc80caa844",
+      "bytes": 8615,
+      "bom": false
+    },
+    "plans/mockup/cek.mjs": {
+      "sha256": "3b83ed7261ef3c58f523cb0add7cb3ce3b3590efc47bfc98f5315f74980a553e",
+      "bytes": 3170,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/01-nav.md": {
+      "sha256": "191cfa6a29e9070a30ca6bf10f3801345ddab56b8352adbba9a3596292b03b6b",
+      "bytes": 16032,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/02-chat.md": {
+      "sha256": "0808ed6e0a0d574840a675231f4efe2828ebf431964e0dccdf2b0a89fdb68b15",
+      "bytes": 15141,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/03-plan.md": {
+      "sha256": "1eeb5395f0b6b9177ebe3f0e79531b094baf5b16517a3658eb12c87094e7a32f",
+      "bytes": 21427,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/04-pano.md": {
+      "sha256": "fba620b7bab0122000a4307ab0e595f53775adcf0a5c1968bb5ec0ee4e7d10bb",
+      "bytes": 13527,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/05-icerik.md": {
+      "sha256": "bbd3818b0583f676fe214aa47029574abe873c4deb377397ba4fcab73a27401b",
+      "bytes": 24491,
+      "bom": false
+    },
+    "plans/mockup/parcalar/v10/06-review.md": {
+      "sha256": "109cef6f9f9b58ec5ce14efdb5fe8c9d5ad3f71b1dd81c8c56d207969f9ba533",
+      "bytes": 11803,
+      "bom": true
+    },
+    "plugin/OVERVIEW.md": {
+      "sha256": "b4e5b77a9b46a02ec72438d653451b0f234e9f713ec6065f1e29fe1e52122393",
+      "bytes": 4650,
+      "bom": false
+    },
+    "plugin/client/degerlendirme.tsx": {
+      "sha256": "64b34b4ce3f7ce5c07e484134681f208d15924a55297e76a57386d533af2d303",
+      "bytes": 2094,
+      "bom": false
+    },
+    "plugin/client/mod.tsx": {
+      "sha256": "2b5d9911ad97c72ca7cefe139ed334cd4213bd5c2040d5be21850847c8e62c11",
+      "bytes": 2071,
+      "bom": false
+    },
+    "plugin/client/pano-panel.tsx": {
+      "sha256": "725f3e1cbaccf5f72eac5876995ae890bac2cf3c9a20ec2fa90b92564986ceb9",
+      "bytes": 2817,
+      "bom": false
+    },
+    "plugin/client/telemetri.tsx": {
+      "sha256": "0dc81a84090c1746efc3dc87ae39e46502de405f776eaea7704ccd3b837248b2",
+      "bytes": 3055,
+      "bom": false
+    },
+    "plugin/index.client.tsx": {
+      "sha256": "ddb7d3c5ebe5461b903f22b437feb3cadace97b06c25cf53cf22e1ab3d2a1ad2",
+      "bytes": 3791,
+      "bom": false
+    },
+    "plugin/index.server.ts": {
+      "sha256": "1cc2b683a49ed0c7c992425e38502707637abde90739d80eaa5dd05261499b54",
+      "bytes": 12841,
+      "bom": false
+    },
+    "plugin/package-lock.json": {
+      "sha256": "da7be81d71f2de7b81d4b1a1d835b49d319db8a4b03f9a9d0f9c0990c9e925cf",
+      "bytes": 162262,
+      "bom": false
+    },
+    "plugin/package.json": {
+      "sha256": "fe4c6fddb2e1ce6281ed9ebd0a835cb250baa45deb77a1ae5ba85f63e104a7fd",
+      "bytes": 957,
+      "bom": false
+    },
+    "plugin/paseo-plugin.json": {
+      "sha256": "1b7f06c8119f4d5d1cbba30c7b188017a169bb8c98cf95ea979f8e09e8ae329b",
+      "bytes": 87,
+      "bom": false
+    },
+    "plugin/server/ayar.ts": {
+      "sha256": "95967ed2799c447110b50d4561c5f17696c6447d4b72653f884d7c817c16041d",
+      "bytes": 2493,
+      "bom": false
+    },
+    "plugin/server/bekci.ts": {
+      "sha256": "33a62f0005b1a039ce76ca7b1b000e47de9d619b46d85f86b2af46ebc2868436",
+      "bytes": 12138,
+      "bom": false
+    },
+    "plugin/server/brief.ts": {
+      "sha256": "934cc1583755882d6c0417845828511893e8952c74fa5fb064e57d75a25df21c",
+      "bytes": 6250,
+      "bom": false
+    },
+    "plugin/server/cekirdek.ts": {
+      "sha256": "16cf45ab37145c9393e12217dcb6a20bde8a5b8e29f99643c4cb841340e433a6",
+      "bytes": 5444,
+      "bom": false
+    },
+    "plugin/server/degerlendirme.ts": {
+      "sha256": "78afaa2aeaa6a31f8a96a024aa36eeeeb31e69dbd3e3ec54d82bb51878938abb",
+      "bytes": 1869,
+      "bom": false
+    },
+    "plugin/server/desenler.ts": {
+      "sha256": "a40ff23516b70644d86b92d4e62fc49b2169301092dadba4ff6c15997ea5e3c5",
+      "bytes": 499,
+      "bom": false
+    },
+    "plugin/server/enjekte.ts": {
+      "sha256": "ce157173b3644143905196b1b8e2052cb90775c80c62ef3fdb13b3a57dbd56ff",
+      "bytes": 3271,
+      "bom": false
+    },
+    "plugin/server/finishgate.ts": {
+      "sha256": "953830d17b523404a156edc0b17890cdcd298af955f66f159e40fbfb41ff940a",
+      "bytes": 2585,
+      "bom": false
+    },
+    "plugin/server/inspect.ts": {
+      "sha256": "6e62fa339246c5b12e5d646efc2dc21b5512e8bd53f422815cf1b9619549192c",
+      "bytes": 4429,
+      "bom": false
+    },
+    "plugin/server/kabultakip.ts": {
+      "sha256": "44f1b331beaa870af27d13d2c4915652ead7b6cf6528fe2711e67a6a45eb59f2",
+      "bytes": 2984,
+      "bom": false
+    },
+    "plugin/server/kalite.ts": {
+      "sha256": "5f0f1c82a9de7ecf23e53bbfa76eb2c5df779300b19851b2aaff036e3109a47d",
+      "bytes": 1274,
+      "bom": false
+    },
+    "plugin/server/kapsam.ts": {
+      "sha256": "1be11497e11fda14509ce66952903071fe3aadd86f8f45c3769ace9f745fa57a",
+      "bytes": 1957,
+      "bom": false
+    },
+    "plugin/server/loopguard.ts": {
+      "sha256": "accdb756319795ce7dd488cb7eca641f7b13d7dd71b65d1941ddafaf4366fb43",
+      "bytes": 2577,
+      "bom": false
+    },
+    "plugin/server/modlar.ts": {
+      "sha256": "cbbf801be29e284939c637e4af20d8bb7c143c32481d2c719c58db11a96e9015",
+      "bytes": 8901,
+      "bom": false
+    },
+    "plugin/server/onboarding.ts": {
+      "sha256": "f6b1242e69702840d7af8518efdb4cc4fd8782553e99d3218d5ab277660d4304",
+      "bytes": 3588,
+      "bom": false
+    },
+    "plugin/server/ordu.ts": {
+      "sha256": "b62e62215f058046f2952ecad2b59d3f5679729d2b16a244e20e29ddff91292a",
+      "bytes": 7448,
+      "bom": false
+    },
+    "plugin/server/pano.ts": {
+      "sha256": "b36f2f5d91e64fc7be1fd33106c49df0b5f042b8ade470f9c4ad0a90b4e93af1",
+      "bytes": 16337,
+      "bom": false
+    },
+    "plugin/server/permission.ts": {
+      "sha256": "d075bf5764107df7252c627f2956b2b77d4b748c828de72f7352af7625a4465e",
+      "bytes": 4564,
+      "bom": false
+    },
+    "plugin/server/pitbull.ts": {
+      "sha256": "e5e978adddfe4dda7f97ef3acb244c67a7b0269dc2af81cb57d622b7a4d3d2ce",
+      "bytes": 6607,
+      "bom": false
+    },
+    "plugin/server/planmd.ts": {
+      "sha256": "16349561d3572067815bdc601ea850ca44e9ac163fa026b0209909a9ffbb03af",
+      "bytes": 8148,
+      "bom": false
+    },
+    "plugin/server/roller.ts": {
+      "sha256": "bcd5f5b4c1850251c39c98aedd6e831881a248d7eda7be4cad4bc0cf046cb1c5",
+      "bytes": 5373,
+      "bom": false
+    },
+    "plugin/server/rollup.ts": {
+      "sha256": "eff4141a7bfd32ae1f6684e98114741c35cc2711619867da82d66c3897e119f8",
+      "bytes": 11553,
+      "bom": false
+    },
+    "plugin/server/sozlesme.ts": {
+      "sha256": "9b93dba7497995e0c99bfbd7c6c2d2787ffb123dd6fef187116ffe2786b90883",
+      "bytes": 6203,
+      "bom": false
+    },
+    "plugin/server/surum.ts": {
+      "sha256": "8dbb5cf4fc93ee18c9f16d7e5d611fcf89e813df7370a3916cf7ffd37e2b729a",
+      "bytes": 141,
+      "bom": false
+    },
+    "plugin/server/telemetry.ts": {
+      "sha256": "7e575022e9763c8ed29171304a81524edfece0ba7675fc1b89d945b6765cd7be",
+      "bytes": 19112,
+      "bom": false
+    },
+    "plugin/server/temizlik.ts": {
+      "sha256": "c2a44975c8de054b9c6bca7b009a6cb1ce7713e8103299ddce206decd90a8654",
+      "bytes": 741,
+      "bom": false
+    },
+    "plugin/shared/contracts.ts": {
+      "sha256": "3e1bf0dec023e28c3ebd76ca50cb0cc7e17ddf3b1f2732691ebd34b66c27accf",
+      "bytes": 2309,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.1/KILIT.md": {
+      "sha256": "6f601a47f4c6638c4f2cde5a6de6c757113dc947361c03e65041174ee6dcce39",
+      "bytes": 487,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.1/kilit.json": {
+      "sha256": "b5347c9bd7a286cbf5fe873576374ad6ec6860bf5863e26a93dcdd8fe9afdd4e",
+      "bytes": 283,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.2/KILIT.md": {
+      "sha256": "32efc279d56e10fe3253b95b088f39e7ea3533a6efff19f948f4ff3617769698",
+      "bytes": 442,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.2/kilit.json": {
+      "sha256": "a7fbff4237fc795e06cd6343b08d79bc3ce08ee39e5b025f1bdaafdc439ae0ac",
+      "bytes": 238,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.3/KILIT.md": {
+      "sha256": "841a0c3249d8c4059fa907d6b527a5bb17f057bfa44f19cd3daf7e7835ee3867",
+      "bytes": 476,
+      "bom": false
+    },
+    "plugin/surumler/v0.10.3/kilit.json": {
+      "sha256": "f32ea5d2096cd2588080add1ac2622bc97b88528b04ebc819241d037a858bd21",
+      "bytes": 272,
+      "bom": false
+    },
+    "plugin/surumler/v0.10/KILIT.md": {
+      "sha256": "94cfa83b9486fea9333b349df6bf4d9b4ba0f8d0d47bcacc14fc93f3dd7beece",
+      "bytes": 540,
+      "bom": false
+    },
+    "plugin/surumler/v0.10/kilit.json": {
+      "sha256": "7b7b4e831531b2c51cf82e80021b5d900b1dccc033532df3981674527d1ac36e",
+      "bytes": 340,
+      "bom": false
+    },
+    "plugin/surumler/v0.11/KILIT.md": {
+      "sha256": "0930c920eacb503aafc6a1d7d0277c31fb3b971455845bab1470044eb6aad2b9",
+      "bytes": 526,
+      "bom": false
+    },
+    "plugin/surumler/v0.11/kilit.json": {
+      "sha256": "563db93d37db3d74c1dfa702d53a6e1523a1375a7998f6f5ebf91f9923e01c7a",
+      "bytes": 326,
+      "bom": false
+    },
+    "plugin/surumler/v0.12.1/KILIT.md": {
+      "sha256": "da18451aed7a02433c467a4f4dc312a0983c4d0776a8984b7199ab997f940726",
+      "bytes": 465,
+      "bom": false
+    },
+    "plugin/surumler/v0.12.1/kilit.json": {
+      "sha256": "6ca08d028f95cdde1bbca8c0f33eafe0019702de8a8983a9e6592194637ec9b5",
+      "bytes": 261,
+      "bom": false
+    },
+    "plugin/surumler/v0.12/KILIT.md": {
+      "sha256": "467e486e51a9c2b115c60d64c0f32b9953320a05640b5937d65fccd6c675b96b",
+      "bytes": 508,
+      "bom": false
+    },
+    "plugin/surumler/v0.12/kilit.json": {
+      "sha256": "fa19c536cb627e7d6766b542529c01010d7a5d4e38f5bf0a1a888fde52b16345",
+      "bytes": 308,
+      "bom": false
+    },
+    "plugin/surumler/v0.13/KILIT.md": {
+      "sha256": "0fb1a522ce87f47b39a6a515aa4cc28262d9062da08e4a382bb656a5670f8a96",
+      "bytes": 554,
+      "bom": false
+    },
+    "plugin/surumler/v0.13/kilit.json": {
+      "sha256": "00e6aa58e4e9de6267fc866ad1d4f8a6a8fa50be5c098ac4e00e4bec6cbc9173",
+      "bytes": 354,
+      "bom": false
+    },
+    "plugin/surumler/v0.14/KILIT.md": {
+      "sha256": "baf55f131de4629473697e0af6f60d0301beb8d64ea526b45d2f79269aee04e5",
+      "bytes": 526,
+      "bom": false
+    },
+    "plugin/surumler/v0.14/kilit.json": {
+      "sha256": "8a64bd4312fc6b65b7b88a1d9d473734e7da7a32bf75074268b35141df104150",
+      "bytes": 326,
+      "bom": false
+    },
+    "plugin/surumler/v0.15/KILIT.md": {
+      "sha256": "bb6c161fc4260b8a6d84ed50f36f52039b451320c7c93293b796f37f938fd2fb",
+      "bytes": 555,
+      "bom": false
+    },
+    "plugin/surumler/v0.15/kilit.json": {
+      "sha256": "933064a27de54747e05eb33630f103f355e987605f5fa147116e3f2ef75957f3",
+      "bytes": 355,
+      "bom": false
+    },
+    "plugin/surumler/v0.16/KILIT.md": {
+      "sha256": "e403a42d93dd0da4ee4119e17f1e85e7a50259d268bc49808a9de0931503661c",
+      "bytes": 475,
+      "bom": false
+    },
+    "plugin/surumler/v0.16/kilit.json": {
+      "sha256": "8cd248faa24542a50a4a8ff2ff67279311c6160854e984e10646e83325ebe123",
+      "bytes": 275,
+      "bom": false
+    },
+    "plugin/surumler/v0.17/KILIT.md": {
+      "sha256": "9eb87d92f69825985c09e4b46f44c96025a8a39b5e18f7cde476ae11df6bd8b6",
+      "bytes": 449,
+      "bom": false
+    },
+    "plugin/surumler/v0.17/kilit.json": {
+      "sha256": "7610d7a90732857b83376128d420e4d2895a654be8101327f448807460ce7618",
+      "bytes": 249,
+      "bom": false
+    },
+    "plugin/surumler/v0.18/KILIT.md": {
+      "sha256": "0011f917785e0c416dce01b10d9fc83e534fc881989d9e93770395b69691de79",
+      "bytes": 478,
+      "bom": false
+    },
+    "plugin/surumler/v0.18/kilit.json": {
+      "sha256": "9e1dfe69860c57a21fac053e80ddd2cca50ea8fbaaf8e749af4e57d6baa85fe3",
+      "bytes": 278,
+      "bom": false
+    },
+    "plugin/surumler/v0.19/KILIT.md": {
+      "sha256": "9e5a0a64d9799213094ac0cfda42e94a1902c844f2758fcd7f497588d0ddb74a",
+      "bytes": 404,
+      "bom": false
+    },
+    "plugin/surumler/v0.19/kilit.json": {
+      "sha256": "39ecdedc89d9adf7b6715d6721c2899d314d959402c15807b10dc72ab10c5bfc",
+      "bytes": 204,
+      "bom": false
+    },
+    "plugin/surumler/v0.20/KILIT.md": {
+      "sha256": "b465d0dc0ae9d7ebf1987dedeb2addcc22f44eadb83c22fd5af31cb3ed6d5f2a",
+      "bytes": 404,
+      "bom": false
+    },
+    "plugin/surumler/v0.20/kilit.json": {
+      "sha256": "cfcab5d53c226bb72c43ab6e3f525fbfbc8a53e1b382ead5d8a879f8c2aee3d6",
+      "bytes": 204,
+      "bom": false
+    },
+    "plugin/surumler/v0.21/KILIT.md": {
+      "sha256": "861f5dae800781ca71009742d0b4db3010980aef5a4015eddabec786323b9f7d",
+      "bytes": 404,
+      "bom": false
+    },
+    "plugin/surumler/v0.21/kilit.json": {
+      "sha256": "5f7aa397c58bbf9743f770d832e1264546a5585e91c016901db5d6b6e56aed15",
+      "bytes": 204,
+      "bom": false
+    },
+    "plugin/surumler/v0.22/KILIT.md": {
+      "sha256": "d80130c2e8f8d7c5bd24d2be2bd099efee258e99c712129923e744b6196e2368",
+      "bytes": 534,
+      "bom": false
+    },
+    "plugin/surumler/v0.22/kilit.json": {
+      "sha256": "ca42750dde8b64f4df20ad2dfa697c13b8c4738e4715ef68f642ebe948bf4ea5",
+      "bytes": 485,
+      "bom": false
+    },
+    "plugin/surumler/v0.23/KILIT.md": {
+      "sha256": "b3fc968f0c23e43d9fcaf9981347ba54bcb46ffdd5fe9da3467f6f32ee0d64c6",
+      "bytes": 640,
+      "bom": false
+    },
+    "plugin/surumler/v0.23/kilit.json": {
+      "sha256": "6cf1f5b46378e9913f33c68187fb0a19ffb55b58ac8d75e8d224ad5e4bae2bc9",
+      "bytes": 1054,
+      "bom": false
+    },
+    "plugin/surumler/v0.4/KILIT.md": {
+      "sha256": "6ecd1e77d14caf344a002a191a21e750b21bd521fd35494ba708e8f619587c95",
+      "bytes": 442,
+      "bom": false
+    },
+    "plugin/surumler/v0.4/kilit.json": {
+      "sha256": "bbb63706f40d444db051577421effcb4e11a6b16db745619d5f5a89af91ec87f",
+      "bytes": 332,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.1/KILIT.md": {
+      "sha256": "72898ede534b888bf0c799e313114e5aaa99e2c0babb2b386f4b0e3a12db84ad",
+      "bytes": 485,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.1/kilit.json": {
+      "sha256": "e5a18a4e45fe600cfc926b47e7de1715a387fff46f12223c5fd415839f8ecaca",
+      "bytes": 283,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.2/KILIT.md": {
+      "sha256": "927c2930ee3d416c7104640c2e3582dd665257e2ceb2660d5e95c9b68bfc7cd5",
+      "bytes": 468,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.2/kilit.json": {
+      "sha256": "fa1ed92a644d39b03feed3dab44b53390e66e5d95f472f41b19fae5a4b014678",
+      "bytes": 266,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.4/KILIT.md": {
+      "sha256": "5334e4863e07d424cef0efa2b9dc041194b4a5e88eccd7b84ef0d1def6cf2019",
+      "bytes": 474,
+      "bom": false
+    },
+    "plugin/surumler/v0.5.4/kilit.json": {
+      "sha256": "3ada7c0be9356ef3bb56e13b0ed0bc16ae19cefedae1fec65a5d2b81a5e312c3",
+      "bytes": 272,
+      "bom": false
+    },
+    "plugin/surumler/v0.6/KILIT.md": {
+      "sha256": "c04891d9cc75a4865dbcd9b868b23ffec6e512b034df8fc66431ddce6713537f",
+      "bytes": 485,
+      "bom": false
+    },
+    "plugin/surumler/v0.6/kilit.json": {
+      "sha256": "3ba5acb676462e8cb1814c1a60535cfa08b32754c9adda214ac560cf72b1aaf9",
+      "bytes": 287,
+      "bom": false
+    },
+    "plugin/surumler/v0.7/KILIT.md": {
+      "sha256": "0e0c80d1d0e1d18ee24d5657be2957482a212486813caf627c2fe48613f1274d",
+      "bytes": 492,
+      "bom": false
+    },
+    "plugin/surumler/v0.7/kilit.json": {
+      "sha256": "eee61fffd539f0ad46469e4eb46aed69efeb7972eefe62e4dd6b34b5127acbc3",
+      "bytes": 294,
+      "bom": false
+    },
+    "plugin/surumler/v0.8/KILIT.md": {
+      "sha256": "89224abf5f0a652f6ea5fc52586141b4c56def3a00feee1456f0a9bef9de74b4",
+      "bytes": 643,
+      "bom": false
+    },
+    "plugin/surumler/v0.8/kilit.json": {
+      "sha256": "f39d4744317bdc176595ba5b6960d019758cd0adfc94bea2bafe04f211106ddd",
+      "bytes": 445,
+      "bom": false
+    },
+    "plugin/surumler/v0.9/KILIT.md": {
+      "sha256": "009ab49e0a4ac94823e2f7f3a4afc8aec17db50b52f549bebe7254b72ff7b438",
+      "bytes": 543,
+      "bom": false
+    },
+    "plugin/surumler/v0.9/kilit.json": {
+      "sha256": "615cce769abdc3d9abf092737a3a4f3a062fabc29284fe637858dbe24ba57700",
+      "bytes": 345,
+      "bom": false
+    },
+    "plugin/test/ayar-modlar.test.ts": {
+      "sha256": "668174773c5ac9135b5495e947706a130d5ea5a439bf50d993f77ffb9a754ada",
+      "bytes": 2962,
+      "bom": false
+    },
+    "plugin/test/bekci.test.ts": {
+      "sha256": "6b13833b8d06531e36c80afa1670e3b7cbf4adcee3518168ad79aa6b60900cc8",
+      "bytes": 6058,
+      "bom": false
+    },
+    "plugin/test/dedektor.test.ts": {
+      "sha256": "9f28739bd51f02d4d489b15fcd3f938f8fb82f6abfdd0da1a6d348ccf672a7c3",
+      "bytes": 93129,
+      "bom": false
+    },
+    "plugin/test/izin.test.ts": {
+      "sha256": "d6ac055a93fb0a6908b1b44fb8446c83dd68d7a2a4ee58506a85bfda40b15a5e",
+      "bytes": 5497,
+      "bom": false
+    },
+    "plugin/test/kabul-rollup.test.ts": {
+      "sha256": "7a3824c89f649e4cfd661cca99e6f37b1c995751086ddc9dee83c8c6dbe3a2fe",
+      "bytes": 8168,
+      "bom": false
+    },
+    "plugin/test/kucukfix.test.ts": {
+      "sha256": "619c8d7f3eb9ea0fb037f28b8f7844b5635dcc39a4936de20481279291f78310",
+      "bytes": 3269,
+      "bom": false
+    },
+    "plugin/test/ordu.test.ts": {
+      "sha256": "59c00076aaa4309d51da9b38f0e637289d2ff77f60c64ba5be2c01426fcfde54",
+      "bytes": 3035,
+      "bom": false
+    },
+    "plugin/test/pano-durdur.test.ts": {
+      "sha256": "fe958d11cfdf60c160aab7f04e2de378169314d867e9f20fc047af86b32f9ab0",
+      "bytes": 5675,
+      "bom": false
+    },
+    "plugin/test/planmd.test.ts": {
+      "sha256": "688f97a0be220ea1106e819939ded2e8ecb76f6544d0b0cf6fa7af043dfa0eba",
+      "bytes": 3433,
+      "bom": false
+    },
+    "plugin/tsconfig.json": {
+      "sha256": "d32c033f8d4f1ae5783a6bcb2474c14c34ab0157705776a9577c31f6c66134d9",
+      "bytes": 952,
+      "bom": false
+    },
+    "raporlar/3model-puanlama-2026-10-19.md": {
+      "sha256": "4033b6f60ea6f034f3cc8bfe6c28f63d971c5de631eff3bcf791d5d19675a7f2",
+      "bytes": 3637,
+      "bom": false
+    },
+    "raporlar/OZET.md": {
+      "sha256": "b1b46ef31c9bf52231a1529646c22fa9fa2122e3520d3f11a2999f9ebb17e10d",
+      "bytes": 1689,
+      "bom": true
+    },
+    "raporlar/bench-2026-10-14/bench.json": {
+      "sha256": "646bfe4ce8a40f244784378b8d9ecadcdc4d10462f9c946ec541d132c4a51478",
+      "bytes": 78920,
+      "bom": false
+    },
+    "raporlar/bench-codefast-fix-2026-10-15/bench.json": {
+      "sha256": "66976175777d7d1bfc3259e5bc74932ef59eb3b3595c7b4252849e75a9bbbadf",
+      "bytes": 2014,
+      "bom": false
+    },
+    "raporlar/bench-dortlu-2026-10-17/bench.json": {
+      "sha256": "5cd66f501dd79bc4f10be1ee576be81c6af0d5ac546985a2b8ab1f883c228294",
+      "bytes": 5419,
+      "bom": false
+    },
+    "raporlar/bench-free-2026-10-15-tirmanma/bench.json": {
+      "sha256": "ba7340b7513fbae45015acc3efeb76818791876581418b571022889b42b44c45",
+      "bytes": 2015,
+      "bom": false
+    },
+    "raporlar/bench-free-2026-10-15/bench.json": {
+      "sha256": "02b7e1e75c252af367f47b080782c6b912fcb6ee3754493d9151b355f6bdf06d",
+      "bytes": 7916,
+      "bom": false
+    },
+    "raporlar/bench-free-2026-10-15/uygunluk.json": {
+      "sha256": "39bf2b80a9af3ed8aa4a85f3611455a56141b9eb526dd80e8cf28f210e24fb35",
+      "bytes": 13204,
+      "bom": false
+    },
+    "raporlar/bench-free-2026-10-15/uygunluk.md": {
+      "sha256": "d3398310ba17e9bb3bb7201fa692fb9f189d82ff7c30742b31596070fe814896",
+      "bytes": 3854,
+      "bom": false
+    },
+    "raporlar/bench-glm-2026-10-18/bench.json": {
+      "sha256": "508a1765b735d8dbb0b9620dcfbd27378cd46565fd26bc5e01c09ffdbb651c08",
+      "bytes": 1336,
+      "bom": false
+    },
+    "raporlar/bench-glm-claude-2026-10-18/bench.json": {
+      "sha256": "7fea1efc40d79b7c7632c78a7b592121a57b03194ab709ef421b1dc1371e8689",
+      "bytes": 1340,
+      "bom": false
+    },
+    "raporlar/bench-glm-claude-2026-10-18/karsilama.md": {
+      "sha256": "51a0ee2632eba05ae6956a9e9702c8b01d2e1396dd45ba0dba40353227ad9e93",
+      "bytes": 3735,
+      "bom": false
+    },
+    "raporlar/bench-glm-claude-2026-10-19/GECERSIZ-KOSUM-DAMGASI.md": {
+      "sha256": "d2c10c13264ea4dbb59cc0ab1e44883b6a81446125e911926b21019c856a8f0a",
+      "bytes": 1388,
+      "bom": false
+    },
+    "raporlar/bench-glm-claude-2026-10-19/bench.json": {
+      "sha256": "336ec186369b8b503ece21a6b0f74468be68afcf655d79d66256e25bc00d9128",
+      "bytes": 1314,
+      "bom": false
+    },
+    "raporlar/bench-groq-2026-10-17/bench.json": {
+      "sha256": "06a6c15583139093a6143632674635fa711532bcafa26feafdec181657da0d42",
+      "bytes": 5006,
+      "bom": false
+    },
+    "raporlar/bench-kimi-2026-10-17/bench.json": {
+      "sha256": "5b57e993d7c1736a4238c25545051fbac3367150ce57926d99fe0ce4f8820097",
+      "bytes": 2101,
+      "bom": false
+    },
+    "raporlar/bench-or-2026-10-15/bench.json": {
+      "sha256": "d7e6b9f219fa83594778b01dd92909f67226b5c7315911f060871cf68d377a0e",
+      "bytes": 1209,
+      "bom": false
+    },
+    "raporlar/bench-serbest-2026-10-18/bench.json": {
+      "sha256": "d6537a92649434794e81ac35f2982708740fdd5149c359971529b44d8e3c48e2",
+      "bytes": 27142,
+      "bom": false
+    },
+    "raporlar/bench-smoke/bench.json": {
+      "sha256": "27190742771ad11e6e47167e90751a6aca4931cf5f3423a1e64ff7ae4814dad4",
+      "bytes": 2344,
+      "bom": false
+    },
+    "raporlar/bench-th-1017-2026-10-17/bench.json": {
+      "sha256": "de1de188d9c206dab05639f52f371ae98eb147232530d4a1517de3a7afd57c0f",
+      "bytes": 5499,
+      "bom": false
+    },
+    "raporlar/bench-th-2026-10-17/bench.json": {
+      "sha256": "7eb501888320203e98e041ece44274812d3c4b34ee76b9ed1256d0236d2416f4",
+      "bytes": 4418,
+      "bom": false
+    },
+    "raporlar/bench-th-fixdogrulama-2026-10-15/bench.json": {
+      "sha256": "747840bf6091e5afadd93ff10bebf76b07acadd0b72d2055a4231db9efedd765",
+      "bytes": 6150,
+      "bom": false
+    },
+    "raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.json": {
+      "sha256": "f26d5dc69de11b870a8e4b2b20dfbc965d4fecb3d9632412638c20074d7118ae",
+      "bytes": 10953,
+      "bom": false
+    },
+    "raporlar/bench-th-fixdogrulama-2026-10-15/uygunluk.md": {
+      "sha256": "72c4bb4eeba5b096bdffb86ad1385baa4db69ef6a23a0d6397b7108852d35271",
+      "bytes": 5377,
+      "bom": false
+    },
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.json": {
+      "sha256": "e15cc1bedaa9bc990883ea40b424d3266f4abbf64e5110f60359846215854012",
+      "bytes": 4099,
+      "bom": false
+    },
+    "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md": {
+      "sha256": "3ed3c0cc0f3098578d9854d91b0a0adbc5a47abe8ad8e802d1b9488bdbbfb4fa",
+      "bytes": 13593,
+      "bom": false
+    },
+    "raporlar/capraz-sorgu-devir2038-2026-10-25/OZET.md": {
+      "sha256": "72da2015cd6f62e85a37c2827a7d9429a113ee66d05c8452b7d6c2f1e1b408a0",
+      "bytes": 5108,
+      "bom": false
+    },
+    "raporlar/capraz-sorgu-devir2038-2026-10-25/capraz-sorgu.json": {
+      "sha256": "33a0491bfe9ec044769b31d9f4404010d852249930e45a7a0a2da565e91a3755",
+      "bytes": 3186,
+      "bom": false
+    },
+    "raporlar/capraz-sorgu-ordu-dc-2026-10-25/OZET.md": {
+      "sha256": "2c2f5bc1ba347a052408a8836ae5e194d1ad30f5b656e23306ffb0eebc2f6dad",
+      "bytes": 10036,
+      "bom": false
+    },
+    "raporlar/codex-uc-analizi-2026-10-25/OZET.md": {
+      "sha256": "20c57b70d19375de1da0abfbc2df44ccc6845c11cbf91d81880cea9943064e4d",
+      "bytes": 5196,
+      "bom": false
+    },
+    "raporlar/codex-uyumluluk-siralamasi-2026-10-17.md": {
+      "sha256": "c73c4485e494cf07e8e70afbdfc6f5d60623e6cd9081ca04d8edd3dd4e1df2cd",
+      "bytes": 10300,
+      "bom": false
+    },
+    "raporlar/denetim-6subagent-2026-10-25/OZET.md": {
+      "sha256": "b393a3610d4d0053ce99aed22935b5dea66b0728963a76f900d362ff524c99d6",
+      "bytes": 5994,
+      "bom": false
+    },
+    "raporlar/denetim-6subagent-2026-10-25/denetim.json": {
+      "sha256": "193c0939a49025fce87dc6e6e79e7cfe7baab7aa0d3e02a58bf425b15d286177",
+      "bytes": 4841,
+      "bom": false
+    },
+    "raporlar/devir-tarama-6subagent-2026-10-25/OZET.md": {
+      "sha256": "c9ef8a4d4fb8c0df9af6ee464299eb20c93c0f41897c7108e14fc54dcfccce07",
+      "bytes": 5080,
+      "bom": false
+    },
+    "raporlar/devir-tarama-6subagent-2026-10-25/devir.json": {
+      "sha256": "4e800319ff6d563acf94516934540572a79bc5fa8e40baaf7568b27a5c9fbd00",
+      "bytes": 6061,
+      "bom": false
+    },
+    "raporlar/f3-restart-envanteri-2026-10-25/OZET.md": {
+      "sha256": "9529b396b8ee9be4ed3535bc50c535fc2f69a17c20ee56be60e78bb3f9c69e43",
+      "bytes": 2258,
+      "bom": false
+    },
+    "raporlar/f3-restart-envanteri-2026-10-25/envanter.json": {
+      "sha256": "f50164ec778be832daa02b538de4536b72a705861b45dc25b4007e7929f64801",
+      "bytes": 1303,
+      "bom": false
+    },
+    "raporlar/fault-matrix-2026-10-25.md": {
+      "sha256": "a6a8a473f4d4321e95f72a8a7db3c4aab7eb6473aef58d8b00783397c51c06d1",
+      "bytes": 4873,
+      "bom": false
+    },
+    "raporlar/faz-analiz-2026-10-14/OZET.md": {
+      "sha256": "008a83b8855573f76e8a574bc110670f399015b49c8a3bb714e7dbae0996ec0d",
+      "bytes": 1833,
+      "bom": false
+    },
+    "raporlar/faz-analiz-2026-10-14/fazlar.json": {
+      "sha256": "c1cf8c36d51631c9dc137f6011fc1540616416f3be5ca0a830c3c9b7af90dc2d",
+      "bytes": 4542,
+      "bom": false
+    },
+    "raporlar/faz3-triyaj-2026-10-25.md": {
+      "sha256": "7eb73cbc4f1a8f80e3f10fa9cf5fe5e6d01d93262f5a318a871fb4f1a919f44f",
+      "bytes": 5058,
+      "bom": false
+    },
+    "raporlar/free-modeller-2026-10-15.md": {
+      "sha256": "f3ab19cfe9b887a16bb109fa9e84994728322dacbd527722a9a1f7886231ea92",
+      "bytes": 21736,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/SABLON.md": {
+      "sha256": "24ddf9d1889ded947ff1e949c4d0b1cb50d0bcc6f37bcb68c3d29c5841241e89",
+      "bytes": 1133,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/ana-ajan-2026-10-25.json": {
+      "sha256": "25b4f2e1427f5e6b5e0ce5e4f23ab33686b05ad3c2b632226eb000b943f3e02d",
+      "bytes": 7328,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/ana-ajan-2026-10-25.md": {
+      "sha256": "da691159b7b174195cac86ae671442af43c591ac032cb8535a6563170241cfeb",
+      "bytes": 11781,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-12.json": {
+      "sha256": "53adafb9bf3d70e9af31e1aeda8a4a7b7828e996fff371df3bf068c186e06add",
+      "bytes": 2133,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-12.md": {
+      "sha256": "8bceb20433280fa226567d77abd5cd6905b84805aaf3d2b1d4da5763099f741f",
+      "bytes": 1927,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-13.json": {
+      "sha256": "552e9202448404ab94816bc7a37b12bfb4c54c13dc09c54f2931292114bc2994",
+      "bytes": 1915,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-13.md": {
+      "sha256": "8f709835037ca1cfeecd66651569d2ac813fa9dfbfe504a988ece72a0f20b626",
+      "bytes": 545,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-14.json": {
+      "sha256": "4af5b003398597fc3e432b7b454fb07ca715280fee0904fa8200208f4dfd49b7",
+      "bytes": 1390,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/codex-2026-10-14.md": {
+      "sha256": "e3abdeb251d9efd1527aa98bed90b9fd58be870b2597d9b793e1161459ca0758",
+      "bytes": 1338,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/denetim-2026-10-13.json": {
+      "sha256": "747d1961f42a80d0c2d004a021ddad98244de4408276e72612c9cf0e3edb216a",
+      "bytes": 37830,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/denetim-2026-10-13.md": {
+      "sha256": "0e1af6349b1245306b2d07d5a9674d4fd0d88b775167ea6042fdd6e5e8f1182d",
+      "bytes": 11404,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/denetim2-2026-10-13.json": {
+      "sha256": "f822dc18d628f7e0affaaa580472f7d9bda938c6c60d7417e57fa79922e4364e",
+      "bytes": 20863,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/denetim2-2026-10-13.md": {
+      "sha256": "431052bbb83558777e5bfcfbd018404ab481d5ac93e6e440206317584a5e5334",
+      "bytes": 8428,
+      "bom": true
+    },
+    "raporlar/gelen-kutu/kapsul-tuval-review-2026-10-26.json": {
+      "sha256": "415bcffc5496f607c0a0d87c1d6749abd50bc5a48d8b578b1531f561edbdde96",
+      "bytes": 7154,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/kapsul-tuval-review-2026-10-26.md": {
+      "sha256": "2e3144d12e4d5e1f0c376453274524c75ca38c51500bd6aaef78d84de14c8d71",
+      "bytes": 7875,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/ordu-dc-dalga34-2026-10-25.json": {
+      "sha256": "fd84fb899cdd04549a43f656cb792c4828c636ecbabd20cd594a11b7299897fe",
+      "bytes": 6287,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/ordu-dc-dalga34-2026-10-25.md": {
+      "sha256": "0b1d34cd9cbfc75ada779a11f1b6b7ebf29d7ec670b85ec9e81598c174bb9828",
+      "bytes": 6883,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/review3-2026-10-13.json": {
+      "sha256": "83f935ffb473ad3ef8d935e9f63eabb77743fb22cdf2505b64da023be5780540",
+      "bytes": 6884,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/review3-2026-10-13.md": {
+      "sha256": "adc3a7c9505e4f0d89de26a1fb72475f4ad148d5d9f69ab566b4647be729bca4",
+      "bytes": 3828,
+      "bom": true
+    },
+    "raporlar/gelen-kutu/speakrapid-2026-10-12.json": {
+      "sha256": "99d2472c3d9f3f4f602c08d5af8dff01f92879d2e55bb3e03d2e77273dbc480d",
+      "bytes": 714,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/speakrapid-2026-10-12.md": {
+      "sha256": "2e8f32b983806a9b1309bfbc6eb35b54163260af33f3c5d7810e30a76fdec082",
+      "bytes": 1318,
+      "bom": false
+    },
+    "raporlar/glm53-motor-matrisi-2026-10-19/OZET.md": {
+      "sha256": "315041e6f46817fceaa47501c3e6cacf41b9b9f76dca2a78b167bbc55ef107eb",
+      "bytes": 2296,
+      "bom": false
+    },
+    "raporlar/glm53-motor-matrisi-2026-10-19/rapor.json": {
+      "sha256": "d34fc5c714a394ba157bb3060f6d3df3a097d1550332c033f66b564aca6ccdb1",
+      "bytes": 1506,
+      "bom": false
+    },
+    "raporlar/glm53-wrapper-benchmark-2026-10-25/OZET.md": {
+      "sha256": "584eaf2a6d1ad4f3551b223364f60540aa8ad0741e960320a481b0156b0bce8e",
+      "bytes": 1151,
+      "bom": false
+    },
+    "raporlar/glm53-wrapper-benchmark-2026-10-25/wrapper-benchmark-scored.json": {
+      "sha256": "860302dc51b70d731c1a5bda956dacd37d3b95e31c16c89e5626ec4701cc4361",
+      "bytes": 1453,
+      "bom": false
+    },
+    "raporlar/glm53-wrapper-benchmark-2026-10-25/wrapper-benchmark.json": {
+      "sha256": "c8820366dc47874789f0e12f90a2c4e6b3e911f802c2e82a0fe7211844e914d8",
+      "bytes": 14265,
+      "bom": false
+    },
+    "raporlar/gozlemci-n5-n5-2-2026-10-26.md": {
+      "sha256": "f268ed3030250bc2ebfc1b76f13cacc68dc013a6d5b4183340a4973f85a85cdb",
+      "bytes": 5168,
+      "bom": false
+    },
+    "raporlar/guvenlik-taramasi-2026-10-25.md": {
+      "sha256": "67d994f675f144675955e9bdbff4e8457629ebea71ed167aead49935fe69f742",
+      "bytes": 1945,
+      "bom": false
+    },
+    "raporlar/kalici-acik-defteri-2026-10-26.md": {
+      "sha256": "f890c4804695bcbe843da4256d3ac2b3c042d5fc7c99213520bdbfe91ac3d978",
+      "bytes": 7542,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a02-sweep-2026-10-27.md": {
+      "sha256": "3c92d64f9e1c5f15e552e44f06c0966950808206be77ae8235040cbf13a9620a",
+      "bytes": 8918,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md": {
+      "sha256": "cd050def7b8474eab52ac7e224a361341872e22f43a808213054b2e3eec05786",
+      "bytes": 7112,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a05-lrt-2026-10-27.md": {
+      "sha256": "2d1abd82e0d8ec5e172756d59b02742b7f7b5db986cd76a67371e6e28f89b139",
+      "bytes": 11614,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a14-a10-canli-2026-10-26.md": {
+      "sha256": "dd487b76dcfe74dd7f22cb48f5ae5cc985d0e0a528cd6ccd409bef32a9c60a58",
+      "bytes": 3188,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a2-replan-2026-10-26.md": {
+      "sha256": "45cf1906af08aac4964a0d68a6bd7f300979856e753efd702be38ac83ea77b3d",
+      "bytes": 7260,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md": {
+      "sha256": "41513b3421d44dadc95d6bdc373fcada7cad658641b2c7b2f505be8eaf2a2b04",
+      "bytes": 9064,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/bildirim-sender-2026-10-26.md": {
+      "sha256": "4bdc151e74739431ccad094864794beb3ec520298fb892e5803d12bf3e1ca8e1",
+      "bytes": 4801,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/d1a-tuval-cekirdek-2026-10-26.md": {
+      "sha256": "6a8b137aef42344fbfad787a99b71690d6a706464cadc902209b82a4f7646753",
+      "bytes": 4131,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/d1b-kartlar-vurgu-2026-10-26.md": {
+      "sha256": "bdd816c91fbff869e483d97efae91792f5e2f38d6e577e91d58c92a89a47a846",
+      "bytes": 4641,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/f4-silme-2026-10-26.md": {
+      "sha256": "3464019f80ce786a8639dec64f3b206c465155906e39ddb1b735bb442cc7074f",
+      "bytes": 5249,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/f65-2provider-2026-10-26.md": {
+      "sha256": "1c81b7155842fceba5ce977b78104bc242ec243c664d35dec21056cf64e2f949",
+      "bytes": 5703,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/f7a-pano-2026-10-26.md": {
+      "sha256": "386ca71b46553727da55995c4c90414e73e4da7770fc7991fb5b2255c485b67f",
+      "bytes": 3032,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/f8-turnuva-2026-10-26.md": {
+      "sha256": "1fe01374020a1701a6a722486729a3bd9acbe2abe3c1f8eda80130dae22a036a",
+      "bytes": 5743,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/f9-ui-tester-2026-10-26.md": {
+      "sha256": "65d2aa8598ad5a53538fab93679086a1dd62e65c2946564b768e28520aa49e03",
+      "bytes": 5683,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/hedef-claw-rehber-ozeti.md": {
+      "sha256": "b7449cd976f7fc3ecbfee073ad2023a3687e05053f5151f11b075331b36958f0",
+      "bytes": 991,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/hermetik-kanal-test-2026-10-25.md": {
+      "sha256": "5535e681a4662ce52699eca827a702b9b0a0caf53b1bfcead84a9cf5c5aa56eb",
+      "bytes": 1379,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/k12-cok-ajan-2026-10-26.md": {
+      "sha256": "f21812aa725401dc1f8d617b9f3709ff6f2b11d204ddbc492a1c6e1815c76e1b",
+      "bytes": 4834,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/k12-deadline-r8-2026-10-26.md": {
+      "sha256": "bdbb4a601c2b6c82bf0ae46e7ed12b9c8e08ca446aa6941d13589e76584940df",
+      "bytes": 4661,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/k13-gozetimsiz-senaryo-2026-10-26.md": {
+      "sha256": "6fb65aad874e0fe957ba1925e0d1927fef17150e2073a1faceca4de6d0470d1d",
+      "bytes": 6518,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/m02-savas-spawn-2026-10-26.md": {
+      "sha256": "cb62403f486825394d357c692da1adfd99ae0cafd177b546ac5d63e6c0899071",
+      "bytes": 4143,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s1-ikinci-canli-run-2026-10-27.md": {
+      "sha256": "a960d393a55e68622354ee5b6574dfcece8f585b02d500b6c6b16141ae437791",
+      "bytes": 7651,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s2-script-hijyen-2026-10-26.md": {
+      "sha256": "328719e33dae912e737d9b2a4ec113c9bb7a3182efcd28ee84d025eec085764a",
+      "bytes": 5553,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s3-plugin-v023-2026-10-26.md": {
+      "sha256": "f747847c98fac9f7625f1c20125d3bab703bb0268619fade268af266b7d349b8",
+      "bytes": 9272,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s4-scheduler-daemon-2026-10-26.md": {
+      "sha256": "350721f83deffb00b7651a2f217b34b6fa6059995f5b2e9002eb38971c3efd45",
+      "bytes": 3966,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s4-scheduler-sentpoll-2026-10-26.md": {
+      "sha256": "52a026f074c2358179f3344d767ace97b473edeeb8ae9b4c403d441a6553c0ec",
+      "bytes": 2285,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md": {
+      "sha256": "25c1c221a9ffe9ba72bb1a4abab616d71246707d68d5ed4d88e05cafc2e88d7d",
+      "bytes": 9348,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s7-turnuva-p1-codex.md": {
+      "sha256": "b7449cd976f7fc3ecbfee073ad2023a3687e05053f5151f11b075331b36958f0",
+      "bytes": 991,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/s7-turnuva-p2-glm53u.md": {
+      "sha256": "b7449cd976f7fc3ecbfee073ad2023a3687e05053f5151f11b075331b36958f0",
+      "bytes": 991,
+      "bom": false
+    },
+    "raporlar/kanit-hedef/son-kanit.json": {
+      "sha256": "db8c3dabeb68b0d5dac91f32f6df09b0e3ae9a4d59cb324f790178ed1f7f5fe0",
+      "bytes": 150,
+      "bom": false
+    },
+    "raporlar/model-benchmark-2026-10-24/OZET.md": {
+      "sha256": "c440b22644dfe9ac823a3b6aae1025777521c569c4d0ed5fb40ffbe2a7448609",
+      "bytes": 3052,
+      "bom": false
+    },
+    "raporlar/model-benchmark-2026-10-24/top30.json": {
+      "sha256": "ff1fd52ac990b48cb4fbcb89b3d60d2fc97e82179b2f2451c8f95f5556ab0016",
+      "bytes": 4931,
+      "bom": false
+    },
+    "raporlar/model-fiyat-performans-2026-10-17.md": {
+      "sha256": "6503d9c647482ee58c57d7c3cbf13bd0f1e6e4299e2e87893c64e9243637aae7",
+      "bytes": 5232,
+      "bom": false
+    },
+    "raporlar/model-katalog-2026-10-17/katalog.json": {
+      "sha256": "f3919d28eda9b5147d05da44842cbe3616fe28b2d333673d6e6395c666ea5364",
+      "bytes": 90647,
+      "bom": false
+    },
+    "raporlar/model-katalog-2026-10-17/katalog.md": {
+      "sha256": "5ebbdfe15cc4d4ec114a1bf2d3363993d19b7bb51f2171d6e9d477f5c895763a",
+      "bytes": 15805,
+      "bom": false
+    },
+    "raporlar/model-katalog-2026-10-18/katalog.json": {
+      "sha256": "fe0e47cfa6bd265c4145fcadfd919b222cfdecb62950cae5c6fcf02b66c65ad7",
+      "bytes": 94787,
+      "bom": false
+    },
+    "raporlar/model-katalog-2026-10-18/katalog.md": {
+      "sha256": "ab9b1e0ee9999a38c73478b4fe2f413ab3d549b68b7c4ab7731c325a52b2e856",
+      "bytes": 16386,
+      "bom": false
+    },
+    "raporlar/model-siralamasi-2026-10-17.md": {
+      "sha256": "419981f376ab2e8209dc50d76e925617ccb727816daabd9bea7b6f4109d81ee7",
+      "bytes": 12163,
+      "bom": false
+    },
+    "raporlar/oz-degerlendirme/2026-10-12.json": {
+      "sha256": "70a2845c2bf558b1cdb6da3b15032f90465c22c451028dc313718e9e7b7cdc88",
+      "bytes": 692,
+      "bom": false
+    },
+    "raporlar/oz-degerlendirme/2026-10-12.md": {
+      "sha256": "9f693f6ac58bd0461b1287298f3b47c2fd206f60167e7f2e1fd1b37e8a403bf8",
+      "bytes": 1537,
+      "bom": false
+    },
+    "raporlar/paseo-workspace-model-secimi-2026-10-19/OZET.md": {
+      "sha256": "71da5eaebf9b90ec95b4f759f75172385b24b811ac179ac3cdfec172c1f4f95c",
+      "bytes": 13063,
+      "bom": false
+    },
+    "raporlar/paseo-workspace-model-secimi-2026-10-19/rapor.json": {
+      "sha256": "2de497fba4ed3100817f2bba2eeccbc31852fdc9bdcbdb1a41e95c811530e4da",
+      "bytes": 30496,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/blueprint.md": {
+      "sha256": "f42128885e6be181152afecf9202f87e60a3ea3a6a58333005dbcd196917f3ab",
+      "bytes": 6475,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/final.md": {
+      "sha256": "3d243890f6d18976fa4d1ff9776530d9788f24b8296a949aa92f96e1f1843549",
+      "bytes": 6107,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/gpt.md": {
+      "sha256": "d067d016e41755cb08f66e727a26852fe9b78a716eb090c8d0d4fc9debb09aa7",
+      "bytes": 6928,
+      "bom": true
+    },
+    "raporlar/plan-analiz-2026-10-14/kapsul-v3.md": {
+      "sha256": "9f19ae8fa8e5cb989a5719b3042c5beccc6d23379aa2984fdb8258bd6ec9a4b0",
+      "bytes": 4147,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/kapsul-v4.md": {
+      "sha256": "6d91e46302b5b9a0d439b9f6fc1369a3e954934b68fa5395129e5f75a24a1d1a",
+      "bytes": 6582,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/kapsul-v5.md": {
+      "sha256": "24ceae70e82d650f9884fae58a8c01dcbcf1ae30341b7d8f0034a551fef7d9cf",
+      "bytes": 9640,
+      "bom": true
+    },
+    "raporlar/plan-analiz-2026-10-14/master-ssot.md": {
+      "sha256": "d78966995f26876d56fc31b7396a2750973d50ab8baa0f08348d8f564df4ec51",
+      "bytes": 7568,
+      "bom": true
+    },
+    "raporlar/plan-analiz-2026-10-14/ordu-core.md": {
+      "sha256": "14315a75380319e4f9b7d157b0163354c74124486e3bf271b9c33fdd39801b88",
+      "bytes": 8936,
+      "bom": true
+    },
+    "raporlar/plan-analiz-2026-10-14/ordu-v3.md": {
+      "sha256": "3d46dda5af69bbb1a8f1bf8c572d6d93ae5f7d50d190dc9dd1b3d1a87febb418",
+      "bytes": 7393,
+      "bom": false
+    },
+    "raporlar/plan-analiz-2026-10-14/qwen.md": {
+      "sha256": "ec266cec48fb4efe16521655c5131b784df43e3b924db6b33bca8add36704795",
+      "bytes": 5338,
+      "bom": true
+    },
+    "raporlar/plan-kontrol-10subagent-2026-10-26/OZET.md": {
+      "sha256": "b8db1bd6c38621ccbcffb052cc0ea4447d84663e72eff6f238c2b1cafdba780e",
+      "bytes": 6692,
+      "bom": false
+    },
+    "raporlar/plan-kontrol-10subagent-2026-10-26/denetim.json": {
+      "sha256": "4317d6eae3932278c0a19ec5033b3cadb8a9b3c0f0e4e04bd9894de080a53212",
+      "bytes": 4174,
+      "bom": false
+    },
+    "raporlar/proje-panosu/2026-10-12.json": {
+      "sha256": "1dc2b7fc528f54ba5ed658511813e0c9ada0ea0e0afc3d167ed963da5ff6fd4d",
+      "bytes": 49981,
+      "bom": false
+    },
+    "raporlar/proje-panosu/2026-10-12.md": {
+      "sha256": "5363f57eaaae526ec85635b9ca1b2e709bda5792ed2041121d8f7d7305b5cb70",
+      "bytes": 3048,
+      "bom": false
+    },
+    "raporlar/provider-rehberi-2026-10-14.md": {
+      "sha256": "564392e49425e8a15d0992854d25b13b1f8d4282b7e6185345d72fd8b8bf27cd",
+      "bytes": 27651,
+      "bom": false
+    },
+    "raporlar/provider-secimi-2026-10-17.json": {
+      "sha256": "ccb0de58f9d7f03ab4efb19eaf7ac6f525c16cc17a3d116c0e88548aae86b7dd",
+      "bytes": 6630,
+      "bom": false
+    },
+    "raporlar/provider-secimi-2026-10-17.md": {
+      "sha256": "c405a43c1759c07aaaf1823b31367e2ec33271ec84ca1bc6027d4c125a3776c9",
+      "bytes": 14701,
+      "bom": false
+    },
+    "raporlar/repo-etkinlik-2026-10-14/OZET.md": {
+      "sha256": "234946fa5631279917a53bbd14a85970115bb4036f289407cb8dd1d2c8eae223",
+      "bytes": 1795,
+      "bom": false
+    },
+    "raporlar/repo-etkinlik-2026-10-14/olcum.json": {
+      "sha256": "6bb771245a74f0fc6e16359429f2df90b0b64244fb57f6c4e6b37eee3e2c3a13",
+      "bytes": 6520,
+      "bom": false
+    },
+    "raporlar/saf-performans-top30-2026-10-17.md": {
+      "sha256": "7c1eea06422404b05944a678cfe021481268b218b028eb69b3bc5b7f57d80ef5",
+      "bytes": 11259,
+      "bom": false
+    },
+    "raporlar/saf-performans-top30-2026-10-18.md": {
+      "sha256": "2e472273851777bdba99a05e188483ad28ccb6be71ba1db3495e58951647fe12",
+      "bytes": 20657,
+      "bom": false
+    },
+    "raporlar/savasa-hazir-2026-10-26.md": {
+      "sha256": "b98f7889449c8fd401c648da12566bf6a3728f76344536b2fc234027aa7bcd7b",
+      "bytes": 7864,
+      "bom": false
+    },
+    "raporlar/simulasyon/gorev-grafigi-2026-10-26.json": {
+      "sha256": "59da5c424c0440e40318522d6b4f65a45d47d19a1fcc23a5b0d7c0b09d69e626",
+      "bytes": 20832,
+      "bom": false
+    },
+    "raporlar/simulasyon/gorev-grafigi-2026-10-26.md": {
+      "sha256": "93193fb5ac2a1ad0eb3020337d27d305f515872598e176fc5759a4991d28bc63",
+      "bytes": 14606,
+      "bom": true
+    },
+    "raporlar/son-durum-6subagent-2026-10-25/OZET.md": {
+      "sha256": "7c80cfa971ec447c21b2720d5dc17e2842914594e3c7f6dc38588d9b38b8fe9f",
+      "bytes": 5044,
+      "bom": false
+    },
+    "raporlar/sozlesme-sondaj/2026-10-12/OZET.md": {
+      "sha256": "29e3746e5db1cb1ad70aa26c3aae45f9f8e857ee0b75d3003d199266594989fa",
+      "bytes": 4606,
+      "bom": false
+    },
+    "raporlar/sozlesme-sondaj/2026-10-12/sonuc.json": {
+      "sha256": "cd3e1867b5f1166bca1c679077d146deac33163b5c850715a01c6b8875fc64be",
+      "bytes": 4612,
+      "bom": false
+    },
+    "raporlar/ssot-birlesimi-2026-10-25/OZET.md": {
+      "sha256": "d6b8528fdf1dbfcc39cb0152bcd9f191b8a54f99c58a90f55c6901fa0b05dbaf",
+      "bytes": 2416,
+      "bom": false
+    },
+    "raporlar/ssot-birlesimi-2026-10-25/ssot-birlesimi.json": {
+      "sha256": "91e1fc661f8dff3770b256f570f9d0ba45abfe46c4b14b877a8b02226e8f2969",
+      "bytes": 1272,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-12.md": {
+      "sha256": "e5b0a3b8300e6b8c30644558becb825b4295f951d3d29856c2152b25b9615b59",
+      "bytes": 132,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-13.md": {
+      "sha256": "ad0132d206b8ac88524919b53862870a0c5d83d70cee84c86c64fa040bbf373b",
+      "bytes": 186,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-14.md": {
+      "sha256": "72b1ee8325d30f0d1fe9dae45cbd4c8f6ac6d84d109575405a2c07199af31703",
+      "bytes": 424,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-15.md": {
+      "sha256": "624ed1936056140b57b8282d3d016ce5a8dbc029d7f040e4a0066ac827cab233",
+      "bytes": 301,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-17.md": {
+      "sha256": "67b91a0fbf8faa1ab23efd9cd67c50990cc7ca1b8cd079eb1a30cc10d023e065",
+      "bytes": 260,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-18.md": {
+      "sha256": "4026d3a100404a5a0fe0a8c293d4c9ab24aac9b1b34b5c1d21a7aa99a75efd64",
+      "bytes": 8369,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-19.md": {
+      "sha256": "9cf36ff7d3e55c2d2ea2c05f96aba889f535d66d223d67e09594fa4f17981e8c",
+      "bytes": 750,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-20.md": {
+      "sha256": "46f1b16222bf0a6a377034e3379e010999f6ad839b0364e9f56edd1c03c39393",
+      "bytes": 329,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-24.md": {
+      "sha256": "c382603e977049ac9a7a4932c28c57e1835bfbe5bf8b6088ac519546997e181c",
+      "bytes": 329,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-25.md": {
+      "sha256": "0ac74dbe7fcbc7a2c901020e180397769c07f591ff350c462b014222dab15792",
+      "bytes": 424,
+      "bom": false
+    },
+    "raporlar/tam-analiz-6-dogrulayici-2026-10-26.md": {
+      "sha256": "d486f35707da4e84170655d7b745181d95f0a08730afea6d6911978f9ffd4daf",
+      "bytes": 13396,
+      "bom": false
+    },
+    "raporlar/teknik-yonetici-ozeti-2026-10-25.md": {
+      "sha256": "377ed3e0d366e01067b9501b5a8d1cfb51b3d2fe24586a2ccb8ed0a3a33a62aa",
+      "bytes": 6090,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W42.json": {
+      "sha256": "33fdef17200c97374780a36e95e9208ad7d055acc5a027eececc3bca28902fc1",
+      "bytes": 513,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W42.md": {
+      "sha256": "27787972dfc9ebfc4006dbbae06a7edf2b06a03626987aaccbf4dc475ce9ee86",
+      "bytes": 846,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W43.json": {
+      "sha256": "b201c89793e8f97ef531f7c93f216340fafe5556025faf086448b599839f5265",
+      "bytes": 596,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W43.md": {
+      "sha256": "d85fa47aaadbf55379f488d44f396e94640a82dce15ab55c07eaec223032dbfa",
+      "bytes": 919,
+      "bom": false
+    },
+    "raporlar/token-olcum-2026-10-11/OZET.md": {
+      "sha256": "45d63a2f0f12c8be90a8cbfdede02a10aab15d434ca1dbcee322e4c553b6a0a6",
+      "bytes": 1371,
+      "bom": true
+    },
+    "raporlar/token-olcum-2026-10-11/olcum.json": {
+      "sha256": "6ab8b2013729a59f00e6206f4a8c03607c8acc6eac395f9708398380534d94ee",
+      "bytes": 842,
+      "bom": true
+    },
+    "raporlar/triage-2026-10-14/OZET.md": {
+      "sha256": "40a1bea436ee70fe3061cf62a6f978d43c7f8bccdf7acb418a789c3ec60d6e63",
+      "bytes": 1343,
+      "bom": false
+    },
+    "raporlar/triage-2026-10-14/triage.json": {
+      "sha256": "3782083d8bf1468142aa4c2399d2f44324c528557d282b4fbc983beb6411af2e",
+      "bytes": 316,
+      "bom": false
+    },
+    "raporlar/uygunluk-2026-10-17/uygunluk.json": {
+      "sha256": "0e9f13bd1fa6563da9fe8991a56f66f79c880b2fb17e89c3b68b51f36fd75e08",
+      "bytes": 20256,
+      "bom": false
+    },
+    "raporlar/uygunluk-2026-10-17/uygunluk.md": {
+      "sha256": "9127e81faa47dc07e70af146e876d71653f616291222c19362e271a2eb37ea8d",
+      "bytes": 4677,
+      "bom": false
+    },
+    "raporlar/uygunluk-top30-2026-10-17/uygunluk.json": {
+      "sha256": "2944638c577bce10f18b97916bb8f95131696607d2f8a5aa942bd9f84a8668ef",
+      "bytes": 152176,
+      "bom": false
+    },
+    "raporlar/uygunluk-top30-2026-10-17/uygunluk.md": {
+      "sha256": "89ab4cdc3f94582dfb75e6ab569a59e73e93e984fd97a92a67722c323e8986a3",
+      "bytes": 18072,
+      "bom": false
+    },
+    "raporlar/uygunluk-top30-2026-10-18/uygunluk.json": {
+      "sha256": "5c518c7a3ad5ba18a4b846a374a4cf2f740171c6ae6363f1febcb0a4a776edb7",
+      "bytes": 175144,
+      "bom": false
+    },
+    "raporlar/uygunluk-top30-2026-10-18/uygunluk.md": {
+      "sha256": "1474dfdea6c54c396f37d0848c0db363efd59c90ca4f323332421c5306aa0517",
+      "bytes": 21551,
+      "bom": false
+    },
+    "raporlar/v021-trend-2026-10-14/OZET.md": {
+      "sha256": "e1e2d147f708a5e6d8cfff9fe995c3c0ced2c333812079de00dd9a27a19a9099",
+      "bytes": 699,
+      "bom": false
+    },
+    "raporlar/v021-trend-2026-10-14/ozet.json": {
+      "sha256": "66830e4fd02da4a8bd2819c667ceea7a227f4870cbcfa06ca5a405c1968b6262",
+      "bytes": 2545,
+      "bom": false
+    },
+    "raporlar/v022-olcum-2026-10-14/OZET.md": {
+      "sha256": "3f4fbec021d28579a27ebfe0f010e4c86f213567f50a206ead68b657a75b0bcb",
+      "bytes": 1022,
+      "bom": false
+    },
+    "raporlar/v022-olcum-2026-10-14/olcum.json": {
+      "sha256": "26610c19b2a6bb7a19d56ca64d8bf08fd2caaefd07d9bbbb8213b697e58946fa",
+      "bytes": 1092,
+      "bom": false
+    },
+    "raporlar/yonetici-ozeti-2026-10-25.md": {
+      "sha256": "e560ee54b446f138abbf4d0fce24d3a5069553592e50a632831efae50e74b438",
+      "bytes": 4876,
+      "bom": false
+    },
+    "raporlar/yonetici-ozeti-2026-10-26.md": {
+      "sha256": "002abc08fd5554da416b920ed7c7d4bbbe30a38674926388b59df51425d3c793",
+      "bytes": 3505,
+      "bom": false
+    },
+    "raporlar/yonetici-ozeti-free-2026-10-14.md": {
+      "sha256": "34d4313985cd45db0b01eda68cea925efcce7d59e1953dde90c9f4471a6c6ce1",
+      "bytes": 7941,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/AGENTS.md": {
+      "sha256": "a0ba09eee62045a84de8c17caba048ad1df228d2c1f0af5b3c176f7e1b845a9c",
+      "bytes": 1443,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/MANIFEST.json": {
+      "sha256": "8505316ff3d5854cb58068f5ca4f83be750d61906e00bea38214ce0888a825a7",
+      "bytes": 10469,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/MASTER-PLAN.md": {
+      "sha256": "94a93ea038504253b715fd9cde8a50a73d129ad6c50e540f31e9eda93403aaad",
+      "bytes": 5650,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/README.md": {
+      "sha256": "5ca5d09fe7cb92f87b854394f790ec8e0dc6a28999fc196bfeb14c3caa6f10cc",
+      "bytes": 1960,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/START-HERE.md": {
+      "sha256": "509662c6e27dc7e7293f9a6a0aef2c81e9882ad5674c4de4db856966b5fbabc9",
+      "bytes": 644,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/bench/README.md": {
+      "sha256": "c7462bfc6b859606f978b4060a7928f84905820df4e4fb9d27c9e742e53d60f9",
+      "bytes": 503,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/bench/RESULTS.example.json": {
+      "sha256": "fd0fb1b156392f10fd976f4b14b5bb1311a6d55a561f43462e3e24cc67b6025c",
+      "bytes": 267,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/bench/cases.json": {
+      "sha256": "e0bd39c6dd1df810828f5a38bb31401a9e6ba22a6e4a7b51c1f8b9a46b312b03",
+      "bytes": 1066,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/bench/experiment.example.json": {
+      "sha256": "dc23249397518c2f9004b9eb0716552f567e5b9f7e5a6b59f6815fceb2586caf",
+      "bytes": 477,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/config/profiles.example.json": {
+      "sha256": "8d2684ba8ad96fae1531376d60dfd357909e576aee57b046cf295df3d8f767fa",
+      "bytes": 531,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/config/prompts/coder.md": {
+      "sha256": "ee2d91cd1c22fef3108fdb03a56bda385a911989f550f130e1f73b6de9b13256",
+      "bytes": 584,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/config/prompts/manager.md": {
+      "sha256": "cac9e55bb00a6d50b343ce9379315c42e68971668ba6345693c10807bdd5d3ce",
+      "bytes": 741,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/config/prompts/reviewer.md": {
+      "sha256": "0768410f549acc08198357369b05ae4ef1b2a0a231a3bcaa94a9afdd43258973",
+      "bytes": 481,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/config/repair-v1.json": {
+      "sha256": "8ba351a8b07ce0430e965e9f689c11b4ce740f14ee03ad144154c3aae130a717",
+      "bytes": 741,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/contracts/README.md": {
+      "sha256": "9f2376b6361dfa2fe9969bebe89971c81e626af47e41f76ab1cf1e58811a1f73",
+      "bytes": 554,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/contracts/event-types.json": {
+      "sha256": "ef55eac5f76c623004bfc6730fcb71016c3e20ee5f36aa35638b5647198e1cd7",
+      "bytes": 657,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/contracts/examples.json": {
+      "sha256": "ff9897092b8b12d85aa38447dd8b87d96236fbc061c5310f72a4c1d4e1a6c4e8",
+      "bytes": 4728,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/contracts/schema.json": {
+      "sha256": "79e0561b4ebd4db8655f973cb4455e6dc0b78674ab1b914943d96c09f57f6963",
+      "bytes": 18598,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/contracts/states.json": {
+      "sha256": "59f24a307b1060b11d9a924ab3029b97bc34ee0c839ff1f5b26ed4f86447b5d7",
+      "bytes": 677,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/database/001-initial.sql": {
+      "sha256": "06716b653e94931b8c1b9ad1be80559fc727987a0c923e5a98d8ab2083d0d61f",
+      "bytes": 7367,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/database/README.md": {
+      "sha256": "7c6e040bebe5940c27e549ccc65efe56a4bcbc92d23c228e8768d26e64ccbdec",
+      "bytes": 781,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/delivery/BACKLOG.md": {
+      "sha256": "da83793f61590ae99a5e90880515c11675579bd5448a23eeb05f6fcbcf63b8ae",
+      "bytes": 1669,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/delivery/CODE-BUDGET.md": {
+      "sha256": "b7c66b05ecf56221154a801673c0a253429f6c4e8f81f6c75f07736135cf5c9a",
+      "bytes": 1549,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/delivery/TASK-TEMPLATE.md": {
+      "sha256": "b0706ea64b605936246c1b2764242263ccdb2123c430c75536e3339982efe182",
+      "bytes": 439,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/01-architecture.md": {
+      "sha256": "d8e12bdb16cc88a83962405375d6d59884e29cd16c909dc6e65572838024df59",
+      "bytes": 2670,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/02-data-and-contracts.md": {
+      "sha256": "02a24a609c64b3a47c3379db9653a5018e46930ded60cede247a78fd8b977d17",
+      "bytes": 2366,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/03-execution-and-recovery.md": {
+      "sha256": "c5ce8dac1af8ca9a3ff4319c75181a9826d7834de185d90843538a59c47cc248",
+      "bytes": 4045,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/04-security-and-permissions.md": {
+      "sha256": "a8ecba5d26402f39e914774a0844a20d70de063d57e4819a0875b65095f3e1f7",
+      "bytes": 2996,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/05-ui-and-interactions.md": {
+      "sha256": "8ae9043647b6030aa4cd6752b190b0151c213eb42c762e662e891f1e8273f2ed",
+      "bytes": 2710,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/06-runtime-adapters.md": {
+      "sha256": "05eb1386218771e98553bdebb5a100390911d4d3b5659535daee7db75461930a",
+      "bytes": 3018,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/07-api-and-events.md": {
+      "sha256": "6174a8b9ce9597c8eef2e9de13d5bc64571e851df1688f07df8ca1736b58f721",
+      "bytes": 1993,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/08-test-strategy.md": {
+      "sha256": "a8971be13ff9a44e6c1f689d7569025486da4a70d42e341d5fe477d54465710e",
+      "bytes": 2138,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/09-benchmark-and-routing.md": {
+      "sha256": "dc959da9001647c5da5c14cd51173ebe02d898beb34cd146c82750f8599c507c",
+      "bytes": 2920,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/10-operations-and-editability.md": {
+      "sha256": "d3c1eae9452953f0025c2289757c8aaff2983263f0648954ec9e09ce54b52d8b",
+      "bytes": 2522,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/11-synthesis-and-decisions.md": {
+      "sha256": "2ae2404e5fa5256cf08a90aadbc794683f42649fc21fbedee1f8807f72b1f65c",
+      "bytes": 1918,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/docs/12-manager-and-provider-selection.md": {
+      "sha256": "e8a467b6ddc322d3f8beca77af84bda655f3c41fb6852aa062165bfe6149b776",
+      "bytes": 1811,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/evidence/CURRENT-STATUS.json": {
+      "sha256": "15d07fd9dd71f39b092d5192670bea3d0a541e3df2414071957cf93155781750",
+      "bytes": 281,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/evidence/OFFLINE-CHECK.json": {
+      "sha256": "ce473d3d371daf50cf38ec4aee5be32726d40f15c7c13ecd3ec7998f3895ef66",
+      "bytes": 4752,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/evidence/UI-VISUAL-QA.json": {
+      "sha256": "46fb9a2e58eb51ab0c131fbaa64d8f4083723e7f3b98428038948dd4ccf262b2",
+      "bytes": 3919,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/evidence/database-test.json": {
+      "sha256": "64cd8b945eb8ce0704ff5e438bc0cee8b6f5e73b3b0b5d4fb414e3fef061879c",
+      "bytes": 1407,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/evidence/domain-test.json": {
+      "sha256": "cea833fd28d4ffaa5eb0c286501404ab2a058cf69edff10297ce704d934b08cb",
+      "bytes": 2717,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/governance/ADR-011-baseline-adoption-and-closures.md": {
+      "sha256": "303be7dff1c23200d03197339905240f9230ae5262cd25cea348b7d310197fce",
+      "bytes": 3482,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/governance/ADR-012-local-runtime.md": {
+      "sha256": "c98a9244d3531c32d54a5384e4b470a9f754d07da119027596a9ca2d955992ca",
+      "bytes": 3410,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/governance/APPROVAL.json": {
+      "sha256": "b5f2e531afa17e57b8874b87b6b1021c5b4cc7772b3a2b38084c50b002436922",
+      "bytes": 188,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/governance/DECISIONS.md": {
+      "sha256": "212f4dbfa1d6b4c4604468f87372c9bee4e018d1bf56a83b01a2f11c1281ff16",
+      "bytes": 863,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/governance/LOCK-AND-RELEASE.md": {
+      "sha256": "817e2aa4b3c013e06f1775477558684fc4fb43acb39403510a859ae8999fc349",
+      "bytes": 663,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/package.json": {
+      "sha256": "dfff3b87887a76f551a91f847daf8e9ba6eea10fdb428ec89cbc4bdc0745f580",
+      "bytes": 330,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/reference/domain.mjs": {
+      "sha256": "4e345c4b877d0d20413a1a71805c45c16e7690d74dd6553a3a13aac319b47e5d",
+      "bytes": 3785,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/sources/README.md": {
+      "sha256": "d36d27be0944a72d08038579517f29afc8ded4d0137f6676e181db23958322e2",
+      "bytes": 950,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/sources/provenance.json": {
+      "sha256": "7ce4198effd3dfe74d8ed38b0ca1c21771270c1e3c792ddabdfe7b1d5bbe7a3b",
+      "bytes": 687,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/tests/README.md": {
+      "sha256": "d663dcf096194df08cb51c57bd9fffd6ebc9c7592898e2370abb136ec2d7712e",
+      "bytes": 598,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/tests/domain.test.mjs": {
+      "sha256": "04a3c867aa0a50ae8fdc672d6f0f6be5ae161e155401eeb50a41e8de3280fb46",
+      "bytes": 4664,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/tools/README.md": {
+      "sha256": "24d68dcb969599a9c322c7df4c212676d7d70d08f19bb301a1c1212d794e6876",
+      "bytes": 502,
+      "bom": false
+    },
+    "referans/kapsul-final-v2.0.0 notio/ui/README.md": {
+      "sha256": "6a8fbb9605cdead4bbaa38e96d93b3aed3326d3a8df5b3f58d41b3c7d742bebc",
+      "bytes": 633,
+      "bom": false
+    },
+    "referans/ordu-v3/00-master.md": {
+      "sha256": "7a9c13150670375e95c9bbd05044b1f2bb603768e29c83f89c5bf707001fbbcf",
+      "bytes": 9803,
+      "bom": false
+    },
+    "referans/ordu-v3/10-roller.md": {
+      "sha256": "089cef7ae6e806ca1ade608238e694533ca42130fb95a19916b70f8749b4a61e",
+      "bytes": 3914,
+      "bom": false
+    },
+    "referans/ordu-v3/20-uzaktan.md": {
+      "sha256": "0990faa5d1167cb429e323190bbe80aae398276859f6986fd31b315f0d7d82ae",
+      "bytes": 8793,
+      "bom": false
+    },
+    "referans/ordu-v3/30-ogrenme.md": {
+      "sha256": "2942b52697c51756cdb90129dd13170b2ff775b6602231672ca49ab0acbf3450",
+      "bytes": 4389,
+      "bom": false
+    },
+    "referans/ordu-v3/40-kabul.md": {
+      "sha256": "b939a7c5bd31a8ac4a7b9904beb9c47ee57032f29696e7e8fae757266943ebb3",
+      "bytes": 8335,
+      "bom": false
+    },
+    "referans/ordu-v3/README.md": {
+      "sha256": "25ad441de62414bcb161a911fd8e7f7d946e0624ee8a400eb64a3bf43f464e96",
+      "bytes": 2895,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/DEGERLENDIRME-master-ssot-v1.0.md": {
+      "sha256": "2aac1d52eeeae814ae304a25a71694b80e417c3b495a8d88d374849d5a8c7434",
+      "bytes": 7506,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/K-0000-v3-kurulus.md": {
+      "sha256": "0a0f22a9ce09e323ba8e54f374ee89cd174e74b20feb6bdd592630cfa211b5f6",
+      "bytes": 1911,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/K-0004-tum-paket-denetimi.md": {
+      "sha256": "45045ad4ff5987f322beab599aed31a4596548d407ce248288dd35d874c6cf16",
+      "bytes": 3216,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/K-0005-paseosuz-runtime.md": {
+      "sha256": "fba1e5d8aa871f36597644e04ad3b52a20582663442f86b7644353653e7a1a01",
+      "bytes": 1819,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/K-0006-ssot-devralma.md": {
+      "sha256": "ad2f71557df2ce6d36d28f1fbac490606321c9dd6f5a5ebc96f715c6c7d25fc2",
+      "bytes": 3333,
+      "bom": false
+    },
+    "referans/ordu-v3/kararlar/REVIEW-v2.8-2026-10-14.md": {
+      "sha256": "51ee65d9d34ea3e1b430c5b7a6a28507d653bec74c0517ab39beceff0c76450e",
+      "bytes": 6241,
+      "bom": false
+    },
+    "scripts/bench-claude.mjs": {
+      "sha256": "cec267d363dd60ff08cfd212eee39681765f041e5537177a263e2649b6c194db",
+      "bytes": 8233,
+      "bom": false
+    },
+    "scripts/bench-puanlari.json": {
+      "sha256": "775191e5dcdf93224c5f18e3dc9c97d0fbf71ef988381383d322e347bfbe8ce1",
+      "bytes": 5027,
+      "bom": false
+    },
+    "scripts/bench.mjs": {
+      "sha256": "4568eee74b41982decd2a855607de287ea170c06d9ffc96fe4ccdad397f731fb",
+      "bytes": 21368,
+      "bom": false
+    },
+    "scripts/codemap.ps1": {
+      "sha256": "7daef6202f37ec056bcfeb6474b437076e04a132b32a8d606a2d9166d4d1177c",
+      "bytes": 5148,
+      "bom": true
+    },
+    "scripts/codex-failover.mjs": {
+      "sha256": "2564587888857ccb33535ccfdccf9c909be4d8751adb07b2a797e2a1f2bf3085",
+      "bytes": 7649,
+      "bom": false
+    },
+    "scripts/katman-kur.ps1": {
+      "sha256": "9fd35c93af8119c73a930b59d9f2e34ad354b04fd4eb089b979be15540ca5fcf",
+      "bytes": 1705,
+      "bom": false
+    },
+    "scripts/kilit-surum.ps1": {
+      "sha256": "5b61defd4d4a50a4cc158d1b000be83383c4b5f4d6a7f706c1c37c09673d2cc8",
+      "bytes": 7478,
+      "bom": false
+    },
+    "scripts/kirli-liste.json": {
+      "sha256": "8ca37a37aa0bc5ebc3ca05c5ddba2dc837766a3a6599deec3d03be7ba085b4c3",
+      "bytes": 398,
+      "bom": false
+    },
+    "scripts/kiyasla.ps1": {
+      "sha256": "863ba071e5509ff3cb9d73a74dd6581537c23cfb1f25d1e89b3376b537e84eea",
+      "bytes": 1995,
+      "bom": false
+    },
+    "scripts/model-katalog.mjs": {
+      "sha256": "863f11afa805c7baf2e3381b327ed4d841d504d82b5917c2907c1bba3e14cb24",
+      "bytes": 9918,
+      "bom": false
+    },
+    "scripts/omp-kurulum-kapisi.mjs": {
+      "sha256": "b82f50d030900a6528bbcd749bbf6b2f06f773f2042b8a931ab392351bd7c887",
+      "bytes": 4258,
+      "bom": false
+    },
+    "scripts/openrouter-pi-kapisi.mjs": {
+      "sha256": "cb87d61eec48981fc56ee0c0bd801f142d7d6216b43d76fe3086ef8cd17b4dd9",
+      "bytes": 4211,
+      "bom": false
+    },
+    "scripts/pi-erisim-kapisi.mjs": {
+      "sha256": "f5a111c3fd079e3aa11ed231004c2de87fe17df63e57f4eca0692a5f97c610b6",
+      "bytes": 3743,
+      "bom": false
+    },
+    "scripts/proje-panosu.ps1": {
+      "sha256": "ccfdd70bb7ffafc870511f52dbe36e68e27a197f456db467b43439a5d11b30c8",
+      "bytes": 9385,
+      "bom": false
+    },
+    "scripts/saglik.ps1": {
+      "sha256": "283b4a9ed37830a3a9e1cb6c3879bcaeba0c8d0b9878665cfcb6cb83164aad8b",
+      "bytes": 10494,
+      "bom": true
+    },
+    "scripts/test-kanal.ps1": {
+      "sha256": "c13079ace145125c91e8ea194f8514d18a9ea4e880b4886afb313b6392c5286f",
+      "bytes": 2205,
+      "bom": false
+    },
+    "scripts/uygunluk-hedefi.json": {
+      "sha256": "4ebd17bd36b1a8a3b2dc910040ef89b5f8302b75a09ffb350b291304f2334144",
+      "bytes": 6792,
+      "bom": false
+    },
+    "scripts/uygunluk.mjs": {
+      "sha256": "16917eb1b85e2f55baafc1adc039d738aacdfbd87119e916d8f95106fbe18430",
+      "bytes": 14470,
+      "bom": false
+    },
+    "scripts/yonetici-ozeti.ps1": {
+      "sha256": "686e6b40f4adff1b96b8aefe1e14eb8b09862c9ab0e46d5f40dc110d49d5d89a",
+      "bytes": 8692,
+      "bom": true
+    },
+    "scripts/zincir-kontrol.ps1": {
+      "sha256": "f9a36e5da130b7e83e2f899cdba044996334aa6f9f6f88d78b1ccc326e9346e7",
+      "bytes": 1285,
+      "bom": false
+    },
+    "sorular/banka.md": {
+      "sha256": "0391bbfe47eb7346cd692868a9ebc2ee1cf5a1f1049905c381666fb7dab74888",
+      "bytes": 2329,
+      "bom": false
+    },
+    "sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md": {
+      "sha256": "7777e2c7fcea11fe5ea696bb0d2c1294c090b47920e384125179a234a898614f",
+      "bytes": 15098,
+      "bom": true
+    },
+    "surumler/v0.4/KILIT.md": {
+      "sha256": "584c8ecdc54155368aebb7036daf12bff6e7451216f11f254a25d62357978821",
+      "bytes": 884,
+      "bom": false
+    },
+    "surumler/v0.4/kilit.json": {
+      "sha256": "f735e17e2fd4331b7cd7c5cea6179311faa256ad6971fdd1ddcf0f8786094b03",
+      "bytes": 1656,
+      "bom": false
+    },
+    "surumler/v0.5.1/KILIT.md": {
+      "sha256": "4bf5000a86f69937d3251c55033a3ceb01e9b67c0f17e48804b76be81854df14",
+      "bytes": 469,
+      "bom": false
+    },
+    "surumler/v0.5.1/kilit.json": {
+      "sha256": "236bde33b501b808096b013aa874ee98276a81631aa7a0a906da563363d7e032",
+      "bytes": 2641,
+      "bom": false
+    },
+    "surumler/v0.5.3/KILIT.md": {
+      "sha256": "98cdb87d701294d6003a904754f1713573ba0dcd17d35b27366a81347ef42b95",
+      "bytes": 451,
+      "bom": false
+    },
+    "surumler/v0.5.3/kilit.json": {
+      "sha256": "4fb5190f8f0474611088b1f118579296e3b3885b708c6b2a2d3948da14fbad97",
+      "bytes": 2623,
+      "bom": false
+    },
+    "surumler/v0.6/KILIT.md": {
+      "sha256": "857b738c39695e6c92ac931e6a69adb626e59e65b345b2f913fac0bccdce68bd",
+      "bytes": 442,
+      "bom": false
+    },
+    "surumler/v0.6/kilit.json": {
+      "sha256": "2cf47109b2c8daf5a05f86deb33d3e16eedda14fac2225583c0e912ce8c2c63d",
+      "bytes": 2618,
+      "bom": false
+    },
+    "surumler/v0.7/KILIT.md": {
+      "sha256": "fcc7efb09781297cb1db77424c41db047ce7b47c5c8686e8e7110b7a26237954",
+      "bytes": 510,
+      "bom": false
+    },
+    "surumler/v0.7/kilit.json": {
+      "sha256": "06f06e8bb9dd45edd01b044febe7bc40a541bb6e54f29c8139ff6e6398034ee7",
+      "bytes": 2686,
+      "bom": false
+    },
+    "surumler/v0.8/KILIT.md": {
+      "sha256": "c649958150fb59a72cae49d6e5ef9cb5974ba8248c237c1538b8bfe6f2795de5",
+      "bytes": 578,
+      "bom": false
+    },
+    "surumler/v0.8/kilit.json": {
+      "sha256": "d0d0c8df74bfc40ef5d55288b6a5ebb6c38d1ce6340ade73056e106abc6bacdc",
+      "bytes": 2764,
+      "bom": false
+    },
+    "arsiv/plan-3-denetci-oncesi-2026-10-27/PLAN-v2.10.md": {
+      "sha256": "8b16b0a43ceed3c90aee358174c17b54fe4b3524a4bd779a2b9bd2087b40bdaf",
+      "bytes": 54513,
+      "bom": false
+    },
+    "arsiv/plan-3-denetci-oncesi-2026-10-27/README.md": {
+      "sha256": "50723de8f3479f22b4e33adfa75717f543751480e07c567ddff27e5497506bf3",
+      "bytes": 722,
+      "bom": false
+    },
+    "arsiv/plan-3-denetci-oncesi-2026-10-27/SENARYO-v13.md": {
+      "sha256": "16ac0966d3dae2efd2ec262d2c1da3c8c5ca3c35dbdf0430cb13cadeb45df996",
+      "bytes": 39932,
+      "bom": false
+    },
+    "arsiv/plan-3-denetci-oncesi-2026-10-27/graf-v13.json": {
+      "sha256": "5a0396621c1c53b2555f118161885047f367e7ec9a1e16112661f88003066117",
+      "bytes": 58171,
+      "bom": false
+    },
+    "arsiv/plan-3-denetci-oncesi-2026-10-27/snapshot.json": {
+      "sha256": "461a1f87451fcf62c753a8679a4f91919b218535159eb5aece9ce25d7e714e92",
+      "bytes": 625,
+      "bom": false
+    },
+    "arsiv/plan-revizyonu-2026-10-27/PLAN-v2.9.md": {
+      "sha256": "046e9b76de7a60e75c28b79fa9cc2230f3db071dfb3fc98917b484872af83e64",
+      "bytes": 43437,
+      "bom": false
+    },
+    "arsiv/plan-revizyonu-2026-10-27/README.md": {
+      "sha256": "adcc6ffb03627e45cd75b9bd29b6af9c6d3245d50aab9018d8e4895639338de2",
+      "bytes": 941,
+      "bom": false
+    },
+    "arsiv/plan-revizyonu-2026-10-27/SENARYO-v12.md": {
+      "sha256": "edb49529d44f3b80fc2eb2fb4207fa7a48c9d1a5d8b43d5a98f5030895b5b48f",
+      "bytes": 33035,
+      "bom": false
+    },
+    "arsiv/plan-revizyonu-2026-10-27/baslangic.json": {
+      "sha256": "4bcea3bec88e47135c4dd284220479152dc7b55de06ea9dfec3cbd2ddb589f2b",
+      "bytes": 4435,
+      "bom": false
+    },
+    "arsiv/plan-revizyonu-2026-10-27/gorev-grafigi-v12.json": {
+      "sha256": "0b0d486489ec996a6f05155dcebd11722e9f61ed614928d8d15eae3f649dabf9",
+      "bytes": 38141,
+      "bom": false
+    },
+    "kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md": {
+      "sha256": "4d3a2cb8efccffadfd0bc9da1fed008bcc4f122611e6f6d406329185a38052f3",
+      "bytes": 2652,
+      "bom": false
+    },
+    "kararlar/ADR-dc-h1-atomik-paketler-2026-10-28.md": {
+      "sha256": "aecc0c2df2062cc605b02c6456948c0f1b7bd5931d93f0dbff26d04849d30999",
+      "bytes": 2693,
+      "bom": false
+    },
+    "kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md": {
+      "sha256": "553577491e1f55d3624cc1e430b44b509abe0a6eea51163b3d977c6d5ec95bf8",
+      "bytes": 3128,
+      "bom": false
+    },
+    "kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md": {
+      "sha256": "e275453532266518739162317764aa42c052967be5ce27ed35b5fa42c742ef03",
+      "bytes": 2742,
+      "bom": false
+    },
+    "plans/CANLI-TEST-6SUBAGENT-PLANI-2026-10-26.md": {
+      "sha256": "9e2e6461b5d0a62e2d6252d9c6f7d9a73e9b8d5322cfde7ead288c5326f04e04",
+      "bytes": 10033,
+      "bom": false
+    },
+    "plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.json": {
+      "sha256": "a2a5291232d3cd7b5cb72f8ddc425a7ba3e74bbbfaff8e387c3bdd3dbf18644d",
+      "bytes": 20544,
+      "bom": false
+    },
+    "plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md": {
+      "sha256": "78cbf174dd998b0e16daf1c5ae08d4d60b9aca0708c307570d1bbd411bd3a3c7",
+      "bytes": 24802,
+      "bom": false
+    },
+    "plans/OTONOM-SURU-6SUBAGENT-PLANI-2026-10-26.md": {
+      "sha256": "2e080318d6b1ffb4fa3b6ff076678582d67b829ff26214543edb282613901d48",
+      "bytes": 3693,
+      "bom": false
+    },
+    "plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md": {
+      "sha256": "2a97578c60857aee706e9178c5b8c24e5bd6e8dff4503fa3420c9f5ff2a9dbcb",
+      "bytes": 9241,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/CALISTIRMA.md": {
+      "sha256": "22080b13c7a5702cd3690e882ee60c00b9559e3d114c95f7f13ae8d909e5979e",
+      "bytes": 7914,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/OZET.md": {
+      "sha256": "9b9481fc4ad1a4c8279d3e4cc73607bbb44ff8915326d7cd56f91cb233623521",
+      "bytes": 3275,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S0a.md": {
+      "sha256": "03865050002c42e62caabbdd63db128745cd8896cc35d826b4db07915ca21c26",
+      "bytes": 14073,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S0b.md": {
+      "sha256": "ac6a10796b5c5a9ef5a1046fcf4d6ff668d46600b24a3fd7a2bcf9ca26c8d3ac",
+      "bytes": 10829,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S1.md": {
+      "sha256": "3249854dc517409df88f307064a8b565912ca5b81353d0fa8a2a29120686d5e7",
+      "bytes": 17826,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S2.md": {
+      "sha256": "1c02ead48473a1d4e176d899b9bf5e4eb9841e83e86523495dc0fae6fa898998",
+      "bytes": 14093,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S3.md": {
+      "sha256": "df89c2ffc4803749329da720d374f4e39e64de7805d01fdee5a62f6b294e7167",
+      "bytes": 20363,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/S4.md": {
+      "sha256": "898250854b2f0f2ee2878d23fca9f645c4b21cc5b1283ac90477330818a5c23f",
+      "bytes": 15396,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/SONRAKI-FAZLAR.md": {
+      "sha256": "ce29c3a8741f6161cd84ac7d080d968ff5684972fa6eef852b0df10c19f53196",
+      "bytes": 2739,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.mjs": {
+      "sha256": "cb3b7f42d9d748763b50c156c7f2b97ae68e5bca42477d9f709278efc4132f11",
+      "bytes": 13094,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.test.mjs": {
+      "sha256": "bf654467e163474dd343cc0df06d3c94f2eb8f9a0435da0a6a3af69bfaef883e",
+      "bytes": 5153,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/gorevler.json": {
+      "sha256": "d734c7f48ac0147b353b3ee28b73b4e90f14810ea62629cd087215bfdb36bb88",
+      "bytes": 52813,
+      "bom": false
+    },
+    "plans/uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs": {
+      "sha256": "76d437e2f7be42ac7e7bcbf9414b06529827cdf8d71ed97fa652773c8f8f9070",
+      "bytes": 12176,
+      "bom": false
+    },
+    "raporlar/canli-test-6subagent-2026-10-26/OZET.json": {
+      "sha256": "dc4689a52ad6a97fe2e259f2e6237f833fa4bea57ef4d58f71bf73fdc39879ff",
+      "bytes": 3126,
+      "bom": false
+    },
+    "raporlar/canli-test-6subagent-2026-10-26/OZET.md": {
+      "sha256": "bc5f1f0bc402e2592af54bd5546257ad0972728855e7ba27f5c44acd9f7a4408",
+      "bytes": 5905,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.json": {
+      "sha256": "fbc1d0e33e745fa96974e67c9eff6470c5a4e8c4575bdc030277e67a258d8000",
+      "bytes": 5533,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v1-ajan-topoloji-2026-10-26.md": {
+      "sha256": "414f7c2d4ef3d885c25fc8254cfe73bfaf8e09840ada638ad04fe83d5b14364b",
+      "bytes": 7162,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.json": {
+      "sha256": "14f70bbd1e3ed9056605822563e8d1fec113486c8972293e645549b5790535f2",
+      "bytes": 8814,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v2-dizin-repo-2026-10-26.md": {
+      "sha256": "9da01574029b6805cd636f7ae6d73ba9c7142955255d8b6310eb2b479f00f71a",
+      "bytes": 9199,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.json": {
+      "sha256": "ec0644b903224c9e7bda532abbac39496217154796b517f79fa16c338f7f0493",
+      "bytes": 9985,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v3-otonomi-izin-2026-10-26.md": {
+      "sha256": "c5e632ca4278514f58402b1103b878b30f77e44f592e7148f04c7f0b965d2942",
+      "bytes": 17343,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v4-drift-2026-10-26.json": {
+      "sha256": "13314f278f4aff60394eb0dbc8a79cb1931741040dba0b92e406389ea7c106e7",
+      "bytes": 5409,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v4-drift-2026-10-26.md": {
+      "sha256": "6f78993d666c64c8b7817c7e06bc001d887dadd081f7aeaeb9fa4964317eb282",
+      "bytes": 9753,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v5-metrik-2026-10-26.json": {
+      "sha256": "905d451fe0902597e2fa083336d83884e6604a2c2e6d93fa60a642f17fc60493",
+      "bytes": 6591,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v5-metrik-2026-10-26.md": {
+      "sha256": "aa67137d495dc1862833ce907f9238fc16e70d1a715d67c856d495af958dd468",
+      "bytes": 8332,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.json": {
+      "sha256": "0dd118350d9c3d9aecb7a03a93e907fbb01e60f3741f83b80188e0cde9a9eb47",
+      "bytes": 7525,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v6-canli-hazirlik-2026-10-26.md": {
+      "sha256": "640bf3d7ea69e0977e4dbc7e4b85ac84c28086231e5d8665fd0ce6c15ee10d67",
+      "bytes": 14466,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json": {
+      "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc",
+      "bytes": 25745,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.md": {
+      "sha256": "462febaa24a6e980b234bbc823a8ffb8d67fa8d99db1eed13672d644f971a9d2",
+      "bytes": 23727,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/OZET.md": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-BRIEF.md": {
+      "sha256": "9ee68229b0fa373c830d04e7a1b0193f304ef93dcbdb640984978e7ef8057f73",
+      "bytes": 2372,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md": {
+      "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b",
+      "bytes": 5912,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-YONLENDIRME.md": {
+      "sha256": "f54e1543a3f8078be13c41621d7c587e7c72dc04ba7b711e99a2c37ab5346098",
+      "bytes": 2934,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-baslatma-duzeltilmis.json": {
+      "sha256": "31a0788b1848565e429b1d352062dcbb247becef20d9fa6137cda86df16a1705",
+      "bytes": 172,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-baslatma.json": {
+      "sha256": "7dc72f22d4e96e979fed30f9b6840aa12966a130115558ba06dd6969d70a68e2",
+      "bytes": 185,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-bekleme-duzeltilmis.json": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-bekleme.json": {
+      "sha256": "0adbc841b58888ee787993f5ac24b49d6ce139e1a455b6f67d76b1bfb40b9e19",
+      "bytes": 136,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-ham-sonuc.json": {
+      "sha256": "68b04a7cb5252194ead7251714a12377f7f57caeacb851f6c8d3cb4993094f11",
+      "bytes": 611,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-BRIEF.md": {
+      "sha256": "d4a01702d7be458287b4a78d90e88416db1723e2e823c8d62a764107fc93eb52",
+      "bytes": 2408,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md": {
+      "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef",
+      "bytes": 3585,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-YONLENDIRME.md": {
+      "sha256": "59ea0f75443bab884c7e3995e6edadf9f8a5f164736a18fb57bff660d27a8522",
+      "bytes": 2970,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-baslatma-duzeltilmis.json": {
+      "sha256": "cc2671e426bf7c7aac6bca1a51bb3e746dbc20b2edb4866e50fa88ffedf46ce7",
+      "bytes": 175,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-baslatma.json": {
+      "sha256": "680f919063f522435c38450cd06f598ed429dd436ebe7fc7efc4bbf920f32899",
+      "bytes": 188,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-bekleme.json": {
+      "sha256": "651e0339dba73df602bda2eea70f8bd3654a77ce6b6bbb6b60ce464df03a7740",
+      "bytes": 136,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-ham-sonuc.json": {
+      "sha256": "f16495983bfddedb08ef50e91fa5a540e01208f592f24c89df91e28d3ca54a91",
+      "bytes": 611,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-BRIEF.md": {
+      "sha256": "46767e5a681ac60627bc06fe38cdcf335cf35121c0ba371885af9092dd4f6b11",
+      "bytes": 2366,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md": {
+      "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66",
+      "bytes": 4843,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-YONLENDIRME.md": {
+      "sha256": "370673131abd82c20322f8fa4eecb1cd89af5950c1d137f89317ee0ef1126ec4",
+      "bytes": 2928,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-baslatma-duzeltilmis.json": {
+      "sha256": "0678fd470e00f69f07ee5ab348d45853d46b3bbcef404d0ee03ab6de3cd132fb",
+      "bytes": 177,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-baslatma.json": {
+      "sha256": "a388503a799270df57466d7f0c63a1b647651d3fa5b0d40ba55b99715a987255",
+      "bytes": 190,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-bekleme.json": {
+      "sha256": "c568974134052dc74c761ef543f6f9db7a9f87e3db259da6b401a849d48234ff",
+      "bytes": 136,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/ajanlar-duzeltilmis.json": {
+      "sha256": "4085cf2809e010b8309dac0a598b762e902df6991c4d2e569849740abc76ee63",
+      "bytes": 896,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/ajanlar.json": {
+      "sha256": "8a88e9bf37a95e2048e7649b36d004ef75300d8723bab4c4aeef66f251a4ad3c",
+      "bytes": 837,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json": {
+      "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8",
+      "bytes": 1580,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.mjs": {
+      "sha256": "698a1d4e429cd847451888a1392e13dc1978ffa48ecab53141a7c365aecc20a4",
+      "bytes": 5948,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/baslangic-v210.json": {
+      "sha256": "5e781f95e49244102848b034f5abbd07478c7511b8400bbab13f8b79167dd591",
+      "bytes": 21671,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/denetim.json": {
+      "sha256": "ea07b50a5c546e57eefeb344cab02fa8de91f331b20f993f1de62abace16d61f",
+      "bytes": 9354,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/dogrula.mjs": {
+      "sha256": "adef87f6d20df223f1d22e9b79d2462b50dcaa438e88f73beb2ee9ba15da009e",
+      "bytes": 9803,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/dogrulama-son.json": {
+      "sha256": "a7c155bbde13b3dc5952eccbc8f711a3514a6ce62c37857a7795af154db318c8",
+      "bytes": 1390,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/hedefli-test.json": {
+      "sha256": "030dca0a1aae2aedf74a69d039f1cc0b4194e91240d7fdd27a515b0d9389861b",
+      "bytes": 613,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/paseo-denemeleri-sonuc.json": {
+      "sha256": "7324d662359f29f9d2eb75f6f261f19994e16e0fa52844c79307176686c3f31c",
+      "bytes": 715,
+      "bom": false
+    },
+    "raporlar/plan-revizyonu-v210-2026-10-27/OZET.md": {
+      "sha256": "3bba791a29352aa902663ec2777b8719fc6fedecea1f8a1ca7cd52d1f8cce666",
+      "bytes": 2858,
+      "bom": false
+    },
+    "raporlar/plan-revizyonu-v210-2026-10-27/dogrulama.json": {
+      "sha256": "f47acca0658f6458646282e4bd44c87b5b03028372b5447d7d295cd4ca120ff7",
+      "bytes": 1935,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/OZET.md": {
+      "sha256": "41f0028f3ce861d430c9e3610d0b29754eda8e7075256ec38670f5427030bf90",
+      "bytes": 5393,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/baslangic-duzenleme.json": {
+      "sha256": "f78aabbbce9d036c58ed6363fb738f26f83f67f3c9e5a405a556fae616e48d12",
+      "bytes": 69341,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/birlesim.json": {
+      "sha256": "13da1450a172179ef3987e2eabe394a70a1a692aedafb3051b40060aee5ccd81",
+      "bytes": 10455,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme-son.json": {
+      "sha256": "fd2e927d0782669f12044521f23ea61dfe0c458a9d1c732d17383a1b0efb6194",
+      "bytes": 7479,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/dogrulama-duzenleme.json": {
+      "sha256": "554130d945ad4d82061b6b99d6ccd2d3e6159334771f221583d1d3b2f4f2216a",
+      "bytes": 7471,
+      "bom": false
+    },
+    "raporlar/rapor-birlesimi-2026-10-28/saglik-duzenleme.json": {
+      "sha256": "d2b826f61060b4a72c0f565cab21e1a1594d5661de0ad769ba5a9d423430ef2f",
+      "bytes": 1227,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim-denetim.mjs": {
+      "sha256": "5d4f13d68fab9e7546362350d063fbf4729d6b833553c7818366cebf7273079c",
+      "bytes": 10111,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim-deney-v2.json": {
+      "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966",
+      "bytes": 5964,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim-deney.json": {
+      "sha256": "5b6eaafb2c5d8ae63c1716eea4cb4ff7fcf4135d7be55f68a952b9ea0836d0b3",
+      "bytes": 5948,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim.json": {
+      "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104",
+      "bytes": 27450,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim.md": {
+      "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33",
+      "bytes": 73362,
+      "bom": false
+    },
+    "raporlar/rapor-deepseek27ekim.json": {
+      "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a",
+      "bytes": 14372,
+      "bom": false
+    },
+    "raporlar/rapor-deepseek27ekim.md": {
+      "sha256": "371c110ec1ce82800127d501ebfc374e47ea2d6fcdb7e6a238ced4a8b1dea02b",
+      "bytes": 13932,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-26.md": {
+      "sha256": "84e187e4b8ce715bbc3e38b6bf1e423533daf7fd3538ddbdcc9e825cf41ee46a",
+      "bytes": 367,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-27.md": {
+      "sha256": "c0c5a3900ef729a4124dc1d0c34121009f4f1e9cffbae7a1ccdf5ce73e709c77",
+      "bytes": 400,
+      "bom": false
+    },
+    "raporlar/takip-sozlesme/2026-10-28.md": {
+      "sha256": "8e244a219828b03fe2999d30a97dd0030798cfc144b79d13fdb29e29ab1b39e6",
+      "bytes": 333,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W44.json": {
+      "sha256": "1d2fc23103cc8b42d4aa7f5e0cb93a61be8b0eb765957221670c90562957bfa2",
+      "bytes": 590,
+      "bom": false
+    },
+    "raporlar/telemetri-haftalik/2026-W44.md": {
+      "sha256": "ced4e7557a1fa1f0f39793c4b30833849a3571d71cf6928cb64bdec0455f2630",
+      "bytes": 1017,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/OZET.md": {
+      "sha256": "b274e016ce52ce27ace268b1eed3a931a404aca35798e7ccba73bfea90596d2d",
+      "bytes": 4126,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/baslangic.json": {
+      "sha256": "330b6b6a75a3a5af3ec1af553cdb68d62b9e1c2c1076b8afc74b185c852cc58d",
+      "bytes": 61036,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/dogrula-yazim.mjs": {
+      "sha256": "1c9e18f3f329c62141d39500b0a254fadadd123574a51d5ef5f86504f0a2d809",
+      "bytes": 7657,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/dogrulama-20261028103755753.json": {
+      "sha256": "92397637b813db98db66269eee717a71ae0446cbff6afad62d70f5113496b5f1",
+      "bytes": 4208,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/dogrulama-20261028104340668.json": {
+      "sha256": "69a7dd0dc292079ea7aca2fec18acde1fe53b13f15ee72e9b4f3e87c99f193a0",
+      "bytes": 4208,
+      "bom": false
+    },
+    "raporlar/uygulama-atomiklestirme-2026-10-28/saglik-paketleme-son.json": {
+      "sha256": "a4bc52df29e32a174769ab6c0b1e328b9f1d71aa8c518f8af98ac5fddadff597",
+      "bytes": 1302,
+      "bom": false
+    }
+  },
+  "preexistingChangesOutsideScope": [
+    "core/evidence/probe-latest.json",
+    "plans/handoff/HANDOFF-2026-10-25-2038.md",
+    "plans/handoff/HANDOFF-2026-10-27-0031.md",
+    "raporlar/takip-sozlesme/2026-10-25.md",
+    "raporlar/telemetri-haftalik/2026-W43.json",
+    "raporlar/telemetri-haftalik/2026-W43.md"
+  ],
+  "ownership": "Bu tur yalnız belirlenen belge/paket düzeltmelerine ek yapar; daha önceki kirli dosyalar bu ajana ait varsayılmaz. Ürün ve runtime dosyaları değişmez.",
+  "commitTagAuthorized": false,
+  "finalHumanAcceptance": null
+}

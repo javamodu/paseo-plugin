@@ -1,0 +1,46 @@
+{
+  "schemaSurum": 1,
+  "kind": "plan-edit-validation-not-B4-or-product-acceptance",
+  "at": "2026-10-28T08:23:13.273Z",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "passed": true,
+  "exitCode": 0,
+  "command": {
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "-e",
+      "const fs=require('node:fs'),cr=require('node:crypto'),cp=require('node:child_process'),path=require('node:path');const d='raporlar/rapor-birlesimi-2026-10-28/';const read=p=>fs.readFileSync(p,'utf8').replace(/^\\uFEFF/,'');const json=p=>JSON.parse(read(p));const sha=b=>cr.createHash('sha256').update(b).digest('hex');const base=json(d+'baslangic-duzenleme.json'),j=json(d+'birlesim.json');const checks=[];const check=(name,ok)=>{checks.push({name,passed:!!ok});if(!ok)throw Error(name)};const editable=new Set(['plans/PLAN.md','plans/SSOT-INDEX.md','STATE_BOARD.md','raporlar/OZET.md']);let protectedCount=0;for(const [p,meta] of Object.entries(base.files)){if(editable.has(p))continue;check('unchanged: '+p,sha(fs.readFileSync(p))===meta.sha256);protectedCount++}const plan=fs.readFileSync('plans/PLAN.md');check('original plan prefix preserved',sha(plan.subarray(0,base.files['plans/PLAN.md'].bytes))===base.files['plans/PLAN.md'].sha256);for(const p of ['plans/SSOT-INDEX.md','STATE_BOARD.md','raporlar/OZET.md']){const text=fs.readFileSync(p,'utf8').split('\\n').filter(l=>!l.includes('RBT-2026-10-28.1')).join('\\n');check('existing text preserved: '+p,sha(Buffer.from(text))===base.files[p].sha256)}const body=plan.subarray(base.files['plans/PLAN.md'].bytes).toString('utf8');check('new authority section',body.includes('## 26. RBT-2026-10-28.1'));check('all six stages pending',j.steps.length===6&&j.steps.every(s=>s.status==='NOT_STARTED'));j.steps.forEach((s,i)=>check('stage dependency: '+s.id,s.id==='RBT/B'+i&&JSON.stringify(s.dependsOn)===JSON.stringify(i?['RBT/B'+(i-1)]:[])));check('no claimed completed mapping',j.claimMappings.length===0&&j.claimMappingsComplete===false&&j.uniqueOpenIssueCount===null);check('no implied permission',j.permissions.planEditAuthorized===true&&Object.entries(j.permissions).filter(([k])=>k!=='planEditAuthorized').every(([,v])=>v===false));check('no lock',j.lock.state==='NOT_CREATED'&&j.lock.finalHumanDecision===null&&j.lock.tag===null&&j.lock.lockedCommit===null);check('scope not claimed frozen',j.scope.sourceManifestComplete===false&&j.scope.fullSourceFreezeCompleted===false);const src=[...j.scope.primarySources,...j.scope.evidenceAndOperationalSources];src.forEach(p=>{check('source exists: '+p,fs.existsSync(p));if(p.endsWith('.json'))json(p)});const r=json('raporlar/rapor-chatgpt-27ekim.json');const points=r.axes.reduce((n,a)=>n+a.weight*a.checks.filter(c=>c.credited).length/4,0);const credited=r.axes.reduce((n,a)=>n+a.checks.filter(c=>c.credited).length,0);check('weighted readiness formula',points===48.75&&points===j.scoreInterpretation.weightedReadinessPoints);check('unweighted ratio distinct',credited===19&&credited/40*100===j.scoreInterpretation.unweightedControlPercent);for(const [key,target] of [['today','today'],['h1','h1'],['h4','h4']]){const val=r.subFeatureMaturity.axes.reduce((n,a)=>n+a.weight*a.checks.reduce((s,c)=>s+c[key],0)/4,0)/100;check('maturity '+key,Math.abs(val-j.scoreInterpretation.weightedMaturityExact[target])<1e-9)}const rows=read('plans/kabul.csv').split(/\\r?\\n/).filter(l=>l&& !l.startsWith('id,')).map(l=>l.split(','));const acceptance={total:rows.length,green:rows.filter(a=>['PASS','GECTI','GECTI_CANLI'].includes(a[3])).length,dcNotRun:rows.filter(a=>a[0].startsWith('DC-')&&a[3]==='NOT_RUN').length};check('acceptance unchanged counts',acceptance.total===135&&acceptance.green===81&&acceptance.dcNotRun===11);check('graph v14 unchanged',json('plans/gorev-grafigi-2026-10-26.json').grafSurumu==='v14');const stateLines=read('STATE_BOARD.md').trimEnd().split(/\\r?\\n/).length;check('STATE line budget',stateLines<=100);const docs=['plans/PLAN.md','plans/SSOT-INDEX.md','STATE_BOARD.md','raporlar/OZET.md',j.authority.decision,d+'OZET.md'];let links=0;const pendingEmpty=[];for(const p of docs){let text=p==='plans/PLAN.md'?body:read(p);if(['plans/SSOT-INDEX.md','STATE_BOARD.md','raporlar/OZET.md'].includes(p))text=text.split('\\n').filter(l=>l.includes('RBT-2026-10-28.1')).join('\\n');for(const m of text.matchAll(/\\[[^\\]]+\\]\\(([^)]+)\\)/g)){let t=m[1];if(/^(https?:|#|mailto:)/.test(t))continue;const lm=t.match(/:(\\d+)$/);if(lm)t=t.slice(0,lm.index);const f=path.resolve(path.dirname(p),t);check('link '+p+' -> '+m[1],fs.existsSync(f));const content=fs.readFileSync(f,'utf8');if(lm)check('line range '+m[1],Number(lm[1])<=content.split(/\\r?\\n/).length);if(!content.trim()){check('known pending empty summary only',f.replace(/\\\\/g,'/').endsWith('/raporlar/plan-3-denetci-2026-10-27/OZET.md'));pendingEmpty.push(m[1])}links++}}const head=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();check('HEAD unchanged',head===base.head);const out={schemaSurum:1,kind:'plan-edit-validation-not-B4-or-product-acceptance',at:new Date().toISOString(),head,passed:true,exitCode:0,command:{executable:process.execPath,args:process.execArgv,cwd:process.cwd()},checks:checks.length,preservedFiles:protectedCount,protectedComponentFiles:base.protectedFiles.length,originalPlanPrefixPreserved:true,existingStateAndIndexTextPreserved:true,linkChecks:links,knownEmptySummaryRemainsB3Work:[...new Set(pendingEmpty)],stateLines,acceptance,consolidationStepsCompleted:0,productionCodeChanged:false,fullRegressionRun:false,liveProviderCalls:0,lockCreated:false,commitTagPushRun:false,inputHashes:Object.fromEntries([...docs,d+'birlesim.json'].map(p=>[p,sha(fs.readFileSync(p))]))};fs.writeFileSync(d+'dogrulama-duzenleme.json',JSON.stringify(out,null,2)+'\\n',{encoding:'utf8',flag:'wx'});console.log(JSON.stringify({passed:out.passed,checks:out.checks,preservedFiles:out.preservedFiles,protectedComponentFiles:out.protectedComponentFiles,links,stateLines,acceptance,knownEmptySummaryRemainsB3Work:out.knownEmptySummaryRemainsB3Work,record:d+'dogrulama-duzenleme.json'},null,2));"
+    ],
+    "cwd": "d:\\Vibecode\\ordu"
+  },
+  "checks": 388,
+  "preservedFiles": 272,
+  "protectedComponentFiles": 248,
+  "originalPlanPrefixPreserved": true,
+  "existingStateAndIndexTextPreserved": true,
+  "linkChecks": 56,
+  "knownEmptySummaryRemainsB3Work": [
+    "../raporlar/plan-3-denetci-2026-10-27/OZET.md"
+  ],
+  "stateLines": 100,
+  "acceptance": {
+    "total": 135,
+    "green": 81,
+    "dcNotRun": 11
+  },
+  "consolidationStepsCompleted": 0,
+  "productionCodeChanged": false,
+  "fullRegressionRun": false,
+  "liveProviderCalls": 0,
+  "lockCreated": false,
+  "commitTagPushRun": false,
+  "inputHashes": {
+    "plans/PLAN.md": "1d21c9a83f68935554af5e9f6870181e55d274325e1104afd5ad6ce7f7d42006",
+    "plans/SSOT-INDEX.md": "cc4529301ce686652721f0edb5989e8f9a9780fee9a67a681c9e961c9d988f2f",
+    "STATE_BOARD.md": "f6c499f085570698200e1c24f0da7b7370b624ea729f7aab2912566985731f37",
+    "raporlar/OZET.md": "e5ad0e672f347d0c1f7d16e37bce4d07bc347f58dd0bb503f6e98e30d127cf34",
+    "kararlar/ADR-rapor-birlesimi-belge-kilidi-2026-10-28.md": "e275453532266518739162317764aa42c052967be5ce27ed35b5fa42c742ef03",
+    "raporlar/rapor-birlesimi-2026-10-28/OZET.md": "ccc691a4b92453cedaf0caf2ce00b998862276e100991f8c4ce886f7b794618f",
+    "raporlar/rapor-birlesimi-2026-10-28/birlesim.json": "2bf18370d605b0d759db41b3b61d45f2fbb12ac6544d334beee166d15b672921"
+  }
+}

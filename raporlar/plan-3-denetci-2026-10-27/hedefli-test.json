@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "at": "2026-10-27T19:38:45.371Z",
+  "cwd": "core",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "--test",
+    "--test-reporter=tap",
+    "--test-concurrency=1",
+    "test/receipt-link.test.ts",
+    "test/supervisor.test.ts",
+    "test/dispatcher.test.ts",
+    "test/a2-replan.test.ts",
+    "test/benchmark.test.ts"
+  ],
+  "exit": 0,
+  "error": null,
+  "tests": 50,
+  "pass": 50,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "sha256": "71159a1a2a49561f50da7649c0a29f502a358126f0f1362f45632cbbd40ec331",
+  "fullRegression": false,
+  "liveProvider": false
+}

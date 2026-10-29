@@ -1,0 +1,3401 @@
+{
+  "schemaSurum": 1,
+  "kind": "existing-issue-ledger-dated-supplement-not-product-closure",
+  "id": "DC-2026-10-28",
+  "at": "2026-10-28T12:43:20.561Z",
+  "authority": "plans/PLAN.md",
+  "existingLedger": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.md",
+  "scope": "Sayılabilir rapor kimlikleri: E22 + native20 + M40 + G6 + O12 + P6 + MAIN4 + V7-34 + teknik §4.1–4.6. Eski bütün repo/backlog sayımı değildir.",
+  "rawIdentityCount": 150,
+  "expectedIdentityCount": 150,
+  "sourcePaths": [
+    "raporlar/rapor-deepseek27ekim.json",
+    "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+    "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+    "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+    "raporlar/rapor-chatgpt-27ekim.json",
+    "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+    "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+    "raporlar/rapor-chatgpt-27ekim.md"
+  ],
+  "sourceVersions": {
+    "raporlar/rapor-deepseek27ekim.json": {
+      "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a",
+      "bytes": 14372,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md": {
+      "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b",
+      "bytes": 5912,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md": {
+      "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef",
+      "bytes": 3585,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md": {
+      "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66",
+      "bytes": 4843,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim.json": {
+      "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104",
+      "bytes": 27450,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim-deney-v2.json": {
+      "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966",
+      "bytes": 5964,
+      "bom": false
+    },
+    "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json": {
+      "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8",
+      "bytes": 1580,
+      "bom": false
+    },
+    "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json": {
+      "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc",
+      "bytes": 25745,
+      "bom": false
+    },
+    "raporlar/rapor-chatgpt-27ekim.md": {
+      "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33",
+      "bytes": 73362,
+      "bom": false
+    }
+  },
+  "canonicalGroups": [
+    {
+      "id": "C01",
+      "title": "Gerçek OS sınırı ve kullanım fizibilitesi",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S0a-01",
+        "DC-S0a-02",
+        "DC-S0a-03",
+        "DC-S0a-04",
+        "DC-S0b-01",
+        "DC-S0b-02",
+        "DC-S0b-03"
+      ],
+      "acceptanceIds": [
+        "DC-S0"
+      ],
+      "humanGate": "G0_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S0a-01",
+          "positives": [
+            "Her okunan dosyanın hash/byte kimliği, HEAD ve ölçülmüş saat aynı sonuçta bulunur",
+            "Araç sürüm kaynağı komut çıktısıyla bağlanır"
+          ],
+          "negatives": [
+            "Kimliği alınamayan/inceleme sırasında değişen kaynak doğrulandı sayılmaz",
+            "Sahibi belirsiz kirli dosyaya yazılmaz; eksik önkoşul BLOCKED olarak kaydedilir"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-01",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S0a-02",
+          "positives": [
+            "Çekirdek DB, onay kanalı, korunan suite/anahtar, kullanıcı evi ve ortak Git alanı için işçi/test/operatör erişimleri ayrı yazılır",
+            "Mevcut kaynak kanıtı ile OS davranış deneyi gerektiren iddia ayrılır"
+          ],
+          "negatives": [
+            "Worktree veya statik capability sandbox kanıtı sayılmaz",
+            "Kullanıcı evi/config/sır/env değerleri okunmaz; sınır deneyi veya süreç öldürme yapılmaz"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-02",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S0a-03",
+          "positives": [
+            "Gerçek tüketim, bağımsız limit ve bilinmeyen tüketim ayrı tanımlanır",
+            "Eski kayıt/hash/olay anlamını koruyan uyumluluk yolu ve tek defter kararı önerilir"
+          ],
+          "negatives": [
+            "Rezervasyon tüketim, süre dolması ölüm teyidi veya bilinmeyen kullanım sıfır sayılmaz",
+            "openStore/CLI status veya üretim DB açılmaz; sağlayıcı ölçümü yapılmış gibi yazılmaz"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-03",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S0a-04",
+          "positives": [
+            "Her sonraki görevin tasarım sorusu cevap veya gerekçeli BLOCKED ile bağlanır",
+            "Pilot A Unicode/kalıcılık, B idempotent toplam/filtre, C eski veri regresyonu adaydan önce tanımlanır"
+          ],
+          "negatives": [
+            "İmza, sınama, G0, bütçe veya faz başlangıcı ajanca onaylanmaz",
+            "Adaya göre oracle/eşik değiştirilmez; yeni command/event veya ikinci otoriter DB önerisi onaysız uygulanmaz"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-04",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S0b-01",
+          "positives": [
+            "Fixture seçili sınırda çalışır ve izinli pilot-test alanına yazabilir"
+          ],
+          "negatives": [
+            "Mekanizma yoksa/kurulamıyorsa test atlanarak PASS verilmez; BLOCKED",
+            "Üretim yetkisi, ev dizini, ağ veya sırlar fixture'a miras verilmez"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-boundary-positive.test.ts",
+            "effect": "onaylı zararsız OS fixture; yalnız temp alan"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0b-01",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S0b-02",
+          "positives": [
+            "Pozitif kontrol aynı koşumda çalışır; korunan taklit dosyaların değişmediği hash ile gösterilir"
+          ],
+          "negatives": [
+            "Bütün tanımlı yasak erişimler ve testten operatör/imzalayıcı yetki mirası reddedilir",
+            "Yalnız string/path kontrolü gerçek OS reddi diye sunulmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-boundary-positive.test.ts test/dc-boundary-negative.test.ts",
+            "effect": "temp korunan alan taklitleri; ayrı izinli OS sınaması"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0b-02",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S0b-03",
+          "positives": [
+            "Bağımsız limit aşımı yeni etkiyi durdurur veya seçili gerçek ölçüm kaynağı fixture'da doğrulanır"
+          ],
+          "negatives": [
+            "Eksik kullanım sıfır ve tahmini rezerv ölçülmüş tüketim sayılmaz",
+            "Hazır kaynak/limit yoksa G0 açık ilan edilmez; ayrı altyapı/yeniden tahmin gerekir"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-usage-bound.test.ts test/dc-boundary-positive.test.ts test/dc-boundary-negative.test.ts",
+            "effect": "bağımsız üst sınır/ölçüm fixture'ı; sağlayıcı çağrısı yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0b-03",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C02",
+      "title": "Sürümlü tam sözleşme ve onaylı kaynak",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S1-01",
+        "DC-S1-02",
+        "DC-S1-03"
+      ],
+      "acceptanceIds": [
+        "DC-S1"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S1-01",
+          "positives": [
+            "Aynı normalize sözleşme aynı kimliği verir; çözülmüş kaynak/model/suite bağlanır"
+          ],
+          "negatives": [
+            "Her kritik alan tek tek değişince kimlik/onay eşliği bozulur",
+            "Eski planHash sessizce genişletilmez; R6 kümesi değişmez"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-full-contract.test.ts test/sync-baseline.test.ts",
+            "effect": "saf sözleşme fixture'ları; sağlayıcı/üretim DB yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-01",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S1-02",
+          "positives": [
+            "Yeni onay tam sözleşmeye bağlanır; eski fixture kendi sürüm anlamıyla okunur"
+          ],
+          "negatives": [
+            "Eski kaynak/kanıt hash'i yeni sözleşmeye taşınmaz",
+            "Göç gerekiyorsa kesin yeni göç dosyası write-set'e revizyonla eklenmeden uygulanmaz; ikinci DB yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-contract-compat.test.ts test/store.test.ts test/supervisor.test.ts test/sync-baseline.test.ts",
+            "effect": "bellek/temp eski-yeni defter fixture'ları"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-02",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S1-03",
+          "positives": [
+            "Ana HEAD ilerlese de onaylı nesne açılır"
+          ],
+          "negatives": [
+            "Yanlış repo, bulunamayan nesne, algoritma veya sözleşme bağı bozuksa spawn sayısı 0",
+            "SHA-256 özet ile yerel Git nesne kimliği aynı alan sayılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-source-binding.test.ts test/local-runtime.test.ts test/git-worktree.test.ts",
+            "effect": "temp Git reposu ve zararsız sahte CLI; gerçek sağlayıcı yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-03",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C03",
+      "title": "Gerçek operatör ve bütün pilot girişleri",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S1-04",
+        "DC-S1-05"
+      ],
+      "acceptanceIds": [
+        "DC-S1"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S1-04",
+          "positives": [
+            "Pilot dışındaki mevcut projelerin davranışı korunur; izinli tek yol tasarımla eşleşir"
+          ],
+          "negatives": [
+            "Pilot dosya-kuyruğu, manager/emir ve bayat kart yollarından onaysız create sayısı 0",
+            "İzin alanı eksikse default açık olmaz; plugin reload yapılmaz"
+          ],
+          "command": {
+            "cwd": "plugin",
+            "command": "node --import tsx test/dc-pilot-entry.test.ts",
+            "effect": "mock Paseo ve kapsamlı temp repo; gerçek ajan/daemon yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-04",
+          "fullRegression": [
+            "CORE_FULL",
+            "PLUGIN_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S1-05",
+          "positives": [
+            "Gerçek yetkili operatör doğru kaynak/sözleşme ile aynı yüzeyi kullanır"
+          ],
+          "negatives": [
+            "İşçi/test bağlamında insan etiketiyle onay/resume/grant reddedilir",
+            "Onay kapsamı veya kaynak değiştiğinde eski onay kullanılamaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-operator-boundary.test.ts test/cli-capsule.test.ts test/r3-grant.test.ts",
+            "effect": "onaylı operatör sınırı ve temp defter; üretim onayı/grant yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-05",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C04",
+      "title": "Mühürlü aday, korunan test ve yetkili kanıt",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S2-01",
+        "DC-S2-02",
+        "DC-S2-03",
+        "DC-S2-04"
+      ],
+      "acceptanceIds": [
+        "DC-S2"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S2-01",
+          "positives": [
+            "Test edilen aday bitmiş attempt/sahiplik ve tam sözleşmeyle bağlanır"
+          ],
+          "negatives": [
+            "Yaşayan alt süreç/yazma yetkisi veya aday değişimi varsa mühür/teslim reddedilir",
+            "İzlenmeyen dosyalar politika dışı sessiz atlanmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-candidate-seal.test.ts test/supervisor.test.ts",
+            "effect": "temp aday ve onaylı yazma-kapanışı fixture'ı"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S2-01",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S2-02",
+          "positives": [
+            "Doğru küçük kod işi gerçek korunan görev testleriyle geçer"
+          ],
+          "negatives": [
+            "Sıfır test, sahte stdout protokolü, değiştirilmiş suite/runner ve yanlış görev sonucu reddedilir",
+            "Başlangıçta bayat kimlik varsa runner çağrı sayısı 0; test süreci imzalayıcı yetkisini miras almaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-protected-runner.test.ts test/adapter-evaluator.test.ts",
+            "effect": "temp görev ve korunan runner; aday-test S0 sınırında, sağlayıcı yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S2-02",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S2-03",
+          "positives": [
+            "Doğru imzalı ve bütün ilişkileri eş makbuz kabul edilebilir"
+          ],
+          "negatives": [
+            "Eksik/revoke imza, callback yokluğu, yanlış evaluator/ortam/suite/fence/süre reddedilir",
+            "Aynı içerik başka run/attempt'in PASS kanıtını kullanamaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-receipt-auth.test.ts test/receipt-link.test.ts test/store.test.ts",
+            "effect": "ayrılmış test imzalayıcısı ve fixture anahtarları; üretim sırları yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S2-03",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S2-04",
+          "positives": [
+            "Doğru görev aynı mühürlü içerik/gerçek test/makbuzla insan kabulüne sunulur"
+          ],
+          "negatives": [
+            "Yalnız dosya-var/alt-dize veya sample makbuz genel kod işi kabul ettirmez",
+            "Test sonrası değişen içerik ve başka işin kanıt referansı reddedilir"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-delivery-chain.test.ts test/cli-capsule.test.ts test/e2e-s11.test.ts",
+            "effect": "temp uçtan uca fixture; gerçek sağlayıcı yok, final karar fixture kimliğiyle"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S2-04",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C05",
+      "title": "Normal bitiş, süreç/sahiplik ve deneme bazlı iptal",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S3-01",
+        "DC-S3-02",
+        "DC-S3-03"
+      ],
+      "acceptanceIds": [
+        "DC-S3"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S3-01",
+          "positives": [
+            "Restart aynı attempt/sahiplik nesline bağlı ağacı bulur"
+          ],
+          "negatives": [
+            "PID yeniden kullanımında başka süreç öldürülmez",
+            "Ebeveyni ölmüş çocuk veya bozuk kayıt ölüm teyidi sayılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-process-identity.test.ts test/a0-5-lrt.test.ts",
+            "effect": "yalnız kaydı tutulan zararsız çocuklar ve temp registry"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-01",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S3-02",
+          "positives": [
+            "Normal bitiş hazır adayı doğrulamaya bırakır; doğru durum seçici tarafından bulunur"
+          ],
+          "negatives": [
+            "Lease/sessizlik tek başına CANCEL_CONFIRMED veya kapasite bırakma doğurmaz",
+            "Uzlaştırma aynı sonuç için çift kayıt/yeniden spawn üretmez"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-completion-reconcile.test.ts test/closure.test.ts test/a0-2-sweep.test.ts",
+            "effect": "temp defter, fake adaptör ve onaylı küçük çocuk fixture"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-02",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S3-03",
+          "positives": [
+            "Her denemenin ilgili güncel isteği kendi kanıtıyla kapanır"
+          ],
+          "negatives": [
+            "İki attempt'te tek teyit ikinciyi örtmez; eski teyitten sonra yeni iptal açık kalır",
+            "Ölüm doğrulanamıyorsa slot/rezerv hayalen bırakılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-cancel-generation.test.ts test/k13-gozetimsiz.test.ts test/local-runtime.test.ts",
+            "effect": "temp kayıt/zararsız iptal fixture'ı"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-03",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C06",
+      "title": "Gerçek kullanım, dış etki öncesi yetki ve STOP bakımı",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S3-04",
+        "DC-S3-05",
+        "DC-S3-06"
+      ],
+      "acceptanceIds": [
+        "DC-S3"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S3-04",
+          "positives": [
+            "İlgili deneme ve alt süreçlerin tüketimi tek kez kapatılır"
+          ],
+          "negatives": [
+            "Eksik/çift/geç rapor sessiz sıfır veya iki kez harcama üretmez",
+            "Veri/bağımsız limit yokken yeni etki açılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-usage-reconcile.test.ts test/store.test.ts test/metrics.test.ts",
+            "effect": "kaynağı kayıtlı kullanım fixture'ları; gerçek API çağrısı yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-04",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S3-05",
+          "positives": [
+            "Geçerli iş aynı güvenlik zincirinden bir kez gönderilir"
+          ],
+          "negatives": [
+            "Kuyrukta süresi dolmuş/revoke grant ve deadline, bayat fence/sözleşme için spawn sayısı 0",
+            "Kontrol-etki yarışı belirsizse niyet/uzlaştırma semantiğiyle açık UNKNOWN; sahte güvence yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-before-effect.test.ts test/dispatcher.test.ts test/k12-deadline-r8.test.ts test/r3-grant.test.ts",
+            "effect": "enjekte saat/fake adaptör; gerçek spawn/sağlayıcı yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-05",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S3-06",
+          "positives": [
+            "STOP altında teyit/uzlaştırma sürer, yeni spawn olmaz; restart aynı durumu korur"
+          ],
+          "negatives": [
+            "Kart açmak yazma duruşu sayılmaz; kırmızı probe bakım için gerekli teyidi engelleyemez",
+            "Belirsiz çalışan sahiplik devriyle hayalen serbest bırakılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-stop-maintenance.test.ts test/daemon.test.ts test/closure.test.ts",
+            "effect": "kontrollü tick/clock/temp defter; üretim daemon yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S3-06",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C07",
+      "title": "Kalıcı sürücü, strateji, öğrenme ve terfi",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "DEFERRED_TO_PHASE_GATE",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [],
+      "acceptanceIds": [],
+      "humanGate": "H1/H2/H3 sonrası ayrı faz kararları",
+      "prerequisites": [
+        "H1 sonra S5/S6",
+        "H2 sonra S7/S8",
+        "H3 sonra S9/S10"
+      ],
+      "testContract": [],
+      "deferredContract": [
+        {
+          "sprints": [
+            "DC-S5",
+            "DC-S6"
+          ],
+          "detailAfter": "H1_ACCEPT",
+          "startDecision": null,
+          "technicalLocT": [
+            1860,
+            3160
+          ],
+          "individualSplitApproved": false,
+          "deliverables": [
+            "kalıcı hazır iş/niyet-etki-kayıt sürücüsü",
+            "restart/crash sınırlarında çift işsiz devam",
+            "tavanlı onarım/bildirim ve ayrı izinli 30 dk/en fazla 2 saat hazırlama"
+          ],
+          "nextPackaging": "H1 ölçümüyle kesin write-set/test/bütçe; yeni satırlar bu paketin revizyonunda, ikinci aktif plan yok"
+        },
+        {
+          "sprints": [
+            "DC-S7",
+            "DC-S8"
+          ],
+          "detailAfter": "DC-H2",
+          "startDecision": null,
+          "technicalLocT": null,
+          "sharesEnvelopeWith": [
+            "DC-S9",
+            "DC-S10"
+          ],
+          "deliverables": [
+            "gerçek alternatif strateji ve insan onaylı revizyon",
+            "dersin sonraki görev girdisine bağlanması",
+            "gizli eşlenmiş görev kıyası, altın set, bağımsız çift sayım ve canary"
+          ],
+          "nextPackaging": "H2 sonrası görev bazlı tasarım ve bütçe; faydasız dersin reddi geçerli sonuç"
+        },
+        {
+          "sprints": [
+            "DC-S9",
+            "DC-S10"
+          ],
+          "detailAfter": "DC-H3",
+          "startDecision": null,
+          "technicalLocT": null,
+          "combinedS7ToS10TechnicalLocT": [
+            4580,
+            6780
+          ],
+          "deliverables": [
+            "yetkili sonlu terfi/bekle/geri-al ve karar tekrarı",
+            "ön-kayıtlı temsili görev kampanyası",
+            "tam payda, insan müdahalesi, tüketim ve ayrı sürüm kararı"
+          ],
+          "nextPackaging": "H3 sonrası; ön-kayıtlı eşik/örneklem ve korunan oracle olmadan kampanya başlatma yok"
+        }
+      ],
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C08",
+      "title": "Aktif/tarihsel ilişki ve insan kapısı kaydı",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": true,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S0a-04",
+        "DC-S1-05",
+        "DC-S4-04"
+      ],
+      "acceptanceIds": [
+        "DC-S0",
+        "DC-S1",
+        "DC-S4"
+      ],
+      "humanGate": "G0_ACCEPT / H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S0a-04",
+          "positives": [
+            "Her sonraki görevin tasarım sorusu cevap veya gerekçeli BLOCKED ile bağlanır",
+            "Pilot A Unicode/kalıcılık, B idempotent toplam/filtre, C eski veri regresyonu adaydan önce tanımlanır"
+          ],
+          "negatives": [
+            "İmza, sınama, G0, bütçe veya faz başlangıcı ajanca onaylanmaz",
+            "Adaya göre oracle/eşik değiştirilmez; yeni command/event veya ikinci otoriter DB önerisi onaysız uygulanmaz"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-04",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S1-05",
+          "positives": [
+            "Gerçek yetkili operatör doğru kaynak/sözleşme ile aynı yüzeyi kullanır"
+          ],
+          "negatives": [
+            "İşçi/test bağlamında insan etiketiyle onay/resume/grant reddedilir",
+            "Onay kapsamı veya kaynak değiştiğinde eski onay kullanılamaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-operator-boundary.test.ts test/cli-capsule.test.ts test/r3-grant.test.ts",
+            "effect": "onaylı operatör sınırı ve temp defter; üretim onayı/grant yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-05",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S4-04",
+          "positives": [
+            "Yanlış çıktı, sıfır test, işçi/yönetici ölümü, çift gönderim, STOP/restart, teyitsiz iptal, eski sahip, yanlış kaynak ve eksik/aşan kullanım ayrı kanıtlıdır",
+            "Bütün güncel süitler geçer; insan uygulamayı kara-kutu kullanır"
+          ],
+          "negatives": [
+            "Son yeşil tekrar seçilmez; belirsiz sahiplik/kullanım kalmışsa H1 kabulü önerilmez",
+            "H1 kararı veya H2 başlatması ajanca verilmez; otomatik merge/deploy yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-h1-fault-matrix.test.ts test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+            "effect": "yalnız onaylı pilot/süreç kopyaları; geri dönüş ayrı izinli; üretim deposuna reset yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-04",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C09",
+      "title": "Gerçek okuyucu uyumu ve sürümlü kart gösterimi",
+      "ownerRole": "CODER + AYRI TESTER",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": true,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S1-04",
+        "DC-S4-04"
+      ],
+      "acceptanceIds": [
+        "DC-S1",
+        "DC-S4"
+      ],
+      "humanGate": "H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S1-04",
+          "positives": [
+            "Pilot dışındaki mevcut projelerin davranışı korunur; izinli tek yol tasarımla eşleşir"
+          ],
+          "negatives": [
+            "Pilot dosya-kuyruğu, manager/emir ve bayat kart yollarından onaysız create sayısı 0",
+            "İzin alanı eksikse default açık olmaz; plugin reload yapılmaz"
+          ],
+          "command": {
+            "cwd": "plugin",
+            "command": "node --import tsx test/dc-pilot-entry.test.ts",
+            "effect": "mock Paseo ve kapsamlı temp repo; gerçek ajan/daemon yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S1-04",
+          "fullRegression": [
+            "CORE_FULL",
+            "PLUGIN_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S4-04",
+          "positives": [
+            "Yanlış çıktı, sıfır test, işçi/yönetici ölümü, çift gönderim, STOP/restart, teyitsiz iptal, eski sahip, yanlış kaynak ve eksik/aşan kullanım ayrı kanıtlıdır",
+            "Bütün güncel süitler geçer; insan uygulamayı kara-kutu kullanır"
+          ],
+          "negatives": [
+            "Son yeşil tekrar seçilmez; belirsiz sahiplik/kullanım kalmışsa H1 kabulü önerilmez",
+            "H1 kararı veya H2 başlatması ajanca verilmez; otomatik merge/deploy yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-h1-fault-matrix.test.ts test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+            "effect": "yalnız onaylı pilot/süreç kopyaları; geri dönüş ayrı izinli; üretim deposuna reset yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-04",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    },
+    {
+      "id": "C10",
+      "title": "Pilot oracle, dürüst tahmin ve deney kapsamı",
+      "ownerRole": "KOORDINATOR + TESTER + INSAN",
+      "assignedAgentId": null,
+      "state": "PRODUCT_PENDING_NOT_FIXED_BY_DOCUMENTS",
+      "representationAlreadyFixed": false,
+      "productFixed": false,
+      "taskIds": [
+        "DC-S0a-04",
+        "DC-S4-01",
+        "DC-S4-02",
+        "DC-S4-03",
+        "DC-S4-04"
+      ],
+      "acceptanceIds": [
+        "DC-S0",
+        "DC-S4"
+      ],
+      "humanGate": "IMPLEMENTATION_BUDGET / H1_ACCEPT",
+      "prerequisites": [
+        "göreve özel insan emri",
+        "gerekli teknik ADR/tasarım ve bütçe bağları"
+      ],
+      "testContract": [
+        {
+          "taskId": "DC-S0a-04",
+          "positives": [
+            "Her sonraki görevin tasarım sorusu cevap veya gerekçeli BLOCKED ile bağlanır",
+            "Pilot A Unicode/kalıcılık, B idempotent toplam/filtre, C eski veri regresyonu adaydan önce tanımlanır"
+          ],
+          "negatives": [
+            "İmza, sınama, G0, bütçe veya faz başlangıcı ajanca onaylanmaz",
+            "Adaya göre oracle/eşik değiştirilmez; yeni command/event veya ikinci otoriter DB önerisi onaysız uygulanmaz"
+          ],
+          "command": {
+            "cwd": ".",
+            "command": null,
+            "reason": "salt-okur kaynak incelemesi; komut uydurulmaz"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S0a-04",
+          "fullRegression": []
+        },
+        {
+          "taskId": "DC-S4-01",
+          "positives": [
+            "İnsan görev ekler/listeler; Unicode ve yeniden açılışta veri kalıcılığı çalışır"
+          ],
+          "negatives": [
+            "Bozuk giriş reddedilir ve veri bozulmaz",
+            "Pilot kökü/oracle/sağlayıcı izni yoksa dosya yaratılmaz ve canlı çağrı yapılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-pilot-a.test.ts",
+            "effect": "pilot kökü/oracle ve gerçek sağlayıcı denemesi ayrıca kayıtlı; sadece yerel test gerçek koşum yerine geçmez"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-01",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S4-02",
+          "positives": [
+            "İnsan görevi tamamlar, duruma göre filtreler; toplamlar doğru olur"
+          ],
+          "negatives": [
+            "Yinelenen tamamlama sayıları bozmaz; A'nın verisi/işlevleri gerilemez",
+            "A insan teslim kaydı ve aynı oracle sürümü olmadan B kapanışı yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts",
+            "effect": "A/B pilot kopyaları ve aynı korunan test yolu; gerçek koşum ayrıca izinli"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-02",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S4-03",
+          "positives": [
+            "Önceden alınmış eski veriyle yeni sürüm çalışır; gerçek düzeltme gözlenir"
+          ],
+          "negatives": [
+            "Eski veri adaya göre değiştirilmez; A/B regresyonu veya yeni hata gizlenmez",
+            "Üç teslim bağımsız genel güvenilirlik örneklemi sayılmaz"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+            "effect": "önceden saklı eski-veri kopyası; korunan gizli regresyon; ayrı izinli gerçek görev"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-03",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        },
+        {
+          "taskId": "DC-S4-04",
+          "positives": [
+            "Yanlış çıktı, sıfır test, işçi/yönetici ölümü, çift gönderim, STOP/restart, teyitsiz iptal, eski sahip, yanlış kaynak ve eksik/aşan kullanım ayrı kanıtlıdır",
+            "Bütün güncel süitler geçer; insan uygulamayı kara-kutu kullanır"
+          ],
+          "negatives": [
+            "Son yeşil tekrar seçilmez; belirsiz sahiplik/kullanım kalmışsa H1 kabulü önerilmez",
+            "H1 kararı veya H2 başlatması ajanca verilmez; otomatik merge/deploy yok"
+          ],
+          "command": {
+            "cwd": "core",
+            "command": "node --test --test-reporter=spec test/dc-h1-fault-matrix.test.ts test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+            "effect": "yalnız onaylı pilot/süreç kopyaları; geri dönüş ayrı izinli; üretim deposuna reset yok"
+          },
+          "threshold": "Bütün belirtilen P/N gözlemleri ayrı kanıtlı; yetkisiz dış etki yok; ölçülmeyen sonuç boş/BLOCKED.",
+          "evidenceRoot": "raporlar/dc-uygulama/DC-S4-04",
+          "fullRegression": [
+            "CORE_FULL"
+          ]
+        }
+      ],
+      "deferredContract": null,
+      "evidenceMeaning": "Bu eşleme testin koşulduğu veya ürünün düzeldiği anlamına gelmez; yeni kapanış kendi kalıcı kanıtını ister."
+    }
+  ],
+  "specialGroups": [
+    {
+      "id": "K-SADE",
+      "ownerRole": "INSAN + KURAL YAZICISI",
+      "state": "SEPARATE_DECISION_PENDING",
+      "source": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+      "rationale": "V7-23 dahil koruma yükleme riski; 38 koşullu öneri, uygulanmadı."
+    }
+  ],
+  "claimMappings": [
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-01",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C01"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "OPEN",
+      "rationale": "İzolasyon ürün kanıtı bekler; plan S0/G0 öncesinde şart koşar, H1 sonuna ertelemez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-02",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "OPEN",
+      "rationale": "Alternatif başlatma ve insan aktör etiketinin gerçek kimlik olmaması ürün işidir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-03",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "CORRECTED",
+      "rationale": "Boş kararlar sözleşmesizlik veya çalışma anı hata kanıtı değil; doğru kapalı başlangıç.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-04",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "REFUTED_CURRENT_CONFLICT",
+      "rationale": "Sıra alıntısı tarihsel §19; güncel §20 zaten ana planla aynı.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-05",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "OPEN",
+      "rationale": "Opsiyonel imza ürün zincirinde zorunlu yetkili üretici doğrulamasına dönüşmeli.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-06",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "OPEN",
+      "rationale": "Kuyruk kabulü yetmez; dış etki öncesi güncel yetki/süre yeniden sınanmalı.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-07",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "HISTORY_AND_REESTIMATE_DISTINGUISHED",
+      "rationale": "İlk nominal tarihçe; yerine geçen tahmin onaysız, eski rezerv eklenmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-08",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C04",
+        "C10"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "CRITERIA_LINKED_PRODUCT_PENDING",
+      "rationale": "NOT_RUN/CSV sütun yokluğu ölçüt yok demek değil; fişlerle test/kanıt bağı kuruldu.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-09",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C04",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "CONTRACT_LINKED_PRODUCT_PENDING",
+      "rationale": "Hedefli ve tam regresyon/kanal reçeteleri fişlerde; gerçek görev testi henüz yok.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-10",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "DOCUMENT_CLOSED",
+      "rationale": "Mevcut defterin DC eki kaynaklı tekilleştirme; ikinci açık-iş otoritesi yok.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-11",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C08"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "CORRECTED",
+      "rationale": "S0a/S0b mevcut DC-S0 alt adımları; ayrı PASS veya yeni ürün düğümü gerekmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-12",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C09"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "COMPATIBILITY_REPRESENTATION_FIXED",
+      "rationale": "Eski metin görünümü kasıtlı uyumluluk; aritmetik sayısal alanlarda. Genel okuyucu işi ayrı.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-13",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "HISTORICAL_SCOPE_PRESERVED",
+      "rationale": "Eski kanıta sonradan tek kanal şekli dayatılarak PASS silinmez, sahte kanıt eklenmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-14",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "HISTORICAL_SCOPE_DECISIONS_PRESERVED",
+      "rationale": "K-0049 gibi kapsam kararı geniş ürün yeteneği kanıtı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-15",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "CORRECTED",
+      "rationale": "Eski S kimliği ve DC-S kimliği farklı; önek benzerliği gerçek çakışma kanıtı değil.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-16",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C06",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "CONTRACT_LINKED_PRODUCT_PENDING",
+      "rationale": "STOP bakımı ve izole geri dönüş kendi S3/S4 test/izinlerine bağlı.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-17",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "PROJECTION_NOT_MEASUREMENT",
+      "rationale": "Olgunluk tahmini başarı ölçümü değil; yeni kanıtla yeniden puanlanır.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-18",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C08",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "CONTRACT_LINKED_PRODUCT_PENDING",
+      "rationale": "İnsan kararının format/kapsam bağı vardır; gerçek karar yalnız ilgili insan kapısında.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-19",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "DEPENDENCY_NOT_EXTRA_DEFECT",
+      "rationale": "S0 sonrası ayrıştırma açık tasarım bağıdır; ek LOC veya ürün hatası diye iki kez sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-20",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C02",
+        "C05"
+      ],
+      "claimClass": "report_error_or_superseded_claim",
+      "disposition": "CORRECTED",
+      "rationale": "S1 ile S3 farklı teslimlerdir; S3 kapsam büyüklüğü tek başına sınır ihlali değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-21",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "CONTRACT_LINKED_PRODUCT_PENDING",
+      "rationale": "Hata aileleri S4-04 P/N kanıtına bağlandı; aday öncesi eşikler ve gerçek koşum gerekecek.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-deepseek27ekim.json",
+        "id": "E-22",
+        "sha256": "8a7dcd0b4a6dce5d7579a61598aced18f6d12ffc8826932d38621365cd8e2e8a"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "DOCUMENT_CLOSED",
+      "rationale": "Boş denetim özeti mevcut denetim.json ve sonuçlardan tamamlandı.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-01",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-02",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C01"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-03",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-04",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-05",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C05"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-06",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-07",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V1-SONUC.md",
+        "id": "V1-08",
+        "sha256": "58e034911af7db3c7c358d7c3a8b7c42cdfed36ffdea859d8a7f05fd595be64b"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-01",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C09"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "data_type_compatibility_fixed_no_product_source_change",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-02",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_claim_narrowed_product_enforcement_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-03",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "active_historical_relation_representation_fixed",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-04",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C08"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "gate_record_contract_added_decisions_remain_null",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-05",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_acceptance_for_versioned_cards_added_product_pending",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V2-SONUC.md",
+        "id": "V2-06",
+        "sha256": "856e2a10e16576158c914b15a21d8584d9bcdec958ddc30c17a4fdf1d4fc34ef"
+      },
+      "canonicalGroups": [
+        "C09"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "document_header_compatibility_fixed_no_reader_code_change",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-01",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "discovery_permission_proof_split_estimate_requires_approval",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-02",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C02",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_estimate_requires_approval",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-03",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C04",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_estimate_requires_approval",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-04",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C06",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "plan_clarified_estimate_requires_approval",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-05",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "concrete_pilot_oracles_and_claim_limits_added",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/V3-SONUC.md",
+        "id": "V3-06",
+        "sha256": "9ca2d965a5bd4df93c7b8ebaf217b6185ddeb18a854c2b55d0f87007863b1e66"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "experiment_contract_and_replacement_estimate_added",
+      "rationale": "Kayıtlı denetim grubu ve plan netleştirmesi korunur; ürün kapanışı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M1.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M1.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M1.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "counterexample",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M1.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_demonstrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M2.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C03"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M2.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C03"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M2.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "contradicted_by_source",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M2.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "incomplete",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M3.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M3.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M3.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "counterexample",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M3.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_measured",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M4.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_recorded_live",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M4.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_recorded_test",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M4.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_recorded_live",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M4.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_integrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M5.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M5.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M5.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "counterexample_wiring_only",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M5.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "counterexample",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M6.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M6.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M6.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_demonstrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M6.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_demonstrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M7.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested_recorded_live",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M7.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M7.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_integrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M7.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_measured",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M8.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M8.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_found_in_reviewed_paths",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M8.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_found_in_reviewed_paths",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M8.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_measured",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M9.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M9.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "planned_not_integrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M9.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "planned_not_integrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M9.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_demonstrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M10.01",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_tested_recorded",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M10.02",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "implemented_recorded_live",
+      "rationale": "Eski dar mekanizma/test kredisi korunur; bütün ürün veya yeni görev başarısı sayılmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M10.03",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_integrated",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "M10.04",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_measured",
+      "rationale": "Yetersiz/bütünlenmemiş/ölçülmemiş kanıt; plan/fiş yazımı kontrolü otomatik kredilendirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G1",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "source_counterexample",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G2",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "local_counterexample_P2",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G3",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "local_counterexamples_P3_P6",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G4",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C02",
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "incomplete",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G5",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_demonstrated",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "G6",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "not_measured",
+      "rationale": "Bu G1–G6 rubrik kapısı DC-G0/H1 insan kararıyla aynı kimlik değildir; ürün kanıtı bekler.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O1",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O2",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "existing_proxy_not_equivalent",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O3",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "one_constructed_counterexample_not_population_rate",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O4",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C01",
+        "C03"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "no_all_entrypoint_campaign",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O5",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C05"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "narrow_recorded_sweep_not_general_rate",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O6",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured_end_to_end",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O7",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O8",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O9",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "no_automatic_promotion_chain",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O10",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O11",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C09",
+        "C10"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "local_audit_agreed_not_continuous_product_feature",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.json",
+        "id": "O12",
+        "sha256": "2be230ed4431f0b6a6acc468c7af4513b1bf22ab1ddd261841523e4f19e99104"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "plan_or_acceptance_detail",
+      "disposition": "not_measured_for_full_loop",
+      "rationale": "Pay/payda tanımı korunur; değer ölçülmedi veya proxy eşdeğer değil. Bilimsel başarı oranı uydurulmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P1",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P2",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P3",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P4",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C09",
+        "C10"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P5",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C07"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+        "id": "P6",
+        "sha256": "1ceb5f6ce8f9207b025c43d47584e076e7ab154b50f9910e97f134daf064e966"
+      },
+      "canonicalGroups": [
+        "C05"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_COUNTEREXAMPLE",
+      "rationale": "Yapılandırılmış eski yerel karşı örnek; temsilî görev dağılımı/hata oranı değildir.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+        "id": "MAIN-UI-01",
+        "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8"
+      },
+      "canonicalGroups": [
+        "C09"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_LOCAL_OBSERVATION",
+      "rationale": "in-memory DOM stubs, not browser E2E",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+        "id": "MAIN-LIFE-02",
+        "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8"
+      },
+      "canonicalGroups": [
+        "C05"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_LOCAL_OBSERVATION",
+      "rationale": "memory ledger and fake adapter; no actual process death",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+        "id": "MAIN-EVIDENCE-03",
+        "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_LOCAL_OBSERVATION",
+      "rationale": "memory trusted API characterization, not remote exploit",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/plan-3-denetci-2026-10-27/ana-karakterizasyon.json",
+        "id": "MAIN-TRUST-04",
+        "sha256": "3976b077ab59e8c3bdc88e3d8410d839edc8af003d813a142a353f90af80b5b8"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "historical_evidence",
+      "disposition": "RECORDED_LOCAL_OBSERVATION",
+      "rationale": "documented optional callback is not authentication guarantee",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-01",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-02",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-03",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-04",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-05",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-06",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-07",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-08",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-09",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-10",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-11",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-12",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-13",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-14",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-15",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-16",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-17",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-18",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-19",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-20",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-21",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-22",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-23",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-24",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-25",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-26",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-27",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-28",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-29",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-30",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-31",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-32",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-33",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/gelen-kutu/v7-kural-sadelestirme-2026-10-27.json",
+        "id": "V7-34",
+        "sha256": "7465393a1050381f9524d5adda1ec849adef1d8711ad9904baf2e92194112bbc"
+      },
+      "canonicalGroups": [
+        "K-SADE"
+      ],
+      "claimClass": "human_decision_or_implementation_window",
+      "disposition": "PENDING_SEPARATE_HUMAN_RULE_DECISION",
+      "rationale": "34 madde/varyantın değerlendirilmesi ve uygulaması ayrı insan kararıdır; bu kapanış kural semantiğini değiştirmez.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.1",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C03"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.2",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C04"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.3",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C06"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.4",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.5",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C02"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    },
+    {
+      "sourceIdentity": {
+        "path": "raporlar/rapor-chatgpt-27ekim.md",
+        "id": "4.6",
+        "sha256": "df10bfba87e9d864eb082f567be42485bf4026b9b752df1709a8cfd5d8c2cc33"
+      },
+      "canonicalGroups": [
+        "C05",
+        "C09"
+      ],
+      "claimClass": "product_gap",
+      "disposition": "LINKED_TO_CANONICAL_GROUP",
+      "rationale": "Teknik anlatımın aynı mekanizma/deneyle örtüşen bulgusu; bağımsız yeni deney/açık diye toplanmaz.",
+      "evidenceKind": "source_or_historical_record_review_not_new_product_measurement",
+      "productFixedByClosure": false
+    }
+  ],
+  "mappingsCompleteForDeclaredScope": true,
+  "sourceArtifactRule": "İlgili canlı/yerel kanıt raporları kendi tarih/commit/kapsamıyla referanstır; aynı logu aktaran rapor bağımsız deney değildir.",
+  "wholeRepositoryOpenIssueCount": null,
+  "productGroupsFixedByThisClosure": 0,
+  "productScoreChanged": false,
+  "legacyBacklogCarry": {
+    "source": "raporlar/birlesik-eksik-defteri-2026-10-25/DEFTER.json",
+    "fullRecountPerformed": false,
+    "oldCountsNotCurrent": true,
+    "ownerRole": "KOORDINATOR",
+    "rule": "Eski ~22/27/29 sayıları bugüne kopyalanmaz. Kaynak maddeler silinmez; güncel DC ile açıkça örtüşenler referans eşlemesiyle taşınır."
+  },
+  "authorityQueue": [
+    {
+      "id": "A3-krl-b0cb1576",
+      "state": "ALREADY_APPROVED_IN_LATER_RECORD",
+      "source": "STATE_BOARD.md",
+      "action": "Tekrar insan onayı veya yeniden iniş üretme."
+    },
+    {
+      "id": "K-0044",
+      "state": "DECISION_APPROVED_IMPLEMENTATION_WINDOW_PENDING",
+      "source": "kararlar/K-0044.md",
+      "action": "Restart/env uygulaması ayrı; sır/config bu görevde okunmaz."
+    },
+    {
+      "id": "rpl-03579e06",
+      "state": "STALE_SCOPE_REVALIDATION_REQUIRED",
+      "source": "STATE_BOARD.md",
+      "action": "Güncel plan sürümü ve taslak özeti doğrulanmadan uygulatma."
+    },
+    {
+      "id": "A4",
+      "state": "SUPERSEDED_BY_DC_S5_S6_AFTER_H1",
+      "source": "plans/PLAN.md",
+      "action": "Eski HAZIR kaydından gece modu izni çıkarma."
+    }
+  ],
+  "effectiveTestContractOverrides": {
+    "at": "2026-10-28T14:17:25.391Z",
+    "source": "independent review 01a182c1-65cb-7208-927c-e09a1178fb2c",
+    "entries": [
+      {
+        "groupId": "C01",
+        "taskId": "DC-S0a-01",
+        "supersedes": "canonicalGroups[C01].testContract[DC-S0a-01].command",
+        "command": {
+          "recipes": [
+            {
+              "id": "READ_GIT",
+              "cwd": ".",
+              "command": "git status --short && git rev-parse HEAD",
+              "effect": "git metadata okuma; uygulama/probe/DB çağırmaz",
+              "gates": [
+                "S0A_START"
+              ]
+            },
+            {
+              "id": "READ_ENV",
+              "cwd": ".",
+              "command": "node -p \"JSON.stringify({platform:process.platform,arch:process.arch,node:process.version})\"",
+              "effect": "yalnız platform/mimari/Node sürümü; env/sır dökümü yok",
+              "gates": [
+                "S0A_START"
+              ]
+            }
+          ]
+        },
+        "reason": "Salt-okur görev iki gerçek metadata komutu gerektirir; eski boş komut görünümü etkin değildir."
+      }
+    ]
+  }
+}

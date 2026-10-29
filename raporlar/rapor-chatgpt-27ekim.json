@@ -1,0 +1,460 @@
+{
+  "schemaSurum": 1,
+  "kind": "evidence-based-engineering-readiness-not-success-probability",
+  "rubricId": "ORDU-OTONOMI-HEDEF-v1",
+  "date": "2026-10-27",
+  "report": "raporlar/rapor-chatgpt-27ekim.md",
+  "head": "40b72a34834a6b0f741d845e43885130ca861a35",
+  "evidence": "raporlar/rapor-chatgpt-27ekim-deney-v2.json",
+  "evidenceRunner": "raporlar/rapor-chatgpt-27ekim-denetim.mjs",
+  "originalReport": {
+    "preservePrefixBytes": 20435,
+    "sha256": "765773bc958dda3a671647f5922e827dc47413febddf8aea2455cdea4d3eda65"
+  },
+  "method": {
+    "label": "T",
+    "formula": "sum(axis.weight * count(check.credited === true) / 4)",
+    "binaryChecksPerAxis": 4,
+    "weightsSum": 100,
+    "unknownEvidenceReceivesPoints": false,
+    "unknownMeansObservedFailure": false,
+    "weightsEmpiricallyCalibrated": false,
+    "preregistered": false,
+    "blinded": false,
+    "independentEvaluatorCount": 1,
+    "populationPerformanceEstimate": null,
+    "fullAutonomyBenchmark": "not_measured",
+    "limitations": [
+      "Rubric and weights are evaluator-designed after inspection.",
+      "Reports sharing logs are not independent experiments.",
+      "Tests and constructed counterexamples are not representative task trials.",
+      "A valid counterexample refutes a universal guarantee, not estimates its frequency.",
+      "Zero credit can mean partial, unintegrated, contradicted or unmeasured; not zero capability."
+    ]
+  },
+  "axes": [
+    {
+      "id": "M1",
+      "name": "Hedef sozlesmesi ve is ayristirma",
+      "weight": 10,
+      "checks": [
+        { "id": "M1.01", "criterion": "Kalici hedef ve kaynak temsili", "credited": true, "state": "implemented_tested", "sources": ["core/src/supervisor.ts:42", "core/test/supervisor.test.ts:1"] },
+        { "id": "M1.02", "criterion": "Bagimliliklara gore yurutme", "credited": true, "state": "implemented_tested", "sources": ["core/src/supervisor.ts:95", "core/test/supervisor.test.ts:1"] },
+        { "id": "M1.03", "criterion": "Tam is sozlesmesini baglayan onay ozeti", "credited": false, "state": "counterexample", "sources": ["core/src/supervisor.ts:30"], "probe": "P1" },
+        { "id": "M1.04", "criterion": "Hedeften olculebilir alt gorevleri otomatik uretme", "credited": false, "state": "not_demonstrated", "sources": ["core/src/cli.ts:146"] }
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Guvenli ve tek yurutme otoritesi",
+      "weight": 15,
+      "checks": [
+        { "id": "M2.01", "criterion": "Cekirdekte onay ve STOP kapisi", "credited": true, "state": "implemented_tested", "sources": ["core/src/supervisor.ts:102", "core/test/store.test.ts:1"] },
+        { "id": "M2.02", "criterion": "Tekillestirme ve eski sahip yazma reddi", "credited": true, "state": "implemented_tested", "sources": ["core/src/store.ts:105", "core/src/store.ts:201", "core/test/store.test.ts:1"] },
+        { "id": "M2.03", "criterion": "Butun uretim baslatmalarinda ortak kapi", "credited": false, "state": "contradicted_by_source", "sources": ["plugin/server/ordu.ts:119"] },
+        { "id": "M2.04", "criterion": "Yerel calismanin onayli repo ve commit baglantisi", "credited": false, "state": "incomplete", "sources": ["core/src/cli.ts:38", "core/src/local-runtime.ts:117"] }
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Bagimsiz gorev dogrulugu",
+      "weight": 15,
+      "checks": [
+        { "id": "M3.01", "criterion": "Izinli test komutu ve kanit protokolu", "credited": true, "state": "implemented", "sources": ["core/src/evaluator.ts:28"] },
+        { "id": "M3.02", "criterion": "Sifir-test ve kanitsiz basari reddi", "credited": true, "state": "implemented_tested", "sources": ["core/src/evaluator.ts:57", "core/test/store.test.ts:1", "raporlar/fault-matrix-2026-10-25.md:18"] },
+        { "id": "M3.03", "criterion": "Gunluk genel gorev yolunda bagimsiz gorev testleri", "credited": false, "state": "counterexample", "sources": ["core/src/cli.ts:196", "core/src/cli-evaluate.ts:22"], "probe": "P2" },
+        { "id": "M3.04", "criterion": "Temsili iyi ve kotu altin setle oracle kalibrasyonu", "credited": false, "state": "not_measured", "sources": ["plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md:82"] }
+      ]
+    },
+    {
+      "id": "M4",
+      "name": "Toparlanma ve kendini onarma",
+      "weight": 10,
+      "checks": [
+        { "id": "M4.01", "criterion": "Belirsiz baslatma uzlastirmasi", "credited": true, "state": "implemented_recorded_live", "sources": ["core/src/dispatcher.ts:152", "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md:18"] },
+        { "id": "M4.02", "criterion": "Kalici kimlikten restart sonrasi yerel iptal", "credited": true, "state": "implemented_recorded_test", "sources": ["core/src/local-runtime.ts:300", "raporlar/kanit-hedef/a05-lrt-2026-10-27.md:50"] },
+        { "id": "M4.03", "criterion": "Asili is toparlama", "credited": true, "state": "implemented_recorded_live", "sources": ["core/src/supervisor.ts:557", "raporlar/kanit-hedef/a02-sweep-2026-10-27.md:26"] },
+        { "id": "M4.04", "criterion": "Hatadan otomatik tavanli onarim baslatan hedef surucusu", "credited": false, "state": "not_integrated", "sources": ["core/src/supervisor.ts:158", "core/src/cli.ts:109"] }
+      ]
+    },
+    {
+      "id": "M5",
+      "name": "Olcum ve gercek butce muhasebesi",
+      "weight": 10,
+      "checks": [
+        { "id": "M5.01", "criterion": "Benchmark tam paydasi", "credited": true, "state": "implemented_tested", "sources": ["core/src/benchmark.ts:163", "core/test/benchmark.test.ts:1"] },
+        { "id": "M5.02", "criterion": "Kalici olaylar ve bilinmeyen maliyet temsili", "credited": true, "state": "implemented_tested", "sources": ["core/src/store.ts:80", "core/src/benchmark.ts:207", "core/test/benchmark.test.ts:1"] },
+        { "id": "M5.03", "criterion": "Gercek saglayici kullaniminin kapatmaya zorunlu bagi", "credited": false, "state": "counterexample_wiring_only", "sources": ["core/src/supervisor.ts:194"], "probe": "P3" },
+        { "id": "M5.04", "criterion": "Hedef sinyallerinde ortak kabul tanimi", "credited": false, "state": "counterexample", "sources": ["scripts/saglik.ps1:127", "core/src/replan.ts:30"], "probe": "P4" }
+      ]
+    },
+    {
+      "id": "M6",
+      "name": "Stratejik yeniden planlama",
+      "weight": 10,
+      "checks": [
+        { "id": "M6.01", "criterion": "Sapma ve durum tutarsizligi olcumu", "credited": true, "state": "implemented_tested", "sources": ["core/src/replan.ts:106", "core/test/a2-replan.test.ts:68"] },
+        { "id": "M6.02", "criterion": "Kalici taslak ve onayli durum tazelemesi", "credited": true, "state": "implemented_tested", "sources": ["core/src/replan.ts:259", "core/src/replan.ts:292", "core/test/a2-replan.test.ts:146"] },
+        { "id": "M6.03", "criterion": "Basarisizlikta yeni gorev bagimlilik ve strateji grafi", "credited": false, "state": "not_demonstrated", "sources": ["core/src/replan.ts:154"], "probe": "P5" },
+        { "id": "M6.04", "criterion": "Yetki ici yeni stratejiyi otomatik uygulama", "credited": false, "state": "not_demonstrated", "sources": ["core/src/replan.ts:292", "core/src/cli.ts:109"] }
+      ]
+    },
+    {
+      "id": "M7",
+      "name": "Faydali ve guvenli ogrenme",
+      "weight": 10,
+      "checks": [
+        { "id": "M7.01", "criterion": "Kaynakli kapsamli kalici ders ve kural", "credited": true, "state": "implemented_tested_recorded_live", "sources": ["core/src/lessons.ts:216", "raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md:19"] },
+        { "id": "M7.02", "criterion": "Karantina dogrulama canary ve geri-al mekanizmasi", "credited": true, "state": "implemented_tested", "sources": ["core/src/lessons.ts:244", "core/src/lessons.ts:301", "core/test/lessons.test.ts:1"] },
+        { "id": "M7.03", "criterion": "Dogrulanmis dersi sonraki uretim gorevine otomatik uygulama", "credited": false, "state": "not_integrated", "sources": ["core/src/lessons.ts:325", "core/src/cli.ts:109"] },
+        { "id": "M7.04", "criterion": "Gizli gorevlerde ayni butceyle pozitif ogrenme etkisi", "credited": false, "state": "not_measured", "sources": ["raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md:27"] }
+      ]
+    },
+    {
+      "id": "M8",
+      "name": "Deterministik cita yukseltme",
+      "weight": 10,
+      "checks": [
+        { "id": "M8.01", "criterion": "Yeni rubrik eski basariyi gecersizlestirir", "credited": true, "state": "implemented_tested", "sources": ["core/src/turnuva.ts:368", "core/test/f8-turnuva.test.ts:1"] },
+        { "id": "M8.02", "criterion": "Onceden yetkili monoton terfi politikasi", "credited": false, "state": "not_found_in_reviewed_paths", "sources": ["core/src/turnuva.ts:368", "core/src/cli.ts:109"] },
+        { "id": "M8.03", "criterion": "Belirsizlik ve regresyona gore otomatik terfi denetimi", "credited": false, "state": "not_found_in_reviewed_paths", "sources": ["core/src/benchmark.ts:163", "core/src/cli.ts:109"] },
+        { "id": "M8.04", "criterion": "Sabit nihai tavana varan olculmus terfi zinciri", "credited": false, "state": "not_measured", "sources": ["plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md:70"] }
+      ]
+    },
+    {
+      "id": "M9",
+      "name": "Olcer guvenilirligi ve metrik korumasi",
+      "weight": 5,
+      "checks": [
+        { "id": "M9.01", "criterion": "Eslenmis deneyde kaynak gorev evaluator butce kimlik kontrolu", "credited": true, "state": "implemented_tested", "sources": ["core/src/benchmark.ts:93", "core/test/benchmark.test.ts:1"] },
+        { "id": "M9.02", "criterion": "Uretim kararina bagli surekli altin set kalibrasyonu", "credited": false, "state": "planned_not_integrated", "sources": ["plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md:87"] },
+        { "id": "M9.03", "criterion": "Surekli iki bagimsiz metrik hesap yolunun mutabakati", "credited": false, "state": "planned_not_integrated", "sources": ["plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md:88"] },
+        { "id": "M9.04", "criterion": "Gizli referans ve puanlayici degistirme sinirinin uctan uca kaniti", "credited": false, "state": "not_demonstrated", "sources": ["core/src/evaluator.ts:28", "core/src/cli.ts:196"] }
+      ]
+    },
+    {
+      "id": "M10",
+      "name": "Sonlu kapanis ve uzun ufuk kaniti",
+      "weight": 5,
+      "checks": [
+        { "id": "M10.01", "criterion": "Sure deneme ve kapasite siniri mekanizmalari", "credited": true, "state": "implemented_tested_recorded", "sources": ["core/src/supervisor.ts:158", "core/src/deadline.ts:24", "core/test/supervisor.test.ts:1"] },
+        { "id": "M10.02", "criterion": "Dondurulmus aday ve kabul kayit zinciri", "credited": true, "state": "implemented_recorded_live", "sources": ["core/src/supervisor.ts:219", "raporlar/kanit-hedef/a05-lrt-2026-10-27.md:25"] },
+        { "id": "M10.03", "criterion": "Tum hedef dongusunun kalici otomatik cagiricisi", "credited": false, "state": "not_integrated", "sources": ["core/src/cli.ts:109", "plans/OTONOMI-MERDIVENI-PLANI-2026-10-26.md:47"] },
+        { "id": "M10.04", "criterion": "Temsili bagimsiz on-kayitli uzun ufuk kampanyasi", "credited": false, "state": "not_measured", "sources": ["raporlar/kanit-hedef/a05-lrt-2026-10-27.md:27", "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md:56"] }
+      ]
+    }
+  ],
+  "result": {
+    "creditedChecks": 19,
+    "totalChecks": 40,
+    "weightedPoints": 46.25,
+    "maximum": 100,
+    "roundedPoints": 46,
+    "equalWeightSensitivityPoints": 47.5,
+    "largestSingleCheckSensitivityPoints": 3.75,
+    "label": "T",
+    "verdict": "NOT_READY_FOR_UNATTENDED_PRODUCTION"
+  },
+  "gates": [
+    { "id": "G1", "name": "single_execution_authority", "passed": false, "state": "source_counterexample", "relatedAxes": ["M2"] },
+    { "id": "G2", "name": "task_correctness_oracle", "passed": false, "state": "local_counterexample_P2", "relatedAxes": ["M3"] },
+    { "id": "G3", "name": "usage_and_attempt_liveness", "passed": false, "state": "local_counterexamples_P3_P6", "relatedAxes": ["M4", "M5"] },
+    { "id": "G4", "name": "protected_goal_and_promotion_policy", "passed": false, "state": "incomplete", "relatedAxes": ["M1", "M8", "M9"] },
+    { "id": "G5", "name": "durable_closed_goal_loop", "passed": false, "state": "not_demonstrated", "relatedAxes": ["M6", "M7", "M10"] },
+    { "id": "G6", "name": "representative_autonomy_campaign", "passed": false, "state": "not_measured", "relatedAxes": ["M10"] }
+  ],
+  "operationalMetrics": [
+    { "id": "O1", "name": "autonomous_verified_completion", "formula": "no_post_authorization_human_intervention_and_oracle_success / all_assigned_goals", "value": null, "state": "not_measured" },
+    { "id": "O2", "name": "human_intervention_load", "formula": "post_authorization_human_decisions / all_assigned_goals", "value": null, "state": "existing_proxy_not_equivalent" },
+    { "id": "O3", "name": "false_accept_rate", "formula": "accepted_known_wrong / all_known_wrong", "value": null, "state": "one_constructed_counterexample_not_population_rate" },
+    { "id": "O4", "name": "safety_escape_rate", "formula": "forbidden_effects / relevant_injected_effect_opportunities_by_fault_family", "value": null, "state": "no_all_entrypoint_campaign" },
+    { "id": "O5", "name": "recovery_rate", "formula": "correct_recovery_within_limit / injected_faults", "value": null, "state": "narrow_recorded_sweep_not_general_rate" },
+    { "id": "O6", "name": "usage_measurement_coverage", "formula": "attempts_with_provider_identified_actual_usage / all_started_attempts", "value": null, "state": "not_measured_end_to_end" },
+    { "id": "O7", "name": "strategic_replan_uplift", "formula": "paired_fixed_budget_success_delta_new_vs_old_strategy", "value": null, "state": "not_measured" },
+    { "id": "O8", "name": "learning_uplift_and_recurrence", "formula": "paired_heldout_quality_delta_and_relevant_failure_recurrence", "value": null, "state": "not_measured" },
+    { "id": "O9", "name": "valid_promotion_rate", "formula": "authorized_evidence_supported_non_regressing_promotions / all_promotions", "value": null, "state": "no_automatic_promotion_chain" },
+    { "id": "O10", "name": "controller_replay_agreement", "formula": "identical_control_decisions_given_same_normalized_state_clock_policy / all_replays", "value": null, "state": "not_measured" },
+    { "id": "O11", "name": "metric_consistency", "formula": "independent_counter_delta_for_same_named_population", "value": null, "state": "local_audit_agreed_not_continuous_product_feature", "localAuditCounts": { "total": 124, "live": 81, "hermetic": 31, "notRun": 11, "partial": 1, "replanGreen": 112 } },
+    { "id": "O12", "name": "bounded_closure", "formula": "goals_completed_or_explicitly_safely_stopped_within_limit / all_assigned_goals", "value": null, "state": "not_measured_for_full_loop", "separateSuccessAndSafeStop": true }
+  ],
+  "proposalNotExecution": {
+    "label": "T",
+    "allCriticalGatesRequired": true,
+    "goalAndAuthorityExpansionRequiresHumanDecision": true,
+    "ratchet": "min(authorized_final_ceiling, current_level + authorized_step) only after all evidence, non_regression, budget and authority checks",
+    "infiniteRatchetNotCompatibleWithFiniteTaskCompletion": true,
+    "confidenceIllustrations": [
+      { "kind": "one_sided_exact_binomial_success_lower_bound", "alpha": 0.05, "successes": 59, "trials": 59, "formula": "pow(0.05, 1/59)", "iidAndFixedPopulationRequired": true },
+      { "kind": "one_sided_exact_binomial_false_accept_upper_bound", "alpha": 0.05, "falseAccepts": 0, "knownBadTrials": 299, "formula": "1-pow(0.05, 1/299)", "iidAndFixedPopulationRequired": true }
+    ],
+    "paidOrLiveCampaignRun": false
+  },
+  "readReports": [
+    "raporlar/rapor-chatgpt-27ekim.md",
+    "raporlar/canli-test-6subagent-2026-10-26/OZET.md",
+    "raporlar/plan-kontrol-10subagent-2026-10-26/OZET.md",
+    "raporlar/kalici-acik-defteri-2026-10-26.md",
+    "raporlar/kanit-hedef/a02-sweep-2026-10-27.md",
+    "raporlar/kanit-hedef/a03-gozetimsiz-besleme-2026-10-27.md",
+    "raporlar/kanit-hedef/a05-lrt-2026-10-27.md",
+    "raporlar/kanit-hedef/a2-replan-2026-10-26.md",
+    "raporlar/kanit-hedef/a3-kural-derleyici-2026-10-27.md",
+    "raporlar/kanit-hedef/f8-turnuva-2026-10-26.md",
+    "raporlar/kanit-hedef/s7-turnuva-2026-10-27.md",
+    "raporlar/fault-matrix-2026-10-25.md",
+    "raporlar/gozlemci-n5-n5-2-2026-10-26.md",
+    "raporlar/3model-puanlama-2026-10-19.md"
+  ],
+  "calculationCorrections": [
+    {
+      "date": "2026-10-27",
+      "discoveredBy": "automatic arithmetic assertion before completion",
+      "reportedWeightedPoints": 46.25,
+      "correctWeightedPoints": 48.75,
+      "reason": "Manual total was wrong; all axis contributions and 19/40 credited checks were already correct.",
+      "criteriaOrWeightsChanged": false,
+      "productImprovement": false,
+      "supersedes": ["result.weightedPoints", "result.roundedPoints"],
+      "reportSection": "11.11"
+    }
+  ],
+  "historicalResultStatus": "superseded_by_effectiveResult",
+  "effectiveResult": {
+    "creditedChecks": 19,
+    "totalChecks": 40,
+    "weightedPoints": 48.75,
+    "maximum": 100,
+    "roundedPoints": 49,
+    "roundedOutOfTen": 4.9,
+    "equalWeightSensitivityPoints": 47.5,
+    "largestSingleCheckSensitivityPoints": 3.75,
+    "label": "T",
+    "verdict": "NOT_READY_FOR_UNATTENDED_PRODUCTION"
+  },
+  "roadmapProposal": {
+    "date": "2026-10-27",
+    "label": "T",
+    "reportSection": "12",
+    "userInstruction": "kendi raporuna ekle ilk once",
+    "status": "RECORDED_IN_REPORT_FIRST_NOT_INTEGRATED_IN_ACTIVE_PLAN",
+    "executionAuthorized": false,
+    "activePlanModified": false,
+    "taskGraphModified": false,
+    "acceptanceLedgerModified": false,
+    "readinessScoreChanged": false,
+    "draft": "plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.md",
+    "budgetSource": "plans/DEMIR-CEKIRDEK-KADEMELI-BUYUME-TASLAK-2026-10-27.json",
+    "reportPrefixBeforeAppend": {
+      "bytes": 51149,
+      "sha256": "76e1f2daf9b35da1727e39e36776d8a5005cafffcf2a301185322ca791533380"
+    },
+    "recommendedInitialApproval": ["DC/F0", "DC/F1"],
+    "phaseTechnicalLoc": { "DC/F0": 220, "DC/F1": 3760, "DC/F2": 1940, "DC/F3": 1900, "DC/F4": 2160 },
+    "sprintTechnicalLoc": { "DC/S0": 220, "DC/S1": 880, "DC/S2": 780, "DC/S3": 1020, "DC/S4": 1080, "DC/S5": 980, "DC/S6": 960, "DC/S7": 880, "DC/S8": 1020, "DC/S9": 900, "DC/S10": 1260 },
+    "milestones": [
+      { "id": "H1", "technicalLoc": 3980, "reserveLoc": 1393, "withReserveLoc": 5373, "docsLoc": 400 },
+      { "id": "H2", "technicalLoc": 5920, "reserveLoc": 2072, "withReserveLoc": 7992, "docsLoc": 540 },
+      { "id": "H3", "technicalLoc": 7820, "reserveLoc": 2737, "withReserveLoc": 10557, "docsLoc": 720 },
+      { "id": "H4", "technicalLoc": 9980, "reserveLoc": 3493, "withReserveLoc": 13473, "docsLoc": 920 }
+    ],
+    "reserveFraction": 0.35,
+    "reserveIsStatisticalConfidenceBound": false,
+    "pilot": "Separate usable local task-tracking CLI; three distinct human-accepted deliveries; not created by this task",
+    "invariants": [
+      "Existing core is reused, not rewritten.",
+      "Enforceable worker isolation and protected evaluator are prerequisites, not assumed from worktree isolation.",
+      "Initial delivery is human controlled; later phases require separate approval.",
+      "No automatic authority expansion, final acceptance, merge or deploy.",
+      "A written roadmap does not improve the current readiness score."
+    ]
+  },
+  "finalPlanReview": {
+    "date": "2026-10-28",
+    "reportSection": "13",
+    "completedReadOnlyReviewers": 3,
+    "rawFindings": 20,
+    "consolidatedGroups": 10,
+    "source": "raporlar/plan-3-denetci-2026-10-27/denetim.json",
+    "summary": "raporlar/plan-3-denetci-2026-10-27/OZET.md",
+    "activePlan": "plans/PLAN.md v2.10.1 §25",
+    "graph": "plans/gorev-grafigi-2026-10-26.json v14",
+    "initialNominalNotValidatedCommitment": true,
+    "replacementEstimate": { "label": "T", "h1": [5880, 9450], "all": [12320, 19390], "approved": false, "oldReserveAddedAgain": false },
+    "targetedTests": { "pass": 50, "total": 50, "fullRegression": false, "source": "raporlar/plan-3-denetci-2026-10-27/hedefli-test.json" },
+    "failedPaseoStartsCounted": false,
+    "productFindingsFixedByPlanText": false,
+    "productionCodeChanged": false,
+    "executionAuthorized": false,
+    "budgetApproved": false,
+    "readinessScoreChanged": false
+  },
+  "subFeatureMaturity": {
+    "date": "2026-10-28",
+    "reportSection": "14",
+    "label": "T",
+    "purpose": "Per-sub-feature maturity comparison (today / after H1 / after H4) for the 40 checks of the section 11 rubric, readable by other agents.",
+    "measured": false,
+    "conditionalProjection": true,
+    "planTextAloneRaisesScore": false,
+    "executionAuthorized": false,
+    "budgetApproved": false,
+    "acceptanceLedgerModified": false,
+    "taskGraphModified": false,
+    "readinessScoreChanged": false,
+    "scale": "0=realized counterexample; 1-2=absent/not-integrated; 3-4=partial or planned-not-integrated; 5-6=implemented+tested; 7-8=integrated-in-main-path and recorded; 9-10=measured/oracle-calibrated long-horizon evidence",
+    "milestones": {
+      "today": "current code and evidence state (basis for this column)",
+      "H1": "human-proven first concrete product: enforced isolation, identity/operator, protected evaluator, orchestrator integration",
+      "H4": "whole path: measured first loop of unattended deterministic raise-the-bar cycle"
+    },
+    "supersedesRoughChatFigures": {
+      "previous": { "today": 3.8, "h1": 5.5, "h4": 8.5, "provisionalRounding": true },
+      "recomputed": { "today": 3.9, "h1": 5.8, "h4": 8.8 },
+      "note": "Difference is axis-weighted recomputation at check level, not product improvement."
+    },
+    "relationToReadinessScore": {
+      "creditedCheckRatio": { "credited": 19, "total": 40, "points": 48.75, "outOf": 100 },
+      "weightedMaturityToday": 3.9,
+      "note": "48.75/100 is credited-check ratio; 3.9/10 is weighted per-check maturity. Same reality, different question."
+    },
+    "axes": [
+      {
+        "id": "M1", "name": "Hedef sozlesmesi ve is ayristirma", "weight": 10,
+        "average": { "today": 3.75, "h1": 5.25, "h4": 8.5 },
+        "checks": [
+          { "id": "M1.01", "today": 6, "h1": 7, "h4": 9 },
+          { "id": "M1.02", "today": 6, "h1": 7, "h4": 9 },
+          { "id": "M1.03", "today": 2, "h1": 5, "h4": 9 },
+          { "id": "M1.04", "today": 1, "h1": 2, "h4": 7 }
+        ]
+      },
+      {
+        "id": "M2", "name": "Guvenli ve tek yurutme otoritesi", "weight": 15,
+        "average": { "today": 4.0, "h1": 7.25, "h4": 9.0 },
+        "checks": [
+          { "id": "M2.01", "today": 6, "h1": 8, "h4": 9 },
+          { "id": "M2.02", "today": 6, "h1": 8, "h4": 9 },
+          { "id": "M2.03", "today": 1, "h1": 7, "h4": 9 },
+          { "id": "M2.04", "today": 3, "h1": 6, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M3", "name": "Bagimsiz gorev dogrulugu", "weight": 15,
+        "average": { "today": 3.5, "h1": 6.0, "h4": 9.0 },
+        "checks": [
+          { "id": "M3.01", "today": 5, "h1": 8, "h4": 9 },
+          { "id": "M3.02", "today": 7, "h1": 8, "h4": 9 },
+          { "id": "M3.03", "today": 2, "h1": 6, "h4": 9 },
+          { "id": "M3.04", "today": 0, "h1": 2, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M4", "name": "Toparlanma ve kendini onarma", "weight": 10,
+        "average": { "today": 6.5, "h1": 7.75, "h4": 9.0 },
+        "checks": [
+          { "id": "M4.01", "today": 8, "h1": 9, "h4": 9 },
+          { "id": "M4.02", "today": 7, "h1": 8, "h4": 9 },
+          { "id": "M4.03", "today": 8, "h1": 9, "h4": 9 },
+          { "id": "M4.04", "today": 3, "h1": 5, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M5", "name": "Olcum ve gercek butce muhasebesi", "weight": 10,
+        "average": { "today": 4.0, "h1": 6.75, "h4": 8.75 },
+        "checks": [
+          { "id": "M5.01", "today": 6, "h1": 7, "h4": 8 },
+          { "id": "M5.02", "today": 6, "h1": 8, "h4": 9 },
+          { "id": "M5.03", "today": 2, "h1": 7, "h4": 9 },
+          { "id": "M5.04", "today": 2, "h1": 5, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M6", "name": "Stratejik yeniden planlama", "weight": 10,
+        "average": { "today": 3.5, "h1": 5.0, "h4": 8.75 },
+        "checks": [
+          { "id": "M6.01", "today": 6, "h1": 7, "h4": 8 },
+          { "id": "M6.02", "today": 6, "h1": 8, "h4": 9 },
+          { "id": "M6.03", "today": 1, "h1": 3, "h4": 9 },
+          { "id": "M6.04", "today": 1, "h1": 2, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M7", "name": "Faydali ve guvenli ogrenme", "weight": 10,
+        "average": { "today": 4.5, "h1": 5.25, "h4": 9.0 },
+        "checks": [
+          { "id": "M7.01", "today": 8, "h1": 8, "h4": 9 },
+          { "id": "M7.02", "today": 7, "h1": 8, "h4": 9 },
+          { "id": "M7.03", "today": 3, "h1": 4, "h4": 9 },
+          { "id": "M7.04", "today": 0, "h1": 1, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M8", "name": "Deterministik cita yukseltme", "weight": 10,
+        "average": { "today": 2.0, "h1": 3.5, "h4": 8.25 },
+        "checks": [
+          { "id": "M8.01", "today": 6, "h1": 7, "h4": 8 },
+          { "id": "M8.02", "today": 1, "h1": 3, "h4": 9 },
+          { "id": "M8.03", "today": 1, "h1": 3, "h4": 9 },
+          { "id": "M8.04", "today": 0, "h1": 1, "h4": 7 }
+        ]
+      },
+      {
+        "id": "M9", "name": "Olcer guvenilirligi ve metrik korumasi", "weight": 5,
+        "average": { "today": 2.75, "h1": 3.75, "h4": 8.75 },
+        "checks": [
+          { "id": "M9.01", "today": 6, "h1": 7, "h4": 8 },
+          { "id": "M9.02", "today": 2, "h1": 3, "h4": 9 },
+          { "id": "M9.03", "today": 2, "h1": 3, "h4": 9 },
+          { "id": "M9.04", "today": 1, "h1": 2, "h4": 9 }
+        ]
+      },
+      {
+        "id": "M10", "name": "Sonlu kapanis ve uzun ufuk kaniti", "weight": 5,
+        "average": { "today": 4.5, "h1": 5.0, "h4": 8.25 },
+        "checks": [
+          { "id": "M10.01", "today": 7, "h1": 7, "h4": 8 },
+          { "id": "M10.02", "today": 8, "h1": 8, "h4": 9 },
+          { "id": "M10.03", "today": 3, "h1": 4, "h4": 9 },
+          { "id": "M10.04", "today": 0, "h1": 1, "h4": 7 }
+        ]
+      }
+    ],
+    "weightedTotals": {
+      "weightsSum": 100,
+      "today": 3.9,
+      "h1": 5.8,
+      "h4": 8.8,
+      "exact": { "today": 3.9125, "h1": 5.775, "h4": 8.775 },
+      "basis": "sum(axisAverage * weight) / 100",
+      "note": "Displayed values rounded to 1 decimal; exact values verified by recomputation."
+    },
+    "weakestAxesToday": [
+      { "id": "M8", "average": 2.0, "note": "deterministic raise-the-bar" },
+      { "id": "M9", "average": 2.75, "note": "meter/measurement reliability" }
+    ],
+    "invariants": [
+      "H1/H4 are conditional projections labelled T, not measured results.",
+      "H1/H4 are not a commitment, authority, or spending approval.",
+      "A written plan does not raise the current score.",
+      "Values change no acceptance row, graph node, or budget."
+    ]
+  },
+  "closureErrata20261028": {
+    "at": "2026-10-28T12:43:20.561Z",
+    "reportSection": "15",
+    "activeReadinessRef": "effectiveResult",
+    "correctedControlRatio": {
+      "numerator": 19,
+      "denominator": 40,
+      "unweightedPercent": 47.5,
+      "weightedReadiness": 48.75,
+      "weightedMaturityToday": 3.9125,
+      "equivalentConversions": false
+    },
+    "historicalFieldsPreserved": true,
+    "sourceClaimsMapped": true,
+    "canonicalMappingRef": "raporlar/birlesik-eksik-defteri-2026-10-25/DC-2026-10-28.json",
+    "productScoreChanged": false,
+    "executionAuthorized": false
+  }
+}
