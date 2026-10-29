@@ -164,7 +164,6 @@
   .akordiyonOk { display:block; flex:none; color:var(--ikincil); transition:transform 200ms ease; }
   .akordiyon.kapali .akordiyonOk { transform:rotate(-90deg); }
   .akordiyonAd { font-size:16px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:1; }
-  .akordiyonSayi { font:700 12px var(--mono); color:var(--ikincil); background:var(--yuzey); border:1px solid var(--cizgi); border-radius:999px; padding:2px 8px; }
   .akordiyonGovde { padding:2px 0 4px; }
   /* görev satırı: 44px dokunma hedefi + tam genişlik (DALGA-0 mirası) */
   .satir {
@@ -587,7 +586,7 @@
   <!-- ============ SOL (#sol): AKORDİYON görev ağacı (R2 — fazlar katlanır; nav YOK) ============ -->
   <section id="sol" aria-label="görev ağacı — faz-gruplu akordiyon (bölümler katlanır)">
     <div class="drawerUst">
-      <span class="drawerBaslik">GÖREV GRAFİ <span id="agacSayi">—</span></span>
+      <span class="drawerBaslik">GÖREV GRAFİ</span> <!-- ADIM-D: sayı söküldü (state yazısı — kullanıcı emri) -->
       <button id="yenile" class="kopyala-btn" type="button" title="graf JSON'u diskten yeniden oku (GET /api/graf — her istekte diskten)">↻ Yenile</button>
       <button id="drawerKapa" class="drawerKapa" type="button" aria-label="menüyü kapat">
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1 L9 9 M9 1 L1 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -619,7 +618,7 @@
       <span id="dinamikSekmeler"></span>
     </div>
     <div id="sekmeGovde">
-      <h3 class="gizli" id="harita-baslik">Görev haritası — DAG · <span id="haritaSayi">—</span></h3>
+      <h3 class="gizli" id="harita-baslik">Görev haritası — DAG</h3> <!-- ADIM-D: sayı söküldü (state yazısı) -->
 
       <!-- GÖREV HARİTASI sekmesi: DAG (viewBox zoom/pan/pinch aynen — R1 çekirdeği) -->
       <section class="sekmePanel acik" id="haritaBolum" role="tabpanel" aria-labelledby="sek-harita">
@@ -913,23 +912,17 @@ function hataGoster(m) { $("hata").hidden = false; $("hata").textContent = m; }
 function kirmiziYuz(m) {
   G = null; secilen = null;
   $("agac").innerHTML = "";
-  $("agacSayi").textContent = "—";
   $("tuval").innerHTML = ""; $("jsonview").textContent = "";
   $("detay").innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ (fail-closed) — ' + esc(m) + "</div>";
-  $("haritaSayi").textContent = "—";
   sekmeler.length = 0;              // görev sekmeleri kapanır — bayat kapsül kartı ekranda kalmaz
   sekmeAktiflestir("harita");       // DAG sekmesi aktifleşir → kırmızı hata katmanı görünür
   hataGoster(m);
 }
 
 function metaYaz() {
-  const kok = {};
-  for (const g of G.gorevler) { const k = g.durum.split(" ")[0]; kok[k] = (kok[k] || 0) + 1; }
-  const kapali = kok.KAPALI || 0;
-  // GENEL STATE rozetleri üst bardan kalktı (kullanıcı emri) — sayım yalnız sekmeler + belge başlığı besler
-  $("agacSayi").textContent = G.gorevler.length + " görev";
-  $("haritaSayi").textContent = G.gorevler.length + " görev · " + G.kenarlar.length + " kenar";
-  document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
+  // ADIM-D: ekran state sayaçları söküldü (kullanıcı emri «her yerdeki state yazılarını kaldır»);
+  // document.title yalnız kimlik taşır (graf sürümü) — canlı sayaç YOK, durum kökü sayımı ÖKSÜZ kaldı.
+  document.title = "Kapsül Tuval — ordu " + G.grafSurumu;
 }
 
 /* ============ SOL: AKORDİYON görev ağacı (R2 — fazlar katlanır; uydurma faz YOK) ============ */
@@ -961,8 +954,7 @@ function solYaz() {
     h += '<div class="akordiyon' + (acik ? "" : " kapali") + '">' +
       '<button class="akordiyonBas" type="button" data-faz="' + esc(ad) + '" aria-expanded="' + acik + '" aria-controls="' + fid + '">' +
       '<svg class="akordiyonOk" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-      '<span class="akordiyonAd">' + esc(ad) + '</span>' +
-      '<span class="akordiyonSayi">' + gs.length + '</span>' +
+      '<span class="akordiyonAd">' + esc(ad) + '</span>' + // ADIM-D: görev-sayısı rozeti söküldü (state yazısı)
       "</button>" +
       '<div class="akordiyonGovde" id="' + fid + '"' + (acik ? "" : " hidden") + ">";
     for (const g of gs) {

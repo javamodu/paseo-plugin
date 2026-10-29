@@ -275,7 +275,7 @@ test("18- R2: «Görev haritası» SABİT SEKME (VS Code tarzı) — aktivasyond
   ok('sek-harita data-sekme="harita" (aktivasyon kancası)', !!t && t.includes('data-sekme="harita"'));
   ok("sekme aktivasyonunda ölçüm-düzeltme: sekmeAktiflestir içinde enBoyDuzelt()+vbUygula()", /function sekmeAktiflestir\([^)]*\)[^]{0,500}enBoyDuzelt\(\);\s*vbUygula\(\)/.test(jsKisim));
   ok('drawer «görev haritası» bağlantısı (data-sekme="harita" — ziplink)', SRC.includes('data-sekme="harita"'));
-  ok('haritaSayi sayacı (id="haritaSayi") + kirmiziYuz\'ta «—» reseti', SRC.includes('id="haritaSayi"') && SRC.includes('$("haritaSayi").textContent = "—"'));
+  ok('haritaSayi sayacı SÖKÜLDÜ (ADIM-D state yazısı — id="haritaSayi" YOK)', !SRC.includes('id="haritaSayi"'));
 });
 
 test("19- üst bar GENEL STATE + ordu şeridi KULLANICI EMRİYLE SÖKÜLDÜ (K2 turu; 62951af + 40fa22b)", () => {
@@ -355,16 +355,15 @@ test("22- E9 id/class birebir: JS'in beklediği her id CSS+HTML'de var; R2 sın�
   ok("#denetimGecmis CSS kuralı var (id-selector)", /#denetimGecmis\s*\{/.test(SRC));
 });
 
-test("23- E10 SSOT sayı tutarlılığı: gösterilen her sayı G'den sayılır, statik sayı YOK", () => {
+test("23- E10 SSOT sayı disiplini (ADIM-D: ekran sayaçları SÖKÜLDÜ — statik sayı YOK, kalan her sayı kaynağından)", () => {
   const ayir = SRC.indexOf("<script>");
   const htmlKisim = ayir > 0 ? SRC.slice(0, ayir) : "";
   const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
-  ok("haritaSayi graf SSOT'tan: görev+kenar sayısı", jsKisim.includes('G.gorevler.length + " görev · " + G.kenarlar.length'));
-  ok("agacSayi graf SSOT'tan: G.gorevler.length", jsKisim.includes('$("agacSayi").textContent = G.gorevler.length + " görev"'));
-  ok("durum kök sayımı G.gorevler üzerinden (kok[k])", jsKisim.includes("kok[k] = (kok[k] || 0) + 1"));
+  ok("agacSayi SÖKÜLDÜ (ADIM-D — id + besleme YOK)", !jsKisim.includes('id="agacSayi"') && !jsKisim.includes('$("agacSayi")'));
+  ok("durum kök sayımı KALKTI (ADIM-D — kok[k] sayaç beslemesi öksüzleşti)", !jsKisim.includes("kok[k] = (kok[k] || 0) + 1"));
   ok("İNSAN-kapılı/AKTİF sayımı KALKTI (ÖZET yüzü söküldü — K8 ADIM-B)", !jsKisim.includes('g.kapi && String(g.kapi).indexOf("[INSAN]")') && !jsKisim.includes("G.gorevler.filter((g) => g.aktif)"));
-  ok("haritaSayi statik yer tutucu «—» (sayı yazılmaz)", /<span id="haritaSayi">—<\/span>/.test(SRC));
-  ok("agacSayi statik yer tutucu «—» (sayı yazılmaz)", /<span id="agacSayi">—<\/span>/.test(SRC));
+  ok("akordiyon sayı rozeti SÖKÜLDÜ (ADIM-D — akordiyonSayi YOK)", !jsKisim.includes("akordiyonSayi"));
+  ok("document.title sayaçsız kimlik (ADIM-D — yalnız graf sürümü)", jsKisim.includes('document.title = "Kapsül Tuval — ordu " + G.grafSurumu;'));
   ok("statik HTML'de sabit görev sayısı YOK (40 görev vb.)", !/>\s*\d+\s*görev/.test(htmlKisim));
   ok("seritte sayım iddiası YOK (yalnız kaynak beyanı)", !/class="serit"[^]{0,600}\d+ görev/.test(SRC));
 });
