@@ -21,6 +21,7 @@ Otorite: `kararlar/ADR-toparlanma-monorepo.md` (S6) · Bu dosya birleşim sonras
 | Ajan giriş / runtime yolları | [AJAN-BASLANGIC](AJAN-BASLANGIC.md) / [VERI-YERLESIMI](VERI-YERLESIMI.md) | Navigasyon ve mevcut yol politikası; ikinci plan veya runtime değişimi değil |
 | Görev projeksiyonu | [`görev grafiği`](gorev-grafigi-2026-10-26.json) | v14; aktif/tarihsel ilişki ayrı; metadata runtime yetki değil, başlatma kapalı |
 | Devir zinciri | `plans/handoff/` | append-only halkalar |
+| Tasarım dili | [`plans/TASARIM-MANIFESTOSU.md`](TASARIM-MANIFESTOSU.md) | arayüz SSOT'u + TASARIM KAPISI (emirden öte; UI işi kapıdan geçmeden kapanmaz) |
 | Kullanım kılavuzu | `core/KULLANIM.md` | ordu-core tek-dosya kılavuzu |
 
 ## Bileşen evleri
