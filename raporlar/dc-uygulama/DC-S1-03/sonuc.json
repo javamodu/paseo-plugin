@@ -1,0 +1,26 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S1-03",
+  "at": "2026-10-30T02:41:19.698+03:00",
+  "sourceManifest": [
+    { "path": "core/src/git-worktree-launcher.ts", "sha256": "73d3db9958670679da83c058f22cf0726ec3242493575e9978d7422a1e9354a5", "bytes": 5647 },
+    { "path": "core/src/providers.ts", "sha256": "42a1fb73de0575fe9055e35cc68ff9c882c8a8b468ff7adb18fc2110ba50b49e", "bytes": 9563 },
+    { "path": "core/test/git-worktree.test.ts", "sha256": "2499ba797e85657a30af1c1a2ac05228523c7315fb00e4e8aea34a31dd3e33f0", "bytes": 8240 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S1-03/OZET.md", "sha256": "c78079bbebfc7648344ec47a927c2a694ebe0373c9fd437ca4aa2ef281f201e8", "bytes": 1680 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S1-03/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S1-03/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S1-03/OZET.md" }
+  ],
+  "commands": [
+    { "recipeId": "TARGETED", "command": "node --test --test-reporter=spec test/dc-source-binding.test.ts test/local-runtime.test.ts test/git-worktree.test.ts", "cwd": "core", "exitCode": 0, "expectedExitCode": 0, "outputRef": "raporlar/dc-uygulama/DC-S1-03/OZET.md" }
+  ],
+  "changedFiles": [
+    "core/test/dc-source-binding.test.ts"
+  ],
+  "blockers": []
+}
