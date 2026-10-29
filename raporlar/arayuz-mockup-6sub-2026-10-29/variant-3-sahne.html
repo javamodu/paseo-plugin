@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORDU SAHNESİ — Varyant-3 · Mockup</title>
+<style>
+  /* VARYANT-3 SAHNE — akış-merkezli terminal görünümü (MOCKUP): tek dosya · 0 dış istek ·
+     0 framework · sistem mono fontu. Görev ID'leri + faz + bağımlılıklar GERÇEK (graf SSOT:
+     plans/gorev-grafigi-2026-10-26.json); durum notları/ölçümler/ajan atamaları/run kartları
+     ÖRNEK — canlıya bağlanmaz. */
+  :root {
+    --zemin:#090a08; --panel:#0e100c; --panel2:#13160f;
+    --cizgi:#242a1e; --cizgi2:#31382a;
+    --amber:#ffb000; --amber-kapali:#9c6f00;
+    --yesil:#3ddc78; --sari:#f5c842; --kirmizi:#ff5d5d;
+    --gri:#7a8375; --metin:#d8e0d0; --ikincil:#96a28c; --soluk:#5f6a58;
+    --min-dokunma:44px;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--zemin); color:var(--metin);
+    font-family:var(--mono); font-size:13px; line-height:1.5;
+    min-height:100vh; overflow-x:hidden;
+    padding-bottom:110px; /* alt komut çubuğu alanı */
+    font-variant-numeric:tabular-nums;
+  }
+  /* statik tarama-çizgisi dokusu (animasyon değil — dekor) */
+  body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.10) 0 1px, transparent 1px 3px); }
+
+  /* ---------- ÖRNEK-VERİ şeridi (dürüstlük etiketi) ---------- */
+  .serit { position:relative; z-index:2; background:rgba(245,200,66,0.12);
+    border-bottom:1px solid rgba(245,200,66,0.4); color:var(--sari); font-weight:700;
+    text-align:center; font-size:12px; padding:7px 14px; }
+
+  /* ---------- üst: GENEL STATE + edimler ---------- */
+  .ust { position:relative; z-index:2; border-bottom:1px solid var(--cizgi); background:var(--panel); }
+  .ust-satir1 { display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; padding:10px 16px; }
+  .marka { color:var(--amber); font-weight:700; letter-spacing:0.08em; font-size:14px; }
+  .marka small { display:block; color:var(--soluk); font-weight:400; font-size:10px; letter-spacing:0.12em; }
+  .state { display:flex; flex-wrap:wrap; gap:4px 18px; color:var(--ikincil); font-size:12px; margin-left:auto; }
+  .state b { color:var(--metin); font-weight:700; }
+  .state .canli b { color:var(--yesil); }
+  .ust-satir2 { display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; padding:0 16px 10px; }
+  .edimler { display:flex; gap:4px; }
+  .edim { min-height:var(--min-dokunma); padding:0 20px; display:inline-flex; align-items:center; gap:8px;
+    background:var(--panel2); color:var(--ikincil); border:1px solid var(--cizgi2);
+    font-family:inherit; font-size:12.5px; font-weight:700; letter-spacing:0.1em;
+    cursor:pointer; touch-action:manipulation; transition:color 150ms, border-color 150ms; }
+  .edim[aria-selected="true"] { color:var(--zemin); background:var(--amber); border-color:var(--amber); }
+  .edim:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .edim .nokta { width:8px; height:8px; border-radius:50%; background:currentColor; }
+  .pill { min-height:var(--min-dokunma); display:inline-flex; align-items:center; gap:8px; padding:0 14px;
+    background:transparent; color:var(--ikincil); border:1px dashed var(--cizgi2);
+    font-family:inherit; font-size:12px; cursor:pointer; touch-action:manipulation;
+    font-variant-numeric:tabular-nums; }
+  .pill:hover { color:var(--metin); border-color:var(--amber-kapali); }
+  .pill:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .pill.yesil { color:var(--yesil); border-color:rgba(61,220,120,0.4); }
+  .pill.yesil .isik { background:var(--yesil); }
+
+  /* ---------- ordu şeridi ---------- */
+  .ordu { position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:6px; padding:10px 16px;
+    border-bottom:1px solid var(--cizgi); background:linear-gradient(180deg, var(--panel2), var(--panel)); }
+  .ordu-bas { color:var(--soluk); font-size:10.5px; letter-spacing:0.14em; align-self:center; margin-right:4px; }
+  .ajan { min-height:var(--min-dokunma); display:inline-flex; align-items:center; gap:9px; padding:6px 13px;
+    background:var(--panel); border:1px solid var(--cizgi2); color:var(--metin);
+    font-family:inherit; font-size:12px; cursor:pointer; touch-action:manipulation; text-align:left;
+    transition:border-color 150ms, color 150ms; }
+  .ajan:hover { border-color:var(--amber-kapali); }
+  .ajan:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .ajan .isik { width:9px; height:9px; border-radius:50%; flex:none; background:var(--gri); }
+  .ajan .isik.canli { background:var(--yesil); animation:nabiz 2.2s ease-in-out infinite; }
+  .ajan .isik.kosuyor { background:var(--amber); animation:nabiz 1.6s ease-in-out infinite; }
+  .ajan .isik.bekler { background:var(--sari); }
+  .ajan .isik.izler { background:var(--gri); }
+  .ajan b { color:var(--amber); font-weight:700; letter-spacing:0.04em; }
+  .ajan small { display:block; color:var(--ikincil); font-size:10.5px; }
+  @keyframes nabiz { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  /* ---------- ana düzen ---------- */
+  .duzen { position:relative; z-index:1; display:grid; gap:10px; grid-template-columns:1fr;
+    max-width:1380px; margin:0 auto; padding:12px 14px 26px; }
+  @media (min-width:640px) {
+    .duzen { grid-template-columns:288px minmax(0,1fr); }
+    .onaylar { grid-column:1 / -1; }
+  }
+  @media (min-width:1024px) {
+    .duzen { grid-template-columns:288px minmax(0,1fr) 340px; }
+    .onaylar { grid-column:auto; }
+  }
+  .panel { background:var(--panel); border:1px solid var(--cizgi); display:flex; flex-direction:column; min-width:0; }
+  .panel-bas { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:8px 12px;
+    border-bottom:1px solid var(--cizgi); color:var(--amber); font-size:11px; font-weight:700;
+    letter-spacing:0.14em; background:var(--panel2); }
+  .panel-bas .sayi { margin-left:auto; color:var(--soluk); font-weight:400; letter-spacing:0.06em; font-size:10.5px; }
+
+  /* ---------- SOL: mini görev grafi ---------- */
+  .graf { max-height:70vh; }
+  .govde::-webkit-scrollbar, .defter-govde::-webkit-scrollbar { width:8px; }
+  .govde::-webkit-scrollbar-thumb, .defter-govde::-webkit-scrollbar-thumb { background:var(--cizgi2); }
+  .graf .govde { overflow-y:auto; padding:6px; }
+  .grup { display:flex; align-items:baseline; gap:8px; padding:9px 8px 3px; color:var(--soluk);
+    font-size:10.5px; letter-spacing:0.12em; }
+  .grup b { color:var(--ikincil); }
+  .grup::before { content:"▸"; color:var(--amber-kapali); }
+  .satir { display:flex; align-items:center; gap:8px; width:100%; min-height:var(--min-dokunma);
+    padding:6px 8px; margin:2px 0; text-align:left; background:transparent; border:0;
+    border-left:3px solid transparent; color:var(--metin); font-family:inherit; font-size:12px;
+    line-height:1.35; cursor:pointer; touch-action:manipulation; transition:background 120ms, border-color 120ms; }
+  .satir:hover { background:var(--panel2); }
+  .satir.secili { background:rgba(255,176,0,0.10); border-left-color:var(--amber); }
+  .satir.secili .id { color:var(--amber); }
+  .satir:focus-visible { outline:2px solid var(--amber); outline-offset:-2px; }
+  .satir .nokta { width:9px; height:9px; border-radius:50%; flex:none; }
+  .nokta.hazir { background:var(--yesil); box-shadow:0 0 6px rgba(61,220,120,0.7); animation:nabiz 2.6s ease-in-out infinite; }
+  .nokta.bekle { background:var(--sari); }
+  .nokta.kapali { background:var(--gri); }
+  .satir .id { font-weight:700; flex:none; }
+  .satir .ad { color:var(--ikincil); overflow:hidden; text-overflow:ellipsis; }
+  .satir .kp { color:var(--amber-kapali); flex:none; font-size:11px; }
+  .graf-dipnot { padding:8px 12px; border-top:1px solid var(--cizgi); color:var(--soluk); font-size:10.5px; }
+
+  /* ---------- MERKEZ: kapsül + sahne + defter ---------- */
+  .merkez { display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .kapsul-ic { padding:12px 14px; }
+  .kapsul-bas { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-bottom:10px; }
+  .kapsul-bas h3 { color:var(--metin); font-size:13.5px; font-weight:700; letter-spacing:0.02em; }
+  .kapsul-bas .kid { color:var(--amber); font-weight:700; }
+  .rozet { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; font-size:10.5px;
+    font-weight:700; letter-spacing:0.1em; border:1px solid; }
+  .rozet.hazir { color:var(--yesil); border-color:rgba(61,220,120,0.5); background:rgba(61,220,120,0.08); }
+  .rozet.bekle { color:var(--sari); border-color:rgba(245,200,66,0.45); background:rgba(245,200,66,0.07); }
+  .rozet.kapali { color:var(--gri); border-color:var(--cizgi2); background:transparent; }
+  .alan { display:grid; grid-template-columns:118px minmax(0,1fr); gap:4px 12px; font-size:12.5px; }
+  .alan dt { color:var(--soluk); letter-spacing:0.05em; }
+  .alan dd { color:var(--metin); overflow-wrap:anywhere; }
+  .alan dd .ikincil { color:var(--ikincil); }
+  .etiket-gercek { color:var(--yesil); font-size:10px; letter-spacing:0.08em; border:1px solid rgba(61,220,120,0.4);
+    padding:1px 6px; margin-left:6px; white-space:nowrap; }
+  .etiket-ornek { color:var(--sari); font-size:10px; letter-spacing:0.08em; border:1px dashed rgba(245,200,66,0.5);
+    padding:1px 6px; margin-left:6px; white-space:nowrap; }
+  .insan-satir { margin-top:12px; display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:10px 12px;
+    border:1px dashed rgba(245,200,66,0.5); background:rgba(245,200,66,0.05); }
+  .insan-satir .etiket { color:var(--sari); font-weight:700; font-size:11px; letter-spacing:0.1em; }
+  .insan-satir .metin { color:var(--metin); font-size:12px; flex:1 1 200px; }
+  .kopyala { min-height:var(--min-dokunma); min-width:var(--min-dokunma); display:inline-flex;
+    align-items:center; justify-content:center; gap:7px; padding:0 14px;
+    background:rgba(255,176,0,0.08); border:1px solid var(--amber); color:var(--amber);
+    font-family:inherit; font-size:12px; font-weight:700; letter-spacing:0.04em;
+    cursor:pointer; touch-action:manipulation; transition:background 150ms, transform 100ms; }
+  .kopyala:hover { background:rgba(255,176,0,0.16); }
+  .kopyala:active { transform:scale(0.97); }
+  .kopyala:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .kopyala.yesil { border-color:var(--yesil); color:var(--yesil); background:rgba(61,220,120,0.07); }
+  .kopyala.yesil:hover { background:rgba(61,220,120,0.14); }
+
+  /* run kartları (İZLE) */
+  .runlar { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:10px; padding:12px; }
+  .run { background:var(--panel2); border:1px solid var(--cizgi2); padding:12px; cursor:pointer;
+    touch-action:manipulation; transition:border-color 150ms; font-variant-numeric:tabular-nums; }
+  .run:hover { border-color:var(--amber-kapali); }
+  .run:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .run-bas { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .run-id { color:var(--ikincil); font-size:12px; }
+  .run-is { margin:8px 0 10px; color:var(--metin); font-size:12.5px; min-height:2.6em; }
+  .bar { height:5px; background:rgba(150,162,140,0.16); overflow:hidden; }
+  .bar > i { display:block; height:100%; background:var(--yesil); }
+  .bar.bekliyor > i { background:var(--sari); }
+  .run-olcum { margin-top:8px; color:var(--ikincil); font-size:11.5px; display:flex; flex-wrap:wrap; gap:2px 14px; }
+  .run-olcum b { color:var(--metin); font-weight:400; }
+
+  /* denetim görünümü (DENETLE) */
+  .denetim { padding:8px 12px 12px; }
+  .denetim-not { color:var(--soluk); font-size:11px; padding:6px 0 8px; }
+  .dsatir { display:grid; grid-template-columns:110px minmax(0,1fr) auto; gap:4px 14px; align-items:baseline;
+    padding:7px 4px; border-bottom:1px dashed var(--cizgi); font-size:12.5px; font-variant-numeric:tabular-nums; }
+  .dsatir:last-child { border-bottom:0; }
+  .dsatir .d { color:var(--soluk); letter-spacing:0.05em; }
+  .dsatir .v { color:var(--metin); overflow-wrap:anywhere; }
+  .dsatir .v .y { color:var(--yesil); }
+  .dsatir .v .a { color:var(--amber); }
+  .dsatir .v .s { color:var(--sari); }
+  .dsatir .v .k { color:var(--kirmizi); }
+  .dhak { font-size:10px; font-weight:700; letter-spacing:0.12em; padding:2px 8px; border:1px solid; white-space:nowrap; }
+  .dhak.ok { color:var(--yesil); border-color:rgba(61,220,120,0.5); }
+  .dhak.sari { color:var(--sari); border-color:rgba(245,200,66,0.5); }
+
+  /* komut kutusu (YÖNET) */
+  .yonet { padding:12px; display:flex; flex-direction:column; gap:12px; }
+  .komut { position:relative; }
+  .komut-giris { width:100%; min-height:var(--min-dokunma); background:var(--zemin); border:1px solid var(--cizgi2);
+    color:var(--amber); font-family:inherit; font-size:13px; padding:10px 12px 10px 30px; outline:none;
+    touch-action:manipulation; font-variant-numeric:tabular-nums; }
+  .komut-giris:focus { border-color:var(--amber); }
+  .komut-giris::placeholder { color:var(--soluk); }
+  .komut::before { content:"$"; position:absolute; left:11px; top:50%; transform:translateY(-50%);
+    color:var(--soluk); pointer-events:none; font-size:13px; }
+  .oneri { margin-top:6px; background:var(--panel2); border:1px dashed var(--cizgi2); padding:8px 10px;
+    color:var(--ikincil); font-size:11.5px; display:none; }
+  .oneri.gorunur { display:block; }
+  .oneri b { color:var(--amber); font-weight:400; }
+  .sablonlar { display:flex; flex-wrap:wrap; gap:8px; }
+  .sablon { min-height:var(--min-dokunma); padding:0 14px; display:inline-flex; align-items:center; gap:7px;
+    background:transparent; border:1px solid var(--cizgi2); color:var(--ikincil); font-family:inherit;
+    font-size:12px; cursor:pointer; touch-action:manipulation; transition:color 150ms, border-color 150ms; }
+  .sablon:hover { color:var(--amber); border-color:var(--amber-kapali); }
+  .sablon:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .yonet-not { color:var(--soluk); font-size:11px; line-height:1.6; }
+  .yonet-not b { color:var(--sari); font-weight:400; }
+
+  /* kanıt defteri (her zaman görünür — birleşik akışın alt ucu) */
+  .defter-govde { overflow-y:auto; max-height:320px; padding:10px 12px; font-size:12px; line-height:1.8; }
+  .kayit { display:flex; gap:12px; opacity:0; transform:translateY(3px); }
+  .kayit.acik { opacity:1; transform:none; transition:opacity 300ms, transform 300ms; }
+  .kayit .t { color:var(--soluk); flex:none; }
+  .kayit .m { color:var(--metin); overflow-wrap:anywhere; }
+  .kayit .m .v { color:var(--amber); }
+  .kayit .m .y { color:var(--yesil); }
+  .kayit .m .s { color:var(--sari); }
+  .kayit .m .k { color:var(--kirmizi); }
+  .kayit.makine .m { color:var(--ikincil); }
+  .imlec { color:var(--amber); animation:nabiz 1.1s steps(1) infinite; }
+  .defter.uyari .panel-bas { color:var(--kirmizi); }
+  .defter.uyari .defter-govde { border-top:1px solid rgba(255,93,93,0.4); }
+  .defter-arac { margin-left:auto; display:flex; gap:4px; flex-wrap:wrap; }
+  .defter-arac .edim { padding:0 10px; font-size:10.5px; letter-spacing:0.08em; }
+
+  /* ---------- ONAY BEKLEYENLER (ayrı görünür bölüm) ---------- */
+  .onay { display:flex; flex-direction:column; }
+  .onay-ic { padding:10px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
+  .onay-kart { background:var(--panel2); border:1px solid var(--cizgi2); border-left:3px solid var(--sari); padding:11px 12px; }
+  .onay-bas { display:flex; justify-content:space-between; align-items:baseline; gap:8px; flex-wrap:wrap; }
+  .onay-id { font-size:12.5px; font-weight:700; color:var(--metin); }
+  .onay-tip { font-size:10px; color:var(--sari); text-transform:uppercase; letter-spacing:0.12em; }
+  .onay-metin { margin:7px 0 9px; color:var(--ikincil); font-size:11.5px; line-height:1.55; }
+  .onay-komut { display:flex; align-items:center; gap:8px; background:var(--zemin); border:1px solid var(--cizgi2);
+    padding:6px 6px 6px 10px; font-size:11px; color:var(--amber); overflow:hidden; }
+  .onay-komut .metin { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* ---------- dipnot + toast ---------- */
+  .dipnot { position:relative; z-index:1; max-width:1380px; margin:0 auto; padding:0 14px 18px;
+    color:var(--soluk); font-size:11px; line-height:1.7; }
+  .toast { position:fixed; left:50%; bottom:118px; z-index:20; transform:translate(-50%, 14px); opacity:0;
+    background:var(--panel2); border:1px solid var(--amber); color:var(--metin); padding:10px 18px;
+    font-size:12.5px; line-height:1.5; box-shadow:0 8px 30px rgba(0,0,0,0.6);
+    transition:opacity 220ms, transform 220ms; pointer-events:none; max-width:min(92vw, 560px);
+    text-align:center; font-variant-numeric:tabular-nums; }
+  .toast.acik { opacity:1; transform:translate(-50%, 0); }
+
+  /* ---------- mobil: <640 tek kolon (graf üste, akış alta) ---------- */
+  @media (max-width:639px) {
+    body { font-size:12.5px; }
+    .duzen { padding:10px 10px 20px; }
+    .ust-satir1, .ust-satir2, .ordu { padding-left:10px; padding-right:10px; }
+    .state { margin-left:0; width:100%; }
+    .graf { max-height:46vh; }
+    .defter-govde { max-height:250px; }
+    .edim { padding:0 14px; }
+    .alan { grid-template-columns:96px minmax(0,1fr); font-size:12px; }
+    .runlar { grid-template-columns:1fr; }
+  }
+  /* hareket azaltma: tüm animasyon/akış kapanır */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition:none !important; }
+    html { scroll-behavior:auto; }
+    .kayit { opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="serit">MOCKUP · VARYANT-3 SAHNE · görev ID'leri + faz + bağımlılıklar + kritik-yol işaretleri GERÇEK (graf SSOT: plans/gorev-grafigi-2026-10-26.json · 40 görevden 14'ü gösteriliyor) · durum notları / ölçümler / ajan atamaları / run kartları ÖRNEK · canlıya bağlanmaz · hiçbir ağ isteği yok</div>
+
+<!-- ================= ÜST: GENEL STATE + EDİMLER ================= -->
+<header class="ust">
+  <div class="ust-satir1">
+    <div class="marka">ORDU SAHNESİ<small>AKIŞ-MERKEZLİ TERMİNAL · VARYANT-3</small></div>
+    <div class="state" role="status" aria-label="genel state">
+      <span>görev <b>40</b></span>
+      <span class="canli">aktif <b>1</b></span>
+      <span>HAZIR <b>1</b> · BEKLE <b>30</b> · KAPALI <b>9</b></span>
+      <span>onay <b>3</b></span>
+      <span title="ÖRNEK ölçüm — son kapanış turundan">kanal <b>x=0</b></span>
+      <span title="ÖRNEK anlık görüntü">HEAD <b>2941460</b></span>
+    </div>
+  </div>
+  <div class="ust-satir2">
+    <div class="edimler" role="tablist" aria-label="edim seçimi">
+      <button class="edim" id="edim-izle" role="tab" aria-selected="true" aria-controls="panel-izle"><span class="nokta"></span>İZLE</button>
+      <button class="edim" id="edim-denetle" role="tab" aria-selected="false" aria-controls="panel-denetle"><span class="nokta"></span>DENETLE</button>
+      <button class="edim" id="edim-yonet" role="tab" aria-selected="false" aria-controls="panel-yonet"><span class="nokta"></span>YÖNET</button>
+    </div>
+    <button class="pill yesil" type="button" data-bilgi="Gerçek yüzde graf her 30 sn'de diskten yeniden okunur (bayat veri gösterilmez); bu mockup statiktir — tazeleme yok."><span class="isik"></span>↻ 30 sn tazeleme</button>
+    <button class="pill" type="button" data-bilgi="Gerçek yüzde kanal koşumunun kaçak (x) satır sayısıdır — 0 = kaçak yok. Buradaki 0 ÖRNEK değerdir (son kapanış turu).">kanal x=0</button>
+    <button class="pill" type="button" data-bilgi="Gerçek yüzde HEAD, git log'dan okunur ve kanıt zincirinin ucunu gösterir. 2941460 ÖRNEK anlık görüntüdür.">HEAD 2941460</button>
+  </div>
+</header>
+
+<!-- ================= ORDU ŞERİDİ (6 üye · durum ışıkları) ================= -->
+<section class="ordu" aria-label="ordu şeridi">
+  <span class="ordu-bas">ORDU:</span>
+  <button class="ajan" type="button" data-bilgi="KOMUTAN (ana oturum) — 3 yazarı paralel yürütür, işleri dağıtır, merge/kapanışı tek elden yapar. Gerçek yüzde bu çipe tıklayınca ajan zaman çizelgesi açılır.">
+    <span class="isik kosuyor"></span><span><b>KOMUTAN</b><small>ana oturum · koordinasyon</small></span>
+  </button>
+  <button class="ajan" type="button" data-bilgi="YAZARI-1 — variant-1-komuta.html mockup'ını yazar (mevcut tasarım dili + Temel 1 tamamlama). Gerçek yüzde tıklayınca o ajanın akışı açılır.">
+    <span class="isik canli"></span><span><b>YAZARI-1</b><small>variant-1 · komuta</small></span>
+  </button>
+  <button class="ajan" type="button" data-bilgi="YAZARI-2 — variant-2-harita.html mockup'ını yazar (graf-merkezli büyük DAG tuvali). Gerçek yüzde tıklayınca o ajanın akışı açılır.">
+    <span class="isik canli"></span><span><b>YAZARI-2</b><small>variant-2 · harita</small></span>
+  </button>
+  <button class="ajan" type="button" data-bilgi="YAZARI-3 — variant-3-sahne.html mockup'ını yazar: bu dosya. Kendi akışını (bu sahne) izliyorsunuz. Gerçek yüzde tıklayınca o ajanın akışı açılır.">
+    <span class="isik canli"></span><span><b>YAZARI-3</b><small>variant-3 · sahne (bu dosya)</small></span>
+  </button>
+  <button class="ajan" type="button" data-bilgi="DENETÇİ — üç varyant bittiğinde matris §7 eksenlerinden puanlar. Şu an bekliyor: yazarlar bitmedi.">
+    <span class="isik bekler"></span><span><b>DENETÇİ</b><small>bekliyor · yazarlar bitince puanlar</small></span>
+  </button>
+  <button class="ajan" type="button" data-bilgi="GÖZLEMCİ — matris §4 kalite kurallarını kaynakta sayar (dış istek, 44px, kırılım, aria...). Kayıt modunda.">
+    <span class="isik izler"></span><span><b>GÖZLEMCİ</b><small>kayıt · kaynakta sayıyor</small></span>
+  </button>
+</section>
+
+<main class="duzen">
+
+  <!-- ================= SOL: MİNİ GÖREV GRAFİ ================= -->
+  <aside class="panel graf" aria-label="mini görev grafi">
+    <div class="panel-bas">▸ GÖREV GRAFİ <span class="sayi">14/40 · seç = detay</span></div>
+    <div class="govde" id="grafGovde"></div>
+    <div class="graf-dipnot">◆ kritik-yol (GERÇEK — graf kritikYol) · ● durum noktası · faz adları graf SSOT'tan aynen</div>
+  </aside>
+
+  <!-- ================= MERKEZ: KAPSÜL + SAHNE + DEFTER ================= -->
+  <section class="merkez">
+
+    <!-- seçili görevin kapsül kartı (JS doldurur) -->
+    <article class="panel" aria-label="seçili görev kapsülü">
+      <div class="panel-bas">▸ GÖREV KAPSÜLÜ <span class="sayi">seçili görevin detayı</span></div>
+      <div class="kapsul-ic" id="kapsulIc"></div>
+    </article>
+
+    <!-- edim panelleri (İZLE / DENETLE / YÖNET) -->
+    <div class="panel" id="panel-izle" role="tabpanel" aria-label="izle">
+      <div class="panel-bas">▸ CANLI KOŞUMLAR <span class="sayi">İZLE · run kartları ÖRNEK</span></div>
+      <div class="runlar">
+        <div class="run" tabindex="0" role="button" data-bilgi="run-1ee8d2 — DALGA-0 arayüz dalgası. Gerçek yüzde bu karta tıklayınca koşum akışı (dispatch → coder → tester → ACCEPTED) sohbet olarak akar (D-2, notify.jsonl→SSE). Mockupta yalnız bu bilgi gösterilir." aria-label="run-1ee8d2 detayı">
+          <div class="run-bas"><span class="run-id">run-1ee8d2</span><span class="rozet hazir">KOŞUYOR</span></div>
+          <p class="run-is">DALGA-0 · arayüz ilk dalga</p>
+          <div class="bar" aria-hidden="true"><i style="width:12%"></i></div>
+          <div class="run-olcum"><span>ilerleme <b>%12</b></span><span>token <b>~14k</b></span><span>öngörü <b>21,6 dk</b></span></div>
+        </div>
+        <div class="run" tabindex="0" role="button" data-bilgi="run-c07d31 — graf kapanışı run'ı. Gerçek yüzde karta tıklayınca kabul defteri ve ölçüm çifti açılır. Mockupta yalnız bu bilgi gösterilir." aria-label="run-c07d31 detayı">
+          <div class="run-bas"><span class="run-id">run-c07d31</span><span class="rozet bekle">BEKLİYOR</span></div>
+          <p class="run-is">RBT-2026-10-28.3 · graf kapanışı</p>
+          <div class="bar bekliyor" aria-hidden="true"><i style="width:38%"></i></div>
+          <div class="run-olcum"><span>ilerleme <b>%38</b></span><span>token <b>~44k</b></span><span>durum <b>kabul defteri açık</b></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-denetle" role="tabpanel" aria-label="denetle" hidden>
+      <div class="panel-bas">▸ DENETİM GÖRÜNÜMÜ <span class="sayi">DENETLE · değerler ÖRNEK (2941460 kapanış turu)</span></div>
+      <div class="denetim">
+        <p class="denetim-not">denetçi kanalından okunan satırlar — her değer ÖRNEK; gerçek yüzde kanıt JSON'larından sayılır</p>
+        <div class="dsatir"><span class="d">test</span><span class="v">8/8 · <span class="y">iki bağımsız koşum</span> · 482 ms + 491 ms</span><span class="dhak ok">GEÇTİ</span></div>
+        <div class="dsatir"><span class="d">hedefli</span><span class="v">8/8 · operator yeniden-koşumu · <span class="y">1,9 sn</span></span><span class="dhak ok">GEÇTİ</span></div>
+        <div class="dsatir"><span class="d">kanal</span><span class="v">467/467 · <span class="y">x=0</span> · sureSn=206</span><span class="dhak ok">TEMİZ</span></div>
+        <div class="dsatir"><span class="d">ölçüm-çifti</span><span class="v">kanal 166→206 (x 0→0) · duvar <span class="a">1297 sn &lt; emsal 1473</span> · tek örnek — hız iddiası YOK</span><span class="dhak ok">KANITLI</span></div>
+        <div class="dsatir"><span class="d">tip</span><span class="v">GECTI · borç 0 · 6,1 sn</span><span class="dhak ok">GEÇTİ</span></div>
+        <div class="dsatir"><span class="d">sağlık</span><span class="v">18 OK · 0 EKSIK · <span class="s">2 SARI</span></span><span class="dhak sari">SARI</span></div>
+        <div class="dsatir"><span class="d">kural-proxy</span><span class="v"><span class="s">41 kural &gt; hedef 40</span> · T sadeleştirme önerisi (bilinen kabul defteri)</span><span class="dhak sari">SARI</span></div>
+        <div class="dsatir"><span class="d">kayıp-dosya</span><span class="v">kirli-dosya ihlali 0 · kacak 0</span><span class="dhak ok">TEMİZ</span></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-yonet" role="tabpanel" aria-label="yönet" hidden>
+      <div class="panel-bas">▸ YÖNET — KOMUT ÜRETİCİ <span class="sayi">üretir + kopyalar · ÇALIŞTIRMAZ</span></div>
+      <div class="yonet">
+        <div class="komut">
+          <input class="komut-giris" id="komut" type="text" autocomplete="off" spellcheck="false"
+                 placeholder="komut yaz veya şablondan seç: gece / kanal / tip / graf / dispatch" aria-label="komut üretici giriş">
+          <div class="oneri" id="oneri" aria-hidden="true"></div>
+        </div>
+        <div class="sablonlar" role="group" aria-label="komut şablonları">
+          <button class="sablon" type="button" data-sablon="gece">▸ gece turu</button>
+          <button class="sablon" type="button" data-sablon="kanal">▸ kanal koşumu</button>
+          <button class="sablon" type="button" data-sablon="tip">▸ tip denetimi</button>
+          <button class="sablon" type="button" data-sablon="graf">▸ graf göster</button>
+          <button class="sablon" type="button" data-sablon="dispatch">▸ dispatch (seçili görev)</button>
+        </div>
+        <button class="kopyala" type="button" id="btn-uret">⧉ seçili görev için dispatch komutu üret</button>
+        <p class="yonet-not">Enter → komut panoya alınır, sizin terminalinizde koşar. <b>GUI komut çalıştırmaz; onay cümlesi GUI'de üretilmez (EK-2)</b> — yalnız kopyalanır.</p>
+      </div>
+    </div>
+
+    <!-- kanıt defteri: birleşik akışın alt ucu — her zaman görünür -->
+    <section class="panel defter" id="defterPanel" aria-label="kanıt defteri">
+      <div class="panel-bas">▸ KANIT DEFTERİ — AKIŞ
+        <span class="defter-arac">
+          <button class="edim" id="okur-insan" type="button" aria-pressed="true">İNSAN OKUR</button>
+          <button class="edim" id="okur-makine" type="button" aria-pressed="false">MAKİNE OKUR</button>
+          <button class="edim" id="btn-kirmizi" type="button" title="fail-closed kirmiziYuz demosu">kirmiziYuz demosu</button>
+        </span></div>
+      <div class="defter-govde" id="defterGovde" tabindex="0" role="log" aria-live="polite" aria-label="kanıt defteri akışı"></div>
+    </section>
+
+  </section>
+
+  <!-- ================= SAĞ/ALT: ONAY BEKLEYENLER (ayrı görünür bölüm) ================= -->
+  <aside class="panel onay" aria-label="onay bekleyenler">
+    <div class="panel-bas">▸ ONAY BEKLEYENLER <span class="sayi">[insan] kuyruğu · 3</span></div>
+    <div class="onay-ic">
+
+      <div class="onay-kart">
+        <div class="onay-bas"><span class="onay-id">rpl-03579e06</span><span class="onay-tip">replan onayı</span></div>
+        <p class="onay-metin">DRIFT yeniden planlama önerisi — onay cümleniz hazır: kopyalayın, terminalinize yapıştırıp çalıştırın.</p>
+        <div class="onay-komut">
+          <span class="metin" id="onay-rpl-komut">node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"</span>
+          <button class="kopyala" type="button" data-kopyala="onay-rpl-komut" aria-label="replan onay komutunu panoya kopyala">⧉ kopyala</button>
+        </div>
+        <p class="onay-metin" style="margin:8px 0 0">GUI asla kendi adına onaylamaz — komut sizin terminalinizde koşar (EK-2).</p>
+      </div>
+
+      <div class="onay-kart">
+        <div class="onay-bas"><span class="onay-id">D-1b</span><span class="onay-tip">elle test</span></div>
+        <p class="onay-metin">DALGA-0 görsel kabulü — tuval sayfasını elle açıp dar/mobil görünümü deneyin (görsel kabul elle yapılır).</p>
+        <div class="onay-komut">
+          <span class="metin" id="onay-d1b-url">http://127.0.0.1:4377/tuval</span>
+          <button class="kopyala" type="button" data-kopyala="onay-d1b-url" aria-label="tuval adresini panoya kopyala">⧉ adresi kopyala</button>
+        </div>
+      </div>
+
+      <div class="onay-kart">
+        <div class="onay-bas"><span class="onay-id">K-0044</span><span class="onay-tip">pencere</span></div>
+        <p class="onay-metin">Ortam anahtarı uygulama penceresi — restart'ta sizinle birlikte açılır; anahtar değerleri ekrana yazılmaz.</p>
+        <button class="kopyala" type="button" data-bilgi="K-0044: gerçek yüzde bu kart, anahtar girişini ayrı bir PANO_TOKEN kapısına (password tipi giriş, değer ekrana yazılmaz) yönlendirir. Mockupta yapılabilecek bir şey yok — durum: bekliyor.">⧉ durum bilgisini göster</button>
+      </div>
+
+    </div>
+  </aside>
+
+</main>
+
+<footer class="dipnot">
+  VARYANT-3 SAHNE · tek dosya · 0 dış istek · 0 framework · file:// açılır · animasyon yalnız transform/opacity ·
+  prefers-reduced-motion'da akış durur · kopyala gerçekten panoya yazar (clipboard + execCommand yedeği) ·
+  İZLE / DENETLE / YÖNET edimleri sahne içeriğini değiştirir · mockup — ürün kodu değil.
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p style="text-align:center;padding:12px;color:#96a28c">Etkileşimler kapalı — mockup statik görünüyor (görev listesi ve detay JS ile üretilir).</p></noscript>
+
+<script>
+  /* Mockup etkileşimleri — sunum davranışı; hiçbir ağ isteği yok. Görev verisi:
+     plans/gorev-grafigi-2026-10-26.json (salt-okur elle aktarılmış 14 görev;
+     id/ad/faz/bagimli/olcut GERÇEK; ajan/kanıt alanı dürüst 'yok' — sahte değer ÜRETİLMEZ). */
+(function () {
+  "use strict";
+  var azHareket = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- durum kategorileri (graf SSOT durum önekleri) --- */
+  var DURUMLAR = {
+    HAZIR:  { nokta:"hazir",  rozet:"hazir" },
+    BEKLE:  { nokta:"bekle",  rozet:"bekle" },
+    KAPALI: { nokta:"kapali", rozet:"kapali" }
+  };
+
+  /* --- GERÇEK görev verisi (graf SSOT'tan 14/40) --- */
+  var GOREVLER = [
+    { id:"DC-S0", ad:"Taban ve sinirlar", faz:"DC/F0", durum:"HAZIR", durumNot:"yalniz planlama; [INSAN] BASLAT emri YOK (graf SSOT)", bagimli:[], rol:"MANAGER+TESTER", olcut:"Current suite baseline and hashes recorded; pilot hazir", kp:true, insan:"BASLAT emri bekler (yalniz planlama asamasi)" },
+    { id:"DC-G0", ad:"Ortam/pilot/kabul ve fizibilite kaniti", faz:"DC/F0", durum:"BEKLE", durumNot:"ilgili sprint kaniti + insan karari (graf SSOT)", bagimli:["DC-S0"], rol:"KULLANICI+TESTER", olcut:"Ortam/pilot/kabul ve fizibilite kaniti", kp:true, insan:"insan karari bekler (sprint kaniti)" },
+    { id:"DC-S1", ad:"Onayli sozlesme ve tek kapi", faz:"DC/F1", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-G0"], rol:"CODER+TESTER", olcut:"Changed goal/source/commands change approved contract…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-S3", ad:"Yasam dongusu ve tuketim", faz:"DC/F1", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-S1"], rol:"CODER+TESTER", olcut:"Fault matrix passes for the selected runtime; two…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-S2", ad:"Korunan test ve teslim", faz:"DC/F1", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-S3"], rol:"CODER+TESTER", olcut:"Wrong output, zero tests, modified tests, wrong ev…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-S4", ad:"Insan kanitli somut pilot", faz:"DC/F1", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-S2"], rol:"CODER+TESTER", olcut:"Three distinct useful deliveries and all ten named…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-H1", ad:"Uc somut teslim ve on hata ailesi; insan kabul", faz:"DC/F1", durum:"BEKLE", durumNot:"ilgili sprint kaniti + insan karari (graf SSOT)", bagimli:["DC-S4"], rol:"KULLANICI+TESTER", olcut:"Uc somut teslim ve on hata ailesi; insan kabul", kp:true, insan:"insan kabul karari bekler" },
+    { id:"DC-S5", ad:"Kalici sabit-plan surucusu", faz:"DC/F2", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-H1"], rol:"CODER+TESTER", olcut:"Controller advances an approved fixed plan without…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-S6", ad:"Sinirli onarim ve hazirlama", faz:"DC/F2", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-S5"], rol:"CODER+TESTER", olcut:"Pre-authorized task sequence finishes or safely st…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-H2", ad:"Sinirli otomatik hazirlama kaniti; final insan kabul", faz:"DC/F2", durum:"BEKLE", durumNot:"ilgili sprint kaniti + insan karari (graf SSOT)", bagimli:["DC-S6"], rol:"KULLANICI+TESTER", olcut:"Sinirli otomatik hazirlama kaniti; final insan kabul", kp:true, insan:"insan kabul karari bekler" },
+    { id:"DC-S8", ad:"Olculmus ogrenme ve kalibrasyon", faz:"DC/F3", durum:"BEKLE", durumNot:"bagimlilik + [INSAN] BASLAT emri (graf SSOT)", bagimli:["DC-S7*"], rol:"CODER+TESTER", olcut:"A learning change has preregistered meaningful help…", kp:true, insan:"BASLAT emri bekler" },
+    { id:"DC-H4", ad:"Butun kritik kapilar ve temsili kampanya; surum onayi", faz:"DC/F4", durum:"BEKLE", durumNot:"ilgili sprint kaniti + insan karari (graf SSOT)", bagimli:["DC-S10*"], rol:"KULLANICI+TESTER", olcut:"Butun kritik kapilar ve temsili kampanya; surum onayi", kp:true, insan:"surum onay karari bekler" },
+    { id:"T0", ad:"F6.5-A 2-provider paketi commit", faz:"", durum:"KAPALI", durumNot:"commit 80fdb4a + kanal x=0 + kabul F65-01 PASS 2026-10-26 (graf SSOT)", bagimli:[], rol:"paralel-yazici", olcut:"commit hash; kanal x=0", kp:false, kanit:{ h:"80fdb4a", t:"2026-10-26 · kabul F65-01 PASS · kanal x=0" }, insan:null },
+    { id:"A4", ad:"Otonom suru surucusu", faz:"", durum:"BEKLE", durumNot:"v13: tarihsel acik is; DC sirasi veya ayri onay bekler (graf SSOT)", bagimli:[], rol:"CODER", olcut:"hedef+limit ver -> gece tur serisi; rozet yesilse…", kp:false, insan:"DC sirasi veya ayri onay bekler (v13)" }
+  ];
+  var KRITIK_YOL_ACIKLAMA = "16 gorev (graf kritikYol alanindan; listede 12'si gorunur)";
+
+  /* --- sol graf: faz gruplu kompakt liste --- */
+  var grafGovde = document.getElementById("grafGovde");
+  var gruplar = [];
+  GOREVLER.forEach(function (g) {
+    var ad = g.faz || "(faz yok)";
+    if (gruplar.indexOf(ad) === -1) gruplar.push(ad);
+  });
+  if (gruplar.indexOf("(faz yok)") !== -1) { /* fazsizlar en sonda — uydurma grup yok */
+    gruplar = gruplar.filter(function (x) { return x !== "(faz yok)"; });
+    gruplar.push("(faz yok)");
+  }
+  gruplar.forEach(function (grupAd) {
+    var gs = GOREVLER.filter(function (g) { return (g.faz || "(faz yok)") === grupAd; });
+    var bas = document.createElement("div");
+    bas.className = "grup";
+    bas.innerHTML = "<b>" + grupAd + "</b> · " + gs.length + " gorev";
+    grafGovde.appendChild(bas);
+    gs.forEach(function (g) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "satir";
+      b.setAttribute("data-id", g.id);
+      b.setAttribute("aria-label", g.id + " gorevini sec — detay icin");
+      b.innerHTML = '<span class="nokta ' + DURUMLAR[g.durum].nokta + '"></span>' +
+        '<span class="id">' + g.id + '</span>' +
+        (g.kp ? '<span class="kp" title="kritik yol (gercek)">◆</span>' : '') +
+        '<span class="ad">' + g.ad + '</span>';
+      b.addEventListener("click", function () { sec(g.id); });
+      grafGovde.appendChild(b);
+    });
+  });
+
+  /* --- kapsül kartı (seçilen görevin detayı — merkez üstü) --- */
+  var kapsulIc = document.getElementById("kapsulIc");
+  var secili = null;
+  function sec(id) {
+    var g = null;
+    GOREVLER.forEach(function (x) { if (x.id === id) g = x; });
+    if (!g) return;
+    secili = g;
+    grafGovde.querySelectorAll(".satir").forEach(function (b) {
+      var v = b.getAttribute("data-id") === id;
+      b.classList.toggle("secili", v);
+      if (v) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+    });
+    var bag = g.bagimli.length
+      ? g.bagimli.map(function (d) {
+          var yildiz = d.indexOf("*") !== -1;
+          return '<span class="ikincil">' + d.replace("*", "") + (yildiz ? ' · listede yok (40 gorevin tamami gercek yuzde)' : '') + '</span>';
+        }).join(" · ")
+      : '<span class="ikincil">— (oncull yok)</span>';
+    var kanit = g.kanit
+      ? '<span style="color:var(--amber)">' + g.kanit.h + '</span> · ' + g.kanit.t + '<span class="etiket-gercek">GERÇEK</span>'
+      : 'yok — kosum acilmadi <span class="ikincil">(sahte hash URETILMEZ)</span>';
+    var ajan = g.durum === "KAPALI"
+      ? '<span class="ikincil">— (kapandi · ' + g.rol + ')</span>'
+      : '<span class="ikincil">atanmadi — dispatch bekliyor</span><span class="etiket-ornek">ÖRNEK</span>';
+    var insan = "";
+    if (g.insan) {
+      insan = '<div class="insan-satir">' +
+        '<span class="etiket">[İNSAN] GEREKSİNİMİ</span>' +
+        '<span class="metin">' + g.insan + '</span>' +
+        '<button class="kopyala" type="button" id="btn-dispatch">⧉ dispatch şablonu üret</button>' +
+        '</div>';
+    }
+    kapsulIc.innerHTML =
+      '<div class="kapsul-bas"><span class="kid">' + g.id + '</span><h3>' + g.ad + '</h3>' +
+      '<span class="rozet ' + DURUMLAR[g.durum].rozet + '">' + g.durum + '</span></div>' +
+      '<dl class="alan">' +
+      '<dt>faz</dt><dd>' + (g.faz ? g.faz + '<span class="etiket-gercek">GERÇEK</span>' : '(faz yok)<span class="etiket-gercek">GERÇEK</span>') + '</dd>' +
+      '<dt>durum</dt><dd>' + g.durum + ' — <span class="ikincil">' + g.durumNot + '</span></dd>' +
+      '<dt>bagimlilik</dt><dd>' + bag + '</dd>' +
+      '<dt>graf rolu</dt><dd>' + g.rol + '<span class="etiket-gercek">GERÇEK</span></dd>' +
+      '<dt>olcut</dt><dd class="ikincil">' + g.olcut + '</dd>' +
+      '<dt>atanan ajan</dt><dd>' + ajan + '</dd>' +
+      '<dt>son kanit</dt><dd>' + kanit + '</dd>' +
+      '<dt>kritik yol</dt><dd>' + (g.kp ? 'evet<span class="etiket-gercek">GERÇEK</span>' : 'hayir') + ' <span class="ikincil">(' + KRITIK_YOL_ACIKLAMA + ')</span></dd>' +
+      '</dl>' + insan;
+    var dBtn = document.getElementById("btn-dispatch");
+    if (dBtn) {
+      dBtn.addEventListener("click", function () {
+        var komut = "node src/cli.ts dispatch --gorev " + g.id; /* komut uretimi (matris 3.5 YONET) — calistirilmaz */
+        panoyaYaz(komut);
+        toast("Dispatch şablonu panoya alındı: " + komut + " — GUI komutu ÜRETİR, çalıştırmaz.");
+      });
+    }
+  }
+
+  /* --- edim sekmeleri (İZLE / DENETLE / YÖNET) --- */
+  var EDIMLER = [
+    { id:"izle",    b:document.getElementById("edim-izle"),    p:document.getElementById("panel-izle") },
+    { id:"denetle", b:document.getElementById("edim-denetle"), p:document.getElementById("panel-denetle") },
+    { id:"yonet",   b:document.getElementById("edim-yonet"),   p:document.getElementById("panel-yonet") }
+  ];
+  function edimSec(ad) {
+    EDIMLER.forEach(function (e) {
+      var v = e.id === ad;
+      e.b.setAttribute("aria-selected", v ? "true" : "false");
+      e.p.hidden = !v;
+    });
+  }
+  EDIMLER.forEach(function (e) {
+    e.b.addEventListener("click", function () { edimSec(e.id); });
+    e.b.addEventListener("keydown", function (olay) {
+      var i = EDIMLER.map(function (x) { return x.id; }).indexOf(e.id);
+      if (olay.key === "ArrowRight") { EDIMLER[(i + 1) % 3].b.focus(); edimSec(EDIMLER[(i + 1) % 3].id); }
+      if (olay.key === "ArrowLeft")  { EDIMLER[(i + 2) % 3].b.focus(); edimSec(EDIMLER[(i + 2) % 3].id); }
+    });
+  });
+
+  /* --- toast --- */
+  var toastEl = document.getElementById("toast");
+  var toastSurek = null;
+  function toast(mesaj) {
+    toastEl.textContent = mesaj;
+    toastEl.classList.add("acik");
+    if (toastSurek) clearTimeout(toastSurek);
+    toastSurek = setTimeout(function () { toastEl.classList.remove("acik"); }, 2600);
+  }
+
+  /* --- panoya kopyala (file:// için execCommand yedeğiyle) --- */
+  function panoyaYaz(metin) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(metin).catch(function () { eskiYontem(metin); });
+    } else {
+      eskiYontem(metin);
+    }
+  }
+  function eskiYontem(metin) {
+    var gecici = document.createElement("textarea");
+    gecici.value = metin;
+    gecici.style.position = "fixed";
+    gecici.style.opacity = "0";
+    document.body.appendChild(gecici);
+    gecici.select();
+    try { document.execCommand("copy"); } catch (e) { /* mockup: sessiz */ }
+    document.body.removeChild(gecici);
+  }
+
+  /* --- kopyala butonları (statik metin kaynağından) --- */
+  document.querySelectorAll("[data-kopyala]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var kaynak = document.getElementById(btn.getAttribute("data-kopyala"));
+      if (kaynak) {
+        panoyaYaz(kaynak.textContent.trim());
+        toast("Panoya alındı — terminalinize yapıştırıp çalıştırın. GUI komutu çalıştırmaz (EK-2).");
+      }
+    });
+  });
+
+  /* --- bilgi butonları (ölü buton YOK: her tık ne yapacağını söyler) --- */
+  document.querySelectorAll("[data-bilgi]").forEach(function (el) {
+    el.addEventListener("click", function () { toast(el.getAttribute("data-bilgi")); });
+    el.addEventListener("keydown", function (olay) {
+      if (olay.key === "Enter" || olay.key === " ") { olay.preventDefault(); toast(el.getAttribute("data-bilgi")); }
+    });
+  });
+
+  /* --- YÖNET: komut kutusu (öneri + Enter'da panoya) --- */
+  var SABLONLAR = [
+    { ipucu:"gece",     tam:"node src/cli.ts gece --hedef \"<görev-id>\" --limit 5" },
+    { ipucu:"kanal",    tam:"scripts\\test-kanal.ps1 -Etiket DALGA-1" },
+    { ipucu:"tip",      tam:"npm run tip" },
+    { ipucu:"graf",     tam:"node src/cli.ts graf goster" },
+    { ipucu:"dispatch", tam:"node src/cli.ts dispatch --gorev <görev-id>" }
+  ];
+  var komut = document.getElementById("komut");
+  var oneri = document.getElementById("oneri");
+  document.querySelectorAll("[data-sablon]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var ipucu = btn.getAttribute("data-sablon");
+      var s = null;
+      SABLONLAR.forEach(function (x) { if (x.ipucu === ipucu) s = x; });
+      if (s) {
+        komut.value = s.tam;
+        oneri.innerHTML = "şablon kutuya yazıldı: <b>" + s.tam + "</b> — Enter ile panoya alının";
+        oneri.classList.add("gorunur");
+        komut.focus();
+        toast("Şablon kutuya yazıldı — Enter'a basınca komut panoya alınır (çalıştırılmaz).");
+      }
+    });
+  });
+  komut.addEventListener("input", function () {
+    var deger = komut.value.trim().toLowerCase();
+    var eslesen = null;
+    SABLONLAR.forEach(function (s) {
+      if (deger && s.tam.toLowerCase().indexOf(deger) === 0) eslesen = s;
+    });
+    if (eslesen) {
+      oneri.innerHTML = "öneri: <b>" + eslesen.tam + "</b>";
+      oneri.classList.add("gorunur");
+    } else {
+      oneri.classList.remove("gorunur");
+    }
+  });
+  komut.addEventListener("keydown", function (olay) {
+    if (olay.key !== "Enter") return;
+    olay.preventDefault();
+    var deger = komut.value.trim();
+    if (!deger) { oneri.classList.remove("gorunur"); return; }
+    SABLONLAR.forEach(function (s) { if (deger.toLowerCase() === s.ipucu) deger = s.tam; });
+    panoyaYaz(deger);
+    toast("Komut panoya alındı — terminalinizde koşun. GUI komutu çalıştırmaz.");
+    komut.value = "";
+    oneri.classList.remove("gorunur");
+  });
+  document.getElementById("btn-uret").addEventListener("click", function () {
+    if (!secili) { toast("Önce soldan bir görev seçin."); return; }
+    var komutMetni = "node src/cli.ts dispatch --gorev " + secili.id; /* YÖNET = komut üretimi; onay cümlesi DEĞİL */
+    panoyaYaz(komutMetni);
+    toast("Dispatch komutu üretildi ve panoya alındı: " + komutMetni + " — GUI çalıştırmaz.");
+  });
+
+  /* --- kanıt defteri: İNSAN / MAKİNE OKUR + akış + kirmiziYuz demosu --- */
+  var defterGovde = document.getElementById("defterGovde");
+  var defterPanel = document.getElementById("defterPanel");
+  var okurMod = "insan";
+  var kayitlar = [
+    { t:"11:26", i:'merge <span class="v">ea78bd3</span> · kanal <span class="y">467/467</span> · x=0 · 206 sn', m:'{"z":"11:26","olay":"merge","h":"ea78bd3","kanal":"467/467","x":0,"sureSn":206}' },
+    { t:"11:24", i:'tip <span class="y">GECTI</span> · borc 0 · 6,1 sn', m:'{"z":"11:24","olay":"tip","sonuc":"GECTI","borc":0,"sureSn":6.1}' },
+    { t:"11:19", i:'DALGA0-ARAYUZ-1 kapanis · duvar <span class="v">21,6 dk</span> &lt; emsal 24,6 dk', m:'{"z":"11:19","olay":"kapanis","is":"DALGA0-ARAYUZ-1","duvarSn":1297,"emsalSn":1473}' },
+    { t:"11:12", i:'spawn-olcum · provider ornegi · ms=38 <span class="y">✓</span>', m:'{"z":"11:12","olay":"spawn-olcum","ms":38,"ok":true}' },
+    { t:"10:46", i:'K-0054 islendi · ANAYASA 3 nokta · 47 satir', m:'{"z":"10:46","olay":"karar","id":"K-0054","yer":"ANAYASA","nokta":3,"satir":47}' },
+    { t:"08:33", i:'K-0053 <span class="y">ONAYLANDI</span> · V8-05 paralel esleme acildi', m:'{"z":"08:33","olay":"karar","id":"K-0053","sonuc":"ONAYLANDI","esleme":"V8-05"}' }
+  ];
+  var AKIS = [
+    { i:'kanal <span class="v">DALGA-1</span> · bekleniyor · yuk dengeli', m:'{"olay":"kanal","etiket":"DALGA-1","durum":"bekleniyor","yuk":"dengeli"}' },
+    { i:'hedefli-test · 8/8 · 1,9 sn <span class="y">✓</span>', m:'{"olay":"hedefli-test","gecti":8,"toplam":8,"sureSn":1.9}' },
+    { i:'kural-proxy · 41 kural · <span class="s">T sadelestirme onerisi</span>', m:'{"olay":"kural-proxy","kural":41,"hedef":40,"uyari":"T-sadelestirme"}' },
+    { i:'varyant-3 · sahne mockup yaziliyor <span class="v">(bu dosya)</span>', m:'{"olay":"yazar","variant":"3-sahne","dosya":"variant-3-sahne.html"}' },
+    { i:'spawn-olcum · provider ornegi · ms=41 <span class="y">✓</span>', m:'{"olay":"spawn-olcum","ms":41,"ok":true}' },
+    { i:'telemetri · haftalik pencere kaydi · json+md yazildi', m:'{"olay":"telemetri","pencere":"haftalik","cikti":["json","md"]}' }
+  ];
+  function kayitDok(el, k) {
+    if (okurMod === "insan") {
+      el.className = "kayit";
+      el.innerHTML = '<span class="t">' + k.t + '</span><span class="m">' + k.i + '</span>';
+    } else {
+      el.className = "kayit makine";
+      el.innerHTML = '<span class="t">' + k.t + '</span><span class="m">' + k.m + '</span>';
+    }
+  }
+  function defteriCiz(yeniAnim) {
+    defterGovde.innerHTML = "";
+    kayitlar.forEach(function (k, i) {
+      var el = document.createElement("div");
+      kayitDok(el, k);
+      if (yeniAnim && i === kayitlar.length - 1 && !azHareket) {
+        /* en yeni satır geç girsin — akış hissi (yalnız opacity/transform) */
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { el.classList.add("acik"); });
+        });
+      } else {
+        el.classList.add("acik");
+      }
+      defterGovde.appendChild(el);
+    });
+    var imlec = document.createElement("div");
+    imlec.className = "kayit acik";
+    imlec.innerHTML = '<span class="t">--:--</span><span class="m"><span class="imlec">▊</span></span>';
+    defterGovde.appendChild(imlec);
+    defterGovde.scrollTop = defterGovde.scrollHeight;
+  }
+  defteriCiz(false);
+
+  var okurInsan = document.getElementById("okur-insan");
+  var okurMakine = document.getElementById("okur-makine");
+  okurInsan.addEventListener("click", function () { okurMod = "insan"; okurAyarla(); });
+  okurMakine.addEventListener("click", function () { okurMod = "makine"; okurAyarla(); });
+  function okurAyarla() {
+    okurInsan.setAttribute("aria-pressed", okurMod === "insan" ? "true" : "false");
+    okurMakine.setAttribute("aria-pressed", okurMod === "makine" ? "true" : "false");
+    defteriCiz(false);
+    toast(okurMod === "insan"
+      ? "İNSAN OKUR: aynı akış insan-okur satırlarıyla (gerçek tuvaldeki kavram adı)."
+      : "MAKİNE OKUR: aynı akış JSONL olarak — iki yüz tek kaynaktan (çift SSOT imkansız).");
+  }
+
+  /* kirmiziYuz fail-closed demosu (gerçek tuval davranışının gösterimi) */
+  var kirmizi = false;
+  var btnKirmizi = document.getElementById("btn-kirmizi");
+  btnKirmizi.addEventListener("click", function () {
+    kirmizi = !kirmizi;
+    if (kirmizi) {
+      defterPanel.classList.add("uyari");
+      btnKirmizi.textContent = "kirmiziYuz kapat";
+      defterGovde.innerHTML = '<div class="kayit acik"><span class="t">--:--</span><span class="m"><span class="k">KIRMIZI YÜZ (fail-closed) — /api/graf 0 — graf SSOT okunamadı; bayat veri GÖSTERİLMEZ</span></span></div>';
+      toast("Demo: gerçek tuvalde sunucu/graf yokken kirmiziYüz açılır — boş kare + kırmızı detay, bayat veri asla kalmaz.");
+    } else {
+      defterPanel.classList.remove("uyari");
+      btnKirmizi.textContent = "kirmiziYuz demosu";
+      defteriCiz(false);
+      toast("KirmiziYüz kapatıldı — akış ÖRNEK satırlara döndü (mockup).");
+    }
+  });
+
+  /* zamanlanmış akış: örnek satırlar akar; reduced-motion'da DURUR */
+  if (!azHareket) {
+    var akisNo = 0;
+    setInterval(function () {
+      if (kirmizi) return;
+      var simdi = new Date();
+      var saat = ("0" + simdi.getHours()).slice(-2) + ":" + ("0" + simdi.getMinutes()).slice(-2);
+      var ornek = AKIS[akisNo % AKIS.length];
+      kayitlar.push({ t:saat, i:ornek.i, m:ornek.m });
+      if (kayitlar.length > 16) kayitlar.shift(); /* defter penceresi sınırlı */
+      akisNo++;
+      defteriCiz(true);
+    }, 4600);
+  }
+
+  /* --- başlangıç: tek HAZIR görev seçili (aktif olanlar vurgusu) --- */
+  sec("DC-S0");
+})();
+</script>
+</body>
+</html>
