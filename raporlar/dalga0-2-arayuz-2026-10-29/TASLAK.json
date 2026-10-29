@@ -2,37 +2,35 @@
     "uretici":  "scripts/kapanis-taslak.ps1",
     "kayitTuru":  "TASLAK",
     "ssotYazar":  false,
-    "dalgaId":  "DALGA-0-2-R1",
+    "dalgaId":  "DALGA-0-2-R2",
     "commits":  [
-                    "4fb5042",
-                    "5316354",
-                    "e76653d",
-                    "6d202de",
-                    "fdbcbc9",
-                    "dd51987"
+                    "b6e1d53",
+                    "644c616",
+                    "b4336c1",
+                    "8c4c459"
                 ],
     "kanal":  {
-                  "d":  "2026-10-29T14:50:56.6983575+03:00",
-                  "h":  "dd51987",
+                  "d":  "2026-10-29T15:57:15.7962780+03:00",
+                  "h":  "8c4c459",
                   "x":  0,
-                  "test":  "dalga0-2-r1",
-                  "sureSn":  96
+                  "test":  "dalga0-2-r2",
+                  "sureSn":  53
               },
     "girdi":  {
-                  "turBas":  "2026-10-29T13:12:45",
-                  "turSon":  "2026-10-29T14:53:33"
+                  "turBas":  "2026-10-29T15:08:28",
+                  "turSon":  "2026-10-29T15:59:29"
               },
-    "duvarSn":  6048,
+    "duvarSn":  3061,
     "olcumCifti":  {
                        "tabanVar":  true,
                        "red":  false,
                        "kanalSn":  {
                                        "once":  206,
-                                       "sonra":  96
+                                       "sonra":  53
                                    },
                        "duvarSn":  {
                                        "once":  null,
-                                       "sonra":  6048
+                                       "sonra":  3061
                                    },
                        "x":  {
                                  "once":  0,

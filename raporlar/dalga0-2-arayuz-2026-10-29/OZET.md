@@ -1,5 +1,7 @@
 # DALGA-0-2 + R1 BACAĞI — KAPANIŞ ÖZETİ (2026-10-29 14:54)
 
+> **R2 EKLESİ** (15:08→16:0x): aynı dizinde [BRIEF-R2-TASARIM.md](BRIEF-R2-TASARIM.md) + [R2-YAZAR-RAPORU.md](R2-YAZAR-RAPORU.md) + TASLAK R2 yeniden üretildi. R2 zinciri: fiş `b6e1d53` → yazar `644c616` + rapor `b4336c1` (light tema · üç sütun tek viewport · sol akordiyon · orta VS Code sekmeleri · sağda büyük AI chat + ikon menü; test 26→33 vaka) → merge `8c4c459` (--no-ff +865/−505) → **merge anında ÜÇ ÖLÇÜM YEŞİL: kanal 467/467 x=0 53 sn · tip GECTI · hedefli 33/33** (yazar 300,2+358,7 ms + operatör 278,2 ms) → worktree/branch temiz → CODEMAP taze (736 dosya) → TASLAK (duvarSn=3061 ≈ 51 dk). K2 görsel kabul YENİ YÜZ İÇİN KULLANICIDA.
+
 **Birleşik kapanış** (tek kapanış kuralı: ana dalga + R1 düzeltme bacağı). Zincir (K-0053 hattı):
 
 | Aşama | Kimlik | Ne getirdi |
