@@ -78,3 +78,16 @@ node plans/uygulama-paketleri/DC-H1-2026-10-28/gorunum.mjs --check
 ```
 
 Bu kontrollerden geçen görev paketinin runtime'da güvenli olduğu iddia edilmez. Fişlerin hazırlanması hiçbir ürün görevini başlatmaz. S5–S10 yalnız [kapı sonrası ayrıntılandırma teslimleri](SONRAKI-FAZLAR.md) olarak durur.
+
+## 7. Hız kalemleri kapanışında ölçüm çifti (V9-04)
+
+Hız/verimlilik sınıfı bir kalemin (v8/v9 paket maddesi, K-0053 dalga pilotu vb.) kapanışı, kanıt raporunda **ÖNCE/SONRA ölçüm çifti tablosu** olmadan yapılamaz:
+
+| ölçüt | ÖNCE (taban) | SONRA |
+|---|---|---|
+| kanal süresi (sn) | taban koşumun son-kanit.json'undan | aynı ölçütte bu dalganın koşumundan |
+| duvar süresi (tur başlangıç→kapanış, ölçülmüş) | taban turdan | bu turdan |
+| x (başarısız koşum sayısı) | taban koşumdan | bu dalgadan |
+| tur/koşum sayısı | taban turdan | bu dalgadan |
+
+Ölçümsüz "hızlandı/azaldı" iddiası **kapanamaz** — madde BEKLEYEN kalır; ölçümsüz hız iddiası sahte-yeşil sınıfıdır. Taban ölçüsü zaten yoksa önce taban koşumu yapılır, sonra değişiklik uygulanır (V9-03'ün ölç-sonra-karar ilkesi). 0 teknik LOC; kural sayacına girmez (paket dokümanı).
