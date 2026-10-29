@@ -2,41 +2,67 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kapsül Tuval — ordu</title>
 <style>
-  :root { --yesil:#2e7d32; --sari:#f9a825; --gri:#455a64; --mavi:#1565c0; --kirmizi:#c62828; }
+  :root {
+    --yesil:#2e7d32; --sari:#f9a825; --gri:#455a64; --mavi:#1565c0; --kirmizi:#c62828;
+    /* DALGA-0 clean olcegi: bosluk tek olcek — 4px katlari; az gri tonu (cizgi/metin-2/metin-3); koyu tema (baslik/json) korunur */
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px;
+    --zemin:#f4f6f8; --yuzey:#fff; --cizgi:#d8dee3; --vurgu:#eef3f6; --secili:#d6ecf7;
+    --metin:#263238; --metin2:#546e7a; --metin3:#90a4ae;
+  }
   * { box-sizing:border-box; margin:0; font:13px/1.45 "Segoe UI",system-ui,sans-serif; }
-  body { display:flex; flex-direction:column; height:100vh; background:#f4f6f8; }
-  header { display:flex; align-items:center; gap:12px; padding:8px 14px; background:#1b2733; color:#e8edf2; }
-  header b { letter-spacing:.5px; }
+  body { display:flex; flex-direction:column; height:100vh; background:var(--zemin); color:var(--metin); }
+  header { display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2); padding:var(--s2) var(--s4); background:#1b2733; color:#e8edf2; }
+  header b { font-size:15px; letter-spacing:.5px; }
   #meta { color:#9fb3c8; }
-  .modlar { margin-left:auto; display:flex; gap:6px; }
-  .modlar button, #yenile { padding:4px 12px; border:1px solid #456; border-radius:4px; background:#2b3b4a; color:#e8edf2; cursor:pointer; }
+  .modlar { margin-left:auto; display:flex; gap:var(--s1); }
+  .modlar button, #yenile { min-height:44px; min-width:44px; padding:var(--s1) var(--s3); border:1px solid #456; border-radius:var(--s1); background:#2b3b4a; color:#e8edf2; cursor:pointer; }
   .modlar button.aktif { background:#4fc3f7; color:#10212b; font-weight:600; }
+  #token { min-height:44px; width:170px; padding:var(--s1) var(--s2); border:1px solid #456; border-radius:var(--s1); background:#2b3b4a; color:#e8edf2; }
   main { display:flex; flex:1; min-height:0; }
   aside, section { min-height:0; }
-  #sol { width:270px; overflow-y:auto; background:#fff; border-right:1px solid #d8dee3; padding:10px; }
-  #sol h3 { font-size:12px; color:#546e7a; margin:8px 0 4px; }
-  .satir { display:block; width:100%; text-align:left; padding:5px 8px; margin:1px 0; border:0; border-radius:4px; background:none; cursor:pointer; }
-  .satir:hover { background:#eef3f6; }
-  .satir.secili { background:#d6ecf7; }
-  .satir .id { font-weight:700; margin-right:6px; }
+  #sol { width:270px; overflow-y:auto; background:var(--yuzey); border-right:1px solid var(--cizgi); padding:var(--s2); }
+  #sol h3 { font-size:11px; letter-spacing:.6px; text-transform:uppercase; color:var(--metin3); margin:var(--s3) 0 var(--s1); }
+  #sol h3:first-child { margin-top:var(--s1); }
+  .satir { display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2); width:100%; min-height:44px; text-align:left; padding:var(--s2); margin:var(--s1) 0; border:0; border-radius:var(--s1); background:none; color:inherit; cursor:pointer; }
+  .satir:hover { background:var(--vurgu); }
+  .satir.secili { background:var(--secili); }
+  .satir .id { font-weight:700; }
   #orta { flex:1; display:flex; flex-direction:column; min-width:0; }
-  #tuvalSarma { flex:1; overflow:auto; background:#fff; position:relative; }
-  #jsonview { flex:1; overflow:auto; margin:0; padding:14px; font:11px/1.5 Consolas,monospace; background:#10212b; color:#b2dfdb; white-space:pre; }
-  #detay { max-height:32%; overflow-y:auto; border-top:1px solid #d8dee3; background:#fff; padding:10px 14px; }
-  #detay h2 { font-size:14px; margin-bottom:6px; }
+  #tuvalSarma { flex:1; overflow:auto; background:var(--yuzey); position:relative; }
+  #jsonview { flex:1; overflow:auto; margin:0; padding:var(--s4); font:11px/1.5 Consolas,monospace; background:#10212b; color:#b2dfdb; white-space:pre; }
+  #detay { max-height:32%; overflow-y:auto; border-top:1px solid var(--cizgi); background:var(--yuzey); padding:var(--s2) var(--s4); }
+  #detay h2 { font-size:15px; margin-bottom:var(--s2); }
   #detay table { border-collapse:collapse; }
-  #detay td { padding:2px 10px 2px 0; vertical-align:top; }
-  #detay td:first-child { color:#546e7a; white-space:nowrap; }
-  #sag { width:300px; background:#fff; border-left:1px solid #d8dee3; padding:10px; display:flex; flex-direction:column; }
-  #sag .panel-bas { font-size:12px; font-weight:700; color:#546e7a; padding-bottom:6px; border-bottom:1px solid #e3e8ec; }
-  #chatBos { margin-top:12px; color:#90a4ae; font-style:italic; padding:10px; background:#fafbfc; border:1px dashed #cfd8dc; border-radius:6px; }
+  #detay td { padding:var(--s1) var(--s3) var(--s1) 0; vertical-align:top; }
+  #detay td:first-child { color:var(--metin2); white-space:nowrap; }
+  #kartBtn { min-height:44px; min-width:44px; } /* dugme markup'i sec() icinde inline stilli — dokunma hedefi CSS'ten tamamlanir, karta ucruna dokunulmaz */
+  #sag { width:300px; background:var(--yuzey); border-left:1px solid var(--cizgi); padding:var(--s2); display:flex; flex-direction:column; }
+  #sag .panel-bas { font-size:12px; font-weight:700; color:var(--metin2); padding-bottom:var(--s2); border-bottom:1px solid var(--cizgi); }
+  #chatBos { margin-top:var(--s3); color:var(--metin3); font-style:italic; padding:var(--s3); background:var(--zemin); border:1px dashed var(--cizgi); border-radius:var(--s1); }
   svg text { pointer-events:none; }
   .dugum rect { cursor:pointer; }
   .dugum:hover rect { stroke-width:2.5; }
-  .bos { color:#90a4ae; padding:20px; text-align:center; }
-  #hata { color:var(--kirmizi); font-weight:600; padding:20px; }
+  .bos { color:var(--metin3); padding:var(--s5); text-align:center; }
+  #hata { color:var(--kirmizi); font-weight:600; padding:var(--s5); }
+  /* DALGA-0 responsive: <=768px duzen tek sutuna iner — gorev listesi ustte, detay listeyi takip eder,
+     SVG tuval altta, sohbet en altta. #orta display:contents ile cocuklarini main'in flex ogeleri yapar;
+     order sirasi bu duzeni verir. Genis gorunumde yan-yana yerlesim (ustteki kurallar) korunur. */
+  @media (max-width:768px) {
+    * { font-size:14px; } /* mobilde okunur govde boyutu */
+    #jsonview { font-size:12px; }
+    body { height:auto; min-height:100vh; }
+    main { flex-direction:column; }
+    #orta { display:contents; }
+    #sol { order:1; width:auto; max-height:45vh; border-right:0; border-bottom:1px solid var(--cizgi); }
+    #detay { order:2; max-height:none; border-top:0; border-bottom:1px solid var(--cizgi); }
+    #tuvalSarma { order:3; flex:none; min-height:55vh; }
+    #jsonview { order:3; flex:none; }
+    #sag { order:4; width:auto; border-left:0; border-top:1px solid var(--cizgi); }
+    #token { width:100%; }
+  }
 </style>
 </head>
 <body>
@@ -48,7 +74,7 @@
     <button id="mMakine">MAKİNE OKUR</button>
   </span>
   <button id="yenile" title="graf JSON'u diskten yeniden oku">↻ Yenile</button>
-  <input id="token" type="password" placeholder="PANO_TOKEN (kart yazma kapısı)" title="Kapsül kartı oluşturma (POST /api/kart) token'ı — fail-closed: yazma ucu tokensız kırmızı" style="width:170px;padding:4px 8px;border:1px solid #456;border-radius:4px;background:#2b3b4a;color:#e8edf2;">
+  <input id="token" type="password" placeholder="PANO_TOKEN (kart yazma kapısı)" title="Kapsül kartı oluşturma (POST /api/kart) token'ı — fail-closed: yazma ucu tokensız kırmızı">
 </header>
 <main>
   <aside id="sol"></aside>
@@ -66,6 +92,8 @@
 "use strict";
 // D-1a cekirdek: tek veri kaynagi = GET /api/graf (pano/server.js diskten okur).
 // Iki yuz (INSAN OKUR / MAKINE OKUR) ayni fetch yanitindan uretilir — cift SSOT imkansiz.
+// DALGA-0 (arayuz dalgasi): responsive + touch + clean + faz-gruplu sol agac. Korunan cekirdek DEGISMEZ:
+// /api/graf fetch'i, kirmiziYuz fail-closed yuzu, modUygula iki yuzu, sec + kart ucu, 30 sn tazelik, yerlesim.
 const DURUMRENK = { HAZIR: "#2e7d32", BEKLE: "#f9a825", KAPALI: "#455a64", DEVAM: "#1565c0" };
 let G = null, secilen = null, mod = "insan";
 const $ = (id) => document.getElementById(id);
@@ -95,21 +123,34 @@ function metaYaz() {
   document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
 }
 
-// ---- sol panel: gorev listesi (INSAN OKUR sayilabilir yuzu) ----
-function solYaz() {
-  const gruplar = {};
+// ---- sol panel: gorev listesi (INSAN OKUR sayilabilir yuzu) — DALGA-0: FAZ-gruplu agac ----
+// Grup basligi gorev-basi "faz" alanindan (DC/F0..F4 gibi); faz alani olmayan gorev "(faz yok)" grubuna duser —
+// uydurma faz URETILMEZ. Grup sirasi verideki ilk gorulme sirasidir; "(faz yok)" grubu en sonda tasinir.
+// Durum bilgisi kaybolmaz: id rengi (DURUMRENK) + title (tam durum etiketi) satirlarda kalir.
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function fazGruplari() {
+  const gruplar = new Map();
   for (const g of G.gorevler) {
-    const d = g.durum.split(" ")[0];
-    (gruplar[d] ??= []).push(g);
+    const f = typeof g.faz === "string" && g.faz.trim() ? g.faz.trim() : "";
+    const ad = f || "(faz yok)";
+    if (!gruplar.has(ad)) gruplar.set(ad, []);
+    gruplar.get(ad).push(g);
   }
-  const sira = ["HAZIR", "BEKLE", "DEVAM", "KAPALI"];
+  if (gruplar.has("(faz yok)")) { // fazsizlar en sonda — grup sirasinda uydurma yok
+    const yok = gruplar.get("(faz yok)");
+    gruplar.delete("(faz yok)");
+    gruplar.set("(faz yok)", yok);
+  }
+  return gruplar;
+}
+function solYaz() {
   let h = "";
-  for (const d of sira) {
-    if (!gruplar[d]) continue;
-    h += "<h3>" + d + " (" + gruplar[d].length + ")</h3>";
-    for (const g of gruplar[d]) {
-      h += '<button class="satir" data-id="' + g.id + '"><span class="id" style="color:' + (DURUMRENK[d] || "#666") + '">' +
-        g.id + (g.kapi ? " 🔒" : "") + "</span>" + kisa(g.gorev) + "</button>";
+  for (const [ad, gs] of fazGruplari()) {
+    h += "<h3>" + esc(ad) + " (" + gs.length + ")</h3>";
+    for (const g of gs) {
+      const d = g.durum.split(" ")[0];
+      h += '<button class="satir" data-id="' + esc(g.id) + '" title="' + esc(g.durum) + '"><span class="id" style="color:' +
+        (DURUMRENK[d] || "#666") + '">' + esc(g.id) + (g.kapi ? " 🔒" : "") + '</span><span>' + esc(kisa(g.gorev)) + "</span></button>";
     }
   }
   $("sol").innerHTML = h;
