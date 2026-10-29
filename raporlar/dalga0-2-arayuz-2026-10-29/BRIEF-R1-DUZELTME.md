@@ -29,3 +29,13 @@ Mevcut dosya ≤3 (html + test; rapor yeni). server.js + graf SSOT + core/ + scr
 ## 5. Yazar akışı
 
 1. readFiles (§3). 2. Kod + test (2 bağımsız koşum). 3. `npm run tip` (core/). 4. İzole smoke: boş port, /tuval 200 + /api/graf 40 görev; server kill. 5. Branch'inde commit (-F %TEMP% deseni; emoji yok; Co-Authored-By). 6. R1-YAZAR-RAPORU.md: branch + hash + test X/X ×2 + tip + smoke + LOC + dürüst notlar (E7-E12 derslerinin hangileri test vaka OLDU listesiyle).
+
+## 6. EK-ŞART (2026-10-29 14:03 — kullanıcı; yazar ÇALIŞIRKEN iletildi, merge'den ÖNCE — tek dalgada uygulanır)
+
+**Soldaki AI CHAT bölümü geri geliyor** (DALGA-0-2 yüzünde eski tuvalin sohbeti düştü — kullanıcı: «chat bölümü solda vardı neden iptal ettin… chat bölümünde AI ile önce planları oluştur sonra orduyu yönetmeliyim»):
+
+1. **Drawer ikiye bölünür:** ÜSTTE «AI CHAT» paneli (mesaj listesi + ≥44px input + gönder), ALTTA faz-gruplu görev ağacı. Masaüstünde solda birlikte; mobilde drawer overlay içinde.
+2. **Chat bu dalgada = YERLEŞİM + ŞABLON-KOMUT ÜRETİCİ (dürüst):** hedef cümle → hazır komut şablonu (`node src/cli.ts gece --hedef <cümle> --limit 5` · `replan` · `graf goster`) + «kopyala»; «Planı oluştur» → plan taslağı ŞABLONU (görev/faz/limit) → komuta çevir + kopyala. Görünür etiket: «ŞABLON — canlı AI yanıtı D-4'te» (etiketsiz sahte AI YASAK).
+3. **EK-2:** chat onay cümlesi ÜRETMEZ/ÇALIŞTIRMAZ — yalnız şablon kopyalar.
+4. **Test:** chat input + mesaj listesi + şablon-üretici + kopyala kaynak-işaretleri; drawer chat-üst/ağaç-alt düzeni.
+5. K5/ÖRNEK-etiket/tablist=0/tek-akış aynen — ek-şart üstüne biner.
