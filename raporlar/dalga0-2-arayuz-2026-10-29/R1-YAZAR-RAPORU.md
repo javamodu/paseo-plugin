@@ -28,7 +28,7 @@
 | Inline script `node --check` | **SCRIPT_SYNTAX_OK** (728 satır script; gecici dosya OS temp'te) |
 | Tip kapısı `npm run tip` (core/) | **GECTI** — hata 0 · bilinen borç 0 · yeni 0 · tsc 0 · 15 695 ms |
 | İzole smoke (`PANO_PORT=4912`, kendi örneğim) | `/tuval` **200** (99 438 bayt) · `/api/graf` **200** (40 görev · 15 kenar · v14) · server kill edildi (taskkill; portta dinleyen YOK) |
-| CRLF bütünlüğü | html 1 516 CRLF/0 LF-only · test 408/0 (server.js dokunulmadı) |
+| CRLF bütünlüğü | html 1 516 CRLF/0 LF-only · test 409/0 (server.js dokunulmadı) |
 
 **LOC (`git diff --numstat` — sayım, tahmin değil):**
 
