@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 003f79e — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD c24c883 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -70,13 +70,13 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0050.md` (2.5KB) — K-0050 — SAVAŞ START + M02 canlı döngü kapanışı — KAYIT (START düdüğü [insan]) | Karar (uygulandı) | Reddedilen alternatifler
 - `kararlar/K-0051.md` (2.9KB) — K-0051 — A3 deneyim→kural derleyicisi açılış kararları (hedef dosya / parti üst sınırı / sentez yüzeyi) — ONAYLANDI | Bağlam | Karar (3 madde, [insan] yanıtları)
 - `kararlar/K-0052.md` (7.1KB) — K-0052 — K-SADE kural sadeleştirme dalgası I: sayaç 80→38 (v7 paketi + OP-A) | Bağlam | Karar (kullanıcı, 2026-10-28 karar turu)
-- `kararlar/K-0053.md` (3.4KB) — K-0053 — Dalga-bazlı yazar hattı (worktree/branch + merge-birimi) | Bağlam | Karar (önerilen)
+- `kararlar/K-0053.md` (3.7KB) — K-0053 — Dalga-bazlı yazar hattı (worktree/branch + merge-birimi) | Bağlam | Karar (önerilen)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (8 dosya: en yeni d1b-test.mjs, server.js, d1a-test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (78 dosya: en yeni HANDOFF-2026-10-28-2320.md, HANDOFF-2026-10-28-2134.md, YAZAR-BRIEF-SABLON-2026-10-28.md)
+- `plans/` (78 dosya: en yeni CALISTIRMA.md, HANDOFF-2026-10-28-2320.md, HANDOFF-2026-10-28-2134.md)
 - `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
-- `raporlar/` (170 dosya: en yeni insan-kabulu-B5-20261029013628021.md, 2026-W44.md, kanit-muhur.test.mjs)
+- `raporlar/` (173 dosya: en yeni v8-paralel-yazar-hizi-2026-10-28.md, OZET.md, TASLAK.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -85,6 +85,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/codex-failover.mjs` (7.5KB) — function dogrula() { | async function olc(b) { | function denemeModeli(b) {
 - `scripts/hedefli-test.mjs` (4.6KB) — export function hedefliSec(degisenler, testEnvanteri) { | function cikis(kod, mesaj) { if (mesaj) console.error(mesaj); process.exit(kod); }
 - `scripts/hedefli-test.test.mjs` (4.9KB)
+- `scripts/kapanis-taslak.ps1` (11.5KB) — function Red([string]$sebep) { | function Kanal-Yukle([string]$yol, [string]$etiket) { | function Zaman-Cozumle([string]$deger, [string]$adi) {
+- `scripts/kapanis-taslak.test.mjs` (11.7KB) — function kos(args) { | function durumFotografi() {
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (7.3KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
@@ -104,7 +106,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (62.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (62.3KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
-- `tmp-stage-set.mjs` (3.3KB)

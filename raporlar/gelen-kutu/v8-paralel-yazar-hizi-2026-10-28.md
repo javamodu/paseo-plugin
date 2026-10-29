@@ -14,6 +14,7 @@ başka oturumun dosya haritasından yazılmıştı — buradaki doğrulama diske
    RBT-2026-10-28.2'nin kirli dosyaları → **RBT kapanışı önkoşulu**; bugün yazılmadı.
    Not: tur 2'nin "CALISTIRMA.md/dogrula.mjs/gorevler.json YOK" tespiti ESKİDİ — dosyalar
    artık diskte (RBT ilerlemiş); yalnız kapanis-taslak.ps1 hâlâ yok.
+   **UYGULANDI 2026-10-29 — K0053-PILOT-1 pilot dalgasında (aşağıda §4).**
 3. **Madde 3a** (f3-crash dinamik timeout): **reddedildi — eşik gevşetme** (yapma
    listesi yasağı). Alternatif öneri: tam süit koşumu sırasında gerçek-süreç testlerinin
    (f3-crash/f3-live/manager) paralellik kaynaklı açlık yaşadığı sınıf için AYRI
@@ -64,14 +65,27 @@ serbest bırakma kaydı önkoşuluyla), H1 bütçe payları (5.880–9.450, T �
 S2/S5/S6 düdükleri (metinler uydurulMADI — graf sahibi turda). Paket ONAY DEĞİLDİR
 (EK-2: ajan onay üretemez); yalnız depolar + sıralar.
 
+## §4 Uygulanan: kapanis-taslak.ps1 (madde 2b — K-0053 pilot dalga K0053-PILOT-1, 2026-10-29)
+
+**scripts/kapanis-taslak.ps1** (YENİ) + **scripts/kapanis-taslak.test.mjs** (YENİ; mevcut 0) —
+RBT-2026-10-28.2/3 kapanış önkoşulu karşılandıktan (B5 kabul 04:36 → e5b2b2c) sonra
+K-0053 pilot dalgasında ayrı worktree yazarı doğurdu: fiş `c2e26ce` → yazar `3b137dd`
+(branch `k0053-pilot-1-v8-02b`) → merge `c24c883` (--no-ff) → **merge anında tam kanal
+467/467 x=0 112 sn** + tip GECTI + hedefli 11/11 (operatör yeniden-koşumu). K-0053
+ölçütleri **4/4 GEÇTİ** (duvar 1473 sn ≈ 24,6 dk < emsal ~25 dk; TEK kanal koşumu;
+kaçak 0; kirli-dosya ihlali 0) — **K-0054 gerekmedi**; V8-05 önkoşulu tamam, uygulama
+ayrı emir. TASLAK üreticisi kendi dalgasının kapanışında koştu (dogfood — TASLAK.md/json
+rapor dizininde). Kanıt: `raporlar/k0053-pilot-v8-02b-2026-10-29/OZET.md` (V9-04 ölçüm
+çifti tablosuyla).
+
 ## Bekleyenler (bu turun dışı — sahiplik/ölçüt)
 
 | madde | ne bekliyor | önkoşul |
 |---|---|---|
-| 1 uygulama (K-0053 pilot) | [insan] onayı → pilot dalga + ölçütler | karar paketi kapı 3 |
-| 2b kapanis-taslak.ps1 | bölünmüş kapanış turu script'i | RBT-2026-10-28.2 kapanışı (graf/kabul/SENARYO kilidi) |
+| ~~1 uygulama (K-0053 pilot)~~ | **KOŞTU VE KAPANDI — K0053-PILOT-1 (2026-10-29): 4/4 ölçüt GEÇTİ** | ~~karar paketi kapı 3~~ onay 08:33 (fd3fc3c) + pilot 09:19 (§4) |
+| ~~2b kapanis-taslak.ps1~~ | **UYGULANDI — §4 (yazar 3b137dd + merge c24c883)** | RBT kapanışı karşılandı (e5b2b2c) |
 | 3a seri-faz | gerçek-süreç testlerinin seri fazda koşumu | AYRI iş fişi (eşik gevşetme REDDİ; dynamic timeout yok) |
-| 5 paralel eşleme | 3 yazıcının dosya-çakışmasız eşlemesi | K-0053 onayı |
+| 5 paralel eşleme | 3 yazıcının dosya-çakışmasız eşlemesi | **önkoşul TAMAM** (K-0053 onayı + pilot 4/4) — uygulama ayrı emir |
 | 6 spawn ekonomisi | ölçüsüz varsayım olarak DEĞERLENDİRİLMEDİ (bu tur kapsamı dışı) | önce ölçüm (A0-5 spawn payı) |
 | tip-borcu 51→0 | 6 src + 45 test-fake düzeltme dalgası | ayrı dalga fişi; ratchet düşüşle iner |
 
