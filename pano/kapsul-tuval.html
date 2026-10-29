@@ -7,21 +7,26 @@
 <title>Kapsül Tuval — ordu</title>
 <style>
   /* =====================================================================
-     KAPSÜL TUVAL — İDEAL YÜZ (DALGA-0-2 · KAPI K1)
+     KAPSÜL TUVAL — İDEAL YÜZ (DALGA-0-2 · KAPI K1 · R1 TEK-AKIŞ düzeltme)
      Tasarım SSOT: raporlar/arayuz-mockup-6sub-2026-10-29/mockup-final.html
-     (6-subagent sentez + denetçi onarımları + drawer). Tema: koyu kumanda
+     GÜNCEL hali (1254 satır, tablist=0 — R1 sonrası). Tema: koyu kumanda
      dili — zemin #070b14, camgöbeği/menevşe vurgular, 48px grid dokusu;
      cam (backdrop-filter) YALNIZ üst bar + alt çubukta.
-     İKİ TEMEL birlikte: (a) drawer'da faz-gruplu görev ağacı + sağda
-     kapsül detay kartı; (b) kalp yüzü (GENEL STATE + ordu şeridi + run
-     kartları + onay-bekleyenler + kanıt defteri + $ komut kutusu).
+     R1 (kullanıcı: «izle denetle yönet diye ayrı ayrı buton… daha user
+     dostu»): İZLE/DENETLE/YÖNET nav/sekmeleri TAMAMEN KALDIRILDI — TEK
+     AKIŞ: GENEL STATE + ordu şeridi (hep görünür) → drawer (görev ağacı)
+     → kapsül kartı (DENETİM KANIYI inline: kanal x=0 + ölçüm çifti + tip)
+     → «Görev haritası» KATLANIR DAG bölümü → run kartları → onay
+     bekleyenler → kanıt defteri → alt komut kutusu; yönetim eylemleri
+     bağlamda (fiş/dispatch şablonu KOPYALA — EK-2).
      Kalp-yüzü verileri ÖRNEK etiketli (server.js YAZMA yasağı; gerçek
      bağ D-2). Graf yüzü GERÇEK: GET /api/graf (sözleşme değişmez).
      Korunan çekirdek: kirmiziYuz fail-closed · modUygula iki yüz (aynı
      fetch) · sec + kart ucu · 30 sn tazelik · yerlesim döngüde-çizilmez.
      0 dış bağımlılık: webfont/CDN/emoji YASAK — inline SVG ikon, sistem
-     font stack; dokunma hedefi >=44px; animasyon yalnız transform/opacity
-     <=600ms; touch-action: manipulation; prefers-reduced-motion kapatması.
+     font stack; dokunma hedefi >=44px (çipler dahil — global button
+     kuralı); animasyon yalnız transform/opacity <=600ms;
+     touch-action: manipulation; prefers-reduced-motion kapatması.
      ===================================================================== */
   :root {
     --zemin:#070b14; --yuzey:#0d1420; --yuzey2:#111a2c;
@@ -111,12 +116,13 @@
   .orduChip .alt { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .orduChip .d { width:8px; height:8px; border-radius:50%; flex:none; background:var(--camgobegi); }
 
-  /* ---- ANA DÜZEN: drawer (#sol) + merkez (#orta) + sağ detay (#sag) ---- */
+  /* ---- ANA DÜZEN: drawer (#sol) + merkez tek akış (#orta) + sağ kapsül kartı (#sag) ---- */
   main {
     position:relative; z-index:1; display:flex; gap:18px; align-items:flex-start;
-    max-width:1600px; margin:0 auto; padding:18px 20px 8px;
+    max-width:1600px; margin:0 auto; padding:18px 20px 40px;
   }
   #orta { flex:1 1 auto; min-width:0; }
+  #orta > section + section { margin-top:28px; } /* R1: tek akış bölümleri arası boşluk */
   #sag { flex:none; width:380px; min-width:300px; }
   .bolum-etiket {
     display:flex; align-items:center; gap:10px; margin:4px 0 12px;
@@ -137,11 +143,11 @@
   .drawerBaslik { font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ikincil); font-weight:700; font-variant-numeric:tabular-nums; }
   .drawerKapa {
     margin-left:auto; display:none; align-items:center; gap:6px;
-    min-height:36px; padding:0 12px; border:1px solid var(--cizgi); border-radius:8px;
+    min-height:var(--min-dokunma); padding:0 12px; border:1px solid var(--cizgi); border-radius:8px;
     background:var(--yuzey2); color:var(--ikincil); font-size:12px; font-weight:600; cursor:pointer;
-  }
+  } /* E8: 36px -> 44px (dokunma cipleri dahil kurali) */
   .drawerKapa svg { display:block; }
-  .drawerNav { display:flex; gap:6px; margin-bottom:6px; }
+  /* R1: drawer'da nav YOK — yalnız görev ağacı + «görev haritası» bağlantısı */
   .drawerAra { display:flex; gap:6px; margin-bottom:8px; }
   .ziplink {
     flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px;
@@ -177,18 +183,55 @@
   }
   .lejant .dNokta { width:7px; height:7px; display:inline-block; }
 
-  /* ---- MERKEZ: edim sekmeleri (İZLE / DENETLE / YÖNET) ---- */
-  .edimTablar { display:flex; gap:6px; margin-bottom:12px; }
-  .edimTab {
-    flex:1; border-radius:10px; padding:6px 10px; border:1px solid var(--cizgi);
-    background:var(--yuzey); color:var(--ikincil); font-size:12.5px; font-weight:700; letter-spacing:0.08em; cursor:pointer;
+  /* ---- AI CHAT (EK-ŞART 14:03): drawer ÜST paneli — ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4) ---- */
+  .chatBolum {
+    flex:none; display:flex; flex-direction:column; gap:6px; margin-bottom:10px;
+    background:rgba(13,20,32,0.85); border:1px solid var(--cizgi); border-radius:10px; padding:8px;
   }
-  .edimTab.aktif {
-    background:linear-gradient(160deg, rgba(34,211,238,0.18), rgba(139,92,246,0.14));
-    color:var(--camgobegi); border-color:rgba(34,211,238,0.45);
+  .chatBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 4px; }
+  .chatBas h3 { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--camgobegi); font-weight:700; }
+  .chatListe { display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto; padding:2px; }
+  .chatListe::-webkit-scrollbar { width:8px; }
+  .chatListe::-webkit-scrollbar-thumb { background:rgba(147,164,189,0.25); border-radius:99px; }
+  .chatMesaj { font-size:11.5px; line-height:1.55; border-radius:8px; padding:6px 9px; overflow-wrap:anywhere; }
+  .chatMesaj p { margin:0; }
+  .chat-kullanici { background:rgba(34,211,238,0.10); border:1px solid rgba(34,211,238,0.35); color:var(--metin); align-self:flex-end; max-width:92%; }
+  .chat-sistem { background:var(--yuzey2); border:1px dashed var(--cizgi); color:var(--ikincil); }
+  .chatSabit { color:var(--uyari); font-size:10px; letter-spacing:0.06em; }
+  .chatKomutSatir { display:flex; align-items:center; gap:6px; margin-top:4px; flex-wrap:wrap; }
+  .chatKomutSatir code { flex:1 1 100%; font:10.5px/1.5 var(--mono); color:var(--camgobegi); overflow-wrap:anywhere; }
+  .chatPlan { margin-top:6px; padding:6px 8px; border:1px dashed rgba(139,92,246,0.5); border-radius:8px; font:10.5px/1.6 var(--mono); color:#c4b5fd; white-space:pre-wrap; }
+  .chatForm { display:flex; gap:6px; }
+  .chatGiris {
+    flex:1; min-height:var(--min-dokunma); min-width:0; background:rgba(7,11,20,0.9); border:1px solid var(--cizgi);
+    border-radius:8px; color:var(--metin); font-size:12px; padding:8px 10px; outline:none; touch-action:manipulation;
   }
-  .edimPanel { animation:suzulme 420ms ease-out both; }
-  @keyframes suzulme { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .chatGiris::placeholder { color:var(--ikincil); opacity:0.6; }
+  .chatGiris:focus-visible { border-color:rgba(34,211,238,0.6); }
+  .chatGonder {
+    flex:none; min-height:var(--min-dokunma); min-width:var(--min-dokunma); display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(34,211,238,0.5); border-radius:8px; background:rgba(34,211,238,0.12);
+    color:var(--camgobegi); font-size:13px; font-weight:800; padding:0 12px; cursor:pointer; transition:transform 150ms ease;
+  }
+  .chatGonder:active { transform:scale(0.96); }
+
+  /* ---- MERKEZ: TEK AKIŞ bölümleri (R1 — İZLE/DENETLE/YÖNET sekmeleri KALDIRILDI) ---- */
+  .bolumBas { display:flex; align-items:center; gap:10px; margin:4px 0 12px; flex-wrap:wrap; }
+  .bolumBas .bolum-etiket { margin:0; }
+  .katlaBtn {
+    flex:none; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    min-height:var(--min-dokunma); padding:0 14px; border:1px solid var(--cizgi); border-radius:8px;
+    background:var(--yuzey); color:var(--ikincil); font-size:12px; font-weight:700; letter-spacing:0.06em; cursor:pointer;
+  }
+  .katlaBtn:hover { color:var(--camgobegi); border-color:rgba(34,211,238,0.45); }
+  .kartBolumBas { /* R1: DENETİM KANIYI blok başlığı — kapsül kartının içinde */
+    margin:12px 0 2px; padding-top:10px; border-top:1px solid var(--cizgi);
+    font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--uyari); font-weight:700;
+  }
+  /* R1: tek akış bölüm kabukları — E9 (her sınıfın CSS kuralı HTML ile birebir) */
+  .onayBolum { display:block; }
+  .defterBolum { display:block; }
+  .sablonBolum { display:block; }
 
   /* ---- DAG tuvali: viewBox zoom/pan (mockup deseni; yerlesim çekirdeği korunur) ---- */
   .arclar { display:flex; flex-wrap:wrap; gap:6px; padding:0 0 10px; }
@@ -233,7 +276,6 @@
   .tuvIpucu { margin-left:auto; }
 
   /* ---- RUN KARTLARI (kalp yüzü — veri ÖRNEK) ---- */
-  .runBolum { margin-top:14px; }
   .kartlarBas { font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ikincil); font-weight:600; margin-bottom:8px; }
   .kartlar { display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); }
   .kart {
@@ -253,7 +295,7 @@
   .kart-ipucu { margin-top:8px; font-size:10.5px; color:var(--ikincil); opacity:0.7; }
 
   /* ---- KANIT DEFTERİ (kalp yüzü — kayıtlar ÖRNEK; çift-okur) ---- */
-  .defter { margin-top:14px; background:rgba(7,11,20,0.85); border:1px solid var(--cizgi); border-radius:var(--radius); }
+  .defter { background:rgba(7,11,20,0.85); border:1px solid var(--cizgi); border-radius:var(--radius); }
   .defterBas { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:10px 14px 6px; }
   .defterBas h3 { font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ikincil); font-weight:600; }
   .defterArac { margin-left:auto; display:flex; gap:6px; flex-wrap:wrap; }
@@ -271,24 +313,20 @@
   .kayit.makine .m { color:var(--ikincil); }
   .imlec { color:var(--camgobegi); }
 
-  /* ---- DENETLE görünümü (kayıtlı değerler — canlı değil, ÖRNEK) ---- */
+  /* ---- KANAL GEÇMİŞİ tablosu (kayıtlı değerler — canlı değil, ÖRNEK; defter bölümünde) ---- */
   .denetimTablo { border:1px solid var(--cizgi); border-radius:10px; overflow:hidden; font-size:12.5px; }
   .dSatir { display:grid; grid-template-columns:120px 1fr; gap:10px; padding:9px 12px; border-bottom:1px solid rgba(147,164,189,0.10); background:var(--yuzey); }
   .dSatir:last-child { border-bottom:0; }
   .dEtiket { color:var(--ikincil); font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; padding-top:1px; font-family:var(--mono); }
   .dDeger { color:var(--metin); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; font-family:var(--mono); font-size:12px; }
   .dDeger .yesil { color:var(--basari); }
-  .olcumCifti { margin-top:12px; display:grid; gap:8px; }
-  .olcumCifti .kutu { border:1px solid var(--cizgi); border-radius:8px; padding:9px 12px; background:var(--yuzey2); font-family:var(--mono); font-size:12px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
-  .olcumCifti .kutu b { color:var(--camgobegi); }
+  #denetimGecmis { margin-top:14px; }
   .denetimKaynak { margin-top:10px; font-size:11px; color:var(--ikincil); opacity:0.85; }
   .kyKart { margin-top:14px; border:1px solid rgba(248,113,113,0.4); border-left:3px solid var(--tehlike); border-radius:10px; padding:12px 14px; background:rgba(248,113,113,0.05); }
   .kyKart p { font-size:12.5px; color:var(--metin); margin-top:6px; }
   .kyBaslik { font-size:12px; font-weight:700; color:var(--tehlike); letter-spacing:0.06em; }
 
-  /* ---- YÖNET (fiş kopyala + şablonlar; GUI çalıştırmaz — EK-2) ---- */
-  .seciliSatir { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:12px; font-size:13px; color:var(--ikincil); }
-  .seciliSatir b { color:var(--camgobegi); font-variant-numeric:tabular-nums; }
+  /* ---- KOMUT ŞABLONLARI (YÖNET bağlamda — kopyala; GUI çalıştırmaz — EK-2) ---- */
   .sablonListe { display:grid; gap:8px; margin-top:12px; }
   .sablon { display:grid; grid-template-columns:84px 1fr auto; gap:8px; align-items:center; border:1px solid var(--cizgi); border-radius:8px; padding:4px 8px 4px 12px; background:var(--yuzey); }
   .sablonAd { font-size:11px; font-weight:700; color:var(--menevse); letter-spacing:0.08em; text-transform:uppercase; }
@@ -335,9 +373,7 @@
   #kartSonuc { margin-top:8px; font-size:12px; color:var(--metin); overflow-wrap:anywhere; }
   .kirmiziKart { color:var(--tehlike); font-weight:800; font-size:14px; padding:6px 0; overflow-wrap:anywhere; }
 
-  /* ---- ONAY BEKLEYENLER ([insan] kuyruğu — veri ÖRNEK; kopyala GERÇEK panoya) ---- */
-  .govdeAlt { position:relative; z-index:1; max-width:1600px; margin:0 auto; padding:6px 20px 40px; }
-  .onayBolum { margin-top:8px; }
+  /* ---- ONAY BEKLEYENLER ([insan] kuyruğu — tek akışın hep görünür bölümü; veri ÖRNEK; kopyala GERÇEK panoya) ---- */
   .onaylar { display:grid; gap:10px; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); }
   .onay-kart { background:var(--yuzey); border:1px solid var(--cizgi); border-left:3px solid var(--uyari); border-radius:10px; padding:12px 14px; }
   .onay-baslik { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
@@ -397,12 +433,6 @@
   }
   .kopyala-btn:hover { background:rgba(34,211,238,0.1); }
   .kopyala-btn:active { transform:scale(0.96); }
-  .mdBtn {
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    border:1px solid rgba(34,211,238,0.5); border-radius:10px; background:rgba(34,211,238,0.10);
-    color:var(--camgobegi); font-size:12.5px; font-weight:700; padding:6px 16px; transition:transform 150ms ease;
-  }
-  .mdBtn:active { transform:scale(0.97); }
 
   /* ---- toast ---- */
   .toast {
@@ -439,32 +469,30 @@
     #perde { display:none; }
   }
 
-  /* <=768: tek kolon — eski DALGA-0 test kalıbının kaynak kuralları korunur
-     (#orta/#panel-izle/#sag display:contents ile yapraklar main akışına katılır;
-     sıra: sekmeler -> kapsül kartı -> DAG -> run kartları -> defter).
-     Dürüst not: #sol bu aralıkta <1024 overlay olduğundan order:1 akış-dışı
-     (görsel etkisi yok — kalıp süreklilik kuralı); #sag contents olduğundan
-     order:4 kutu üretmez. */
+  /* <=768: tek kolon — R1 TEK AKIŞ sırası (#orta/#sag display:contents ile
+     yapraklar main akışına katılır; sıra: kapsül kartı (denetim kanıtı inline)
+     -> görev haritası (katlanır DAG) -> run kartları -> onaylar -> kanıt
+     defteri -> komut şablonları). Dürüst not: #sol bu aralıkta <1024 overlay
+     olduğundan order:1 akış-dışı (görsel etkisi yok — kalıp süreklilik kuralı);
+     #sag contents olduğundan kutu üretmez, #detay yaprağı order:2 ile girer. */
   @media (max-width:768px) {
     * { font-size:14px; } /* mobilde okunur govde boyutu */
     #jsonview { font-size:12px; }
-    main { flex-direction:column; padding:16px 14px 8px; }
+    main { flex-direction:column; padding:16px 14px 30px; }
     #orta { display:contents; }
-    #panel-izle:not([hidden]) { display:contents; }
-    #sag { display:contents; order:4; }
+    #sag { display:contents; }
     .detayBas { display:none; }
     #sol { order:1; }
     #detay { order:2; }
-    #tuvalSarma { order:3; }
-    .arclar { order:3; }
-    .tuvAlt { order:3; }
-    .runBolum { order:5; }
-    .defter { order:6; }
+    #haritaBolum { order:3; }
+    #runBolum { order:4; }
+    #onayBolum { order:5; }
+    #defterBolum { order:6; }
+    #sablonBolum { order:7; }
     #token { width:100%; }
     .ustbar { padding:10px 14px; gap:8px; }
     .rozetler { width:100%; margin-left:0; }
     .orduSeridi { padding:8px 14px; }
-    .govdeAlt { padding:6px 14px 30px; }
     #tuvalSarma { height:48vh; }
     .kartlar { grid-template-columns:1fr; }
     .defterGovde { max-height:240px; }
@@ -494,9 +522,10 @@
 
 <!-- ÖRNEK-VERİ şeridi: dürüstlük beyanı — kalp-yüzü verileri canlı değil -->
 <div class="serit" role="note">
-  KAPSÜL TUVAL · İDEAL YÜZ (DALGA-0-2) — görev ağacı · GENEL STATE · kapsül kartı · bağımlılık çipleri · DAG <b>GERÇEK</b> (GET /api/graf — graf SSOT salt-okur, her istekte diskten)
-  · kalp-yüzü verileri (ordu şeridi · run kartları · onay-bekleyenler · kanıt defteri · komut şablonları) <b>ÖRNEK — gerçek bağ D-2 dalgası</b>
-  · onay cümlesi GUI'de üretilmez/çalıştırılmaz (EK-2) · ağ isteği yalnız /api/graf + /api/kart
+  KAPSÜL TUVAL · R1 TEK AKIŞ (DALGA-0-2 · KAPI K1) — görev ağacı · GENEL STATE · kapsül kartı (denetim kanıtı inline) · bağımlılık çipleri · katlanır «görev haritası» DAG <b>GERÇEK</b> (GET /api/graf — graf SSOT salt-okur, her istekte diskten)
+  · kalp-yüzü verileri (ordu şeridi · run kartları · onay-bekleyenler · kanıt defteri · komut şablonları + karttaki kayıtlı denetim değerleri) <b>ÖRNEK — gerçek bağ D-2 dalgası</b>
+  · solda AI CHAT: hedef cümle → <b>ŞABLON komut üretici</b> (canlı AI yanıtı D-4 dalgasında) · onay cümlesi GUI'de üretilmez/çalıştırılmaz (EK-2)
+  · ağ isteği yalnız /api/graf + /api/kart · sekmeler YOK — tek görünüm, gezinme yalnız scroll + drawer (AI CHAT + görev ağacı)
 </div>
 
 <div class="isik isik-1" aria-hidden="true"></div>
@@ -530,13 +559,13 @@
 
 <!-- ============ ORDU ŞERİDİ (KALP — 6 rol; durum ÖRNEK, adlar graf SSOT'tan) ============ -->
 <h2 class="gizli">Ordu şeridi — roller ve durumlar</h2>
-<section class="orduSeridi" id="orduSeridi" data-ornek="rollerin canlı koşum durumu ÖRNEK — gerçek bağ D-2 (rol adları/modeller graf SSOT'tan GERÇEK)" aria-label="ordu şeridi — 6 rol">
-  <span class="bosSatir">ordu şeridi graf yüklenince 6 rolle doldurulur (G.roller · ajanKadrosu)…</span>
+<section class="orduSeridi" id="orduSeridi" data-ornek="rollerin canlı koşum durumu ÖRNEK — gerçek bağ D-2 (rol adları/modeller graf SSOT'tan GERÇEK)" aria-label="ordu şeridi — roller (G.roller)">
+  <span class="bosSatir">ordu şeridi graf yüklenince rollerle doldurulur (G.roller · ajanKadrosu)…</span>
 </section>
 
 <main>
-  <!-- ============ DRAWER (#sol): nav + FAZ-GRUPLU GÖREV AĞACI (TEMEL a) ============ -->
-  <nav id="sol" aria-label="görev grafı ve bölüm menüsü">
+  <!-- ============ DRAWER (#sol): FAZ-GRUPLU GÖREV AĞACI + görev haritası bağlantısı (nav YOK — R1) ============ -->
+  <nav id="sol" aria-label="görev grafı menüsü — AI CHAT + faz-gruplu görev ağacı">
     <div class="drawerUst">
       <span class="drawerBaslik">GÖREV GRAFİ <span id="agacSayi">—</span></span>
       <button id="yenile" class="kopyala-btn" type="button" title="graf JSON'u diskten yeniden oku (GET /api/graf — her istekte diskten)">↻ Yenile</button>
@@ -545,14 +574,22 @@
         kapat
       </button>
     </div>
-    <div class="drawerNav" role="tablist" aria-label="edim seçimi (menü)">
-      <button class="edimTab aktif" role="tab" aria-selected="true" aria-controls="panel-izle" data-panel="panel-izle" type="button">İZLE</button>
-      <button class="edimTab" role="tab" aria-selected="false" aria-controls="panel-denetle" data-panel="panel-denetle" type="button">DENETLE</button>
-      <button class="edimTab" role="tab" aria-selected="false" aria-controls="panel-yonet" data-panel="panel-yonet" type="button">YÖNET</button>
-    </div>
+    <!-- AI CHAT (EK-ŞART 14:03): drawer ÜST paneli — ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4'te bağlanır) -->
+    <section class="chatBolum" id="chatBolum" data-ornek="AI yanıtları ŞABLON komut üretimidir — canlı AI yanıtı D-4 dalgasında bağlanır; etiketsiz sahte AI YASAK" aria-labelledby="chat-baslik">
+      <div class="chatBas">
+        <h3 id="chat-baslik">AI CHAT</h3>
+        <span class="etiketOrnek">ŞABLON — canlı AI yanıtı D-4</span>
+      </div>
+      <div class="chatListe" id="chatListe" role="log" aria-live="polite" aria-label="AI sohbet — şablon komut üretici">
+        <div class="chatMesaj chat-sistem"><p>Hedef cümle yaz (örn. «pano arayüzünü yenile») — hazır komut ŞABLONLARI + plan taslağı döner; her biri panoya kopyalanır, GUI koşmaz (EK-2).</p></div>
+      </div>
+      <form class="chatForm" id="chatForm">
+        <input class="chatGiris" id="chatGiris" type="text" autocomplete="off" spellcheck="false" placeholder="hedef cümle — ne yapılmalı?" aria-label="AI sohbet hedef cümlesi (şablon komut üretici)">
+        <button class="chatGonder" id="chatGonder" type="submit" aria-label="hedef cümleyi şablon komutlarına çevir">▸</button>
+      </form>
+    </section>
     <div class="drawerAra">
-      <button class="ziplink" type="button" data-zipla="onayBolum">▸ onay bekleyenler</button>
-      <button class="ziplink" type="button" data-zipla="top">▸ ordu · state</button>
+      <button class="ziplink" type="button" data-zipla="haritaBolum" title="katlanır «Görev haritası» DAG bölümüne kaydır">▸ görev haritası</button>
     </div>
     <div class="grafKutu" id="agac"><p class="bosSatir">ağaç yükleniyor…</p></div>
     <p class="lejant">
@@ -563,17 +600,17 @@
     </p>
   </nav>
 
-  <!-- ============ MERKEZ (#orta): KALP EDİM PANELERİ (İZLE / DENETLE / YÖNET) ============ -->
-  <section id="orta" aria-labelledby="edim-baslik">
-    <h2 class="bolum-etiket" id="edim-baslik">Kalp — İZLE · DENETLE · YÖNET</h2>
-    <div class="edimTablar" role="tablist" aria-label="edim seçimi">
-      <button class="edimTab aktif" role="tab" id="tab-izle" aria-selected="true" aria-controls="panel-izle" data-panel="panel-izle" type="button">İZLE</button>
-      <button class="edimTab" role="tab" id="tab-denetle" aria-selected="false" aria-controls="panel-denetle" data-panel="panel-denetle" type="button">DENETLE</button>
-      <button class="edimTab" role="tab" id="tab-yonet" aria-selected="false" aria-controls="panel-yonet" data-panel="panel-yonet" type="button">YÖNET</button>
-    </div>
+  <!-- ============ MERKEZ (#orta): TEK AKIŞ (R1 — İZLE/DENETLE/YÖNET sekmeleri KALDIRILDI) ============ -->
+  <section id="orta" aria-label="ana akış — görev haritası, run kartları, onaylar, kanıt defteri, komut şablonları">
+    <h2 class="gizli">Ana akış — görev haritası, run kartları, onaylar, kanıt defteri, komut şablonları</h2>
 
-    <!-- İZLE: DAG tuvali (GERÇEK — viewBox zoom/pan) + run kartları + kanıt defteri -->
-    <div class="edimPanel" role="tabpanel" id="panel-izle" aria-labelledby="tab-izle">
+    <!-- GÖREV HARİTASI: KATLANIR DAG bölümü (varsayılan AÇIK; viewBox zoom/pan korunur) -->
+    <section id="haritaBolum" aria-labelledby="harita-baslik">
+      <div class="bolumBas">
+        <h3 class="bolum-etiket" id="harita-baslik">Görev haritası — DAG · <span id="haritaSayi">—</span></h3>
+        <button id="haritaKatla" class="katlaBtn" type="button" aria-expanded="true" aria-controls="haritaGovde">▾ katla</button>
+      </div>
+      <div id="haritaGovde">
       <div class="arclar">
         <button id="zIn" type="button" aria-label="yakınlaş">+</button>
         <button id="zOut" type="button" aria-label="uzaklaş">−</button>
@@ -599,8 +636,10 @@
         </span>
         <span class="tuvIpucu">sürükle: kaydır · tekerlek/pinch: yakınlaş · çift tık: büyüt · düğüm tıkla: seç</span>
       </div>
+      </div>
+      </section>
 
-      <section class="runBolum" aria-labelledby="run-baslik">
+      <section class="runBolum" id="runBolum" aria-labelledby="run-baslik">
         <h3 class="kartlarBas" id="run-baslik">RUN KARTLARI <span class="etiketOrnek">ÖRNEK — canlı değil</span></h3>
         <div class="kartlar" id="kartlar" data-ornek="run ilerlemeleri kalp-yüzü verisi — ÖRNEK (kayıtlı değerler, canlı değil); gerçek bağ D-2">
           <article class="kart" tabindex="0" role="button" aria-label="run-f911b84d bilgisi" data-not="run-f911b84d · S1 — ikinci canlı run (claw-rehber özeti). Kayıtlı değer (GERÇEK kayıt, canlı DEĞİL): Paseo oturum 35195156 · codex/glm-5.3 · ~4,5 dk · evaluate PASS 4/4 · decide apv-6cd2de76 ACCEPTED · TESTER bağımsız sayım 10-10 birebir.">
@@ -636,8 +675,41 @@
         </div>
       </section>
 
-      <!-- kanıt defteri: çift-okur mono akış (kayıtlar ÖRNEK — canlı akış D-2) -->
-      <section class="defter" id="defterPanel" data-ornek="kanıt defteri kayıtları kalp-yüzü verisi — ÖRNEK (kapanış kayıtları, canlı akış değil); gerçek bağ D-2" aria-label="kanıt defteri">
+      <!-- ONAY BEKLEYENLER: [insan] kuyruğu — tek akışın hep görünür bölümü (veri ÖRNEK; kopyala GERÇEK panoya) -->
+      <section class="onayBolum" id="onayBolum" data-ornek="onay kuyruğu verisi kalp-yüzü — ÖRNEK (kayıtlı kuyruk, canlı değil); gerçek bağ D-2" aria-labelledby="onay-baslik">
+        <h3 class="bolum-etiket" id="onay-baslik">Onay bekleyenler — [insan] kuyruğu</h3>
+        <div class="onaylar">
+          <div class="onay-kart">
+            <div class="onay-baslik"><span class="onay-id">rpl-03579e06</span><span class="onay-tip">replan onayı <span class="etiketOrnek">ÖRNEK</span></span></div>
+            <p class="onay-aciklama">DRIFT yeniden planlama önerisi — hazır komut panoya alınır, terminalinizde siz koşarsınız:</p>
+            <div class="onay-komut">
+              <span id="komut-rpl">node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"</span>
+              <button class="kopyala-btn" type="button" data-kopyala="komut-rpl" aria-label="onay komutunu panoya kopyala">⧉ kopyala</button>
+            </div>
+            <p class="onay-not">GUI asla kendi adına onaylamaz — komut sizin terminalinizde koşar (EK-2 dokunulmaz; onay cümlesi statik metin, JS'te üretilmez).</p>
+          </div>
+          <div class="onay-kart">
+            <div class="onay-baslik"><span class="onay-id">D-1b</span><span class="onay-tip">elle test <span class="etiketOrnek">ÖRNEK</span></span></div>
+            <p class="onay-aciklama">Arayüz görsel kabulü — tuval sayfasını elle açıp dar/mobil görünümü ve drawer davranışını deneyin.</p>
+            <div class="onay-komut">
+              <span id="onay-d1b-url">http://127.0.0.1:4377/tuval</span>
+              <button class="kopyala-btn" type="button" data-kopyala="onay-d1b-url" aria-label="tuval adresini panoya kopyala">⧉ adresi kopyala</button>
+            </div>
+            <p class="onay-not">durum: kullanıcıda · görsel kabul elle (DOM render testi yasak — yeni bağımlılık yok)</p>
+          </div>
+          <div class="onay-kart">
+            <div class="onay-baslik"><span class="onay-id">K-0044</span><span class="onay-tip">pencere <span class="etiketOrnek">ÖRNEK</span></span></div>
+            <p class="onay-aciklama">Ortam anahtarı uygulama penceresi — restart'ta sizinle birlikte açılır; anahtar değerleri ekrana yazılmaz.</p>
+            <button class="kopyala-btn" type="button" data-not="K-0044: setx adımı KULLANICI eliyle (restart + uygulama penceresi). GUI bu dalgada yazma ucuna hiç gitmez — kart bilgi amaçlı; kapsül kartı yazma ucu ayrı bir PANO_TOKEN kapısındadır (üst bardaki password girişi, değer ekrana yazılmaz).">⧉ durum bilgisini göster</button>
+            <p class="onay-not">durum: bekliyor · setx adımı kullanıcı eliyle</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- KANIT DEFTERİ: çift-okur akış + kanal geçmişi + kirmiziYuz kartı (tek akışın hep görünür bölümü) -->
+      <section class="defterBolum" id="defterBolum" aria-labelledby="defter-baslik">
+        <h3 class="bolum-etiket" id="defter-baslik">Kanıt defteri — akış + kanal geçmişi</h3>
+        <section class="defter" id="defterPanel" data-ornek="kanıt defteri kayıtları kalp-yüzü verisi — ÖRNEK (kapanış kayıtları, canlı akış değil); gerçek bağ D-2" aria-label="kanıt defteri">
         <div class="defterBas">
           <h3>KANIT DEFTERİ — AKIŞ <span class="etiketOrnek">ÖRNEK</span></h3>
           <span class="defterArac">
@@ -646,42 +718,27 @@
           </span>
         </div>
         <div class="defterGovde" id="defterGovde" tabindex="0" role="log" aria-live="polite" aria-label="kanıt defteri akışı"></div>
+        </section>
+        <!-- kanal geçmişi: kayıtlı koşum kayıtları (R1: eski DENETLE panelinden buraya — kapanış ölçümleri kapsül kartında inline) -->
+        <div id="denetimGecmis" data-ornek="kanal geçmişi kayıtlı kapanış değerleri — canlı değil; gerçek bağ D-2">
+          <div class="denetimTablo">
+            <div class="dSatir"><span class="dEtiket">kanal·a3</span><span class="dDeger">d=2026-10-27T09:43:17+03:00 · h=bbbd393 · <span class="yesil">x=0</span> · test=a3-kural-derleyici · sureSn=86 (4. koşum YEŞİL)</span></div>
+            <div class="dSatir"><span class="dEtiket">kanal·a02</span><span class="dDeger">d=2026-10-27T11:43:06+03:00 · h=280d881 · <span class="yesil">x=0</span> · test=a02-sweep · sureSn=56</span></div>
+            <div class="dSatir"><span class="dEtiket">kanal·a03</span><span class="dDeger">d=2026-10-27T12:47:21+03:00 · h=26a0561 · <span class="yesil">x=0</span> · test=a03-gozetimsiz-besleme · sureSn=119</span></div>
+            <div class="dSatir"><span class="dEtiket">test</span><span class="dDeger">tam suit 437/437 → 449/449 (a02→a03 dalgaları, kayıtlı)</span></div>
+          </div>
+          <p class="denetimKaynak">kaynak: DALGA0-ARAYUZ-1 kapanış kayıtları (h=ea78bd3) — kayıtlı değerler, canlı değil. Kapanış ölçümleri (tam kanal 467/467 · x=0 · ölçüm çifti 166→206 · tip · duvar · kaçak) seçili görevin kapsül kartındaki <b>DENETİM KANIYI</b> bloğunda inline. Dürüst not: kanal süresi ARTTI (166→206) — hız iddiası tek örnekten çıkmaz (test gövdesi ~91 sn her ikisinde). <span class="etiketOrnek">ÖRNEK — canlı değil</span></p>
+        </div>
+        <div class="kyKart">
+          <div class="kyBaslik">KIRMIZI YÜZ — fail-closed davranışı (GERÇEK davranış)</div>
+          <p>Graf SSOT diskten okunamazsa (/api/graf 404/bağlantı hatası) ekran kırmızı yüze döner: ağaç boşalır, tuval boş kalır, detay kırmızı hata metni yazar — bayat graf asla ekranda kalmaz (kirmiziYuz). Bu yüz bu tuvalde fetch hatasında kendiliğinden tetiklenir; demo düğmesi yok — gerçek davranıştır.</p>
+          <button class="kopyala-btn" type="button" data-not="kirmiziYuz (fail-closed): sunucu/graf yokken KIRMIZI YÜZ — ağaç boşalır, tuval boş kalır, detay kırmızı hata metni yazar, bayat veri kalmaz. Sunucuyu durdurup sayfayı yenileyerek gerçekten tetiklenebilir (PANO_TOKEN yazma ucu hariç tüm yüz okumadır).">davranışı hatırlat</button>
+        </div>
       </section>
-    </div>
 
-    <!-- DENETLE: kanal x=0 tablosu + ölçüm çifti + kirmiziYuz kartı (kayıtlı değerler — canlı değil) -->
-    <div class="edimPanel" role="tabpanel" id="panel-denetle" aria-labelledby="tab-denetle" hidden>
-      <div id="denetimVeri" data-ornek="denetim değerleri kayıtlı (DALGA-0 kapanışı) — canlı değil; gerçek bağ D-2">
-        <div class="denetimTablo">
-          <div class="dSatir"><span class="dEtiket">kanal·a3</span><span class="dDeger">d=2026-10-27T09:43:17+03:00 · h=bbbd393 · <span class="yesil">x=0</span> · test=a3-kural-derleyici · sureSn=86 (4. koşum YEŞİL)</span></div>
-          <div class="dSatir"><span class="dEtiket">kanal·a02</span><span class="dDeger">d=2026-10-27T11:43:06+03:00 · h=280d881 · <span class="yesil">x=0</span> · test=a02-sweep · sureSn=56</span></div>
-          <div class="dSatir"><span class="dEtiket">kanal·a03</span><span class="dDeger">d=2026-10-27T12:47:21+03:00 · h=26a0511 · <span class="yesil">x=0</span> · test=a03-gozetimsiz-besleme · sureSn=119</span></div>
-          <div class="dSatir"><span class="dEtiket">test</span><span class="dDeger">tam suit 437/437 → 449/449 (a02→a03 dalgaları, kayıtlı)</span></div>
-          <div class="dSatir"><span class="dEtiket">tam kanal</span><span class="dDeger"><span class="yesil">467/467</span> · x=0 · sureSn=206 · h=ea78bd3</span></div>
-          <div class="dSatir"><span class="dEtiket">tip</span><span class="dDeger"><span class="yesil">GECTI</span> · borç 0 · 6,1 sn</span></div>
-          <div class="dSatir"><span class="dEtiket">duvar</span><span class="dDeger">1297 sn = 21,6 dk &lt; emsal 1473 (K-0053 pilotu)</span></div>
-          <div class="dSatir"><span class="dEtiket">kaçak</span><span class="dDeger"><span class="yesil">0</span> · TEK kanal koşumu</span></div>
-          <div class="dSatir"><span class="dEtiket">kirli-dosya</span><span class="dDeger"><span class="yesil">0</span> ihlali (ana ağaç tracked-kirli seti değişmedi)</span></div>
-          <div class="dSatir"><span class="dEtiket">testler</span><span class="dDeger">8/8 · iki bağımsız koşum + operatör yeniden-koşumu 1,9 sn</span></div>
-          <div class="dSatir"><span class="dEtiket">kapsam</span><span class="dDeger">3 dosya · +243/−36</span></div>
-        </div>
-        <div class="olcumCifti">
-          <div class="kutu"><b>TABAN</b> — inceleme kanalı (once-kanit.json): kanal sureSn=<b>166</b> · h=ebb6692</div>
-          <div class="kutu"><b>DALGA-0</b> — kapanış: kanal sureSn=<b>206</b> · h=ea78bd3 · duvar <b>1297</b> sn (21,6 dk &lt; emsal 1473)</div>
-        </div>
-        <p class="denetimKaynak">kaynak: DALGA0-ARAYUZ-1 kapanış kayıtları (h=ea78bd3) — kayıtlı değerler, canlı değil. Dürüst not: kanal süresi ARTTI (166→206) — hız iddiası tek örnekten çıkmaz (test gövdesi ~91 sn her ikisinde). <span class="etiketOrnek">ÖRNEK — canlı değil</span></p>
-      </div>
-      <div class="kyKart">
-        <div class="kyBaslik">KIRMIZI YÜZ — fail-closed davranışı (GERÇEK davranış)</div>
-        <p>Graf SSOT diskten okunamazsa (/api/graf 404/bağlantı hatası) ekran kırmızı yüze döner: ağaç boşalır, tuval boş kalır, detay kırmızı hata metni yazar — bayat graf asla ekranda kalmaz (kirmiziYuz). Bu yüz bu tuvalde fetch hatasında kendiliğinden tetiklenir; demo düğmesi yok — gerçek davranıştır.</p>
-        <button class="kopyala-btn" type="button" data-not="kirmiziYuz (fail-closed): sunucu/graf yokken KIRMIZI YÜZ — ağaç boşalır, tuval boş kalır, detay kırmızı hata metni yazar, bayat veri kalmaz. Sunucuyu durdurup sayfayı yenileyerek gerçekten tetiklenebilir (PANO_TOKEN yazma ucu hariç tüm yüz okumadır).">davranışı hatırlat</button>
-      </div>
-    </div>
-
-    <!-- YÖNET: fiş kopyala + komut şablonları (çalıştırma YOK — EK-2) -->
-    <div class="edimPanel" role="tabpanel" id="panel-yonet" aria-labelledby="tab-yonet" hidden>
-      <p class="seciliSatir">seçili görev: <b id="seciliAd">—</b></p>
-      <button class="mdBtn fisKopyala" type="button">⧉ GÖREV FİŞİ (BRIEF) KOPYALA</button>
+    <!-- KOMUT ŞABLONLARI: YÖNET yüzü bağlamda (tek akış) — kopyala, çalıştırma YOK (EK-2) -->
+    <section class="sablonBolum" id="sablonBolum" aria-labelledby="sablon-baslik">
+      <h3 class="bolum-etiket" id="sablon-baslik">Komut şablonları — kopyala (çalıştırma YOK)</h3>
       <div class="sablonListe" id="sablonListe" data-ornek="komut şablonları kalp-yüzü verisi — ÖRNEK; gerçek bağ D-2">
         <div class="sablon"><span class="sablonAd">gece</span><code id="sab-gece">node src/cli.ts gece --hedef "&lt;görev&gt;" --limit 5</code><button class="kopyala-btn" type="button" data-kopyala="sab-gece" aria-label="gece şablonunu panoya kopyala">⧉</button></div>
         <div class="sablon"><span class="sablonAd">kanal</span><code id="sab-kanal">scripts\test-kanal.ps1 -Etiket DALGA-1</code><button class="kopyala-btn" type="button" data-kopyala="sab-kanal" aria-label="kanal şablonunu panoya kopyala">⧉</button></div>
@@ -690,51 +747,19 @@
         <div class="sablon"><span class="sablonAd">replan</span><code id="sab-replan">node src/cli.ts replan --esik N --hedef N</code><button class="kopyala-btn" type="button" data-kopyala="sab-replan" aria-label="replan şablonunu panoya kopyala">⧉</button></div>
         <div class="sablon"><span class="sablonAd">dispatch</span><code id="sab-dispatch">node src/cli.ts dispatch --gorev &lt;görev-id&gt;</code><button class="kopyala-btn" type="button" data-kopyala="sab-dispatch" aria-label="dispatch şablonunu panoya kopyala">⧉</button></div>
       </div>
-      <p class="yonetNot">GUI komut üretir ve PANOYA alır — çalıştırmaz. Onay cümlesi GUI'de üretilmez (EK-2): yalnız onay kartındaki hazır statik metin kopyalanır. Görev fişi seçili görevin /api/graf verisinden üretilir (GERÇEK veri).</p>
-    </div>
+      <p class="yonetNot">GUI komut üretir ve PANOYA alır — çalıştırmaz. Onay cümlesi GUI'de üretilmez (EK-2): yalnız onay kartındaki hazır statik metin kopyalanır. Görev fişi (BRIEF) ve görev kimlikli dispatch şablonu: seçili görevin kapsül kartındaki bağlamsal düğmelerden (GERÇEK /api/graf verisinden üretilir). Soldaki AI CHAT de aynı disiplinde: hedef cümle → ŞABLON komutlar + plan taslağı (canlı AI yanıtı D-4).</p>
+    </section>
   </section>
 
   <!-- ============ SAĞ (#sag): KAPSÜL KARTI (#detay — sec(id) detay; GERÇEK) ============ -->
   <aside id="sag">
-    <h2 class="bolum-etiket detayBas" id="detay-baslik">Kapsül kartı — sec(id) detay</h2>
+    <h2 class="bolum-etiket detayBas" id="detay-baslik">Kapsül kartı — seçili görev · denetim kanıtı</h2>
     <div id="detay" class="kapsulKart" role="region" aria-label="seçili görevin kapsül kartı">
       <p class="bosSatir">görev seçilmedi — soldan ağaçtan veya tuvalden seçin</p>
     </div>
   </aside>
 </main>
 
-<!-- ============ ONAY BEKLEYENLER ([insan] kuyruğu — veri ÖRNEK; kopyala GERÇEK panoya) ============ -->
-<div class="govdeAlt">
-  <section class="onayBolum" id="onayBolum" data-ornek="onay kuyruğu verisi kalp-yüzü — ÖRNEK (kayıtlı kuyruk, canlı değil); gerçek bağ D-2" aria-labelledby="onay-baslik">
-    <h2 class="bolum-etiket" id="onay-baslik">Onay bekleyenler — [insan] kuyruğu</h2>
-    <div class="onaylar">
-      <div class="onay-kart">
-        <div class="onay-baslik"><span class="onay-id">rpl-03579e06</span><span class="onay-tip">replan onayı <span class="etiketOrnek">ÖRNEK</span></span></div>
-        <p class="onay-aciklama">DRIFT yeniden planlama önerisi — hazır komut panoya alınır, terminalinizde siz koşarsınız:</p>
-        <div class="onay-komut">
-          <span id="komut-rpl">node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"</span>
-          <button class="kopyala-btn" type="button" data-kopyala="komut-rpl" aria-label="onay komutunu panoya kopyala">⧉ kopyala</button>
-        </div>
-        <p class="onay-not">GUI asla kendi adına onaylamaz — komut sizin terminalinizde koşar (EK-2 dokunulmaz; onay cümlesi statik metin, JS'te üretilmez).</p>
-      </div>
-      <div class="onay-kart">
-        <div class="onay-baslik"><span class="onay-id">D-1b</span><span class="onay-tip">elle test <span class="etiketOrnek">ÖRNEK</span></span></div>
-        <p class="onay-aciklama">Arayüz görsel kabulü — tuval sayfasını elle açıp dar/mobil görünümü ve drawer davranışını deneyin.</p>
-        <div class="onay-komut">
-          <span id="onay-d1b-url">http://127.0.0.1:4377/tuval</span>
-          <button class="kopyala-btn" type="button" data-kopyala="onay-d1b-url" aria-label="tuval adresini panoya kopyala">⧉ adresi kopyala</button>
-        </div>
-        <p class="onay-not">durum: kullanıcıda · görsel kabul elle (DOM render testi yasak — yeni bağımlılık yok)</p>
-      </div>
-      <div class="onay-kart">
-        <div class="onay-baslik"><span class="onay-id">K-0044</span><span class="onay-tip">pencere <span class="etiketOrnek">ÖRNEK</span></span></div>
-        <p class="onay-aciklama">Ortam anahtarı uygulama penceresi — restart'ta sizinle birlikte açılır; anahtar değerleri ekrana yazılmaz.</p>
-        <button class="kopyala-btn" type="button" data-not="K-0044: setx adımı KULLANICI eliyle (restart + uygulama penceresi). GUI bu dalgada yazma ucuna hiç gitmez — kart bilgi amaçlı; kapsül kartı yazma ucu ayrı bir PANO_TOKEN kapısındadır (üst bardaki password girişi, değer ekrana yazılmaz).">⧉ durum bilgisini göster</button>
-        <p class="onay-not">durum: bekliyor · setx adımı kullanıcı eliyle</p>
-      </div>
-    </div>
-  </section>
-</div>
 
 <!-- ============ ALT ÇUBUK: DURDUR/RESUME (pasif bilgi) + $ KOMUT KUTUSU ============ -->
 <footer class="altbar">
@@ -755,13 +780,15 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<noscript><p style="text-align:center;padding:12px;color:#93a4bd">Etkileşimler kapalı — görev ağacı, DAG tuvali, kapsül kartı, ordu şeridi ve defter JavaScript ile render edilir; veri GET /api/graf'tan gelir. Masaüstünde (>=1024) drawer CSS varsayılanından açık kalır; dar ekranda açılması JS gerektirir.</p></noscript>
+<noscript><p style="text-align:center;padding:12px;color:#93a4bd">Etkileşimler kapalı — AI CHAT şablon üretici, görev ağacı, DAG tuvali, kapsül kartı, ordu şeridi ve defter JavaScript ile render edilir; veri GET /api/graf'tan gelir. Masaüstünde (>=1024) drawer CSS varsayılanından açık kalır; dar ekranda açılması JS gerektirir.</p></noscript>
 
 <script>
 "use strict";
 // D-1a çekirdek: tek veri kaynağı = GET /api/graf (pano/server.js diskten okur) — SÖZLEŞME DEĞİŞMEZ.
 // İki yüz (İNSAN OKUR / MAKİNE OKUR) aynı fetch yanıtından üretilir — çift SSOT imkansız.
-// DALGA-0-2 (KAPI K1 — ideal yüz): mockup-final.html tasarım dili + İKİ TEMEL birlikte.
+// DALGA-0-2 R1 DÜZELTME (KAPI K1): TEK AKIŞ — İZLE/DENETLE/YÖNET sekmeleri KALDIRILDI;
+// denetim kanıtı kapsül kartında inline; «Görev haritası» katlanır DAG bölümü; yönetim bağlamda.
+// EK-ŞART (14:03): drawer'da AI CHAT paneli — ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4 dalgası).
 // Kalp-yüzü verileri ÖRNEK etiketli (server.js YAZMA yasağı — gerçek bağ D-2 dalgası).
 // Korunan çekirdek: kirmiziYuz fail-closed · modUygula aynı fetch · sec + kart ucu ·
 // 30 sn tazelik · yerlesim döngüde-çizilmez. EK-2: onay cümlesi GUI'de üretilmez/çalıştırılmaz.
@@ -823,7 +850,7 @@ function kirmiziYuz(m) {
   $("detay").innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ (fail-closed) — ' + esc(m) + "</div>";
   $("rozetler").innerHTML = '<span class="pill sari" title="graf okunamadı — fail-closed"><span id="meta">HATA</span></span>';
   $("orduSeridi").innerHTML = '<span class="bosSatir">graf yok — ordu şeridi kırmızı yüz (fail-closed)</span>';
-  $("seciliAd").textContent = "—";
+  $("haritaSayi").textContent = "—";
   hataGoster(m);
 }
 
@@ -844,6 +871,7 @@ function metaYaz() {
     '<span class="pill yesil" title="kalan bütçe — ' + esc(String(G.butceToplam && G.butceToplam.kodLocT || "—")) + ' (GERÇEK)"><span class="nokta"></span>bütçe ~' + esc(butce) + " kod (T)</span>" +
     '<span class="pill canli" title="canlı: /api/graf her istekte diskten okunur; 30 sn otomatik tazeleme (GERÇEK davranış)"><span class="nokta"></span><span id="canliMetin">canlı · tazeleme ' + SN + " sn</span></span>";
   $("agacSayi").textContent = G.gorevler.length + " görev";
+  $("haritaSayi").textContent = G.gorevler.length + " görev · " + G.kenarlar.length + " kenar";
   document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
 }
 
@@ -1056,6 +1084,28 @@ $("z100").addEventListener("click", () => {
   toast("1:1 ölçek — gerçek piksel boyutu; merkez: " + (secilen || "graf"));
 });
 
+/* ============ «Görev haritası» KATLANIR DAG bölümü (R1 tek akış) ============
+   Katlama: hidden senkronu + aria-expanded + düğme metni. Açılışta
+   enBoyDuzelt()+vbUygula() — katlanmışyken rect=0 tuzağına karşı (svg gizliyken
+   ölçülmez, viewBox bozulmaz; açılınca yeniden ölçülür). */
+const haritaGovde = $("haritaGovde"), haritaKatla = $("haritaKatla");
+function haritaDurumYaz() {
+  haritaKatla.setAttribute("aria-expanded", String(!haritaGovde.hidden));
+  haritaKatla.textContent = haritaGovde.hidden ? "▸ aç" : "▾ katla";
+}
+function haritaGovdeAc() {
+  haritaGovde.hidden = false;
+  haritaDurumYaz();
+  enBoyDuzelt(); vbUygula(); // rect=0 ölçüm-düzeltme: açılınca yeniden ölç
+}
+haritaKatla.addEventListener("click", () => {
+  if (haritaGovde.hidden) {
+    haritaGovdeAc();
+    toast("Görev haritası açıldı — tuval yeniden ölçüldü (katlanmışken rect=0 tuzağına karşı).");
+  } else { haritaGovde.hidden = true; haritaDurumYaz(); }
+});
+haritaDurumYaz();
+
 /* ============ DRAWER (TEMEL a): >=1024 sabit + toggle; <1024 overlay + perde + Esc + scroll kilidi ============ */
 const cekmeceBtn = $("cekmeceBtn");
 function drawerAcik() {
@@ -1082,7 +1132,7 @@ cekmeceBtn.addEventListener("click", () => {
     drawerDurumYaz();
     toast(kapali
       ? "Görev grafı menüsü kapatıldı — merkez ve detay genişledi (yeniden açmak için GRAF düğmesi)."
-      : "Görev grafı menüsü açıldı — sol sütunda görev ağacı (İZLE/DENETLE/YÖNET menüsüyle).");
+      : "Görev grafı menüsü açıldı — sol sütunda AI CHAT (şablon komut üretici) + faz-gruplu görev ağacı.");
   }
 });
 $("drawerKapa").addEventListener("click", () => drawerKapa(true));
@@ -1128,6 +1178,7 @@ function detayYaz(g) {
     if (g.kapi) n.kapi = g.kapi;
     n.durum = g.durum; n.aktif = g.aktif; n.loc = g.loc ?? 0;
     if (g.testLoc != null) n.testLoc = g.testLoc;
+    n.denetim = { tamKanal: "467/467", x: 0, sureSn: 206, h: "ea78bd3", olcumCifti: "166->206 (tek örnek; hız iddiası YOK)", tip: "GECTI", borc: 0, duvarSn: 1297, emsalSn: 1473, kaynak: "kayıtlı kapanış (DALGA0-ARAYUZ-1) — canlı değil; gerçek bağ D-2" };
     h += '<pre class="makineView" tabindex="0" aria-label="seçili görev makine-okur JSON">' + esc(JSON.stringify(n, null, 2)) + "</pre>" +
       '<p class="makineNot">/api/graf yanıtının bu görev dilimi — iki yüz aynı fetch\'ten (çift SSOT imkansız).</p>';
   } else {
@@ -1140,15 +1191,24 @@ function detayYaz(g) {
     h += kSatir("kapı", g.kapi ? esc(g.kapi) + tg() : "—");
     h += kSatir("ajan kadrosu", esc(kadro) + tg());
     h += kSatir("LOC", (g.loc ?? 0) + " kod" + (g.testLoc ? " + " + g.testLoc + " test" : "") + tg());
+    // R1/K2: DENETİM KANIYI kapsül kartında inline — kanal x=0 + ölçüm çifti + tip (kayıtlı kapanış)
+    h += '<div class="kartBolumBas">DENETİM KANIYI — kayıtlı kapanış (DALGA0-ARAYUZ-1 · h=ea78bd3) · kanal x=0</div>';
+    h += '<div data-ornek="denetim kanıtı kayıtlı kapanış değerleri (DALGA0-ARAYUZ-1) — canlı değil; gerçek bağ D-2">';
+    h += kSatir("tam kanal", '<b style="color:var(--basari)">467/467</b> · <b style="color:var(--basari)">x=0</b> · sureSn=206 · h=ea78bd3 <span class="etiketOrnek">kayıtlı</span>');
+    h += kSatir("ölçüm çifti", 'taban <b>166</b> → DALGA-0 <b>206</b> (x 0→0) <span class="durumNot">— tek örnek; hız iddiası YOK (test gövdesi ~91 sn her ikisinde)</span> <span class="etiketOrnek">kayıtlı</span>');
+    h += kSatir("tip · duvar", '<b style="color:var(--basari)">GECTI</b> · borç 0 · 6,1 sn · duvar 1297 sn &lt; emsal 1473 <span class="etiketOrnek">kayıtlı</span>');
+    h += kSatir("kaçak · kirli", '<b style="color:var(--basari)">0</b> kaçak (TEK kanal koşumu) · 0 kirli-dosya ihlali <span class="etiketOrnek">kayıtlı</span>');
+    h += "</div>";
   }
   h += '<div class="kartButonlar">' +
     '<button id="kartBtn" type="button">KAPSÜL KARTI OLUŞTUR (MD)</button>' +
+    '<button class="kopyala-btn fisKopyala" type="button">⧉ GÖREV FİŞİ (BRIEF)</button>' +
+    '<button class="kopyala-btn dispatchKopyala" type="button">⧉ DISPATCH ŞABLONU</button>' +
     '<button class="kopyala-btn tuvaldeBul" type="button">◎ TUVALDE BUL</button>' +
     "</div>" +
     '<div id="kartSonuc"></div>';
   $("detay").innerHTML = h;
   $("kartBtn").addEventListener("click", () => kartOlustur(g.id));
-  $("seciliAd").textContent = g.id + " — " + g.gorev;
 }
 
 function sec(id, sessiz) {
@@ -1213,19 +1273,6 @@ function modUygula() {
 $("mInsan").addEventListener("click", () => { mod = "insan"; modUygula(); toast("İNSAN OKUR — DAG tuvali (sürükle kaydır · tekerlek/pinch yakınlaş)."); });
 $("mMakine").addEventListener("click", () => { mod = "makine"; modUygula(); toast("MAKİNE OKUR — /api/graf yanıtının ta kendisi (aynı fetch, çift SSOT imkansız)."); });
 $("yenile").addEventListener("click", yukle);
-
-/* ============ edim sekmeleri (drawer + merkez senkron) ============ */
-function sekme(el) {
-  const hedef = el.getAttribute("data-panel");
-  for (const b of document.querySelectorAll(".edimTab")) {
-    const aktif = b.getAttribute("data-panel") === hedef;
-    b.classList.toggle("aktif", aktif);
-    if (b.getAttribute("role") === "tab") b.setAttribute("aria-selected", aktif ? "true" : "false");
-  }
-  for (const p of document.querySelectorAll(".edimPanel")) p.hidden = p.id !== hedef;
-  if (hedef === "panel-izle") { enBoyDuzelt(); vbUygula(); }
-  if (window.innerWidth < 1024 && drawerAcik()) drawerKapa(false);
-}
 
 /* ============ kanıt defteri: çift-okur mono akış (kayıtlar ÖRNEK — canlı akış D-2) ============ */
 const KAYITLAR = [
@@ -1298,18 +1345,26 @@ document.addEventListener("click", (e) => {
     if (g) detayYaz(g);
     return;
   }
-  if ((el = e.target.closest(".edimTab"))) { sekme(el); return; }
   if ((el = e.target.closest(".fisKopyala"))) {
     const g = secilen && G ? G.gorevler.find((x) => x.id === secilen) : null;
     if (g) { panoyaYaz(fisMd(g)); toast("Görev fişi (brief) panoda — dispatch operatör terminalinde koşar, GUI çalıştırmaz."); }
     else toast("Önce bir görev seçin — fiş seçili görevin /api/graf verisinden üretilir.");
     return;
   }
+  if ((el = e.target.closest(".dispatchKopyala"))) { // R1/K3: yönetim bağlamda — görev kimlikli şablon kopyala
+    const g = secilen && G ? G.gorevler.find((x) => x.id === secilen) : null;
+    if (g) {
+      panoyaYaz("node src/cli.ts dispatch --gorev " + g.id);
+      toast("Dispatch şablonu panoda (görev " + g.id + ") — operatör terminalinde koşar, GUI çalıştırmaz (EK-2).");
+    } else toast("Önce bir görev seçin — dispatch şablonu seçili görevin kimliğine bağlanır (GERÇEK /api/graf verisi).");
+    return;
+  }
   if ((el = e.target.closest(".tuvaldeBul"))) {
-    sekme(document.querySelector('.edimTab[data-panel="panel-izle"]'));
+    if (haritaGovde.hidden) haritaGovdeAc(); // katlanmışsa aç (rect=0 ölçüm-düzeltme)
     if (mod !== "insan") { mod = "insan"; modUygula(); }
     const g = secilen && G ? G.gorevler.find((x) => x.id === secilen) : null;
     if (g && g._x != null) tuvaleOrtala(g);
+    $("haritaBolum").scrollIntoView({ behavior: azHareket ? "auto" : "smooth", block: "start" });
     toast((secilen || "görev") + " tuvalde bulundu — düğüm görünür alana ortalandı.");
     return;
   }
@@ -1321,7 +1376,13 @@ document.addEventListener("click", (e) => {
   if ((el = e.target.closest("[data-zipla]"))) {
     const hedef = el.getAttribute("data-zipla");
     if (hedef === "top") { window.scrollTo({ top: 0, behavior: azHareket ? "auto" : "smooth" }); }
-    else { const hu = $(hedef); if (hu) hu.scrollIntoView({ behavior: azHareket ? "auto" : "smooth", block: "start" }); }
+    else {
+      const hu = $(hedef);
+      if (hu) {
+        if (hedef === "haritaBolum" && haritaGovde.hidden) haritaGovdeAc(); // katlanmışsa aç
+        hu.scrollIntoView({ behavior: azHareket ? "auto" : "smooth", block: "start" });
+      }
+    }
     if (window.innerWidth < 1024 && drawerAcik()) drawerKapa(false);
     return;
   }
@@ -1385,6 +1446,59 @@ komut.addEventListener("keydown", (olay) => {
   toast("Komut panoya alındı — terminalinizde koşun. GUI komutu çalıştırmaz (şablon ÖRNEK).");
   komut.value = "";
   oneri.classList.remove("gorunur");
+});
+
+/* ============ AI CHAT (EK-ŞART 14:03): ŞABLON-KOMUT ÜRETİCİ — dürüst sınırla ============
+   Hedef cümle → hazır komut ŞABLONLARI + plan taslağı ŞABLONU; her biri PANOA kopyalanır.
+   Bu dalgada chat YERLEŞİM + şablon üreticidir — canlı AI yanıtı D-4 dalgasında bağlanır
+   (görünür ŞABLON etiketi zorunlu; etiketsiz sahte AI YASAK). EK-2: onay cümlesi
+   ÜRETİLMEZ/ÇALIŞTIRILMAZ — komutlar terminalinizde sizinle koşar, GUI koşmaz. */
+const CHAT_ETIKET = "ŞABLON — canlı AI yanıtı D-4 dalgasında bağlanır; GUI komut koşmaz (EK-2)";
+function chatMesajEkle(kim, icerikHtml) {
+  const liste = $("chatListe");
+  const kutu = document.createElement("div");
+  kutu.className = "chatMesaj chat-" + kim;
+  kutu.innerHTML = icerikHtml;
+  liste.appendChild(kutu);
+  liste.scrollTop = liste.scrollHeight;
+  return kutu;
+}
+function chatSablonlar(hedef) { // hedef cümleden GERÇEK komut dizgileri (koşulmaz — panoya alınır)
+  const t = hedef.replace(/"/g, "'");
+  return [
+    { ad: "gece", komut: 'node src/cli.ts gece --hedef "' + t + '" --limit 5' },
+    { ad: "replan", komut: "node src/cli.ts replan --esik N --hedef N" },
+    { ad: "graf", komut: "node src/cli.ts graf goster" }
+  ];
+}
+function chatPlanTaslak(hedef) { // «planı oluştur» akışı: görev/faz/limit alanlı taslak ŞABLONU
+  return "PLAN TASLAĞI (ŞABLON)\nhedef: " + hedef + "\ngörev: <kısa görev adı>\nfaz: <faz — boşsa (faz yok)>\nlimit: 5";
+}
+function chatYanitla(hedef) {
+  chatMesajEkle("kullanici", "<p>" + esc(hedef) + "</p>");
+  let h = '<p><span class="chatSabit">' + CHAT_ETIKET + "</span></p>";
+  for (const s of chatSablonlar(hedef)) {
+    h += '<div class="chatKomutSatir"><code>' + esc(s.komut) + '</code>' +
+      '<button class="kopyala-btn chatKopyala" type="button" data-chat-komut="' + esc(s.komut) + '" aria-label="' + esc(s.ad) + ' şablon komutunu panoya kopyala">⧉ kopyala</button></div>';
+  }
+  h += '<div class="chatPlan">' + esc(chatPlanTaslak(hedef)) + "</div>";
+  const planKomutu = chatSablonlar(hedef)[0].komut; // plan taslağını komuta çevir: gece şablonu
+  h += '<button class="kopyala-btn chatPlanKopyala" type="button" data-chat-komut="' + esc(planKomutu) + '">▸ planı komuta çevir + kopyala</button>';
+  const kutu = chatMesajEkle("sistem", h);
+  kutu.querySelectorAll(".chatKopyala, .chatPlanKopyala").forEach((b) => {
+    b.addEventListener("click", () => {
+      panoyaYaz(b.getAttribute("data-chat-komut"));
+      toast("Şablon komutu panoya alındı — terminalinizde koşun. Chat bu dalgada ŞABLON üretir, koşmaz (canlı AI yanıtı D-4).");
+    });
+  });
+}
+$("chatForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const giris = $("chatGiris");
+  const deger = giris.value.trim();
+  if (!deger) { toast("Hedef cümle boş — ne yapılmasını istiyorsun? (örn. «pano arayüzünü yenile»)"); giris.focus(); return; }
+  chatYanitla(deger);
+  giris.value = "";
 });
 
 /* ============ 30 sn tazeleme kavramı (canlı sayaç — GERÇEK davranış) ============ */
