@@ -1,0 +1,28 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S0a-04",
+  "at": "2026-10-30T01:23:02.493+03:00",
+  "sourceManifest": [
+    { "path": "plans/PLAN.md", "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84", "bytes": 95704 },
+    { "path": "plans/uygulama-paketleri/DC-H1-2026-10-28/gorevler.json", "sha256": "fb037bafb5fa2a9e175c0736bba7adc8b3bceb43f3df38381f4070220b49e74d", "bytes": 53245 },
+    { "path": "core/src/cli.ts", "sha256": "6721c75795ee9a7e61c01ac39bf34ad4d55a26b3e1993bc549f367f6293c24a6", "bytes": 30437 },
+    { "path": "core/src/cli-evaluate.ts", "sha256": "2cb1f706e9ccca1a024b7c8a0f4cc9ae1e7410a70547449e9e5b976b960a235b", "bytes": 4201 },
+    { "path": "core/src/evaluator.ts", "sha256": "8daecda19e6f38a94d1272434cd0e437dd1d48ca7fbee312ec1a7ad771fe7db8", "bytes": 3866 },
+    { "path": "core/src/receipt-link.ts", "sha256": "3477bc4c493e76d1696338cd40e9c01da800dca71fc3fc974a3c801fc13dbc4e", "bytes": 9990 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S0a-04/OZET.md", "sha256": "09d2440268d91377641eb31ce752b15311c3b76a1d779c756ab395cedcee1f3a", "bytes": 3323 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-04/OZET.md" },
+    { "id": "P2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-04/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-04/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-04/OZET.md" }
+  ],
+  "commands": [],
+  "changedFiles": [
+    "kararlar/ADR-dc-s0-teknik-oneri-2026-10-28.md"
+  ],
+  "blockers": []
+}

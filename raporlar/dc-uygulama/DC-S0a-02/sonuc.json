@@ -1,0 +1,28 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S0a-02",
+  "at": "2026-10-30T01:12:11.752+03:00",
+  "sourceManifest": [
+    { "path": "plans/PLAN.md", "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84", "bytes": 95704 },
+    { "path": "core/src/local-runtime.ts", "sha256": "bdb7aea4fab2ceda162cfa75092ad8a38de756a3f8c6cacd59b79b032b058d54", "bytes": 17033 },
+    { "path": "core/src/capabilities.ts", "sha256": "f0c81827c3d25c7a21972873db4809be0295397430df41ad9f1b19b188062b01", "bytes": 4077 },
+    { "path": "core/src/probe.mjs", "sha256": "6bd46992c534a7df1dbed0f56e480e1f5bdfe01cc2d1264a54e31c3885629bd8", "bytes": 12028 },
+    { "path": "core/src/evaluator.ts", "sha256": "8daecda19e6f38a94d1272434cd0e437dd1d48ca7fbee312ec1a7ad771fe7db8", "bytes": 3866 },
+    { "path": "core/src/receipt-link.ts", "sha256": "3477bc4c493e76d1696338cd40e9c01da800dca71fc3fc974a3c801fc13dbc4e", "bytes": 9990 },
+    { "path": "plugin/index.server.ts", "sha256": "1cc2b683a49ed0c7c992425e38502707637abde90739d80eaa5dd05261499b54", "bytes": 12841 },
+    { "path": "plugin/server/ordu.ts", "sha256": "b62e62215f058046f2952ecad2b59d3f5679729d2b16a244e20e29ddff91292a", "bytes": 7448 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S0a-02/OZET.md", "sha256": "2d0767893837310d962c220419445bea2433d9c0a39c18b26e612638cdc8dff2", "bytes": 5402 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-02/OZET.md" },
+    { "id": "P2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-02/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-02/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-02/OZET.md" }
+  ],
+  "commands": [],
+  "changedFiles": [],
+  "blockers": []
+}

@@ -1,0 +1,31 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S0a-01",
+  "at": "2026-10-30T01:05:36.949+03:00",
+  "sourceManifest": [
+    { "path": "CODEMAP.md", "sha256": "1a3ede5b3710987eb84fc7cb96ab9f92f931f2ee6314d94c14266cf752ab95fa", "bytes": 14966 },
+    { "path": "AGENTS.md", "sha256": "a5d85b21cf9bee55b0bd9f591e80c44d319d6b435467ec0453ec300e47fa2aa5", "bytes": 2459 },
+    { "path": "ANAYASA.md", "sha256": "9987de5f98c126623c9a05aed3cea9222cd8471cd84fa97aa7bd2166f717e199", "bytes": 3179 },
+    { "path": "plans/PLAN.md", "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84", "bytes": 95704 },
+    { "path": "plans/SSOT-INDEX.md", "sha256": "9f029e009fbfa64912a06603a5bb8e9da99f94d96be5196b802b3db6da89e6a4", "bytes": 3673 },
+    { "path": "core/package.json", "sha256": "34b70bce539b993ad0714d4118a4cbf58ca7bda29376f92e2aca3964094e4831", "bytes": 2444 },
+    { "path": "plugin/package.json", "sha256": "fe4c6fddb2e1ce6281ed9ebd0a835cb250baa45deb77a1ae5ba85f63e104a7fd", "bytes": 957 },
+    { "path": "scripts/test-kanal.ps1", "sha256": "c13079ace145125c91e8ea194f8514d18a9ea4e880b4886afb313b6392c5286f", "bytes": 2205 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S0a-01/OZET.md", "sha256": "5796d9af75f9e5952d140680ae61e612eb0b6a2fd054ee6cec1b4f0d1bb9396a", "bytes": 2658 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" },
+    { "id": "P2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" }
+  ],
+  "commands": [
+    { "recipeId": "READ_GIT", "command": "git status --short && git rev-parse HEAD", "cwd": ".", "exitCode": 0, "expectedExitCode": 0, "outputRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" },
+    { "recipeId": "READ_ENV", "command": "node -p \"JSON.stringify({platform:process.platform,arch:process.arch,node:process.version})\"", "cwd": ".", "exitCode": 0, "expectedExitCode": 0, "outputRef": "raporlar/dc-uygulama/DC-S0a-01/OZET.md" }
+  ],
+  "changedFiles": [],
+  "blockers": []
+}

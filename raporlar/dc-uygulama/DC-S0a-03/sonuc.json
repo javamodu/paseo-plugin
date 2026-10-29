@@ -1,0 +1,31 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S0a-03",
+  "at": "2026-10-30T01:18:39.886+03:00",
+  "sourceManifest": [
+    { "path": "plans/PLAN.md", "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84", "bytes": 95704 },
+    { "path": "core/src/store.ts", "sha256": "e46ed62f7cfade8bc5197b9d20681ebc5bbfe75c74540c83ede9afbb62da9f05", "bytes": 13415 },
+    { "path": "core/src/supervisor.ts", "sha256": "ae73fc2364eb210719d02b3a4fc2806eae3e06e334689b692c725ac0ca9a0ad4", "bytes": 38978 },
+    { "path": "core/src/local-runtime.ts", "sha256": "bdb7aea4fab2ceda162cfa75092ad8a38de756a3f8c6cacd59b79b032b058d54", "bytes": 17033 },
+    { "path": "core/src/dispatcher.ts", "sha256": "f74e63ab8643c624d9d45b78c25af805e25fc7af3dc80b8a8bd77d5f613744f7", "bytes": 15876 },
+    { "path": "core/src/gozetimsiz.ts", "sha256": "e6c691706b36a2c81054db6685cb64d9e79a993376a75f091d5dca6ebc2d8eb6", "bytes": 14532 },
+    { "path": "core/src/grants.ts", "sha256": "fa70a1dd2bab7e7e174ddc4444e729ec94d8b422a791cdb0aed8145552eb5791", "bytes": 16428 },
+    { "path": "core/database/001-initial.sql", "sha256": "06716b653e94931b8c1b9ad1be80559fc727987a0c923e5a98d8ab2083d0d61f", "bytes": 7367 },
+    { "path": "core/database/002-hardening.sql", "sha256": "30b9247817ea4c3f64e94c3d3ce768d085a1fe0969dfd93abeda5709fe5572ce", "bytes": 2068 },
+    { "path": "core/database/003-role-model.sql", "sha256": "9a0c31a5810c86c15548d67a9593020609d788e5d30997a7a5714039180d35e6", "bytes": 347 },
+    { "path": "core/database/004-grants.sql", "sha256": "70db559a17ad73b5d6a578386ce7a4354d2f738f65fe3456b24ab8c7af2bd77c", "bytes": 3616 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S0a-03/OZET.md", "sha256": "93c7d870a19165ad13b551b26a44be75380373ef0872e4141fd4560eac0a6059", "bytes": 6472 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-03/OZET.md" },
+    { "id": "P2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-03/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-03/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0a-03/OZET.md" }
+  ],
+  "commands": [],
+  "changedFiles": [],
+  "blockers": []
+}
