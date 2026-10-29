@@ -64,7 +64,7 @@
   }
   .serit b { color:var(--uyari); font-weight:700; }
 
-  /* ---- ÜST BAR: TEK SATIR kompakt GENEL STATE (GERÇEK) — marka + hamburger + rozetler + token ---- */
+  /* ---- ÜST BAR: marka + hamburger + token (GENEL STATE rozetleri kullanıcı emriyle kalktı) ---- */
   .ustbar {
     position:relative; z-index:10; display:flex; align-items:center; gap:8px 12px; flex-wrap:wrap;
     padding:8px 16px; background:var(--yuzey);
@@ -79,20 +79,8 @@
     cursor:pointer; touch-action:manipulation;
   }
   .cekmece:hover { border-color:rgba(14,116,144,0.45); color:var(--camgobegi); }
-  .rozetler { display:flex; gap:8px; flex-wrap:wrap; margin-left:auto; }
-  .pill {
-    display:inline-flex; align-items:center; gap:6px; border:1px solid var(--cizgi); border-radius:999px;
-    padding:4px 12px; font-size:13.5px; color:var(--ikincil); background:var(--yuzey2);
-    font-variant-numeric:tabular-nums; white-space:nowrap;
-  }
-  .pill b { color:var(--metin); font-weight:800; font-size:18px; line-height:1.1; } /* R2: GENEL STATE sayıları BÜYÜK */
-  .pill .nokta { width:7px; height:7px; border-radius:50%; background:var(--basari); }
-  .pill.sari { color:var(--uyari); border-color:rgba(180,83,9,0.35); }
-  .pill.yesil { color:var(--basari); border-color:rgba(4,120,87,0.35); }
-  .pill.canli { color:var(--camgobegi); border-color:rgba(14,116,144,0.35); }
-  .pill.canli .nokta { background:var(--camgobegi); }
   #token {
-    min-height:var(--min-dokunma); width:180px; padding:4px 10px;
+    min-height:var(--min-dokunma); width:180px; padding:4px 10px; margin-left:auto; /* sağa yaslanır (rozetler kalktı) */
     border:1px solid var(--cizgi); border-radius:8px; background:var(--yuzey); color:var(--metin);
     font-size:12px;
   }
@@ -542,8 +530,7 @@
     .sablonAd { grid-column:1 / -1; }
     .ozetSatir { grid-template-columns:96px 1fr; display:grid; }
     .tuvIpucu { margin-left:0; width:100%; }
-    #token { width:100%; }
-    .rozetler { width:100%; margin-left:0; }
+    #token { width:100%; margin-left:0; }
   }
 
   /* hareket azaltma: tüm animasyon/akış kapanır — drawer/sekme/panel anında açılır */
@@ -570,7 +557,7 @@
 
 <h1 class="gizli">ORDU Kapsül Tuval — kumanda konsolu (graf yüzü gerçek, kalp yüzü örnek veri)</h1>
 
-<!-- ============ ÜST BAR: TEK SATIR kompakt GENEL STATE (GERÇEK) + token ============ -->
+<!-- ============ ÜST BAR: marka + hamburger + token (GENEL STATE rozetleri kullanıcı emriyle kalktı) ============ -->
 <header class="ustbar">
   <div class="marka">
     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
@@ -580,14 +567,9 @@
     </svg>
     <span>ORDU KUMANDA · TUVAL</span>
   </div>
-  <button id="cekmeceBtn" class="cekmece" type="button" aria-expanded="false" aria-controls="sol" title="görev ağacı menüsünü aç / kapat (dar ekran: overlay; geniş ekran: kenar sütunu)">
+  <button id="cekmeceBtn" class="cekmece" type="button" aria-expanded="false" aria-controls="sol" aria-label="görev ağacı menüsünü aç / kapat" title="görev ağacı menüsünü aç / kapat (dar ekran: overlay; geniş ekran: kenar sütunu)">
     <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 1 H17 M1 7 H17 M1 13 H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <span>graf</span>
   </button>
-  <div class="rozetler" id="rozetler" role="status" aria-label="GENEL STATE — /api/graf gerçek sayımları">
-    <span class="pill"><span id="meta">yükleniyor…</span></span>
-    <span class="pill canli" title="canlı: /api/graf her istekte diskten okunur; 30 sn'de bir otomatik tazeleme (GERÇEK davranış)"><span class="nokta"></span><span id="canliMetin">canlı · tazeleme 30 sn</span></span>
-  </div>
   <input id="token" type="password" autocomplete="off" placeholder="PANO_TOKEN (kart yazma kapısı)" title="Kapsül kartı oluşturma (POST /api/kart) token'ı — fail-closed: yazma ucu tokensız kırmızı">
 </header>
 
@@ -919,7 +901,7 @@ async function yukle() {
     }
   } catch (e) { kirmiziYuz("SUNUCU YOK — pano sunucusuna bağlanılamadı (fail-closed; bayat graf GÖSTERİLMEZ): " + e.message); }
 }
-function hataGoster(m) { $("hata").hidden = false; $("hata").textContent = m; $("meta").textContent = "HATA"; }
+function hataGoster(m) { $("hata").hidden = false; $("hata").textContent = m; }
 // D-1b: fail-closed KIRMIZI YÜZ — sunucu/graf yokken ağaç boşalır + tuval boş + kırmızı hata, bayat veri asla kalmaz
 function kirmiziYuz(m) {
   G = null; secilen = null;
@@ -927,7 +909,6 @@ function kirmiziYuz(m) {
   $("agacSayi").textContent = "—";
   $("tuval").innerHTML = ""; $("jsonview").textContent = "";
   $("detay").innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ (fail-closed) — ' + esc(m) + "</div>";
-  $("rozetler").innerHTML = '<span class="pill sari" title="graf okunamadı — fail-closed"><span id="meta">HATA</span></span>';
   $("orduSeridi").innerHTML = '<span class="bosSatir">graf yok — ordu şeridi kırmızı yüz (fail-closed)</span>';
   $("haritaSayi").textContent = "—";
   sekmeler.length = 0;              // görev sekmeleri kapanır — bayat kapsül kartı ekranda kalmaz
@@ -940,18 +921,7 @@ function metaYaz() {
   const kok = {};
   for (const g of G.gorevler) { const k = g.durum.split(" ")[0]; kok[k] = (kok[k] || 0) + 1; }
   const kapali = kok.KAPALI || 0;
-  const insanKapili = G.gorevler.filter((g) => g.kapi && String(g.kapi).indexOf("[INSAN]") > -1).length;
-  const aktif = G.gorevler.filter((g) => g.aktif).length;
-  const butce = String(G.butceToplam && G.butceToplam.kodLocT || "—").split(" (")[0];
-  $("rozetler").innerHTML =
-    '<span class="pill" title="graf sürümü · görev · kenar — GET /api/graf (GERÇEK)"><span id="meta">graf ' + esc(G.grafSurumu) +
-    " · " + G.gorevler.length + " görev · " + G.kenarlar.length + " kenar</span></span>" +
-    '<span class="pill" title="durum kökü sayımları — tam graf (GERÇEK)">HAZIR <b>' + (kok.HAZIR || 0) +
-    "</b> · BEKLE <b>" + (kok.BEKLE || 0) + "</b> · KAPALI <b>" + kapali + "</b></span>" +
-    '<span class="pill sari" title="kapı alanında [INSAN] geçen görev sayısı (GERÇEK)">İNSAN kapılı <b>' + insanKapili + "</b></span>" +
-    '<span class="pill" title="graf aktif bayraklı görev sayısı (GERÇEK)">AKTİF <b>' + aktif + "</b></span>" +
-    '<span class="pill yesil" title="kalan bütçe — ' + esc(String(G.butceToplam && G.butceToplam.kodLocT || "—")) + ' (GERÇEK)"><span class="nokta"></span>bütçe ~' + esc(butce) + " kod (T)</span>" +
-    '<span class="pill canli" title="canlı: /api/graf her istekte diskten okunur; 30 sn otomatik tazeleme (GERÇEK davranış)"><span class="nokta"></span><span id="canliMetin">canlı · tazeleme ' + SN + " sn</span></span>";
+  // GENEL STATE rozetleri üst bardan kalktı (kullanıcı emri) — sayım yalnız sekmeler + belge başlığı besler
   $("agacSayi").textContent = G.gorevler.length + " görev";
   $("haritaSayi").textContent = G.gorevler.length + " görev · " + G.kenarlar.length + " kenar";
   document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
@@ -1670,10 +1640,7 @@ $("chatForm").addEventListener("submit", (e) => {
   giris.value = "";
 });
 
-/* ============ 30 sn tazeleme kavramı (canlı sayaç — GERÇEK davranış) ============ */
-let SN = 30;
-function canliYaz() { const el = $("canliMetin"); if (el) el.textContent = "canlı · tazeleme " + SN + " sn"; }
-setInterval(() => { SN = SN <= 1 ? 30 : SN - 1; canliYaz(); }, 1000);
+/* ============ 30 sn tazeleme (canlı sayaç yazısı üst bardan kalktı — veri yenilenir, yazı gösterilmez) ============ */
 
 /* ============ açılış ============ */
 drawerDurumYaz();
