@@ -25,7 +25,7 @@ const GOVDE_LIMIT_BAYT = 4096;      // POST govde tavaninin ustu -> 400
 const NOT_LIMIT_KAR = 2000;         // mudahale not tavaninin ustu -> 400
 const AKTOR = 'insan:web';          // deneyde tek kalem sahibi insan (vekil/ajan yok — graf-yonetim kurali)
 const KUYRUK = { log: 80, atamalar: 20, mudahale: 10 }; // /api/deney/durum yanitindaki son-N kuyruklari
-const YAZMA_IZINLI = ['tercih.json', 'atamalar.jsonl', 'mudahale.jsonl', 'log.jsonl'];
+const YAZMA_IZINLI = ['tercih.json', 'atamalar.jsonl', 'mudahale.jsonl', 'log.jsonl', 'manager-kuyruk.jsonl'];
 
 // --- durum (modul kapsami — baslat() override eder) -------------------------------
 
@@ -112,9 +112,10 @@ function jsonYaz(res, kod, obj) {
 }
 
 // Yaniti yaz + yalniz POST ise istek logunu dus (her POST tam bir satir; GET loglanmaz).
+// gunluk yoksa (yanitin KENDISI zaten logda olan uclar) istek ozeti dusmez — cift kayit onlenir.
 function yanitla(req, res, kod, govde, gunluk) {
   jsonYaz(res, kod, govde);
-  if (req && req.method === 'POST') istekGunlugu(gunluk);
+  if (req && req.method === 'POST' && gunluk) istekGunlugu(gunluk);
 }
 
 // POST govdesi: parca parca topla; limit asilinca tampon atilir ve akis cekilir (drain),
@@ -203,6 +204,14 @@ function durumGovdesi() {
     atamalar: sonN(jsonlOku(join(aktifDir, 'atamalar.jsonl')).satirlar, KUYRUK.atamalar),
     log: sonN(jsonlOku(join(aktifDir, 'log.jsonl')).satirlar, KUYRUK.log),
     mudahale: sonN(jsonlOku(join(aktifDir, 'mudahale.jsonl')).satirlar, KUYRUK.mudahale),
+    manager: {
+      aktor: 'ai-manager:glm-5.3',
+      ajan: 'deney-manager-g9',
+      paseoAgentId: 'bfda53a3-8e52-4c47-922c-337dfbdf7cca',
+      rol: 'ROLLER/manager.md (deney-g9-repo)',
+      bekleyenIs: sonN(jsonlOku(join(aktifDir, 'manager-kuyruk.jsonl')).satirlar, 10)
+        .filter((k) => k && k.is === 'chat').length,
+    },
     ajanlar: {
       kosanPaseo: ajn && Array.isArray(ajn.kosanPaseo) ? ajn.kosanPaseo : [],
       ornek,
@@ -333,10 +342,34 @@ function mudahaleIsle(govde) {
     };
   }
   satirEkle('mudahale.jsonl', { t: sunucuSaati(), kim: AKTOR, not: kirpilmis });
+  // manager kuyrugu: her insan notu manager'a iletilecek ise olarak duser (operatör köprüsü paseo MCP ile manager'a tasir).
+  satirEkle('manager-kuyruk.jsonl', { t: sunucuSaati(), is: 'chat', not: kirpilmis });
   return {
     kod: 200,
     govde: { tamam: true },
-    gunluk: { tur: 'mudahale', metin: 'mudahale kaydedildi (' + kirpilmis.length + ' karakter)' },
+    gunluk: { tur: 'mudahale', metin: 'mudahale kaydedildi (' + kirpilmis.length + ' karakter) + manager kuyruguna is dustu' },
+  };
+}
+
+// POST /api/deney/manager-yanit — operatör KÖPRÜSÜ: paseo manager ajaninin (glm-5.3) yanitini panele tasir.
+// Icerigi URETEN manager'dir (ai-manager:glm-5.3); bu uc yalniz iletimdir — aktor etiketi manager adina yazilir.
+function managerYanitIsle(govde) {
+  if (nesneDegil(govde)) {
+    return { kod: 400, govde: { hata: 'govde nesne degil' }, gunluk: { tur: 'hata', metin: 'manager-yanit RED: govde nesne degil' } };
+  }
+  const metin = govde.metin;
+  if (typeof metin !== 'string' || !metin.trim()) {
+    return { kod: 400, govde: { hata: 'yanit metni bos' }, gunluk: { tur: 'hata', metin: 'manager-yanit RED: metin bos' } };
+  }
+  if (metin.length > NOT_LIMIT_KAR) {
+    return { kod: 400, govde: { hata: 'yanit ' + NOT_LIMIT_KAR + ' karakterden uzun' }, gunluk: { tur: 'hata', metin: 'manager-yanit RED: uzun (' + metin.length + ')' } };
+  }
+  const t = sunucuSaati();
+  satirEkle('log.jsonl', { t, tur: 'manager-yanit', metin: metin.trim(), aktor: 'ai-manager:glm-5.3' });
+  return {
+    kod: 200,
+    govde: { tamam: true, t },
+    gunluk: null, // yanitin kendisi ustteki satir olarak logda — istek ozeti dusmez (cift balon onlenir)
   };
 }
 
@@ -348,6 +381,7 @@ const UCLAR = {
   '/api/deney/tercih': { POST: (q, r) => postIsci(q, r, 'tercih', tercihIsle) },
   '/api/deney/atama': { POST: (q, r) => postIsci(q, r, 'atama', atamaIsle) },
   '/api/deney/mudahale': { POST: (q, r) => postIsci(q, r, 'mudahale', mudahaleIsle) },
+  '/api/deney/manager-yanit': { POST: (q, r) => postIsci(q, r, 'manager-yanit', managerYanitIsle) },
 };
 
 export async function handler(req, res) {

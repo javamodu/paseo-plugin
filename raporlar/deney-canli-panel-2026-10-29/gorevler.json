@@ -2,7 +2,7 @@
   "cekimTarihi": "2026-10-29T16:48:31",
   "kaynak": "deney-g9-repo uzerinde tanimli mini gorevler (dizin GERCEK yol — D-1 bulgusuna yanit: serbest metin degil)",
   "gorevler": [
-    { "id": "D1", "gorev": "README.md'ye Kurulum bolumu ekle (npm install + npm test)", "rol": "CODER", "dizin": "D:/Vibecode/deney-g9-repo", "durum": "KAPALI", "sonuc": "c76fec4f (2026-10-29): Kurulum bolumu eklendi", "bagimli": [] },
-    { "id": "D2", "gorev": "src/selam.js selam(isim) parametreli hale getir + test/selam.test.mjs 3 vaka", "rol": "CODER+TESTER", "dizin": "D:/Vibecode/deney-g9-repo", "durum": "KAPALI", "sonuc": "c76fec4f (2026-10-29): selam(isim) + test 3/3 operatorce dogrulandi", "bagimli": ["D1"] }
+    { "id": "D1", "gorev": "README.md'ye Kurulum bolumu ekle (npm install + npm test)", "rol": "CODER", "dizin": "D:/Vibecode/deney-g9-repo", "durum": "KAPALI", "sonuc": "53112df (2026-10-29): Kurulum bolumu eklendi — duzeltme: ajanin iddia ettigi c76fec4f DISKTE YOK idi (commit edilmemis), 53112df ile gercekten diske indi", "bagimli": [] },
+    { "id": "D2", "gorev": "src/selam.js selam(isim) parametreli hale getir + test/selam.test.mjs 3 vaka", "rol": "CODER+TESTER", "dizin": "D:/Vibecode/deney-g9-repo", "durum": "KAPALI", "sonuc": "53112df (2026-10-29): selam(isim) + test fail 0 (yeni kosum) — duzeltme: ajanin iddia ettigi c76fec4f DISKTE YOK idi, 53112df ile gercekten diske indi", "bagimli": ["D1"] }
   ]
 }

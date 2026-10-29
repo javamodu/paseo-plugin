@@ -139,6 +139,9 @@ button{font-family:inherit}
 .balonKutu.insan .balonKim{color:var(--vurgu)}
 .balonKutu.operator{align-self:flex-start;background:var(--griSoluk);border:1px solid var(--kenar);color:var(--metin);border-bottom-left-radius:4px}
 .balonKutu.operator .balonKim{color:var(--ikincil)}
+.balonKutu.manager{align-self:flex-start;background:var(--vurgu);border:1px solid var(--vurgu);color:#fff;border-bottom-left-radius:4px}
+.balonKutu.manager .balonKim{color:rgba(255,255,255,.85)}
+.balonKutu.manager .balonSaat{color:rgba(255,255,255,.7)}
 .composer{flex:none;display:flex;gap:8px;align-items:flex-end;background:var(--griSoluk);border:1px solid var(--kenar);border-radius:10px;padding:8px}
 .composer textarea{flex:1;min-width:0;min-height:44px;max-height:132px;border:1px solid var(--kenar);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:16px;line-height:1.4;resize:none;background:var(--yuzey);color:var(--metin)}
 .composer textarea:focus{outline:2px solid var(--vurgu);outline-offset:-1px}
@@ -257,7 +260,7 @@ button{font-family:inherit}
             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 1.5 1.8 6.8l4.8 2 2 4.8L14.5 1.5z"/><path d="M6.6 8.8 14.5 1.5"/></svg>
           </button>
         </div>
-        <div class="durustSatir duz">OPERATÖR CHAT — yazdığın operatöre iner (müdahale defteri); canlı AI yanıtı K8 (D-4)</div>
+        <div class="durustSatir duz">CHAT — yanıtlar MANAGER ajandan (GLM 5.3, izole paseo koşusu); yazdığın müdahale defterine iner, manager'a iletilir</div>
       </div>
     </div>
     <div id="panelSagAkis" class="panelGovde">
@@ -738,13 +741,16 @@ function atamaSatir(a) {           // atama taslağı: v{n} + diff (eski→yeni)
 }
 
 // ---- render: SAĞ · CHAT (üstte history + altta sabit composer) ----
-function chatKayitlar() {          // sohbet = mudahale defteri (insan) + log mudahale-yanit (operatör), zaman sıralı
+function chatKayitlar() {          // sohbet = mudahale defteri (insan) + log yanitlari (manager / operator), zaman sirali
   const md = durum && Array.isArray(durum.mudahale) ? durum.mudahale : [];
   const log = durum && Array.isArray(durum.log) ? durum.log : [];
-  const yanitlar = log.filter((s) => String(s.tur || '') === 'mudahale-yanit');
   const tum = [];
   for (const m of md) tum.push({ kim: 'insan', t: String(m.t || ''), metin: m.not != null ? String(m.not) : '' });
-  for (const y of yanitlar) tum.push({ kim: 'operator', t: String(y.t || ''), metin: y.metin != null ? String(y.metin) : '' });
+  for (const s of log) {
+    const tur = String(s.tur || '');
+    if (tur === 'mudahale-yanit') tum.push({ kim: 'operator', t: String(s.t || ''), metin: s.metin != null ? String(s.metin) : '' });
+    else if (tur === 'manager-yanit') tum.push({ kim: 'manager', t: String(s.t || ''), metin: s.metin != null ? String(s.metin) : '' });
+  }
   tum.sort((a, b) => a.t.localeCompare(b.t));
   return tum;
 }
@@ -763,9 +769,9 @@ function renderSagChat() {
   chatIlk = false;
 }
 
-function balon(k) {                // insan sağda teal, operatör solda gri (zoocode deseni)
-  const kutu = el('div', 'balonKutu ' + (k.kim === 'insan' ? 'insan' : 'operator'));
-  kutu.appendChild(el('div', 'balonKim', k.kim === 'insan' ? 'SEN (insan:web)' : 'OPERATÖR'));
+function balon(k) {                // insan sağda teal; manager solda dolu-teal (GLM 5.3); operatör solda gri
+  const kutu = el('div', 'balonKutu ' + (k.kim === 'insan' ? 'insan' : (k.kim === 'manager' ? 'manager' : 'operator')));
+  kutu.appendChild(el('div', 'balonKim', k.kim === 'insan' ? 'SEN (insan:web)' : (k.kim === 'manager' ? 'MANAGER (GLM 5.3 — izole)' : 'OPERATÖR')));
   kutu.appendChild(el('div', 'balonMetin', k.metin));
   if (k.t) kutu.appendChild(el('div', 'balonSaat', k.t));
   return kutu;
@@ -788,10 +794,11 @@ function renderSagAkis() {
   }
 }
 
-function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale sarı, hata kırmızı
+function turRenk(tur) {            // envanter/workspace/ajan-* teal, mudahale sarı, hata kırmızı, manager-yanit dolu teal
   const t = String(tur || '').toLowerCase();
   if (t === 'hata') return 'var(--kirmizi)';
   if (t === 'mudahale') return 'var(--sari)';
+  if (t === 'manager-yanit') return 'var(--vurgu)';
   if (t.indexOf('envanter') === 0 || t.indexOf('workspace') === 0 || t.indexOf('ajan') === 0) return 'var(--vurgu)';
   return 'var(--kenar)';
 }
@@ -810,6 +817,7 @@ function renderSagAjan() {
       const satir = el('div', 'ajanSatir');
       const ust = el('div', 'satirUst');
       ust.appendChild(el('span', 'ajanAd', k.ad != null ? k.ad : '?'));
+      if (k.rol != null) ust.appendChild(el('span', 'rozet teal', 'MANAGER'));
       if (k.durum != null) ust.appendChild(el('span', 'rozet', String(k.durum)));
       satir.appendChild(ust);
       satir.appendChild(el('div', 'metaSatir',

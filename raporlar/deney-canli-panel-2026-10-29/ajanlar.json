@@ -9,6 +9,15 @@
       "model": "glm53u-claude/glm-5.3",
       "durum": "running",
       "not": "2026-10-28'den beri; kullanici durdurmadi; eszamanli sayi=1"
+    },
+    {
+      "id": "bfda53a3-8e52-4c47-922c-337dfbdf7cca",
+      "ad": "deney-manager-g9",
+      "gorev": "G9 deney paneli MANAGER'i: panel chat yanit + atama TASLAK onay/red",
+      "model": "glm53u-codex/glm-5.3",
+      "durum": "idle",
+      "rol": "manager (ROLLER/manager.md; aktor ai-manager:glm-5.3)",
+      "not": "2026-10-29T17:38 dogdu (kullanici emri: bagimsiz manager glm5.3 izole); ilk yanit verdi: kendini tanitti + gorev ozeti; kanit log.jsonl manager-yanit"
     }
   ],
   "ornek": [
