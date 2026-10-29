@@ -12,6 +12,11 @@
      VIEWPORT (SOL akordiyon görev ağacı · ORTA VS Code tarzı sekmeler ·
      SAĞ büyük AI CHAT + üstte ikon menü) · modern temiz BÜYÜK yazılar ·
      akışkan panel geçişleri (yalnız transform/opacity, <=600ms — E12).
+     K8 ADIM-B (2026-10-29 «UYGULA»): sağ ikon menü CHAT · PROJE · API —
+     ÖZET + KOMUT yüzleri söküldü (kullanıcı emri); PROJE (workspace seç +
+     kadro atama) + API (sağlayıcı/model/TEST) İZOLE deney sunucusundan
+     (http://127.0.0.1:4930 — ADIM-A CORS köprüsü) GERÇEK veri çeker;
+     4930 ölürse yüzler KIRMIZI (fail-closed — bayat veri kalmaz).
      İÇERİK/veri katmanı R1'den korunur: DAG viewBox zoom/pan/pinch ·
      kirmiziYuz fail-closed · modUygula iki yüz (aynı fetch) · sec + kart
      ucu · 30 sn tazelik · yerlesim döngüde-çizilmez · ÖRNEK-etiket sistemi
@@ -51,7 +56,7 @@
   .isik { position:fixed; width:480px; height:480px; border-radius:50%; pointer-events:none; z-index:0; filter:blur(90px); transition:transform 600ms ease; }
   .isik-1 { top:-160px; left:-120px; background:radial-gradient(circle, rgba(14,116,144,0.10), transparent 65%); }
   .isik-2 { bottom:-180px; right:-140px; background:radial-gradient(circle, rgba(109,40,217,0.07), transparent 65%); }
-  body.komut-odak .isik-1 { transform:translate(140px, 320px) scale(0.75); }
+  /* komut-odak ışığı KALKTI (K8 ADIM-B — komut kutusu söküldü) */
   .gizli { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
   .bosSatir { color:var(--ikincil); font-size:13px; padding:6px 2px; }
 
@@ -303,12 +308,47 @@
   .kyKart p { font-size:13px; color:var(--metin); margin-top:6px; }
   .kyBaslik { font-size:12.5px; font-weight:700; color:var(--tehlike); letter-spacing:0.06em; }
 
-  /* ---- KOMUT ŞABLONLARI (kopyala; GUI çalıştırmaz — EK-2; sağ KOMUT panelinde) ---- */
-  .sablonListe { display:grid; gap:8px; margin-top:4px; }
-  .sablon { display:grid; grid-template-columns:84px 1fr auto; gap:8px; align-items:center; border:1px solid var(--cizgi); border-radius:8px; padding:4px 8px 4px 12px; background:var(--yuzey); }
-  .sablonAd { font-size:11px; font-weight:700; color:var(--menevse); letter-spacing:0.08em; text-transform:uppercase; }
-  .sablon code { font-family:var(--mono); font-size:11.5px; color:var(--camgobegi); overflow-wrap:anywhere; }
-  .yonetNot { margin-top:12px; font-size:11.5px; color:var(--ikincil); }
+  /* ---- K8 ADIM-B: PROJE + API yüzleri (deney-köprüsü 4930; fail-closed kırmızı yüz) ---- */
+  .dkKirmizi { color:var(--tehlike); font-weight:800; font-size:14px; padding:10px 12px; border:1px solid rgba(220,38,38,0.35); border-left:3px solid var(--tehlike); border-radius:10px; background:rgba(220,38,38,0.04); overflow-wrap:anywhere; }
+  .dkEtiket { font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); margin-top:8px; flex:none; }
+  .dkSecici, .dkGiris {
+    width:100%; min-height:var(--min-dokunma); background:var(--yuzey); border:1px solid var(--cizgi);
+    border-radius:8px; color:var(--metin); font-size:14.5px; padding:8px 10px; outline:none; touch-action:manipulation;
+  }
+  .dkSecici:focus-visible, .dkGiris:focus-visible { border-color:rgba(14,116,144,0.55); }
+  .dkGonder {
+    min-height:var(--min-dokunma); border:1px solid rgba(14,116,144,0.45); border-radius:10px;
+    background:rgba(14,116,144,0.08); color:var(--camgobegi); font-size:13.5px; font-weight:700;
+    padding:6px 16px; cursor:pointer; margin-top:10px; flex:none;
+  }
+  .dkGonder:disabled { opacity:0.5; cursor:wait; }
+  .dkNot { font-size:11.5px; color:var(--ikincil); flex:none; }
+  .dkBolumBas { margin-top:10px; padding-top:8px; border-top:1px solid var(--cizgi); font-size:12.5px; font-weight:800; letter-spacing:0.08em; color:var(--ikincil); flex:none; }
+  .dkListe { display:flex; flex-direction:column; gap:6px; }
+  .dkRozet { font-size:10px; font-weight:700; letter-spacing:0.06em; border-radius:999px; padding:2px 8px; border:1px solid var(--cizgi); color:var(--ikincil); white-space:nowrap; }
+  .dkRozet.teal { color:var(--camgobegi); border-color:rgba(14,116,144,0.4); }
+  .dkRozet.yesil { color:var(--basari); border-color:rgba(4,120,87,0.35); }
+  .dkSatirBilgi { font-size:12.5px; color:var(--ikincil); flex:none; }
+  .dkSatirBilgi b { color:var(--metin); font-variant-numeric:tabular-nums; }
+  .dkKart { border:1px solid var(--cizgi); border-radius:10px; background:var(--yuzey); overflow:hidden; flex:none; }
+  .dkKartBas { width:100%; display:flex; align-items:center; gap:8px; min-height:var(--min-dokunma); padding:6px 10px; background:none; border:0; text-align:left; cursor:pointer; color:var(--metin); font-size:14px; font-weight:600; }
+  .dkKartBas:hover { background:var(--yuzey2); }
+  .dkKart .ok { margin-left:auto; color:var(--ikincil); transition:transform 200ms ease; }
+  .dkKart.acik .ok { transform:rotate(90deg); }
+  .dkModelListe { border-top:1px solid var(--cizgi); }
+  .dkModelSatir { display:flex; align-items:center; gap:8px; padding:6px 10px 6px 16px; background:var(--yuzey); border-bottom:1px dashed rgba(26,35,50,0.08); cursor:pointer; }
+  .dkModelSatir:last-child { border-bottom:0; }
+  .dkModelSatir:hover { background:var(--yuzey2); }
+  .dkModelSatir.secili { background:rgba(14,116,144,0.06); }
+  .dkModelGovde { display:flex; flex-direction:column; min-width:0; }
+  .dkModelEtiket { font-size:13.5px; font-weight:600; color:var(--metin); overflow-wrap:anywhere; }
+  .dkModelAlt { font-size:11px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .dkTest { margin-left:auto; flex:none; padding:4px 12px; font-size:11.5px; font-weight:700; border:1px solid rgba(14,116,144,0.4); border-radius:8px; background:transparent; color:var(--camgobegi); }
+  .dkTest:disabled { opacity:0.5; cursor:wait; }
+  .dkAjanSatir { border:1px solid var(--cizgi); border-radius:8px; padding:8px 10px; background:var(--yuzey); }
+  .dkAjanUst { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .dkAjanAd { font-weight:700; font-size:14px; color:var(--metin); overflow-wrap:anywhere; }
+  .dkAjanMeta { font-size:11.5px; color:var(--ikincil); overflow-wrap:anywhere; margin-top:2px; }
 
   /* ---- SAĞ (#sag): BÜYÜK AI CHAT paneli (VARSAYILAN) + üstte ikon menü (CHAT/ÖZET/KOMUT) ---- */
   #ikonMenu { display:flex; gap:4px; padding:8px; border-bottom:1px solid var(--cizgi); background:var(--yuzey2); flex:none; }
@@ -357,15 +397,7 @@
   }
   .chatGonder:active { transform:scale(0.96); }
 
-  /* ÖZET — yönetici durumu (GERÇEK /api/graf verisinden kompakt kart; canlı AI seçenek paneli K8'de) */
-  .ozetKart { display:flex; flex-direction:column; gap:0; border:1px solid var(--cizgi); border-radius:10px; overflow:hidden; }
-  .ozetSatir { display:flex; align-items:baseline; gap:10px; padding:8px 12px; border-bottom:1px solid rgba(26,35,50,0.08); }
-  .ozetSatir:last-child { border-bottom:0; }
-  .ozetEtiket { flex:none; width:110px; font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); font-family:var(--mono); }
-  .ozetDeger { font-size:14.5px; color:var(--metin); min-width:0; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
-  .ozetDeger b { font-size:20px; font-weight:800; } /* R2: sayılar BÜYÜK */
-  .ozetNot { font-size:11.5px; color:var(--ikincil); padding:2px 2px 0; }
-  .ozetEylemler { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+  /* ÖZET yüzü KALKTI (K8 ADIM-B — kullanıcı emri); yerine PROJE + API doğdu (yukarıda .dk* bloğu) */
 
   /* ---- KAPSÜL KARTI (#detay — sec(id) detay; graf-yüzü GERÇEK; görev sekmesi içeriği) ---- */
   .kapsulKart {
@@ -423,35 +455,7 @@
   .onay-komut span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; flex:1; }
   .onay-not { margin-top:8px; font-size:11px; color:var(--ikincil); }
 
-  /* ---- $ KOMUT KUTUSU (sağ KOMUT panelinde; odak ışıması; Enter → panoya) ---- */
-  .buyuk-btn {
-    min-height:var(--min-dokunma); min-width:var(--min-dokunma); display:inline-flex; align-items:center;
-    justify-content:center; gap:8px; padding:0 18px; border-radius:10px; font-size:13.5px; font-weight:600;
-    background:transparent; transition:transform 150ms ease; touch-action:manipulation;
-  }
-  .buyuk-btn:active { transform:scale(0.97); }
-  .btn-durdur { border:1px solid rgba(109,40,217,0.45); color:var(--menevse); }
-  .btn-resume { border:1px solid rgba(4,120,87,0.4); color:var(--basari); }
-  .komut-kutusu { position:relative; margin-top:8px; }
-  .komut-giris {
-    width:100%; min-height:var(--min-dokunma); background:var(--yuzey); border:1px solid var(--cizgi);
-    border-radius:10px; color:var(--camgobegi); font-family:var(--mono); font-size:14px; padding:10px 40px 10px 34px;
-    outline:none; touch-action:manipulation;
-  }
-  .komut-giris::placeholder { color:var(--ikincil); opacity:0.7; }
-  .komut-kutusu::before {
-    content:"$"; position:absolute; left:13px; top:17px;
-    color:var(--ikincil); font-family:var(--mono); font-size:14px; pointer-events:none;
-  }
-  .komut-kutusu.odak .komut-giris { border-color:rgba(14,116,144,0.55); box-shadow:0 0 0 3px rgba(14,116,144,0.12); }
-  .komut-oneri {
-    position:absolute; left:0; right:0; top:calc(100% + 6px); background:var(--yuzey); border:1px solid var(--cizgi);
-    border-radius:10px; padding:8px 12px; font-family:var(--mono); font-size:12px; color:var(--ikincil);
-    display:none; pointer-events:none; z-index:11; box-shadow:0 6px 18px rgba(26,35,50,0.08);
-  }
-  .komut-oneri.gorunur { display:block; }
-  .komut-oneri b { color:var(--camgobegi); font-weight:400; }
-  .komut-ipucu { font-size:11px; color:var(--ikincil); margin-top:6px; }
+  /* KOMUT kutusu + buyuk-btn DURDUR/RESUME CSS'leri KALKTI (K8 ADIM-B — yüzler söküldü) */
 
   /* ---- ORTAK: düğme tabası (44px dokunma) + odak + kopyala ---- */
   button { font:inherit; min-height:var(--min-dokunma); touch-action:manipulation; cursor:pointer; }
@@ -509,9 +513,7 @@
     body { font-size:15px; }
     .kart-baslik { flex-wrap:wrap; }
     .kSatir { grid-template-columns:96px 1fr; }
-    .sablon { grid-template-columns:1fr auto; }
-    .sablonAd { grid-column:1 / -1; }
-    .ozetSatir { grid-template-columns:96px 1fr; display:grid; }
+    .dkSecici, .dkGiris { font-size:14px; }
     .tuvIpucu { margin-left:0; width:100%; }
     #token { width:100%; margin-left:0; }
   }
@@ -729,21 +731,24 @@
     </div>
   </section>
 
-  <!-- ============ SAĞ (#sag): BÜYÜK AI CHAT (VARSAYILAN) + üstte ikon menü (CHAT/ÖZET/KOMUT) ============ -->
-  <aside id="sag" aria-label="sağ panel — AI CHAT (varsayılan) · ÖZET · KOMUT — ikon menüyle değişir">
-    <h2 class="gizli">Sağ panel — AI chat, yönetici özeti, komut</h2>
-    <div id="ikonMenu" role="toolbar" aria-label="sağ panel ikon menüsü — CHAT (varsayılan) · ÖZET · KOMUT">
+  <!-- ============ SAĞ (#sag): BÜYÜK AI CHAT (VARSAYILAN) + üstte ikon menü (CHAT/PROJE/API) ============
+       K8 ADIM-B: ÖZET + KOMUT yüzleri KALDIRILDI (kullanıcı emri — state yüklü yüz sökümü);
+       PROJE (seçici + kadro atama → GERÇEK 4930 uçları) + API (sağlayıcı/model + TEST) doğdu.
+       Veri kaynağı: izole deney sunucusu http://127.0.0.1:4930 (ADIM-A CORS köprüsü). -->
+  <aside id="sag" aria-label="sağ panel — AI CHAT (varsayılan) · PROJE · API — ikon menüyle değişir">
+    <h2 class="gizli">Sağ panel — AI chat, proje atama, API yönetimi</h2>
+    <div id="ikonMenu" role="toolbar" aria-label="sağ panel ikon menüsü — CHAT (varsayılan) · PROJE · API">
       <button id="ik-chat" class="ikonBtn aktif" type="button" aria-pressed="true" title="CHAT — şablon komut üretici (VARSAYILAN panel)">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 3.5 H17 V13.5 H8.5 L5 16.5 V13.5 H3 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <span>CHAT</span>
       </button>
-      <button id="ik-ozet" class="ikonBtn" type="button" aria-pressed="false" title="ÖZET — yönetici durumu (GERÇEK /api/graf verisinden kompakt kart)">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 4.5 H17 M3 9 H11 M3 13.5 H14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span>ÖZET</span>
+      <button id="ik-proje" class="ikonBtn" type="button" aria-pressed="false" title="PROJE — workspace seç + ajan kadro ata (GERÇEK 4930 uçları)">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6.5 V15.5 H17 V6.5 H3 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 6.5 L7 3.5 H13 L17 6.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 15.5 V10.5 H12 V15.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>PROJE</span>
       </button>
-      <button id="ik-komut" class="ikonBtn" type="button" aria-pressed="false" title="KOMUT — komut şablonları + komut kutusu (kopyala — EK-2)">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 5 L8.5 10 L4 15 M10.5 15 H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>KOMUT</span>
+      <button id="ik-api" class="ikonBtn" type="button" aria-pressed="false" title="API — sağlayıcı + model yönetimi + TEST (GERÇEK 4930 uçları)">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><ellipse cx="10" cy="4.5" rx="7" ry="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M3 4.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11" stroke="currentColor" stroke-width="1.6"/><path d="M3 10c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>API</span>
       </button>
     </div>
 
@@ -762,46 +767,43 @@
       </form>
     </section>
 
-    <!-- ÖZET: yönetici-özeti YERLEŞİMİ — gerçek /api/graf verisinden kompakt durum kartı (sahte seçenek ÜRETİLMEZ) -->
-    <section class="sagPanel" id="sagOzet" hidden aria-labelledby="ozet-baslik">
+    <!-- PROJE: workspace seç + AJAN KADRO ATAMA (GERÇEK 4930 uçları — deney panelinden adaptasyon) -->
+    <section class="sagPanel" id="sagProje" hidden aria-labelledby="proje-baslik">
       <div class="panelBas">
-        <h3 class="bolum-etiket" id="ozet-baslik">ÖZET — yönetici durumu</h3>
-        <span class="etiketGercek">GERÇEK — /api/graf</span>
+        <h3 class="bolum-etiket" id="proje-baslik">PROJE — ajan ata</h3>
+        <span class="etiketGercek">GERÇEK — 4930</span>
       </div>
-      <div class="ozetKart" id="ozetKart"><p class="bosSatir">graf yüklenince gerçek sayımlar burada — kompakt durum kartı</p></div>
-      <p class="ozetNot">Bu panel <b>YERLEŞİM</b> tabanıdır: kompakt durum kartı gerçek /api/graf verisinden sayılır; <b>canlı AI seçenek paneli K8'de</b> bağlanır — bu dalgada sahte seçenek/öneri ÜRETİLMEZ.</p>
-      <div class="ozetEylemler">
-        <button class="buyuk-btn btn-durdur" type="button" aria-label="sürüyü durdur (bilgilendirme)" data-not="DURDUR pasif bilgi (EK-2): gerçek kill-switch KULLANICI terminalinde (STOP / kill-9 — roller SSOT'u). GUI onay/durdur komutu ÇALIŞTIRMAZ ve bu dalgada yazma ucuna bağlanmadı (server.js yazma yasağı).">
-          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="2" fill="currentColor"/></svg>
-          DURDUR
-        </button>
-        <button class="buyuk-btn btn-resume" type="button" aria-label="sürüyü devam ettir (bilgilendirme)" data-not="RESUME pasif bilgi: canlı koşum akışı (dispatch → coder → tester → ACCEPTED) D-2 dalgasında notify.jsonl→SSE köprüsüyle bağlanır; GUI bu dalgada hiçbir ağ isteği atmaz (yalnız /api/graf okur).">
-          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.5 L10.5 6 L2.5 10.5 Z" fill="currentColor"/></svg>
-          RESUME
-        </button>
-      </div>
+      <div id="projeKirmizi" role="alert"></div>
+      <label class="dkEtiket" for="atProje">Proje (workspace)</label>
+      <select id="atProje" class="dkSecici" aria-label="proje seç — deney durumundan gerçek workspace listesi"></select>
+      <label class="dkEtiket" for="atAjan">Ajan adı</label>
+      <input id="atAjan" class="dkGiris" type="text" autocomplete="off" spellcheck="false" placeholder="ör. kodcu-1" maxlength="100" aria-label="ajan adı">
+      <label class="dkEtiket" for="atSaglayici">Sağlayıcı + model</label>
+      <select id="atSaglayici" class="dkSecici" aria-label="sağlayıcı ve model seç — deney envanterinden"></select>
+      <label class="dkEtiket" for="atRol">Rol</label>
+      <select id="atRol" class="dkSecici" aria-label="rol seç">
+        <option value="manager">manager</option>
+        <option value="coder" selected>coder</option>
+        <option value="tester">tester</option>
+      </select>
+      <label class="dkEtiket" for="atGorev">Görev (opsiyonel)</label>
+      <input id="atGorev" class="dkGiris" type="text" autocomplete="off" spellcheck="false" placeholder="ör. D3: README'ye Katkı bölümü" maxlength="200" aria-label="görev tanımı (opsiyonel)">
+      <label class="dkEtiket" for="atRolMd">rol.md (opsiyonel — projeye özel)</label>
+      <input id="atRolMd" class="dkGiris" type="text" autocomplete="off" spellcheck="false" placeholder="ör. ROLLER/coder.md — zorunlu değil" maxlength="200" aria-label="rol dokümanı yolu (opsiyonel)">
+      <button id="atGonder" class="dkGonder" type="button">KADROYA EKLE</button>
+      <p class="dkNot">TANIM kaydı atamalar defterine iner (POST /api/deney/ajan-ata — GERÇEK uç); sunucu 5 zorunlu alanı + sağlayıcı envanterini doğrular (sahte sağlayıcı 400 RED). Gerçek spawn operatör köprüsü ile.</p>
+      <div class="dkBolumBas" id="ajanlar-baslik">AJANLAR</div>
+      <div id="ajanListe" class="dkListe" role="list" aria-label="ajanlar — koşan paseo + örnek"></div>
     </section>
 
-    <!-- KOMUT: komut şablonları + $ komut kutusu (mevcut davranış taşınır — EK-2: yalnız kopyala) -->
-    <section class="sagPanel" id="sagKomut" hidden aria-labelledby="komut-baslik">
+    <!-- API: sağlayıcı kartları + model seç (tercih) + TEST (GERÇEK 4930 uçları — deney panelinden adaptasyon) -->
+    <section class="sagPanel" id="sagApi" hidden aria-labelledby="api-baslik">
       <div class="panelBas">
-        <h3 class="bolum-etiket" id="komut-baslik">KOMUT — şablonlar + kutu</h3>
-        <span class="etiketOrnek">ŞABLONLAR ÖRNEK</span>
+        <h3 class="bolum-etiket" id="api-baslik">API — sağlayıcı &amp; model</h3>
+        <span class="etiketGercek">GERÇEK — 4930</span>
       </div>
-      <div class="sablonListe" id="sablonListe" data-ornek="komut şablonları kalp-yüzü verisi — ÖRNEK; gerçek bağ D-2">
-        <div class="sablon"><span class="sablonAd">gece</span><code id="sab-gece">node src/cli.ts gece --hedef "&lt;görev&gt;" --limit 5</code><button class="kopyala-btn" type="button" data-kopyala="sab-gece" aria-label="gece şablonunu panoya kopyala">⧉</button></div>
-        <div class="sablon"><span class="sablonAd">kanal</span><code id="sab-kanal">scripts\test-kanal.ps1 -Etiket DALGA-1</code><button class="kopyala-btn" type="button" data-kopyala="sab-kanal" aria-label="kanal şablonunu panoya kopyala">⧉</button></div>
-        <div class="sablon"><span class="sablonAd">tip</span><code id="sab-tip">npm run tip</code><button class="kopyala-btn" type="button" data-kopyala="sab-tip" aria-label="tip şablonunu panoya kopyala">⧉</button></div>
-        <div class="sablon"><span class="sablonAd">graf</span><code id="sab-graf">node src/cli.ts graf goster</code><button class="kopyala-btn" type="button" data-kopyala="sab-graf" aria-label="graf şablonunu panoya kopyala">⧉</button></div>
-        <div class="sablon"><span class="sablonAd">replan</span><code id="sab-replan">node src/cli.ts replan --esik N --hedef N</code><button class="kopyala-btn" type="button" data-kopyala="sab-replan" aria-label="replan şablonunu panoya kopyala">⧉</button></div>
-        <div class="sablon"><span class="sablonAd">dispatch</span><code id="sab-dispatch">node src/cli.ts dispatch --gorev &lt;görev-id&gt;</code><button class="kopyala-btn" type="button" data-kopyala="sab-dispatch" aria-label="dispatch şablonunu panoya kopyala">⧉</button></div>
-      </div>
-      <div class="komut-kutusu" id="komutKutusu" data-ornek="komut şablon verisi kalp-yüzü — ÖRNEK; gerçek bağ D-2">
-        <input class="komut-giris" id="komut" type="text" autocomplete="off" spellcheck="false" placeholder="komut-üretici: gece, kanal, tip, graf, replan, dispatch…" aria-label="komut üretici">
-        <div class="komut-oneri" id="komut-oneri" aria-hidden="true"></div>
-      </div>
-      <p class="komut-ipucu">Enter → komutu panoya al · GUI komut çalıştırmaz <span class="etiketOrnek">şablonlar ÖRNEK</span></p>
-      <p class="yonetNot">GUI komut üretir ve PANOYA alır — çalıştırmaz. Onay cümlesi GUI'de üretilmez (EK-2): yalnız onay kartındaki hazır statik metin kopyalanır. Görev fişi (BRIEF) ve görev kimlikli dispatch şablonu: seçili görevin kapsül kartındaki bağlamsal düğmelerden (GERÇEK /api/graf verisinden üretilir). Soldaki görev ağacı da seçimle sekme açar; AI CHAT aynı disiplinde: hedef cümle → ŞABLON komutlar + plan taslağı (canlı AI yanıtı D-4).</p>
+      <div id="saglayiciAlani" class="dkListe" aria-label="sağlayıcı kartları — başlık tıkla → modeller açılır"></div>
+      <p class="dkNot">Model satırına tıkla → POST /api/deney/tercih (GERÇEK uç — tercih.json). TEST: gerçek çağrı kuyruğuna iş bırakır; operatör köprüsü paseo MCP ile o modelde çağrı yapar — sunucu anahtara erişemez (fail-closed — sahte test sonucu üretilmez).</p>
     </section>
   </aside>
 </main>
@@ -868,7 +870,7 @@ async function yukle() {
     if (!r.ok) { kirmiziYuz("/api/graf " + r.status + " — graf SSOT okunamadı (fail-closed)"); return; }
     G = await r.json();
     $("hata").hidden = true;
-    metaYaz(); solYaz(); ozetYaz(); modUygula();
+    metaYaz(); solYaz(); modUygula();
     if (secilen && G.gorevler.some((x) => x.id === secilen)) sec(secilen, true);
     else if (secilen) {
       const eski = secilen;
@@ -889,7 +891,6 @@ function kirmiziYuz(m) {
   $("haritaSayi").textContent = "—";
   sekmeler.length = 0;              // görev sekmeleri kapanır — bayat kapsül kartı ekranda kalmaz
   sekmeAktiflestir("harita");       // DAG sekmesi aktifleşir → kırmızı hata katmanı görünür
-  ozetYaz();                        // sağ ÖZET paneli de kırmızı yüze döner
   hataGoster(m);
 }
 
@@ -1381,33 +1382,262 @@ function fisMd(g) {
     "not: GUI komut çalıştırmaz — dispatch operatör terminalinde koşar (EK-2)";
 }
 
-/* ============ R2: SAĞ ÖZET paneli — GERÇEK /api/graf verisinden kompakt durum kartı ============
-   Yönetici-özeti YERLEŞİMİ: sayılar G'den sayılır (E10 — statik sayı YOK);
-   canlı AI seçenek paneli K8'de — bu dalgada sahte seçenek ÜRETİLMEZ. */
-function ozetYaz() {
-  const kart = $("ozetKart");
-  if (!G) { kart.innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ — graf yok (fail-closed); ÖZET sayım yapamaz</div>'; return; }
-  const kok = {};
-  for (const g of G.gorevler) { const k = g.durum.split(" ")[0]; kok[k] = (kok[k] || 0) + 1; }
-  const kapali = kok.KAPALI || 0;
-  const insanKapili = G.gorevler.filter((g) => g.kapi && String(g.kapi).indexOf("[INSAN]") > -1).length;
-  const aktif = G.gorevler.filter((g) => g.aktif).length;
-  const butce = String(G.butceToplam && G.butceToplam.kodLocT || "—").split(" (")[0];
-  kart.innerHTML =
-    '<div class="ozetSatir"><span class="ozetEtiket">graf</span><span class="ozetDeger">' + esc(G.grafSurumu) + " · <b>" + G.gorevler.length + "</b> görev · <b>" + G.kenarlar.length + "</b> kenar</span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">HAZIR</span><span class="ozetDeger"><b style="color:var(--basari)">' + (kok.HAZIR || 0) + "</b></span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">BEKLE</span><span class="ozetDeger"><b style="color:var(--uyari)">' + (kok.BEKLE || 0) + "</b></span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">KAPALI</span><span class="ozetDeger"><b style="color:var(--ikincil)">' + kapali + "</b></span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">İNSAN kapılı</span><span class="ozetDeger"><b>' + insanKapili + "</b> görev</span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">AKTİF</span><span class="ozetDeger"><b style="color:var(--camgobegi)">' + aktif + "</b> görev</span></div>" +
-    '<div class="ozetSatir"><span class="ozetEtiket">bütçe</span><span class="ozetDeger">~' + esc(butce) + " kod (T)</span></div>";
+/* ============ K8 ADIM-B: DENEY KÖPRÜSÜ — izole 4930 (ADIM-A CORS) ============
+   Tuval (4377) buradan GERÇEK veri çeker: GET /api/deney/durum → PROJE + API yüzleri.
+   4930 ölürse: D=null → her iki yüz KIRMIZI (fail-closed; bayat deney verisi EKRANDA KALMAZ).
+   Yüz yüklendiği anda kullanıcı girdisi (ajan adı/görev/rolMd) YERİNDE KORUNUR — yalnız
+   listeler (select seçenekleri + ajan/sağlayıcı kartları) yeniden çizilir.
+   Deney-panel R3-2 deseninden adaptasyon (referans: pano/deney-panel.html). */
+const DENEY_KOK = "http://127.0.0.1:4930";
+let D = null;                             // son deney durumu (null: sunucu yok — fail-closed)
+const acikSagKartlar = new Set();         // açık sağlayıcı akordiyonları (30 sn tazelemede korunur)
+const GLM_UCLAR = ["glm53u-codex", "glm53u-claude", "claude-glm"];
+let oncekiProje = "";                     // proje seçimi tazelemede korunur
+
+async function deneyYukle() {
+  try {
+    const r = await fetch(DENEY_KOK + "/api/deney/durum");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    D = await r.json();
+  } catch (e) {
+    D = null;                             // fail-closed: bayat deney verisi gösterilmez
+  }
+  deneyYaz();
 }
 
-/* ============ R2: SAĞ PANEL İKON MENÜSÜ — CHAT (varsayılan) · ÖZET · KOMUT ============
+// Deney POST borusu: JSON govde -> hata nesnesi varsa RED (fail-closed), yoksa govde döner.
+async function deneyPost(uc, govde) {
+  const r = await fetch(DENEY_KOK + uc, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(govde),
+  });
+  let b = null;
+  try { b = await r.json(); } catch { /* govde bozuksa null */ }
+  if (!r.ok || !b || b.hata) throw new Error((b && b.hata) || "HTTP " + r.status);
+  return b;
+}
+
+function deneyOluBanner() {
+  return '<div class="dkKirmizi">DENEY SUNUCUSU YOK — ' + esc(DENEY_KOK) + ' yanıtlamıyor (fail-closed; bayat veri gösterilmez). İzole deney sunucusunu başlatın: DENEY_PORT=4930 node pano/deney-server.mjs</div>';
+}
+
+const saglayiciListe = () => (D && D.envanter && Array.isArray(D.envanter.saglayicilar) ? D.envanter.saglayicilar : null);
+
+function deneyYaz() { projeYaz(); apiYaz(); }   // D null → iki yüz de kırmızıya döner
+
+/* ---- PROJE yüzü: workspace seçici + ATAMA formu seçenekleri + AJANLAR listesi ---- */
+function projeYaz() {
+  $("projeKirmizi").innerHTML = D ? "" : deneyOluBanner();
+  const sec = $("atProje");
+  const liste = D && D.envanter && D.envanter.workspaces ? D.envanter.workspaces : null;
+  const deney = liste && liste.deney;
+  const ornek = liste && Array.isArray(liste.ornek) ? liste.ornek : [];
+  sec.textContent = "";
+  if (!D) {
+    sec.insertAdjacentHTML("beforeend", '<option value="">(deney sunucusu yok — fail-closed)</option>');
+    seciciKilitle(true);
+    ajanlarYaz();
+    return;
+  }
+  if (deney && deney.cwd) {
+    sec.insertAdjacentHTML("beforeend", '<option value="' + esc(deney.cwd) + '">' + esc((deney.title || "deney workspace") + " — " + deney.cwd) + "</option>");
+  }
+  for (const w of ornek) {
+    if (w && w.cwd) sec.insertAdjacentHTML("beforeend", '<option value="' + esc(w.cwd) + '">' + esc((w.title || "workspace") + " — " + w.cwd) + "</option>");
+  }
+  if (!sec.options.length) sec.insertAdjacentHTML("beforeend", '<option value="D:/Vibecode/deney-g9-repo">deney-g9-repo</option>');
+  const hedef = oncekiProje || (deney && deney.cwd) || sec.options[0].value;
+  sec.value = hedef;
+  if (sec.value !== hedef && sec.options.length) sec.selectedIndex = 0;   // eski seçim listede kalmadıysa ilkine dön
+  oncekiProje = sec.value;
+  seciciKilitle(false);
+  secicileriDoldur();
+  ajanlarYaz();
+}
+
+// 4930 ölüyken form girdileri kilitlenmez (yazılabilir) ama GÖNDER kırmızıya düşer — dürüst.
+function seciciKilitle(kilitli) { $("atGonder").disabled = kilitli; }
+
+function secicileriDoldur() {          // ATAMA sağlayıcı-model seçeneği (chat seçicisi K8 sonraki blokta)
+  const liste = saglayiciListe() || [];
+  const tercih = D && D.tercih;
+  const opts = [];
+  let varsayilan = "";
+  for (const s of liste) {
+    if (!s.enabled && !GLM_UCLAR.includes(s.id)) continue;   // pasif sağlayıcı seçilemez (GLM uçları hep listede)
+    for (const m of (Array.isArray(s.modeller) ? s.modeller : [])) {
+      const deger = s.id + "|" + m.id;
+      const etiket = (GLM_UCLAR.includes(s.id) ? "" : s.id + " · ") + (m.label || m.id);
+      opts.push({ deger, etiket });
+      if (tercih && String(tercih.provider) === s.id && String(tercih.model) === m.id) varsayilan = deger;
+    }
+  }
+  if (!varsayilan) {
+    const glm53 = opts.find((o) => o.deger.indexOf("glm-5.3") >= 0);
+    varsayilan = (glm53 && glm53.deger) || (opts[0] && opts[0].deger) || "";
+  }
+  const atSec = $("atSaglayici");
+  const onceki = atSec.value;
+  atSec.textContent = "";
+  for (const o of opts) atSec.insertAdjacentHTML("beforeend", '<option value="' + esc(o.deger) + '">' + esc(o.etiket) + "</option>");
+  if (!opts.length) atSec.insertAdjacentHTML("beforeend", '<option value="">(model yok)</option>');
+  atSec.value = onceki || varsayilan;
+  if (!atSec.value && atSec.options.length) atSec.selectedIndex = 0;
+}
+
+function ajanlarYaz() {
+  const alan = $("ajanListe");
+  if (!D) { alan.innerHTML = '<p class="bosSatir">(deney sunucusu yok — ajan listesi gösterilmez)</p>'; return; }
+  const a = D.ajanlar || {};
+  const kosan = Array.isArray(a.kosanPaseo) ? a.kosanPaseo : [];
+  const ornek = Array.isArray(a.ornek) ? a.ornek : [];
+  if (!kosan.length && !ornek.length) { alan.innerHTML = '<p class="bosSatir">(veri yok)</p>'; return; }
+  let h = "";
+  if (kosan.length) {
+    h += '<div class="dkBolumBas">KOŞAN (PASEO)' + tg() + "</div>";
+    for (const k of kosan) {
+      h += '<div class="dkAjanSatir"><div class="dkAjanUst"><span class="dkAjanAd">' + esc(k.ad != null ? k.ad : "?") + "</span>" +
+        (k.durum != null ? '<span class="dkRozet teal">' + esc(String(k.durum)) + "</span>" : "") + "</div>" +
+        '<div class="dkAjanMeta">' + esc([k.model, k.gorev].filter((x) => x != null && x !== "").join(" · ") || "–") + "</div></div>";
+    }
+  }
+  if (ornek.length) {
+    h += '<div class="dkBolumBas">ÖRNEK</div>';
+    for (const o of ornek) {
+      const roller = Array.isArray(o.roller) ? o.roller.join(", ") : (o.roller != null ? String(o.roller) : "");
+      h += '<div class="dkAjanSatir"><div class="dkAjanUst"><span class="dkAjanAd">' + esc(o.ad != null ? o.ad : "?") + "</span>" +
+        '<span class="etiketOrnek">ÖRNEK</span>' +
+        (o.durum != null ? '<span class="dkRozet">' + esc(String(o.durum)) + "</span>" : "") + "</div>" +
+        (roller ? '<div class="dkAjanMeta">roller: ' + esc(roller) + "</div>" : "") +
+        '<div class="dkAjanMeta">dolu/esZamanlı: ' + esc(String(o.dolu != null ? o.dolu : "–") + "/" + (o.limit && o.limit.esZamanli != null ? o.limit.esZamanli : "–")) + "</div></div>";
+    }
+  }
+  alan.innerHTML = h;
+}
+
+// provider|model birleşik seçici değerini ayır → {provider, model} | null
+function modelSecimAyristir(deger) {
+  const s = String(deger || "");
+  const i = s.indexOf("|");
+  if (i <= 0 || i >= s.length - 1) return null;
+  return { provider: s.slice(0, i), model: s.slice(i + 1) };
+}
+
+// KADRO ATAMA: {proje, ajanAd, provider, model, rol, gorev?, rolMd?} → atamalar defteri TANIM kaydı.
+async function ajanAta() {
+  if (!D) { toast("AJAN-ATA RED: deney sunucusu yok (fail-closed) — " + DENEY_KOK); return; }
+  const secim = modelSecimAyristir($("atSaglayici").value);
+  if (!secim) { toast("Sağlayıcı/model seçilmedi — seçenekler deney durumundan (4930) doldurulur."); return; }
+  const ajanAd = $("atAjan").value.trim();
+  if (!ajanAd) { toast("Ajan adı zorunlu."); return; }
+  const dugme = $("atGonder");
+  dugme.disabled = true;
+  try {
+    await deneyPost("/api/deney/ajan-ata", {
+      proje: $("atProje").value,
+      ajanAd,
+      provider: secim.provider,
+      model: secim.model,
+      rol: $("atRol").value,
+      gorev: $("atGorev").value.trim(),
+      rolMd: $("atRolMd").value.trim(),
+    });
+    $("atAjan").value = ""; $("atGorev").value = "";
+    toast("KADRO TANIM kaydı düştü: " + ajanAd + " [" + $("atRol").value + "] " + secim.provider + "/" + secim.model + " — atamalar defteri (GERÇEK uç).");
+    await deneyYukle();            // SEÇİLİ/defter tazeliği sunucudan gelir
+  } catch (e) {
+    toast("AJAN-ATA RED: " + e.message + " — sunucu zorunlu alanları + sağlayıcı envanterini doğrular (fail-closed).");
+  }
+  dugme.disabled = false;
+}
+
+/* ---- API yüzü: sağlayıcı kartları (akordiyon) + model satırı (tercih) + TEST ---- */
+function apiYaz() {
+  const alan = $("saglayiciAlani");
+  if (!D) { alan.innerHTML = deneyOluBanner(); return; }
+  const env = D.envanter || {};
+  const liste = saglayiciListe();
+  if (!liste || !liste.length) { alan.innerHTML = '<p class="bosSatir">(sağlayıcı verisi yok)</p>'; return; }
+  if (D.tercih && D.tercih.provider) acikSagKartlar.add(String(D.tercih.provider)); // seçim görünür kalsın
+  let h = '<div class="dkSatirBilgi">AKTİF SAĞLAYICI <b>' + esc(String(env.aktifSaglayiciSayisi != null ? env.aktifSaglayiciSayisi : "–")) + "</b> · MODEL <b>" +
+    esc(String(env.modelSayisi != null ? env.modelSayisi : "–")) + "</b> · TERCİH <b>" +
+    esc(D.tercih && D.tercih.provider ? D.tercih.provider + "/" + D.tercih.model : "–") + "</b></div>";
+  const glm = [], diger = [];
+  for (const s of liste) (GLM_UCLAR.includes(s.id) ? glm : diger).push(s);
+  glm.sort((a, b) => GLM_UCLAR.indexOf(a.id) - GLM_UCLAR.indexOf(b.id));
+  if (glm.length) {
+    h += '<div class="dkBolumBas">GLM 5.3</div>';
+    for (const s of glm) h += sagKartHtml(s);
+  }
+  h += '<div class="dkBolumBas">' + (glm.length ? "DİĞER SAĞLAYICILAR" : "SAĞLAYICILAR") + "</div>";
+  if (diger.length) { for (const s of diger) h += sagKartHtml(s); }
+  else h += '<p class="bosSatir">(diğer sağlayıcı yok)</p>';
+  alan.innerHTML = h;
+}
+
+function sagKartHtml(s) {             // sağlayıcı kartı: başlık tıkla → modeller açılır (delege: data-kart)
+  const acik = acikSagKartlar.has(s.id);
+  const listeId = "dm-" + String(s.id).replace(/[^a-zA-Z0-9]+/g, "-");
+  const modeller = Array.isArray(s.modeller) ? s.modeller : [];
+  let h = '<div class="dkKart' + (acik ? " acik" : "") + '">';
+  h += '<button type="button" class="dkKartBas" data-kart="' + esc(s.id) + '" aria-expanded="' + (acik ? "true" : "false") + '" aria-controls="' + listeId + '">';
+  h += '<span class="dkAjanAd">' + esc(s.label || s.id) + "</span>";
+  if (s.id && s.label && s.id !== s.label) h += '<span class="dkModelAlt">' + esc(s.id) + "</span>";
+  if (!s.enabled) h += '<span class="dkRozet">KAPALI</span>';
+  h += '<span class="ok">▸</span></button>';
+  h += '<div class="dkModelListe" id="' + listeId + '"' + (acik ? "" : " hidden") + ">";
+  if (!modeller.length) h += '<p class="bosSatir">(model yok)</p>';
+  for (const m of modeller) h += modelSatirHtml(s, m);
+  h += "</div></div>";
+  return h;
+}
+
+function modelSatirHtml(sag, m) {     // satır div (role=button) + içte gerçek TEST düğmesi (iç içe button YASAK)
+  const secili = !!(D && D.tercih && String(D.tercih.provider) === sag.id && String(D.tercih.model) === m.id);
+  let h = '<div class="dkModelSatir' + (secili ? " secili" : "") + '" role="button" tabindex="0" data-sag="' + esc(sag.id) + '" data-model="' + esc(m.id) +
+    '" aria-label="' + esc((m.label || m.id) + " — seç (POST tercih)") + '" title="model seç — POST /api/deney/tercih (GERÇEK uç)">';
+  h += '<span class="dkModelGovde"><span class="dkModelEtiket">' + esc(m.label || m.id) + "</span>";
+  const alt = [];
+  if (m.label && m.id && m.label !== m.id) alt.push(m.id);
+  if (m.not) alt.push(m.not);
+  if (alt.length) h += '<span class="dkModelAlt">' + esc(alt.join(" · ")) + "</span>";
+  h += "</span>";
+  if (m.ucretsiz) h += '<span class="dkRozet yesil">ÜCRETSİZ</span>';
+  if (m.varsayilan) h += '<span class="dkRozet">VARSAYILAN</span>';
+  if (secili) h += '<span class="dkRozet teal">SEÇİLİ</span>';
+  h += '<button type="button" class="dkTest" data-sag="' + esc(sag.id) + '" data-model="' + esc(m.id) + '" title="gerçek çağrı kuyruğuna iş bırak (fail-closed)">TEST</button>';
+  h += "</div>";
+  return h;
+}
+
+async function tercihSec(sagId, modelId) {
+  if (!D) { toast("TERCİH RED: deney sunucusu yok (fail-closed)."); return; }
+  try {
+    await deneyPost("/api/deney/tercih", { provider: sagId, model: modelId });
+    toast("Tercih yazıldı: " + sagId + "/" + modelId + " (tercih.json — GERÇEK uç).");
+    await deneyYukle();              // SEÇİLİ rozeti sunucudaki kayıttan gelir
+  } catch (e) { toast("TERCİH RED: " + e.message + " (fail-closed)."); }
+}
+
+// API TEST: gerçek çağrı KUYRUĞUNA iş bırakır — sunucu anahtara erişemez; gerçek çağrıyı
+// operatör köprüsü (paseo MCP) yapar, sonuç deney akışta + logda görünür (sahte sonuç ÜRETİLMEZ).
+async function apiTest(sagId, modelId, dugme) {
+  if (dugme) { dugme.disabled = true; dugme.textContent = "KUYRUKTA"; }
+  try {
+    await deneyPost("/api/deney/api-test", { provider: sagId, model: modelId });
+    toast("TEST kuyruğa düştü: " + sagId + "/" + modelId + " — operatör köprüsü gerçek çağrıyı yapar, sonuç deney logunda (fail-closed).");
+  } catch (e) {
+    toast("API TEST RED: " + e.message + " (fail-closed).");
+  }
+  if (dugme) { dugme.disabled = false; dugme.textContent = "TEST"; }
+}
+
+/* ============ K8 ADIM-B: SAĞ PANEL İKON MENÜSÜ — CHAT (varsayılan) · PROJE · API ============
    İkon tıkla → panel içeriği DİNAMİK değişir (id-toggling; hash/route YOK).
-   Geçiş yalnız opacity/transform (<=600ms — E12). */
-const SAG_PANEL_ID = { chat: "chatBolum", ozet: "sagOzet", komut: "sagKomut" };
-const SAG_IKON_ID = { chat: "ik-chat", ozet: "ik-ozet", komut: "ik-komut" };
+   Geçiş yalnız opacity/transform (<=600ms — E12). ÖZET + KOMUT yüzleri KALKTI (kullanıcı emri). */
+const SAG_PANEL_ID = { chat: "chatBolum", proje: "sagProje", api: "sagApi" };
+const SAG_IKON_ID = { chat: "ik-chat", proje: "ik-proje", api: "ik-api" };
 function sagPanelAyarla(ad) {
   sagAktif = ad;
   for (const k of Object.keys(SAG_PANEL_ID)) {
@@ -1418,11 +1648,38 @@ function sagPanelAyarla(ad) {
     p.classList.remove("acik");
     if (k === ad) requestAnimationFrame(() => { if (!p.hidden) p.classList.add("acik"); }); // akışkan panel geçişi
   }
-  $("sag").setAttribute("aria-label", "sağ panel — " + (ad === "chat" ? "AI CHAT (varsayılan)" : ad === "ozet" ? "ÖZET — yönetici durumu" : "KOMUT — şablonlar + kutu") + " · ikon menüyle değişir");
+  $("sag").setAttribute("aria-label", "sağ panel — " + (ad === "chat" ? "AI CHAT (varsayılan)" : ad === "proje" ? "PROJE — ajan ata" : "API — sağlayıcı & model") + " · ikon menüyle değişir");
 }
 $("ik-chat").addEventListener("click", () => { sagPanelAyarla("chat"); toast("CHAT paneli — hedef cümle → ŞABLON komut üretici (canlı AI yanıtı D-4)."); });
-$("ik-ozet").addEventListener("click", () => { sagPanelAyarla("ozet"); toast("ÖZET paneli — kompakt durum kartı GERÇEK /api/graf verisinden; canlı AI seçenek paneli K8'de."); });
-$("ik-komut").addEventListener("click", () => { sagPanelAyarla("komut"); toast("KOMUT paneli — şablonlar + komut kutusu; Enter komudu panoya alır (GUI koşmaz — EK-2)."); });
+$("ik-proje").addEventListener("click", () => { sagPanelAyarla("proje"); deneyYukle(); toast("PROJE paneli — workspace seç + ajan kadro ata (GERÇEK 4930 uçları)."); });
+$("ik-api").addEventListener("click", () => { sagPanelAyarla("api"); deneyYukle(); toast("API paneli — sağlayıcı kartları + model tercihi + TEST (fail-closed)."); });
+$("atGonder").addEventListener("click", ajanAta);
+$("atProje").addEventListener("change", () => { oncekiProje = $("atProje").value; });
+// API yüzü delege: kart katlama / model seçimi / TEST (JS-doğumlu düğmeler — tek dinleyici)
+$("saglayiciAlani").addEventListener("click", (e) => {
+  const testBtn = e.target.closest(".dkTest");
+  if (testBtn) {
+    e.stopPropagation();
+    apiTest(testBtn.getAttribute("data-sag"), testBtn.getAttribute("data-model"), testBtn);
+    return;
+  }
+  const satir = e.target.closest("[data-model]");
+  if (satir) { tercihSec(satir.getAttribute("data-sag"), satir.getAttribute("data-model")); return; }
+  const bas = e.target.closest("[data-kart]");
+  if (bas) {
+    const id = bas.getAttribute("data-kart");
+    if (acikSagKartlar.has(id)) acikSagKartlar.delete(id); else acikSagKartlar.add(id);
+    apiYaz();
+  }
+});
+$("saglayiciAlani").addEventListener("keydown", (e) => {   // role=button satırlar klavyeden de seçilir
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const satir = e.target.closest("[data-model]");
+  if (satir && e.target === satir) {
+    e.preventDefault();
+    tercihSec(satir.getAttribute("data-sag"), satir.getAttribute("data-model"));
+  }
+});
 
 /* ============ tek tık delege: tüm etkileşimler (ÖLÜ BUTON YOK — data-not bilgilendirir) ============ */
 document.addEventListener("click", (e) => {
@@ -1502,50 +1759,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ============ komut-üretici: şablon önerisi + Enter'da PANONYA (yalnız kopyalar — EK-2) ============ */
-const SABLONLAR = [
-  { ipucu: "gece", tam: 'node src/cli.ts gece --hedef "<görev>" --limit 5' },
-  { ipucu: "kanal", tam: 'scripts\\test-kanal.ps1 -Etiket DALGA-1' },
-  { ipucu: "tip", tam: "npm run tip" },
-  { ipucu: "graf", tam: "node src/cli.ts graf goster" },
-  { ipucu: "replan", tam: "node src/cli.ts replan --esik N --hedef N" },
-  { ipucu: "dispatch", tam: "node src/cli.ts dispatch --gorev <görev-id>" },
-];
-const komut = $("komut"), kapsayici = $("komutKutusu"), oneri = $("komut-oneri");
-komut.addEventListener("focus", () => {
-  kapsayici.classList.add("odak");
-  document.body.classList.add("komut-odak");
-});
-komut.addEventListener("blur", () => {
-  kapsayici.classList.remove("odak");
-  document.body.classList.remove("komut-odak");
-  oneri.classList.remove("gorunur");
-});
-komut.addEventListener("input", () => {
-  const deger = komut.value.trim().toLowerCase();
-  let eslesen = null;
-  for (const s of SABLONLAR) {
-    if (deger && s.tam.toLowerCase().indexOf(deger) === 0) { eslesen = s; break; }
-  }
-  if (eslesen) {
-    oneri.innerHTML = "öneri: <b>" + esc(eslesen.tam) + "</b> (şablon ÖRNEK)";
-    oneri.classList.add("gorunur");
-  } else { oneri.classList.remove("gorunur"); }
-});
-komut.addEventListener("keydown", (olay) => {
-  if (olay.key !== "Enter") return;
-  olay.preventDefault();
-  const deger = komut.value.trim();
-  if (!deger) { oneri.classList.remove("gorunur"); return; }
-  let tam = deger;
-  for (const s of SABLONLAR) {
-    if (deger.toLowerCase() === s.ipucu) { tam = s.tam; break; }
-  }
-  panoyaYaz(tam);
-  toast("Komut panoya alındı — terminalinizde koşun. GUI komutu çalıştırmaz (şablon ÖRNEK).");
-  komut.value = "";
-  oneri.classList.remove("gorunur");
-});
+/* komut-üretici şablon bloğu KALKTI (K8 ADIM-B — KOMUT yüzü söküldü; chat şablonları chat bölümünde kalır) */
 
 /* ============ AI CHAT (EK-ŞART 14:03 · R2 sağ panel): ŞABLON-KOMUT ÜRETİCİ — dürüst sınırla ============
    Hedef cümle → hazır komut ŞABLONLARI + plan taslağı ŞABLONU; her biri PANOA kopyalanır.
@@ -1608,7 +1822,8 @@ defteriCiz();
 renderSekmeler();
 sagPanelAyarla("chat"); // VARSAYILAN: chat paneli (kullanıcı emri — R2)
 yukle();
-setInterval(yukle, 30_000); // hafif tazelik; yazma ucu yok (D-3)
+deneyYukle();           // K8 ADIM-B: deney köprüsü (4930) — PROJE/API yüzleri gerçek veriyle beslenir
+setInterval(() => { yukle(); deneyYukle(); }, 30_000); // hafif tazelik; graf okuma + deney okuma (D-3)
 </script>
 </body>
 </html>

@@ -8,7 +8,12 @@
 // 26 (chat drawer'dan SAĞ BÜYÜK panele taşındı — VARSAYILAN). YENİ: 27 üç-sütun tek-viewport +
 // panel-içi kaydırma, 28 sol akordiyon aria, 29 orta sekme mekaniği (kirmiziYuz temizler),
 // 30 sağ ikon menü + varsayılan chat + dinamik değişim (hash/route YOK), 31 light-tema tokenları,
-// 32 büyük yazılar, 33 ÖZET dürüst etiketi (sahte seçenek ÜRETİLMEZ). DOM render testi YOK;
+// 32 büyük yazılar, 33 K8 ADIM-B: PROJE + API yüzleri (GERÇEK 4930 uçları + fail-closed).
+// K8 ADIM-B (2026-10-29 «UYGULA») EVRİMİ: ÖZET + KOMUT yüzleri söküldü (kullanıcı emri) —
+// vaka 10/11/12/19/21/22/23/30/32/33 güncel sözleşmeye evrildi (sökülen bileşenlerin YOKLUĞU
+// artık iddia); vaka 6/13 deney köprüsünü (DENEY_KOK 4930) beyaz listeye aldı. ÜST bar
+// rozetleri (62951af) + ordu şeridi (40fa22b) sökümlerinin test borcu bu dalgada kapatıldı.
+// DOM render testi YOK;
 // yeni bağımlılık YOK (yalnız node:test + node:fs + node:assert). Her vaka ADIYLA kırmızıya
 // düşer (fail-closed).
 import { test } from "node:test";
@@ -99,7 +104,7 @@ test("5- korunan çekirdek etiketleri: kirmiziYuz + iki yüz + sec + kartBtn", (
 test("6- sözleşme: /api/graf fetch'i + POST /api/kart + 30 sn tazelik + döngüde-çizilmez", () => {
   ok('fetch("/api/graf") değişmedi', SRC.includes('fetch("/api/graf")'));
   ok('POST /api/kart ucu (fetch("/api/kart") değişmedi)', SRC.includes('fetch("/api/kart"'));
-  ok("30 sn auto-refresh (setInterval yukle)", SRC.includes("setInterval(yukle, 30_000)"));
+  ok("30 sn auto-refresh (graf + deney köprüsü birlikte — K8 ADIM-B)", SRC.includes("setInterval(() => { yukle(); deneyYukle(); }, 30_000)"));
   ok("yerleşim döngü kuralı (islenen !== G.gorevler.length)", SRC.includes("islenen !== G.gorevler.length"));
 });
 
@@ -154,28 +159,31 @@ test("10- R2 SEKME ÖZGÜRLÜĞÜ: ORTA görev sekmeleri tablist/role=tab TAŞIR
   ok('detay kartı kabuğu (id="detay")', SRC.includes('id="detay"'));
   ok("bağımlılık çipleri (bagimliChip + data-gec)", SRC.includes("bagimliChip") && SRC.includes("data-gec"));
   ok('çipe dokunma zincirde gezinir: sec(dep) işleyicisi', SRC.includes('closest(".bagimliChip[data-gec]")'));
-  ok('ordu şeridi (id="orduSeridi")', SRC.includes('id="orduSeridi"'));
-  ok("ordu şeridi rolleri graf SSOT'tan üretir (G.roller)", SRC.includes("Object.keys(G.roller)"));
   ok('kanıt defteri gövdesi (id="defterGovde" + role="log")', SRC.includes('id="defterGovde"') && SRC.includes('role="log"'));
-  ok('komut kutusu girişi (id="komut")', SRC.includes('id="komut"'));
-  ok('GENEL STATE şeridi (id="rozetler" + role="status")', SRC.includes('id="rozetler"') && SRC.includes('role="status"'));
+  // R1 bileşenlerinden KULLANICI EMRİYLE SÖKÜLENLER (K2 turu 62951af + 40fa22b; K8 ADIM-B komut kutusu):
+  // ordu şeridi, GENEL STATE rozetleri, komut kutusu — yoklukları ARTIK sözleşme.
+  ok('ordu şeridi SÖKÜLDÜ (id="orduSeridi" YOK — kullanıcı emri 40fa22b)', !SRC.includes('id="orduSeridi"'));
+  ok("ordu şeridi rolleri JS'i de söküldü (G.roller sayımı YOK)", !SRC.includes("Object.keys(G.roller)"));
+  ok('komut kutusu SÖKÜLDÜ (id="komut" YOK — K8 ADIM-B)', !SRC.includes('id="komut"'));
+  ok('GENEL STATE rozetleri SÖKÜLDÜ (id="rozetler" YOK — kullanıcı emri 62951af)', !SRC.includes('id="rozetler"'));
   ok('onay bölümü (id="onayBolum")', SRC.includes('id="onayBolum"'));
   ok('run kartları bölümü (id="runBolum")', SRC.includes('id="runBolum"'));
   ok('kanıt defteri bölümü (id="defterBolum")', SRC.includes('id="defterBolum"'));
   const olum = (SRC.match(/data-not="/g) || []).length;
-  ok("ölü düğme YOK: pasif düğmeler data-not ile bilgilendirir (>= 6)", olum >= 6, "bulunan: " + olum);
+  ok("ölü düğme YOK: pasif düğmeler data-not ile bilgilendirir (>= 5 — ordu çipleri sökülünce eşik dürüst düştü)", olum >= 5, "bulunan: " + olum);
 });
 
 test("11- ÖRNEK-etiket sistemi: kalp-yüzü etiketli (chat dahil), graf-yüzü etiketsiz", () => {
   ok('dürüstlük şeridi (class="serit")', SRC.includes('class="serit"'));
   ok('şerit beyanı "gerçek bağ D-2" içerir', SRC.includes("gerçek bağ D-2"));
-  const ornekli = ["orduSeridi", "kartlar", "onayBolum", "defterPanel", "komutKutusu", "sablonListe", "denetimGecmis", "chatBolum"];
+  const ornekli = ["kartlar", "onayBolum", "defterPanel", "denetimGecmis", "chatBolum"];
   for (const id of ornekli) {
     const t = tagOf(id);
     ok(id + " açılış etiketi bulundu", !!t);
     ok(id + " data-ornek taşır (kalp-yüzü)", !!t && t.includes("data-ornek"));
   }
-  const gercekli = ["agac", "detay", "rozetler", "tuval", "sol"];
+  // K8 ADIM-B: sagOzet/sagKomut söküldü; yeni PROJE/API yüzleri GERÇEK (data-ornek TAŞIMAZ — 4930 verisi)
+  const gercekli = ["agac", "detay", "tuval", "sol", "sagProje", "sagApi", "ajanListe", "saglayiciAlani"];
   for (const id of gercekli) {
     const t = tagOf(id);
     ok(id + " açılış etiketi bulundu", !!t);
@@ -191,21 +199,23 @@ test("12- kopyala + EK-2: onay cümlesi STATİK HTML'de — GUI'de üretilmez/ç
   const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
   ok("panoya kopyala fonksiyonu (panoaYaz + navigator.clipboard)", SRC.includes("function panoyaYaz(") && SRC.includes("navigator.clipboard"));
   const kopya = (SRC.match(/data-kopyala="/g) || []).length;
-  ok("data-kopyala düğmeleri (>= 3)", kopya >= 3, "bulunan: " + kopya);
+  ok("data-kopyala düğmeleri (>= 2 — onay kartları; KOMUT şablonları söküldü)", kopya >= 2, "bulunan: " + kopya);
   ok("onay cümlesi STATİK HTML parçası (REPLAN ONAYLIYORUM)", htmlKisim.includes("REPLAN ONAYLIYORUM"));
   ok("onay cümlesi JS'te ÜRETİLMEZ (kopyalanabilir sabit dışı yok)", !jsKisim.includes("REPLAN ONAYLIYORUM"));
   ok("JS'te --confirm dizgisi YOK (onay komutu kurgulanmaz)", !jsKisim.includes("--confirm"));
-  ok('komut kutusu Enter -> yalnız panoaYaz(tam) (olay.key !== "Enter" beklemesi)', SRC.includes('olay.key !== "Enter"') && SRC.includes("panoyaYaz(tam)"));
+  ok('komut kutusu Enter davranışı KALKTI (KOMUT yüzü söküldü — K8 ADIM-B)', !SRC.includes('olay.key !== "Enter"') && !jsKisim.includes('$("komut")'));
 });
 
-test("13- dış istek yalnız /api/graf + /api/kart — başka ağ çağrısı YOK (chat fetch atmaz)", () => {
+test("13- dış istek: /api/graf + /api/kart (4377) + DENEY_KOK 4930 uçları — başka ağ çağrısı YOK (chat fetch atmaz)", () => {
   const ayir = SRC.indexOf("<script>");
   const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
+  ok('deney köprüsü sabiti (DENEY_KOK = "http://127.0.0.1:4930" — ADIM-A CORS)', jsKisim.includes('const DENEY_KOK = "http://127.0.0.1:4930"'));
   const cagrilar = jsKisim.match(/fetch\(([^)]{0,60})\)/g) || [];
-  ok("en az 2 fetch çağrısı (graf + kart)", cagrilar.length >= 2, "bulunan: " + cagrilar.length);
+  ok("en az 3 fetch çağrısı (graf + kart + deney durum)", cagrilar.length >= 3, "bulunan: " + cagrilar.length);
   for (const c of cagrilar) {
-    ok("fetch yalnız pano ucu: " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart"));
+    ok("fetch yalnız izinli uç (pano veya izole deney): " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart") || c.includes("DENEY_KOK"));
   }
+  ok("deney uçları DENEY_KOK'tan kurulur (yol değişkeni — sabit URL dizilimi yok)", jsKisim.includes('DENEY_KOK + "/api/deney/durum"') && jsKisim.includes("DENEY_KOK + uc"));
   const dis = SRC.replace(/http:\/\/127\.0\.0\.1/g, "");
   ok("CDN/webfont/dış URL YOK (yalnız 127.0.0.1 istisnası)", !/https?:\/\//.test(dis));
 });
@@ -265,16 +275,16 @@ test("18- R2: «Görev haritası» SABİT SEKME (VS Code tarzı) — aktivasyond
   ok('haritaSayi sayacı (id="haritaSayi") + kirmiziYuz\'ta «—» reseti', SRC.includes('id="haritaSayi"') && SRC.includes('$("haritaSayi").textContent = "—"'));
 });
 
-test("19- R1: GENEL STATE + ordu şeridi main'den ÖNCE — üç sütun düzeninde hep görünür", () => {
+test("19- üst bar GENEL STATE + ordu şeridi KULLANICI EMRİYLE SÖKÜLDÜ (K2 turu; 62951af + 40fa22b)", () => {
   const mainIdx = SRC.indexOf("<main>");
   ok("<main> bulundu", mainIdx > 0);
-  ok("rozetler (GENEL STATE) main'den önce", SRC.indexOf('id="rozetler"') < mainIdx);
-  ok("ordu şeridi main'den önce", SRC.indexOf('class="orduSeridi"') < mainIdx);
-  ok("rozetler role=status (canlı sayım alanı)", SRC.includes('id="rozetler"') && SRC.includes('role="status"'));
-  const t = tagOf("orduSeridi");
-  ok("ordu şeridi gizli değil (hidden yok — hep görünür)", !!t && !t.includes("hidden"));
-  ok("GENEL STATE aria etiketi", SRC.includes("GENEL STATE"));
-  ok("ordu şeridi rolleri G.roller'dan sayılır (statik rol sayısı YOK)", SRC.includes("Object.keys(G.roller)") && !/ordu şeridi — \d+ rol/.test(SRC));
+  ok('rozetler kabı YOK (GENEL STATE üst bardan söküldü — 62951af)', !SRC.includes('id="rozetler"'));
+  ok("orduSeridi bölümü YOK (kaydırma çubuğuyla birlikte — 40fa22b)", !SRC.includes("orduSeridi"));
+  ok("orduChip sınıfı YOK", !SRC.includes("orduChip"));
+  ok("orduYaz JS YOK", !SRC.includes("function orduYaz("));
+  ok("üst bar main'den önce (marka + token kalır)", SRC.indexOf('<header class="ustbar">') > 0 && SRC.indexOf('<header class="ustbar">') < mainIdx);
+  ok("marka metni kalır (ORDU KUMANDA · TUVAL)", SRC.includes("ORDU KUMANDA · TUVAL"));
+  ok("token alanı kalır (PANO_TOKEN kapısı — değer ekrana yazılmaz)", SRC.includes('id="token"'));
 });
 
 test("20- E7 ölü-buton YOK: statik her düğme kablolı (kanca veya JS referansı)", () => {
@@ -301,13 +311,16 @@ test("20- E7 ölü-buton YOK: statik her düğme kablolı (kanca veya JS referan
   ok('kart düğmesi doğrudan dinleyicili ($("kartBtn").addEventListener)', jsKisim.includes('$("kartBtn").addEventListener'));
   ok('chat şablon-kopyala düğmeleri doğrudan dinleyicili (querySelectorAll(".chatKopyala"))', jsKisim.includes('querySelectorAll(".chatKopyala, .chatPlanKopyala")'));
   ok('ikon menü düğmeleri doğrudan dinleyicili ($("ik-chat").addEventListener) — R2', jsKisim.includes('$("ik-chat").addEventListener'));
-  ok("JS-doğumlu ordu çipleri data-not taşır (bilgilendirir)", jsKisim.includes('class="orduChip"') && jsKisim.includes('data-not="'));
+  ok('K8 ADIM-B: yeni yüzler kablolı (ik-proje + ik-api dinleyicileri)', jsKisim.includes('$("ik-proje").addEventListener') && jsKisim.includes('$("ik-api").addEventListener'));
+  ok('K8 ADIM-B: KADROYA EKLE kablolı ($("atGonder").addEventListener("click", ajanAta))', jsKisim.includes('$("atGonder").addEventListener("click", ajanAta)'));
+  ok('K8 ADIM-B: API yüzü delege kablolı ($("saglayiciAlani").addEventListener("click"))', jsKisim.includes('$("saglayiciAlani").addEventListener("click"'));
+  ok('K8 ADIM-B: model satırı klavyeden de seçilir (keydown role=button)', jsKisim.includes('$("saglayiciAlani").addEventListener("keydown"'));
 });
 
 test("21- E8 44px tutarlılığı: çipler + chat + akordiyon + ikon menü + sekme kapat (global button kuralı)", () => {
   ok("global button kuralı: min-height:var(--min-dokunma)", /(^|\s)button\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
   ok("bagimliChip <button doğar (global 44px kuralından yararlanır)", SRC.includes('<button class="bagimliChip"'));
-  ok("orduChip <button doğar (global 44px kuralından yararlanır)", SRC.includes('<button class="orduChip"'));
+  ok("K8 ADIM-B: orduChip YOK (ordu şeridi söküldü)", !SRC.includes("orduChip"));
   ok("akordiyonBas 44px (R2 — katlaBtn'nin yerini akordiyon başlığı aldı)", /\.akordiyonBas\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
   ok("ikonBtn 44px (R2 — sağ panel ikon menü)", /\.ikonBtn\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
   ok("sekmeKapat 44px (R2 — × kapatma düğmesi)", /\.sekmeKapat\s*\{[^}]*min-width:\s*44px/.test(SRC));
@@ -315,8 +328,9 @@ test("21- E8 44px tutarlılığı: çipler + chat + akordiyon + ikon menü + sek
   ok("ziplink 44px", /\.ziplink\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
   ok("chatGiris (input) 44px", /\.chatGiris\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
   ok("chatGonder 44px", /\.chatGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
-  ok("buyuk-btn 44px", /\.buyuk-btn\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
-  ok("komut-giris 44px", /\.komut-giris\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
+  ok("K8 ADIM-B: dkSecici/dkGiris 44px (PROJE form girdileri — birleşik kural)", /\.dkSecici, \.dkGiris\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
+  ok("K8 ADIM-B: dkGonder 44px (KADROYA EKLE)", /\.dkGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
+  ok("K8 ADIM-B: dkKartBas 44px (sağlayıcı akordiyon başlığı)", /\.dkKartBas\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
 });
 
 test("22- E9 id/class birebir: JS'in beklediği her id CSS+HTML'de var; R2 sınıflarının CSS kuralı var", () => {
@@ -330,7 +344,7 @@ test("22- E9 id/class birebir: JS'in beklediği her id CSS+HTML'de var; R2 sın�
     const dinamik = jsKisim.includes('id="' + id + '"'); // JS şablonlarında doğan (kartBtn, meta, canliMetin…)
     ok('id="' + id + '" kaynakta birebir var', statik || dinamik);
   }
-  const siniflar = ["kartBolumBas", "chatBolum", "chatListe", "chatForm", "chatGiris", "chatGonder", "chatMesaj", "chatKomutSatir", "chatPlan", "chatSabit", "defterBolum", "onayBolum", "sagPanel", "sekmePanel", "akordiyonBas", "akordiyonGovde", "ikonBtn", "ozetKart", "ozetSatir", "sekmeKapat"];
+  const siniflar = ["kartBolumBas", "chatBolum", "chatListe", "chatForm", "chatGiris", "chatGonder", "chatMesaj", "chatKomutSatir", "chatPlan", "chatSabit", "defterBolum", "onayBolum", "sagPanel", "sekmePanel", "akordiyonBas", "akordiyonGovde", "ikonBtn", "sekmeKapat", "dkKart", "dkKartBas", "dkModelSatir", "dkModelEtiket", "dkTest", "dkAjanSatir", "dkGonder", "dkKirmizi", "dkEtiket", "dkBolumBas", "dkListe", "dkNot", "dkRozet"];
   for (const s of siniflar) {
     ok("." + s + " CSS kuralı var", new RegExp("\\." + s + "\\s*\\{").test(SRC));
     ok("." + s + " kullanımda (HTML veya JS şablonu)", SRC.includes('class="' + s) || SRC.includes('"chatMesaj chat-'));
@@ -345,8 +359,7 @@ test("23- E10 SSOT sayı tutarlılığı: gösterilen her sayı G'den sayılır,
   ok("haritaSayi graf SSOT'tan: görev+kenar sayısı", jsKisim.includes('G.gorevler.length + " görev · " + G.kenarlar.length'));
   ok("agacSayi graf SSOT'tan: G.gorevler.length", jsKisim.includes('$("agacSayi").textContent = G.gorevler.length + " görev"'));
   ok("durum kök sayımı G.gorevler üzerinden (kok[k])", jsKisim.includes("kok[k] = (kok[k] || 0) + 1"));
-  ok("İNSAN-kapılı sayısı filter ile sayılır", jsKisim.includes('g.kapi && String(g.kapi).indexOf("[INSAN]")'));
-  ok("AKTİF sayısı filter ile sayılır", jsKisim.includes("G.gorevler.filter((g) => g.aktif)"));
+  ok("İNSAN-kapılı/AKTİF sayımı KALKTI (ÖZET yüzü söküldü — K8 ADIM-B)", !jsKisim.includes('g.kapi && String(g.kapi).indexOf("[INSAN]")') && !jsKisim.includes("G.gorevler.filter((g) => g.aktif)"));
   ok("haritaSayi statik yer tutucu «—» (sayı yazılmaz)", /<span id="haritaSayi">—<\/span>/.test(SRC));
   ok("agacSayi statik yer tutucu «—» (sayı yazılmaz)", /<span id="agacSayi">—<\/span>/.test(SRC));
   ok("statik HTML'de sabit görev sayısı YOK (40 görev vb.)", !/>\s*\d+\s*görev/.test(htmlKisim));
@@ -474,25 +487,26 @@ test("29- R2 ORTA SEKME MEKANİĞİ: görev sekmeleri açılır/kapanır; sec→
   ok("statik sabit sekme sayısı 3 (harita/defter/run)", sabit === 3, "bulunan: " + sabit);
 });
 
-test("30- R2 SAĞ İKON MENÜ: CHAT (varsayılan) + ÖZET + KOMUT — panel içeriği dinamik değişir; hash/route YOK", () => {
+test("30- R2/K8 SAĞ İKON MENÜ: CHAT (varsayılan) + PROJE + API — panel içeriği dinamik değişir; hash/route YOK", () => {
   const htmlKisim = htmlKisimOf();
   const jsKisim = jsKisimOf();
-  for (const id of ["ik-chat", "ik-ozet", "ik-komut"]) {
+  for (const id of ["ik-chat", "ik-proje", "ik-api"]) {
     const t = tagOf(id);
     ok(id + " düğmesi var", !!t);
     ok(id + " aria-pressed taşır (basılı durum bildirir)", !!t && t.includes("aria-pressed="));
   }
   ok('ik-chat varsayılan basılı (aria-pressed="true")', tagOf("ik-chat").includes('aria-pressed="true"'));
-  ok('ik-ozet başlangıçta kapalı (aria-pressed="false")', tagOf("ik-ozet").includes('aria-pressed="false"'));
-  ok('ik-komut başlangıçta kapalı (aria-pressed="false")', tagOf("ik-komut").includes('aria-pressed="false"'));
-  ok("ikon etiketleri (CHAT/ÖZET/KOMUT metin)", htmlKisim.includes("<span>CHAT</span>") && htmlKisim.includes("<span>ÖZET</span>") && htmlKisim.includes("<span>KOMUT</span>"));
-  const tOzet = tagOf("sagOzet"), tKomut = tagOf("sagKomut");
-  ok("ÖZET paneli başlangıçta gizli (hidden)", !!tOzet && tOzet.includes("hidden"));
-  ok("KOMUT paneli başlangıçta gizli (hidden)", !!tKomut && tKomut.includes("hidden"));
+  ok('ik-proje başlangıçta kapalı (aria-pressed="false")', tagOf("ik-proje").includes('aria-pressed="false"'));
+  ok('ik-api başlangıçta kapalı (aria-pressed="false")', tagOf("ik-api").includes('aria-pressed="false"'));
+  ok("ikon etiketleri (CHAT/PROJE/API metin)", htmlKisim.includes("<span>CHAT</span>") && htmlKisim.includes("<span>PROJE</span>") && htmlKisim.includes("<span>API</span>"));
+  ok("eski ÖZET/KOMUT düğmeleri YOK (K8 ADIM-B — söküldü)", !htmlKisim.includes('id="ik-ozet"') && !htmlKisim.includes('id="ik-komut"'));
+  const tProje = tagOf("sagProje"), tApi = tagOf("sagApi");
+  ok("PROJE paneli başlangıçta gizli (hidden)", !!tProje && tProje.includes("hidden"));
+  ok("API paneli başlangıçta gizli (hidden)", !!tApi && tApi.includes("hidden"));
   ok("CHAT paneli VARSAYILAN görünür (yukarıda — vaka-26)", true);
   ok("panel değiştirici (function sagPanelAyarla)", jsKisim.includes("function sagPanelAyarla("));
   ok("panel-harita eşlemeleri (SAG_PANEL_ID + SAG_IKON_ID)", jsKisim.includes("SAG_PANEL_ID") && jsKisim.includes("SAG_IKON_ID"));
-  ok('ikon düğmeleri doğrudan kablolı ($("ik-chat").addEventListener)', jsKisim.includes('$("ik-chat").addEventListener') && jsKisim.includes('$("ik-ozet").addEventListener') && jsKisim.includes('$("ik-komut").addEventListener'));
+  ok('ikon düğmeleri doğrudan kablolı ($("ik-chat").addEventListener + ik-proje + ik-api)', jsKisim.includes('$("ik-chat").addEventListener') && jsKisim.includes('$("ik-proje").addEventListener') && jsKisim.includes('$("ik-api").addEventListener'));
   ok("dinamik değişim id-toggling (hash/route YOK)", !jsKisim.includes("location.hash") && !jsKisim.includes("history.pushState") && !jsKisim.includes("history.replaceState"));
   ok("akışkan panel geçişi (requestAnimationFrame + .acik sınıfı)", jsKisim.includes("requestAnimationFrame") && /\.sagPanel\.acik/.test(SRC));
   ok("[hidden] ezilmez (açık display kuralına karşı .sagPanel[hidden])", /\.sagPanel\[hidden\]\s*\{\s*display:\s*none/.test(SRC));
@@ -515,25 +529,32 @@ test("31- R2 LIGHT TEMA: açık zemin + koyu metin + light accent; eski koyu tok
 test("32- R2 BÜYÜK YAZILAR: baz 16px; başlıklar 20-24px; GENEL STATE sayıları büyük", () => {
   ok("body baz font-size:16px (>=15-16px)", /body\s*\{[^}]*font-size:\s*16px/.test(SRC));
   ok(".bolum-etiket 20px (bölüm başlığı)", /\.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(SRC));
-  ok(".pill b 18px (GENEL STATE sayıları büyük)", /\.pill b\s*\{[^}]*font-size:\s*18px/.test(SRC));
   ok(".kartId 22px (görev kimliği — başlık bandı 20-24 arası)", /\.kartId\s*\{[^}]*font-size:\s*22px/.test(SRC));
-  ok(".ozetDeger b 20px (ÖZET sayıları büyük)", /\.ozetDeger b\s*\{[^}]*font-size:\s*20px/.test(SRC));
+  ok("K8 ADIM-B: .dkAjanAd 14px + .dkModelEtiket 13.5px (yeni yüzler okunur)", /\.dkAjanAd\s*\{[^}]*font-size:\s*14px/.test(SRC) && /\.dkModelEtiket\s*\{[^}]*font-size:\s*13\.5px/.test(SRC));
   ok(".chatGiris 15px (girdi bazı >= 15px)", /\.chatGiris\s*\{[^}]*font-size:\s*15px/.test(SRC));
 });
 
-test("33- R2 ÖZET DÜRÜST ETİKETİ: GERÇEK /api/graf verisinden kompakt kart; sahte seçenek ÜRETİLMEZ", () => {
+test("33- K8 ADIM-B PROJE + API: GERÇEK 4930 uçları + fail-closed kırmızı yüz — sahte veri ÜRETİLMEZ", () => {
   const htmlKisim = htmlKisimOf();
   const jsKisim = jsKisimOf();
-  const ozetBas = htmlKisim.indexOf('id="sagOzet"');
-  const ozetSon = htmlKisim.indexOf('id="sagKomut"');
-  ok("ÖZET paneli statik HTML'de (sagOzet → sagKomut arası)", ozetBas > 0 && ozetSon > ozetBas);
-  const ozetBolum = ozetBas > 0 && ozetSon > ozetBas ? htmlKisim.slice(ozetBas, ozetSon) : "";
-  ok("ÖZET dürüst etiketi: «canlı AI seçenek paneli K8'de»", ozetBolum.includes("canlı AI seçenek paneli K8'de"));
-  ok("ÖZET GERÇEK etiketi (— /api/graf)", ozetBolum.includes("GERÇEK — /api/graf"));
-  const ozetDugmeler = ozetBolum.match(/<button[^>]*>/g) || [];
-  ok("ÖZET düğmeleri yalnız bilgi (data-not — komut/öneri üretmez)", ozetDugmeler.length > 0 && ozetDugmeler.every((d) => d.includes("data-not")), "bulunan: " + ozetDugmeler.length);
-  ok("ÖZET'te sahte AI çıktısı yok (data-chat-komut üretimi YOK)", !ozetBolum.includes("data-chat-komut"));
-  ok("ÖZET yerleşim-beyanı (YERLEŞİM tabanı — K8'e bağlanır)", ozetBolum.includes("YERLEŞİM"));
-  ok("ozetYaz GERÇEK veriden sayar (G.gorevler)", /function ozetYaz\(\)[^]{0,400}G\.gorevler/.test(jsKisim));
-  ok("graf yoksa ÖZET kırmızı yüze döner (kirmiziYuz → ozetYaz)", /function kirmiziYuz\([^)]*\)[^]{0,900}ozetYaz\(\)/.test(jsKisim));
+  const projeBas = htmlKisim.indexOf('id="sagProje"');
+  const apiBas = htmlKisim.indexOf('id="sagApi"');
+  ok("ÖZET + KOMUT yüzleri SÖKÜLDÜ (sagOzet/sagKomut YOK — kullanıcı emri)", !htmlKisim.includes('id="sagOzet"') && !htmlKisim.includes('id="sagKomut"'));
+  ok("PROJE paneli statik HTML'de (sagProje)", projeBas > 0);
+  ok("API paneli statik HTML'de (sagApi)", apiBas > 0);
+  const projeBolum = projeBas > 0 ? htmlKisim.slice(projeBas, apiBas > projeBas ? apiBas : htmlKisim.length) : "";
+  ok("ATAMA formu alanları (proje/ajan/sağlayıcı/rol + gorev/rolMd opsiyonel)",
+    ["atProje", "atAjan", "atSaglayici", "atRol", "atGorev", "atRolMd", "atGonder"].every((i) => projeBolum.includes('id="' + i + '"')));
+  ok('PROJE yüzü GERÇEK etiketi («GERÇEK — 4930»)', projeBolum.includes("GERÇEK — 4930"));
+  ok("ajan-ata GERÇEK ucu (deneyPost \"/api/deney/ajan-ata\")", jsKisim.includes('deneyPost("/api/deney/ajan-ata"'));
+  ok("api-test GERÇEK ucu (deneyPost \"/api/deney/api-test\")", jsKisim.includes('deneyPost("/api/deney/api-test"'));
+  ok("tercih GERÇEK ucu (deneyPost \"/api/deney/tercih\")", jsKisim.includes('deneyPost("/api/deney/tercih"'));
+  ok("4930 ölürse kırmızı yüz (deneyOluBanner — fail-closed)", jsKisim.includes("function deneyOluBanner("));
+  ok("bayat deney verisi kalmaz (deneyYukle catch → D=null)", /deneyYukle[^]{0,600}catch \(e\)[^]{0,120}D = null/.test(jsKisim));
+  ok("sahte sağlayıcı/model RED: sunucu hata nesnesi kullanıcıya dürüst taşınır (b.hata)", jsKisim.includes("b.hata"));
+  ok("AJANLAR listesi durumdan çizilir (ajanlarYaz)", jsKisim.includes("function ajanlarYaz("));
+  ok("API test sahte sonucu ÜRETİLMEZ (yalnız kuyruk kaydı beyanı)", jsKisim.includes("fail-closed — sahte test sonucu üretilmez") || htmlKisim.includes("sahte test sonucu üretilmez"));
+  ok("PROJE seçim tazelemede korunur (oncekiProje)", jsKisim.includes("oncekiProje"));
+  ok("sağlayıcı akordiyon tazelemede korunur (acikSagKartlar)", jsKisim.includes("acikSagKartlar"));
+  ok("ÖRNEK ajanlar etiketli kalır (kalp-yüzü — etiketOrnek)", jsKisim.includes('class="etiketOrnek">ÖRNEK'));
 });

@@ -215,6 +215,12 @@ function durumGovdesi() {
       aktifSaglayiciSayisi: sagListe.filter((s) => s && s.enabled === true).length,
       modelSayisi,
       workspaceSayisi: wsp && typeof wsp.toplam === 'number' ? wsp.toplam : 0,
+      // K8 ADIM-B: PROJE secicisi GERCEK workspace listesi tasiyinca tasir (diskten; sahte proje YOK).
+      // digerlerindenOrnek = envanter cekimindeki orneklem (tam liste degil — sayi toplam alani).
+      workspaces: {
+        deney: wsp && wsp.deneyWorkspace ? wsp.deneyWorkspace : null,
+        ornek: wsp && Array.isArray(wsp.digerlerindenOrnek) ? wsp.digerlerindenOrnek : [],
+      },
       // G9-yama (mudahale 'sol sutun bos'): panel envanter.saglayicilar bekliyor — kart basina kendi modelleri gomulu.
       // Veri zaten diskte (saglayicilar.json + modeller.json); KAPALI saglayici model listesi cekilmedigi icin bos kalir (dorust).
       saglayicilar: sagListe.map((s) => ({
