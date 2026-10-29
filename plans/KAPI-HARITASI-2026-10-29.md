@@ -19,8 +19,8 @@
 
 | Kapı | Durum | Açan | Doğan iş (değer) | Asıl kayıt |
 |---|---|---|---|---|
-| K1 MOCKUP KABULÜ | GEÇİLDİ (13:11) — R1 düzeltme bacağı AÇIK (13:56; TEKLIF-BIRLESIK onaylandı — taban 20767b8) | «DALGA-0-2 başla» ya da eksik listesi | gerçek inşa dalgası (fiş→yazar→merge+tam kanal) — mockup'taki yüz gerçek veriyle 4377/tuval'e iner | raporlar/arayuz-mockup-6sub-2026-10-29/ |
-| K2 GÖRSEL KABUL | SIRA K1'DE | elle gezme + cümle | DALGA-0 + 0-2 kabul damgası; arayüz hattı kapanır. İç kapılar: D-2 canlı akış → D-3 graf yazma → D-4 AI edit | plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md |
+| K1 MOCKUP KABULÜ | GEÇİLDİ (13:11) — R1 düzeltme bacağı KAPANDI (14:53, merge dd51987: kanal 467/467 x=0 96 sn + tip GECTI + hedefli 26/26; kapanış raporlar/dalga0-2-arayuz-2026-10-29/OZET.md) | «DALGA-0-2 başla» ya da eksik listesi | gerçek inşa dalgası (fiş→yazar→merge+tam kanal) — mockup'taki yüz gerçek veriyle 4377/tuval'e iner | raporlar/arayuz-mockup-6sub-2026-10-29/ |
+| K2 GÖRSEL KABUL | SIRA SENDE — 127.0.0.1:4377/tuval elle gez (KULLANICIDA; server diskten okur, restart YOK) | elle gezme + cümle | DALGA-0 + 0-2 kabul damgası; arayüz hattı kapanır. İç kapılar: D-2 canlı akış → D-3 graf yazma → D-4 AI edit | plans/KAPSUL-TUVAL-UI-PLANI-2026-10-26.md |
 | K3 REPLAN | BEKLİYOR | terminal (core/): `node src/cli.ts replan --onay rpl-03579e06 --confirm "REPLAN ONAYLIYORUM"` | drift düzelir, graf gerçeğe döner | plans/KARAR-PAKETI-2026-10-28.md |
 | K4 K-0044 PENCERE | BEKLİYOR | restart'ta birlikte; setx kullanıcı eliyle | ortam anahtarı referansı — değerler ekrana YAZILMAZ | kararlar/K-0044.md |
 | K5 S0A_START | BEKLİYOR | «S0A başla» (önkoşul: CALISTIRMA §2 8-madde) | 4 keşif fişi — ÜRÜN hattı açılır (tek bütçe sahibi DC-H1: kaynak/test/pilot payları orada) | plans/uygulama-paketleri/DC-H1-2026-10-28/ |
