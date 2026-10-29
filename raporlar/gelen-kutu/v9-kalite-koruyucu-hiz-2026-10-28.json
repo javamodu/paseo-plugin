@@ -38,7 +38,7 @@
       "etiket": "surec",
       "siddet": "dusuk",
       "oneri": "Her hiz kalemi kapanisinda ONCE/SONRA tablo (kanal sn, duvar suresi, x, tur sayisi) kanit raporunda; olcumsuz 'hizlandi' iddiasi kapanamaz. ONKOSUL: CALISTIRMA.md RBT-2026-10-28.2'nin untracked kirli dosyasi — V8-02b ile ayni sekilde RBT kapanisi onculu; bugun yazilmaz. 0 teknik LOC (~10 satir dokuman; kural sayacina girmez — paket dokumani).",
-      "islenme": null
+      "islenme": "2026-10-29 UYGULANDI CALISTIRMA.md'ye bolum 7 'Hiz kalemleri kapanisinda olcum cifti' (f783e59) — RBT-2026-10-28.3 kapanis-onkosulu KARSILANDI (B5 kabul 04:36 -> kapanis e5b2b2c -> push 72179e2..e5b2b2c); ~12 satir dokuman + olcut tablosu (kanal sn / duvar suresi olculmus / x / tur sayisi) + 'olcumsuz hizlandi iddiasi kapanamaz' kurali + taban yoksa once taban kosumu (V9-03 olc-sonra-karar); 0 teknik LOC, kural sayacina girmez; v9 paketi 6/6 TAM KAPANDI"
     },
     {
       "id": "V9-05",
@@ -59,5 +59,5 @@
       "islenme": "2026-10-28 UYGULANDI — TIP-BORCU 51->0 SIFIRLANDI VE KILITLENDI (kullanici \"06:00'a kadar otonom tamamla\" emri = uygulama emri; 9 dalga): yol 51->48(1ffefdd)->46(250cb51)->44(73dda2d)->36(aff770c)->25(aa274a9)->17(03614e7)->14(9ccc7ff)->9(ccd6fae)->0(ec96f29) + KILIT 39f46e4 (BILINEN_BORC=0 — kapi REGRESYON-YAKALAYICIYA dondu; tsc exit 2->0 ilk kez). KOK 1: ~28 hata B8 aynasi (11 sahte launcher dispatchKeyOf eksik; stub bilinc: attempt izlemez→UNKNOWN fail-closed). KOK 2: ajv-formats nodenext (3 dosya cagri-tipi) + strict:false truthiness-daraltmama (dispatcher === true, repro kanitli) + writeSync overload (kural/replan) + sqlite variyad + ProbeReceipt evi + executor imzasi + fetch unknown. GERCEK bosluklar 2 kanit: git-worktree dispatchKeyof FIILEN eksik (B8 restart-cancel kor; +regresyon testi 6/6) + evaluator exitCode SAHTE-YESIL (iddia kaldirildi). KANIT: her dalga tsc + hedefli testler; TAM KANAL v9-06 467/467 x=0 sureSn=125 h=39f46e4 + tip 0/0 GECTI; DERSLER +1 tur (4 ders)"
     }
   ],
-  "islenmeTarihi": "2026-10-28 V9-02 (8486d1b), V9-01 (a3f7fbe), V9-03 (901975c), V9-05 + V9-06 (ec96f29/39f46e4 dalga serisi) uygulandi; YALNIZ V9-04 BEKLEYEN (RBT-2026-10-28.2 kapanis-onkosulu)"
+  "islenmeTarihi": "2026-10-28 V9-02 (8486d1b), V9-01 (a3f7fbe), V9-03 (901975c), V9-05 + V9-06 (ec96f29/39f46e4 dalga serisi), 2026-10-29 V9-04 (f783e59) uygulandi — v9 PAKETI 6/6 TAM KAPANDI"
 }

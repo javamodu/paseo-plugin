@@ -203,8 +203,14 @@ hata dersi ilgili dalgada +1 regression testi veya mekanik kapı doğurur** — 
 yukarıda; gelecek dersler için brief şablonu §5 zaten hedefli-test + tip kapısı adımlarını
 içeriyor. 0 sabit LOC (v9 tahminiyle birebir).
 
-## v9 kapanış durumu (2026-10-28 son)
+## §V9-04 uygulama kaydı (2026-10-29 — RBT-2026-10-28.3 kapanış-önkoşulu karşılandıktan sonra; kullanıcı «1 → 2 (birleşik push) → 3 zinciri kapat» emri)
 
-İşlendi: V9-01 · V9-02 · V9-03 · V9-05 · V9-06 (5/6). BEKLEYEN: **V9-04** (ölçüm çifti
-standardı — CALISTIRMA.md RBT-2026-10-28.2'nin untracked kirli dosyası; V8-02b ile AYNI önkoşul,
-RBT kapanışı bekler; bugün yazılmaz). Graf-dışı verimlilik paketinin DC bütçesine etkisi yok.
+- **Dosya:** `CALISTIRMA.md`'ye **§7 «Hız kalemleri kapanışında ölçüm çifti»** (f783e59) — önkoşul zinciri: B5 insan kabulü 04:36 («Kabul») → kapanış commit'i e5b2b2c → push origin/main; CALISTIRMA.md kilitlenebilir temiz dosyaya döndü.
+- **Standart:** hız/verimlilik kaleminin kapanışı kanıt raporında ÖNCE/SONRA tablosu zorunlu — kanal süresi (sn) · duvar süresi (tur başlangıç→kapanış, ölçülmüş) · x (başarısız koşum) · tur/koşum sayısı; **ölçümsüz «hızlandı/azaldı» iddiası kapanamaz** (madde BEKLEYEN kalır — sahte-yeşil sınıfı); taban ölçüsü yoksa önce taban koşumu (V9-03 ölç-sonra-karar).
+- 0 teknik LOC (~12 satır doküman + ölçüt tablosu); kural sayacına girmez; kapsam 1 mevcut dosya. **v9 paketi 6/6 TAM KAPANDI.**
+
+## v9 kapanış durumu (2026-10-29 — TAM KAPANDI)
+
+İşlendi: V9-01 · V9-02 · V9-03 · V9-05 · V9-06 · **V9-04 (2026-10-29, f783e59 — RBT-2026-10-28.3
+önkoşulu karşılandı: B5 kabul + e5b2b2c + push)** — **6/6 TAM**. Graf-dışı verimlilik paketinin
+DC bütçesine etkisi yok.
