@@ -85,23 +85,6 @@
     font-size:12px;
   }
 
-  /* ---- ORDU ŞERİDİ (KALP — 6 rol; veri durumu ÖRNEK, adlar graf SSOT'tan) — tek satır, yatay kayar ---- */
-  .orduSeridi {
-    position:relative; z-index:5; display:flex; gap:8px; flex-wrap:nowrap; overflow-x:auto;
-    padding:8px 16px; background:var(--yuzey); border-bottom:1px solid var(--cizgi);
-  }
-  .orduSeridi::-webkit-scrollbar { height:6px; }
-  .orduSeridi::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:99px; }
-  .orduChip {
-    display:inline-flex; align-items:center; gap:8px; flex:0 0 auto;
-    border:1px solid var(--cizgi); border-radius:10px; background:var(--yuzey2);
-    padding:6px 12px; color:var(--ikincil); font-size:13px; text-align:left; cursor:pointer;
-  }
-  .orduChip:hover { border-color:rgba(14,116,144,0.4); }
-  .orduChip .rol { font-weight:700; color:var(--metin); font-size:13.5px; white-space:nowrap; }
-  .orduChip .alt { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:26ch; }
-  .orduChip .d { width:8px; height:8px; border-radius:50%; flex:none; background:var(--camgobegi); }
-
   /* =====================================================================
      R2 ANA DÜZEN: TEK VIEWPORT — yatay grid ÜÇ SÜTUN: SOL akordiyon ·
      ORTA sekmeli · SAĞ chat. main flex:1 + min-height:0; her sütun kendi
@@ -570,17 +553,11 @@
   <button id="cekmeceBtn" class="cekmece" type="button" aria-expanded="false" aria-controls="sol" aria-label="görev ağacı menüsünü aç / kapat" title="görev ağacı menüsünü aç / kapat (dar ekran: overlay; geniş ekran: kenar sütunu)">
     <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 1 H17 M1 7 H17 M1 13 H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
-  <input id="token" type="password" autocomplete="off" placeholder="PANO_TOKEN (kart yazma kapısı)" title="Kapsül kartı oluşturma (POST /api/kart) token'ı — fail-closed: yazma ucu tokensız kırmızı">
+  <input id="token" type="password" autocomplete="off" placeholder="token" title="PANO_TOKEN — kapsül kartı oluşturma (POST /api/kart) token'ı; fail-closed: yazma ucu tokensız kırmızı">
 </header>
 
 <!-- drawer karartma perdesi (yalnız <1024px overlay modunda) -->
 <div id="perde" aria-hidden="true"></div>
-
-<!-- ============ ORDU ŞERİDİ (KALP — 6 rol; durum ÖRNEK, adlar graf SSOT'tan) ============ -->
-<h2 class="gizli">Ordu şeridi — roller ve durumlar</h2>
-<section class="orduSeridi" id="orduSeridi" data-ornek="rollerin canlı koşum durumu ÖRNEK — gerçek bağ D-2 (rol adları/modeller graf SSOT'tan GERÇEK)" aria-label="ordu şeridi — roller (G.roller)">
-  <span class="bosSatir">ordu şeridi graf yüklenince rollerle doldurulur (G.roller · ajanKadrosu)…</span>
-</section>
 
 <main>
   <!-- ============ SOL (#sol): AKORDİYON görev ağacı (R2 — fazlar katlanır; nav YOK) ============ -->
@@ -891,7 +868,7 @@ async function yukle() {
     if (!r.ok) { kirmiziYuz("/api/graf " + r.status + " — graf SSOT okunamadı (fail-closed)"); return; }
     G = await r.json();
     $("hata").hidden = true;
-    metaYaz(); solYaz(); orduYaz(); ozetYaz(); modUygula();
+    metaYaz(); solYaz(); ozetYaz(); modUygula();
     if (secilen && G.gorevler.some((x) => x.id === secilen)) sec(secilen, true);
     else if (secilen) {
       const eski = secilen;
@@ -909,7 +886,6 @@ function kirmiziYuz(m) {
   $("agacSayi").textContent = "—";
   $("tuval").innerHTML = ""; $("jsonview").textContent = "";
   $("detay").innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ (fail-closed) — ' + esc(m) + "</div>";
-  $("orduSeridi").innerHTML = '<span class="bosSatir">graf yok — ordu şeridi kırmızı yüz (fail-closed)</span>';
   $("haritaSayi").textContent = "—";
   sekmeler.length = 0;              // görev sekmeleri kapanır — bayat kapsül kartı ekranda kalmaz
   sekmeAktiflestir("harita");       // DAG sekmesi aktifleşir → kırmızı hata katmanı görünür
@@ -925,22 +901,6 @@ function metaYaz() {
   $("agacSayi").textContent = G.gorevler.length + " görev";
   $("haritaSayi").textContent = G.gorevler.length + " görev · " + G.kenarlar.length + " kenar";
   document.title = "Kapsül Tuval — ordu " + G.grafSurumu + " (" + (G.gorevler.length - kapali) + " açık)";
-}
-
-/* --- ordu şeridi: 6 rol G.roller'dan (adlar/modeller GERÇEK); canlı durum ÖRNEK (D-2) --- */
-function orduYaz() {
-  const roller = (G.roller && Object.keys(G.roller)) || [];
-  const kadro = (G.ajanKadrosu && G.ajanKadrosu.varsayilan) || {};
-  let h = "";
-  for (const r of roller) {
-    const model = kadro[r] ? kadro[r].model : "—";
-    const yapar = (G.roller[r] && G.roller[r].yapar && G.roller[r].yapar[0]) || "";
-    h += '<button class="orduChip" type="button" data-not="' +
-      esc(r + " · " + model + (yapar ? " · yapar: " + yapar : "") + " — rol tanımı ve model graf SSOT'tan (GERÇEK); canlı koşum durumu ÖRNEK (gerçek bağ D-2 dalgası).") +
-      '"><span class="d"></span><span class="rol">' + esc(r) + '</span><span class="alt">' + esc(model + (yapar ? " · " + yapar : "")) +
-      ' <span class="etiketOrnek">ÖRNEK</span></span></button>';
-  }
-  $("orduSeridi").innerHTML = h || '<span class="bosSatir">roller graf SSOT\'ta yok</span>';
 }
 
 /* ============ SOL: AKORDİYON görev ağacı (R2 — fazlar katlanır; uydurma faz YOK) ============ */
