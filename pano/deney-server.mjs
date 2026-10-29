@@ -156,6 +156,24 @@ function panelIsci(req, res) {
 }
 
 // GET /api/deney/durum — tek JSON; panel 5 sn'de bir ceker. Hepsi diskten, o anda.
+// BIRLESTIRME (K8 ilk adim): ordu graf SSOT da burada tasinir — deney paneli ile ana panel TEK veri
+// kaynagini paylasir. Salt okuma; SSOT dosyasina yazma YOK (write-set degismedi).
+const GRAF_SSOT = join(import.meta.dirname, '..', 'plans', 'gorev-grafigi-2026-10-26.json');
+function grafGovdesi() {
+  const g = jsonOku(GRAF_SSOT);
+  if (!g || !Array.isArray(g.gorevler)) return null;
+  return {
+    grafSurumu: g.grafSurumu != null ? g.grafSurumu : null,
+    is: g.is != null ? g.is : null,
+    gorevSayisi: g.gorevler.length,
+    kapaliSayisi: g.gorevler.filter((x) => String(x.durum || '').indexOf('KAPALI') >= 0).length,
+    gorevler: g.gorevler.map((x) => ({
+      id: x.id, gorev: x.gorev, rol: x.rol, dizin: x.dizin, durum: x.durum,
+      bagimli: Array.isArray(x.bagimli) ? x.bagimli : [], olcut: x.olcut, loc: x.loc,
+    })),
+  };
+}
+
 function durumGovdesi() {
   const sag = jsonOku(join(aktifDir, 'saglayicilar.json'));
   const mod = jsonOku(join(aktifDir, 'modeller.json'));
@@ -204,6 +222,7 @@ function durumGovdesi() {
     atamalar: sonN(jsonlOku(join(aktifDir, 'atamalar.jsonl')).satirlar, KUYRUK.atamalar),
     log: sonN(jsonlOku(join(aktifDir, 'log.jsonl')).satirlar, KUYRUK.log),
     mudahale: sonN(jsonlOku(join(aktifDir, 'mudahale.jsonl')).satirlar, KUYRUK.mudahale),
+    graf: grafGovdesi(),               // ordu SSOT — birleşme: deney paneli ana veriyi gösterir
     manager: {
       aktor: 'ai-manager:glm-5.3',
       ajan: 'deney-manager-g9',

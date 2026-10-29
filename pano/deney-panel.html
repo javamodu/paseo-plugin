@@ -215,7 +215,7 @@ button{font-family:inherit}
         <span id="rzKapali" class="rozet yesil">KAPALI –</span>
       </div>
       <div id="grafAlani" class="grafKutu"></div>
-      <div class="durustSatir duz">mini graf — tam DAG yüzü K8 (B7)</div>
+      <div class="durustSatir duz" id="grafEtiket">ORDU GRAF SSOT — 40 görev (birleşme: ana veri)</div>
     </div>
     <div id="panelSolAkis" class="panelGovde">
       <div class="bolum">
@@ -517,19 +517,28 @@ function renderUst() {
   $('ustWs').textContent = 'WS ' + (env.workspaceSayisi != null ? env.workspaceSayisi : '–');
 }
 
-// ---- render: SOL · GRAF (varsayılan) — görev düğümleri + bağımlılık okları ----
+// ---- render: SOL · GRAF (varsayılan) — BİRLEŞME: ordu SSOT grafı (40 görev) + deney görevleri ----
 function renderSolGraf() {
-  const gorevler = durum && Array.isArray(durum.gorevler) ? durum.gorevler : [];
-  const kapaliSay = gorevler.filter((g) => String(g.durum || '') === 'KAPALI').length;
+  const graf = durum && durum.graf;                     // ordu SSOT (birleşme — K8 ilk adım)
+  const gorevler = graf && Array.isArray(graf.gorevler) && graf.gorevler.length
+    ? graf.gorevler
+    : (durum && Array.isArray(durum.gorevler) ? durum.gorevler : []);
+  const orduGraf = !!(graf && graf.gorevler && graf.gorevler.length);
+  const kapaliSay = orduGraf
+    ? (graf.kapaliSayisi != null ? graf.kapaliSayisi : 0)
+    : gorevler.filter((g) => String(g.durum || '') === 'KAPALI').length;
   $('rzGorev').textContent = 'GÖREV ' + gorevler.length;
   $('rzKapali').textContent = 'KAPALI ' + kapaliSay;
   const alan = $('grafAlani');
   alan.textContent = '';
+  $('grafEtiket').textContent = orduGraf
+    ? 'ORDU GRAF SSOT ' + (graf.grafSurumu != null ? graf.grafSurumu : '?') + ' — ' + graf.gorevSayisi + ' görev (birleşme: ana veri)'
+    : 'deney görevleri (ordu SSOT okunamadı — fail-closed)';
   if (!gorevler.length) { alan.appendChild(bosSatir('(veri yok)')); return; }
   // Düğüm sırası: bağımlılık grafiği — bagimli listesinde adı geçen görev SONRA çizilir (üstten alta akış)
   const sirali = grafSirala(gorevler);
   for (let i = 0; i < sirali.length; i++) {
-    alan.appendChild(grafDugum(sirali[i]));
+    alan.appendChild(grafDugum(sirali[i], orduGraf));
     if (i < sirali.length - 1) alan.appendChild(grafOkCiz(sirali[i + 1]));
   }
 }
@@ -552,9 +561,9 @@ function grafSirala(gorevler) {    // basit topolojik sıra (bagimli: önce olsu
   return cikan;
 }
 
-function grafDugum(g) {            // görev düğümü: tıkla → seciliGorev senkronu (ORTA ile aynı)
+function grafDugum(g, orduGraf) {      // görev düğümü: tıkla → seçili (ordu görevleri yalnız görüntü — atanabilir deney görevlerinde)
   const id = String(g.id != null ? g.id : '?');
-  const kapali = String(g.durum || '') === 'KAPALI';
+  const kapali = String(g.durum || '').indexOf('KAPALI') >= 0;
   const dugum = el('button', 'grafDugum' + (kapali ? ' kapali' : '') + (seciliGorev === id ? ' secili' : ''));
   dugum.type = 'button';
   const bas = el('span', 'gorevBas');
@@ -562,15 +571,24 @@ function grafDugum(g) {            // görev düğümü: tıkla → seciliGorev 
   if (g.rol != null) bas.appendChild(el('span', 'rozet', String(g.rol)));
   bas.appendChild(el('span', 'rozet ' + (kapali ? 'yesil' : 'teal'), kapali ? 'KAPALI' : 'AÇIK'));
   dugum.appendChild(bas);
-  dugum.appendChild(el('span', 'gorevMetin', g.gorev != null ? g.gorev : ''));
-  const meta = [g.sonuc != null ? g.sonuc : ''];
-  dugum.appendChild(el('span', 'gorevMeta', meta.filter((x) => x !== '').join(' · ') || 'dizin: ' + (g.dizin != null ? g.dizin : '–')));
+  dugum.appendChild(el('span', 'gorevMetin', g.gorev != null ? String(g.gorev) : ''));
+  const meta = [];
+  if (g.sonuc != null) meta.push(String(g.sonuc));
+  else if (g.durum != null && orduGraf) meta.push(kisa(String(g.durum)));
+  const alt = meta.filter(Boolean).join(' · ');
+  dugum.appendChild(el('span', 'gorevMeta',
+    alt || 'dizin: ' + (g.dizin != null ? g.dizin : '–') + (g.loc != null ? ' · loc ' + g.loc : '')));
   dugum.addEventListener('click', () => {
     seciliGorev = (seciliGorev === id ? null : id);
     renderSolGraf();
     renderOrta();
   });
   return dugum;
+}
+
+function kisa(metin, n) {              // uzun SSOT durum metnini tek satıra kırp (tamamı orta sütunda/SSOT'ta)
+  const s = String(metin).replace(/\s+/g, ' ').trim();
+  return s.length > (n || 70) ? s.slice(0, n || 70) + '…' : s;
 }
 
 function grafOkCiz(hedef) {        // bağımlılık oku — altındaki düğümün bagimli kaynakları etiketli
