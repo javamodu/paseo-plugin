@@ -6,6 +6,8 @@
 2. Hangi görev grafa tıklanırsa o göreve ait **tüm detaylar** görünsün: atanmış ajan(lar) · **dizin yapısı** · hedefler · **metrikler** · **bütçeler** · **izinler** vb.
 3. Graf bir **kapsül** olsun — içindeki **çalışma prensibi grafikle** görünsün (ajanlar, otonomi hedefleri; «graf içinde otonomi hedefler herşeyi görebileceğim iyileştireceğim»).
 
+**İkinci beyan (aynı gün, saatler sonra — öncelik ters-çevrimi):** «görev grafının içindeki en önemli konu manager ajan ile görevlerin dağıtılması, replan, izleme, takip, performansa dayalı kod yazdırma — bu uygulamanın başarısını ölçecek. Görev grafı ile kapsüllemek **çerçeve**; manager'ın görev dağıtım · denetim · izleme · replan · benchmark'ı **asıl başarıyı belirler**» → §6'ya işlendi (KALP katmanı).
+
 **Karar statüsü:** VİZYON KAYDI — kod YOK; uygulama ayrı [insan] emri (CALISTIRMA §1-2 disiplini). Bu fiş mevcut yapıların projeksiyonudur; yeni politika DEĞİL (tek politika otoritesi PLAN.md v2.10.1 §25 — graf kuralı aynen geçerli).
 
 ## 1. Mevcut zemin (diskten doğrulandı — 2026-10-29)
@@ -47,3 +49,26 @@
 ## 5. Uygulama kapısı
 
 Kod YOK — bu fiş yalnız yön kaydı. Uygulama: ayrı [insan] emri + iş fişi (CALISTIRMA §2 serbest bırakma kaydı; mevcut dosya ≤3; pano/ evinde ince kanca dalgaları). Bütçe sınıfı dürüst: FAZ-A küçük-orta dalga (UI + graf alan ekleri); FAZ-B/C ayrı fişlerle ölçülür. Bağlantılar: [PLAN §25](PLAN.md) (politika) · [graf SSOT](gorev-grafigi-2026-10-26.json) · insan ikiz (en yakın, bayat): [arsiv/plan-3-denetci-oncesi-2026-10-27/SENARYO-v13.md](../arsiv/plan-3-denetci-oncesi-2026-10-27/SENARYO-v13.md) · [tuval](../pano/kapsul-tuval.html) · [kartlar](kapsuller/).
+
+## 6. KALP katmanı — manager döngüsü (ikinci beyan; diskten doğrulandı — 2026-10-29)
+
+**Öncelik hiyerarşisi (kullanıcı hükmü):** graf + kapsül = **ÇERÇEVE** (bu fişin §1-5'i); manager döngüsü = **KALP** ve uygulamanın **asıl başarı ölçütü**. Pano FAZ-A/B/C çalışması çerçeveyi cilalar; kalp core/ ürün kodunda + ölçüm/benchmark/replan yolunda yaşar.
+
+| döngü ayağı | disk karşılığı | durum |
+|---|---|---|
+| Görev dağıtımı | `core/src/dispatcher.ts` (kimlik/yetki/ölçüm kapıları) + `r8.ts` (5-şart ADIYLA kırmızı) + `deadline.ts` (dispatch kapısı + kapanış politikası) + `grants.ts`/`capabilities.ts` (izin) + `git-worktree-launcher.ts` (K-0053 dalga hattı) | **VAR** (S1-S4 dalgalarıyla kapandı) |
+| Denetim | `evaluator.ts` (bağımsız; A13 sahte-PASS yok) + `turnuva.ts` (§21 yedi-adım çapraz eleştiri; F8 KAPALI) + `tip-kapisi.mjs` (ratchet, borç 0 kilit) + merge anında tam kanal (K-0053) | **VAR** |
+| İzleme / takip | `daemon.ts` + `schedule.ts` (serve: her tur tick çocuk sürecinde; 2/2 KAPALI) · `sender.ts` (gerçek bildirim ucu) · `defter.ts` (fsync JSONL) · `telemetry.ts` · `gozetimsiz.ts` (§22 rozet, kanıt-besleme A0-3 KAPALI) · pano `/api/canli` SSE | **VAR** |
+| Replan | `replan.ts` — DRIFT% ölçer + sapma ölçer + taslak birleştirme + **[insan] REPLAN ONAYLIYORUM kapısı** + §18 MD-ezmez tazeleme (A2 KAPALI) | **VAR** — gözlemsel ölçer; onaylı uygulama [insan] (rpl-03579e06 bekler) |
+| Benchmark | `benchmark.ts` — F6-C eşlenmiş benchmark İSKELETİ: kol-başı {gorevHash, sourceHash, evaluatorHash, butce} eşlenmişlik assert'i · tam payda (başarısız+timeout+iptal DAHİL) · maliyet 'unknown' dürüstlüğü (Y5) · birim kimliği (model+runtime+prompt+araç+izin+evaluator) · üstünlük metni yasağı · hermetik (executor enjekte, gerçek LLM YOK) | **KISMEN** — iskelet VAR; canlı eşlenmiş deney (P2-8/F6-A) koşumu AÇIK |
+| Performansa-dayalı kod yazdırma | provider registry (codex/glm-5.3 · glm53u-codex · codefast…) + `spawn-olcum.ts` (V9-03: dispatcher her spawn'da provider/outcome/sureMs → spawn-olcum.jsonl) + S7 mini-turnuva (tek-ölçüm emsal, sıralı 2-provider) | **KISMEN** — ölçüm kanalı doğuyor; **dinamik performans-tabanlı yazıcı seçme/eşleme motoru YOK** (ajan kadrosu statik; V8-05 eşlemesi dosya-çakışma-temelli, performans-temelli değil) |
+
+**Asıl başarı yolunun açık kalemleri** (uygulama ayrı [insan] emirleri — burada yalnız envanter):
+
+1. **F6-A canlı eşlenmiş performans deneyi** — benchmark.ts iskeletine gerçek kol koşumu; n < eşikte «nedensellik için yeterli değil» uyarısı zorunlu (üstünlük ilanı yok).
+2. **Performans-tabanlı atama/eşleme motoru** — ölçüm defterlerinden (telemetri · spawn-olcum · turnuva kayıtları) yazıcı seçimine giden karar katmanı; bugün YOK (asıl açık).
+3. **Replan gözlemden eyleme** — rpl-03579e06 [insan] onayı; onay sonrası §18 tazeleme kapısı yalnız Durum hücresine iner (MD-ezmez).
+4. **V8-06 spawn ekonomisi** — ölç-sonra-karar; veri spawn-olcum.jsonl'de birikiyor (defter COMMIT EDİLMEZ).
+5. **Pano'da manager döngüsünün GÖRÜNÜMÜ** — D-2 koşum sohbeti + performans/dağıtım yüzleri; §3 FAZ-C ile kesişir ama kalbin lens'idir (çerçeve değil kalp görünür olur).
+
+Bağlantılar: [benchmark iskeleti](../core/src/benchmark.ts) · [replan](../core/src/replan.ts) · [spawn ölçüm](../core/src/spawn-olcum.ts) · [dispatcher](../core/src/dispatcher.ts) · [turnuva](../core/src/turnuva.ts).
