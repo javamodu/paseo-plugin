@@ -8,7 +8,10 @@
 //   hicbir dosya yolu kurulumuna girmez — yollar yalniz sabit dosya adlarindan kurulur.
 // Okuma: her istekte diskten (onbellek YOK — restart gerektirmeden taze). Dosya yoksa alan durust bos/sifir;
 //   sahte veri uretilmez. Bozuk JSONL satiri atlanir + sayilir (konsola hata satiri).
-// Konsol: baslangic satiri (port + dizin) + hata satirlari. Emoji yok, renk kodu yok, CORS header yok.
+// Konsol: baslangic satiri (port + dizin) + hata satirlari. Emoji yok, renk kodu yok.
+// K8 ADIM-A (2026-10-29): CORS basliklari ACILDI — tuval (4377 kapsul-tuval.html) bu sunucudan
+//   fetch ile GERCEK veri ceker; preflight OPTIONS 204. Kapsam yalniz bu IZOLE deney sunucusu —
+//   pano/server.js (4377) CORS'suz kalir (K8 sonunda tek sunucuya gider — K-0055).
 
 import http from 'node:http';
 import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -106,8 +109,14 @@ function istekGunlugu(gunluk) {
 
 // --- yanit yardimcilari ---------------------------------------------------------
 
+// K8 ADIM-A — CORS koprusu: tek kaynak (ayni makine 127.0.0.1). Yalniz bu izole deney sunucusu.
+const CORS_BASLIK = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 function jsonYaz(res, kod, obj) {
-  res.writeHead(kod, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.writeHead(kod, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...CORS_BASLIK });
   res.end(JSON.stringify(obj));
 }
 
@@ -499,6 +508,11 @@ export async function handler(req, res) {
     if (!uc) {
       // bilinmeyen yol — POST ise istek logu 'hata' satiriyla dusulur.
       return yanitla(req, res, 404, { hata: 'bilinmeyen uc' }, { tur: 'hata', metin: 'bilinmeyen uc: ' + String(pathname) });
+    }
+    // K8 ADIM-A — bilinen uc OPTIONS preflight'i: 204 + CORS basliklari (fetch POST json tetikler).
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, { 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', ...CORS_BASLIK });
+      return res.end();
     }
     const isci = uc[req.method];
     if (!isci) {
