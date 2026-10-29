@@ -175,14 +175,14 @@ test("10- R2 SEKME ÖZGÜRLÜĞÜ: ORTA görev sekmeleri tablist/role=tab TAŞIR
 
 test("11- ÖRNEK-etiket sistemi: kalp-yüzü etiketli (chat dahil), graf-yüzü etiketsiz", () => {
   ok('tepe dürüstlük şeridi SÖKÜLDÜ (kullanıcı emri — class="serit" YOK; ÖRNEK etiketleri bileşenlerde kalır)', !SRC.includes('class="serit"'));
-  const ornekli = ["kartlar", "onayBolum", "defterPanel", "denetimGecmis", "chatBolum"];
+  const ornekli = ["kartlar", "onayBolum", "defterPanel", "denetimGecmis"];
   for (const id of ornekli) {
     const t = tagOf(id);
     ok(id + " açılış etiketi bulundu", !!t);
     ok(id + " data-ornek taşır (kalp-yüzü)", !!t && t.includes("data-ornek"));
   }
-  // K8 ADIM-B: sagOzet/sagKomut söküldü; yeni PROJE/API yüzleri GERÇEK (data-ornek TAŞIMAZ — 4930 verisi)
-  const gercekli = ["agac", "detay", "tuval", "sol", "sagProje", "sagApi", "ajanListe", "saglayiciAlani"];
+  // K8 B1-B3: chat müdahale/manager kaydı da 4930'a bağlandı — GERÇEK yüz (data-ornek TAŞIMAZ)
+  const gercekli = ["agac", "detay", "tuval", "sol", "sagProje", "sagApi", "ajanListe", "saglayiciAlani", "chatBolum"];
   for (const id of gercekli) {
     const t = tagOf(id);
     ok(id + " açılış etiketi bulundu", !!t);
@@ -205,7 +205,7 @@ test("12- kopyala + EK-2: onay cümlesi STATİK HTML'de — GUI'de üretilmez/ç
   ok('komut kutusu Enter davranışı KALKTI (KOMUT yüzü söküldü — K8 ADIM-B)', !SRC.includes('olay.key !== "Enter"') && !jsKisim.includes('$("komut")'));
 });
 
-test("13- dış istek: /api/graf + /api/kart (4377) + DENEY_KOK 4930 uçları — başka ağ çağrısı YOK (chat fetch atmaz)", () => {
+test("13- dış istem: /api/graf + /api/kart (4377) + DENEY_KOK 4930 uçları — chat gerçek müdahale ucunu kullanır", () => {
   const ayir = SRC.indexOf("<script>");
   const jsKisim = ayir > 0 ? SRC.slice(ayir) : SRC;
   ok('deney köprüsü sabiti (DENEY_KOK = "http://127.0.0.1:4930" — ADIM-A CORS)', jsKisim.includes('const DENEY_KOK = "http://127.0.0.1:4930"'));
@@ -215,7 +215,9 @@ test("13- dış istek: /api/graf + /api/kart (4377) + DENEY_KOK 4930 uçları �
     ok("fetch yalnız izinli uç (pano veya izole deney): " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart") || c.includes("DENEY_KOK"));
   }
   ok("deney uçları DENEY_KOK'tan kurulur (yol değişkeni — sabit URL dizilimi yok)", jsKisim.includes('DENEY_KOK + "/api/deney/durum"') && jsKisim.includes("DENEY_KOK + uc"));
-  const dis = SRC.replace(/http:\/\/127\.0\.0\.1/g, "");
+  ok('chat GERÇEK müdahale ucu (deneyPost "/api/deney/mudahale")', jsKisim.includes('deneyPost("/api/deney/mudahale"'));
+  ok('chat gövdesi metin alanı taşır (govde = { metin: deger, rol ... })', jsKisim.includes('govde = { metin: deger, rol'));
+  const dis = SRC.replace(/<link\s+rel="icon"[^>]+>/g, "").replace(/http:\/\/127\.0\.0\.1/g, "");
   ok("CDN/webfont/dış URL YOK (yalnız 127.0.0.1 istisnası)", !/https?:\/\//.test(dis));
 });
 
@@ -374,8 +376,8 @@ test("24- E11 uydurma-veri YOK: her kalp-yüzü kabı ÖRNEK/ŞABLON-etiketli + 
   ok("denetim kanıtı kayıtlı-beyanlı (kaynak: DALGA0-ARAYUZ-1)", jsKisim.includes("kayıtlı kapanış (DALGA0-ARAYUZ-1)"));
   ok("kanal geçmişi kayıtlı-beyanlı", htmlKisim.includes("kayıtlı değerler, canlı değil"));
   ok("hız iddiasına dürüst red (tek örnek notu)", jsKisim.includes("tek örnek; hız iddiası YOK"));
-  ok('chat görünür ŞABLON etiketi («ŞABLON — canlı AI yanıtı D-4»)', htmlKisim.includes("ŞABLON — canlı AI yanıtı D-4"));
-  ok("chat JS tarafında da aynı etiket (CHAT_ETIKET)", jsKisim.includes('const CHAT_ETIKET = "ŞABLON'));
+  ok('chat görünür GERÇEK etiketi («GERÇEK — 4930»)', htmlKisim.includes("GERÇEK — 4930"));
+  ok("chat JS tarafı şablon/manager dürüstlük etiketi taşır (CHAT_ETIKET)", jsKisim.includes('const CHAT_ETIKET = "ŞABLON') && jsKisim.includes("manager yanıtı gerçek 4930 kaydından gelir"));
   ok('ajan kadrosu dolmaysa dürüst fallback («atanmadı» sınıfı: varsayılan kadro beyanı)', jsKisim.includes("varsayılan kadro (JSON ajanKadrosu.varsayilan)"));
   ok("grafsız bağımlılık pasif çip (SSOT'ta yok dürüstlüğü)", jsKisim.includes("böyle bir görev yok"));
   const canliDegil = (SRC.match(/canlı değil/g) || []).length;
@@ -416,7 +418,7 @@ test("26- AI CHAT (EK-ŞART 14:03 + R2): SAĞ BÜYÜK PANEL (VARSAYILAN) + ŞABL
   ok("chat sağ panelde (ağaç + ortadan sonra, #sag içinde)", agacIdx > 0 && agacIdx < sagIdx && ortaIdx < sagIdx && sagIdx < chatIdx);
   const tChat = tagOf("chatBolum");
   ok("chat VARSAYILAN panel (hidden YOK — R2 emri)", !!tChat && !tChat.includes("hidden"));
-  ok("chat panel ÖRNEK-etiketli (data-ornek — etiketsiz sahte AI YASAK)", !!tChat && tChat.includes("data-ornek"));
+  ok("chat panel GERÇEK yüzdür (data-ornek YOK — 4930 müdahale/manager kaydı)", !!tChat && !tChat.includes("data-ornek") && !!tChat && tChat.includes("chatBolum"));
   const tIk = tagOf("ik-chat");
   ok('ikon menü CHAT düğmesi varsayılan basılı (aria-pressed="true")', !!tIk && tIk.includes('aria-pressed="true"'));
   // panel bileşenleri
@@ -435,7 +437,24 @@ test("26- AI CHAT (EK-ŞART 14:03 + R2): SAĞ BÜYÜK PANEL (VARSAYILAN) + ŞABL
   ok('form gönderimi işlenir ($("chatForm").addEventListener("submit"))', jsKisim.includes('$("chatForm").addEventListener("submit"'));
   ok("şablon komutları PANOA kopyalanır (panoaYaz + data-chat-komut)", jsKisim.includes("data-chat-komut") && jsKisim.includes("panoyaYaz(b.getAttribute"));
   ok("chat onay cümlesi ÜRETMEZ (JS'te ONAYLIYORUM YOK — EK-2)", !jsKisim.includes("ONAYLIYORUM"));
-  ok("chat koşmaz: chat bölümünde fetch YOK (yalnız sablon üretir)", !/chat[^]{0,400}fetch\(/.test(jsKisim));
+  ok("chat gerçek müdahale uçına POST eder (deneyPost + govde)", jsKisim.includes('deneyPost("/api/deney/mudahale"') && jsKisim.includes('deneyPost("/api/deney/mudahale", govde)'));
+  ok('chat fail-closed alanı (id="chatKirmizi" + role="alert")', htmlKisim.includes('id="chatKirmizi"') && htmlKisim.includes('role="alert"'));
+  ok("chat hata yüzü sahte yanıt ÜRETMEZ (DENEY SUNUCUSU HATA + fail-closed)", jsKisim.includes("DENEY SUNUCUSU HATA") && jsKisim.includes("sahte yanıt ÜRETİLMEZ"));
+  ok("chat gerçek uç yanıtı ekrana gelir (GERÇEK 4930 YANITI)", jsKisim.includes("GERÇEK 4930 YANITI"));
+  ok('composer seçici alanı (id="chatSecim" + id="chatRol")', htmlKisim.includes('id="chatSecim"') && htmlKisim.includes('id="chatRol"'));
+  ok("seçici sunucu tercihini gerçek uca yazar (deneyPost /api/deney/tercih)", jsKisim.includes('deneyPost("/api/deney/tercih"'));
+  ok("müdahale gövdesi seçim + rol taşır (provider/model/rol)", jsKisim.includes("govde.provider") && jsKisim.includes("govde.model") && jsKisim.includes("govde = { metin: deger, rol"));
+  ok("seçim tazelemede korunur (onceki = sec.value)", jsKisim.includes("const onceki = sec.value"));
+  ok("4930 yokken seçiciler kilitlenir (fail-closed)", jsKisim.includes("sec.disabled = true") && jsKisim.includes('$("chatRol").disabled = true'));
+  ok("manager köprüsü kayıtları birleştirir (mudahale + log manager-yanit/mudahale-yanit)", jsKisim.includes("function chatKayitlar(") && jsKisim.includes('tur === "mudahale-yanit"') && jsKisim.includes('tur === "manager-yanit"'));
+  ok("aynı yanıt metni sunumda tekilleşir (Set dedupe)", jsKisim.includes("const gorunen = new Set();") && jsKisim.includes("gorunen.has(k.metin)"));
+  ok("5 sn tazelemede yerel şablon balonları korunur (chat-yerel yeniden eklenir)", jsKisim.includes("chat-yerel") && jsKisim.includes("for (const el of yerel) liste.appendChild(el);"));
+  ok("sunucu balonları ayrıştırılır (chat-sunucu)", jsKisim.includes("chat-sunucu"));
+  ok("4930 ölünce chat kırmızı yüzü otomatik yanar (deneyOluBanner)", jsKisim.includes('if (!D) { $("chatKirmizi").innerHTML = deneyOluBanner(); return; }'));
+  ok("başarılı POST sonrası yerel insan balonu sunucu kaydıyla çiftlenmez (kullaniciKutu.remove)", jsKisim.includes("kullaniciKutu.remove();"));
+  ok("manager kimliği sunucu durumundan yazılır (D.manager + chatManager)", jsKisim.includes("D.manager") && htmlKisim.includes('id="chatManager"'));
+  ok("client manager-yanit POST etmez (uç operatör köprüsünde)", !jsKisim.includes('deneyPost("/api/deney/manager-yanit"'));
+  ok("chat paneli görünürken 5 sn tazeleme (manager yanıtı gecikmez)", jsKisim.includes('setInterval(() => { if (sagAktif === "chat") deneyYukle(); }, 5_000);'));
   ok("boş hedef cümlede dürüst uyarı (hedef cümle boş)", jsKisim.includes("Hedef cümle boş"));
 });
 
@@ -552,6 +571,10 @@ test("33- K8 ADIM-B PROJE + API: GERÇEK 4930 uçları + fail-closed kırmızı 
   ok("ajan-ata GERÇEK ucu (deneyPost \"/api/deney/ajan-ata\")", jsKisim.includes('deneyPost("/api/deney/ajan-ata"'));
   ok("api-test GERÇEK ucu (deneyPost \"/api/deney/api-test\")", jsKisim.includes('deneyPost("/api/deney/api-test"'));
   ok("tercih GERÇEK ucu (deneyPost \"/api/deney/tercih\")", jsKisim.includes('deneyPost("/api/deney/tercih"'));
+  ok("boş workspace envanterinde sabit proje ÜRETİLMEZ (D:/Vibecode/deney-g9-repo YOK)", !SRC.includes("D:/Vibecode/deney-g9-repo"));
+  ok("boş workspace envanterinde kırmızı fail-closed yüz (WORKSPACE YOK)", jsKisim.includes("WORKSPACE YOK") && jsKisim.includes("sabit proje ÜRETİLMEZ"));
+  ok("sağ panel başlıkları 20px (manifesto §1)", /\.panelBas \.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(SRC) && /\.chatBas h3\s*\{[^}]*font-size:\s*20px/.test(SRC));
+  ok("chat balon metni 15px (manifesto §1)", /\.chatMesaj\s*\{[^}]*font-size:\s*15px/.test(SRC));
   ok("4930 ölürse kırmızı yüz (deneyOluBanner — fail-closed)", jsKisim.includes("function deneyOluBanner("));
   ok("bayat deney verisi kalmaz (deneyYukle catch → D=null)", /deneyYukle[^]{0,600}catch \(e\)[^]{0,120}D = null/.test(jsKisim));
   ok("sahte sağlayıcı/model RED: sunucu hata nesnesi kullanıcıya dürüst taşınır (b.hata)", jsKisim.includes("b.hata"));
@@ -582,4 +605,12 @@ test("34- ADIM-C panel resize + sağ panel aç/kapa: splitter ×2 (pointer event
   ok("sağ panel durumu kalıcı (tuval-sagAcik)", SRC.includes('kaydet("tuval-sagAcik"'));
   ok("dar ekranda splitter gizli (<1024 tek kolon akış)", /@media \(max-width:1023px\)[^]{0,2000}\.splitter\s*\{\s*display:\s*none/.test(SRC));
   ok("pencere daralınca 45vw yeniden kenetlenir (resize dinleyicisi)", /addEventListener\("resize"[^]{0,700}genislikKenetle/.test(SRC));
+});
+
+test("35- POST RED yolunda yerel balon/seçim sunucu gerçeğine döner (ORDU-3 fail-closed kapanışı)", () => {
+  const jsKisim = jsKisimOf();
+  ok("müdahale RED: kullanıcı yerel balonu EKRANDA KALMAZ (catch → remove)", /\.catch\(\(hata\) => \{\s*kullaniciKutu\.remove\(\);/.test(jsKisim));
+  ok("müdahale RED: kırmızı fail-closed yüz kalır (chatKirmizi + sahte yanıt YOK)", /\.catch\(\(hata\) => \{\s*kullaniciKutu\.remove\(\);[\s\S]{0,300}chatKirmizi/.test(jsKisim) && jsKisim.includes("sahte yanıt ÜRETİLMEZ"));
+  ok("tercih RED: yerel seçim sunucudaki önceki tercihe GERİ döner (chatSecimiSunucuyaGeriAl)", /catch \(e\) \{\s*chatSecimiSunucuyaGeriAl\(\);/.test(jsKisim));
+  ok("geri dönüş kaynağı sunucu tercihidir (D.tercih provider|model; kayıt yoksa boş)", /function chatSecimiSunucuyaGeriAl\(\)\s*\{\s*const tercih = D && D\.tercih;[\s\S]{0,240}tercih\.provider \+ "\|" \+ tercih\.model : ""/.test(jsKisim));
 });

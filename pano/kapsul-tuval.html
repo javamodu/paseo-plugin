@@ -388,22 +388,28 @@
   .sagPanel.acik { opacity:1; transform:none; }
   .sagPanel[hidden] { display:none; } /* display kuralı [hidden]'ı ezmesin — açık kural */
   .panelBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; flex:none; }
-  .panelBas .bolum-etiket { margin:0; font-size:18px; }
+  .panelBas .bolum-etiket { margin:0; font-size:20px; }
 
   /* AI CHAT — ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4'te) */
   .chatBolum { gap:10px; }
   .chatBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 0; flex:none; }
-  .chatBas h3 { font-size:18px; font-weight:800; color:var(--metin); }
+  .chatBas h3 { font-size:20px; font-weight:800; color:var(--metin); }
   .chatListe { display:flex; flex-direction:column; gap:6px; flex:1 1 auto; min-height:120px; overflow-y:auto; padding:2px; }
-  .chatMesaj { font-size:14px; line-height:1.55; border-radius:8px; padding:8px 10px; overflow-wrap:anywhere; }
+  .chatMesaj { font-size:15px; line-height:1.55; border-radius:8px; padding:8px 10px; overflow-wrap:anywhere; }
   .chatMesaj p { margin:0; }
   .chat-kullanici { background:rgba(14,116,144,0.08); border:1px solid rgba(14,116,144,0.3); color:var(--metin); align-self:flex-end; max-width:92%; }
   .chat-sistem { background:var(--yuzey2); border:1px dashed var(--cizgi); color:var(--ikincil); }
+  .chat-manager { background:rgba(14,116,144,0.12); border:1px solid rgba(14,116,144,0.45); color:var(--metin); align-self:flex-start; max-width:92%; }
+  .chat-operator { background:var(--yuzey2); border:1px solid var(--cizgi); color:var(--metin); align-self:flex-start; max-width:92%; }
+  .chatKim { font-size:11.5px; font-weight:800; letter-spacing:0.06em; color:var(--ikincil); margin-bottom:3px; }
+  .chatSaat { font-size:11px; color:var(--ikincil); margin-top:4px; white-space:pre-wrap; }
+  .chatKopru { font-size:12.5px; color:var(--ikincil); flex:none; }
   .chatSabit { color:var(--uyari); font-size:11px; letter-spacing:0.06em; }
   .chatKomutSatir { display:flex; align-items:center; gap:6px; margin-top:4px; flex-wrap:wrap; }
   .chatKomutSatir code { flex:1 1 100%; font:12px/1.5 var(--mono); color:var(--camgobegi); overflow-wrap:anywhere; }
   .chatPlan { margin-top:6px; padding:6px 8px; border:1px dashed rgba(109,40,217,0.45); border-radius:8px; font:12px/1.6 var(--mono); color:var(--menevse); white-space:pre-wrap; }
   .chatForm { display:flex; gap:6px; flex:none; }
+  .chatSecim { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:6px; flex:none; }
   .chatGiris {
     flex:1; min-height:var(--min-dokunma); min-width:0; background:var(--yuzey); border:1px solid var(--cizgi);
     border-radius:8px; color:var(--metin); font-size:15px; padding:8px 10px; outline:none; touch-action:manipulation;
@@ -778,17 +784,29 @@
     </div>
 
     <!-- CHAT (VARSAYILAN): ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4'te bağlanır) -->
-    <section class="sagPanel acik chatBolum" id="chatBolum" data-ornek="AI yanıtları ŞABLON komut üretimidir — canlı AI yanıtı D-4 dalgasında bağlanır; etiketsiz sahte AI YASAK" aria-labelledby="chat-baslik">
+    <section class="sagPanel acik chatBolum" id="chatBolum" aria-labelledby="chat-baslik">
       <div class="chatBas">
         <h3 id="chat-baslik">AI CHAT</h3>
-        <span class="etiketOrnek">ŞABLON — canlı AI yanıtı D-4</span>
+        <span class="etiketGercek">GERÇEK — 4930</span>
       </div>
-      <div class="chatListe" id="chatListe" role="log" aria-live="polite" aria-label="AI sohbet — şablon komut üretici">
-        <div class="chatMesaj chat-sistem"><p>Hedef cümle yaz (örn. «pano arayüzünü yenile») — hazır komut ŞABLONLARI + plan taslağı döner; her biri panoya kopyalanır, GUI koşmaz (EK-2).</p></div>
+      <p class="chatKopru" id="chatManager"></p>
+      <div class="chatListe" id="chatListe" role="log" aria-live="polite" aria-label="AI sohbet — gerçek müdahale + şablon komut üretici">
+        <div class="chatMesaj chat-sistem"><p>Chat kayıtları gerçek 4930 durumundan yüklenir; manager yanıtı operatör köprüsüyle gelir.</p></div>
+      </div>
+      <div id="chatKirmizi" role="alert"></div>
+      <div class="chatSecim">
+        <label class="gizli" for="chatSecim">Sağlayıcı ve model</label>
+        <select id="chatSecim" class="dkSecici" aria-label="sağlayıcı ve model seç — deney envanterinden"></select>
+        <label class="gizli" for="chatRol">Rol</label>
+        <select id="chatRol" class="dkSecici" aria-label="rol seç">
+          <option value="manager">manager</option>
+          <option value="coder">coder</option>
+          <option value="tester">tester</option>
+        </select>
       </div>
       <form class="chatForm" id="chatForm">
-        <input class="chatGiris" id="chatGiris" type="text" autocomplete="off" spellcheck="false" placeholder="hedef cümle — ne yapılmalı?" aria-label="AI sohbet hedef cümlesi (şablon komut üretici)">
-        <button class="chatGonder" id="chatGonder" type="submit" aria-label="hedef cümleyi şablon komutlarına çevir">▸</button>
+        <input class="chatGiris" id="chatGiris" type="text" autocomplete="off" spellcheck="false" placeholder="hedef cümle — ne yapılmalı?" aria-label="AI sohbet hedef cümlesi (gerçek müdahale + şablon komut üretici)">
+        <button class="chatGonder" id="chatGonder" type="submit" aria-label="hedef cümleyi gerçek müdahale uçuna gönder ve şablon komutlarına çevir">▸</button>
       </form>
     </section>
 
@@ -1517,7 +1535,7 @@ function deneyOluBanner() {
 
 const saglayiciListe = () => (D && D.envanter && Array.isArray(D.envanter.saglayicilar) ? D.envanter.saglayicilar : null);
 
-function deneyYaz() { projeYaz(); apiYaz(); }   // D null → iki yüz de kırmızıya döner
+function deneyYaz() { projeYaz(); apiYaz(); chatSecicileriYaz(); chatKayitlarYaz(); }
 
 /* ---- PROJE yüzü: workspace seçici + ATAMA formu seçenekleri + AJANLAR listesi ---- */
 function projeYaz() {
@@ -1539,20 +1557,25 @@ function projeYaz() {
   for (const w of ornek) {
     if (w && w.cwd) sec.insertAdjacentHTML("beforeend", '<option value="' + esc(w.cwd) + '">' + esc((w.title || "workspace") + " — " + w.cwd) + "</option>");
   }
-  if (!sec.options.length) sec.insertAdjacentHTML("beforeend", '<option value="D:/Vibecode/deney-g9-repo">deney-g9-repo</option>');
+  if (!sec.options.length) {
+    $("projeKirmizi").innerHTML = '<div class="dkKirmizi">WORKSPACE YOK — 4930 canlı ama workspace envanteri boş döndü (fail-closed; sabit proje ÜRETİLMEZ).</div>';
+    seciciKilitle(true);
+    ajanlarYaz();
+    return;
+  }
+  $("projeKirmizi").innerHTML = "";
   const hedef = oncekiProje || (deney && deney.cwd) || sec.options[0].value;
   sec.value = hedef;
   if (sec.value !== hedef && sec.options.length) sec.selectedIndex = 0;   // eski seçim listede kalmadıysa ilkine dön
   oncekiProje = sec.value;
   seciciKilitle(false);
-  secicileriDoldur();
   ajanlarYaz();
 }
 
 // 4930 ölüyken form girdileri kilitlenmez (yazılabilir) ama GÖNDER kırmızıya düşer — dürüst.
 function seciciKilitle(kilitli) { $("atGonder").disabled = kilitli; }
 
-function secicileriDoldur() {          // ATAMA sağlayıcı-model seçeneği (chat seçicisi K8 sonraki blokta)
+function secicileriDoldur() {
   const liste = saglayiciListe() || [];
   const tercih = D && D.tercih;
   const opts = [];
@@ -1570,13 +1593,28 @@ function secicileriDoldur() {          // ATAMA sağlayıcı-model seçeneği (c
     const glm53 = opts.find((o) => o.deger.indexOf("glm-5.3") >= 0);
     varsayilan = (glm53 && glm53.deger) || (opts[0] && opts[0].deger) || "";
   }
-  const atSec = $("atSaglayici");
-  const onceki = atSec.value;
-  atSec.textContent = "";
-  for (const o of opts) atSec.insertAdjacentHTML("beforeend", '<option value="' + esc(o.deger) + '">' + esc(o.etiket) + "</option>");
-  if (!opts.length) atSec.insertAdjacentHTML("beforeend", '<option value="">(model yok)</option>');
-  atSec.value = onceki || varsayilan;
-  if (!atSec.value && atSec.options.length) atSec.selectedIndex = 0;
+  for (const sec of [$("atSaglayici"), $("chatSecim")]) {
+    const onceki = sec.value;
+    sec.textContent = "";
+    for (const o of opts) sec.insertAdjacentHTML("beforeend", '<option value="' + esc(o.deger) + '">' + esc(o.etiket) + "</option>");
+    if (!opts.length) sec.insertAdjacentHTML("beforeend", '<option value="">(model yok)</option>');
+    sec.value = onceki || varsayilan;
+    if (!sec.value && sec.options.length) sec.selectedIndex = 0;
+    sec.disabled = !opts.length;
+  }
+}
+
+function chatSecicileriYaz() {
+  const sec = $("chatSecim");
+  if (!D) {
+    sec.textContent = "";
+    sec.insertAdjacentHTML("beforeend", '<option value="">(deney sunucusu yok — fail-closed)</option>');
+    sec.disabled = true;
+    $("chatRol").disabled = true;
+    return;
+  }
+  $("chatRol").disabled = false;
+  secicileriDoldur();
 }
 
 function ajanlarYaz() {
@@ -1859,15 +1897,69 @@ document.addEventListener("keydown", (e) => {
    Bu dalgada chat YERLEŞİM + şablon üreticidir — canlı AI yanıtı D-4 dalgasında bağlanır
    (görünür ŞABLON etiketi zorunlu; etiketsiz sahte AI YASAK). EK-2: onay cümlesi
    ÜRETİLMEZ/ÇALIŞTIRILMAZ — komutlar terminalinizde sizinle koşar, GUI koşmaz. */
-const CHAT_ETIKET = "ŞABLON — canlı AI yanıtı D-4 dalgasında bağlanır; GUI komut koşmaz (EK-2)";
+const CHAT_ETIKET = "ŞABLON — komut üretici; manager yanıtı gerçek 4930 kaydından gelir (GUI komut koşmaz — EK-2)";
+let chatAltta = true;
+let chatIlk = true;
 function chatMesajEkle(kim, icerikHtml) {
   const liste = $("chatListe");
   const kutu = document.createElement("div");
-  kutu.className = "chatMesaj chat-" + kim;
+  kutu.className = "chatMesaj chat-yerel chat-" + kim;
   kutu.innerHTML = icerikHtml;
   liste.appendChild(kutu);
-  liste.scrollTop = liste.scrollHeight;
+  if (chatAltta || chatIlk) liste.scrollTop = liste.scrollHeight;
   return kutu;
+}
+
+function chatKayitlar() {
+  const mudahale = D && Array.isArray(D.mudahale) ? D.mudahale : [];
+  const log = D && Array.isArray(D.log) ? D.log : [];
+  const kayitlar = [];
+  for (const m of mudahale) kayitlar.push({ kim: "insan", t: String(m.t || ""), metin: m.not != null ? String(m.not) : "" });
+  for (const s of log) {
+    const tur = String(s.tur || "");
+    if (tur === "mudahale-yanit") kayitlar.push({ kim: "operator", t: String(s.t || ""), metin: s.metin != null ? String(s.metin) : "" });
+    if (tur === "manager-yanit") kayitlar.push({ kim: "manager", t: String(s.t || ""), metin: s.metin != null ? String(s.metin) : "" });
+  }
+  kayitlar.sort((a, b) => a.t.localeCompare(b.t));
+  const gorunen = new Set();
+  return kayitlar.filter((k) => {
+    if (k.kim === "insan") return true;
+    if (gorunen.has(k.metin)) return false;
+    gorunen.add(k.metin);
+    return true;
+  });
+}
+
+function chatBalonHtml(k) {
+  const kim = k.kim === "insan" ? "SEN (insan:web)" : k.kim === "manager" ? "MANAGER (GLM 5.3 — izole)" : "OPERATÖR";
+  const sinif = k.kim === "insan" ? "kullanici" : k.kim;
+  let h = '<div class="chatMesaj chat-sunucu chat-' + sinif + '"><p class="chatKim">' + esc(kim) + "</p><p>" + esc(k.metin) + "</p>";
+  if (k.t) h += '<p class="chatSaat">' + esc(k.t) + "</p>";
+  return h + "</div>";
+}
+
+function chatManagerYaz() {
+  const m = D && D.manager ? D.manager : null;
+  $("chatManager").textContent = m ? "MANAGER — " + String(m.ajan || "deney-manager-g9") + " · " + String(m.aktor || "ai-manager:glm-5.3") : "";
+}
+
+function chatKayitlarYaz() {
+  const liste = $("chatListe");
+  const yerel = Array.from(liste.children).filter((el) => el.classList.contains("chat-yerel"));
+  const altta = liste.scrollTop + liste.clientHeight >= liste.scrollHeight - 48;
+  liste.textContent = "";
+  chatManagerYaz();
+  if (!D) { $("chatKirmizi").innerHTML = deneyOluBanner(); return; }
+  $("chatKirmizi").innerHTML = "";
+  const kayitlar = chatKayitlar();
+  if (!kayitlar.length) liste.insertAdjacentHTML("beforeend", '<div class="chatMesaj chat-sunucu chat-sistem"><p>(sohbet yok — ilk müdahaleyi sen yaz)</p></div>');
+  for (const k of kayitlar) liste.insertAdjacentHTML("beforeend", chatBalonHtml(k));
+  for (const el of yerel) liste.appendChild(el);
+  if (chatIlk || altta || chatAltta) {
+    liste.scrollTop = liste.scrollHeight;
+    chatAltta = true;
+  }
+  chatIlk = false;
 }
 function chatSablonlar(hedef) { // hedef cümleden GERÇEK komut dizgileri (koşulmaz — panoya alınır)
   const t = hedef.replace(/"/g, "'");
@@ -1882,6 +1974,9 @@ function chatPlanTaslak(hedef) { // «planı oluştur» akışı: görev/faz/lim
 }
 function chatYanitla(hedef) {
   chatMesajEkle("kullanici", "<p>" + esc(hedef) + "</p>");
+  chatSablonYaz(hedef);
+}
+function chatSablonYaz(hedef) {
   let h = '<p><span class="chatSabit">' + CHAT_ETIKET + "</span></p>";
   for (const s of chatSablonlar(hedef)) {
     h += '<div class="chatKomutSatir"><code>' + esc(s.komut) + '</code>' +
@@ -1894,7 +1989,7 @@ function chatYanitla(hedef) {
   kutu.querySelectorAll(".chatKopyala, .chatPlanKopyala").forEach((b) => {
     b.addEventListener("click", () => {
       panoyaYaz(b.getAttribute("data-chat-komut"));
-      toast("Şablon komutu panoya alındı — terminalinizde koşun. Chat bu dalgada ŞABLON üretir, koşmaz (canlı AI yanıtı D-4).");
+      toast("Şablon komutu panoya alındı — terminalinizde koşun. Manager yanıtı gerçek 4930 kaydından gelir.");
     });
   });
 }
@@ -1903,9 +1998,53 @@ $("chatForm").addEventListener("submit", (e) => {
   const giris = $("chatGiris");
   const deger = giris.value.trim();
   if (!deger) { toast("Hedef cümle boş — ne yapılmasını istiyorsun? (örn. «pano arayüzünü yenile»)"); giris.focus(); return; }
-  chatYanitla(deger);
-  giris.value = "";
+  if (!D) { $("chatKirmizi").innerHTML = deneyOluBanner(); return; }
+  const secim = modelSecimAyristir($("chatSecim").value);
+  const govde = { metin: deger, rol: $("chatRol").value || "manager" };
+  if (secim) { govde.provider = secim.provider; govde.model = secim.model; }
+  const dugme = $("chatGonder");
+  dugme.disabled = true;
+  const kullaniciKutu = chatMesajEkle("kullanici", "<p>" + esc(deger) + "</p>");
+  deneyPost("/api/deney/mudahale", govde)
+    .then(async (yanit) => {
+      $("chatKirmizi").innerHTML = "";
+      kullaniciKutu.remove();
+      await deneyYukle();
+      chatMesajEkle("sistem", "<p>GERÇEK 4930 YANITI: " + esc(JSON.stringify(yanit)) + "</p>");
+      chatSablonYaz(deger);
+      giris.value = "";
+    })
+    .catch((hata) => {
+      kullaniciKutu.remove();
+      $("chatKirmizi").innerHTML = '<div class="dkKirmizi">DENEY SUNUCUSU HATA — ' + esc(hata.message) + " (fail-closed; sahte yanıt ÜRETİLMEZ).</div>";
+    })
+    .finally(() => { dugme.disabled = false; });
 });
+
+$("chatListe").addEventListener("scroll", () => {
+  const liste = $("chatListe");
+  chatAltta = liste.scrollTop + liste.clientHeight >= liste.scrollHeight - 48;
+});
+
+$("chatSecim").addEventListener("change", async () => {
+  if (!D) { $("chatKirmizi").innerHTML = deneyOluBanner(); return; }
+  const secim = modelSecimAyristir($("chatSecim").value);
+  if (!secim) { toast("Sağlayıcı/model seçilmedi — seçenekler deney durumundan (4930) doldurulur."); return; }
+  try {
+    await deneyPost("/api/deney/tercih", { provider: secim.provider, model: secim.model });
+    $("chatKirmizi").innerHTML = "";
+    toast("Tercih yazıldı: " + secim.provider + "/" + secim.model + " (tercih.json — GERÇEK uç).");
+    await deneyYukle();
+  } catch (e) {
+    chatSecimiSunucuyaGeriAl();
+    $("chatKirmizi").innerHTML = '<div class="dkKirmizi">TERCİH RED — ' + esc(e.message) + " (fail-closed).</div>";
+  }
+});
+
+function chatSecimiSunucuyaGeriAl() {
+  const tercih = D && D.tercih;
+  $("chatSecim").value = tercih && tercih.provider && tercih.model ? tercih.provider + "|" + tercih.model : "";
+}
 
 /* ============ 30 sn tazeleme (canlı sayaç yazısı üst bardan kalktı — veri yenilenir, yazı gösterilmez) ============ */
 
@@ -1917,6 +2056,7 @@ sagPanelAyarla("chat"); // VARSAYILAN: chat paneli (kullanıcı emri — R2)
 yukle();
 deneyYukle();           // K8 ADIM-B: deney köprüsü (4930) — PROJE/API yüzleri gerçek veriyle beslenir
 setInterval(() => { yukle(); deneyYukle(); }, 30_000); // hafif tazelik; graf okuma + deney okuma (D-3)
+setInterval(() => { if (sagAktif === "chat") deneyYukle(); }, 5_000);
 </script>
 </body>
 </html>

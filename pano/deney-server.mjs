@@ -355,14 +355,14 @@ function atamaIsle(govde) {
   }
 }
 
-// POST /api/deney/mudahale — {not} -> mudahale.jsonl APPEND {t, kim, not}.
+// POST /api/deney/mudahale — {metin|not} -> mudahale.jsonl APPEND {t, kim, not}.
 function mudahaleIsle(govde) {
   if (nesneDegil(govde)) {
     return { kod: 400, govde: { hata: 'govde nesne degil' }, gunluk: { tur: 'hata', metin: 'mudahale RED: govde nesne degil' } };
   }
-  const not = govde.not;
+  const not = typeof govde.metin === 'string' ? govde.metin : govde.not;
   if (typeof not !== 'string') {
-    return { kod: 400, govde: { hata: 'not metin degil' }, gunluk: { tur: 'hata', metin: 'mudahale RED: not metin degil' } };
+    return { kod: 400, govde: { hata: 'metin degil' }, gunluk: { tur: 'hata', metin: 'mudahale RED: metin degil' } };
   }
   const kirpilmis = not.trim();
   if (!kirpilmis) {
