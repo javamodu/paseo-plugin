@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S0b-01",
+  "at": "2026-10-30T01:44:08.057+03:00",
+  "sourceManifest": [
+    { "path": "core/src/local-runtime.ts", "sha256": "bdb7aea4fab2ceda162cfa75092ad8a38de756a3f8c6cacd59b79b032b058d54", "bytes": 17033 },
+    { "path": "core/src/probe.mjs", "sha256": "6bd46992c534a7df1dbed0f56e480e1f5bdfe01cc2d1264a54e31c3885629bd8", "bytes": 12028 },
+    { "path": "core/test/local-runtime.test.ts", "sha256": "b320c29ade0bbe134c41ba50fad97d70401ac14a17befa531cb6d8549c3b542c", "bytes": 8964 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S0b-01/OZET.md", "sha256": "6cd43f3d7dd83ea00609e4acb2c5bceabcb57d1046f90fde7534a8e790436f0b", "bytes": 1883 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0b-01/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0b-01/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S0b-01/OZET.md" }
+  ],
+  "commands": [
+    { "recipeId": "TARGETED", "command": "node --test --test-reporter=spec test/dc-boundary-positive.test.ts", "cwd": "core", "exitCode": 0, "expectedExitCode": 0, "outputRef": "raporlar/dc-uygulama/DC-S0b-01/OZET.md" }
+  ],
+  "changedFiles": [
+    "core/test/fixtures/dc-boundary-fixture.mjs",
+    "core/test/dc-boundary-positive.test.ts"
+  ],
+  "blockers": []
+}
