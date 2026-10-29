@@ -26,8 +26,9 @@
 | K5 S0A_START | BEKLİYOR | «S0A başla» (önkoşul: CALISTIRMA §2 8-madde) | 4 keşif fişi — ÜRÜN hattı açılır (tek bütçe sahibi DC-H1: kaynak/test/pilot payları orada) | plans/uygulama-paketleri/DC-H1-2026-10-28/ |
 | K6 H1 PAYLARI + DÜDÜKLER | BEKLİYOR | karar paketi cümleleri | bütçe payları + S2/S5/S6 düdükleri | plans/KARAR-PAKETI-2026-10-28.md |
 | K7 PUSH | BEKLİYOR | «push» | yerel commit'ler uzak repoya iner | AGENTS.md (push ayrı emir) |
+| K8 YÖNETİM ARAYÜZÜ (write-model) | BEKLİYOR | «DALGA-YÖNETİM başla» | admin her ekranı ön yüzden GÖRÜR + EDİTLER (plan/rol/ayar/onay; AI ile veya manuel); her edit **anında** MD + makine-okur çifte kayıt olarak diske iner — görev grafı + plan arkada makine-okur programlanır; izleme → yönetim dönüşür | plans/YONETIM-ARAYUZ-PLANI-2026-10-29.md |
 
-**Geçiş sırası (öneri):** K1 → K2 → K3 → K5 → K4 → K7 → K6. Değişirse yalnız bu satır güncellenir.
+**Geçiş sırası (öneri):** K1 → K2 → K8 → K3 → K5 → K4 → K7 → K6. Değişirse yalnız bu satır güncellenir.
 
 ## 3. Bakım
 
