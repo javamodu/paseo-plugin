@@ -1,17 +1,40 @@
 // paseo-pano mini sunucu — K-0019 prototip. Bagimliliksiz node:http, yalniz 127.0.0.1.
 // D-1a (kapsul-tuval cekirdegi): PANO_PORT (test icin 0 = gecici port), GET /tuval, GET /api/graf.
+// D-3 Kapi 3 (dar-dene dalga 2/3; K-0055): POST /api/atama/taslak + /api/atama/onay + GET /api/atama/durum.
 import http from "node:http";
-import { readFileSync, existsSync, readdirSync, statSync, writeFileSync, renameSync, mkdirSync, openSync, writeSync, fsyncSync, closeSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync, writeFileSync, renameSync, mkdirSync, openSync, writeSync, fsyncSync, closeSync, appendFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { atamaTaslakla, onayla } from "./graf-yonetim.js"; // D-3 cekirdegi (yazilmaz, yalniz cagrilir)
+import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
 const KAPSUL_DIR = process.env.ORDU_KAPSUL_DIR || join(import.meta.dirname, "..", "plans", "kapsuller");
+const ATAMA_DIR = process.env.ORDU_ATAMA_DIR || join(import.meta.dirname, "..", "plans", "atamalar"); // D-3 cift-kayit hedefi (KA-4)
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
 const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
 const onbellek = new Map(); // repo -> { ts, veri }
 const sseIstemci = new Set();
+
+// D-3 Kapi 3 (dar-dene dalga 2/3; K-0055 uyumlu): atama defterleri — cift-kayit MD+JSON, append-only, fsync'li.
+// AKTOR SUNUCU TARAFINDAN sabit "insan:web" — istemciden aktor alani KABUL EDILMEZ (KA-5; spoof edilemez).
+function defterEkle(yol, satir) {
+  mkdirSync(ATAMA_DIR, { recursive: true });
+  const fd = openSync(yol, "a"); // append-only: eski satir bozulmaz
+  try { appendFileSync(fd, satir); fsyncSync(fd); } finally { closeSync(fd); }
+}
+
+// KA-6: gorevin tarihce en yeni kaydi — taslak + onayli IKI defterden TARIH ile sec (yoksa null).
+function sonKayit(gorevId) {
+  const adaylar = [];
+  for (const ad of ["taslaklar.jsonl", "onayli.jsonl"]) {
+    for (const k of atamaOku(join(ATAMA_DIR, ad)).kayitlar) if (k && k.gorevId === gorevId) adaylar.push(k); // null satir korumasi (ORDU-3 B-002)
+  }
+  if (adaylar.length === 0) return null;
+  adaylar.sort((a, b) => Date.parse(b.tarih || "") - Date.parse(a.tarih || ""));
+  return adaylar[0];
+}
 
 function repolariBul() {
   const bulunan = [];
@@ -150,7 +173,7 @@ const sunucu = http.createServer((req, res) => {
     req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
     req.on("end", () => {
       let id = null;
-      try { id = String(JSON.parse(govde).id ?? ""); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      try { const v = JSON.parse(govde); id = String((v && v.id) ?? ""); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; } // null govde korumasi (ORDU-3 B-001 sinifi)
       if (!/^[A-Za-z0-9._-]+$/.test(id)) { jsonYaz(res, 422, { hata: "gecersiz id (izinli: harf/rakam/._-; yol kacamasi RED)" }); return; }
       if (!existsSync(GRAF_JSON)) { jsonYaz(res, 404, { hata: "graf SSOT yok — kart uretilmez (fail-closed): " + GRAF_JSON }); return; }
       let g = null;
@@ -166,6 +189,66 @@ const sunucu = http.createServer((req, res) => {
       renameSync(tmp, yol);
       jsonYaz(res, 201, { ok: true, id, yol, eksen: 8, yazar: "pano/server.js POST /api/kart" });
     });
+    return;
+  }
+  // D-3 Kapi 3 (dar-dene dalga 2/3): atama uclari — taslak ACMA insan kapisi; aktor sunucu tarafinda sabit.
+  // K-0055: cift-kayit (jsonl + md ayni is), write-set YALNIZ ATAMA_DIR 4 dosya; graf SSOT salt-okunur.
+  if (req.method === "POST" && url.pathname === "/api/atama/taslak") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — atama yazma kapali (fail-closed)" }); return; }
+    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    let govde = "";
+    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
+    req.on("end", () => {
+      let istek = null;
+      try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001
+      const gorevId = typeof istek.gorevId === "string" ? istek.gorevId.trim() : "";
+      const ajanId = typeof istek.ajanId === "string" ? istek.ajanId.trim() : "";
+      if (!gorevId || !ajanId) { jsonYaz(res, 422, { hata: "gorevId ve ajanId zorunlu (bos/eksik RED)" }); return; }
+      if (!existsSync(GRAF_JSON)) { jsonYaz(res, 404, { hata: "graf SSOT yok — atama uretilmez (fail-closed): " + GRAF_JSON }); return; }
+      let g = null;
+      try { g = JSON.parse(readFileSync(GRAF_JSON, "utf8")); } catch { jsonYaz(res, 500, { hata: "graf JSON bozuk — atama uretilmez (fail-closed)" }); return; }
+      if (!Array.isArray(g.gorevler) || !g.gorevler.some((x) => x.id === gorevId)) { jsonYaz(res, 404, { hata: "graf SSOT'ta boyle bir gorev yok: " + gorevId }); return; }
+      const onceki = sonKayit(gorevId); // KA-6: surum zinciri iki defterin tarihce en yenisinden
+      let taslak = null;
+      try {
+        taslak = atamaTaslakla(gorevId, ajanId, onceki, "insan:web", new Date().toISOString());
+      } catch (e) { jsonYaz(res, 500, { hata: "atamaTaslakla RED: " + (e instanceof Error ? e.message : "bilinmeyen") }); return; }
+      defterEkle(join(ATAMA_DIR, "taslaklar.jsonl"), JSON.stringify(taslak) + "\n");
+      defterEkle(join(ATAMA_DIR, "taslaklar.md"), "| " + taslak.tarih + " | " + taslak.gorevId + " | " + taslak.ajanId + " | surum " + taslak.surum + " | TASLAK |\n");
+      jsonYaz(res, 201, { ok: true, taslak });
+    });
+    return;
+  }
+  if (req.method === "POST" && url.pathname === "/api/atama/onay") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — atama yazma kapali (fail-closed)" }); return; }
+    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    let govde = "";
+    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
+    req.on("end", () => {
+      let istek = null;
+      try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001
+      const gorevId = typeof istek.gorevId === "string" ? istek.gorevId.trim() : "";
+      if (!gorevId) { jsonYaz(res, 422, { hata: "gorevId zorunlu (bos/eksik RED)" }); return; }
+      const { kayitlar } = atamaOku(join(ATAMA_DIR, "taslaklar.jsonl")); // bozuk satir atlanir + sayilir (cekirdek)
+      const taslak = [...kayitlar].reverse().find((k) => k && k.gorevId === gorevId && k.onay === "TASLAK"); // null kayit korumasi (O3 B-002)
+      if (!taslak) { jsonYaz(res, 404, { hata: "onaylanacak TASLAK yok (taslaklar.jsonl): " + gorevId }); return; }
+      let onayli = null;
+      try { onayli = onayla(taslak, "insan:web"); } catch (e) { jsonYaz(res, 500, { hata: "onayla RED: " + (e instanceof Error ? e.message : "bilinmeyen") }); return; }
+      let sonuc = null;
+      try { sonuc = atamaYaz(onayli, join(ATAMA_DIR, "onayli.jsonl")); } // idempotans: mevcut:true hata DEGIL
+      catch (e) { jsonYaz(res, 500, { hata: "atamaYaz RED (defter kaydi gecersiz): " + (e instanceof Error ? e.message : "bilinmeyen") }); return; }
+      if (sonuc.yazildi) { // md aynasi yalniz gercek yazimda — jsonl ile satir sayisi senkron (cift-kayit)
+        defterEkle(join(ATAMA_DIR, "onayli.md"), "| " + onayli.tarih + " | " + onayli.gorevId + " | " + onayli.ajanId + " | surum " + onayli.surum + " | ONAYLI |\n");
+      }
+      jsonYaz(res, 201, { ok: true, kayit: onayli, yazildi: sonuc.yazildi, mevcut: sonuc.mevcut, toplam: sonuc.toplam });
+    });
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/api/atama/durum") {
+    const { harita, bozuk } = atamaDurum(join(ATAMA_DIR, "onayli.jsonl"));
+    jsonYaz(res, 200, { harita, bozuk });
     return;
   }
   if (req.method === "GET" && url.pathname === "/api/veri") {
@@ -190,7 +273,7 @@ const sunucu = http.createServer((req, res) => {
     req.on("end", () => {
       try {
         const emir = JSON.parse(govde);
-        if (!IZINLI_EMIRLER.has(emir.eylem)) { jsonYaz(res, 422, { hata: "dar-liste disi eylem", izinli: [...IZINLI_EMIRLER] }); return; }
+        if (!emir || typeof emir !== "object" || !IZINLI_EMIRLER.has(emir.eylem)) { jsonYaz(res, 422, { hata: "dar-liste disi eylem", izinli: [...IZINLI_EMIRLER] }); return; } // null govde korumasi (O3 B-001 sinifi)
         console.log("[pano] emir:", emir.eylem, emir.metin ?? "");
         jsonYaz(res, 202, { ok: true });
       } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); }

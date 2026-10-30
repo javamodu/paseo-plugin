@@ -17,7 +17,8 @@ import http from 'node:http';
 import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { atamaTaslakla, atanabilirler } from './graf-yonetim.js';
+import { atamaTaslakla, atanabilirler, onayla } from './graf-yonetim.js';
+import { atamaDurum, atamaYaz } from './graf-yaz.mjs';
 
 // --- sabitler -------------------------------------------------------------------
 
@@ -28,7 +29,7 @@ const GOVDE_LIMIT_BAYT = 4096;      // POST govde tavaninin ustu -> 400
 const NOT_LIMIT_KAR = 2000;         // mudahale not tavaninin ustu -> 400
 const AKTOR = 'insan:web';          // deneyde tek kalem sahibi insan (vekil/ajan yok — graf-yonetim kurali)
 const KUYRUK = { log: 80, atamalar: 20, mudahale: 10 }; // /api/deney/durum yanitindaki son-N kuyruklari
-const YAZMA_IZINLI = ['tercih.json', 'atamalar.jsonl', 'mudahale.jsonl', 'log.jsonl', 'manager-kuyruk.jsonl'];
+const YAZMA_IZINLI = ['tercih.json', 'atamalar.jsonl', 'atamalar-onay.jsonl', 'mudahale.jsonl', 'log.jsonl', 'manager-kuyruk.jsonl'];
 
 // --- durum (modul kapsami — baslat() override eder) -------------------------------
 
@@ -355,6 +356,39 @@ function atamaIsle(govde) {
   }
 }
 
+function grafOnayIsle(govde) {
+  if (nesneDegil(govde)) {
+    return { kod: 400, govde: { hata: 'govde nesne degil' }, gunluk: { tur: 'hata', metin: 'graf-onay RED: govde nesne degil' } };
+  }
+  const gorevId = govde.gorevId;
+  if (typeof gorevId !== 'string' || !gorevId.trim()) {
+    return { kod: 400, govde: { hata: 'gorevId string+trim degil' }, gunluk: { tur: 'hata', metin: 'graf-onay RED: gorevId string+trim degil' } };
+  }
+  const kayitlar = jsonlOku(join(aktifDir, 'atamalar.jsonl')).satirlar;
+  const taslak = [...kayitlar].reverse().find((k) => k && k.gorevId === gorevId && k.onay === 'TASLAK');
+  if (!taslak) {
+    return {
+      kod: 400,
+      govde: { hata: 'onay bekleyen TASLAK yok: ' + gorevId },
+      gunluk: { tur: 'hata', metin: 'graf-onay RED: onay bekleyen TASLAK yok: ' + gorevId },
+    };
+  }
+  try {
+    const onayli = onayla(taslak, AKTOR);
+    const sonuc = atamaYaz(onayli, join(aktifDir, 'atamalar-onay.jsonl'));
+    return {
+      kod: 200,
+      govde: { tamam: true, kayit: onayli, yazildi: sonuc.yazildi, mevcut: sonuc.mevcut, toplam: sonuc.toplam },
+      gunluk: {
+        tur: 'graf-onay',
+        metin: 'graf onay: ' + gorevId + ' surum ' + onayli.surum + ' -> defter (' + (sonuc.yazildi ? 'yazildi' : 'mevcut') + ')',
+      },
+    };
+  } catch (e) {
+    return { kod: 400, govde: { hata: e && e.message }, gunluk: { tur: 'hata', metin: 'graf-onay RED: ' + (e && e.message) } };
+  }
+}
+
 // POST /api/deney/mudahale — {metin|not} -> mudahale.jsonl APPEND {t, kim, not}.
 function mudahaleIsle(govde) {
   if (nesneDegil(govde)) {
@@ -498,8 +532,10 @@ function managerYanitIsle(govde) {
 const UCLAR = {
   '/deney': { GET: panelIsci },
   '/api/deney/durum': { GET: durumIsci },
+  '/api/deney/graf-durum': { GET: (q, r) => jsonYaz(r, 200, atamaDurum(join(aktifDir, 'atamalar-onay.jsonl'))) },
   '/api/deney/tercih': { POST: (q, r) => postIsci(q, r, 'tercih', tercihIsle) },
   '/api/deney/atama': { POST: (q, r) => postIsci(q, r, 'atama', atamaIsle) },
+  '/api/deney/graf-onay': { POST: (q, r) => postIsci(q, r, 'graf-onay', grafOnayIsle) },
   '/api/deney/mudahale': { POST: (q, r) => postIsci(q, r, 'mudahale', mudahaleIsle) },
   '/api/deney/manager-yanit': { POST: (q, r) => postIsci(q, r, 'manager-yanit', managerYanitIsle) },
   '/api/deney/api-test': { POST: (q, r) => postIsci(q, r, 'api-test', apiTestIsle) },

@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 9201ad9 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 49e6655 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -77,11 +77,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0056.md` (2KB) — K-0056 — ATOM-H1 kalan fişlerinde 3-ajan hızlandırma (boru hattı modeli)
 - `kararlar/K-0057.md` (2.5KB) — K-0057 — Süreklilik süpervizörü: 3 ajan + tıkanma karşıtı nöbet (kullanıcı emri)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (14 dosya: en yeni graf-yaz.test.mjs, graf-yaz.mjs, kapsul-tuval.test.mjs)
+- `pano/` (14 dosya: en yeni server.js, deney-server.mjs, graf-yaz.test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (89 dosya: en yeni dogrula.mjs, BORU-HATTI-KALDIRAC-DUZELTME-PLANI-2026-10-30.md, HANDOFF-2026-10-30-0250.md)
+- `plans/` (90 dosya: en yeni DAR-DENE-DALGA-2-BAGLAMA-PLANI-2026-10-30.md, dogrula.mjs, BORU-HATTI-KALDIRAC-DUZELTME-PLANI-2026-10-30.md)
 - `plugin/` (70 dosya: en yeni dc-pilot-entry.test.ts, KILIT.md, surum.ts)
-- `raporlar/` (232 dosya: en yeni 2026-W44.md, OZET.md, KOORDINATOR-DC-S4-2026-10-30.md)
+- `raporlar/` (234 dosya: en yeni ORDU-3-2026-10-30.md, 2026-W44.md, ORDU-4-2026-10-30.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -111,6 +111,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (89.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (90.7KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

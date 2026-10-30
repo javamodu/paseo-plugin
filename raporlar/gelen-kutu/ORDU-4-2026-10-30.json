@@ -1,0 +1,26 @@
+{
+  "schemaSurum": 1,
+  "ajan": "ORDU-4",
+  "tarih": "2026-10-30",
+  "kaynak": "DAR-DENE DALGA 2/3 Kapı-3 yürütüşü",
+  "maddeler": [
+    {
+      "id": "B-001",
+      "baslik": "Izole kanit portlari çakisiyor (4931 hem Kapi-2 hem Kapi-3 briefinde)",
+      "dosyaRef": "plans/DAR-DENE-DALGA-2-BAGLAMA-PLANI-2026-10-30.md",
+      "etiket": "surec/koordinasyon",
+      "siddet": "dusuk",
+      "oneri": "Operator bagimsiz dogrulamayi koordineli portla koşsun; plan kanit olcutunde 4931 ifadesi 'izole bos port' olarak yumusatilabilir",
+      "islenme": null
+    },
+    {
+      "id": "B-002",
+      "baslik": "Operatör brief'inde import modulu imzasi hatali (atamaDurum graf-yaz.mjs'tedir, graf-yonetim.js'te degil)",
+      "dosyaRef": "pano/server.js",
+      "etiket": "dokumantasyon/brief-imzasi",
+      "siddet": "dusuk",
+      "oneri": "Brief imzalari dispatch oncesi kaynakta dogrulanmali",
+      "islenme": null
+    }
+  ]
+}
