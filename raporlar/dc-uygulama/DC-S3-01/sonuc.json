@@ -1,0 +1,33 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S3-01",
+  "at": "2026-10-30T06:43:39.450+03:00",
+  "sourceManifest": [
+    { "path": "core/test/a0-5-lrt.test.ts", "sha256": "84a87dde56b57eaee924d5a308648ba53804b94348bf15d99f5df2bff8378927", "bytes": 24552 },
+    { "path": "core/src/store.ts", "sha256": "e46ed62f7cfade8bc5197b9d20681ebc5bbfe75c74540c83ede9afbb62da9f05", "bytes": 13415 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S3-01/OZET.md", "sha256": "53b0c23555958b7aff87ebe26f45c883e56e4ee5700f65a4fef4a1c36676c2fd", "bytes": 1762 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S3-01/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S3-01/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S3-01/OZET.md" }
+  ],
+  "commands": [
+    {
+      "recipeId": "TARGETED",
+      "command": "node --test --test-reporter=spec test/dc-process-identity.test.ts test/a0-5-lrt.test.ts",
+      "cwd": "core",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "outputRef": "raporlar/dc-uygulama/DC-S3-01/OZET.md"
+    }
+  ],
+  "changedFiles": [
+    "core/src/dc-process-identity.ts",
+    "core/test/dc-process-identity.test.ts"
+  ],
+  "blockers": []
+}
