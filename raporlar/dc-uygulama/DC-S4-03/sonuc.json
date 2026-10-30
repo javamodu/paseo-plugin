@@ -1,0 +1,32 @@
+﻿{
+  "schemaSurum": 2,
+  "taskId": "DC-S4-03",
+  "at": "2026-10-30T13:26:48.051+03:00",
+  "sourceManifest": [
+    { "path": "plans/PLAN.md", "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84", "bytes": 95704 },
+    { "path": "core/src/evaluator.ts", "sha256": "8daecda19e6f38a94d1272434cd0e437dd1d48ca7fbee312ec1a7ad771fe7db8", "bytes": 3866 }
+  ],
+  "artifacts": [
+    { "path": "raporlar/dc-uygulama/DC-S4-03/OZET.md", "sha256": "a1e2f678fcfcfa6f446b0bf54b2ad99178cc763e49c691b3fa1cb775fead03d4", "bytes": 3445 }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    { "id": "P1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S4-03/OZET.md" },
+    { "id": "N1", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S4-03/OZET.md" },
+    { "id": "N2", "observed": true, "evidenceRef": "raporlar/dc-uygulama/DC-S4-03/OZET.md" }
+  ],
+  "commands": [
+    {
+      "recipeId": "TARGETED",
+      "command": "node --test --test-reporter=spec test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+      "cwd": "core",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "outputRef": "raporlar/dc-uygulama/DC-S4-03/OZET.md"
+    }
+  ],
+  "changedFiles": [
+    "core/test/dc-pilot-c.test.ts"
+  ],
+  "blockers": []
+}
