@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 8c4c459 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 9201ad9 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -7,14 +7,15 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `ANAYASA.md` (3.1KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (99 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
-- `core/` (121 dosya: en yeni tip-kapisi.mjs, handoff.test.ts, f4-pano.test.ts)
-- `DERSLER.md` (91.4KB) — DERSLER — paseo-plugin (L5)
+- `core/` (153 dosya: en yeni dc-h1-faults.mjs, dc-h1-fault-matrix.test.ts, dc-pilot-b.test.ts)
+- `DERSLER.md` (95.3KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
 - `kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md` (2.6KB) — ADR eki — Üç denetçi sonrası DC planının sonlandırılması | Karar | Bütçe etkisi (T)
 - `kararlar/ADR-dc-h1-atomik-paketler-2026-10-28.md` (2.6KB) — ADR — DC-H1 uygulama paketlerinin atomikleştirilmesi | Karar | Kanıt ve sınır
+- `kararlar/ADR-dc-s0-teknik-oneri-2026-10-28.md` (3.8KB) — ADR — DC-S0 teknik öneri (TASLAK) | Bağlam | Önerilen teknik yön
 - `kararlar/ADR-demir-cekirdek-kademeli-buyume-2026-10-27.md` (3.1KB) — ADR — Tek ana planın insan kanıtlı, kademeli büyüme revizyonu | Bağlam | Karar
 - `kararlar/ADR-F65-rol-model.md` (9.8KB) — ADR-F6.5 — Rol->model secimi: baglama `nodes.provider`/`nodes.model` kolonlarinda; NULL = "manager'a birak" (deterministik cozum zinciri) (UYGULANDI — kanıt: database/003-role-model.sql migration + test/f65-rol-model.test.ts 311-suitinde PASS; [insan] onay damgası bekler) | Baglam | Karar
 - `kararlar/ADR-kilit-oncesi-kapanis-2026-10-28.md` (2.6KB) — ADR — Kilit öncesi belge ve paket kapanışları | Karar | Kabul ve reddedilen yollar
@@ -72,12 +73,15 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0052.md` (7.1KB) — K-0052 — K-SADE kural sadeleştirme dalgası I: sayaç 80→38 (v7 paketi + OP-A) | Bağlam | Karar (kullanıcı, 2026-10-28 karar turu)
 - `kararlar/K-0053.md` (3.7KB) — K-0053 — Dalga-bazlı yazar hattı (worktree/branch + merge-birimi) | Bağlam | Karar (önerilen)
 - `kararlar/K-0054.md` (4.5KB) — K-0054 — ANAYASA'ya ürün sacayağı SSOT maddeleri (kapsül görev grafı + manager döngüsü) ve dikey hizalama hükmü | Bağlam | Karar (önerilen ANAYASA değişikliği — tam işlenecek metin)
+- `kararlar/K-0055.md` (3.3KB) — K-0055 — K8 birleşme write-model mimarisi: PANO_TOKEN + sınırlı write-set + onay yüzü aktör insan:web | Bağlam | Karar
+- `kararlar/K-0056.md` (2KB) — K-0056 — ATOM-H1 kalan fişlerinde 3-ajan hızlandırma (boru hattı modeli)
+- `kararlar/K-0057.md` (2.5KB) — K-0057 — Süreklilik süpervizörü: 3 ajan + tıkanma karşıtı nöbet (kullanıcı emri)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (9 dosya: en yeni kapsul-tuval.test.mjs, d1b-test.mjs, server.js)
+- `pano/` (14 dosya: en yeni graf-yaz.test.mjs, graf-yaz.mjs, kapsul-tuval.test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (82 dosya: en yeni KAPI-HARITASI-2026-10-29.md, YONETIM-ARAYUZ-PLANI-2026-10-29.md, PLAN.md)
-- `plugin/` (69 dosya: en yeni KILIT.md, surum.ts, OVERVIEW.md)
-- `raporlar/` (191 dosya: en yeni R2-YAZAR-RAPORU.md, 2026-W44.md, BRIEF-R2-TASARIM.md)
+- `plans/` (89 dosya: en yeni dogrula.mjs, BORU-HATTI-KALDIRAC-DUZELTME-PLANI-2026-10-30.md, HANDOFF-2026-10-30-0250.md)
+- `plugin/` (70 dosya: en yeni dc-pilot-entry.test.ts, KILIT.md, surum.ts)
+- `raporlar/` (232 dosya: en yeni 2026-W44.md, OZET.md, KOORDINATOR-DC-S4-2026-10-30.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -107,6 +111,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (71.5KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (89.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
