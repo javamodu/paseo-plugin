@@ -31,7 +31,7 @@
 
 | Dosya | SHA-256 | Byte |
 |---|---|---:|
-| `core/src/dc-full-contract.ts` | `e7dd0f08ed81909466ab82af96ecc0de2731105d014acb1c1154aeb614a6f5e` | 9043 |
+| `core/src/dc-full-contract.ts` | `e7dd0f08ed81909466ab82af96ecc0de2731105d014acb1c1154aebe614a6f5e` | 9043 |
 | `core/test/dc-full-contract.test.ts` | `87af7e6a159110f512b3919a1b35a865c65be45666da1b456a04f9662df1a7f6` | 5889 |
 
 ## Sonuç

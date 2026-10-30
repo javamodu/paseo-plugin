@@ -189,6 +189,16 @@ export function validateResult(p, taskId, r, root = repoRoot) {
     if (actual) need(actual.sha256 === a.sha256 && actual.bytes === a.bytes && actual.bytes > 0, 'result-artifact-changed:' + a.path);
   }
   if (complete) need(artifactPaths.has(evidenceRoot + 'OZET.md'), 'result-summary-artifact-required');
+  // OZET transkripsiyonunda kısa kalan sha256 (S2-02 63 hane / S4-02 62 hane / S1-01 63 hane — üç kez):
+  // 57-63 hane hex = 64'ten kısa ama yarıdan uzun → yalnız düşmüş sha256 olabilir;
+  // 40 hane tam SHA-1 (git HEAD damgası gibi) ve kısa commit önekleri etkilenmez.
+  const summaryRel = evidenceRoot + 'OZET.md';
+  if (artifactPaths.has(summaryRel)) {
+    try {
+      const truncated = readFileSync(resolve(root, summaryRel), 'utf8').match(/\b[0-9a-f]{57,63}\b/);
+      need(!truncated, 'ozet-truncated-hash:' + summaryRel + ':' + (truncated ? truncated[0] : ''));
+    } catch { need(false, 'ozet-summary-unreadable:' + summaryRel); }
+  }
   const recipes = new Map((t.recipes ?? []).map((id) => [id, p.recipes.find((x) => x.id === id)]));
   if (t.test) recipes.set('TARGETED', t.test);
   const commandIds = new Set();

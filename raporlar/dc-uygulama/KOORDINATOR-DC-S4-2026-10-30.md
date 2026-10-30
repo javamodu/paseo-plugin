@@ -68,3 +68,11 @@ Hedefli komutlar cwd=core (§2 tablosu). **Ayrı pilot kökü**: izole temp dizi
 ## 8. Duruş koşulları
 
 (a) Tavan → dur + devir; (b) mekanizma/izin eksikse **BLOCKED** (sahte değer YOK); (c) write-set/kapsam büyümesi → paket revizyonu; (d) sağlayıcı harcaması/canlı/insan-kabul sınıfı → **DUR ve rapor** (EK-2 istisnası yok — LIVE_SPEND/ROLLBACK_DEMO/gerçek insan kara-kutu bacakları fiş kapanışı değildir). **S4 sonuçları EVIDENCE_RECORDED sınıfıdır — sprint PASS/ürün kabulü/insan kapısı DEĞİL.** S4-04 N2 hükmü aynen: **H1 kararı veya H2 başlatması ajanca verilmez; otomatik merge/deploy yok.** H1 nihai insan kabulü AÇIK kalır.
+
+## 9. Kaldıraç talimatları (2026-10-30 14:59 — BORU-HATTI-KALDIRAC planından; sonraki TÜM koordinatör kayıtlarına taşınır)
+
+**P4 — ORDU-3 (salt-okur denetçi) brief zorunlu maddesi:** her P-x/N-x denetiminde ASSERT EDİLEN DEĞERİN KAYNAĞI izlenir — gerçek mekanizmanın çıktısı mı (gate.request gibi gerçek çağrı), testin kendi lokal sabiti mi? Test-içi sabit karşı-sabit = tautoloji şüphesi → RED bildir (emsal: S4-04 N2; DERSLER 196). Şema denetimi satır sayar; semantik denetim tester bacağındadır — bu maddenin amacı denetçi bacağını tautoloji-yakalar hale getirmek (derinlik farkı kapanır).
+
+**P5 — fiş raporu ilk satırı:** her fiş kapanış/ara raporunun İLK SATIRI «bağlam ~%XX» olur (ölçülen tahmin değil — ajanın kendi bildirimi; %70+ → yeni büyük fiş ALMA, atomik parçala; %80 → devir töreni; mevcut ÇEKİRDEK kuralının fişlere genellenmesi — emsal: ORDU-1 %94'te kırılgandı).
+
+**P6 — fiş kapanışında usage alanı:** koordinatör kapanış kaydına `usage:{in,out,cached}` yazılır — get_agent_status / oturum kaydından okunur; değer yoksa alan `null` kalır (uydurma YOK). Haftalık telemetriye bağlanır (emsal: S1/S7 oturum usage kayıtları zaten var — boru hattı zincirinde eksikti).
