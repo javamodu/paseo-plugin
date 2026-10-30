@@ -11,7 +11,7 @@
       "etiket": "fail-closed/alan-dogrulama",
       "siddet": "yuksek",
       "oneri": "Parse sonrasi nesne turu denetimi ekle; null/dizi/primitif icin 400/422 dondur.",
-      "islenme": null
+      "islenme": "ISLENDI (a3bcc27)"
     },
     {
       "id": "B-002",
@@ -20,7 +20,7 @@
       "etiket": "fail-closed/defter-dayanikliligi",
       "siddet": "orta",
       "oneri": "Dongude null/gecersiz kaydi atla veya sema denetimiyle RED et; hatayi 500 ile raporla.",
-      "islenme": null
+      "islenme": "ISLENDI (a3bcc27)"
     }
   ]
 }

@@ -11,7 +11,7 @@
       "etiket": "surec/koordinasyon",
       "siddet": "dusuk",
       "oneri": "Operator bagimsiz dogrulamayi koordineli portla koşsun; plan kanit olcutunde 4931 ifadesi 'izole bos port' olarak yumusatilabilir",
-      "islenme": null
+      "islenme": "ISLENDI (a3bcc27)"
     },
     {
       "id": "B-002",
@@ -20,7 +20,7 @@
       "etiket": "dokumantasyon/brief-imzasi",
       "siddet": "dusuk",
       "oneri": "Brief imzalari dispatch oncesi kaynakta dogrulanmali",
-      "islenme": null
+      "islenme": "ISLENDI (a3bcc27)"
     }
   ]
 }
