@@ -1,0 +1,72 @@
+{
+  "schemaSurum": 2,
+  "taskId": "DC-S4-04",
+  "at": "2026-10-30T13:39:39.732+03:00",
+  "sourceManifest": [
+    {
+      "path": "plans/PLAN.md",
+      "sha256": "271a76f35ef65d4e62d7c6ea5dfa065774aa4bd662f710660a8c3b1adc013b84",
+      "bytes": 95704
+    },
+    {
+      "path": "core/src/backup.ts",
+      "sha256": "ef34a2a73c5f1b4e1061f55d40be963447bb57a4888ca4d612dd00990c1823bc",
+      "bytes": 1410
+    },
+    {
+      "path": "core/src/telemetry.ts",
+      "sha256": "1ba4dfacd75cb907ceda6e3ae36b23db682c90e5791dc0050edbfbfe5894773d",
+      "bytes": 6817
+    },
+    {
+      "path": "scripts/test-kanal.ps1",
+      "sha256": "c13079ace145125c91e8ea194f8514d18a9ea4e880b4886afb313b6392c5286f",
+      "bytes": 2205
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "raporlar/dc-uygulama/DC-S4-04/OZET.md",
+      "sha256": "2dbf7f6ac03c0c78e47fbe5971e3d73def6ecf13ef770d48953a6f879ab4b82a",
+      "bytes": 2631
+    }
+  ],
+  "outcome": "EVIDENCE_RECORDED",
+  "checks": [
+    {
+      "id": "P1",
+      "observed": true,
+      "evidenceRef": "raporlar/dc-uygulama/DC-S4-04/OZET.md"
+    },
+    {
+      "id": "P2",
+      "observed": true,
+      "evidenceRef": "raporlar/dc-uygulama/DC-S4-04/OZET.md"
+    },
+    {
+      "id": "N1",
+      "observed": true,
+      "evidenceRef": "raporlar/dc-uygulama/DC-S4-04/OZET.md"
+    },
+    {
+      "id": "N2",
+      "observed": true,
+      "evidenceRef": "raporlar/dc-uygulama/DC-S4-04/OZET.md"
+    }
+  ],
+  "commands": [
+    {
+      "recipeId": "TARGETED",
+      "command": "node --test --test-reporter=spec test/dc-h1-fault-matrix.test.ts test/dc-pilot-a.test.ts test/dc-pilot-b.test.ts test/dc-pilot-c.test.ts",
+      "cwd": "core",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "outputRef": "raporlar/dc-uygulama/DC-S4-04/OZET.md"
+    }
+  ],
+  "changedFiles": [
+    "core/test/dc-h1-fault-matrix.test.ts",
+    "core/test/fixtures/dc-h1-faults.mjs"
+  ],
+  "blockers": []
+}
