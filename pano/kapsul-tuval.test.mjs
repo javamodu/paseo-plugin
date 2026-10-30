@@ -1,4 +1,9 @@
 // DALGA-0-2 R2 TASARIM REVİZYONU — pano/kapsul-tuval.html kaynak-düzeyi iddiaları (node --test).
+// R3 KURUMSAL CİLA (2026-10-30, kullanıcı emri «tasarımı modern gelecek uyumlu yap, AI çöpü
+// gözükmesin, kurumsal»): süs katmanı söküldü (ışık lekeleri · grid dokusu · köşe kancaları ·
+// gradient · hover lift), tek aksan petrol mavisi (#0f4c81), radius 3 token (8/6/4px), pil
+// rozetleri köşeli, .modBtn kuralı EKLENDİ. R2 vaka seti AYNEN KORUNUR (manifesto ölçütleri
+// değişmedi); YENİ vaka 36 R3 kurumsal sözleşmeyi doğrular.
 // Miras: R1'in 26 vakasından 1, 3-9, 11-17, 19, 20, 23-25 AYNEN korunur (eşik gevşetilmedi).
 // R2 tasarım emriyle EVRİLENLER: 2 (dar ekran: 1023 kırılımı + tek kolon + sağ alta — tek-viewport
 // yalnız geniş ekran), 10 (R1'in «tablist=0» yorumu KALKTI — ORTA görev sekmeleri tablist/role=tab
@@ -613,4 +618,27 @@ test("35- POST RED yolunda yerel balon/seçim sunucu gerçeğine döner (ORDU-3 
   ok("müdahale RED: kırmızı fail-closed yüz kalır (chatKirmizi + sahte yanıt YOK)", /\.catch\(\(hata\) => \{\s*kullaniciKutu\.remove\(\);[\s\S]{0,300}chatKirmizi/.test(jsKisim) && jsKisim.includes("sahte yanıt ÜRETİLMEZ"));
   ok("tercih RED: yerel seçim sunucudaki önceki tercihe GERİ döner (chatSecimiSunucuyaGeriAl)", /catch \(e\) \{\s*chatSecimiSunucuyaGeriAl\(\);/.test(jsKisim));
   ok("geri dönüş kaynağı sunucu tercihidir (D.tercih provider|model; kayıt yoksa boş)", /function chatSecimiSunucuyaGeriAl\(\)\s*\{\s*const tercih = D && D\.tercih;[\s\S]{0,240}tercih\.provider \+ "\|" \+ tercih\.model : ""/.test(jsKisim));
+});
+
+test("36- R3 KURUMSAL CİLA: süs katmanı yok (gradient/leke/kanca/lift) · tek aksan petrol mavisi · radius ölçeği 3 token · pil YOK · modBtn kuralı VAR", () => {
+  ok("tek aksan petrol mavisi (--camgobegi:#0f4c81)", SRC.includes("--camgobegi:#0f4c81"));
+  ok("mor aksan tokenı SÖKÜLDÜ (--menevse YOK)", !SRC.includes("--menevse"));
+  ok("mor rgba izleri yok (rgba(109,40,217)", !SRC.includes("rgba(109,40,217"));
+  ok("eski teal izi yok (#0e7490)", !SRC.includes("#0e7490") && !SRC.includes("%230e7490"));
+  ok("dekoratif gradient YOK (linear/radial-gradient kaynağıta yok)", !SRC.includes("linear-gradient") && !SRC.includes("radial-gradient"));
+  ok("ışık lekesi bileşeni SÖKÜLDÜ (.isik sınıfı YOK)", !SRC.includes(".isik"));
+  ok("body::before süs dokusu SÖKÜLDÜ (fixed zemin katmanı yok)", !/body::before/.test(SRC));
+  ok("tuval köşe kancaları SÖKÜLDÜ (#tuvalSarma::before/::after YOK)", !/#tuvalSarma::(before|after)/.test(SRC));
+  ok("kart hover lift YOK (translateY(-2px) yok; yalnız kenarlık)", !SRC.includes("translateY(-2px)"));
+  ok("radius ölçeği 3 token (--radius:8px + --radius-k:6px + --radius-cip:4px)", SRC.includes("--radius:8px") && SRC.includes("--radius-k:6px") && SRC.includes("--radius-cip:4px"));
+  ok("eski 12px kart radius'u yok (--radius:12px)", !SRC.includes("--radius:12px"));
+  ok("pil rozet YOK (border-radius:999px / 99px kalmadı)", !SRC.includes("999px") && !SRC.includes(":99px"));
+  ok("modBtn CSS kuralı VAR (defter okur düğmeleri tarayıcı varsayılanında değil)", /\.modBtn\s*\{/.test(SRC));
+  ok("modBtn aktif hali aria-pressed'e bağlı (tek gerçeklik kaynağı — JS attribute'u yazar)", /\.modBtn\[aria-pressed="true"\]\s*\{/.test(SRC));
+  ok("yüzey3 tokenı VAR (akordiyon hover tokenlı)", SRC.includes("--yuzey3:#e4eaf2"));
+  ok("başlık ağırlıkları 800 YOK (kurumsal 700 disiplini)", !SRC.includes("font-weight:800"));
+  ok("splitter aktif dolgu yeni aksanla (--glow rgba(15,76,129,0.18))", SRC.includes("--glow:rgba(15,76,129,0.18)"));
+  ok("DURUMRENK DEVAM yeni aksanla (DEVAM #0f4c81)", SRC.includes('DEVAM: "#0f4c81"'));
+  ok("marka logosu grafit+petrol çift tonlu (dış #1a2332, iç #0f4c81)", /stroke="#1a2332"/.test(SRC) && SRC.includes('stroke="#0f4c81"'));
+  ok("R2 manifesto ölçütleri korunur: baz 16px + başlık 20/22px + 44px (vaka 3/21/31/32 sahibi)", /body\s*\{[^}]*font-size:\s*16px/.test(SRC) && /\.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(SRC));
 });
