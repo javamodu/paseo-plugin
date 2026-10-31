@@ -1,4 +1,4 @@
-# YÖNETİM ARAYÜZÜ — DALGA-YÖNETİM planı (KAPI K8 · onay bekler)
+# YÖNETİM ARAYÜZÜ — DALGA-YÖNETİM planı (KAPI K8 · ONAYLANDI 2026-10-31 07:20 — kullanıcı seçimi «graf-yüzü önce»; ilk dalga: [K8 DALGA 1](K8-DALGA1-GRAF-YUZU-PLANI-2026-10-31.md))
 
 **Durum:** ÖNERİ — R1 dalgası kapanışı sonrası koşar. **Kaynak:** kullanıcı «chat bölümünde ai ile plan yapabilmeli; dizin, istek, ratelimit her şeyi yönetebilmeliyim; kim manager kim coder hangi görevi alır; rollerin MD dokümanı olarak izlenip editlenmesi; her şey MD + makine-okur ÇİFTE KAYIT; AI ile ya da manuel her şeyi ön yüzden yönetmeliyim — sen İZLEME arayüzü yapmışsın, ben YÖNETİM arayüzü istiyorum» + **kilit nokta** «tüm yönetim ekranın kilit noktası admin ön yüzden görüp edit yapabilmeli — sistem anında makine okur olarak arkada programlamalı görev grafını ve planı» (2026-10-29 14:2x).
 
@@ -39,3 +39,21 @@ Onay → **K-0055 ADR** + yazar fişi → K-0053 hattı (yazar ayrı worktree �
 - **c) Onay aktörü:** `insan:web` (bu planın 2.3 maddesi — K-0055).
 
 **Onay cümlesi:** «DALGA-YÖNETİM başla»
+
+## 5. KAPSAM GENİŞLEMESİ (2026-10-29 16:1x — kullanıcı emri, 8 madde)
+
+**Kaynak (verbatim):** «sol taraf graf durumunu belirleyen alanı çeşitlendirelim tamamlanma yüzdesi ile · sol ve sağ panel aç kapa ve resize olacak · orta sayfa en önemli kısım — oradan her şeyi edit yapabilmeliyim, taslak olarak kalabilir ya da versiyon olarak; sonra yapay zeka onaylar ve sisteme işlenir · her ajanın manager dizin izin yetki rolleri çalışma şeklini graf içinde yönetebilmeliyim · ajanlara görev bazında ya da proje bazında rol atayabilmeliyim · ajanlara tüm sistem ya da proje ya da graf bazında AGENTS.MD atayabilmeliyim · benim yaptığım her değişiklik sistemde çalışmaya başladıktan sonra versiyon olarak kalır; tüm değişiklikler diff olarak sistemde saklanacak arşivlenecek · yapay zeka manager onaylayacak sistemde kalıcı yapacak.»
+
+| # | Maddе | Kapsam | Nereye |
+|---|---|---|---|
+| G1 | Sol panel durum alanı çeşitlendirme + **tamamlanma yüzdesi** (faz bazında kapalı/toplam — GRAF SSOT'tan sayılır, E10; uydurma % YASAK, E11) | UI | **R3 mini-dalga** (açılıyor) |
+| G2 | **Sol/sağ panel aç-kapa + RESIZE** (sürüklenebilir splitter, min/max genişlik, ≥44px, dokunmatik; tercih kalıcı) | UI | **R3 mini-dalga** (açılıyor) |
+| G3 | **Orta = EDİT MERKEZİ (en önemli kısım):** oradan HER ŞEY düzenlenebilir — düzenleme **taslak** ya da **versiyon** olarak kalır → **AI manager onaylar** → **sisteme işlenir** (kalıcı yazma) | write-model | **B1' büyütür — B1-ORTA** |
+| G4 | **Ajan kartı graf içinde:** her ajanın manager · dizin · izin · yetki · rolleri · **çalışma şekli** yönetilir | write-model | B2 büyütür |
+| G5 | **Rol atama kapsamı:** görev bazlı **ya da proje bazlı** (tek atama değil) | write-model | B2 büyütür |
+| G6 | **AGENTS.MD atama:** ajanlara **tüm sistem / proje / graf** kapsamıyla ajan-başına kural dosyası bağlanır | write-model | B2 büyütür (uc: `/api/ajan/kural`) |
+| G7 | **Versiyon + diff arşivi:** her değişiklik sistemde çalışmaya başladıktan sonra **versiyon** olarak kalır; tüm değişiklikler **diff** olarak saklanır ve arşivlenir (append-only diff JSONL + insan-yüzü MD görünüm — A2/notify desenleri) | write-model | **YENİ B6 bloğu** |
+| G8 | **AI manager onay zinciri:** edit → taslak/versiyon → **AI manager onayı** → kalıcı işleme (kabul/red gerekçeli); [insan] kapıları (replan/canlı/kilit) EK-2 gereği `insan:web` kalır — **katman ayrımı K-0055 ADR'de netleşir** | write-model | B4 büyütür |
+| **G9** | **GRAF-YÜZÜ YÖNETİMİ — KALBİN MERKEZİ (kullanıcı: «en önemli kısım bir graf içindeki tüm yönetim nasıl olmalı ve ajanları nasıl seçtik — bu henüz yok — tüm kalbin merkezi»):** DAG düğümleri ÜZERİNDE yönetim — görev düğümü seç → **atanabilir ajanlar listesi** (rol/yetki/bütçe uygunluk filtreli) → ata; düğüm kartından durum · limitler · dizin yönetimi; graf düzenleme (düğüm/bağ/faz ekle-değiştir); hepsi **taslak → AI-manager onayı → kalıcı** zinciriyle (G3/G8'e bağlanır). **K8'in omurgası bu bloktur** — B2 + B1-ORTA kaynaşır | write-model | **B7 bloğu (YENİ)** |
+
+**K-0055 ADR'ye ek netleşme (dalga açılışında yazılır):** iki onay katmanı — (a) **yönetim yazıları** (graf/plan/rol/ayar/AGENTS.MD): AI manager onayı kalıcı işler; (b) **[insan] kapıları** (replan onayı · canlı restart · push · kilit/tag): EK-2 aynen — `insan:web` aktörü, cümle KULLANICI'dan. B6 diff arşivi her iki katmanın denetim kaynağıdır.
