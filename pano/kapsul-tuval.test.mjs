@@ -217,7 +217,7 @@ test("13- dış istem: /api/graf + /api/kart (4377) + DENEY_KOK 4930 uçları �
   const cagrilar = jsKisim.match(/fetch\(([^)]{0,60})\)/g) || [];
   ok("en az 3 fetch çağrısı (graf + kart + deney durum)", cagrilar.length >= 3, "bulunan: " + cagrilar.length);
   for (const c of cagrilar) {
-    ok("fetch yalnız izinli uç (pano veya izole deney): " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart") || c.includes("DENEY_KOK"));
+    ok("fetch yalnız izinli uç (pano veya izole deney): " + c.slice(0, 50), c.includes("/api/graf") || c.includes("/api/kart") || c.includes("/api/atama") || c.includes("DENEY_KOK"));
   }
   ok("deney uçları DENEY_KOK'tan kurulur (yol değişkeni — sabit URL dizilimi yok)", jsKisim.includes('DENEY_KOK + "/api/deney/durum"') && jsKisim.includes("DENEY_KOK + uc"));
   ok('chat GERÇEK müdahale ucu (deneyPost "/api/deney/mudahale")', jsKisim.includes('deneyPost("/api/deney/mudahale"'));
@@ -641,4 +641,40 @@ test("36- R3 KURUMSAL CİLA: süs katmanı yok (gradient/leke/kanca/lift) · tek
   ok("DURUMRENK DEVAM yeni aksanla (DEVAM #0f4c81)", SRC.includes('DEVAM: "#0f4c81"'));
   ok("marka logosu grafit+petrol çift tonlu (dış #1a2332, iç #0f4c81)", /stroke="#1a2332"/.test(SRC) && SRC.includes('stroke="#0f4c81"'));
   ok("R2 manifesto ölçütleri korunur: baz 16px + başlık 20/22px + 44px (vaka 3/21/31/32 sahibi)", /body\s*\{[^}]*font-size:\s*16px/.test(SRC) && /\.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(SRC));
+});
+
+test("37- K8-1a GRAF OKU/SEÇ: DAG düğümü → kart + atanabilir ajanlar + faz tamamlanma sayımı (uydurma alan/FAZ eşleşmesi YOK)", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  ok('sol panel faz göstergesi (id="fazYuzde")', !!tagOf("fazYuzde"));
+  ok("faz yüzdesi kapalı/toplam düğüm sayımından hesaplanır (GRAF SSOT)", jsKisim.includes("const kapali = gs.filter((g) => String(g.durum || \"\").split(\" \")[0] === \"KAPALI\").length") && jsKisim.includes("Math.round((kapali / toplam) * 100)"));
+  ok("SVG ölçek yüzdesi AYRI kalır (#yuzdek hâlâ viewBox ölçek", /function vbUygula\(\)[^]{0,320}\$\("yuzdek"\)\.textContent = "%" \+ Math\.round\(\(r\.width \/ vb\.w\) \* 100\)/.test(jsKisim));
+  ok('GRAF sağ paneli (id="sagGraf" hidden)', !!tagOf("sagGraf") && tagOf("sagGraf").includes("hidden"));
+  ok('GRAF ikonu (id="ik-graf" aria-pressed)', !!tagOf("ik-graf") && /aria-pressed="false"/.test(tagOf("ik-graf")));
+  ok("DAG düğüm tıklaması GRAF yüzünü açar (sec(id, false, true))", jsKisim.includes('sec(n.dataset.id, false, true)') && jsKisim.includes('if (grafAc) sagPanelAyarla("graf")'));
+  ok("düğüm kartı yalnız G.gorevler.find(/secilen) diliminden", /function grafYonetimYaz\(\)[^]{0,600}const g = G\.gorevler\.find\(\(x\) => x\.id === secilen\)/.test(jsKisim));
+  ok("kart alanları graf kaydından (durum·faz·rol·dizin·ölçüt·bağımlılık·kapı·limitler)", /grafMetin\(g\.durum\).*grafMetin\(g\.faz \|\| "\(faz yok\)"\).*grafMetin\(roller\).*grafMetin\(g\.dizin\).*grafMetin\(g\.olcut\).*grafMetin\(\(g\.bagimli \|\| \[\]\)\.join\(", "\)\).*grafMetin\(g\.kapi\).*grafMetin\(g\.secilebilir\)/s.test(jsKisim));
+  ok("atanabilir ajanlar D.ajanlar.ornek gerçek envanterinden", jsKisim.includes('Array.isArray(D.ajanlar.ornek) ? D.ajanlar.ornek : []'));
+  ok("ajan filtresi rol + dizin izni + eşzamanlı limit", jsKisim.includes('neden: "rol-eksik"') && jsKisim.includes('neden: "dizin-yasak"') && jsKisim.includes('neden: "limit-dolu"'));
+  ok("ajan-faz uydurma eşleşmesi YOK (envanterde faz alanı yok)", !jsKisim.includes("ajanFaz") && !jsKisim.includes("fazEslestir") && htmlKisim.includes("ajan kaydında faz alanı yoktur"));
+  ok("envanter boşsa sabit ajan ÜRETİLMEZ (fail-closed)", jsKisim.includes("D.ajanlar.ornek boş döndü") && jsKisim.includes("sabit ajan ÜRETİLMEZ"));
+  ok("GRAF ajan satırı 44px dokunma hedefi", /\.grafAjanSatir\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
+});
+
+test("38- K8-1b ATAMA ZİNCİRİ: seç → TASLAK → ONAY → durum; PANO_TOKEN fail-closed · graf SSOT yazma YOK", () => {
+  const jsKisim = jsKisimOf();
+  ok("sağ panel haritasına GRAF yüzü eklendi", jsKisim.includes('SAG_PANEL_ID = { chat: "chatBolum", proje: "sagProje", graf: "sagGraf", api: "sagApi" }'));
+  ok("TASLAK gerçek ucu: POST /api/atama/taslak {gorevId, ajanId}", jsKisim.includes('await atamaPost("taslak", { gorevId: secilen, ajanId })') && jsKisim.includes('fetch("/api/atama/" + uc'));
+  ok("ONAY gerçek ucu: POST /api/atama/onay {gorevId}", jsKisim.includes('await atamaPost("onay", { gorevId: secilen })'));
+  ok("durum gerçek ucu: GET /api/atama/durum", jsKisim.includes('fetch("/api/atama/durum")'));
+  ok("PANO_TOKEN başlıkla gönderilir; token DEĞERİ loglanmaz", jsKisim.includes('"X-Pano-Token": token') && !/console\.(log|info|warn|error)\([^)]*token/.test(jsKisim));
+  ok("token yoksa POST RED (sahte 201 YOK)", jsKisim.includes('if (!token) throw new Error("PANO_TOKEN girin (üst bardaki alan)")'));
+  ok("HTTP/hata gövdesi fail-closed (403/401/422 RED)", jsKisim.includes('if (!r.ok || !j || j.hata) throw new Error((j && j.hata) || "HTTP " + r.status)'));
+  ok("TASLAK yalnız sunucu yanıtından gelir (grafTaslak = yanit.taslak)", jsKisim.includes("grafTaslak = yanit.taslak || null"));
+  ok("ONAY yalnız sunucudaki TASLAK'a bağlıdır", jsKisim.includes('if (!grafTaslak || grafTaslak.gorevId !== secilen)') && jsKisim.includes('grafTaslak.onay === "TASLAK"'));
+  ok("ONAY düğmesi TASLAK yoksa kilitli", jsKisim.includes('$("grafOnayGonder").disabled = !(grafTaslak && grafTaslak.gorevId === secilen && grafTaslak.onay === "TASLAK")'));
+  ok("durum okuma hatasında bayat harita gösterilmez", jsKisim.includes("grafAtamaDurum = null; grafAtamaHata = e.message") && jsKisim.includes("bayat atama gösterilmez"));
+  ok("TASLAK → ONAY zinciri iki ayrı çağrı (tek çağrıda kalıcı atama YOK)", !jsKisim.includes("/api/atama/taslak-onay") && !jsKisim.includes('atamaPost("taslak", { gorevId: secilen, ajanId });\n    await atamaPost("onay"'));
+  ok("GRAF SSOT yazma ucu YOK (/api/graf/yaz veya POST /api/graf)", !jsKisim.includes("/api/graf/yaz") && !/fetch\("\/api\/graf",\s*\{\s*method:\s*"POST"/.test(jsKisim));
+  ok("ajan satırı tıklaması delege ile gerçek TASLAK akışına bağlı", jsKisim.includes('e.target.closest(".grafAjanSatir")') && jsKisim.includes("grafAjanTaslak(dugme.getAttribute(\"data-ajan\"), dugme)"));
 });

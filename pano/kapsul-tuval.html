@@ -358,6 +358,35 @@
   .dkModelGovde { display:flex; flex-direction:column; min-width:0; }
   .dkModelEtiket { font-size:13.5px; font-weight:600; color:var(--metin); overflow-wrap:anywhere; }
   .dkModelAlt { font-size:11px; color:var(--ikincil); overflow-wrap:anywhere; }
+
+  /* ---- K8 DALGA 1: sol faz tamamlanma göstergesi + sağ GRAF yönetim yüzü ---- */
+  .fazYuzde { flex:none; border-top:1px solid var(--cizgi); padding:8px 10px 10px; }
+  .fazYuzdeBaslik { font-size:11.5px; font-weight:700; letter-spacing:0.08em; color:var(--ikincil); margin-bottom:6px; }
+  .fazYuzdeSatir { display:grid; grid-template-columns:minmax(74px, 96px) 44px 1fr; align-items:center; gap:8px; padding:3px 0; }
+  .fazYuzdeAd { font-size:11.5px; color:var(--metin); overflow-wrap:anywhere; }
+  .fazYuzdeDeger { font-size:11.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; text-align:right; }
+  .fazYuzdeCubuk { height:6px; border-radius:var(--radius-cip); background:var(--yuzey3); overflow:hidden; }
+  .fazYuzdeCubuk i { display:block; height:100%; background:var(--camgobegi); }
+  .grafYonetim { gap:10px; }
+  .grafKart { border:1px solid var(--cizgi); border-radius:var(--radius); background:var(--yuzey); padding:10px 12px; flex:none; }
+  .grafKartBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .grafKartId { font-size:16px; font-weight:700; color:var(--camgobegi); overflow-wrap:anywhere; }
+  .grafSatir { display:grid; grid-template-columns:94px 1fr; gap:8px; padding:5px 0; border-bottom:1px dashed rgba(26,35,50,0.1); font-size:13.5px; }
+  .grafSatir:last-child { border-bottom:0; }
+  .grafEtiket { color:var(--ikincil); font-size:11.5px; padding-top:2px; }
+  .grafDeger { color:var(--metin); min-width:0; overflow-wrap:anywhere; }
+  .grafAjanSatir {
+    width:100%; min-height:var(--min-dokunma); display:flex; align-items:center; gap:8px;
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
+    color:var(--metin); padding:6px 10px; text-align:left; cursor:pointer; touch-action:manipulation;
+  }
+  .grafAjanSatir:hover { background:var(--yuzey2); }
+  .grafAjanSatir:disabled { opacity:0.55; cursor:default; }
+  .grafAjanGovde { display:flex; flex-direction:column; min-width:0; flex:1 1 auto; }
+  .grafAjanAd { font-size:13.5px; font-weight:700; overflow-wrap:anywhere; }
+  .grafAjanMeta { font-size:11.5px; color:var(--ikincil); overflow-wrap:anywhere; margin-top:2px; }
+  .grafAjanElenen { border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:8px 10px; }
+  .grafAtama { border:1px solid rgba(15,76,129,0.25); border-radius:var(--radius-k); background:rgba(15,76,129,0.04); padding:10px 12px; flex:none; }
   .dkTest { margin-left:auto; flex:none; padding:4px 12px; font-size:11.5px; font-weight:700; border:1px solid rgba(15,76,129,0.4); border-radius:var(--radius-k); background:transparent; color:var(--camgobegi); }
   .dkTest:disabled { opacity:0.5; cursor:wait; }
   .dkAjanSatir { border:1px solid var(--cizgi); border-radius:var(--radius-k); padding:8px 10px; background:var(--yuzey); }
@@ -580,7 +609,7 @@
   <button id="cekmeceBtn" class="cekmece" type="button" aria-expanded="false" aria-controls="sol" aria-label="görev ağacı menüsünü aç / kapat" title="görev ağacı menüsünü aç / kapat (dar ekran: overlay; geniş ekran: kenar sütunu)">
     <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 1 H17 M1 7 H17 M1 13 H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
-  <button id="sagPanelBtn" class="cekmece" type="button" aria-pressed="true" aria-controls="sag" aria-label="sağ paneli aç / kapat" title="sağ paneli aç / kapat (CHAT · PROJE · API — ADIM-C)">
+  <button id="sagPanelBtn" class="cekmece" type="button" aria-pressed="true" aria-controls="sag" aria-label="sağ paneli aç / kapat" title="sağ paneli aç / kapat (CHAT · PROJE · GRAF · API — ADIM-C)">
     <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 1 H17 V13 H1 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 1 V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
   <input id="token" type="password" autocomplete="off" placeholder="token" title="PANO_TOKEN — kapsül kartı oluşturma (POST /api/kart) token'ı; fail-closed: yazma ucu tokensız kırmızı">
@@ -604,6 +633,7 @@
       <button class="ziplink" type="button" data-sekme="harita" title="«Görev haritası» DAG sekmesini aç (orta sütun)">▸ görev haritası sekmesi</button>
     </div>
     <div class="grafKutu" id="agac"><p class="bosSatir">ağaç yükleniyor…</p></div>
+    <div class="fazYuzde" id="fazYuzde" aria-label="faz bazlı tamamlanma durumu — kapalı/toplam düğüm sayımından"></div>
     <p class="lejant">
       <span class="dNokta" style="background:#047857"></span>HAZIR
       <span class="dNokta" style="background:#b45309"></span>BEKLE
@@ -780,11 +810,28 @@
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6.5 V15.5 H17 V6.5 H3 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 6.5 L7 3.5 H13 L17 6.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 15.5 V10.5 H12 V15.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <span>PROJE</span>
       </button>
+      <button id="ik-graf" class="ikonBtn" type="button" aria-pressed="false" title="GRAF — düğüm kartı + atanabilir ajanlar + TASLAK/ONAY zinciri">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="4.5" cy="10" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="15.5" cy="5.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="15.5" cy="14.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M7 9.2 L13.1 6.4 M7 10.8 L13.1 13.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>GRAF</span>
+      </button>
       <button id="ik-api" class="ikonBtn" type="button" aria-pressed="false" title="API — sağlayıcı + model yönetimi + TEST (GERÇEK 4930 uçları)">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><ellipse cx="10" cy="4.5" rx="7" ry="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M3 4.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11" stroke="currentColor" stroke-width="1.6"/><path d="M3 10c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8" stroke="currentColor" stroke-width="1.6"/></svg>
         <span>API</span>
       </button>
     </div>
+
+    <!-- GRAF: düğüm kartı + atanabilir ajanlar + TASLAK → ONAY zinciri (K8 DALGA 1) -->
+    <section class="sagPanel grafYonetim" id="sagGraf" hidden aria-labelledby="graf-baslik">
+      <div class="panelBas">
+        <h3 class="bolum-etiket" id="graf-baslik">GRAF — düğüm yönetimi</h3>
+        <span class="etiketGercek">GERÇEK — /api/graf · /api/atama</span>
+      </div>
+      <div id="grafKirmizi" role="alert"></div>
+      <div id="grafYonetimAlani" class="dkListe" aria-live="polite" aria-label="seçili graf düğümü kartı ve atanabilir ajanlar"></div>
+      <div id="grafAtamaDurum" class="grafAtama" aria-live="polite" aria-label="atama durumu ve onay zinciri"></div>
+      <button id="grafOnayGonder" class="dkGonder" type="button" disabled>ATAMAYI ONAYLA</button>
+      <p class="dkNot">Düğüm kartı yalnız /api/graf verisinden çizilir. Ajanlar 4930 durumundaki envanterden role/dizin/limit ile filtrelenir; ajan kaydında faz alanı yoktur, ajan-faz eşleşmesi uydurulmaz. TASLAK ve ONAY uçları PANO_TOKEN ile gerçek çağrılır; graf SSOT'ya yazma yok.</p>
+    </section>
 
     <!-- CHAT (VARSAYILAN): ŞABLON-KOMUT ÜRETİCİ (canlı AI yanıtı D-4'te bağlanır) -->
     <section class="sagPanel acik chatBolum" id="chatBolum" aria-labelledby="chat-baslik">
@@ -875,6 +922,9 @@ let VW = 0, VH = 0, vb = null, tasindi = false, vbIlkSigdirildi = false;
 let sekmeler = [];        // R2: açık görev sekmeleri (sıralı — en son seçilen en sağda)
 let aktifSekme = "harita"; // R2: VARSAYILAN sekme «Görev haritası»
 let sagAktif = "chat";    // R2: sağ panel VARSAYILAN chat (kullanıcı emri)
+let grafTaslak = null;    // K8-1b: son TASLAK yanıtı (yalnız sunucudan)
+let grafAtamaDurum = null; // K8-1b: GET /api/atama/durum gerçek haritası
+let grafAtamaHata = "";   // K8-1b: atama okuma/yazma hatası (fail-closed)
 const kapanmisFazlar = new Set(); // R2: akordiyon katlama durumu — 30 sn yeniden çizimde korunur
 const $ = (id) => document.getElementById(id);
 const azHareket = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -917,6 +967,7 @@ async function yukle() {
     G = await r.json();
     $("hata").hidden = true;
     metaYaz(); solYaz(); modUygula();
+    fazYuzdeYaz(); grafYonetimYaz(); atamaDurumYukle();
     if (secilen && G.gorevler.some((x) => x.id === secilen)) sec(secilen, true);
     else if (secilen) {
       const eski = secilen;
@@ -931,6 +982,10 @@ function hataGoster(m) { $("hata").hidden = false; $("hata").textContent = m; }
 function kirmiziYuz(m) {
   G = null; secilen = null;
   $("agac").innerHTML = "";
+  $("fazYuzde").innerHTML = "";
+  $("grafYonetimAlani").innerHTML = '<p class="bosSatir">graf yok — düğüm kartı gösterilmez (fail-closed)</p>';
+  $("grafAtamaDurum").innerHTML = "";
+  $("grafOnayGonder").disabled = true;
   $("tuval").innerHTML = ""; $("jsonview").textContent = "";
   $("detay").innerHTML = '<div class="kirmiziKart">KIRMIZI YÜZ (fail-closed) — ' + esc(m) + "</div>";
   sekmeler.length = 0;              // görev sekmeleri kapanır — bayat kapsül kartı ekranda kalmaz
@@ -989,6 +1044,23 @@ function solYaz() {
     h += "</div></div>";
   }
   $("agac").innerHTML = h;
+  fazYuzdeYaz();
+}
+
+/* K8-1a: faz tamamlanma yüzdesi — kapalı/toplam düğüm sayımından; SVG ölçek yüzdesi (#yuzdek) ayrı kalır */
+function fazYuzdeYaz() {
+  const alan = $("fazYuzde");
+  if (!G) { alan.innerHTML = ""; return; }
+  let h = '<div class="fazYuzdeBaslik">FAZ TAMAMLANMA</div>';
+  for (const [ad, gs] of fazGruplari()) {
+    const toplam = gs.length;
+    const kapali = gs.filter((g) => String(g.durum || "").split(" ")[0] === "KAPALI").length;
+    const yuzde = toplam ? Math.round((kapali / toplam) * 100) : 0;
+    h += '<div class="fazYuzdeSatir"><span class="fazYuzdeAd">' + esc(ad) + '</span>' +
+      '<span class="fazYuzdeDeger">' + kapali + '/' + toplam + '</span>' +
+      '<span class="fazYuzdeCubuk" aria-hidden="true"><i style="width:' + yuzde + '%"></i></span></div>';
+  }
+  alan.innerHTML = h;
 }
 
 /* ============ DAG: yerlesim (çekirdek — DEĞİŞMEZ) + viewBox zoom/pan ============ */
@@ -1040,7 +1112,7 @@ function tuvalCiz() {
       "</g>";
   }
   svg.innerHTML = h;
-  svg.querySelectorAll(".dugum").forEach((n) => n.addEventListener("click", () => { if (!tasindi) sec(n.dataset.id); }));
+  svg.querySelectorAll(".dugum").forEach((n) => n.addEventListener("click", () => { if (!tasindi) sec(n.dataset.id, false, true); }));
   if (!vbIlkSigdirildi) { vbIlkSigdirildi = true; sigdir(); } else { vbUygula(); }
 }
 
@@ -1088,7 +1160,7 @@ svgEl.addEventListener("dblclick", (e) => zoomAt(1.6, e.clientX, e.clientY));
 svgEl.addEventListener("keydown", (e) => {
   if (e.key === "Enter" || e.key === " ") {
     const g = e.target.closest ? e.target.closest(".dugum") : null;
-    if (g) { e.preventDefault(); sec(g.getAttribute("data-id")); }
+    if (g) { e.preventDefault(); sec(g.getAttribute("data-id"), false, true); }
   }
 });
 /* Not: element üzerinde pointer-capture API'si KULLANILMAZ — capture, click'i
@@ -1375,13 +1447,16 @@ function detayYaz(g) {
   $("kartBtn").addEventListener("click", () => kartOlustur(g.id));
 }
 
-function sec(id, sessiz) {
+function sec(id, sessiz, grafAc) {
   const g = G && G.gorevler.find((x) => x.id === id);
   if (!g) return;
   secilen = id;
+  if (grafTaslak && grafTaslak.gorevId !== id) grafTaslak = null;
   sekmeAc(id);          // R2: seçilen görev ORTA sütunda sekme olarak açılır
   sekmeAktiflestir(id); // tıkla=seç — sekme aktifleşir, kapsül kartı panelde
   detayYaz(g);
+  grafYonetimYaz();
+  if (grafAc) sagPanelAyarla("graf");
   // D-1b çapraz-vurgu: akordiyon satırı seçilir + görünene kaydırılır; tuvalde düğüm + giren/çıkan kenar vurgusu
   for (const b of document.querySelectorAll(".satir")) {
     b.classList.toggle("secili", b.dataset.id === id);
@@ -1496,6 +1571,41 @@ function fisMd(g) {
     "not: GUI komut çalıştırmaz — dispatch operatör terminalinde koşar (EK-2)";
 }
 
+/* ============ K8 DALGA 1: GRAF-YÜZÜ YÖNETİMİ — OKU/SEÇ/ATA ============ */
+function grafMetin(deger) { return deger == null || deger === "" ? "—" : esc(String(deger)); }
+function grafDizinKapsaminda(yol, izinli) {
+  if (typeof yol !== "string" || !Array.isArray(izinli) || !izinli.length) return false;
+  const hedef = yol.replace(/\\/g, "/").replace(/\/+$/, "") + "/";
+  return izinli.some((p) => {
+    const izin = String(p).replace(/\\/g, "/").replace(/\/+$/, "") + "/";
+    return hedef === izin || hedef.startsWith(izin);
+  });
+}
+function grafAjanDegerlendir(gorev, ajan) {
+  const elenen = [];
+  if (!ajan || ajan.durum !== "aktif") elenen.push({ neden: "pasif", detay: "durum: " + (ajan && ajan.durum != null ? ajan.durum : "—") });
+  const roller = (ajan && Array.isArray(ajan.roller)) ? ajan.roller : [];
+  const gereken = String(gorev.rol || "").split("+").map((s) => s.trim()).filter(Boolean);
+  const eksik = gereken.filter((r) => !roller.includes(r));
+  if (eksik.length) elenen.push({ neden: "rol-eksik", detay: "gerekli: " + eksik.join("+") });
+  const izinli = ajan && ajan.izin && Array.isArray(ajan.izin.dizin) ? ajan.izin.dizin : [];
+  const dizinler = String(gorev.dizin || "").split("+").map((s) => s.trim()).filter(Boolean);
+  const yasak = dizinler.filter((d) => !grafDizinKapsaminda(d, izinli));
+  if (yasak.length) elenen.push({ neden: "dizin-yasak", detay: yasak.join(" , ") });
+  const limit = ajan && ajan.limit ? Number(ajan.limit.esZamanli) : NaN;
+  const dolu = ajan ? Number(ajan.dolu) : NaN;
+  if (!isFinite(limit) || limit <= 0 || !isFinite(dolu) || dolu >= limit) {
+    elenen.push({ neden: "limit-dolu", detay: (isFinite(dolu) ? dolu : "—") + "/" + (isFinite(limit) ? limit : "—") });
+  }
+  return { uygun: elenen.length === 0, puan: elenen.length === 0 ? limit - dolu : 0, elenen };
+}
+function grafAjanlari(gorev) {
+  const ajanlar = D && D.ajanlar && Array.isArray(D.ajanlar.ornek) ? D.ajanlar.ornek : [];
+  return ajanlar
+    .map((ajan) => ({ ajan, ...grafAjanDegerlendir(gorev, ajan) }))
+    .sort((a, b) => (b.uygun - a.uygun) || (b.puan - a.puan));
+}
+
 /* ============ K8 ADIM-B: DENEY KÖPRÜSÜ — izole 4930 (ADIM-A CORS) ============
    Tuval (4377) buradan GERÇEK veri çeker: GET /api/deney/durum → PROJE + API yüzleri.
    4930 ölürse: D=null → her iki yüz KIRMIZI (fail-closed; bayat deney verisi EKRANDA KALMAZ).
@@ -1536,9 +1646,135 @@ function deneyOluBanner() {
   return '<div class="dkKirmizi">DENEY SUNUCUSU YOK — ' + esc(DENEY_KOK) + ' yanıtlamıyor (fail-closed; bayat veri gösterilmez). İzole deney sunucusunu başlatın: DENEY_PORT=4930 node pano/deney-server.mjs</div>';
 }
 
+function grafYonetimYaz() {
+  const alan = $("grafYonetimAlani");
+  if (!G) { alan.innerHTML = '<p class="bosSatir">graf yok — düğüm kartı gösterilmez (fail-closed)</p>'; return; }
+  if (!secilen) { alan.innerHTML = '<p class="bosSatir">düğüm seçilmedi — DAG düğümüne tıklayın</p>'; return; }
+  const g = G.gorevler.find((x) => x.id === secilen);
+  if (!g) { alan.innerHTML = '<p class="bosSatir">seçili düğüm /api/graf verisinde yok (fail-closed)</p>'; return; }
+  const roller = String(g.rol || "").split("+").map((s) => s.trim()).filter(Boolean).join(" + ");
+  let h = '<article class="grafKart"><div class="grafKartBas"><span class="grafKartId">' + esc(g.id) + '</span>' +
+    '<span class="etiketGercek">GERÇEK — /api/graf</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">görev</span><span class="grafDeger">' + grafMetin(g.gorev) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">durum · faz</span><span class="grafDeger">' + grafMetin(g.durum) + ' · ' + grafMetin(g.faz || "(faz yok)") + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">rol</span><span class="grafDeger">' + grafMetin(roller) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">dizin</span><span class="grafDeger">' + grafMetin(g.dizin) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">ölçüt</span><span class="grafDeger">' + grafMetin(g.olcut) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">bağımlılık</span><span class="grafDeger">' + grafMetin((g.bagimli || []).join(", ")) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">kapı</span><span class="grafDeger">' + grafMetin(g.kapi) + '</span></div>' +
+    '<div class="grafSatir"><span class="grafEtiket">limitler</span><span class="grafDeger">LOC ' + grafMetin(g.loc) + ' · test LOC ' + grafMetin(g.testLoc) +
+    ' · seçilebilir ' + grafMetin(g.secilebilir) + ' · uygulama yetkisi ' + grafMetin(g.uygulamaYetkisi) + ' · bütçe ' + grafMetin(g.butceyeDahil) + '</span></div>' +
+    '</article>';
+  $("grafKirmizi").innerHTML = "";
+  if (!D) { $("grafKirmizi").innerHTML = deneyOluBanner(); alan.innerHTML = h; return; }
+  const degerlendirme = grafAjanlari(g);
+  if (!degerlendirme.length) {
+    $("grafKirmizi").innerHTML = '<div class="dkKirmizi">AJAN ENVANTERİ YOK — 4930 canlı ama D.ajanlar.ornek boş döndü (fail-closed; sabit ajan ÜRETİLMEZ).</div>';
+    alan.innerHTML = h; return;
+  }
+  h += '<div class="dkBolumBas">ATANABİLİR AJANLAR — rol · dizin · limit filtresi</div>';
+  for (const satir of degerlendirme) {
+    const ajan = satir.ajan;
+    const meta = [
+      "roller: " + (ajan.roller || []).join(", "),
+      "dolu/esZamanlı: " + grafMetin(ajan.dolu) + "/" + (ajan.limit && ajan.limit.esZamanli != null ? ajan.limit.esZamanli : "—"),
+      "izin: " + (ajan.izin && Array.isArray(ajan.izin.dizin) ? ajan.izin.dizin.join(", ") : "—"),
+    ].join(" · ");
+    if (satir.uygun) {
+      h += '<button class="grafAjanSatir" type="button" data-ajan="' + esc(ajan.ad) + '" aria-label="' + esc(ajan.ad) + ' için atama taslağı aç">' +
+        '<span class="grafAjanGovde"><span class="grafAjanAd">' + esc(ajan.ad) + '</span><span class="grafAjanMeta">' + esc(meta) + '</span></span>' +
+        '<span class="etiketOrnek">ÖRNEK</span><span class="dkRozet teal">TASLAK AÇ</span></button>';
+    } else {
+      h += '<div class="grafAjanElenen"><div class="grafAjanAd">' + esc(ajan.ad) + ' <span class="etiketOrnek">ÖRNEK</span></div>' +
+        '<div class="grafAjanMeta">' + esc(meta) + '</div><div class="grafAjanMeta">RED: ' +
+        esc(satir.elenen.map((e) => e.neden + " (" + e.detay + ")").join(" · ")) + '</div></div>';
+    }
+  }
+  alan.innerHTML = h;
+}
+
+function grafAtamaDurumYaz() {
+  const alan = $("grafAtamaDurum");
+  if (grafAtamaHata) {
+    alan.innerHTML = '<div class="dkKirmizi">ATAMA DURUMU RED — ' + esc(grafAtamaHata) + ' (fail-closed; bayat atama gösterilmez).</div>';
+    $("grafOnayGonder").disabled = true;
+    return;
+  }
+  if (!G || !secilen) { alan.innerHTML = '<p class="bosSatir">atama durumu: düğüm seçilmedi</p>'; $("grafOnayGonder").disabled = true; return; }
+  const kayit = grafAtamaDurum && grafAtamaDurum.harita ? grafAtamaDurum.harita[secilen] : null;
+  let h = '<div class="dkBolumBas" style="border-top:0;padding-top:0">ATAMA GEÇMİŞİ — ONAYLI DEFTER</div>';
+  if (kayit) {
+    h += '<div class="grafSatir"><span class="grafEtiket">son onaylı</span><span class="grafDeger">' + esc(String(kayit.ajanId)) +
+      ' · sürüm ' + esc(String(kayit.surum)) + ' · ' + esc(String(kayit.tarih)) + ' · onaylayan ' + esc(String(kayit.onaylayan)) + '</span></div>';
+  } else {
+    h += '<p class="bosSatir">onaylı atama yok — /api/atama/durum haritası boş</p>';
+  }
+  if (grafTaslak && grafTaslak.gorevId === secilen) {
+    h += '<div class="grafSatir"><span class="grafEtiket">TASLAK</span><span class="grafDeger">' + esc(String(grafTaslak.ajanId)) +
+      ' · sürüm ' + esc(String(grafTaslak.surum)) + ' · ' + esc(String(grafTaslak.onay)) + ' — ONAY bekliyor</span></div>';
+  }
+  alan.innerHTML = h;
+  $("grafOnayGonder").disabled = !(grafTaslak && grafTaslak.gorevId === secilen && grafTaslak.onay === "TASLAK");
+}
+
+async function atamaDurumYukle() {
+  try {
+    const r = await fetch("/api/atama/durum");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    if (!j || typeof j !== "object" || !j.harita || typeof j.bozuk !== "number") throw new Error("geçersiz atama durumu");
+    grafAtamaDurum = j; grafAtamaHata = "";
+  } catch (e) {
+    grafAtamaDurum = null; grafAtamaHata = e.message;
+  }
+  grafAtamaDurumYaz();
+}
+
+async function atamaPost(uc, govde) {
+  const token = $("token").value.trim();
+  if (!token) throw new Error("PANO_TOKEN girin (üst bardaki alan)");
+  const r = await fetch("/api/atama/" + uc, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Pano-Token": token },
+    body: JSON.stringify(govde),
+  });
+  let j = null;
+  try { j = await r.json(); } catch { /* bozuk gövde RED'e düşer */ }
+  if (!r.ok || !j || j.hata) throw new Error((j && j.hata) || "HTTP " + r.status);
+  return j;
+}
+
+async function grafAjanTaslak(ajanId, dugme) {
+  if (!G || !secilen) { grafAtamaHata = "düğüm seçilmedi"; grafAtamaDurumYaz(); return; }
+  if (dugme) dugme.disabled = true;
+  try {
+    const yanit = await atamaPost("taslak", { gorevId: secilen, ajanId });
+    grafTaslak = yanit.taslak || null; grafAtamaHata = "";
+    await atamaDurumYukle();
+    toast("TASLAK açıldı: " + secilen + " → " + ajanId + " (POST /api/atama/taslak — GERÇEK uç).");
+  } catch (e) {
+    grafTaslak = null; grafAtamaHata = e.message; grafAtamaDurumYaz();
+  }
+  if (dugme) dugme.disabled = false;
+}
+
+async function grafAtamaOnay() {
+  if (!grafTaslak || grafTaslak.gorevId !== secilen) { grafAtamaHata = "onaylanacak TASLAK yok"; grafAtamaDurumYaz(); return; }
+  const dugme = $("grafOnayGonder"); dugme.disabled = true;
+  try {
+    const yanit = await atamaPost("onay", { gorevId: secilen });
+    grafTaslak = null; grafAtamaHata = "";
+    await atamaDurumYukle();
+    toast("ATAMA ONAYLANDI: " + secilen + " → " + (yanit.kayit && yanit.kayit.ajanId) +
+      " · " + (yanit.mevcut ? "mevcut" : "yazildi") + " (POST /api/atama/onay — GERÇEK uç).");
+  } catch (e) {
+    grafAtamaHata = e.message; grafAtamaDurumYaz();
+  }
+}
+
 const saglayiciListe = () => (D && D.envanter && Array.isArray(D.envanter.saglayicilar) ? D.envanter.saglayicilar : null);
 
-function deneyYaz() { projeYaz(); apiYaz(); chatSecicileriYaz(); chatKayitlarYaz(); }
+function deneyYaz() { projeYaz(); apiYaz(); chatSecicileriYaz(); chatKayitlarYaz(); grafYonetimYaz(); }
 
 /* ---- PROJE yüzü: workspace seçici + ATAMA formu seçenekleri + AJANLAR listesi ---- */
 function projeYaz() {
@@ -1770,8 +2006,8 @@ async function apiTest(sagId, modelId, dugme) {
 /* ============ K8 ADIM-B: SAĞ PANEL İKON MENÜSÜ — CHAT (varsayılan) · PROJE · API ============
    İkon tıkla → panel içeriği DİNAMİK değişir (id-toggling; hash/route YOK).
    Geçiş yalnız opacity/transform (<=600ms — E12). ÖZET + KOMUT yüzleri KALKTI (kullanıcı emri). */
-const SAG_PANEL_ID = { chat: "chatBolum", proje: "sagProje", api: "sagApi" };
-const SAG_IKON_ID = { chat: "ik-chat", proje: "ik-proje", api: "ik-api" };
+const SAG_PANEL_ID = { chat: "chatBolum", proje: "sagProje", graf: "sagGraf", api: "sagApi" };
+const SAG_IKON_ID = { chat: "ik-chat", proje: "ik-proje", graf: "ik-graf", api: "ik-api" };
 function sagPanelAyarla(ad) {
   sagAktif = ad;
   for (const k of Object.keys(SAG_PANEL_ID)) {
@@ -1782,12 +2018,18 @@ function sagPanelAyarla(ad) {
     p.classList.remove("acik");
     if (k === ad) requestAnimationFrame(() => { if (!p.hidden) p.classList.add("acik"); }); // akışkan panel geçişi
   }
-  $("sag").setAttribute("aria-label", "sağ panel — " + (ad === "chat" ? "AI CHAT (varsayılan)" : ad === "proje" ? "PROJE — ajan ata" : "API — sağlayıcı & model") + " · ikon menüyle değişir");
+  $("sag").setAttribute("aria-label", "sağ panel — " + (ad === "chat" ? "AI CHAT (varsayılan)" : ad === "proje" ? "PROJE — ajan ata" : ad === "graf" ? "GRAF — düğüm yönetimi" : "API — sağlayıcı & model") + " · ikon menüyle değişir");
 }
 $("ik-chat").addEventListener("click", () => { sagPanelAyarla("chat"); toast("CHAT paneli — hedef cümle → ŞABLON komut üretici (canlı AI yanıtı D-4)."); });
 $("ik-proje").addEventListener("click", () => { sagPanelAyarla("proje"); deneyYukle(); toast("PROJE paneli — workspace seç + ajan kadro ata (GERÇEK 4930 uçları)."); });
+$("ik-graf").addEventListener("click", () => { sagPanelAyarla("graf"); deneyYukle(); atamaDurumYukle(); grafYonetimYaz(); toast("GRAF paneli — düğüm kartı + atanabilir ajanlar + TASLAK/ONAY zinciri."); });
 $("ik-api").addEventListener("click", () => { sagPanelAyarla("api"); deneyYukle(); toast("API paneli — sağlayıcı kartları + model tercihi + TEST (fail-closed)."); });
 $("atGonder").addEventListener("click", ajanAta);
+$("grafOnayGonder").addEventListener("click", grafAtamaOnay);
+$("grafYonetimAlani").addEventListener("click", (e) => {
+  const dugme = e.target.closest(".grafAjanSatir");
+  if (dugme) grafAjanTaslak(dugme.getAttribute("data-ajan"), dugme);
+});
 $("atProje").addEventListener("change", () => { oncekiProje = $("atProje").value; });
 // API yüzü delege: kart katlama / model seçimi / TEST (JS-doğumlu düğmeler — tek dinleyici)
 $("saglayiciAlani").addEventListener("click", (e) => {
