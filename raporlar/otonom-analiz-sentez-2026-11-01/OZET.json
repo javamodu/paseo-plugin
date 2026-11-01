@@ -1,0 +1,40 @@
+{
+  "rapor": "OTONOM-SENTEZ-2026-11-01",
+  "kimlik": "OTONOM-SENTEZ-1",
+  "damga": "2026-11-01T05:16+03:00",
+  "kaynakEmir": "kullanici 2026-11-01: hiz+kalite+performans+guvenlik 3-ajan derin analiz; hedef en ust duzey paseo performansi",
+  "girdiler": [
+    { "rapor": "OTONOM-ANALIZ-HIZ-2026-11-01", "madde": 10, "hukum": "KOSULU", "dogrulama": "parse OK; schemaSurum:1; md 59 satir" },
+    { "rapor": "OTONOM-ANALIZ-KALITE-2026-11-01", "madde": 14, "hukum": "KOSULU", "dogrulama": "parse OK; schemaSurum:1; md 72 satir" },
+    { "rapor": "OTONOM-ANALIZ-GUVENLIK-PERF-2026-11-01", "madde": 12, "hukum": "GUVENLI-KOSULU", "dogrulama": "parse OK; schemaSurum:1; md 97 satir" }
+  ],
+  "caprazTeyit": "HIZ devir sayimlari (ordu 35, scraper 21) operator bagimsiz olcumuyle birebir (96 dosya / 14 repo)",
+  "nihaiHukum": "KOSULU EVET",
+  "boyutlar": {
+    "hiz": "olculmus manuel ardil med 18,0 dk (n=62; ordu aktif 12 / yeni-sekme 23 / uzak 114-414 dk) -> watchdog devri med ~7 dk = aktif 3-6x, uzak 10-100x (T); kosulsuzda 429/f3-crash ile kayba doner",
+    "kalite": "kosullu mimaride mekanik sinifta esit-ust; kosulsuzda echo-borcu (35 halkada 11 bos ~%25) + watchdog-yazici riski",
+    "performans": "oturum omru uzar (kutle diyeti: arac tanimi 61->~13, kural 47->38) + nobet maliyeti ~17-20k token/tur (T); tavansiz 429 salgini verim dusurur",
+    "guvenlik": "devir Paseo icinden -> koruma zinciri gecerli; headless claude -p zinciri BYPASS eder; yanlis-olum cift-yazar riski (gercek vaka)"
+  },
+  "kosullar": [
+    "devir Paseo icinden (headless claude -p YOK)",
+    "tek-ornek kilidi kodda - kira dosyali lease (PID + baslangic zamani); watchdog kill ETMEZ",
+    "tavanlar kodda: is ajan <=3 + nobet 1 + devir 1/pencere + ~20 istek/dk + 429 geri cekilme + spawn CPU esigi + 2 basarisizlikta insan kapisi",
+    "watchdog ASLA yazici/denetci degil; script ajan write-set disinda sabit sablon",
+    "echo-borc kapanis mini turu + zincir <=3 ardisik devir -> insan turu + N5 gozlemci",
+    "[insan]-kapisini STATE'ten KODA (fail-closed; aktor=ajan:watchdog RED) + EK-2 aynen",
+    "kademeli pilot: 1 workspace x >=30 dk sessiz nobet; watchdog 2. derece; olcumsuz buyutme YOK; diskC %9.1 ALARM'da yeni kalici schedule YOK"
+  ],
+  "yolHaritasi": [
+    "kutle diyeti: B senkronu 47->38 [insan karari] + MCP exposure filtresi 61->~13 (kullanim %1,1 olculdu)",
+    "pilot-0 nobet: 1 workspace (oneri scraper) x 30 dk; 7 kosul kodda; MTTR/istek/token/429 olcumu",
+    "watchdog 2. derece - pilot verisi onaylamadan tam kapsam YOK",
+    "olcum altyapisi O2 hattiyla birlesir (SH-f: puan yalniz kayitli olcumden)"
+  ],
+  "durustNotlar": [
+    "18 dk olcumu (R) saglam; 3-10x kazanim (T) tahmin",
+    "aa1ac225 / 341-369 surec / bugunku 429-kesintisi diskte kanitlanamadi (HIZ-10)",
+    "nobet token maliyeti ~17-20k/tur (T)"
+  ],
+  "uygulama": "YOK - yurutme emri bekler (EK-2)"
+}
