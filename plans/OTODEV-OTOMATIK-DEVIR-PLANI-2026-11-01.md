@@ -38,3 +38,21 @@ Koordinatör oturumu öldüğünde/bağlamı dolduğunda devir **Paseo içinden*
 Test yeşil ×2 bağımsız · pilot 30 dk: devir ≤10 dk ölçülü · echo 3/3 dolu · çift-yazar 0 · kapı ihlali 0 · kira ihlali 0 · log + STATE damgası + rapor md+json.
 
 **Yürüme emri bekler:** «OTODEV A1 başla» (kod) → «OTODEV pilot başla» (A2). Bu plan YERELDİR — push ayrı emir (K7).
+
+## A1 yamaları (2026-11-01, koordinatör denetimi sonrası)
+
+Yazıcının A1 teslimi 34/34 ×2 yeşildi; bağımsız doğrulama (koordinatör koşumu) sonrası
+**sentez 7 koşuluna karşı 4 uyum açığı** saptandı ve koordinatör eliyle kapatıldı (yazıcı
+spec'i dürüst izlemişti — sapma kaynağı BRIEF'ti, kodda değil):
+
+| # | Açık | Yamalar |
+|---|---|---|
+| Y1 | CPU spawn eşiği %90 yazılmıştı; sentez **>%85** | `devir-tavan.mjs`: varsayılan 85; test t3 → 84 OK / 84.9 OK / 85 RED |
+| Y2 | İstek/dk tavanı (~20, sentez) hiç yoktu | `tavanKontrol`'e `istekDk` alanı: varsayılan 20, env `ORDU_DEVIR_ISTEK`, aşım → `istek-dk-tavan-RED`, ölçümsüz → `istekDk-gecersiz-RED`; `tavanDosyadanOku` taşır; test t10 |
+| Y3 | «≤3 ardışık devir → insan turu» kapısı yoktu (koşul 5) | `zincirKontrol`: sondan geriye `ilk-kira` köküne dek ardışık `devir` sayımı; >3 → `devir-zinciri-insan-kapisi-RED` (+`ardisikDevir` alanı, RED/yenile/bırak zinciri KIRMAZ — yalnız kök kırar); zincir RED'i echo'dan ÖNCE döner; testler v20/v21/v22 |
+| Y4 | Süreç-çıkış KANITI yoktu — TTL aşımı tek başına devir açıyordu (koşul 2) | `kiraAl` TTL-asimi yolunda `pidCanliMi(eskiPid)`: sinyal-0 yoklaması (ÖLDÜRMEZ; ESRCH=ölü, EPERM/başka hata=canlı fail-closed) → canlıysa `pid-canli-devir-RED` + log RED, kira eski sahibinde kalır; `birakildi` yolu muaf (bilinçli veda — kanıt gereksiz); testler v18 (canlı pid→RED) / v19 (ölü→devir) |
+
+Test kalitesi yaması: `staleKiraYaz` sabit pid 111 (Windows'da rastgele sistem sürecine denk
+gelebilir — ölüm KANITI değil) → `OLU_PID` (doğ-biter çocuk, senkron beklenmiş). A1 son durumu:
+**40 vaka ×2 bağımsız yeşil + regresyon 24/24** (graf-yaz/iskelet/deney-server). Kapsam pano/ 6
+dosya (1.066 satır) — plugin, core/data, kilit sürümler DOKUNULMADI; core/data'da devir kalıntısı yok.
