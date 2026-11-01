@@ -1,0 +1,22 @@
+{
+  "schemaSurum": 1,
+  "rapor": "sorun-envanteri-2026-11-01",
+  "damgaISO": "2026-11-01T17:40:00+03:00",
+  "yontem": "DERSLER.md 199 satir elle siniflandirma + ARA-DURUM F1-F4 + hafiza + telemetri W43/W44",
+  "siniflar": [
+    {"id": "S1", "ad": "PS 5.1 komut-aktarim katmani", "tekrarYaklasik": 45, "derece": "frekans-sampiyonu", "fren": "KISMEN", "kaynak": "DERSLER satir 3-5,9,53-57,66,74,84-86,92,99,101,107,117-119,123,129,132,136,138,159-160,170,190,198"},
+    {"id": "S2", "ad": "kanit durustlugu ihlalleri", "tekrarYaklasik": 18, "derece": "en-pahali-tekil", "fren": "COGU", "kaynak": "DERSLER 22,94,111-112,114,121,150,162,193-196"},
+    {"id": "S3", "ad": "Paseo/provider/daemon (available!=calisiyor)", "tekrarYaklasik": 20, "fren": "KISMEN", "kaynak": "DERSLER 62,67,113,115,120,122,125-128,130-131,134,165"},
+    {"id": "S4", "ad": "HTTP 429/401/403/400 ailesi", "tekrarYaklasik": 10, "fren": "KISMEN", "kaynak": "kalkan429 defter 2026-11-01T14:23:41.633Z + ARA-DURUM F1 + hafiza codefast-400/glm-claude-401"},
+    {"id": "S5", "ad": "test determinizm/flake", "tekrarYaklasik": 15, "fren": "COGU", "kaynak": "DERSLER 27,149,167-169,171,174,176,178,181-183,191"},
+    {"id": "S6", "ad": "cok-ajan koordinasyon yarisi", "tekrarYaklasik": 8, "fren": "KISMEN", "kaynak": "DERSLER 40-41,108,144,178-2,197 + ARA-DURUM F2/F3"},
+    {"id": "S7", "ad": "long-running/surec omru", "tekrarYaklasik": 9, "fren": "KISMEN", "kaynak": "DERSLER 30,50,124,149,164-165,168,181,190 + 4377/4930/8790 dinleyici yok + compaction hafizasi"},
+    {"id": "S8", "ad": "SSOT/mimari drift", "tekrarYaklasik": 12, "fren": "KISMEN", "kaynak": "DERSLER 25,36,58,87,96,102,129,137,143,183-184,189 + SH-d graf yazma ucu YOK + F2 bayat schedule prompt"},
+    {"id": "S9", "ad": "kapsam tavana ihlali", "tekrarYaklasik": 3, "fren": "ACIK", "kaynak": "DERSLER 129,137,143"},
+    {"id": "S10", "ad": "UI/panel yuzu", "tekrarYaklasik": 6, "fren": "KISMEN", "kaynak": "DERSLER 63,75-76,193-2 + pano 4377 olu + tasarim-dili kapisi hafizasi"}
+  ],
+  "enOldurucu5": ["S1", "S2", "S3", "S4", "S8"],
+  "operatorinAdlari": {"429 ve diger hatalar": ["S4", "S3"], "ui plan mimari drifti": ["S8", "S10"], "hiz": ["S1", "S4"], "long running calismama": ["S7"]},
+  "dashboardBagi": "sinif-basina (tekrar, son-olay, fren-durumu) kart; otomatik sayim ucu devir-olcum.mjs kardesi; pano 4377 restart [insan]",
+  "fixKuyrugu": ["F1+F3 pilot duzeltmeleri", "F2 stored-prompt temizligi [insan v0.25]", "devir-olcum.mjs + sinif-sayim ucu", "PS5.1 refleks-freni plugin tarafinda"]
+}

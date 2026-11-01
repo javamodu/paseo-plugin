@@ -1,0 +1,18 @@
+{
+  "schemaSurum": 1,
+  "rapor": "otodev-pilot-0-hasat",
+  "damgaISO": "2026-11-01T14:53:00+03:00",
+  "kaynaklar": ["inspect_schedule 3b6cd207", "core/data/devir-kira.json-log.jsonl", "plugin/data/429-defter.jsonl", "git log/status", "plans/handoff/HANDOFF-2026-11-01-1741.md"],
+  "kosular": [
+    {"no": 1, "baslangic": "2026-11-01T14:17:00.750Z", "bitis": "2026-11-01T14:23:47.540Z", "saglayici": "glm53u-codex", "sonuc": "BASARISIZ-429", "sureSn": 407, "handoff": null, "kanit": "run 159174b3 + defter 14:23:41.633Z"},
+    {"no": 2, "baslangic": "2026-11-01T14:27:01.001Z", "bitis": "2026-11-01T14:29:47.970Z", "saglayici": "glm53u-codex", "sonuc": "SESSIZ-BASARI", "sureSn": 167, "handoff": null, "kanit": "run 99a71bdc"},
+    {"no": 3, "baslangic": "2026-11-01T14:37:00.544Z", "bitis": "2026-11-01T14:42:37.235Z", "saglayici": "glm53u-claude", "sonuc": "DEVIR-YAZDI", "kosuSureSn": 337, "devirSureSn": 248, "handoff": "plans/handoff/HANDOFF-2026-11-01-1741.md", "echoDoluluk": "3/3", "zincir": "HANDOFF-2026-11-01-1658.md", "kanit": "run 2badf321 + kira-log devir 14:37:59.172Z birak 14:42:07.064Z"},
+    {"no": 4, "baslangic": "2026-11-01T14:47:00.126Z", "bitis": "2026-11-01T14:49:20.311Z", "saglayici": "glm53u-claude", "sonuc": "RED-echo-borcu-acik", "sureSn": 140, "handoff": null, "kanit": "run 09944e9a + nobet durum exit 1"}
+  ],
+  "olcumHedefleri": {"devirSuresi": "4dk08sn (tek ornek)", "echoDoluluk": "3/3", "ciftYazar": 0, "kapiIhlali": 0, "sekmeAcma": "cikti-kaniti-yok"},
+  "bulgular": {"F1-429-tur-ici-olum": "KANITLANDI-ACIK", "F2-cift-enjeksiyon": "KANITLANDI-ACIK-[insan]-v0.25", "F3-kira-pid": "KISMEN-ACIK", "F4-zincir-kapisi": "KAPANDI"},
+  "yanBulgular": ["429-defter 2 canli kayit (PK-a calisiyor)", "1741'in 17:17-bilinmiyor cümlesi cozuldu: 429 olumu Paseo kaydinda", "schedule completed - maxRuns 4/4 tukendi"],
+  "hukum": "PILOT-0 BASARILI - uc sonuc yolu kanitlandi (sessiz/devir/RED) + F1 ariza modu yakalandi",
+  "devralanBorcu": "1741 echo 3/3 henuz KAPATILMADI - siradaki koordinator oturumu echo append eder",
+  "fixKuyrugu": ["F1+F3 oncelik", "F2 [insan] v0.25", "devir-olcum.mjs + hedef karar kaydi", "A3 buyutme [insan] diskC-esigi"]
+}
