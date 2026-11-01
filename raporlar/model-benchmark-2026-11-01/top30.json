@@ -1,0 +1,446 @@
+{
+  "sema": "paseo-model-benchmark-top30/v1",
+  "generatedAt": "2026-11-01T15:32:45+03:00",
+  "tazelemeTuru": "canli-ham-bench + canli-ajan-bataryasi + glm-akissiz",
+  "modelCagrisi": "var (51 modelli ham bench + b4 ajan kosumlari)",
+  "source": "ordu/core/evidence/provider-bench-latest.json",
+  "sourceGeneratedAt": "2026-11-01T10:45:43.083Z",
+  "sourceHash": "a1bc5d6c3b3bf7fe86a2be4c50088c2164c3333684a04608d989105f0f8f51ba",
+  "oncekiRapor": "raporlar/model-benchmark-2026-11-01 (rev.3, 2026-10-17 hiz olcumu)",
+  "metric": "tokSnToplam",
+  "toplamModel": 51,
+  "calisan": 27,
+  "hatali": 24,
+  "motorKanitlari": {
+    "hamBench": "core/evidence/provider-bench-latest.json (2026-11-01T10:45:43Z, 51 model / 27 OK / 24 hata, hash a1bc5d6c...)",
+    "glmNostream": "core/evidence/provider-bench-glm53u-nostream-2026-11-01.json (2026-11-01T10:58:30Z, 34.67 tok/s, 7383.72 ms)",
+    "b3Bataryasi": "../.paseo-bench/b3-claude-2026-11-01.json (12:50-13:06, glm53u-codex 1+1+1 / 57.8 sn; claude-glm + glm53u-claude 401)",
+    "b4Hiz": "../.paseo-bench/b4-hiz-2026-11-01.json (14:21, 7 hedef)",
+    "b4Pi": "../.paseo-bench/b4-pi-2026-11-01.json (15:13, 5 hedef)",
+    "glmMotorMatrisi": "raporlar/glm53-motor-matrisi-2026-10-19/OZET.md",
+    "envanterOkuma": "paseo provider ls + provider models (2026-11-01, 127.0.0.1:6767, daemon 0.14.0)"
+  },
+  "rows": [
+    {
+      "provider": "groq",
+      "model": "allam-2-7b",
+      "durum": "OK",
+      "ttftMs": 189,
+      "tokSn": 1401.62,
+      "tokSnToplam": 689.65,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK; kod FAIL/IQ 0 (10-18) — hiz gostergeci"
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "durum": "OK",
+      "ttftMs": 454,
+      "tokSn": null,
+      "tokSnToplam": 493.77,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "durum": "OK",
+      "ttftMs": 145,
+      "tokSn": 518.96,
+      "tokSnToplam": 308.44,
+      "outToken": 110,
+      "hataKodu": null,
+      "erisim20261101": "OK; IQ 33 (10-18)"
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "durum": "OK",
+      "ttftMs": 597,
+      "tokSn": 880.98,
+      "tokSnToplam": 207.45,
+      "outToken": 162,
+      "hataKodu": null,
+      "erisim20261101": "OK ham API; motor b4 HATA (4.4 sn)"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "nvidia/nemotron-3.5-super-vl:free",
+      "durum": "OK",
+      "ttftMs": 1542,
+      "tokSn": 1256.73,
+      "tokSnToplam": 146.68,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "nvidia/nemotron-3.5-lightning:free",
+      "durum": "OK",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": 128.63,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3.5-lightning:free",
+      "durum": "OK",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": 121.57,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "durum": "OK",
+      "ttftMs": 2058,
+      "tokSn": 1646.44,
+      "tokSnToplam": 115.64,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "kilo-auto/free",
+      "durum": "OK",
+      "ttftMs": 1277,
+      "tokSn": 631.31,
+      "tokSnToplam": 114.21,
+      "outToken": 178,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "cohere/north-mini-code:free",
+      "durum": "OK",
+      "ttftMs": 869,
+      "tokSn": 348.12,
+      "tokSnToplam": 112.84,
+      "outToken": 145,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+      "durum": "OK",
+      "ttftMs": 1877,
+      "tokSn": 653.79,
+      "tokSnToplam": 112.82,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "openrouter",
+      "model": "openrouter/free",
+      "durum": "OK",
+      "ttftMs": 879,
+      "tokSn": 374.88,
+      "tokSnToplam": 112.34,
+      "outToken": 141,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "durum": "OK",
+      "ttftMs": 1013,
+      "tokSn": 198.05,
+      "tokSnToplam": 95.81,
+      "outToken": 188,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "nvidia",
+      "model": "poolside/laguna-xs-2.1",
+      "durum": "OK",
+      "ttftMs": 466,
+      "tokSn": 157.22,
+      "tokSnToplam": 94.38,
+      "outToken": 110,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "reflection/beam-free",
+      "durum": "OK",
+      "ttftMs": 1403,
+      "tokSn": 528.05,
+      "tokSnToplam": 84.41,
+      "outToken": 141,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "nvidia",
+      "model": "meta/muse-glimmer-30b",
+      "durum": "OK",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": 76.1,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "inclusionai/ling-3.1-flash-1019-free",
+      "durum": "OK",
+      "ttftMs": 1791,
+      "tokSn": 221.94,
+      "tokSnToplam": 62.27,
+      "outToken": 155,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "openrouter",
+      "model": "dots-studio/dots-3-note-preview:free",
+      "durum": "OK",
+      "ttftMs": 2967,
+      "tokSn": 222.91,
+      "tokSnToplam": 62.21,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK; kilo motoru 0+0+0 (251 sn)"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "dots-studio/dots-3-note-preview:free",
+      "durum": "OK",
+      "ttftMs": 3464,
+      "tokSn": 272.11,
+      "tokSnToplam": 58.12,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "durum": "OK",
+      "ttftMs": 1215,
+      "tokSn": 106.6,
+      "tokSnToplam": 52.79,
+      "outToken": 127,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "xingchen-agi/xing4.0-29b-a4b:free",
+      "durum": "OK",
+      "ttftMs": 6531,
+      "tokSn": null,
+      "tokSnToplam": 39.2,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK (bugun kilo-gw'de olculdu)"
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "durum": "OK",
+      "ttftMs": 2450,
+      "tokSn": 149.7,
+      "tokSnToplam": 38.5,
+      "outToken": 127,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "kilo-gw",
+      "model": "openrouter/free",
+      "durum": "OK",
+      "ttftMs": 2277,
+      "tokSn": 120.72,
+      "tokSnToplam": 38.15,
+      "outToken": 127,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "glm53u-codex",
+      "model": "glm-5.3",
+      "durum": "OK",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": 34.67,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "akis 502; akissiz 34.67 t/s; b4-hiz 1+1+1 / 15.8 sn"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "durum": "OK",
+      "ttftMs": 7232,
+      "tokSn": 1234.87,
+      "tokSnToplam": 34.41,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK; b4-hiz 1+1+1 / 6.4 sn"
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3.5-super-vl:free",
+      "durum": "OK",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": 32.8,
+      "outToken": 256,
+      "hataKodu": null,
+      "erisim20261101": "OK"
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "durum": "OK",
+      "ttftMs": 989,
+      "tokSn": 36,
+      "tokSnToplam": 28.9,
+      "outToken": 145,
+      "hataKodu": null,
+      "erisim20261101": "OK; b4-hiz 1+1+1 / 10.3 sn"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/riva-translate-4b-instruct-v2",
+      "durum": "OK",
+      "ttftMs": 9249,
+      "tokSn": 50.43,
+      "tokSnToplam": 1.47,
+      "outToken": 14,
+      "hataKodu": null,
+      "erisim20261101": "OK; ceviri modeli (kod gorevi degil)"
+    },
+    {
+      "provider": "tokenharbor",
+      "model": "deepseek-v4.1-flash:free",
+      "durum": "HATA",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": null,
+      "outToken": null,
+      "hataKodu": "free_tier_limit_reached (429)",
+      "erisim20261101": "HATA; b4 0+0+0 (242 sn)"
+    },
+    {
+      "provider": "codefast",
+      "model": "kimi-k3",
+      "durum": "HATA",
+      "ttftMs": null,
+      "tokSn": null,
+      "tokSnToplam": null,
+      "outToken": null,
+      "hataKodu": "NO_ACTIVE_PACKAGE",
+      "erisim20261101": "HATA; paket yok"
+    }
+  ],
+  "motorMatrisi": [
+    {
+      "motor": "Claude Code (glm53u-claude)",
+      "durum": "CALISMIYOR",
+      "kanit": "b3 canli ajan: 401 Failed to authenticate",
+      "not": "/v1/messages 401; diger uclar 200 — sunucu tarafi"
+    },
+    {
+      "motor": "Claude Code (claude-glm)",
+      "durum": "CALISMIYOR",
+      "kanit": "b3 canli ajan: 401",
+      "not": "glm-api ucu ayri sunucu olsa da bugun kirmizi"
+    },
+    {
+      "motor": "Codex (glm53u-codex)",
+      "durum": "CALISIYOR",
+      "kanit": "b3 1+1+1 / 57.8 sn; b4 1+1+1 / 15.8 sn; akissiz 34.67 t/s",
+      "not": "akisli bench 502 — akissiz kullan"
+    },
+    {
+      "motor": "Codex (codefast-glm eski kart)",
+      "durum": "CALISMIYOR",
+      "kanit": "10-19: /responses 404",
+      "not": "kart bilincli kapali"
+    },
+    {
+      "motor": "Pi CLI (pi)",
+      "durum": "KISMENI",
+      "kanit": "b4-pi: 3 tam (1+1+1), 1 kismi (1+1+0), 1 running",
+      "not": "ilk gercek Pi E2E bataryasi"
+    },
+    {
+      "motor": "Kilo/KiloCode",
+      "durum": "KOSULLU",
+      "kanit": "b4-hiz dots-3 0+0+0 / 251 sn",
+      "not": "motor aciliyor, hedef modelde skor yok"
+    },
+    {
+      "motor": "OpenCode",
+      "durum": "CALISIYOR",
+      "kanit": "b4-hiz deepseek-v4.1-flash 1+1+1 / 28.7 sn",
+      "not": "GLM E2E hala kanitsiz"
+    },
+    {
+      "motor": "NVIDIA NIM",
+      "durum": "CALISIYOR",
+      "kanit": "b4-hiz nemotron-3.5-super-vl 1+1+1 / 6.4 sn",
+      "not": "bugunun en hizli ajani"
+    },
+    {
+      "motor": "TokenHarbor",
+      "durum": "CALISMIYOR (bugun)",
+      "kanit": "4/4 model 429; b4 0+0+0 / 242 sn",
+      "not": "kota penceresi; dun calisiyordu"
+    },
+    {
+      "motor": "OpenRouter (ham)",
+      "durum": "CALISIYOR (kismen)",
+      "kanit": "b4-hiz north-mini 1+1+1 / 10.3 sn",
+      "not": "15 modelde 8 hata (429/403/404/503)"
+    },
+    {
+      "motor": "Groq (Paseo motor ayagi)",
+      "durum": "HATA",
+      "kanit": "b4: 4.4 sn hata",
+      "not": "ham API hizi yuksek; motor istek bicimi sorunu"
+    },
+    {
+      "motor": "Codefast (kimi-k3)",
+      "durum": "HATA",
+      "kanit": "NO_ACTIVE_PACKAGE",
+      "not": "iki kart"
+    }
+  ],
+  "katalogdaYeniOlcusuz": [
+    "Kimi K3 (kilo-gw/kilo) — sadece NO_ACTIVE_PACKAGE hatasi",
+    "Step 5 Preview OR ucretli",
+    "DeepSeek 1017",
+    "Gemini 3.8 Flash",
+    "gemma-4-26b-a4b",
+    "laguna-s-2.1",
+    "deepseek-flash/v4-pro (resmi API)"
+  ],
+  "notlar": [
+    "1+1+1 skoru ile tokSnToplam ayni olcek degildir; hiz ve ajan davranisi ayri tutuldu.",
+    "running = hata degil, bitmedi: deepseek 281.3 sn, kilo 251.1 sn, tokenharbor 242.2 sn kosarken koordinator oldu.",
+    "GLM 34.67 t/s akissizdir (stream=false); akisli bench 502. Birebir kiyas degil.",
+    "allam-2-7b hiz zirvesi yaniltici: 10-18'de kod FAIL + IQ 0 + terminal 0/5.",
+    "Rapor uretilirken model cagrisi yapilmadi; tum sayilar diskteki kanit dosyalarindan okundu.",
+    "Bench 24 hata icerir; tabloda yalniz 2 temsilci hata satiri gosterildi."
+  ]
+}

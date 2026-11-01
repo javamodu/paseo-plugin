@@ -1,0 +1,61 @@
+{
+  "sema": "ordu-provider-bench/v1",
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-01T10:58:30.891Z",
+  "ayarlar": {
+    "kapsam": "free-modeller",
+    "runs": 1,
+    "maxTokens": 256,
+    "akis": false,
+    "prompt": "1'den 30'a kadar sayilari virgulle yaz.",
+    "config": "C:\\Users\\gatep\\.paseo\\config.json"
+  },
+  "providerlar": [
+    {
+      "provider": "glm53u-codex",
+      "kapsam": "free-katmani-yok, config-listesi (1/2)",
+      "katalogHttp": 200,
+      "katalogMs": 501,
+      "katalogBoyut": 2,
+      "katalogHata": null,
+      "katalogLimit": {},
+      "secilenSayi": 1,
+      "modeller": [
+        {
+          "model": "glm-5.3",
+          "deneme": 1,
+          "basarili": 1,
+          "ttftMs": null,
+          "toplamMs": 7383.7235,
+          "tokSn": null,
+          "tokSnToplam": 34.67,
+          "outToken": 256,
+          "tokenKaynagi": "usage",
+          "parca": null,
+          "deltaSn": null,
+          "tokenPerDelta": null,
+          "http": 200,
+          "hataKodu": null,
+          "not": null,
+          "olcumNotu": "akis-kapali; yalniz toplam-sure bazli hiz olculur",
+          "limit": {
+            "x-ratelimit-class": "generation",
+            "x-ratelimit-concurrency-limit": "25",
+            "x-ratelimit-concurrency-remaining": "24",
+            "x-ratelimit-limit": "25",
+            "x-ratelimit-remaining": "22",
+            "x-ratelimit-reset": "16",
+            "x-ratelimit-scope": "api:d3341604-5d45-4deb-9a90-64d0b8a0cc98"
+          }
+        }
+      ]
+    }
+  ],
+  "ozet": {
+    "toplamModel": 1,
+    "calisan": 1,
+    "hatali": 0
+  },
+  "note": "tokSn yalniz uretim penceresi (toplamMs - ttftMs) uzerinden, en az 2 delta paketi ve 100ms usturum goruldugunde hesaplanir; aksi halde null. tokSnToplam her zaman outToken/toplamMs verir ve TTFT icerir (alt sinir). tokenKaynagi=usage sunucu sayimi, tahmin ise ~4 karakter/token kaba olcegi; ikisi de uctan uca dogrulanmis gecikme olcumu degildir. Hatali satirlar kota/402/403 kaynaklidir, model yetenegi degil.",
+  "benchHash": "251b06d9173b7b456975855485b642a90004f9d25903e63093d0e76895a0a9b8"
+}
