@@ -7,7 +7,15 @@
 //                RED kapıları KARARDAN ÖNCE döner (fail-closed sıra: alarm sessiz çıkışı ezer).
 //                Kira etiketi görevdeki 4 değer + dürüst 2 genişletme: 'birakildi' (bilinçli
 //                veda — ölü de canlı da değildir; devir gerekli) ve 'bozuk' (kiraAl RED'ler →
-//                temizlik [insan] kapısında kalır; exit 1).
+//                temizlik [insan] kapısında kalır; exit 1). SK-1 F3 (pilot-0: sahibi ölmüş kira
+//                taze göründüğü sürece düşmüyor): 'bozuk'un İKİNCİ yüzü — NOBET sınıfı kira TAZE
+//                iken sahibi kanıtlı ölmüşse (pidCanliMi ESRCH; kanıt yoksa damga YOK) sessiz
+//                'taze' çıkışı tuzaktır → kira 'bozuk' damgası + 'kira-sahip-olu-RED' (exit 1;
+//                taze kirada kiraAl yine RED'ler — TAZE kira asla devrilmez, A1 değişmez; çözüm
+//                yolu: temizlik [insan] kira-birak ya da TTL bitişi → 'bayat-olu' devir yolu —
+//                devralan oradan fail-closed devralır). Yalnız nobet sınıfı: F3 önerisi
+//                'devirSinifi-kuralı' + nöbet kirası gözetimsizdir (operator kirası
+//                insan-attended; mevcut n2/n3 pinleri aynen).
 //   kira-al      --sinif <operator|nobet> --pid <N> [--kimlik <metin>]: kiraAl sarmalayıcı.
 //                --pid ZORUNLU ve pozitif tamsayı, sessiz varsayılan YOK — betik kendi kısa
 //                ömürlü pid'ini yanlışlıkla kira sahibi YAPAMAZ (üretimde nöbet ajanı Paseo
@@ -98,14 +106,24 @@ export function durumHesapla(kiraYolu = kiraYoluCoz()) {
     } catch { /* yarış — pid null kalır, dürüst */ }
   }
   const pidCanli = pid === null ? null : pidCanliMi(pid);
+  // SK-1 F3 (pilot-0: sahibi ölmüş kira taze göründüğü sürece düşmüyor): NOBET sınıfı kiranın
+  // sahibi KANITLI ölmüşse (pidCanliMi ESRCH; pid okunamadıysa kanıt yok → damga YOK — fail-
+  // closed) taze iken bile 'bozuk' damgası taşır — sessiz 'taze' çıkışı tuzaktır. Yalnız nobet
+  // sınıfı: F3 önerisi 'devirSinifi-kuralı' + nöbet kirası gözetimsizdir (operator kirası
+  // insan-attended — n2/n3 pinleri aynen). Bayat+ölü yüzü DEĞİŞMEZ: devralan o yoldan fail-
+  // closed devralır (kiraAl ttl-asimi + pid-ölü kanıtı). Taze+ölüde kiraAl yine RED'ler (TAZE
+  // kira asla devrilmez — A1 çekirdek): çözüm yolu temizlik [insan] kira-birak ya TTL bitişi.
   const kira = kd.yok ? 'yok'
     : kd.bozuk ? 'bozuk'
+    : kd.taze && kd.devirSinifi === 'nobet' && pidCanli === false ? 'bozuk'
     : kd.taze ? 'taze'
     : kd.durum === 'birakildi' ? 'birakildi'
     : pidCanli === false ? 'bayat-olu'
     : 'bayat-canli';
   const redler = [];
-  if (kira === 'bozuk') redler.push('kira-bozuk-devir-RED');
+  // İki bozuk yüzü ayrı mesaj taşır (dürüst teşhis): dosya bozuk → 'kira-bozuk-devir-RED';
+  // sahibi ölü ama dosya sağlam → 'kira-sahip-olu-RED' (temizlik kira-birak/TTL yolu).
+  if (kira === 'bozuk') redler.push(kd.bozuk ? 'kira-bozuk-devir-RED' : 'kira-sahip-olu-RED');
   let zincir = null;
   try {
     zincir = zincirKontrol(kiraYolu);

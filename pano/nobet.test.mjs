@@ -431,3 +431,61 @@ test('n25: RED yolu tamamen sessiz — bozuk kira + RED tavan: exit 1 ve tmp diz
   assert.deepEqual(sonra, once, 'durum RED yolunda dahi hiçbir dosya yazamaz');
   rmSync(d, { recursive: true, force: true });
 });
+
+// SK-1 F3 (pilot-0: sahibi ölmüş kira taze göründüğü sürece düşmüyor) — sinif-koşullu 'bozuk'
+// damgası: yalnız NOBET sınıfı (F3 önerisi 'devirSinifi-kuralı'; operator kirası insan-attended,
+// n2/n3 pinleri aynen). İki bozuk yüzü ayrı mesaj taşır: dosya bozuk → kira-bozuk-devir-RED;
+// sahibi ölü → kira-sahip-olu-RED.
+
+test('n26: durum — NOBET sınıfı kira TAZE + sahibi ÖLÜ (ESRCH kanıtlı) → bozuk + kira-sahip-olu-RED (exit 1); bayat+ölü aynen bayat-olu (exit 2 — devir yolu açık); yazma yok', () => {
+  const d = tempKok();
+  const yol = kiraYolu(d);
+  kiraYaz(yol, kiraFixture({ damgaISO: simdi(), devirSinifi: 'nobet' })); // taze + OLU_PID sahipli
+  const r = nobet(['durum'], { kiraYolu: yol });
+  assert.equal(r.status, 1, 'stdout: ' + r.stdout + ' stderr: ' + r.stderr);
+  const j = json(r);
+  assert.equal(j.kira, 'bozuk');
+  assert.equal(j.pidCanli, false);
+  assert.equal(j.sinif, 'nobet');
+  assert.equal(j.karar, 'RED');
+  assert.ok(j.red.includes('kira-sahip-olu-RED'), 'red alanı: ' + j.red);
+  assert.ok(!j.red.includes('kira-bozuk-devir-RED'), 'dosya sağlam — dosya-bozuk mesajı YOK: ' + j.red);
+  assert.equal(existsSync(logYolu(yol)), false, 'durum RED yolu dahi yazmasız (salt-okur)');
+  // Bayat + ölü (nobet): damga YOK — devralan devir yolundan fail-closed devralır (kiraAl
+  // ttl-asimi + pid-ölü kanıtı; taze-değil iken kiraAl RED'lemez).
+  const d2 = tempKok();
+  const yol2 = kiraYolu(d2);
+  kiraYaz(yol2, kiraFixture({ devirSinifi: 'nobet' })); // 20 dk önce + OLU_PID → bayat
+  const r2 = nobet(['durum'], { kiraYolu: yol2 });
+  assert.equal(r2.status, 2, 'stdout: ' + r2.stdout);
+  const j2 = json(r2);
+  assert.equal(j2.kira, 'bayat-olu');
+  assert.equal(j2.karar, 'devir-gerekli');
+  assert.equal(j2.red, undefined);
+  assert.equal(existsSync(logYolu(yol2)), false);
+  rmSync(d, { recursive: true, force: true });
+  rmSync(d2, { recursive: true, force: true });
+});
+
+test('n27: durum — NOBET sınıfı kira sahibi CANLI → taze/bayat AYNEN (damga yaşayan sahipte YOK; exit 0)', () => {
+  const d = tempKok();
+  const yol = kiraYolu(d);
+  kiraYaz(yol, kiraFixture({ damgaISO: simdi(), devirSinifi: 'nobet', pid: process.pid })); // taze + bu test süreci canlı
+  const r = nobet(['durum'], { kiraYolu: yol });
+  assert.equal(r.status, 0, 'stdout: ' + r.stdout + ' stderr: ' + r.stderr);
+  const j = json(r);
+  assert.equal(j.kira, 'taze');
+  assert.equal(j.pidCanli, true);
+  assert.equal(j.karar, 'devir-gerekmez');
+  assert.equal(j.red, undefined);
+  kiraYaz(yol, kiraFixture({ devirSinifi: 'nobet', pid: process.pid })); // 20 dk önce → bayat + canlı
+  const r2 = nobet(['durum'], { kiraYolu: yol });
+  assert.equal(r2.status, 0, 'stdout: ' + r2.stdout);
+  const j2 = json(r2);
+  assert.equal(j2.kira, 'bayat-canli');
+  assert.equal(j2.pidCanli, true);
+  assert.equal(j2.karar, 'devir-gerekmez');
+  assert.equal(j2.red, undefined);
+  assert.equal(existsSync(logYolu(yol)), false, 'durum salt-okur — defter doğmaz');
+  rmSync(d, { recursive: true, force: true });
+});

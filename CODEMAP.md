@@ -1,9 +1,9 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD e28f892 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 642d833 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `admin-onboarding.md` (6.1KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
-- `AGENTS.md` (2.4KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
+- `AGENTS.md` (3.1KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
 - `ANAYASA.md` (3.1KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (99 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
@@ -76,12 +76,14 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0055.md` (3.3KB) — K-0055 — K8 birleşme write-model mimarisi: PANO_TOKEN + sınırlı write-set + onay yüzü aktör insan:web | Bağlam | Karar
 - `kararlar/K-0056.md` (2KB) — K-0056 — ATOM-H1 kalan fişlerinde 3-ajan hızlandırma (boru hattı modeli)
 - `kararlar/K-0057.md` (2.5KB) — K-0057 — Süreklilik süpervizörü: 3 ajan + tıkanma karşıtı nöbet (kullanıcı emri)
+- `kararlar/K-0058.md` (2.8KB) — K-0058 — TASLAK: devir hedef eşikleri (OTODEV A3 ölçü kapısı)
+- `kararlar/K-0059.md` (2.5KB) — K-0059 — Kira sahibi-ölü 'bozuk' damgasının sınıf kuralı (SK-1 F3 resmileştirme)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (27 dosya: en yeni ordu-panosu.test.mjs, server.js, ordu-birlesim.mjs)
+- `pano/` (29 dosya: en yeni devir-olcum.test.mjs, devir-olcum.mjs, nobet.test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
-- `plans/` (103 dosya: en yeni SORUN-KAPATMA-3AJAN-PLANI-2026-11-01.md, HANDOFF-2026-11-01-1741.md, HANDOFF-2026-11-01-1658.md)
+- `plans/` (103 dosya: en yeni HANDOFF-2026-11-01-1741.md, SORUN-KAPATMA-3AJAN-PLANI-2026-11-01.md, HANDOFF-2026-11-01-1658.md)
 - `plugin/` (74 dosya: en yeni kalkan429.ts, index.server.ts, kalkan429.test.ts)
-- `raporlar/` (276 dosya: en yeni 2026-W44.md, STATE_BOARD.md, MOTOR-DURUM.md)
+- `raporlar/` (278 dosya: en yeni ORDU-3-2026-11-02-sk1-kapanis.md, 2026-W45.md, 2026-W44.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -95,12 +97,14 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/katman-kur.ps1` (1.7KB) — function Kur($hedef, $sablonAd) {
 - `scripts/kilit-surum.ps1` (7.3KB) — function GitZorunlu([string[]]$GitArgs) {
 - `scripts/kiyasla.ps1` (1.9KB) — function Oku([string]$e) {
-- `scripts/merge-guard.ps1` (1.6KB)
+- `scripts/merge-guard.ps1` (2.4KB)
 - `scripts/model-katalog.mjs` (9.7KB) — function md() {
 - `scripts/omp-kurulum-kapisi.mjs` (4.2KB)
 - `scripts/openrouter-pi-kapisi.mjs` (4.1KB)
 - `scripts/pi-erisim-kapisi.mjs` (3.7KB)
 - `scripts/proje-panosu.ps1` (9.2KB) — function KovaBul([string]$repo) { | function TelemetriOzet([string]$repo) { | function RepoTara([string]$repo) {
+- `scripts/ps51-kapisi.ps1` (5.1KB)
+- `scripts/ps51-kapisi.test.mjs` (12.1KB) — function kos(args, cwd) { | function psYaz(ad, satirlar, satirSonu) {
 - `scripts/saglik.ps1` (10.2KB) — function Check($ad, $ok, $detay) { | function Find-First([string]$root, [string[]]$paths) { foreach ($p in $paths) { $full = Join-Path $root $p; if (Test-Path $full) { return $full } }; return $null } | function Warn($ad, $detay) { $script:rows += [pscustomobject]@{ Kontrol = $ad; Durum = 'SARI'; Detay = $detay }; $script:warnN++ }
 - `scripts/test-kanal.ps1` (2.2KB)
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
@@ -111,6 +115,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (91KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (93.1KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)
