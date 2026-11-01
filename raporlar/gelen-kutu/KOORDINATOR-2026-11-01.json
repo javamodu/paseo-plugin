@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "rapor": "KOORDINATOR-2026-11-01",
+  "yontem": "canli uc testi (curl, anahtar degeri yazilmadi) + Paseo ajan smoke testi + raporlarin diskten yeniden okunmasi; commit/push YOK; benchmark dosyalarina dokunulmadi",
+  "damga": "2026-11-01T12:50 (yerel; olculdu)",
+  "odak": ["raporlar/model-benchmark-2026-11-01/OZET.md", "raporlar/model-benchmark-2026-11-01/top30.json"],
+  "maddeler": [
+    {
+      "id": "K1",
+      "baslik": "Makine-okunur yan dosya bayat — top30.json motorMatrisi glm53u-claude CALISIYOR diyor; OZET.md rev.2 BUGUN CALISMIYOR diyor (/v1/messages 401); JSON okuyan otomasyon bugunku kirigi gormez",
+      "dosyaRef": "raporlar/model-benchmark-2026-11-01/top30.json:52",
+      "etiket": "ACIK",
+      "siddet": "orta",
+      "oneri": "top30.json rev.2 senkronu: glm53u-claude durum=BUGUN-CALISMIYOR + 2026-11-01 uc kaniti (request id a539e80098fdb8be, a539e8087e88f5f0); glm53u-codex durum=KAPI-SAGLAM; islenme sonrasi commit hash",
+      "islenma": "halledildi: top30.json rev.4 (2026-11-01 15:41 disk mtime) motorMatrisi SENKRON — glm53u-claude CALISMIYOR (b3 401 kanit satiri) + glm53u-codex CALISIYOR; devralan koordinator 15:44 diskten bagimsiz dogruladi; kayit: bu islenma commit'i (benchmark dosyalarinin kendi commit'i top-30 ajaninin dongusunde — operator direktifi)"
+    },
+    {
+      "id": "K2",
+      "baslik": "OZET.md rev.2 motor tablosunda Codex (codefast-glm eski kart) satiri ardarda iki kez girilmis (duzen artik)",
+      "dosyaRef": "raporlar/model-benchmark-2026-11-01/OZET.md:20",
+      "etiket": "ACIK",
+      "siddet": "dusuk",
+      "oneri": "cift satiri tekillestir (append-only rapor kuralina uygun duzeltme notuyla)",
+      "islenma": "halledildi: OZET.md rev.4 (15:41) motor tablosu tamamen yeniden yazildi — 12 ayri satir, cift kayit YOK (devralan koordinator 15:44 okudu); kayit: bu islenma commit'i"
+    }
+  ]
+}
