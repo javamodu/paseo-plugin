@@ -18,6 +18,12 @@
 // vaka 10/11/12/19/21/22/23/30/32/33 güncel sözleşmeye evrildi (sökülen bileşenlerin YOKLUĞU
 // artık iddia); vaka 6/13 deney köprüsünü (DENEY_KOK 4930) beyaz listeye aldı. ÜST bar
 // rozetleri (62951af) + ordu şeridi (40fa22b) sökümlerinin test borcu bu dalgada kapatıldı.
+// K8 DALGA 2a (2026-11-01; omurga emri 2026-10-31 15:14 + kontrol ilkesi 17:21 + denetim merkezi
+// emri 2026-11-01 + denetçi bulguları GD-009/010): DÜRÜST PİN GÜNCELLEMELERİ — vaka 10 (role=tab
+// eşiği 4→5) · vaka 18 (sabit sekme listesine sek-projeler eklendi) · vaka 29 (statik sabit sekme
+// 3→4: PROJELER). YENİ vaka 39-47: G10a proje seçici · G10b görev tablosu · O1 görev detay kartı ·
+// O2 performans yüzü (puanı ajan YAZAMAZ) · O3 ajan kartı · G11 kapsam rozeti/filtre · R3+çevre ·
+// D denetim merkezi (kayıtlı — canlı değil) · GD-009 JSON-imza dirty-check + GD-010 tek delege.
 // DOM render testi YOK;
 // yeni bağımlılık YOK (yalnız node:test + node:fs + node:assert). Her vaka ADIYLA kırmızıya
 // düşer (fail-closed).
@@ -158,7 +164,7 @@ test("10- R2 SEKME ÖZGÜRLÜĞÜ: ORTA görev sekmeleri tablist/role=tab TAŞIR
   // ORTA sekmeler (R2 emriyle): tablist + role=tab + runtime aria-selected
   ok('sekme şeridi (id="sekmeSerit" + role="tablist")', SRC.includes('id="sekmeSerit"') && SRC.includes('role="tablist"'));
   const tabSay = (SRC.match(/role="tab"/g) || []).length;
-  ok("role=tab >= 4 (3 sabit sekme + JS görev-sekmesi şablonu)", tabSay >= 4, "bulunan: " + tabSay);
+  ok("role=tab >= 5 (4 sabit sekme + JS görev-sekmesi şablonu — K8-2a PROJELER)", tabSay >= 5, "bulunan: " + tabSay);
   ok('aria-selected runtime güncellemesi (setAttribute("aria-selected"))', SRC.includes('setAttribute("aria-selected"'));
   // R1 tek-akış bileşenleri (varlık kontrolleri evrildi — eşik düşürülmedi)
   ok('detay kartı kabuğu (id="detay")', SRC.includes('id="detay"'));
@@ -275,7 +281,7 @@ test("18- R2: «Görev haritası» SABİT SEKME (VS Code tarzı) — aktivasyond
   const jsKisim = jsKisimOf();
   ok('haritaBolum sekme paneli (id="haritaBolum" + role="tabpanel")', SRC.includes('id="haritaBolum"') && /id="haritaBolum"[^>]*role="tabpanel"/.test(SRC));
   ok("R1 katlama kaldırıldı (haritaKatla/haritaGovde YOK — sekme modeli geldi)", !SRC.includes("haritaKatla") && !SRC.includes("haritaGovde"));
-  ok('sabit sekme id\'leri (sek-harita/sek-defter/sek-run)', ["sek-harita", "sek-defter", "sek-run"].every((i) => SRC.includes('id="' + i + '"')));
+  ok('sabit sekme id\'leri (sek-harita/sek-defter/sek-run/sek-projeler — K8-2a)', ["sek-harita", "sek-defter", "sek-run", "sek-projeler"].every((i) => SRC.includes('id="' + i + '"')));
   const t = tagOf("sek-harita");
   ok("sek-harita role=tab + aria-controls=haritaBolum", !!t && t.includes('role="tab"') && t.includes('aria-controls="haritaBolum"'));
   ok('sek-harita data-sekme="harita" (aktivasyon kancası)', !!t && t.includes('data-sekme="harita"'));
@@ -511,7 +517,7 @@ test("29- R2 ORTA SEKME MEKANİĞİ: görev sekmeleri açılır/kapanır; sec→
   ok("sabit sekme delege (closest(\"[data-sekme]\"))", jsKisim.includes('closest("[data-sekme]")'));
   const htmlKisim = htmlKisimOf();
   const sabit = (htmlKisim.match(/role="tab"/g) || []).length;
-  ok("statik sabit sekme sayısı 3 (harita/defter/run)", sabit === 3, "bulunan: " + sabit);
+  ok("statik sabit sekme sayısı 4 (harita/defter/run/projeler — K8-2a PROJELER)", sabit === 4, "bulunan: " + sabit);
 });
 
 test("30- R2/K8 SAĞ İKON MENÜ: CHAT (varsayılan) + PROJE + API — panel içeriği dinamik değişir; hash/route YOK", () => {
@@ -677,4 +683,179 @@ test("38- K8-1b ATAMA ZİNCİRİ: seç → TASLAK → ONAY → durum; PANO_TOKEN
   ok("TASLAK → ONAY zinciri iki ayrı çağrı (tek çağrıda kalıcı atama YOK)", !jsKisim.includes("/api/atama/taslak-onay") && !jsKisim.includes('atamaPost("taslak", { gorevId: secilen, ajanId });\n    await atamaPost("onay"'));
   ok("GRAF SSOT yazma ucu YOK (/api/graf/yaz veya POST /api/graf)", !jsKisim.includes("/api/graf/yaz") && !/fetch\("\/api\/graf",\s*\{\s*method:\s*"POST"/.test(jsKisim));
   ok("ajan satırı tıklaması delege ile gerçek TASLAK akışına bağlı", jsKisim.includes('e.target.closest(".grafAjanSatir")') && jsKisim.includes("grafAjanTaslak(dugme.getAttribute(\"data-ajan\"), dugme)"));
+});
+
+test("39- K8-2a G10a PROJE SEÇİCİ: üst bar rozeti + listbox + kalıcı seçim (localStorage) + dış-tık/Esc kapatma", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  const t = tagOf("projeSecici");
+  ok("üst barda seçici düğmesi (id=projeSecici + class=projeBtn)", !!t && t.includes('class="projeBtn"'));
+  ok("aria-haspopup=listbox + aria-expanded senkron + aria-controls=projeListe", !!t && t.includes('aria-haspopup="listbox"') && t.includes('aria-expanded="false"') && t.includes('aria-controls="projeListe"'));
+  const tl = tagOf("projeListe");
+  ok("açılır liste (id=projeListe role=listbox, başlangıçta hidden)", !!tl && tl.includes('role="listbox"') && tl.includes("hidden"));
+  ok("rozet + ok (id=projeRozet + aria-hidden ok)", !!tagOf("projeRozet") && SRC.includes('class="projeOk" aria-hidden="true"'));
+  ok("iki seçenek: SİSTEM görünümü + ORDU (data-proje-sec sistem/ordu)", htmlKisim.includes('data-proje-sec="sistem"') && htmlKisim.includes('data-proje-sec="ordu"'));
+  ok("seçenekler klavyeyle erişilir (role=option + tabindex=0 + aria-selected)", /role="option" data-proje-sec="sistem" tabindex="0"/.test(htmlKisim) && /role="option" data-proje-sec="ordu" tabindex="0"/.test(htmlKisim));
+  ok("tuval içi sabit manifest (SİSTEM görünümü + ORDU — uydurma proje YOK E10)", jsKisim.includes("const PROJE_MANIFEST = [") && jsKisim.includes('{ id: "sistem", ad: "SİSTEM görünümü"') && jsKisim.includes('{ id: "ordu", ad: "ORDU"'));
+  ok("manifest dışı görünüm ÜRETİLMEZ (sistem|ordu guard)", /function projeSecDegistir\([^)]*\)[^]{0,200}deger !== "sistem" && deger !== "ordu"/.test(jsKisim));
+  ok("seçim kalıcı (localStorage tuval-proje — kaydet + oku)", jsKisim.includes('kaydet("tuval-proje", deger)') && jsKisim.includes('oku("tuval-proje")'));
+  ok("G10a ↔ G11 senkronu: seçim defter kapsamını belirler", jsKisim.includes('defterKapsam = deger === "sistem" ? "sistem" : "proje"'));
+  ok("rozet yazımı SİSTEM/ORDU + aria-selected senkronu", /function projeRozetYaz\(\)[^]{0,300}SİSTEM" : "ORDU/.test(jsKisim) && jsKisim.includes('li.getAttribute("data-proje-sec") === projeSecimi'));
+  ok("düğme + liste kablolı (click + keydown Enter/Space → seçim)", jsKisim.includes('$("projeSecici").addEventListener("click"') && jsKisim.includes('$("projeListe").addEventListener("keydown"'));
+  ok("dış tıklamada liste kapanır (!closest(.projeKutu))", jsKisim.includes('if (!e.target.closest(".projeKutu")) projeListeAcKapa(false)'));
+  ok("Escape kapatır (document keydown)", jsKisim.includes('e.key === "Escape") projeListeAcKapa(false);'));
+  ok("açılışta kalıcı seçim uygulanır (projeSecimiBaslat + oku)", jsKisim.includes("projeSecimiBaslat();") && /function projeSecimiBaslat\(\)[^]{0,400}oku\("tuval-proje"\)/.test(jsKisim));
+});
+
+test("40- K8-2a G10b PROJELER SEKMESİ: 4. sabit sekme + filo özeti + GÖREV TABLOSU kahraman (GERÇEK alanlar + dürüst boşluklar)", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  const t = tagOf("sek-projeler");
+  ok("sekme düğmesi (id=sek-projeler role=tab + data-sekme=projeler + aria-controls=projelerBolum)", !!t && t.includes('role="tab"') && t.includes('data-sekme="projeler"') && t.includes('aria-controls="projelerBolum"'));
+  ok("panel (id=projelerBolum role=tabpanel + aria-labelledby=sek-projeler)", /id="projelerBolum"[^>]*role="tabpanel"/.test(htmlKisim) && htmlKisim.includes('aria-labelledby="sek-projeler"'));
+  ok("SABIT_SEKMELER 4 üyeli (harita/defter/run/projeler)", jsKisim.includes('const SABIT_SEKMELER = ["harita", "defter", "run", "projeler"];'));
+  ok("manifest dürüst notu (uydurma proje listesi YASAK — E10)", htmlKisim.includes("uydurma proje listesi YASAK (E10)"));
+  ok("proje özeti GRAF SSOT alanlarından (grafSurumu + açık kapı + son damga)", /function projelerYaz\(\)[^]{0,900}G\.gorevler\.filter\(\(g\) => g\.kapi\)\.length/.test(jsKisim) && jsKisim.includes("G.grafSurumGecmisi[G.grafSurumGecmisi.length - 1].tarih") && jsKisim.includes('esc(String(G.grafSurumu || "—"))'));
+  ok("«şu projeye geç» düğmesi seçiciyi değiştirir (data-gec-proje + delege + SEÇİLİ rozeti)", jsKisim.includes("ŞU PROJEYE GEÇ") && jsKisim.includes('closest("[data-gec-proje]")') && jsKisim.includes('dkRozet teal">SEÇİLİ'));
+  ok("görev tablosu başlığı 5 sütun (GÖREV/FAZ/DURUM/YÜRÜTÜCÜ AJAN/SON OLAY)", jsKisim.includes('gorevTabloBas"><span>GÖREV</span><span>FAZ</span><span>DURUM</span><span>YÜRÜTÜCÜ AJAN</span><span>SON OLAY</span>'));
+  ok("satır = görev (data-gorev-row + delege → gorevDetayAc)", jsKisim.includes('data-gorev-row="') && jsKisim.includes('closest(".gorevSatir")') && jsKisim.includes('gorevDetayAc(el.getAttribute("data-gorev-row"))'));
+  ok("yürütücü ajan atama haritasından; kayıt yoksa dürüst «atanmadı»", jsKisim.includes("grafAtamaDurum.harita[g.id]") && jsKisim.includes(': "atanmadı")'));
+  ok("son olay kayıttan + G11 rozetli; kayıt yoksa dürüst «kayıt yok»", jsKisim.includes("gorevSonOlay(g.id)") && jsKisim.includes(': "kayıt yok")'));
+  ok("durum rengi + faz SATIRDA kalır (DURUMRENK + (faz yok))", /function gorevTablosuYaz\(\)[^]{0,900}DURUMRENK\[d\] \|\| "#666"/.test(jsKisim) && jsKisim.includes('g.faz || "(faz yok)"'));
+  ok("fail-closed: grafsız tablo çizilmez (bosSatir)", jsKisim.includes("graf yok — görev tablosu gösterilmez (fail-closed)"));
+  ok("kirmiziYuz omurga yüzlerini boşaltır (proje özeti + tablo + O1 kartı kapanır)", /function kirmiziYuz\([^)]*\)[^]{0,1200}graf yok — görev tablosu gösterilmez/.test(jsKisim) && /function kirmiziYuz\([^)]*\)[^]{0,1200}gorevDetayKapat\(\)/.test(jsKisim));
+  ok("tablo döngüde tazelenir (deneyYaz + atamaDurumYukle beslemesi)", jsKisim.includes("grafYonetimYaz(); ajanFiloYaz(); gorevTablosuYaz(); }") && /function atamaDurumYukle\([^)]*\)[^]{0,700}gorevTablosuYaz\(\)/.test(jsKisim));
+  ok("görev satırı 44px (min-height:var(--min-dokunma))", /\.gorevSatir\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(SRC));
+  ok("başlık + satır aynı 5 kolonlu grid (hücreler hizalı)", /\.gorevTabloBas\s*\{[^}]*grid-template-columns/.test(SRC) && /\.gorevSatir\s*\{[^}]*grid-template-columns/.test(SRC));
+  ok("dar ekranda tablo başlığı gizlenir + hücreler akar (639px)", (mediaBlok("max-width:639px") || "").includes(".gorevTabloBas { display:none; }"));
+});
+
+test("41- K8-2a O1 GÖREV DETAY KARTI (omurga halkası 2): NE YAPIYOR · NASIL YAPMALI + KISITLAR · KANIT", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  ok("kart kabuğu (id=gorevDetay + aria-live=polite + hidden)", /id="gorevDetay"[^>]*aria-live="polite"/.test(htmlKisim));
+  ok("NE YAPIYOR bölümü (atanmış ajan + son gerçek olay)", jsKisim.includes('kartBolumBas">NE YAPIYOR — atanmış ajan + son gerçek olay'));
+  ok("NASIL YAPMALI bölümü (talimat + KISITLAR — GRAF düğüm verisi)", jsKisim.includes('kartBolumBas">NASIL YAPMALI — talimat + KISITLAR (GRAF düğüm verisi'));
+  ok("KANIT bölümü + deftere geçiş düğmesi (data-sekme=defter)", jsKisim.includes('kartBolumBas">KANIT — defter/olay satırlarına geçiş') && jsKisim.includes('data-sekme="defter">▸ KANIT DEFTERİNDE GÖR'));
+  ok("kısıt alanları GRAF kaydından (rol·dizin·konum loc+testLoc·seçilebilir·uygulamaYetkisi·bütçe·ölçüt)", jsKisim.includes('kSatir("rol", grafMetin(g.rol)') && jsKisim.includes('kSatir("dizin", grafMetin(g.dizin)') && jsKisim.includes('kSatir("konum", grafMetin(g.loc)') && jsKisim.includes("g.testLoc") && jsKisim.includes('kSatir("seçilebilir", grafMetin(g.secilebilir))') && jsKisim.includes('kSatir("uygulama yetkisi", grafMetin(g.uygulamaYetkisi))') && jsKisim.includes('kSatir("bütçe", grafMetin(g.butceyeDahil))') && jsKisim.includes('kSatir("ölçüt (kabul)", grafMetin(g.olcut)'));
+  ok("atanmadı dürüstlüğü (atama haritasında kayıt yok)", jsKisim.includes("atanmadı — atama haritasında kayıt yok"));
+  ok("son olay kaynağı beyanlı (atamalar defteri / deney logu)", jsKisim.includes("atamalar defteri (/api/atama/durum)") && jsKisim.includes("deney logu (4930)"));
+  ok("kimlik eşleşmesi kelime-sınırlı (D1 ↔ D17 karışmaz)", jsKisim.includes("function metindeKimlikVar(") && jsKisim.includes("D1 ile D17 karışmaz"));
+  ok("görev fişi bağlantısı (data-fis-id → fisMd + panoyaYaz — GERÇEK graf verisi)", jsKisim.includes('data-fis-id="') && jsKisim.includes('closest("[data-fis-id]")') && jsKisim.includes("panoyaYaz(fisMd(fg))"));
+  ok("ajan kartına geçiş (data-ajan-kart → O3)", jsKisim.includes('data-ajan-kart="') && jsKisim.includes('closest("[data-ajan-kart]")'));
+  ok("performans ölçüm bağlantısı dürüst (ölçüm yok → AJAN KARTINDA)", jsKisim.includes("kayıtlı run ölçümü — tam yüz AJAN KARTINDA (O2)") && jsKisim.includes("ölçüm yok — bu ajanın modeline bağlı run kartı kaydı yok"));
+  ok("kart GERÇEK etiketli (/api/graf · /api/atama · 4930)", jsKisim.includes("GERÇEK — /api/graf · /api/atama · 4930"));
+  ok("kart × kapat düğmesi kablolı (gorevDetayKapat)", jsKisim.includes('id="gorevDetayKapat"') && jsKisim.includes('$("gorevDetayKapat").addEventListener'));
+});
+
+test("42- K8-2a O2 AJAN PERFORMANS YÜZÜ (omurga halkası 3): KAYITLI ölçümler — PUANI AJAN YAZAMAZ (hard kapı)", () => {
+  const jsKisim = jsKisimOf();
+  const olcumBlok = (() => { const a = jsKisim.indexOf("const OLCUM_KAYITLARI"); const b = jsKisim.indexOf("];", a); return a >= 0 && b > a ? jsKisim.slice(a, b) : ""; })();
+  const hesapGovde = (() => { const a = jsKisim.indexOf("function olcumHesapla("); const b = jsKisim.indexOf("\nfunction ", a); return a >= 0 && b > a ? jsKisim.slice(a, b) : ""; })();
+  ok("kayıtlı ölçüm sabitleri (3 run kartı değeri — Paseo 35195156 · 270/450/168 sn · usage)", jsKisim.includes("const OLCUM_KAYITLARI = [") && olcumBlok.includes("Paseo 35195156") && olcumBlok.includes("sureSn: 270") && olcumBlok.includes("sureSn: 450") && olcumBlok.includes("sureSn: 168") && olcumBlok.includes("usageIn: 106098") && olcumBlok.includes("usageIn: 78936"));
+  ok("HARD KAPI: ölçüm kayıtlarında puan alanı YOK (blok ayrıştı + puan kelimesi yok)", !!olcumBlok && !/\bpuan\b/.test(olcumBlok));
+  ok("HARD KAPI: olcumHesapla puan ÜRETMEZ (yalnız süre/test/usage alanları)", !!hesapGovde && !/\bpuan\b/.test(hesapGovde));
+  ok("hard kapı beyanı ekranda (puanı ajan YAZAMAZ — yalnız ölçüm kaynağından)", jsKisim.includes("puanı ajan YAZAMAZ — yalnız ölçüm kaynağından türetilir"));
+  ok("veri yoksa dürüst «ölçüm yok» (E10 — üretim YOK)", jsKisim.includes("ölçüm yok — bu ajanın modeline bağlı run kartı kaydı yok"));
+  ok("trend yalnız >= 2 kayıttan (tek ölçümde trend ÜRETİLMEZ)", jsKisim.includes("sureler.length >= 2 ? sureler[sureler.length - 1] - sureler[0] : null"));
+  ok("İYİLEŞME YOLU ölçümden türetilir; veri yoksa ÜRETİLMEZ", jsKisim.includes('kSatir("İYİLEŞME YOLU"') && jsKisim.includes("veri yok — İYİLEŞME YOLU satırı ölçümden türetilir; veri yoksa ÜRETİLMEZ"));
+  ok("hız üstünlüğü iddiası YOK (tek ölçüm dürüst notu)", jsKisim.includes("P2 ~2,7 kat hızlı görünüyor — TEK ölçüm, üstünlük iddiası YOK"));
+  ok("model eşleşmesi kapsayıcı (iki yön indexOf)", jsKisim.includes("function olcumEsles(") && jsKisim.includes("km.indexOf(m) > -1 || m.indexOf(km) > -1"));
+  ok("her ölçüm satırı «kayıtlı» etiketli (canlı değil)", (jsKisim.match(/etiketOrnek">kayıtlı/g) || []).length >= 6);
+  ok("sürekli ölçüm hattı K8-3 beyanı (bu dalgada üretim YOK)", jsKisim.includes("Sürekli ölçüm hattı K8-3"));
+});
+
+test("43- K8-2a O3 AJAN KARTI: kimlik · kısıtlar (E11 dürüstlük) · aktif görevler (ters arama) · performans (O2)", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  ok("filo + kart kabukları (ajanFilo role=list + ajanKarti aria-live)", /id="ajanFilo"[^>]*role="list"/.test(htmlKisim) && /id="ajanKarti"[^>]*aria-live="polite"/.test(htmlKisim));
+  ok("ajan iki kaynaktan bulunur (kosanPaseo + ornek — ajanBul)", jsKisim.includes("function ajanBul(") && jsKisim.includes("D.ajanlar.kosanPaseo.find") && jsKisim.includes("D.ajanlar.ornek.find"));
+  ok("koşan paseo kısıtları dürüst (izin/limit alanı yok — uydurulmaz E11)", jsKisim.includes("kayıt yok — koşan paseo kaydında izin/limit alanı yoktur, uydurulmaz (E11)"));
+  ok("örnek ajan kısıtları gerçek alanlardan (izin.dizin · limit.esZamanli · dolu · roller)", jsKisim.includes("a.izin && Array.isArray(a.izin.dizin)") && jsKisim.includes("a.limit && a.limit.esZamanli != null") && jsKisim.includes('kSatir("dolu", grafMetin(a.dolu))') && jsKisim.includes("a.roller"));
+  ok("aktif görevler atama haritasından TERS arama (Object.entries)", jsKisim.includes("function ajanGorevleri(") && jsKisim.includes("Object.entries(grafAtamaDurum.harita)"));
+  ok("atanmamış dürüstlüğü (atama haritasında kayıt yok)", jsKisim.includes("atama haritasında kayıt yok — atanmamış"));
+  ok("filo fail-closed: 4930 yoksa banner + boş envanterde sabit ajan ÜRETİLMEZ", /function ajanFiloYaz\(\)[^]{0,400}deneyOluBanner\(\)/.test(jsKisim) && jsKisim.includes("sabit ajan ÜRETİLMEZ (fail-closed; E11)"));
+  ok("filo satırları düğme + delege (data-ajan-filo)", jsKisim.includes('data-ajan-filo="') && jsKisim.includes('closest("[data-ajan-filo]")'));
+  ok("ajan kartı performans yüzü taşır (performansHtml(a.model))", jsKisim.includes("performansHtml(a.model)"));
+  ok("koşan GERÇEK / örnek ÖRNEK etiket ayrımı (E11)", /bul\.tur === "kosan"/.test(jsKisim) && jsKisim.includes("GERÇEK — 4930"));
+  ok("kart × kapat düğmesi kablolı (ajanKartiKapat)", jsKisim.includes('id="ajanKartiKapat"') && jsKisim.includes('$("ajanKartiKapat").addEventListener'));
+});
+
+test("44- K8-2a G11 OLAY KAPSAM KATMANI: rozet [SİSTEM]/[PROJE: ordu]/[GRAF] + defter filtresi + açık sınıflandırma", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  ok("rozet sınıfları mevcut paletten (dkRozet nötr/teal/yesil — yeni renk YOK)", jsKisim.includes('const KAPSAM_SINIF = { SISTEM: "dkRozet", GRAF: "dkRozet yesil", PROJE: "dkRozet teal" };'));
+  ok("rozet metinleri (SİSTEM · GRAF · PROJE: ordu)", jsKisim.includes('const KAPSAM_AD = { SISTEM: "SİSTEM", GRAF: "GRAF", PROJE: "PROJE: ordu" };'));
+  ok("olay sınıflandırması KODDA açık (OLAY_KAPSAM — merge/tip/spawn-olcum/ajan-atama/manager-yanit)", jsKisim.includes("const OLAY_KAPSAM = {") && jsKisim.includes('merge: "GRAF"') && jsKisim.includes('tip: "SISTEM"') && jsKisim.includes('"spawn-olcum": "SISTEM"') && jsKisim.includes('"ajan-atama": "PROJE"') && jsKisim.includes('"manager-yanit": "PROJE"'));
+  ok("bilinmeyen olay güvenli tarafta SİSTEM (fallback)", jsKisim.includes('OLAY_KAPSAM[String(tur || "")] || "SISTEM"'));
+  ok("kayıt olay alanı (KAYITLAR sınıflandırılabilir)", jsKisim.includes('olay: "merge"') && jsKisim.includes('olay: "tip"') && jsKisim.includes('olay: "kapanis"') && jsKisim.includes('olay: "spawn-olcum"') && jsKisim.includes('olay: "karar"'));
+  ok("insan satırı rozetli, makine satırı saf JSONL kalır (çift yazım YOK)", /function kayitDok\([^)]*\)[^]{0,500}kapsamRozeti\(kayitKapsami\(k\)\) \+ " " \+ k\.i/.test(jsKisim));
+  const sistem = (htmlKisim.match(/\[SİSTEM\]/g) || []).length;
+  const proje = (htmlKisim.match(/\[PROJE: ordu\]/g) || []).length;
+  const graf = (htmlKisim.match(/\[GRAF\]/g) || []).length;
+  ok("statik rozetler: run + onay kartları + filtre başlıkları (6 SİSTEM · 2 PROJE · 2 GRAF)", sistem === 6 && proje === 2 && graf === 2, "S/P/G: " + sistem + "/" + proje + "/" + graf);
+  ok("her run kartının başlığında rozet var (run-id → dkRozet bitişikliği ×4)", (htmlKisim.match(/run-id">[^<]+<\/span><span class="dkRozet/g) || []).length === 4);
+  ok("her onay kartının başlığında rozet var (onay-id → dkRozet bitişikliği ×3)", (htmlKisim.match(/onay-id">[^<]+<\/span><span class="dkRozet/g) || []).length === 3);
+  ok("defter başlığı kapsam filtresi (3 modBtn: tümü/sistem/proje)", !!tagOf("kapsam-tumu") && !!tagOf("kapsam-sistem") && !!tagOf("kapsam-proje") && htmlKisim.includes("KAPSAM: TÜMÜ") && htmlKisim.includes("YALNIZ SİSTEM") && htmlKisim.includes("YALNIZ BU PROJE"));
+  ok("filtre kalıcı (localStorage tuval-defterKapsam — kaydet + oku)", jsKisim.includes('kaydet("tuval-defterKapsam"') && jsKisim.includes('oku("tuval-defterKapsam")'));
+  ok("filtre davranışı: sistem→yalnız SİSTEM; proje→PROJE+GRAF", jsKisim.includes("function kapsamGoster(k)") && jsKisim.includes('if (defterKapsam === "sistem") return k === "SISTEM";') && jsKisim.includes('if (defterKapsam === "proje") return k === "PROJE" || k === "GRAF";'));
+  ok("defteriCiz filtre uygular + gizli kayıt sayısı dürüst belirtilir", /function defteriCiz\(\)[^]{0,600}kapsamGoster\(kayitKapsami\(k\)\)/.test(jsKisim) && jsKisim.includes("kapsam filtresi: ' + gizli + ' kayıt gizli"));
+  ok("G10a seçimi filtreyle senkron (seçim değişince defter yeniden çizilir)", /function projeSecDegistir\([^)]*\)[^]{0,700}defteriCiz\(\)/.test(jsKisim));
+  ok("3 filtre düğmesi kablolı (click dinleyicileri)", jsKisim.includes('$("kapsam-tumu").addEventListener("click"') && jsKisim.includes('$("kapsam-sistem").addEventListener("click"') && jsKisim.includes('$("kapsam-proje").addEventListener("click"'));
+  ok("görev tablosu son-olay hücresi rozetli (kapsamRozeti(son.kapsam))", jsKisim.includes("kapsamRozeti(son.kapsam)"));
+});
+
+test("45- K8-2a R3 + çevre sözleşmesi: yeni CSS mevcut tokenlarla (hex/transition/800 YOK) · 44px · radius ölçeği · E9 id'leri", () => {
+  const jsKisim = jsKisimOf();
+  const a = SRC.indexOf("/* ---- K8 DALGA 2a");
+  const b = SRC.indexOf("/* ---- SAĞ (#sag)");
+  const yeniCss = a > 0 && b > a ? SRC.slice(a, b) : "";
+  ok("K8-2a CSS bloğu ayrıştırılabilir (marker'dan marker'a)", !!yeniCss);
+  ok("yeni kurallarda hex renk YOK (yalnız var() + mevcut palet rgba)", !/#{3}[0-9a-fA-F]{3,6}\b/.test(yeniCss));
+  ok("yeni kurallarda transition YOK (E12 animasyon kümesi büyümez)", !yeniCss.includes("transition"));
+  ok("yeni kurallarda font-weight:800 YOK (700 disiplini)", !yeniCss.includes("font-weight:800"));
+  ok("radius tokenları (var(--radius) + var(--radius-k))", yeniCss.includes("var(--radius)") && yeniCss.includes("var(--radius-k)"));
+  ok("44px dokunma (min-height:var(--min-dokunma) — projeBtn/projeSecenek/gorevSatir)", (yeniCss.match(/min-height:var\(--min-dokunma\)/g) || []).length >= 3);
+  ok("[hidden] açık kural ile ezilmez (.projeListe[hidden] display:none)", yeniCss.includes(".projeListe[hidden] { display:none; }"));
+  ok("dar ekran: tablo başlığı gizlenir + satır 2 kolona akar (639px)", (mediaBlok("max-width:639px") || "").includes(".gorevTabloBas { display:none; }") && (mediaBlok("max-width:639px") || "").includes(".gorevSatir { grid-template-columns:1fr 1fr;"));
+  const idler = [...new Set((jsKisim.match(/\$\("([^"]+)"\)/g) || []).map((s) => s.slice(3, -2)))];
+  for (const id of ["projeSecici", "projeListe", "projeRozet", "kapsam-tumu", "kapsam-sistem", "kapsam-proje", "projeOzet", "gorevTablosu", "gorevDetay", "gorevDetayKapat", "ajanFilo", "ajanKarti", "ajanKartiKapat", "denetimMerkez"]) {
+    ok('E9: JS id="' + id + '" kaynakta birebir var', idler.includes(id) && SRC.includes('id="' + id + '"'));
+  }
+  ok("E9: denetimMerkez HTML+CSS+JS üçlüsü (dkListe sınıfı + $('denetimMerkez'))", /id="denetimMerkez"[^>]*class="dkListe"/.test(SRC) && jsKisim.includes('$("denetimMerkez")'));
+  ok("yüz sınıflarının CSS kuralı var (projeKutu/projeBtn/projeListe/projeSecenek/gorevTabloBas/gorevSatir + dkRozet.uyari)", [".projeKutu", ".projeBtn", ".projeListe", ".projeSecenek", ".gorevTabloBas", ".gorevSatir"].every((s) => yeniCss.includes(s + " {")) && /\.dkRozet\.uyari\s*\{[^}]*var\(--uyari\)/.test(SRC));
+});
+
+test("46- K8-2a D DENETİM MERKEZİ (emir 2026-11-01): kayıtlı performans + güvenlik durumu — canlı uç YOK, her değer «kayıtlı»", () => {
+  const htmlKisim = htmlKisimOf();
+  const jsKisim = jsKisimOf();
+  ok("yüz statik HTML'de (dkBolumBas başlığı — kayıtlı — canlı değil)", htmlKisim.includes("D · DENETİM MERKEZİ — performans + güvenlik durumu (kayıtlı — canlı değil)"));
+  ok("yüz kabuğu + JS kablolı (denetimMerkezYaz + açılışta çağrılır)", jsKisim.includes("function denetimMerkezYaz(") && jsKisim.includes('$("denetimMerkez")') && jsKisim.includes("denetimMerkezYaz();"));
+  ok("PERFORMANS: son kayıtlı test koşumları (tuval ×2 · graf-yaz · graf-yonetim — kapanış koşumu ×3)", jsKisim.includes('sonuc: "47/47 ×2 bağımsız"') && jsKisim.includes('ad: "graf-yaz süiti", sonuc: "7/7"') && jsKisim.includes('ad: "graf-yonetim süiti", sonuc: "32/32"') && (jsKisim.match(/kaynak: "K8-2a kapanış koşumu — 2026-11-01/g) || []).length === 3);
+  ok("PERFORMANS: tam core süiti ÖLÇÜLMÜŞ değer (467/467 · 0 kırmızı · 62,3 sn — kayıtlı 2026-11-01)", jsKisim.includes('sonuc: "467/467 · 0 kırmızı · 62,3 sn"') && jsKisim.includes("ölçümlü koşum — 2026-11-01 kayıtlı"));
+  ok("PERFORMANS → O2 bağlantısı (AJAN FİLOSU + bilgi düğmesi data-not — E7 kablolı)", jsKisim.includes("O2 kayıtlı ölçümleri — AJAN FİLOSU") && /data-not="O2 · AJAN PERFORMANS YÜZÜ/.test(jsKisim) && jsKisim.includes('closest("[data-not]")'));
+  const kapBloku = (() => { const a = jsKisim.indexOf("const GUVENLIK_KAPILARI = ["); const b = jsKisim.indexOf("];", a); return a >= 0 && b > a ? jsKisim.slice(a, b) : ""; })();
+  ok("GÜVENLİK: §H envanteri 7 satır (her satır durum rozetli)", !!kapBloku && (kapBloku.match(/durum: "/g) || []).length === 7);
+  ok("GÜVENLİK: durum taksonomisi VAR/KISMI/EKSIK/YENI", ["VAR", "KISMI", "EKSIK", "YENI"].every((d) => kapBloku.includes('durum: "' + d + '"')));
+  ok("GÜVENLİK: her satır kaynak referansı (plan §H + bağımsız denetçi raporu)", jsKisim.includes("kaynak: plans/K8-DALGA2-PLANI-2026-10-31.md §H · bağımsız kod-doğrulaması ayrı raporda (raporlar/gelen-kutu/GUVENLIK-DENETCI-2026-11-01.md)"));
+  ok("GÜVENLİK: satır anahtar kelimeleri (PANO_TOKEN fail-closed · insan:web · write-set whitelist · Ajanlar commit ATMAZ · puanı AJAN YAZAMAZ)", kapBloku.includes("PANO_TOKEN fail-closed 403/401") && kapBloku.includes("insan:web") && kapBloku.includes("write-set whitelist") && kapBloku.includes("Ajanlar commit ATMAZ") && kapBloku.includes("puanı AJAN YAZAMAZ"));
+  ok("rozet sınıfları mevcut paletten (yesil/nötr/uyari/teal — KAPI_DURUM_SINIF)", jsKisim.includes('const KAPI_DURUM_SINIF = { VAR: "dkRozet yesil", KISMI: "dkRozet", EKSIK: "dkRozet uyari", YENI: "dkRozet teal" };'));
+  ok("saglik.ps1 kayıtlı sonucu (17 OK · 1 EKSIK CODEMAP taze · 2 SARI kural-proxy/31 GECTI_HERMETIC)", jsKisim.includes("const SAGLIK_KAYDI = { ok: 17, eksik: 1, sari: 2") && jsKisim.includes("CODEMAP taze") && jsKisim.includes("kural-proxy 41 satır hedef <40") && jsKisim.includes("31 GECTI_HERMETIC"));
+  ok("etiket dürüstlüğü: KAYITLI — canlı değil (footer beyanı)", jsKisim.includes("Bu merkez KAYITLI değerleri gösterir — canlı değil"));
+  ok("canlı koşum uçları EKLENMEDİ (POST /api/denetim K8-2b — fetch/deneyPost YOK, yalnız metin beyanı)", !jsKisim.includes('fetch("/api/denetim') && !jsKisim.includes('deneyPost("/api/denetim') && jsKisim.includes("POST /api/denetim/*"));
+});
+
+test("47- K8-2a GD-009/010 denetçi bulguları: döngüsel tam-yeniden-çizim YOK (JSON-imza) + DAG düğüm tıklaması TEK delege", () => {
+  const jsKisim = jsKisimOf();
+  ok("imza deposu + karşılaştırıcı (veriImza Map + veriDegisti)", jsKisim.includes("const veriImza = new Map();") && jsKisim.includes("function veriDegisti("));
+  ok("imza JSON dizesinden (JSON.stringify)", /function veriDegisti\([^)]*\)[^]{0,300}JSON\.stringify/.test(jsKisim));
+  ok("string'e dökülemeyen veri güvenli tarafta ÇİZİLİR (catch → true)", /function veriDegisti\([^)]*\)[^]{0,400}catch \(e\) \{ return true; \}/.test(jsKisim));
+  ok("deney döngüsü dirty-check (deneyYukle → veriDegisti(\"deney\", D))", /function deneyYukle\(\)[^]{0,900}veriDegisti\("deney", D\)/.test(jsKisim));
+  ok("graf döngüsü dirty-check (yukle → veriDegisti(\"graf\", G))", /async function yukle\(\)[^]{0,900}veriDegisti\("graf", G\)/.test(jsKisim));
+  ok("atama döngüsü dirty-check + zorla bayrağı (TASLAK/ONAY/ikon bypass ×3)", /function atamaDurumYukle\([^)]*\)[^]{0,700}!zorla && !veriDegisti\("atama", grafAtamaDurum\)/.test(jsKisim) && (jsKisim.match(/atamaDurumYukle\(true\)/g) || []).length === 3);
+  ok("kırmızı yüz imzayı geçersiz kılar (kurtulan graf mutlaka yeniden çizilir)", /function kirmiziYuz\([^)]*\)[^]{0,300}veriImza\.delete\("graf"\)/.test(jsKisim));
+  ok("deney POST borusu PANO_TOKEN başlığı taşır (4930 uçları — BAKIM-YAZICI GD-001/002 ile eş zamanlı, atama deseni)", /async function deneyPost\([^)]*\)[^]{0,300}PANO_TOKEN girin \(üst bardaki alan\)/.test(jsKisim) && /async function deneyPost\([^)]*\)[^]{0,500}X-Pano-Token/.test(jsKisim) && !/console\.(log|info|warn|error)\([^)]*token/.test(jsKisim));
+  ok("düğüm başına click dinleyicisi YOK (querySelectorAll(.dugum).forEach bağlantısı kalktı)", !/querySelectorAll\("\.dugum"\)\.forEach\(\(n\) => n\.addEventListener\("click"/.test(jsKisim));
+  ok("tuvalCiz artık dinleyici bağlamaz (GD-010 yorumu blokta)", jsKisim.includes("GD-010: düğüm başına click dinleyicisi BAĞLANMAZ"));
+  ok("TEK delege svgEl'de (closest(.dugum) + tasindi korunur + sec(n.dataset.id, false, true))", /svgEl\.addEventListener\("click"[^]{0,260}closest\("\.dugum"\)/.test(jsKisim) && /svgEl\.addEventListener\("click"[^]{0,260}if \(tasindi\) return/.test(jsKisim) && jsKisim.includes("sec(n.dataset.id, false, true)"));
 });

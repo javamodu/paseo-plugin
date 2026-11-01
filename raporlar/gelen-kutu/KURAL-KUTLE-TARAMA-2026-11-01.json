@@ -1,0 +1,71 @@
+{
+  "schemaSurum": 1,
+  "ajan": "KURAL-KUTLE-TARAMA",
+  "tarih": "2026-11-01",
+  "kaynak": "KURAL-KÜTLE taban taraması (salt-okur; GÖREV A/B yazıcılarıyla paralel — ölçümler TABAN/öncesi değerlerdir)",
+  "maddeler": [
+    {
+      "id": "KKT-1",
+      "baslik": "Canlı enjeksiyon kaynağı ordu\\plugin (v0.23-kilit), geliştirme kopyası değil: ~/.paseo/config.json plugins.paseo-verimlilik → path D:\\Vibecode\\ordu\\plugin (source:directory, enabled:true); enjeksiyon index.server.ts server.before('agent.create') ile her Paseo ajanının systemPrompt'una (ÇEKİRDEK + proje katman işaretçileri); mod config'i repo başına .verimlilik\\ayar.json enjeksiyonMod (ordu: yalnız k3Bitis → varsayılan tam)",
+      "dosyaRef": "C:\\Users\\gatep\\.paseo\\config.json satır 135; D:\\Vibecode\\ordu\\plugin\\index.server.ts satır 62-92/72/87; D:\\Vibecode\\ordu\\plugin\\server\\cekirdek.ts satır 1-3; D:\\Vibecode\\ordu\\plugin\\surumler\\v0.23\\KILIT.md (commit 9853bb1)",
+      "etiket": "enjeksiyon-kaynagi",
+      "siddet": "orta",
+      "oneri": "GÖREV B sadeleştirmesi ordu\\plugin'e senkronize edilip kilit atılıncaya ve 'paseo plugin reload' (KILIT.md rollback notundaki komut) çalıştırılincaya kadar canlı enjeksiyon v0.23 ÇEKİRDEK'i (31 kural) sürdürür; değişiklikler şimdilik yalnız D:\\Vibecode\\paseo-verimlilik çalışma ağacında.",
+      "islenme": null
+    },
+    {
+      "id": "KKT-2",
+      "baslik": "Çift-ev ayrışması: plugin iki evde yaşıyor (kayıtlı üretim kopyası ordu\\plugin v0.23-kilit; geliştirme kopyası D:\\Vibecode\\paseo-verimlilik, .git eski yerde bundle+tag ile — ordu commit c4f7043). GÖREV B yazıcısı 2026-11-01'de geliştirme kopyasının çalışma ağacını değiştirdi: cekirdek.ts TABAN 63 satır/31 kural → GÜNCEL 57 satır/22 kural (v2.1), sozlesme.ts işaretçisi v2.1'e döndü, yeni test/sadelestirme.test.ts. Bu taramanın TABAN ölçümleri değişiklik ÖNCESİ alınmıştır",
+      "dosyaRef": "D:\\Vibecode\\paseo-verimlilik git status (M server/cekirdek.ts, M server/sozlesme.ts, M OVERVIEW.md, M package.json, ?? test/sadelestirme.test.ts); ordu git log c4f7043 (F2-4 taşınma)",
+      "etiket": "cift-ev",
+      "siddet": "orta",
+      "oneri": "GÖREV B kapanışında senkron + kilit + reload zinciri planlansın; senkron öncesi/sonrası kural sayımı ayrı ölçülsün (beklenen 47→38 = ÇEKİRDEK 22 + ANAYASA 13 + ordu AGENTS 3).",
+      "islenme": null
+    },
+    {
+      "id": "KKT-3",
+      "baslik": "ÇEKİRDEK'in 'tam sözleşme' işaretçisi kırık: cekirdek.ts satır 3 'Tam sözleşme: PASEO-VERIMLILIK-REHBERI v2.0 (paket reposunda)' diyor ancak paket reposunda bu dosya hiç olmamış (git ls-files ve git log --all -- ':(glob)**/*REHBERI*' boş); tam v2.0 metni tek kopya olarak ordu\\arsiv'de. Geliştirme kopyasının GÜNCEL halinde işaretçi v2.1'e çevrilmiş ama v2.1 tam metni de pakette yok — ordu\\sozlesme'de",
+      "dosyaRef": "D:\\Vibecode\\ordu\\plugin\\server\\cekirdek.ts satır 3; D:\\Vibecode\\paseo-verimlilik\\server\\cekirdek.ts satır 3; D:\\Vibecode\\ordu\\arsiv\\PASEO-VERIMLILIK-REHBERI-v2.0.md",
+      "etiket": "kirik-isaretci",
+      "siddet": "dusuk",
+      "oneri": "İşaretçi ordu\\sozlesme\\PASEO-VERIMLILIK-REHBERI-v2.1.md yolunu gösterecek şekilde düzeltilsin ya da tam metin paket reposuna konulsun; ajan 'tam metni proje sahibinden istenir' yönlendirmesiyle boş yere paket reposunu arıyor.",
+      "islenme": null
+    },
+    {
+      "id": "KKT-4",
+      "baslik": "Global sözleşme D:\\Vibecode\\AGENTS.md\\AGENTS.md (Codex Engineering Contract, 506 satır/124 sayılabilir kural) hiçbir canlı enjeksiyon yoluna bağlı değil: Codex CLI global yuvası C:\\Users\\gatep\\.codex\\AGENTS.md 0 bayt; plugin yalnız ÇEKİRDEK enjekte eder (global sözleşmeyi okumaz/saymaz); D:\\Vibecode\\AGENTS.md bir dizin olduğundan Claude Code üst-dizin sözleşmesi olarak yüklemez. GÖREV A budaması canlı kural ölçümünü DEĞİŞTİRMEZ. Dış atıf manzarası: tek gerçek atıf playwright-cdp\\nullproxy\\AGENTS.md (satır 4-5, Hard Rules + Final Answer Contract bağımlılığı); yapısal uyarlamalar Harness\\raypipe\\AGENTS.md ve godaemon\\gatepipe\\AGENTS.md; ordu + paseo-verimlilik temiz; 5 bölüm adı (Decision Priority, Quick Checklist, Readiness Scoring, Risk Classification, Drift Protocol) kaynak dışında hiçbir dosyada geçmiyor",
+      "dosyaRef": "D:\\Vibecode\\AGENTS.md\\AGENTS.md satır 1-2; C:\\Users\\gatep\\.codex\\AGENTS.md (0 bayt, ölçüldü); D:\\Vibecode\\playwright-cdp\\nullproxy\\AGENTS.md satır 4-5",
+      "etiket": "kapsam-bilgisi",
+      "siddet": "bilgi",
+      "oneri": "GÖREV A budama kararında nullproxy'nin açık bağımlılığı ile raypipe/gatepipe yapısal benzerliği bilinsin; budama sonrası ~/.codex/AGENTS.md yuvasına yazılacaksa oraya kopyalanma adımı ayrıca kararlaştırılsın.",
+      "islenme": null
+    },
+    {
+      "id": "KKT-5",
+      "baslik": "Canlı kural tabanı 47'dir (~49 iddiası ölçümle tam teyit EDİLEMEDİ; en yakın ölçülebilir değer 47, ±2): plugin'in kendi telemetrisi son 6 lint kaydında tutarlı kuralToplam=47, butceBytes=6014 = ÇEKİRDEK 31 + ANAYASA 13 + ordu AGENTS 3. 47 > KURAL_SARI(40) → her ajan yaratılışında 'UYARI: aktif kural sayısı ~47' sarı satırı enjekte ediliyor; blok eşiği 80'e uzak",
+      "dosyaRef": "D:\\Vibecode\\ordu\\.verimlilik\\telemetri.jsonl (tip:lint kayıtları, 2026-10-29T17:58 → 2026-10-31T18:35); sayım yöntemi server\\sozlesme.ts satır 65-73 kuralSayisi regex",
+      "etiket": "olcum-taban",
+      "siddet": "bilgi",
+      "oneri": "GÖREV B'nin ÇEKİRDEK 31→22 düşürmesi (senkron sonrası) toplamı 38'e indirir → 40 sarı eşiği altına iner; ~49 raporlanacaksa 47'ye düzeltilsin.",
+      "islenme": null
+    },
+    {
+      "id": "KKT-6",
+      "baslik": "Rehber v2.0 tam metni tek kopya: ordu\\arsiv\\PASEO-VERIMLILIK-REHBERI-v2.0.md (127 satır, SUPERSEDED başlıklı) + git bundle yedeği ordu\\arsiv\\history\\paseo-verimlilik.bundle (204.822 bayt); paket reposunda ve ordu\\plugin'de tam metin yok",
+      "dosyaRef": "D:\\Vibecode\\ordu\\arsiv\\PASEO-VERIMLILIK-REHBERI-v2.0.md; D:\\Vibecode\\ordu\\arsiv\\history\\paseo-verimlilik.bundle",
+      "etiket": "envanter",
+      "siddet": "dusuk",
+      "oneri": "Tek kopya arşivde duruyor — yedekleme/kopya kararı (ör. kayıtlı plugin evine alınması) ayrı K kararı olabilir; şimdilik yalnız bilgi.",
+      "islenme": null
+    },
+    {
+      "id": "KKT-7",
+      "baslik": "Sözleşme ailesinin sürüm kopyaları dağınık: v1.4 (BUSINESS-REALITY-ENGINE\\arastirma, 107 satır) · 2 PLANI dosyası (BRE 112, ordu 123 satır) · v2.1 dış EK dosyaları 4 adet 46 satır (ordu\\sozlesme). GÖREV B'nin sadeleştirmesi bu kopyalara dokunmuyor; v1.4 ve PLANI'lerde eski kurallara atıf olabilir",
+      "dosyaRef": "D:\\Vibecode\\BUSINESS-REALITY-ENGINE\\arastirma\\PASEO-VERIMLILIK-REHBERI-v1.4.md; D:\\Vibecode\\ordu\\PASEO-VERIMLILIK-PLANI.md; D:\\Vibecode\\ordu\\sozlesme\\REHBER-EK-*.md (11+11+13+11 satır)",
+      "etiket": "envanter",
+      "siddet": "dusuk",
+      "oneri": "Sadeleştirme kapanışında eski sürüm kopyalarına atıf kırığı taraması (v1.4/PLANI) ayrı küçük görev olarak düşünülebilir; bu tarama yalnız envanteri kaydetti.",
+      "islenme": null
+    }
+  ]
+}
