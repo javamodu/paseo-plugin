@@ -103,7 +103,7 @@ export function isaretciMetni(kuralToplam: number, sebep?: string): string {
     "[paseo-verimlilik · sözleşme işaretçisi]",
     neden,
     "Özet: okumadan yazma · kanıt = kalıcı kayıt · kapanış = test/lint yeşil · devir töreni (handoff + echo) · dürtmede 2 satır durum.",
-    "Tam metin proje sahibinden istenir: PASEO-VERIMLILIK-REHBERI-v2.0.md (EK özetleri ÇEKİRDEK içindedir).",
+    "Tam metin proje sahibinden istenir: PASEO-VERIMLILIK-REHBERI-v2.1.md (EK özetleri ÇEKİRDEK içindedir).",
   ].join("\n");
 }
 
