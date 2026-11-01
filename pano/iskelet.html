@@ -31,6 +31,10 @@
 </nav>
 <main id="kok">Yükleniyor…</main>
 <script>
+// GD-003 (BAKIM GP-1, 2026-11-01): esc() — kapsul-tuval.html:1012'deki imza AYNEN.
+// innerHTML'e giren TÜM dinamik değerler esc'lenir: KOKLER tüm D:\Vibecode'u taradığından
+// kardeş repodan gelen repo adı / mod adı / son damga metni bu origin'de XSS üretebilirdi.
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 const kok = document.getElementById("kok");
 const fmt = (n) => n === null || n === undefined ? "—" : n.toLocaleString("tr-TR");
 
@@ -44,13 +48,13 @@ async function doktor() {
   const { repolar } = await getJson("/api/repolar");
   if (repolar.length === 0) { kok.innerHTML = "<p class='uyari'>Telemetri taşıyan repo bulunamadı (.verimlilik/telemetri.jsonl).</p>"; return; }
   const sec = location.hash.split("/")[2] || repolar[0];
-  let html = "<p>Repo: <select id='rsec'>" + repolar.map(r => "<option" + (r === sec ? " selected" : "") + ">" + r + "</option>").join("") + "</select></p><div id='veri'></div>";
+  let html = "<p>Repo: <select id='rsec'>" + repolar.map(r => "<option" + (r === sec ? " selected" : "") + ">" + esc(r) + "</option>").join("") + "</select></p><div id='veri'></div>";
   kok.innerHTML = html;
   document.getElementById("rsec").onchange = (e) => { location.hash = "#/doktor/" + e.target.value; };
   const v = await getJson("/api/veri?repo=" + encodeURIComponent(sec));
-  const kutu = (b, s) => "<div class='kutu'><b>" + b + "</b><span>" + s + "</span></div>";
+  const kutu = (b, s) => "<div class='kutu'><b>" + esc(b) + "</b><span>" + esc(s) + "</span></div>";
   document.getElementById("veri").innerHTML =
-    "<div class='kart'><h3>" + v.ad + "</h3><div class='grid'>" +
+    "<div class='kart'><h3>" + esc(v.ad) + "</h3><div class='grid'>" +
     kutu(fmt(v.tur), "tur") +
     kutu(v.kabulOrani === null ? "—" : "%" + v.kabulOrani, "kabul oranı") +
     kutu(v.loop + v.finishGate, "dürtme (loop+fg)") +
@@ -58,9 +62,9 @@ async function doktor() {
     kutu(fmt(v.inTok), "token in") +
     kutu(v.maliyetUsd > 0 ? "$" + v.maliyetUsd : "—", "maliyet") +
     "</div>" +
-    (Object.keys(v.modlar).length ? "<p>Modlar: " + Object.entries(v.modlar).map(([m, n]) => m + " ×" + n).join(" · ") + "</p>" : "") +
-    (v.sonDamga ? "<p class='damga'>Son damga: " + v.sonDamga + "</p>" : "") +
-    "<p class='damga'>Üretim: " + v.uretim + " · TTL " + v.ttlSn + "sn</p></div>";
+    (Object.keys(v.modlar).length ? "<p>Modlar: " + Object.entries(v.modlar).map(([m, n]) => esc(m) + " ×" + n).join(" · ") + "</p>" : "") +
+    (v.sonDamga ? "<p class='damga'>Son damga: " + esc(v.sonDamga) + "</p>" : "") +
+    "<p class='damga'>Üretim: " + esc(v.uretim) + " · TTL " + esc(v.ttlSn) + "sn</p></div>";
 }
 
 function orkestrasyon() {
@@ -80,7 +84,7 @@ async function rota() {
     if (h.startsWith("#/orkestrasyon")) orkestrasyon();
     else if (h.startsWith("#/hakkinda")) hakkinda();
     else await doktor();
-  } catch (e) { kok.innerHTML = "<p class='uyari'>Hata: " + e.message + "</p>"; }
+  } catch (e) { kok.innerHTML = "<p class='uyari'>Hata: " + esc(e.message) + "</p>"; }
 }
 addEventListener("hashchange", rota);
 rota();

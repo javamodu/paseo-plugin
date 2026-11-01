@@ -48,12 +48,12 @@ Tuvalin kahramanı üç halkalı tek omurgadır; yan yüzeyler (lejant, jargon) 
 
 | Kısıt | Zorlayıcı kapı (hedef) | Durum |
 |---|---|---|
-| Pano yazma erişimi | server.js PANO_TOKEN fail-closed 403/401 | VAR (kod) |
+| Pano yazma erişimi | server.js PANO_TOKEN fail-closed 403/401 + deney-server POST kapısı token fail-closed (BAKIM-GP GD-001) + zaman-sabit karşılaştırma (GD-004) | VAR (kod — canlıya geçişi 4377+4930 restart [insan]) |
 | Onay aktörü (EK-2) | aktör sunucu-sabit `insan:web`; istemciden aktor alanı YOK | VAR (kod) |
 | Yazma alanı | server write-set whitelist + yol normalize (kök dışı YASAK) | KISMI — K8-2b'de sertleşir |
 | GRAF SSOT | yazma yalnız `/api/graf/yaz` (D-3) + append-only | KISMI |
 | «Ajanlar commit ATMAZ» (bugün yalnız doküman kuralı) | git pre-commit hook: kapsam whitelist denetimi | **EKSİK → K8-2b fişi** |
-| Performans verisi | puanı AJAN YAZAMAZ — yalnız ölçüm kaynağından (server/test/usage) türetilir | **YENİ (O2 mimarisi)** |
+| Performans verisi | puanı AJAN YAZAMAZ — yalnız ölçüm kaynağından (server/test/usage) türetilir; sunucu ölçüm kaynağı: deney-server perf alanı + olcumOku() (BAKIM-GP GD-008) | **YENİ (O2 mimarisi)** |
 | Token ajanın eline geçmez | izole koşumda token ajan log'una/ortamına yazılmaz; ORDU-3 denetim pini | VAR |
 
 **Yürütme emri:** «K8-2 başla» (revize kapsam: omurga yüzü + kapsam katmanı; hard kapı fişleri 2b'de).

@@ -1,0 +1,4 @@
+{"t":"2026-10-29T15:11:56.074Z","is":"chat","not":"Canli test: composerdaki model/rol secicileri calisiyor mu? Kisaca dogrula ve bu mesaji hangi modelin yanitladigini soyle.","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}
+{"t":"2026-10-29T15:12:37.985Z","is":"api-test","provider":"tokenharbor","model":"deepseek-v4-flash:free"}
+{"t":"2026-10-29T19:10:14.695Z","is":"chat","not":"DOM dumani (operador turu): gercek mudahale POST kaniti — K8 B1/B2/B3 kapanis dumanı. Seciciler: varsayılan uç + rol manager.","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}
+{"t":"2026-10-31T12:06:41.152Z","is":"chat","not":"hi","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}

@@ -1,2 +1,5 @@
 {"t":"2026-10-29T14:10:57.586Z","kim":"insan:web","not":"sen kimsin"}
 {"t":"2026-10-29T14:12:51.792Z","kim":"insan:web","not":"sen kimsin \ncevap 2"}
+{"t":"2026-10-29T15:11:56.074Z","kim":"insan:web","not":"Canli test: composerdaki model/rol secicileri calisiyor mu? Kisaca dogrula ve bu mesaji hangi modelin yanitladigini soyle.","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}
+{"t":"2026-10-29T19:10:14.693Z","kim":"insan:web","not":"DOM dumani (operador turu): gercek mudahale POST kaniti — K8 B1/B2/B3 kapanis dumanı. Seciciler: varsayılan uç + rol manager.","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}
+{"t":"2026-10-31T12:06:41.037Z","kim":"insan:web","not":"hi","provider":"glm53u-codex","model":"glm-5.3","rol":"manager"}

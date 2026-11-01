@@ -1,0 +1,36 @@
+{
+  "schemaSurum": 1,
+  "rapor": "BAKIM-YAZICI-2026-11-01",
+  "yontem": "kod degisikligi (3 dosya) + izole kosum port 4936/0 TEMP veri kopyalari + A/B olcum (repo disi temp, ayni fiksturde HEAD vs yeni kod) + node --test 5 paket; canli sureclere dokunulmadi; COMMIT/PUSH YOK (operator tek elden)",
+  "damga": "2026-11-01T05:13 (yerel; olculdu)",
+  "kaynak": ["plans/BAKIM-GUVENLIK-PERFORMANS-PLANI-2026-11-01.md", "raporlar/gelen-kutu/GUVENLIK-DENETCI-2026-11-01.md", "raporlar/gelen-kutu/GUVENLIK-DENETCI-2026-11-01.json"],
+  "degisenDosyalar": ["pano/deney-server.mjs", "pano/iskelet.html", "pano/server.js"],
+  "yeniTestDosyalari": ["pano/deney-server.test.mjs (13 vaka)", "pano/iskelet.test.mjs (4 vaka)", "pano/server-bakim.test.mjs (6 vaka)"],
+  "testSonuclari": {
+    "iskelet.test.mjs": "4/4",
+    "deney-server.test.mjs": "13/13",
+    "server-bakim.test.mjs": "6/6",
+    "graf-yaz.test.mjs": "7/7",
+    "graf-yonetim.test.mjs": "32/32",
+    "kapsul-tuval.test.mjs (ORDU-1'in — dokunulmadi, dogrulandi)": "47/47",
+    "d1a-test.mjs": "6/7 (1 basarisizlik ONCE DE VAR — /api/graf SSOT pinleri v6/24/29 eski; guncel SSOT v14/40/15; HEAD server.js ayni v14/40 donduruyor)",
+    "d1b-test.mjs": "11/12 (1 basarisizlik ONCE DE VAR — /tuval pini 'PANO_TOKEN (kart yazma kapisi)' dizgesi ORDU-1'in surmekte olan K8-2a yaziminda kaldirilmis, grep 0; benim dosyam degil)"
+  },
+  "maddeler": [
+    { "id": "GD-001", "baslik": "deney-server wildcard CORS + tokensiz POST — sabit koken + token kapisi (fail-closed)", "dosyaRef": "pano/deney-server.mjs:48-49,56,417-433,763-773; pano/deney-server.test.mjs GD-001a-f", "etiket": "KAPANDI", "siddet": "orta", "oneri": "ACAO '*' -> 'http://127.0.0.1:4377' (varsayilan) + DENEY_CORS_ORIGIN izole kanali + baslat secenegi; POST kapisi: tokensiz 401, yanlis 401, dogru 200, PANO_TOKEN tanimsiz 403 fail-closed; preflight 204 + X-Pano-Token izinli. Olcum: 6 vaka PASS, ACAO degeri birebir olcudu", "islenme": null },
+    { "id": "GD-002", "baslik": "manager-yanit ucu kimliksiz — token kapisi + kayda dogrulanmamis isareti", "dosyaRef": "pano/deney-server.mjs:425-433,697; pano/deney-server.test.mjs GD-002", "etiket": "KAPANDI", "siddet": "orta", "oneri": "uc ayni token kapisindan gecer (tokensiz 401 olcudu); her kayda dogrulanmamis:true + aktor sunucu-sabit ai-manager:glm-5.3. Semantik karar: token CAGRANI dogrular ICERIGI degil — isaretsiz eski kayitlar da dogrulanmamis varsayilmali", "islenme": null },
+    { "id": "GD-003", "baslik": "iskelet.html innerHTML esc'siz — esc disiplini (imza kapsul-tuval.html:1012 ile birebir)", "dosyaRef": "pano/iskelet.html:37,51,55,57,65,66,67,87; pano/iskelet.test.mjs 4 vaka", "etiket": "KAPANDI", "siddet": "orta", "oneri": "esc() tanimi + innerHTML'e giren TUM dinamik degerler (repo adi, kutu b+s, kart basligi, mod adi, son damga, uretim+TTL, hata mesaji). Kanit: esc kaynaktan cikarilip vm'de calistirildi — '<img src=x onerror=alert(1)>' entity'lere donusuyor, ciktida canli tag/tirnak 0; ham interpolasyon kalintisi grep 0", "islenme": null },
+    { "id": "GD-004", "baslik": "token karsilastirmasi zaman-sabit degildi (!==) — crypto.timingSafeEqual", "dosyaRef": "pano/server.js:15,31-37; pano/server-bakim.test.mjs GD-004", "etiket": "KAPANDI", "siddet": "dusuk", "oneri": "tokenGecerliMi yardimcisi — uzunluk on-kontrolu + timingSafeEqual; 4 uc noktasi tek yardimcidan. Olcum: yanlis token POST 401 (davranis olcudu); eski '!== TOKEN' deseni kaynakta 0 gecis", "islenme": null },
+    { "id": "GD-005", "baslik": "renameSync/appendFileSync yakalanmamis throw — try/catch + 500 jsonYaz", "dosyaRef": "pano/server.js:230,264,294; pano/server-bakim.test.mjs GD-005", "etiket": "KAPANDI", "siddet": "dusuk", "oneri": "kart yazma (tmp temizligi ile), taslak defteri (cift-kayit butunlugu bildirimi), onay MD aynasi (E10 durust bildirim) 3 zincir. Olcum: ENOTDIR hata enjeksiyonunda 500 yanit + surec AYAKTA — izleyen istek 200 (crash yok)", "islenme": null },
+    { "id": "GD-006", "baslik": "govde toplama govde += p (Buffer->string) — Buffer.concat + tek decode", "dosyaRef": "pano/server.js:27,41-50; pano/server-bakim.test.mjs GD-006", "etiket": "KAPANDI", "siddet": "dusuk", "oneri": "govdeTopla yardimcisi — BAYT limiti GOVDE_LIMIT_BAYT 4096, parcalar Buffer, tek utf8 decode. Olcum: ham TCP test 1501. bayt 'c'nin ortasindan bolundu — JSON cozumlendi, 1500'luk 'c' dizisi echo'da bozulmadi (eski desende U+FFFD kalirdi)", "islenme": null },
+    { "id": "GD-008", "baslik": "/api/deney/durum tam JSONL taramasi — stat-dogrulamali okuma + tail + perf_hooks olcum noktasi", "dosyaRef": "pano/deney-server.mjs:66-68,101-104,113,153-186,389-403,763-773; pano/deney-server.test.mjs GD-008a-e", "etiket": "KAPANDI", "siddet": "orta", "oneri": "A/B olcum (ayni fikstur, log.jsonl 63090 B + GRAF 73839 B = 138168 B toplam): ONCE her cagiri ~138168 B disk okuma, istemci-duvari medyan 33-107 ms (3 kosu, gurultulu); SONRA 1. cagiri 91462 B (= 138168-63090+16384 tail matematigi birebir), 2..21. cagiri 0 B/0 okuma, perf_hooks sunucu-ici medyan 1,374 ms. Restartsiz taze korunur (her istekte statSync; append sonrasi restartsiz gorunme kanitlandi). Olcum kaydi: yanit perf alani (istekSuresiMs, okunanBayt, okumaSayisi, durumIstek, jsonlBoyut) + modul olcumOku() — O2 puan kaynagi (SH-f hatti). Yazma yollari tam taramayi korur (versiyon zinciri tum gecmis ister)", "islenme": null }
+  ],
+  "notlar": [
+    "Canli sureclere (4377/4930/4933) tek satir dokunulmadi; degisiklikler canliya [insan] restart onayiyla gecer (EK-2). Bu oturumun kisitli netstat gorunumunde 4377/4930 dinleyicisi gorunmedi — surec durumu insanca teyit edilmeli (kill/check yapilmadi).",
+    "Write-set DEGISMEDI: deney-server ayni 6-dosya beyaz listesi; server.js ayni 4 atama dosyasi + kapsul MD; yeni dosya hedefi YOK.",
+    "Test token'i crypto.randomBytes ile BELLEKTE uretildi — degeri hicbir dosyaya/log'a/assert mesajina YAZILMADI (SH-g testi tum temp dosyalarinda 0 gecis).",
+    "Izole kosum port 4936 (4934 cakismasi YOK); kosum sonu sunucular kapatildi, temp dizinleri silindi (4936 bos; olcum portlari 62430/62455/63175/63212 kapali; bakim-* kalinti 0).",
+    "Ucuncu test dosyasi (server-bakim.test.mjs) 'YENI test dosyalari serbest' izniyle — gerekce: server.js davranis kaniti d1a/d1b deseninin kopyasini gerektirir; operator veto edirse 6 vaka d1b'ye tasinabilir.",
+    "Kapsam disi kalan: GD-007 (Qoder post-commit — operator kaldiridi, denetci raporunda islenmis) · GD-009/GD-010 (ORDU-1 K8-2a kapsaminda KAPANDI)."
+  ]
+}

@@ -12,9 +12,24 @@
 // K8 ADIM-A (2026-10-29): CORS basliklari ACILDI — tuval (4377 kapsul-tuval.html) bu sunucudan
 //   fetch ile GERCEK veri ceker; preflight OPTIONS 204. Kapsam yalniz bu IZOLE deney sunucusu —
 //   pano/server.js (4377) CORS'suz kalir (K8 sonunda tek sunucuya gider — K-0055).
+// BAKIM GP-1 (2026-11-01; GUVENLIK-DENETCI bulgulari GD-001/002/008):
+//   GD-001 — CORS tek SABIT kaynak: '*' KALDIRILDI; Access-Control-Allow-Origin artik
+//     DENEY_CORS_ORIGIN ortam degiskeninden (varsayilan http://127.0.0.1:4377 — tek koprü).
+//     Tum POST uclari PANO_TOKEN fail-closed: token TANIMSIZ -> 403, baslik (x-pano-token)
+//     YANLIS -> 401 (uretim sunucusuyla ayni env, ayni baslik). Yerel CSRF yazma yuzeyi kapanir.
+//   GD-002 — manager-yanit ucu ayni token kapisindan gecer + kayda 'dogrulanmamis: true'
+//     isareti: token CAGIRANI (operator koprusu) dogrular; icerigin gercekten ai-manager'dan
+//     geldigi sunucu tarafindan dogrulanamaz (E10 durustluk — okuyucu yaniltmaz).
+//   GD-008 — durum okuma katmani: her istekte dosya STAT edilir (tazelik korunur — restart
+//     gerektirmeden taze); mtime VE boyut eslesirse DISKTEN YENIDEN OKUNMAZ; JSONL kuyruklari
+//     son-N'i TAIL penceresiyle okur (tam tarama YOK — dosya buyudukce maliyet sabit kalir);
+//     perf_hooks olcum noktasi: istek suresi + okunan bayt/sayi, yanitin 'perf' alaninda
+//     tasinir (O2 puaninin olcum kaynagi — puani ajan YAZAMAZ, yalniz olcum alanindan turer).
 
 import http from 'node:http';
-import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, closeSync, existsSync, openSync, readFileSync, readSync, statSync, writeFileSync } from 'node:fs';
+import { timingSafeEqual } from 'node:crypto';
+import { performance } from 'node:perf_hooks';
 import { join, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { atamaTaslakla, atanabilirler, onayla } from './graf-yonetim.js';
@@ -30,35 +45,93 @@ const NOT_LIMIT_KAR = 2000;         // mudahale not tavaninin ustu -> 400
 const AKTOR = 'insan:web';          // deneyde tek kalem sahibi insan (vekil/ajan yok — graf-yonetim kurali)
 const KUYRUK = { log: 80, atamalar: 20, mudahale: 10 }; // /api/deney/durum yanitindaki son-N kuyruklari
 const YAZMA_IZINLI = ['tercih.json', 'atamalar.jsonl', 'atamalar-onay.jsonl', 'mudahale.jsonl', 'log.jsonl', 'manager-kuyruk.jsonl'];
+const VARSAYILAN_CORS_ORIGIN = 'http://127.0.0.1:4377'; // GD-001: tek koprü kaynagi (tuval) — '*' KALDIRILDI
+const KUYRUK_PENCERE_BAYT = 16384;  // GD-008: tail okuma baslangic penceresi (16 KiB — 80 kayit icin bol)
 
 // --- durum (modul kapsami — baslat() override eder) -------------------------------
 
 let sunucu = null;                                                   // aktif http.Server
 let aktifDir = process.env.DENEY_DIR || VARSAYILAN_DIR;              // deney veri dizini
+let aktifToken = null;                                               // GD-001: POST kapisi sirri (null = fail-closed 403)
+let aktifCorsOrigin = VARSAYILAN_CORS_ORIGIN;                        // GD-001: baslat() cozumler (env DENEY_CORS_ORIGIN)
 
 const sunucuSaati = () => new Date().toISOString();
 
-// --- okuma yardimcilari (her cagrida diskten, onbellek YOK) -----------------------
+// --- GD-008: olcum noktasi + dogrulamali okuma katmani ----------------------------
+//
+// Olcum (O2 puan kaynagi — puani ajan YAZAMAZ, yalniz olcum alanindan turetilir; K8-2 SH/f):
+//   durumIstek = durum uc istek sayisi · diskOkuma = diskten gercek veri okuma cagrisi
+//   (STAT HARIC — metadata okumalari sayilmaz) · okunanBayt = diskten okunan toplam bayt ·
+//   sure degerleri perf_hooks performance.now() ile olculur (tahmin YOK).
+const olcum = { durumIstek: 0, diskOkuma: 0, okunanBayt: 0, toplamSureMs: 0, sonSureMs: null, sonOkunanBayt: 0 };
+
+export function olcumOku() {
+  return {
+    durumIstek: olcum.durumIstek,
+    diskOkuma: olcum.diskOkuma,
+    okunanBayt: olcum.okunanBayt,
+    sonSureMs: olcum.sonSureMs,
+    sonOkunanBayt: olcum.sonOkunanBayt,
+    toplamSureMs: olcum.toplamSureMs,
+    ortSureMs: olcum.durumIstek > 0 ? olcum.toplamSureMs / olcum.durumIstek : null,
+  };
+}
+
+// Diskten okuma (olcume isler — stat haric yalniz gercek veri okumasi sayilir).
+function diskOku(yol) {
+  const tampon = readFileSync(yol);
+  olcum.diskOkuma += 1;
+  olcum.okunanBayt += tampon.length;
+  return tampon;
+}
+
+// Byte-offset okuma (tail penceresi): [ofset, ofset+uzunluk) araligini tek readSync ile.
+function aralikOku(yol, ofset, uzunluk) {
+  const fd = openSync(yol, 'r');
+  try {
+    const tampon = Buffer.alloc(uzunluk);
+    const okunan = readSync(fd, tampon, 0, uzunluk, ofset);
+    olcum.diskOkuma += 1;
+    olcum.okunanBayt += okunan;
+    return tampon.subarray(0, okunan);
+  } finally { closeSync(fd); }
+}
+
+// mtime+boyut eslesmesi (dogrulamali onbellek anahtari — eslesirse diskten okuma YOK).
+function statEslesir(kayit, st) { return !!kayit && kayit.mtimeMs === st.mtimeMs && kayit.size === st.size; }
+
+const jsonOnbellek = new Map();    // yol -> { mtimeMs, size, deger } — JSON.parse sonucu
+const kuyrukOnbellek = new Map();  // yol -> { mtimeMs, size, deger } — son-N kuyruk (tail) sonucu
+
+// --- okuma yardimcilari (her cagrida STAT; degisince diskten — onbellek yalniz dogrulanmis) ---
 
 // JSON dosya: yok/bozuksa null (durust bos — sahte veri uretilmez); bozuksa konsola hata satiri.
+// GD-008: stat eslesirse onbellekten doner (diskten okuma YOK). Durustluk notu: NTFS mtime
+// cozunurlugu ~100ns — ayni boyut + ayni an yazisi TEORIK kacaktir; append dosyalarda boyut her
+// yazista buyur (yakalanir), tercih.json insan hizinda POST'lanir. Bu katman perf icindir,
+// guvenlik degil: en kotu durum GECIKMELI tazelik, veri kaybi degil.
 function jsonOku(yol) {
-  try {
-    if (!existsSync(yol)) return null;
-    return JSON.parse(readFileSync(yol, 'utf8'));
-  } catch (e) {
-    console.error('[deney-server] bozuk JSON atlandi: ' + yol);
-    return null;
-  }
+  let st = null;
+  try { st = statSync(yol); } catch { return null; }
+  const c = jsonOnbellek.get(yol);
+  if (statEslesir(c, st)) return c.deger;
+  let deger = null;
+  try { deger = JSON.parse(diskOku(yol).toString('utf8')); }
+  catch (e) { console.error('[deney-server] bozuk JSON atlandi: ' + yol); deger = null; }
+  jsonOnbellek.set(yol, { mtimeMs: st.mtimeMs, size: st.size, deger });
+  return deger;
 }
 
 // JSONL dosya: satir satir; bozuk satir ATLANIR + SAYILIR; donus {satirlar, bozukSatir} (tumu).
+// GD-008: TAM TARAMA bilincli kalir — yalniz YAZMA yollari (atama/graf-onay) kullanir; gecmis
+// surum zinciri icin dosyanin TAMAMINI gormek zorundadir. Durum ucu bunu KULLANMAZ (jsonlKuyruk).
 function jsonlOku(yol) {
   const bos = { satirlar: [], bozukSatir: 0 };
   try {
     if (!existsSync(yol)) return bos;
     const satirlar = [];
     let bozukSatir = 0;
-    for (const satir of readFileSync(yol, 'utf8').split(/\r?\n/)) {
+    for (const satir of diskOku(yol).toString('utf8').split(/\r?\n/)) {
       const k = satir.trim();
       if (!k) continue;
       try { satirlar.push(JSON.parse(k)); } catch { bozukSatir++; }
@@ -69,6 +142,50 @@ function jsonlOku(yol) {
     console.error('[deney-server] jsonl okunamadi: ' + yol);
     return bos;
   }
+}
+
+// GD-008 — son-N kuyruk (TAIL) okuma: dosyanin SONUNDAN pencere okunur (baslangic 16 KiB),
+// n kayda yetmezse pencere 4x buyur (dosya basina kadar); ofset>0 ise ilk YARIM satir atilir
+// (bayt siniri cok baytli UTF-8 karakteri kesmis olabilir — yarim satir zaten atilir, bozulma
+// pencere disina sizmaz). mtime+boyut eslesirse onceki sonuc doner (diskten okuma YOK).
+// Yanit semanticleri jsonlOku+sonN ile BIREBIR ayni (son-N kayit ayni; bozuk sayimi yalniz
+// pencere icin — yanitta kullanimda degisiklik yok).
+function jsonlKuyruk(yol, n) {
+  const bos = { satirlar: [], bozukSatir: 0 };
+  let st = null;
+  try { st = statSync(yol); } catch { return bos; }
+  const c = kuyrukOnbellek.get(yol);
+  if (statEslesir(c, st)) return c.deger;
+  let deger = bos;
+  let pencere = Math.min(st.size, KUYRUK_PENCERE_BAYT);
+  while (pencere > 0) {
+    const ofset = st.size - pencere;
+    const metin = (ofset > 0 ? aralikOku(yol, ofset, pencere) : diskOku(yol)).toString('utf8');
+    const satirlar = [];
+    let bozukSatir = 0;
+    let basla = 0;
+    if (ofset > 0) {
+      const ilkYeniSatir = metin.indexOf('\n');
+      if (ilkYeniSatir < 0) { pencere = pencereBonyelt(st.size, pencere); if (pencere === 0) break; continue; } // tek yarim satir — buyut
+      basla = ilkYeniSatir + 1; // ilk yarim satir ATILIR
+    }
+    for (const satir of metin.slice(basla).split(/\r?\n/)) {
+      const k = satir.trim();
+      if (!k) continue;
+      try { satirlar.push(JSON.parse(k)); } catch { bozukSatir++; }
+    }
+    if (satirlar.length >= n || ofset === 0) { deger = { satirlar: sonN(satirlar, n), bozukSatir }; break; }
+    pencere = pencereBonyelt(st.size, pencere);
+    if (pencere === 0) break;
+  }
+  kuyrukOnbellek.set(yol, { mtimeMs: st.mtimeMs, size: st.size, deger });
+  return deger;
+}
+
+// Pencereyi 4x buyut; dosya boyununa ulasildiysa 0 (kilitlenme korumasi).
+function pencereBonyelt(dosyaBoyutu, pencere) {
+  const yeni = Math.min(dosyaBoyutu, pencere * 4);
+  return yeni > pencere ? yeni : 0;
 }
 
 const sonN = (dizi, n) => (Array.isArray(dizi) ? dizi.slice(-n) : []);
@@ -110,14 +227,20 @@ function istekGunlugu(gunluk) {
 
 // --- yanit yardimcilari ---------------------------------------------------------
 
-// K8 ADIM-A — CORS koprusu: tek kaynak (ayni makine 127.0.0.1). Yalniz bu izole deney sunucusu.
-const CORS_BASLIK = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+// K8 ADIM-A — CORS koprüsü: tek kaynak (ayni makine 127.0.0.1). Yalniz bu izole deney sunucusu.
+// GD-001 (BAKIM GP-1): '*' KALDIRILDI — deger SABIT (DENEY_CORS_ORIGIN, varsayilan 4377 tuval).
+//   Sabit-deger ACAO: baska origin'deki sayfa tarayici tarafindan OKUYAMAZ (CORS eslesmesi
+//   zorunlu); yazma yuzeyi ayrica token kapisiyla kapalidir (postIsci). X-Pano-Token basligi
+//   Allow-Headers'ta — tuvalin token'li POST'lari preflight'ten gecer (GD-002 istemci esi).
+function corsBaslik() {
+  return {
+    'Access-Control-Allow-Origin': aktifCorsOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type, X-Pano-Token',
+  };
+}
 
 function jsonYaz(res, kod, obj) {
-  res.writeHead(kod, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...CORS_BASLIK });
+  res.writeHead(kod, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...corsBaslik() });
   res.end(JSON.stringify(obj));
 }
 
@@ -235,16 +358,16 @@ function durumGovdesi() {
     tercih: tercih || null,
     gorevler,
     atanabilir,
-    atamalar: sonN(jsonlOku(join(aktifDir, 'atamalar.jsonl')).satirlar, KUYRUK.atamalar),
-    log: sonN(jsonlOku(join(aktifDir, 'log.jsonl')).satirlar, KUYRUK.log),
-    mudahale: sonN(jsonlOku(join(aktifDir, 'mudahale.jsonl')).satirlar, KUYRUK.mudahale),
+    atamalar: jsonlKuyruk(join(aktifDir, 'atamalar.jsonl'), KUYRUK.atamalar).satirlar,
+    log: jsonlKuyruk(join(aktifDir, 'log.jsonl'), KUYRUK.log).satirlar,
+    mudahale: jsonlKuyruk(join(aktifDir, 'mudahale.jsonl'), KUYRUK.mudahale).satirlar,
     graf: grafGovdesi(),               // ordu SSOT — birleşme: deney paneli ana veriyi gösterir
     manager: {
       aktor: 'ai-manager:glm-5.3',
       ajan: 'deney-manager-g9',
       paseoAgentId: 'bfda53a3-8e52-4c47-922c-337dfbdf7cca',
       rol: 'ROLLER/manager.md (deney-g9-repo)',
-      bekleyenIs: sonN(jsonlOku(join(aktifDir, 'manager-kuyruk.jsonl')).satirlar, 10)
+      bekleyenIs: jsonlKuyruk(join(aktifDir, 'manager-kuyruk.jsonl'), 10).satirlar
         .filter((k) => k && k.is === 'chat').length,
     },
     ajanlar: {
@@ -254,14 +377,60 @@ function durumGovdesi() {
   };
 }
 
-function durumIsci(req, res) {
-  jsonYaz(res, 200, durumGovdesi());
+// JSONL buyume izi (O2 kaynagi — dosya boyutlari bayt cinsinden, stat'ten; tahmin YOK).
+function jsonlBoyutlari() {
+  const boyut = {};
+  for (const ad of ['atamalar.jsonl', 'log.jsonl', 'mudahale.jsonl', 'manager-kuyruk.jsonl']) {
+    try { boyut[ad] = statSync(join(aktifDir, ad)).size; } catch { boyut[ad] = 0; }
+  }
+  return boyut;
 }
 
-// --- POST isleri (dogrulama -> disk yazma -> gunluk) ------------------------------
+function durumIsci(req, res) {
+  // GD-008 perf_hooks OLCUM NOKTASI: istek suresi (performance.now — perf_hooks) + bu istekte
+  // diskten okunan bayt/cagri sayisi + buyume izi. Yanitin 'perf' alani O2 puaninin OLCUM
+  // KAYNAGIDIR (K8-2 SH/f: puani ajan YAZAMAZ — yalniz bu olcum alanindan turetilir).
+  olcum.durumIstek += 1;
+  const baytOnce = olcum.okunanBayt;
+  const okumaOnce = olcum.diskOkuma;
+  const t0 = performance.now();
+  const govde = durumGovdesi();
+  const sureMs = performance.now() - t0;
+  olcum.toplamSureMs += sureMs;
+  olcum.sonSureMs = sureMs;
+  olcum.sonOkunanBayt = olcum.okunanBayt - baytOnce;
+  govde.perf = {
+    istekSuresiMs: Math.round(sureMs * 1000) / 1000,
+    okunanBayt: olcum.sonOkunanBayt,
+    okumaSayisi: olcum.diskOkuma - okumaOnce,
+    durumIstek: olcum.durumIstek,
+    jsonlBoyut: jsonlBoyutlari(),
+  };
+  jsonYaz(res, 200, govde);
+}
 
-// Ortak POST boru hatti: govde limiti -> JSON parse -> isle -> yanit + istek logu.
+// --- POST isleri (token kapisi -> dogrulama -> disk yazma -> gunluk) ----------------
+
+// GD-001/GD-002: token karsilastirmasi ZAMAN-SABIT (GD-004 deseni — ayni uygulama burada da):
+// uzunluk on-kontrolu yapilir (timingSafeEqual uzunluk farkinda ATAR), sonra icerik.
+// Token DEGERI hicbir yere (yanit/log/konsol) yazilmaz — SH-g.
+function tokenEsitMi(gelen) {
+  if (typeof gelen !== 'string' || !aktifToken) return false;
+  const a = Buffer.from(gelen);
+  const b = Buffer.from(aktifToken);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+// Ortak POST boru hatti: TOKEN KAPISI (GD-001 — tum deney POST uclari, fail-closed:
+// tanimli token YOK -> 403 yazma kapali; baslik yanlis -> 401) -> govde limiti -> JSON parse
+// -> isle -> yanit + istek logu. Red satirlari da log'a duser (audit; token DEGERI yazilmaz).
 async function postIsci(req, res, ad, isle) {
+  if (!aktifToken) {
+    return yanitla(req, res, 403, { hata: 'PANO_TOKEN tanimli degil — deney yazma kapali (fail-closed)' }, { tur: 'hata', metin: ad + ' RED: PANO_TOKEN tanimli degil (403 fail-closed)' });
+  }
+  if (!tokenEsitMi(req.headers['x-pano-token'])) {
+    return yanitla(req, res, 401, { hata: 'token gecersiz' }, { tur: 'hata', metin: ad + ' RED: token gecersiz (401)' });
+  }
   const okunan = await govdeOku(req);
   if (okunan.hata) {
     return yanitla(req, res, 400, { hata: okunan.hata }, { tur: 'hata', metin: ad + ' RED: ' + okunan.hata });
@@ -519,7 +688,13 @@ function managerYanitIsle(govde) {
     return { kod: 400, govde: { hata: 'yanit ' + NOT_LIMIT_KAR + ' karakterden uzun' }, gunluk: { tur: 'hata', metin: 'manager-yanit RED: uzun (' + metin.length + ')' } };
   }
   const t = sunucuSaati();
-  satirEkle('log.jsonl', { t, tur: 'manager-yanit', metin: metin.trim(), aktor: 'ai-manager:glm-5.3' });
+  // GD-002 (BAKIM GP-1): token CAGIRANI (operator koprusunu) dogrular; ICERIGIN gercekten
+  // ai-manager:glm-5.3 tarafindan uretildigi sunucu tarafindan DOGRULANAMAZ — koprü metni
+  // operatorden tasir, sunucu manager surecine erisemez. Kayit durustlukle 'dogrulanmamis'
+  // isaretlenir (E10): okuyucu bu kayitlari SUNUCU DOGRULAMASI OLMAYAN aktor-atfi olarak
+  // gorur. Isaret bu duzeltmeyle geldi — isaretsiz ESKI kayitlar da ayni sekilde 'dogrulanmamis'
+  // varsayilmalidir (panel okuma tarafi icin not).
+  satirEkle('log.jsonl', { t, tur: 'manager-yanit', metin: metin.trim(), aktor: 'ai-manager:glm-5.3', dogrulanmamis: true });
   return {
     kod: 200,
     govde: { tamam: true, t },
@@ -553,7 +728,7 @@ export async function handler(req, res) {
     }
     // K8 ADIM-A — bilinen uc OPTIONS preflight'i: 204 + CORS basliklari (fetch POST json tetikler).
     if (req.method === 'OPTIONS') {
-      res.writeHead(204, { 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', ...CORS_BASLIK });
+      res.writeHead(204, { 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', ...corsBaslik() });
       return res.end();
     }
     const isci = uc[req.method];
@@ -579,9 +754,13 @@ function portCoz(p) {
   return Number.isFinite(n) && n >= 0 && n <= 65535 ? n : VARSAYILAN_PORT;
 }
 
-// baslat(port, dir) -> Promise<address>. Port 0 = gecici port (test izolasyonu).
+// baslat(port, dir, secenekler) -> Promise<address>. Port 0 = gecici port (test izolasyonu).
 // dir verilmezse DENEY_DIR, o da yoksa varsayilan deney dizini. Dinleme yalniz 127.0.0.1.
-export function baslat(port, dir) {
+// secenekler (GD-001, test izolasyonu): { token, corsOrigin } — acik deger ortam degiskenini
+//   (PANO_TOKEN / DENEY_CORS_ORIGIN) OVERRIDER; uretimde argumansiz cagri ortamdan cozer.
+//   token cozumu null/bos -> POST kapisi fail-closed (403). Dir degisince okuma onbellekleri
+//   temizlenir (izole test dizinleri arasini tasima YOK).
+export function baslat(port, dir, secenekler) {
   if (sunucu && sunucu.listening) {
     return Promise.reject(new Error('deney-server zaten dinliyor — once kapat() cagirin'));
   }
@@ -589,12 +768,18 @@ export function baslat(port, dir) {
   if (dir !== undefined && dir !== null) aktifDir = String(dir);
   else if (process.env.DENEY_DIR) aktifDir = process.env.DENEY_DIR;
   else aktifDir = VARSAYILAN_DIR;
+  aktifToken = secenekler && secenekler.token !== undefined ? secenekler.token : (process.env.PANO_TOKEN || null);
+  aktifCorsOrigin = secenekler && secenekler.corsOrigin !== undefined ? String(secenekler.corsOrigin)
+    : (process.env.DENEY_CORS_ORIGIN || VARSAYILAN_CORS_ORIGIN);
+  jsonOnbellek.clear();
+  kuyrukOnbellek.clear();
   return new Promise((tamam, hata) => {
     sunucu = http.createServer(handler);
     sunucu.on('error', (e) => { sunucu = null; hata(e); });
     sunucu.listen(dinlemePortu, '127.0.0.1', () => {
       const adr = sunucu.address();
-      console.log('[deney-server] dinliyor: http://127.0.0.1:' + adr.port + ' | dizin: ' + aktifDir);
+      console.log('[deney-server] dinliyor: http://127.0.0.1:' + adr.port + ' | dizin: ' + aktifDir +
+        ' | CORS kaynak: ' + aktifCorsOrigin + ' | POST kapisi: ' + (aktifToken ? 'PANO_TOKEN VAR' : 'YOK — fail-closed 403'));
       tamam(adr);
     });
   });
@@ -611,7 +796,7 @@ export function kapat() {
   });
 }
 
-export default { baslat, kapat, handler };
+export default { baslat, kapat, handler, olcumOku };
 
 // --- komut satiri (node pano/deney-server.mjs) ------------------------------------
 

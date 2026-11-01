@@ -1,8 +1,18 @@
 // paseo-pano mini sunucu — K-0019 prototip. Bagimliliksiz node:http, yalniz 127.0.0.1.
 // D-1a (kapsul-tuval cekirdegi): PANO_PORT (test icin 0 = gecici port), GET /tuval, GET /api/graf.
 // D-3 Kapi 3 (dar-dene dalga 2/3; K-0055): POST /api/atama/taslak + /api/atama/onay + GET /api/atama/durum.
+// BAKIM GP-1 (2026-11-01; GUVENLIK-DENETCI GD-004/005/006):
+//   GD-004 — token karsilastirmasi ZAMAN-SABIT: crypto.timingSafeEqual (uzunluk on-kontrolu ile;
+//     !== deseni kalkti — 403/401 semantigi ve mesajlari AYNEN korundu).
+//   GD-005 — senkron yazma atislari (mkdir/open/write/rename/append) yakalanir -> 500 jsonYaz:
+//     yaristan/rename redinde surec CRASH ETMEZ; kalan tmp dosyasi temizlenir; onayli md aynasi
+//     yazilamazsa jsonl kaydi durustlukle bildirilir (cift-kayit acigi acik soylenir — E10).
+//   GD-006 — govde toplama Buffer parcalariyla (Buffer.concat; deney-server.mjs govdeOku deseni):
+//     cok baytli UTF-8 karakteri parca sinirinda BOZULMAZ (eski += deseni mojibake uretiyordu);
+//     limit artik BAYT cinsinden (4096 — onceki karakter sayimi degil).
 import http from "node:http";
-import { readFileSync, existsSync, readdirSync, statSync, writeFileSync, renameSync, mkdirSync, openSync, writeSync, fsyncSync, closeSync, appendFileSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync, writeFileSync, renameSync, mkdirSync, openSync, writeSync, fsyncSync, closeSync, appendFileSync, rmSync } from "node:fs";
+import { timingSafeEqual } from "node:crypto";
 import { join, resolve } from "node:path";
 import { atamaTaslakla, onayla } from "./graf-yonetim.js"; // D-3 cekirdegi (yazilmaz, yalniz cagrilir)
 import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
@@ -14,8 +24,35 @@ const ATAMA_DIR = process.env.ORDU_ATAMA_DIR || join(import.meta.dirname, "..", 
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
 const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
+const GOVDE_LIMIT_BAYT = 4096; // POST govde tavani (BAYT — GD-006): asiminda baglanti kesilir
 const onbellek = new Map(); // repo -> { ts, veri }
 const sseIstemci = new Set();
+
+// GD-004: zaman-sabit token karsilastirma — uzunluk FARKLIYSA timingSafeEqual hic cagrilmez
+// (uzunluk sirmaz; uzunluk esitse icerik karsilastirmasi sabit sureli). TOKEN yoksa her sey RED.
+function tokenGecerliMi(gelen) {
+  if (typeof gelen !== "string" || !TOKEN) return false;
+  const a = Buffer.from(gelen);
+  const b = Buffer.from(TOKEN);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+// GD-006: govdeyi Buffer paralariyla toplar; 'end' uzerinde TEK decode (utf8) — cok baytli
+// karakter parca sinirinda bozulmaz (deney-server.mjs govdeOku deseni). GOVDE_LIMIT_BAYT
+// asiminda baglanti kesilir (yanit YOK — eski davranis); kopan istek sessiz yutilir.
+function govdeTopla(req, cb) {
+  const parcalar = [];
+  let bayt = 0;
+  let kesildi = false;
+  req.on("data", (p) => {
+    if (kesildi) return;
+    bayt += p.length;
+    if (bayt > GOVDE_LIMIT_BAYT) { kesildi = true; req.destroy(); return; }
+    parcalar.push(p);
+  });
+  req.on("end", () => { if (!kesildi) cb(Buffer.concat(parcalar).toString("utf8")); });
+  req.on("error", () => { /* kopan istek — yanit gonderilemez */ });
+}
 
 // D-3 Kapi 3 (dar-dene dalga 2/3; K-0055 uyumlu): atama defterleri — cift-kayit MD+JSON, append-only, fsync'li.
 // AKTOR SUNUCU TARAFINDAN sabit "insan:web" — istemciden aktor alani KABUL EDILMEZ (KA-5; spoof edilemez).
@@ -168,10 +205,8 @@ const sunucu = http.createServer((req, res) => {
   }
   if (req.method === "POST" && url.pathname === "/api/kart") {
     if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — kart yazma kapali (fail-closed)" }); return; }
-    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
-    let govde = "";
-    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
-    req.on("end", () => {
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
       let id = null;
       try { const v = JSON.parse(govde); id = String((v && v.id) ?? ""); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; } // null govde korumasi (ORDU-3 B-001 sinifi)
       if (!/^[A-Za-z0-9._-]+$/.test(id)) { jsonYaz(res, 422, { hata: "gecersiz id (izinli: harf/rakam/._-; yol kacamasi RED)" }); return; }
@@ -180,13 +215,21 @@ const sunucu = http.createServer((req, res) => {
       try { g = JSON.parse(readFileSync(GRAF_JSON, "utf8")); } catch { jsonYaz(res, 500, { hata: "graf JSON bozuk — kart uretilmez (fail-closed)" }); return; }
       const gorev = g.gorevler.find((x) => x.id === id);
       if (!gorev) { jsonYaz(res, 404, { hata: "graf SSOT'ta boyle bir gorev yok: " + id }); return; }
-      mkdirSync(KAPSUL_DIR, { recursive: true });
       const yol = join(KAPSUL_DIR, id + ".md");
       if (existsSync(yol)) { jsonYaz(res, 409, { hata: "kart ZATEN VAR — mevcut MD ezilmez (yazar kaydi: ilk uretim)", yol }); return; }
-      const tmp = yol + ".tmp-" + Date.now();
-      const fd = openSync(tmp, "w"); // tmp + fsync + rename: kismi yazis gorunmez (A2-10 kalibi)
-      try { writeSync(fd, kartIcerik(g, gorev), "utf8"); fsyncSync(fd); } finally { closeSync(fd); }
-      renameSync(tmp, yol);
+      // GD-005: senkron yazma zinciri (mkdir+open+write+fsync+rename) yakalanir -> 500 (surec
+      // crash ETMEZ); kalan tmp dosyasi temizlenir (d1b 'tmp kalintisi yok' pini korunur).
+      const tmp = yol + ".tmp-" + Date.now(); // tmp + fsync + rename: kismi yazis gorunmez (A2-10 kalibi)
+      try {
+        mkdirSync(KAPSUL_DIR, { recursive: true });
+        const fd = openSync(tmp, "w");
+        try { writeSync(fd, kartIcerik(g, gorev), "utf8"); fsyncSync(fd); } finally { closeSync(fd); }
+        renameSync(tmp, yol);
+      } catch (e) {
+        try { if (existsSync(tmp)) rmSync(tmp); } catch { /* tmp zaten yok/kaldirildi */ }
+        jsonYaz(res, 500, { hata: "kart yazilamadi (tmp temizlendi — surec ayakta): " + (e instanceof Error ? e.message : "bilinmeyen") });
+        return;
+      }
       jsonYaz(res, 201, { ok: true, id, yol, eksen: 8, yazar: "pano/server.js POST /api/kart" });
     });
     return;
@@ -195,10 +238,8 @@ const sunucu = http.createServer((req, res) => {
   // K-0055: cift-kayit (jsonl + md ayni is), write-set YALNIZ ATAMA_DIR 4 dosya; graf SSOT salt-okunur.
   if (req.method === "POST" && url.pathname === "/api/atama/taslak") {
     if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — atama yazma kapali (fail-closed)" }); return; }
-    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
-    let govde = "";
-    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
-    req.on("end", () => {
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
       let istek = null;
       try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
       if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001
@@ -214,18 +255,23 @@ const sunucu = http.createServer((req, res) => {
       try {
         taslak = atamaTaslakla(gorevId, ajanId, onceki, "insan:web", new Date().toISOString());
       } catch (e) { jsonYaz(res, 500, { hata: "atamaTaslakla RED: " + (e instanceof Error ? e.message : "bilinmeyen") }); return; }
-      defterEkle(join(ATAMA_DIR, "taslaklar.jsonl"), JSON.stringify(taslak) + "\n");
-      defterEkle(join(ATAMA_DIR, "taslaklar.md"), "| " + taslak.tarih + " | " + taslak.gorevId + " | " + taslak.ajanId + " | surum " + taslak.surum + " | TASLAK |\n");
+      // GD-005: cift-kayit (jsonl + md) yazimi yakalanir -> 500 — surec crash ETMEZ; kismi
+      // kalmis kayit durumunda hata mesaji acik soyler (E10).
+      try {
+        defterEkle(join(ATAMA_DIR, "taslaklar.jsonl"), JSON.stringify(taslak) + "\n");
+        defterEkle(join(ATAMA_DIR, "taslaklar.md"), "| " + taslak.tarih + " | " + taslak.gorevId + " | " + taslak.ajanId + " | surum " + taslak.surum + " | TASLAK |\n");
+      } catch (e) {
+        jsonYaz(res, 500, { hata: "taslak defterine yazilamadi (cift-kayit jsonl+md birligi bozulmus olabilir — durust bildirim): " + (e instanceof Error ? e.message : "bilinmeyen") });
+        return;
+      }
       jsonYaz(res, 201, { ok: true, taslak });
     });
     return;
   }
   if (req.method === "POST" && url.pathname === "/api/atama/onay") {
     if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — atama yazma kapali (fail-closed)" }); return; }
-    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
-    let govde = "";
-    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
-    req.on("end", () => {
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
       let istek = null;
       try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
       if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001
@@ -240,7 +286,14 @@ const sunucu = http.createServer((req, res) => {
       try { sonuc = atamaYaz(onayli, join(ATAMA_DIR, "onayli.jsonl")); } // idempotans: mevcut:true hata DEGIL
       catch (e) { jsonYaz(res, 500, { hata: "atamaYaz RED (defter kaydi gecersiz): " + (e instanceof Error ? e.message : "bilinmeyen") }); return; }
       if (sonuc.yazildi) { // md aynasi yalniz gercek yazimda — jsonl ile satir sayisi senkron (cift-kayit)
-        defterEkle(join(ATAMA_DIR, "onayli.md"), "| " + onayli.tarih + " | " + onayli.gorevId + " | " + onayli.ajanId + " | surum " + onayli.surum + " | ONAYLI |\n");
+        // GD-005: md aynasi yazilamazsa jsonl kaydi VARDIR (onayli) ama ayna eksik — 500 ile
+        // durust bildirilir (cift-kayit acigi gizlenmez — E10); surec crash ETMEZ.
+        try {
+          defterEkle(join(ATAMA_DIR, "onayli.md"), "| " + onayli.tarih + " | " + onayli.gorevId + " | " + onayli.ajanId + " | surum " + onayli.surum + " | ONAYLI |\n");
+        } catch (e) {
+          jsonYaz(res, 500, { hata: "onayli JSONL yazildi ama MD aynasi yazilamadi (cift-kayit acik kaldi — durust bildirim): " + (e instanceof Error ? e.message : "bilinmeyen") });
+          return;
+        }
       }
       jsonYaz(res, 201, { ok: true, kayit: onayli, yazildi: sonuc.yazildi, mevcut: sonuc.mevcut, toplam: sonuc.toplam });
     });
@@ -267,10 +320,8 @@ const sunucu = http.createServer((req, res) => {
   }
   if (req.method === "POST" && url.pathname === "/api/emir") {
     if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — yazma kapali (fail-closed)" }); return; }
-    if (req.headers["x-pano-token"] !== TOKEN) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
-    let govde = "";
-    req.on("data", (p) => { govde += p; if (govde.length > 4096) req.destroy(); });
-    req.on("end", () => {
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
       try {
         const emir = JSON.parse(govde);
         if (!emir || typeof emir !== "object" || !IZINLI_EMIRLER.has(emir.eylem)) { jsonYaz(res, 422, { hata: "dar-liste disi eylem", izinli: [...IZINLI_EMIRLER] }); return; } // null govde korumasi (O3 B-001 sinifi)

@@ -1,0 +1,3 @@
+{"gorevId":"D2","ajanId":"ORNEK-ece","surum":1,"diff":{"alan":"ajanId","eski":null,"yeni":"ORNEK-ece"},"onay":"TASLAK","acan":"insan:web","tarih":"2026-10-29T14:12:35.987Z"}
+{"gorevId":"D1","ajanId":"ORNEK-ece","surum":1,"diff":{"alan":"ajanId","eski":null,"yeni":"ORNEK-ece"},"onay":"TASLAK","acan":"insan:web","tarih":"2026-10-29T14:12:39.201Z"}
+{"t":"2026-10-29T15:12:38.392Z","tur":"ajan-atama","acan":"insan:web","proje":"D:/Vibecode/deney-g9-repo","ajanAd":"kodcu-1","provider":"tokenharbor","model":"deepseek-v4-flash:free","rol":"coder","gorev":"D3: READMEye Katki bolumu ekle","rolMd":"ROLLER/coder.md","durum":"TANIM"}

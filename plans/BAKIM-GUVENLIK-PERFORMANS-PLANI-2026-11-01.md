@@ -37,3 +37,7 @@ GD-009/010 ORDU-1'in aktif yazım dosyasıdır → ORDU-1 kapanış kapsamına s
 | GD-009/010 ORDU-1 kapanışına sığarsa | otomatik; sığmazsa bu plandan sonraki fişe düşer |
 
 **Yürütme disiplini:** BAKIM-YAZICI paralel yazıcı tavanı (3) ilk slot boşalınca brief'lenir (A/B/ORDU-1'den biri kapanınca); mevcut dosya ≤3 kuralı: deney-server.mjs · iskelet.html · server.js (+ yeni test dosyaları serbest). Ajanlar COMMIT ATMAZ — commit tek elden operator. Bu commit YERELDIR.
+
+## D — KAPANIŞ (2026-11-01 05:22; ölçüldü)
+
+**BAKIM-YAZICI (a61d71de) döndü — kanıt zinciri:** (1) operator bağımsız tekrar `node --test` 6 paket **109/109 yeşil 0 fail** (deney-server 13 + iskelet 4 + server-bakim 6 + graf-yaz 7 + graf-yonetim 32 + kapsul-tuval 47); (2) grep pinleri: aktifCorsOrigin deney:56/237/772 · dogrulanmamis :697 · esc iskelet:34-37 · timingSafeEqual server:15/31-37 · try/catch server:220-229/258-266/286-296 · Buffer.concat server:53 · olcumOku deney:68/799; (3) BAKIM-YAZICI A/B ölçümü: /api/deney/durum okuma 1. çağrı 91 462 B → 2..21. çağrı 0 B/0 okuma; sunucu-içi medyan 1,374 ms; restartsız taze korundu (statSync her istekte). GD-007 (Qoder) + GD-009/010 (ORDU-1) zaten 58fd9f4'te işlendi. **Dürüst notlar:** d1a 6/7 + d1b 11/12 kırmızıları ÖNCE DE VARDI (GRAF SSOT v6→v14 sabit pinleri + ORDU-1'in dizge kaldırması — HEAD koşumuyla kanıtlandı; bu paketten DEĞİL). Write-set DEĞİŞMEDİ. Canlıya geçiş: 4377+4930 restart **[insan] onayı bekler** (EK-2). Denetçi JSON islenme: GD-001..006+008 KAPANDI (7/7).
