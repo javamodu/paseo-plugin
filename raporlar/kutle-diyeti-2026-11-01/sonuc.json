@@ -1,0 +1,62 @@
+{
+  "schemaSurum": 1,
+  "is": "kd-a-cekirdek-diyeti",
+  "tarih": "2026-11-01",
+  "durum": "tamam-yerel",
+  "emir": "en dogru olani siraya koy tamamla",
+  "plan": "plans/KUTLE-DIYETI-PLANI-2026-11-01.md#KD-1",
+  "olcum": {
+    "yontem": "kuralSayisi() (satir basi \\d+., -, *); Buffer.byteLength(utf8)",
+    "taban": { "surum": "v2.0", "bayt": 5417, "kural": 31, "satir": 63 },
+    "sonra": { "surum": "v2.1", "bayt": 3693, "kural": 22, "satir": 43 },
+    "oranYuzde": 68.2,
+    "projeKural": 16,
+    "toplamKural": { "once": 47, "sonra": 38 },
+    "hedefler": { "baytTavan": 3791, "cekirdekKuralTavan": 22, "toplamKuralTavan": 38, "tuttu": true }
+  },
+  "kanit": {
+    "komutlar": [
+      "cd plugin; npm test",
+      "cd plugin; npm run typecheck",
+      "cd plugin; npx tsx test/dedektor.test.ts"
+    ],
+    "testDosya": 10,
+    "okSatiri": 446,
+    "yeniAssert": 18,
+    "testExit": 0,
+    "tscExit": 0,
+    "dedektorExit": 0,
+    "drift": "v0.24-kilit"
+  },
+  "commitler": { "kd0": "38d450a", "kod": "f811936", "damga": "704c9ef", "kayit": "bu-commit" },
+  "tag": "v0.24-kilit",
+  "degisen": [
+    "plugin/server/cekirdek.ts",
+    "plugin/server/sozlesme.ts",
+    "plugin/test/cekirdek-diyet.test.ts",
+    "plugin/package.json",
+    "plugin/server/surum.ts",
+    "plugin/surumler/v0.24/kilit.json",
+    "plugin/surumler/v0.24/KILIT.md",
+    "raporlar/kutle-diyeti-2026-11-01/OZET.md",
+    "raporlar/kutle-diyeti-2026-11-01/sonuc.json",
+    "STATE_BOARD.md",
+    "CODEMAP.md"
+  ],
+  "degismeyen": [
+    "devir toreni 7 madde + echo 3 soru",
+    "gelen-kutu md+json cifti (islenme:null, append-only)",
+    "7. Append-only",
+    "EK-1..5",
+    "[insan] kapilari (fail-closed)",
+    "mevcut 9 test dosyasi (446 assert)",
+    "plugin/node_modules",
+    "v0.23 kilidi"
+  ],
+  "durust": [
+    "canli senkron YOK: KD-c [insan] daemon reload; 4377/4930 oturumlari etkilenmez",
+    "kilit ELLE atildi: kilit-surum.ps1 cift-ev varsayimi + kirli-agac reddi; doctor kapilari gercek kosuldu",
+    "OTODEV A2 pilotu kurulu DEGIL: nobet schedule/kira yok; glm53u-claude /v1/messages 403->401",
+    "push YOK: K7 ayri [insan] emri; yerel birikim 19"
+  ]
+}

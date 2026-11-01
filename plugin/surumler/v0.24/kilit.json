@@ -1,0 +1,15 @@
+{
+  "etiket": "v0.24-kilit",
+  "tarih": "2026-11-01",
+  "commit": "704c9ef",
+  "doctor": {
+    "ok": 1,
+    "eksik": 0,
+    "sari": 0,
+    "kaynak": "npm test+typecheck"
+  },
+  "hedefler": null,
+  "eksenPuanlari": null,
+  "ekOzet": "KD-a cekirdek diyeti: CEKIRDEK v2.1 22 kural / 3693 B (%68,2; taban 5417 B); npm test 446 ok + 18 assert / 10 dosya EXIT=0; tsc --noEmit EXIT=0; dedektor drift v0.24-kilit EXIT=0",
+  "not": "KD-a (kullanici emri 'en dogru olani siraya koy tamamla'): CEKIRDEK v2.0 -> v2.1 (damga 2026-11-01) = 22 kural / 3693 B (%68,2); toplam 38 (22+16 proje). Devir 7 madde + echo 3 soru + gelen-kutu + '7. Append-only:' KORUNDU; '5. Append-only:' yok; hafiza tablosu tek paragraf; [insan] kapilari tek satir fail-closed. Yeni test plugin/test/cekirdek-diyet.test.ts (18 assert) + test zinciri 9->10 dosya; mevcut 9 dosya 446 assert aynen yesil (davranis degismedi). Kilit ELLE damgalandi (durust not): kilit-surum.ps1 F1 birliginden kalma cift-ev varsayimi + paralel kirli-agac reddi (v0.23 emsali); doctor kapilari GERCEK kosuldu. Drift bekcisi: repo tag v0.24-kilit == PLUGIN_SURUM v0.24. Canli senkron YOK: KD-c [insan] daemon reload; 4377/4930 etkilenmez. Rapor: raporlar/kutle-diyeti-2026-11-01/{OZET.md,sonuc.json}."
+}
