@@ -36,3 +36,5 @@
 {"t":"2026-10-29T19:05:00","tur":"durum","metin":"DENEY SUNUCUSU IZLEME KAYBI: arka plan görevi b6ii90v3o exit 1 bildirdi AMA node süreci PID 26152 bagimsiz yasiyor [netstat LISTENING + GET /api/deney/durum 200 + gercek envanter verisi]. ADIM-A restart talimati guncelleme: TaskStop b6ii90v3o artik GECERSIZ (gorev oldu) — restartta once taskkill /PID 26152 (veya port 4930 dinleyen) sonra DENEY_PORT=4930 node pano/deney-server.mjs background. Sunucu su an CALISIYOR."}
 {"t":"2026-10-29T19:10:14.701Z","tur":"mudahale","metin":"mudahale kaydedildi (125 karakter) + kuyruga dustu [hedef glm53u-codex/glm-5.3 rol manager]"}
 {"t":"2026-10-31T12:06:41.183Z","tur":"mudahale","metin":"mudahale kaydedildi (2 karakter) + kuyruga dustu [hedef glm53u-codex/glm-5.3 rol manager]"}
+{"t":"2026-11-01T03:05:01.079Z","tur":"hata","metin":"mudahale RED: token gecersiz (401)"}
+{"t":"2026-11-01T03:05:01.180Z","tur":"hata","metin":"mudahale RED: token gecersiz (401)"}
