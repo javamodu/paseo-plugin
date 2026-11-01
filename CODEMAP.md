@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 704c9ef — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD d2457dc — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -80,8 +80,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `pano/` (23 dosya: en yeni devir-kira.test.mjs, devir-tavan.test.mjs, devir-kira.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `plans/` (100 dosya: en yeni HANDOFF-2026-11-01-0609.md, COKLU-PROJE-429-KALKANI-PLANI-2026-11-01.md, OTODEV-OTOMATIK-DEVIR-PLANI-2026-11-01.md)
-- `plugin/` (72 dosya: en yeni KILIT.md, surum.ts, sozlesme.ts)
-- `raporlar/` (252 dosya: en yeni 2026-W44.md, OZET.md, bench.mjs)
+- `plugin/` (74 dosya: en yeni kalkan429.ts, index.server.ts, kalkan429.test.ts)
+- `raporlar/` (256 dosya: en yeni OZET.md, bench.mjs, 2026-W44.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -111,6 +111,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (69.8KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (71.4KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

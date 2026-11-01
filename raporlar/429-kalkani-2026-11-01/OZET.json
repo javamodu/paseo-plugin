@@ -1,0 +1,54 @@
+{
+  "kimlik": "PK-1",
+  "bolum": "PK-a+PK-b+PK-c",
+  "plan": "plans/COKLU-PROJE-429-KALKANI-PLANI-2026-11-01.md",
+  "damga": "2026-11-01T13:02:12Z",
+  "surumDisiplini": "v0.24 muhur korundu: surum.ts / package.json version / surumler / tag dokunulmadi; dedektor drift testi yesil",
+  "teslimDosyalar": [
+    "plugin/server/kalkan429.ts",
+    "plugin/index.server.ts",
+    "plugin/test/kalkan429.test.ts",
+    "plugin/package.json (yalnizca test satiri)",
+    "plugin/.gitignore (data/)",
+    "raporlar/429-kalkani-2026-11-01/OZET.md",
+    "raporlar/429-kalkani-2026-11-01/OZET.json"
+  ],
+  "testSonuclari": {
+    "yeniDosya": { "vaka": 59, "fail": 0, "exit": 0 },
+    "tamSuit": { "dosya": 11, "okAssert": 505, "mevcutAssert": 446, "yeniAssert": 59, "fail": 0, "exit": 0 },
+    "typecheck": { "komut": "npx tsc --noEmit", "exit": 0 },
+    "baseline": { "not": "degisiklik oncesi tam suit EXIT=0 (11 dosya); ok sayimi son kosumda tam logdan olcudu" }
+  },
+  "ozellikler": {
+    "pk-a": "agent.turn_ended failed turu -> 429/rate-limit/RPM siniflandirmasi -> append-only plugin/data/429-defter.jsonl (fsync; gizli deger YAZILMAZ) + sonNdk(n) sayaci",
+    "pk-b": "before(agent.create): pencerede >=2 429 -> RED (hata = olusturma iptali) + durust mesaj; ORDU_429_KAPI=0 kapatir (varsayilan ACIK); ORDU_429_PENCERE_MS",
+    "pk-c": "429 failed turu -> setTimeout ile ORDU_429_DIRILME_MS (varsayilan 12dk) sonrasi send; ajan basina en fazla 2 otomatik deneme; completed tur sifirlar; reload'da planlar kaybolur (best-effort)"
+  },
+  "defterSemasi": {
+    "dosya": "plugin/data/429-defter.jsonl",
+    "satirAlanlari": ["damgaISO", "agentId", "workspaceId", "provider", "hataSinifi", "tip"],
+    "tipDegerleri": ["429", "kapi-red"],
+    "sayacKurali": "yalniz tip=429 sayilir (kapi-red retleri sayaca girmez - kendini besleyen pencere engellenir)"
+  },
+  "envler": {
+    "ORDU_429_KAPI": "0 = kapi kapali (varsayilan acik)",
+    "ORDU_429_PENCERE_MS": "pencere uzunlugu ms (varsayilan 600000)",
+    "ORDU_429_DIRILME_MS": "dirilme gecikmesi ms (varsayilan 720000)",
+    "ORDU_429_DEFTER": "defter tam yolu override"
+  },
+  "durstSapmalar": [
+    "Defter satirina spec'in 5 alanina ek olarak tip ayristiricisi eklendi (RED kayitlari icin; sayac yalniz tip=429 okur)",
+    "Defter evi plugin/data olarak somutlasti; eval baglaminda import.meta.url tanimsiz oldugu icin sabit varsayilan + ORDU_429_DEFTER override (pano.ts B20 deseni)",
+    "Defter OKUNAMIYORSA sayac 0 -> izin (fail-open okuma; kanit yoksa RED yok). Yazma hatasi yutulur + loglanir - event akisi bloke olmaz (S8 kaniti)",
+    "Dirilme sayaci completed turda sifirlanir (basarili tur = firtina bitti kaniti; tavan-2 dongu korumasi yerinde)",
+    "fsync kod-yolu ile garanti (openSync a + writeSync + fsyncSync); diskteki etkisi runtime'da ayrica olculmedi",
+    "Rotasyon 5MB/2MB (telemetri D2-08 emsali) - sinirsiz buyume kapanmadi",
+    "Canli 429 ucusu test edilmedi (gorev siniri) - hermetik fixture; canli gozlem operatore kalir; defter alt-sinir gosterir",
+    "package.json yalnizca test satiri guncellendi (version alanina dokunulmadi); commit YOK, push YOK"
+  ],
+  "canliyaAlinma": {
+    "reload": "paseo plugin reload paseo-verimlilik",
+    "not": "reload aninda bekleyen dirilme planlari kaybolur (best-effort); defter kaydi kalici",
+    "baseline": "ilk 24 sa plugin/data/429-defter.jsonl satir sayisiyla okunur (pano ucu PK-e ayri emir)"
+  }
+}

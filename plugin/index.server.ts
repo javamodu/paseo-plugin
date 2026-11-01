@@ -24,6 +24,7 @@ import { ajanTemizleHepsi } from "./server/temizlik";
 import { panoBaslat } from "./server/pano";
 import { orduDongu, orduAyarOku, aktifWorkerSay, MANAGER_BRIEF } from "./server/ordu";
 import { repolariBul } from "./server/planmd";
+import { kapiKontrol, turn429Isle, dirilmeKapat, DIRILME_MESAJI } from "./server/kalkan429";
 
 
 let paseoRef: PaseoApi | null = null;
@@ -45,6 +46,26 @@ export default function contribute(server: PluginServerContext) {
       (repoKok) => [...aktifTurler.values()].some((c) => { try { return katmanKokuBul(c) === repoKok; } catch { return false; } }),
       gonderAjana,
     ),
+  );
+
+  // PK-1 (429-kalkani) PK-c: reload/disable'da zamanlanmis dirilme zamanlayicilari iptal.
+  removers.push(dirilmeKapat);
+
+  // PK-1 (429-kalkani) PK-b: agent.create ONCESI kayit — plugin icinde ilk sira (kayit sirasi =
+  // calisma sirasi), boylece RED gelirse sozlesme enjeksiyonu da atlanir. Hata firlatmak olusturmayi
+  // IPTAL eder (kanit/02 §2). Kapı KAPALIYKEN (ORDU_429_KAPI=0) red yoktur, request'e dokunulmaz —
+  // mevcut akis aynen surer. Daemon'un kendi gecici yardimci ajanlari (internal) kapidan muaf.
+  removers.push(
+    server.before("agent.create", ({ request }) => {
+      if (request.config.internal === true) {
+        return undefined;
+      }
+      const karar = kapiKontrol(request.config.provider ?? null);
+      if (karar.red && karar.mesaj !== null) {
+        throw new Error(karar.mesaj);
+      }
+      return undefined;
+    }),
   );
 
   removers.push(
@@ -119,6 +140,22 @@ export default function contribute(server: PluginServerContext) {
     server.on("agent.turn_ended", async (event, context) => {
       paseoRef = context.paseo;
       const agentId = event.agent.id;
+      // PK-1 (429-kalkani) PK-a + PK-c: 429 telemetri defteri + zamanlanmis dirilme.
+      // Event best-effort — kalkan hatasi tur kaydini ve kalan govdeyi asla bloke ETMEZ.
+      // Dirilme mesaji gonderimi tetikleme ANINDA paseoRef'den okunur (reload sonrasi ref yenilenir).
+      // Dürüst not: reload'da bekleyen dirilme planları kaybolur (best-effort); defter kaydı kalıcıdır.
+      try {
+        turn429Isle(
+          { id: agentId, workspaceId: event.agent.workspaceId, provider: event.agent.provider },
+          event.outcome,
+          async () => {
+            if (!paseoRef) return;
+            await paseoRef.agents.ref(agentId).send(DIRILME_MESAJI);
+          },
+        );
+      } catch (error) {
+        console.error("[paseo-verimlilik] 429 kalkan hatasi (tur akisi etkilenmez)", error);
+      }
       let loopDurtme = false;
       let finishGateDurtme = false;
       // K-0029 (A2-5): turKaydet finally'de — govdedeki hata tur kaydini ve aktifTur dusumunu atlamaz.
