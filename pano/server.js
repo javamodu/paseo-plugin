@@ -17,7 +17,7 @@ import { join, resolve } from "node:path";
 import { atamaTaslakla, onayla } from "./graf-yonetim.js"; // D-3 cekirdegi (yazilmaz, yalniz cagrilir)
 import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
 import { kiraDurum, kiraYoluCoz, logOku } from "./devir-kira.mjs"; // ORDU paneli: kira/log kaynagi (salt-okur)
-import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
+import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
@@ -132,11 +132,7 @@ function repoOzeti(repo) {
   const toplam = kabul + ret;
   let sonDamga = null;
   const pano = join(repo.yol, "STATE_BOARD.md");
-  if (existsSync(pano)) {
-    const satirlar = readFileSync(pano, "utf8").split(/\r?\n/);
-    const i = satirlar.findIndex((s) => s.trim() === "## Son damgalar");
-    if (i >= 0) sonDamga = (satirlar.slice(i + 1).find((s) => s.trim().startsWith("- ")) ?? null)?.trim().slice(0, 160) ?? null;
-  }
+  if (existsSync(pano)) sonDamga = sonDamgaSatiri(readFileSync(pano, "utf8").split(/\r?\n/)); // basliktan ONCEKI son tarihli damga (arsiv degil)
   return {
     ad: repo.ad, tur, kabulOrani: toplam > 0 ? Math.round((kabul / toplam) * 1000) / 10 : null,
     loop, finishGate: fg, karisiklik, altAjan, inTok, outTok, cacheTok,

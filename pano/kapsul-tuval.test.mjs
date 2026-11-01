@@ -546,7 +546,7 @@ test("30- R2/K8 SAĞ İKON MENÜ: CHAT (varsayılan) + PROJE + API — panel iç
 });
 
 test("31- R2 LIGHT TEMA: açık zemin + koyu metin + light accent; eski koyu tokenlar yok", () => {
-  ok("açık zemin tokenı (--zemin:#f4f6f9)", SRC.includes("--zemin:#f4f6f9"));
+  ok("SAF BEYAZ zemin tokenı (--zemin:#ffffff — STEERING-8 kullanıcı emri)", SRC.includes("--zemin:#ffffff"));
   ok("beyaz yüzey tokenı (--yuzey:#ffffff)", SRC.includes("--yuzey:#ffffff"));
   ok("koyu metin tokenı (--metin:#1a2332)", SRC.includes("--metin:#1a2332"));
   ok("meta color-scheme light", SRC.includes('content="light"'));

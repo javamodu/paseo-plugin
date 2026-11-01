@@ -4,32 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#f4f6f9">
+<meta name="theme-color" content="#ffffff">
 <meta name="description" content="ORDU KOMUTA PANELİ — genel durum şemsiyesi (en büyük sorunlar, sağlık ışığı, çözüm yolları, graf sayımı, ilerleme), faz gruplu plan tablosu, görev graf + ordu tek dalga görünümü, birleşik akış zaman çizelgesi ve sistem sağlığı. Salt-okur uçlar; fail-closed; sahte canlı veri yok.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M13 2 L23 8 V18 L13 24 L3 18 V8 Z' fill='none' stroke='%230f4c81' stroke-width='2'/%3E%3Ccircle cx='13' cy='13' r='3' fill='%230f4c81'/%3E%3C/svg%3E">
 <title>ORDU KOMUTA PANELİ — ordu</title>
 <style>
   /* =====================================================================
-     ORDU KOMUTA PANELİ (operator spec 2026-11-01 + spec guncellemesi 17:5x).
-     Ust bolumler: (1) GENEL DURUM semsiyesi [kartlar + en buyuk sorunlar +
-     genel saglik isigi + cozum yollari + graf sayimi/ilerleme] · (2) PLAN iki
-     alt-bolum [(a) FAZ/SPRINT tablo — gorevler gercek 'faz' alanina gore
-     gruplu, fazsizlar durust 'fazsız' grubunda · (b) GOREV GRAF + ORDU tek
-     dalga gorunumu — CSS satirlari (canvas/SVG cizim YOK), kutu altinda
-     kompakt ajan karti, bagimli zincirleri satir ici '→' metni] · (3) AKIS tek
-     kronolojik akis · (4) SISTEM SAGLIGI detay.
-     TASARIM-MANIFESTOSU'ya bagli: baz 16px · bolum-etiket 20px (K2/R2 deseni)
-     · light tema + tokenlar · EMOJI YASAK (inline SVG) · 44px dokunma +
-     aria · animasyon yalniz renk (E12) · tek viewport (main panel-ici kayar,
-     duvar 6px) · §8 durustluk: her veri kaynaginin KENDI kirmizi fail-closed
-     yuzu var, bayat veri ekranda kalmaz; olcumu olmayan alan ASLA sayi
-     gostermez — 'ölçülmedi' yazar; olcum etiketi kaynak beyanidir.
+     ORDU KOMUTA PANELİ — PANEL-REDESIGN-1 (STEERING-8: kullanıcı REDİ —
+     «tek bakışta göreyim · nefes alan · beyaz»). TASARIM KAPISI'ndan geçer:
+     İLK VIEWPORT = 6 BÜYÜK sayı kartı (sağlık ışığı · görev sayımı · canlı
+     ajan · kritik yolda sıradaki görev ADI · graf sürümü · son damga);
+     rakam 36px (32-40 pencere), etiket 14px.
+     PROGRESSIVE DISCLOSURE: her bölümde başlık + TEK özet satırı açık; tüm
+     detaylar <details> KAPALI varsayılan (LOG'da son 5 satır açık kalır).
+     NEFES (§2): baz 16px · bölüm başlığı 22px · bölüm arası 48px · kart
+     padding 20-24px · satır 1.5 · max-width 1200px · ≥1024px'te kart grid'i
+     2-3 kolon (auto-fill), altı tek kolon. Sıkışık satır = kapsam hatası.
+     BEYAZ (kullanıcı emri «şimdilik»): body zemini SAF BEYAZ; kart zeminleri
+     beyaz + 1px açık-gri kenarlık; arka plan dokusu/renk YOK (durum renkleri
+     yalnız kenar/nokta/çıp/rozet üzerinden taşınır — veri, dekor değil).
+     Veri katmanı DEĞİŞMEDİ: uç adları · fetch · esc() · 30 sn yenileme ·
+     her kaynağın kendi fail-closed kırmızı yüzü · POST yok.
      ===================================================================== */
   :root {
-    --zemin:#f4f6f9; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;
+    --zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#ffffff; --yuzey3:#eef2f7;
     --camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;
     --metin:#1a2332; --ikincil:#51617a; --cizgi:rgba(26,35,50,0.14);
-    --radius:8px; --radius-k:6px; --radius-cip:4px; --min-dokunma:44px;
+    --radius:10px; --radius-k:8px; --radius-cip:4px; --min-dokunma:44px;
     --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
   }
   * { box-sizing:border-box; margin:0; font:inherit; }
@@ -67,29 +68,57 @@
   }
   .ustNav a:hover { color:var(--camgobegi); border-color:rgba(15,76,129,0.45); }
 
-  /* ---- ANA AKIŞ: bölüm dikey; duvar 6px; main panel-içi kayar ---- */
+  /* ---- ANA AKIŞ: bölüm dikey; bölüm arası 48px NEFES; main panel-içi kayar ---- */
   main {
     flex:1 1 auto; min-height:0; overflow-y:auto; width:100%;
-    max-width:1280px; margin:0 auto; padding:12px 16px 28px;
-    display:flex; flex-direction:column; gap:6px;
+    max-width:1200px; margin:0 auto; padding:24px 24px 56px;
+    display:flex; flex-direction:column; gap:48px;
   }
   main::-webkit-scrollbar { width:8px; }
   main::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
   .bolum {
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:var(--radius);
-    padding:14px 16px 18px; overflow:hidden;
+    padding:22px 24px 26px; overflow:hidden;
   }
-  .bolum-etiket { /* R2/K2 deseni aynen: 20px + aksan çubuğu */
-    display:flex; align-items:center; gap:10px; margin:2px 0 12px;
-    font-size:20px; font-weight:700; color:var(--metin); letter-spacing:0.01em;
+  .bolum-etiket { /* bölüm başlığı 22-24px (manifesto §1) */
+    display:flex; align-items:center; gap:12px; margin:2px 0 10px;
+    font-size:22px; font-weight:700; color:var(--metin); letter-spacing:0.01em;
   }
   .bolum-etiket::before { content:""; width:22px; height:4px; border-radius:2px; background:var(--camgobegi); flex:none; }
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
-  .altBaslik { font-size:16px; font-weight:700; margin:16px 0 8px; color:var(--metin); }
-  .bolum:first-of-type .altBaslik:first-of-type { margin-top:2px; }
+  .bolumOzet { font-size:16px; color:var(--ikincil); margin:0 0 8px; overflow-wrap:anywhere; }
+  .bolumOzet b { color:var(--metin); font-variant-numeric:tabular-nums; }
   .bolumIci { max-height:560px; overflow-y:auto; padding-right:4px; }
   .bolumIci::-webkit-scrollbar { width:8px; }
   .bolumIci::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
+
+  /* ---- TEK BAKIŞ: 6 BÜYÜK sayı kartı (STEERING-8) ---- */
+  .ozetGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; margin:6px 0 16px; }
+  .ozetKart {
+    border:1px solid var(--cizgi); border-radius:var(--radius); background:var(--yuzey);
+    padding:20px 22px; display:flex; flex-direction:column; gap:8px; min-height:120px;
+  }
+  .ozetEtiket { font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
+  .ozetDeger { font-size:36px; font-weight:800; line-height:1.15; color:var(--metin); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+  .ozetDeger.mono { font-family:var(--mono); }
+  .ozetDeger.yazi { font-size:22px; line-height:1.3; font-weight:700; }
+  .ozetDeger.damga { font-size:24px; font-family:var(--mono); font-weight:700; }
+  .ozetDeger .nokta { width:16px; height:16px; margin-right:10px; }
+  .ozetAlt { font-size:14.5px; color:var(--ikincil); overflow-wrap:anywhere; }
+
+  /* ---- PROGRESSIVE DISCLOSURE: <details> KAPALI varsayılan; summary 44px dokunma ---- */
+  details.detay { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); margin-top:14px; }
+  details.detay > summary {
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px;
+    min-height:var(--min-dokunma); padding:10px 18px;
+    font-size:16px; font-weight:700; color:var(--ikincil);
+    transition:color 160ms ease; /* E12: yalnız renk */
+  }
+  details.detay > summary::-webkit-details-marker { display:none; }
+  details.detay > summary::after { content:"+"; margin-left:auto; font:700 20px var(--mono); color:var(--ikincil); flex:none; }
+  details.detay[open] > summary::after { content:"−"; }
+  details.detay > summary:hover { color:var(--camgobegi); }
+  .detayIci { padding:4px 18px 20px; }
 
   /* ---- fail-closed KIRMIZI YÜZ (bölüm içi; bayat veri kalmaz — içerik boşalır) ---- */
   .kirmiziYuz {
@@ -99,34 +128,34 @@
   }
   .bosSatir { color:var(--ikincil); font-size:14px; padding:6px 2px; }
 
-  /* ---- (1) GENEL DURUM: kart satırı + şemsiye alt-bölüm grid'i ---- */
-  .kartSatiri { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:10px; }
+  /* ---- (1) GENEL DURUM: kart satırı + şemsiye alt-bölüm grid'i (detayda) ---- */
+  .kartSatiri { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; }
   .gdKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:10px 12px 12px; display:flex; flex-direction:column; gap:4px; min-height:76px;
+    padding:16px 20px 18px; display:flex; flex-direction:column; gap:4px; min-height:80px;
   }
-  .gdEtiket { font-size:13px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
-  .gdDeger { font-size:15px; color:var(--metin); overflow-wrap:anywhere; }
-  .gdDeger.mono { font-family:var(--mono); font-weight:700; font-size:14px; }
-  .gdKart .aktifMetin { max-height:128px; overflow-y:auto; white-space:pre-wrap; font-size:14px; color:var(--metin); }
-  .semsiyeGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:10px; margin-top:10px; }
+  .gdEtiket { font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
+  .gdDeger { font-size:16px; color:var(--metin); overflow-wrap:anywhere; }
+  .gdDeger.mono { font-family:var(--mono); font-weight:700; font-size:15px; }
+  .gdKart .aktifMetin { max-height:128px; overflow-y:auto; white-space:pre-wrap; font-size:14.5px; color:var(--metin); }
+  .semsiyeGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:14px; margin-top:14px; }
   .semsiyeKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; min-width:0;
+    padding:16px 20px 18px; display:flex; flex-direction:column; gap:6px; min-width:0;
   }
-  .semsiyeBas { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
+  .semsiyeBas { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
   .nokta { width:12px; height:12px; border-radius:50%; display:inline-block; flex:none; vertical-align:-1px; }
   .nokta.yesil { background:var(--basari); }
   .nokta.sari { background:var(--uyari); }
   .nokta.kirmizi { background:var(--tehlike); }
   .nokta.gri { background:var(--ikincil); }
-  .miniSatir { font-size:14.5px; color:var(--metin); overflow-wrap:anywhere; }
+  .miniSatir { font-size:15px; color:var(--metin); overflow-wrap:anywhere; }
   .miniSatir .miniNo { font-family:var(--mono); font-weight:700; color:var(--camgobegi); margin-right:6px; }
   .miniSatir .tekrar { color:var(--ikincil); font-variant-numeric:tabular-nums; }
   .semsiyeKart ul { margin:0; padding-left:20px; }
-  .semsiyeKart li { font-size:14.5px; margin:2px 0; overflow-wrap:anywhere; }
-  .sayimSatiri { display:flex; gap:14px; flex-wrap:wrap; font-size:15px; font-variant-numeric:tabular-nums; }
-  .sayimSatiri b { font-family:var(--mono); font-size:15px; }
+  .semsiyeKart li { font-size:15px; margin:2px 0; overflow-wrap:anywhere; }
+  .sayimSatiri { display:flex; gap:14px; flex-wrap:wrap; font-size:16px; font-variant-numeric:tabular-nums; }
+  .sayimSatiri b { font-family:var(--mono); font-size:16px; }
 
   /* ---- (2a) FAZ/SPRINT PLAN TABLOSU ---- */
   table.planTablo { width:100%; border-collapse:collapse; }
@@ -160,43 +189,48 @@
   }
 
   /* ---- (2b) GÖREV GRAF + ORDU: dalga satırları + kutular (canvas/SVG çizim YOK) ---- */
-  .dalgaSatiri { border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:10px 12px; margin-bottom:8px; }
-  .dalgaSatiri.cepheSatiri { border-style:solid; border-color:rgba(4,120,87,0.35); background:rgba(4,120,87,0.04); }
-  .dalgaBas { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
-  .dalgaAd { font-size:15px; font-weight:700; font-family:var(--mono); color:var(--metin); }
-  .dalgaSayi { font-size:13px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
-  .dalgaKutular { display:flex; flex-wrap:wrap; gap:10px; }
+  .dalgaSatiri { border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:16px 18px 18px; margin-bottom:12px; }
+  .dalgaSatiri.cepheSatiri { border-style:solid; border-color:rgba(4,120,87,0.35); }
+  .dalgaBas { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .dalgaAd { font-size:16px; font-weight:700; font-family:var(--mono); color:var(--metin); }
+  .dalgaSayi { font-size:13.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
+  .dalgaKutular { display:grid; grid-template-columns:repeat(auto-fill, minmax(360px, 1fr)); gap:16px; }
   .gorevKutu {
-    width:300px; max-width:100%; border:1px solid var(--cizgi); border-left:4px solid var(--ikincil);
-    border-radius:var(--radius-k); background:var(--yuzey2); padding:8px 10px 10px;
-    display:flex; flex-direction:column; gap:5px;
+    max-width:100%; border:1px solid var(--cizgi); border-left:4px solid var(--ikincil);
+    border-radius:var(--radius-k); background:var(--yuzey2); padding:16px 18px 18px;
+    display:flex; flex-direction:column; gap:6px;
   }
-  .gorevKutu.durum-hazir { border-left-color:var(--basari); background:rgba(4,120,87,0.06); }
+  .gorevKutu.durum-hazir { border-left-color:var(--basari); }
   .gorevKutu.durum-bekle { border-left-color:var(--uyari); }
   .gorevKutu.durum-kapali { border-left-color:var(--ikincil); opacity:0.85; }
   .gorevKutu.durum-diger { border-left-color:var(--camgobegi); }
   .gorevKutu.durum-canli { border-left-color:var(--basari); }
-  .kutuBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .kutuKod { font-family:var(--mono); font-weight:700; font-size:15px; }
+  .kutuBas { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .kutuKod { font-family:var(--mono); font-weight:700; font-size:20px; } /* ajan adı BÜYÜK (STEERING-8) */
   .kutuDurumChip { font:700 11px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:2px 6px; border:1px solid var(--cizgi); color:var(--ikincil); background:var(--yuzey); white-space:nowrap; }
   .kutuDurumChip.durum-hazir { color:var(--basari); border-color:rgba(4,120,87,0.45); }
   .kutuDurumChip.durum-bekle { color:var(--uyari); border-color:rgba(180,83,9,0.45); }
   .kutuDurumChip.durum-canli { color:var(--basari); border-color:rgba(4,120,87,0.45); }
-  .kutuAd { font-size:14.5px; color:var(--metin); overflow-wrap:anywhere; }
-  .kutuSorumlu { font-size:13.5px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .kutuAd { font-size:16px; color:var(--metin); overflow-wrap:anywhere; }
+  .kutuSorumlu { font-size:14.5px; color:var(--ikincil); overflow-wrap:anywhere; }
   .kutuSorumlu.atanmadi { font-weight:600; }
   .kutuSorumlu.atanmis { font-weight:700; color:var(--basari); }
-  .ajanKart {
-    border-top:1px dashed var(--cizgi); margin-top:3px; padding-top:6px;
-    display:flex; flex-direction:column; gap:3px;
+  .rolRozetSatiri { display:flex; gap:8px; flex-wrap:wrap; }
+  .rolRozet {
+    display:inline-block; font-size:13px; font-weight:700; padding:3px 10px;
+    border:1px solid var(--cizgi); border-radius:999px; color:var(--ikincil); background:var(--yuzey); white-space:nowrap;
   }
-  .ajanKart p { font-size:13px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .ajanKart {
+    border-top:1px dashed var(--cizgi); margin-top:3px; padding-top:8px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .ajanKart p { font-size:14px; color:var(--ikincil); overflow-wrap:anywhere; }
   .ajanKart p b { color:var(--metin); font-weight:600; }
   .ajanKart .olcumSatiri { color:var(--basari); font-weight:600; }
   .olcumEtiket { font:700 10.5px var(--mono); letter-spacing:0.06em; color:var(--basari); border:1px solid rgba(4,120,87,0.45); border-radius:3px; padding:1px 5px; background:var(--yuzey); }
   .olculmedi { color:var(--ikincil); font-style:italic; }
-  .zincirSatiri { font-family:var(--mono); font-size:13.5px; color:var(--ikincil); overflow-wrap:anywhere; margin-top:8px; }
-  .zincirSatiri.kritik { color:var(--metin); font-size:14px; font-weight:600; }
+  .zincirSatiri { font-family:var(--mono); font-size:14px; color:var(--ikincil); overflow-wrap:anywhere; margin-top:8px; }
+  .zincirSatiri.kritik { color:var(--metin); font-size:14.5px; font-weight:600; }
   .tuvalLink {
     display:inline-flex; align-items:center; min-height:var(--min-dokunma); padding:0 14px; margin-top:8px;
     border:1px dashed rgba(15,76,129,0.45); border-radius:var(--radius-k);
@@ -204,13 +238,26 @@
   }
   .tuvalLink:hover { border-style:solid; }
 
+  /* ---- kadro/görev kutusu İÇİ detay: GÖREV EMRİ + ölçümler + ajanId burada ---- */
+  details.kartDetay { margin-top:8px; border-top:1px dashed var(--cizgi); }
+  details.kartDetay > summary {
+    list-style:none; cursor:pointer; display:flex; align-items:center;
+    min-height:var(--min-dokunma); padding:4px 2px;
+    font-size:14px; font-weight:700; color:var(--ikincil);
+    transition:color 160ms ease; /* E12: yalnız renk */
+  }
+  details.kartDetay > summary::-webkit-details-marker { display:none; }
+  details.kartDetay > summary::after { content:"+"; margin-left:auto; font:700 16px var(--mono); }
+  details.kartDetay[open] > summary::after { content:"−"; }
+  details.kartDetay > summary:hover { color:var(--camgobegi); }
+
   /* ---- (3) AKIŞ: tek kronolojik akış (handoff · kira · 429) ---- */
   .akisLejant { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:8px; }
   .akisLejant span { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--ikincil); font-weight:600; }
   .akisLejant .nokta { width:9px; height:9px; }
   ol.akisListe { list-style:none; margin:0; padding:0; }
   .akisListe li {
-    display:flex; align-items:baseline; gap:10px; padding:7px 10px;
+    display:flex; align-items:baseline; gap:10px; padding:9px 12px;
     border-bottom:1px solid var(--cizgi);
   }
   .akisListe li:last-child { border-bottom:0; }
@@ -219,11 +266,11 @@
   .olayCubuk.t-kira { background:var(--basari); }
   .olayCubuk.t-429 { background:var(--tehlike); }
   .olayTuru { flex:none; font:700 11.5px var(--mono); letter-spacing:0.04em; color:var(--ikincil); width:74px; }
-  .olayAd { flex:1; font-size:15px; overflow-wrap:anywhere; }
+  .olayAd { flex:1; font-size:16px; overflow-wrap:anywhere; }
   .olayAd.mono { font-family:var(--mono); font-size:14px; font-weight:600; }
   .olayZaman { flex:none; font-family:var(--mono); font-size:13.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
 
-  /* ---- (5) LOG: birleşik detay kayıtları (BÖLÜM 6) ---- */
+  /* ---- (5) LOG: birleşik detay kayıtları — son 5 satır AÇIK, kalanı details'ta ---- */
   .logUstSatir { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
   .logFiltre { display:flex; gap:8px; }
   .filtreBtn {
@@ -235,26 +282,26 @@
   .logTavan { margin:0; font-size:13px; font-weight:600; color:var(--ikincil); }
   ol.logListe { list-style:none; margin:0; padding:0; }
   .logListe li.logSatir {
-    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; padding:7px 10px;
+    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; padding:9px 12px;
     border-bottom:1px solid var(--cizgi);
   }
   .logListe li.logSatir:last-child { border-bottom:0; }
   .olayCubuk.t-log { background:var(--ikincil); }
   .logZaman { flex:none; font-family:var(--mono); font-size:13px; color:var(--ikincil); font-variant-numeric:tabular-nums; width:150px; }
-  .logKod { flex:none; font-size:14.5px; font-weight:700; color:var(--metin); letter-spacing:0.02em; }
+  .logKod { flex:none; font-size:15px; font-weight:700; color:var(--metin); letter-spacing:0.02em; }
   .logAjanId { flex:none; font-family:var(--mono); font-size:12px; color:var(--ikincil); }
-  .logDetay { flex:1 1 320px; font-size:14.5px; overflow-wrap:anywhere; }
+  .logDetay { flex:1 1 320px; font-size:15px; overflow-wrap:anywhere; }
   .logKaynak { flex:1 1 100%; font-family:var(--mono); font-size:11.5px; color:var(--ikincil); overflow-wrap:anywhere; }
   .logNot { margin:8px 0 0; font-size:13px; color:var(--ikincil); }
   .ajanIdSatiri { margin:2px 0; font-family:var(--mono); font-size:12px; color:var(--ikincil); overflow-wrap:anywhere; }
   .kaynakKucuk { font-size:11.5px; }
 
-  /* ---- STEERING-5/6: EK-3 görev emri bloğu + rol atama/senkron dürüst satırları ---- */
-  .emirBlok { margin:10px 0 0; padding:9px 12px; border:1px dashed var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); }
+  /* ---- EK-3 görev emri bloğu + rol atama/senkron dürüst satırları (kutunun details'ında) ---- */
+  .emirBlok { margin:10px 0 0; padding:12px 14px; border:1px dashed var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); }
   .emirBaslik { font:700 11px var(--mono); letter-spacing:0.08em; color:var(--metin); margin:0 0 6px; }
-  .emirBlok p { margin:3px 0; font-size:13px; overflow-wrap:anywhere; } /* §1: ajanKart alt-metin olcegiyle ayni */
-  .rolSatiri { margin:6px 0 0; font-size:13px; color:var(--metin); overflow-wrap:anywhere; }
-  .rolSatiri.senkron { color:var(--ikincil); font-size:13px; margin:8px 0 0; }
+  .emirBlok p { margin:3px 0; font-size:14px; overflow-wrap:anywhere; } /* §1: ajanKart alt-metin olcegiyle ayni */
+  .rolSatiri { margin:6px 0 0; font-size:14px; color:var(--metin); overflow-wrap:anywhere; }
+  .rolSatiri.senkron { color:var(--ikincil); font-size:14px; margin:8px 0 0; }
   .atanmadiEtiket { color:var(--ikincil); font-style:italic; }
 
   /* ---- STEERING-7: proje durum kartı — son 5 ajan mini listesi ---- */
@@ -262,27 +309,28 @@
   .projeAjan { font-size:13px; color:var(--ikincil); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
 
   /* ---- (4) SİSTEM SAĞLIĞI: sınıf kartları + önlemler + çözüm yolları ---- */
-  .saglikGrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; }
-  .saglikKart { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); padding:10px 12px 12px; display:flex; flex-direction:column; gap:4px; }
+  .saglikGrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:12px; }
+  .saglikKart { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); padding:16px 18px 18px; display:flex; flex-direction:column; gap:4px; }
   .saglikBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .saglikAd { font-size:15px; font-weight:700; flex:1; min-width:180px; }
+  .saglikAd { font-size:16px; font-weight:700; flex:1; min-width:180px; }
   .fren { flex:none; font:700 11.5px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:2px 7px; border:1px solid; }
   .fren.KISMEN { color:var(--uyari); border-color:rgba(180,83,9,0.45); background:rgba(180,83,9,0.07); }
   .fren.COGU { color:var(--basari); border-color:rgba(4,120,87,0.45); background:rgba(4,120,87,0.07); }
   .fren.ACIK { color:var(--tehlike); border-color:rgba(220,38,38,0.45); background:rgba(220,38,38,0.07); }
   .fren.bilinmiyor { color:var(--ikincil); border-color:var(--cizgi); background:var(--yuzey); }
-  .saglikAlt { font-size:13.5px; color:var(--ikincil); }
+  .saglikAlt { font-size:14.5px; color:var(--ikincil); }
   .saglikAlt .tekrar { font-weight:700; color:var(--metin); font-variant-numeric:tabular-nums; }
   .saglikAlt.kaynak { overflow-wrap:anywhere; }
   .onlemAlani { margin-top:14px; border-top:1px dashed var(--cizgi); padding-top:10px; display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:12px; }
-  .onlemAlani h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+  .onlemAlani h3 { font-size:16px; font-weight:700; margin-bottom:6px; }
   .onlemAlani ul, .onlemAlani ol { margin:0; padding-left:20px; }
-  .onlemAlani li { font-size:14.5px; margin:3px 0; overflow-wrap:anywhere; }
+  .onlemAlani li { font-size:15px; margin:3px 0; overflow-wrap:anywhere; }
 
   @media (max-width:720px) {
     .ustSag { margin-left:0; width:100%; }
     .projeSec { flex:1; }
-    .gorevKutu { width:100%; }
+    .ozetGrid { grid-template-columns:1fr; }
+    .dalgaKutular { grid-template-columns:1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition:none !important; }
@@ -324,105 +372,160 @@
     <p class="rolSatiri senkron">ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — tarama yalnız ajan kaydı taşıyan dizinleri listeler.</p>
   </section>
 
-  <!-- (1) GENEL DURUM — şemsiye: kartlar + en büyük sorunlar + sağlık ışığı + çözüm yolları + graf sayımı/ilerleme -->
+  <!-- (1) GENEL DURUM — TEK BAKIŞ özet şeridi (STEERING-8) + şemsiye detayı -->
   <section class="bolum" id="bolum-genel" aria-labelledby="genel-baslik">
     <h2 class="bolum-etiket" id="genel-baslik">
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 6 V10 L13 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       GENEL DURUM
     </h2>
-    <div id="genelKartlar" class="kartSatiri"></div>
-    <div class="semsiyeGrid">
-      <div class="semsiyeKart">
-        <div class="semsiyeBas">EN BÜYÜK SORUNLAR</div>
-        <div id="genelSorunlar"></div>
+    <div class="ozetGrid" id="ozetGrid">
+      <div class="ozetKart">
+        <span class="ozetEtiket">Sağlık ışığı</span>
+        <span class="ozetDeger yazi" id="ozetSaglik">—</span>
+        <span class="ozetAlt" id="ozetSaglikAlt"></span>
       </div>
-      <div class="semsiyeKart">
-        <div class="semsiyeBas">GENEL SAĞLIK IŞIĞI</div>
-        <div id="genelIsik"></div>
+      <div class="ozetKart">
+        <span class="ozetEtiket">Görev sayımı</span>
+        <span class="ozetDeger" id="ozetGorev">—</span>
+        <span class="ozetAlt" id="ozetGorevAlt"></span>
       </div>
-      <div class="semsiyeKart">
-        <div class="semsiyeBas">ÇÖZÜM YOLLARI — fix kuyruğu</div>
-        <div id="genelCozum"></div>
+      <div class="ozetKart">
+        <span class="ozetEtiket">Canlı ajan</span>
+        <span class="ozetDeger" id="ozetCanli">—</span>
+        <span class="ozetAlt" id="ozetCanliAlt"></span>
       </div>
-      <div class="semsiyeKart">
-        <div class="semsiyeBas">GRAF DURUMU + İLERLEME</div>
-        <div id="grafDurum"></div>
+      <div class="ozetKart">
+        <span class="ozetEtiket">Sıradaki görev</span>
+        <span class="ozetDeger yazi" id="ozetSiradaki">—</span>
+        <span class="ozetAlt" id="ozetSiradakiAlt"></span>
+      </div>
+      <div class="ozetKart">
+        <span class="ozetEtiket">Graf sürümü</span>
+        <span class="ozetDeger mono" id="ozetGraf">—</span>
+        <span class="ozetAlt" id="ozetGrafAlt"></span>
+      </div>
+      <div class="ozetKart">
+        <span class="ozetEtiket">Son damga</span>
+        <span class="ozetDeger damga" id="ozetDamga">—</span>
+        <span class="ozetAlt" id="ozetDamgaAlt"></span>
       </div>
     </div>
+    <details class="detay" id="genelDetay">
+      <summary>durum kartları · en büyük sorunlar · sağlık ışığı · çözüm yolları · graf sayımı</summary>
+      <div class="detayIci">
+        <div id="genelKartlar" class="kartSatiri"></div>
+        <div class="semsiyeGrid">
+          <div class="semsiyeKart">
+            <div class="semsiyeBas">EN BÜYÜK SORUNLAR</div>
+            <div id="genelSorunlar"></div>
+          </div>
+          <div class="semsiyeKart">
+            <div class="semsiyeBas">GENEL SAĞLIK IŞIĞI</div>
+            <div id="genelIsik"></div>
+          </div>
+          <div class="semsiyeKart">
+            <div class="semsiyeBas">ÇÖZÜM YOLLARI — fix kuyruğu</div>
+            <div id="genelCozum"></div>
+          </div>
+          <div class="semsiyeKart">
+            <div class="semsiyeBas">GRAF DURUMU + İLERLEME</div>
+            <div id="grafDurum"></div>
+          </div>
+        </div>
+      </div>
+    </details>
     <div id="genelHata" class="kirmiziYuz" role="alert" hidden></div>
   </section>
 
-  <!-- (2) PLAN — iki alt-bölüm -->
+  <!-- (2) PLAN — tek özet satırı + iki alt-bölüm detayda -->
   <section class="bolum" id="bolum-plan" aria-labelledby="plan-baslik">
     <h2 class="bolum-etiket" id="plan-baslik">
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4.5 H17 M3 10 H17 M3 15.5 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       PLAN
     </h2>
-    <h3 class="altBaslik">(a) FAZ/SPRINT PLAN TABLOSU — görevler gerçek faz alanına göre gruplu</h3>
-    <div class="bolumIci" id="planAlani"></div>
-    <h3 class="altBaslik">(b) GÖREV GRAF + ORDU — dalga görünümü (CSS satırları; çizim yok)</h3>
-    <div class="bolumIci" id="dalgaAlani"></div>
+    <p class="bolumOzet" id="planOzet">plan verisi bekleniyor…</p>
+    <details class="detay" id="planDetayTablo">
+      <summary>(a) FAZ/SPRINT PLAN TABLOSU — görevler gerçek faz alanına göre gruplu</summary>
+      <div class="detayIci"><div class="bolumIci" id="planAlani"></div></div>
+    </details>
+    <details class="detay" id="planDetayDalga">
+      <summary>(b) GÖREV GRAF + ORDU — dalga görünümü (CSS satırları; çizim yok)</summary>
+      <div class="detayIci"><div class="bolumIci" id="dalgaAlani"></div></div>
+    </details>
     <div id="planHata" class="kirmiziYuz" role="alert" hidden></div>
     <div id="orduHata" class="kirmiziYuz" role="alert" hidden></div>
   </section>
 
-  <!-- (3) AKIŞ -->
+  <!-- (3) AKIŞ — tek özet satırı + kronoloji detayda -->
   <section class="bolum" id="bolum-akis" aria-labelledby="akis-baslik">
     <h2 class="bolum-etiket" id="akis-baslik">
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 3 V17 M4 6 H12 M4 11 H16 M4 6 C6 6 6 11 4 11 M12 6 C12 9 15 9 15 12 C15 14 12 14 12 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       AKIŞ
     </h2>
-    <div class="bolumIci" id="akisAlani"></div>
+    <p class="bolumOzet" id="akisOzet">akış verisi bekleniyor…</p>
+    <details class="detay" id="akisDetay">
+      <summary>tüm akış — handoff · kira · 429 (kronolojik, en yeni en üstte)</summary>
+      <div class="detayIci"><div class="bolumIci" id="akisAlani"></div></div>
+    </details>
     <div id="akisHata" class="kirmiziYuz" role="alert" hidden></div>
   </section>
 
-  <!-- (4) SİSTEM SAĞLIĞI — detay (özet bölüm 1'de) -->
+  <!-- (4) SİSTEM SAĞLIĞI — tek özet satırı + sınıf kartları detayda -->
   <section class="bolum" id="bolum-saglik" aria-labelledby="saglik-baslik">
     <h2 class="bolum-etiket" id="saglik-baslik">
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 10 H6 L8 5 L11 15 L13 10 H18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       SİSTEM SAĞLIĞI
     </h2>
-    <div class="bolumIci">
-      <div id="saglikAlani"></div>
-      <div class="onlemAlani">
-        <div>
-          <h3>ÖNLEMLER — kurulu frenler</h3>
-          <ul id="onlemListe">
-            <li>kalkan429 — plugin pencere kapısı (son 10 dk ≥2 adet 429 → ajan doğuşu RED)</li>
-            <li>kira lease — devir tek-yazar kilidi (taze kira devrilmez; fail-closed)</li>
-            <li>canary — duman ajanı deseni (canlı yolda uçtan uca ölçüm)</li>
-            <li>commit -F deseni — PS 5.1 çift tırnak bölmesi tuzu (dosya + git commit -F)</li>
-            <li>doğrula-hex freni — kanıt hash'le bağımsız doğrulama (rapor eskir, kod durur)</li>
-          </ul>
-        </div>
-        <div>
-          <h3>ÇÖZÜM YOLLARI — fix kuyruğu</h3>
-          <ol id="cozumListe"></ol>
+    <p class="bolumOzet" id="saglikOzet">sağlık verisi bekleniyor…</p>
+    <details class="detay" id="saglikDetay">
+      <summary>sınıf kartları · önlemler · çözüm yolları</summary>
+      <div class="detayIci">
+        <div class="bolumIci">
+          <div id="saglikAlani"></div>
+          <div class="onlemAlani">
+            <div>
+              <h3>ÖNLEMLER — kurulu frenler</h3>
+              <ul id="onlemListe">
+                <li>kalkan429 — plugin pencere kapısı (son 10 dk ≥2 adet 429 → ajan doğuşu RED)</li>
+                <li>kira lease — devir tek-yazar kilidi (taze kira devrilmez; fail-closed)</li>
+                <li>canary — duman ajanı deseni (canlı yolda uçtan uca ölçüm)</li>
+                <li>commit -F deseni — PS 5.1 çift tırnak bölmesi tuzu (dosya + git commit -F)</li>
+                <li>doğrula-hex freni — kanıt hash'le bağımsız doğrulama (rapor eskir, kod durur)</li>
+              </ul>
+            </div>
+            <div>
+              <h3>ÇÖZÜM YOLLARI — fix kuyruğu</h3>
+              <ol id="cozumListe"></ol>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </details>
     <div id="saglikHata" class="kirmiziYuz" role="alert" hidden></div>
   </section>
 
-  <!-- (5) LOG — birleşik detay kayıtları (BÖLÜM 6 spec eki 2026-11-01) -->
+  <!-- (5) LOG — filtre + son 5 satır AÇIK; kalan kayıtlar details'ta -->
   <section class="bolum" id="bolum-log" aria-labelledby="log-baslik">
     <h2 class="bolum-etiket" id="log-baslik">
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 4 H15 V16 H5 Z M7 7 H13 M7 10 H13 M7 13 H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       LOG
     </h2>
-    <div class="bolumIci">
-      <div class="logUstSatir">
-        <div class="logFiltre" role="group" aria-label="zaman penceresi filtresi">
-          <button type="button" class="filtreBtn" data-saat="1" aria-pressed="false">1sa</button>
-          <button type="button" class="filtreBtn" data-saat="6" aria-pressed="false">6sa</button>
-          <button type="button" class="filtreBtn" data-saat="24" aria-pressed="true">24sa</button>
-          <button type="button" class="filtreBtn" data-saat="168" aria-pressed="false">7gün</button>
-        </div>
-        <p class="logTavan" id="logTavan">son 200 kayıt</p>
+    <p class="bolumOzet" id="logOzet">log verisi bekleniyor…</p>
+    <div class="logUstSatir">
+      <div class="logFiltre" role="group" aria-label="zaman penceresi filtresi">
+        <button type="button" class="filtreBtn" data-saat="1" aria-pressed="false">1sa</button>
+        <button type="button" class="filtreBtn" data-saat="6" aria-pressed="false">6sa</button>
+        <button type="button" class="filtreBtn" data-saat="24" aria-pressed="true">24sa</button>
+        <button type="button" class="filtreBtn" data-saat="168" aria-pressed="false">7gün</button>
       </div>
-      <div id="logAlani"></div>
-      <p class="logNot">kanıt defterleri append-only'dir; panel yalnız pencere gösterir (diske log YAZMAZ, silme YAPMAZ)</p>
+      <p class="logTavan" id="logTavan">son 200 kayıt</p>
     </div>
+    <div id="logAcik"></div>
+    <details class="detay" id="logDetay">
+      <summary id="logDetayOzet">tüm kayıtlar</summary>
+      <div class="detayIci"><div id="logAlani"></div></div>
+    </details>
+    <p class="logNot">kanıt defterleri append-only'dir; panel yalnız pencere gösterir (diske log YAZMAZ, silme YAPMAZ)</p>
     <div id="logHata" class="kirmiziYuz" role="alert" hidden></div>
   </section>
 
@@ -439,6 +542,9 @@
 // ÖLÇÜM etiketi + kaynak beyanı taşır; graf görev kutularının sorumlusu kadroda atama
 // YOKSA 'ATANMADI'dır — sahte atama yasak. Ajanlar KOD ADIYLA listelenir
 // (pano/ordu-kadro.json SSOT) — ajan ID'leri ekranda yok.
+// STEERING-8 (render-only): özet şeridi + <details> progressive disclosure — veri katmanı
+// (fetch/esc/uç adları/yenileme) DEĞİŞMEDİ; özet kartları fail-closed'dur (veri ölünce
+// 'okunamadı' yazar, bayat sayı ekranda durmaz).
 const UC = { genel: "/api/ordu/genel", kadro: "/api/ordu/kadro", akis: "/api/ordu/akis", saglik: "/api/ordu/saglik", log: "/api/ordu/log", projeler: "/api/ordu/projeler", graf: "/api/graf" };
 const YENILE_SN = 30;
 let G = null; // graf SSOT — yalnız son başarılı fetch
@@ -463,6 +569,9 @@ function kirmiziYuzGoster(hataId, icerikId, ney) {
   if (icerikId) $(icerikId).innerHTML = "";
 }
 function kirmiziYuzKapat(hataId) { $(hataId).hidden = true; }
+
+/* STEERING-8: özet kartı yazıcı (render-only; element yoksa sessiz atlar). */
+function ozetYaz(id, metin) { const el = $(id); if (el) el.textContent = metin; }
 
 /* kiraDurum sonucundan dürüst etiket (nobet.mjs 4+2 tablosu ile aynı). */
 function kiraEtiketi(k) {
@@ -550,12 +659,42 @@ async function genelYukle() {
     } else {
       $("grafDurum").innerHTML = '<p class="bosSatir">graf sayımı okunamadı (gorev-grafigi JSON okunamadı)</p>';
     }
+    /* STEERING-8: TEK BAKIŞ özet kartları — kaynak: genel ucu (render-only) */
+    ozetYaz("ozetDamga", v.sonDamga || "—");
+    ozetYaz("ozetDamgaAlt", v.gitHead && v.gitHead.kisa ? v.gitHead.dal + " · " + v.gitHead.kisa : "");
+    if (isik && isik.renk) {
+      const sinif2 = isik.renk === "kirmizi" ? "kirmizi" : isik.renk === "sari" ? "sari" : "yesil";
+      $("ozetSaglik").innerHTML = '<span class="nokta ' + sinif2 + '" role="img" aria-label="' + esc(isik.etiket || isik.renk) + '"></span>' + esc(isik.etiket || isik.renk);
+      ozetYaz("ozetSaglikAlt", Array.isArray(isik.neden) && isik.neden.length > 0 ? isik.neden[0] : "test durumu: " + (isik.testDurumu || "ölçülmedi"));
+    } else {
+      ozetYaz("ozetSaglik", "ölçülemedi");
+      ozetYaz("ozetSaglikAlt", "kira + 429 verisinden hesaplanamadı");
+    }
+    if (gs && typeof gs.toplam === "number") {
+      ozetYaz("ozetGorev", String(gs.toplam));
+      ozetYaz("ozetGorevAlt", "aktif " + esc(String(gs.aktif)) + " · bekleyen " + esc(String(gs.pasif)) + " · bitti " + esc(String(gs.tamam)));
+      const s0 = Array.isArray(gs.siradaki3) && gs.siradaki3.length > 0 ? gs.siradaki3[0] : null;
+      ozetYaz("ozetSiradaki", s0 ? s0.ad : "kritik yol okunamadı");
+      ozetYaz("ozetSiradakiAlt", s0 ? "kritik yol · " + s0.id : "");
+      ozetYaz("ozetGraf", gs.grafSurumu || "?");
+      ozetYaz("ozetGrafAlt", "tamamlanma " + (gs.tamamlanmaOrani === null || gs.tamamlanmaOrani === undefined ? "ölçülmedi" : "%" + gs.tamamlanmaOrani) + " — KAPALI/toplam dürüst sayım");
+    } else {
+      ozetYaz("ozetGorev", "okunamadı");
+      ozetYaz("ozetGorevAlt", "graf sayımı hesaplanamadı");
+      ozetYaz("ozetSiradaki", "okunamadı");
+      ozetYaz("ozetSiradakiAlt", "");
+      ozetYaz("ozetGraf", "?");
+      ozetYaz("ozetGrafAlt", "");
+    }
   } catch (e) {
     kirmiziYuzGoster("genelHata", "genelKartlar", UC.genel + " — " + e.message);
     $("genelSorunlar").innerHTML = "";
     $("genelIsik").innerHTML = "";
     $("genelCozum").innerHTML = "";
     $("grafDurum").innerHTML = "";
+    /* STEERING-8: özet kartları da fail-closed — bayat sayı ekranda durmaz */
+    for (const id of ["ozetSaglik", "ozetGorev", "ozetSiradaki", "ozetGraf", "ozetDamga"]) ozetYaz(id, "okunamadı");
+    for (const id of ["ozetSaglikAlt", "ozetGorevAlt", "ozetSiradakiAlt", "ozetGrafAlt", "ozetDamgaAlt"]) ozetYaz(id, "");
   }
 }
 
@@ -588,6 +727,8 @@ function tabloYaz() {
   const toplam = gs.length;
   const kapali = gs.filter((g) => (g.durum || "").startsWith("KAPALI")).length;
   const aktifSayi = gs.filter((g) => g.aktif === true).length;
+  $("planOzet").innerHTML =
+    "<b>" + toplam + "</b> görev · aktif <b>" + aktifSayi + "</b> · KAPALI <b>" + kapali + "</b> · kritik yol <b>" + yol.length + "</b> adım · graf " + esc(G.grafSurumu || "?");
   $("planAlani").innerHTML =
     satirlar.length === 0
       ? '<p class="bosSatir">graf SSOT\'ta görev yok (fail-closed değil — plan verisi dürüst boş)</p>'
@@ -621,18 +762,20 @@ function gorevKutusu(g) {
   if (kapi) denetimParcalari.push("<b>kapi:</b> " + esc(kapi));
   if (sozlesme) denetimParcalari.push("<b>gerekli kabul:</b> " + esc(sozlesme));
   denetimParcalari.push("<b>denetçi:</b> TESTER (kanıtı diskten oku · ölçüt vs kanıt — graf roller.yapar)");
+  /* STEERING-8: görünür yüz = kod + durum + ad + sorumlu; detay kartDetay'da */
   return (
     '<div class="gorevKutu ' + ds + '">' +
     '<div class="kutuBas"><span class="kutuKod">' + esc(g.id) + '</span><span class="kutuDurumChip ' + ds + '">' + esc(durumKisa) + (ds === "durum-hazir" ? " · AKTİF" : "") + "</span></div>" +
     '<p class="kutuAd">' + esc(g.gorev || "—") + "</p>" +
     sorumluSatiri +
+    '<details class="kartDetay"><summary>görev detayı — rol · dizin · denetim</summary>' +
     '<div class="ajanKart">' +
     "<p><b>rol:</b> " + esc(g.rol || "—") + "</p>" +
     "<p><b>hedef/dizin:</b> " + esc(g.dizin || "—") + "</p>" +
     '<p><b>çalışma süresi:</b> <span class="olculmedi">ölçülmedi</span> (görev-başı süre ölçümü yok)</p>' +
     "<p><b>benchmark:</b> —</p>" +
     "<p>" + denetimParcalari.join(" · ") + "</p>" +
-    "</div></div>"
+    "</div></details></div>"
   );
 }
 
@@ -687,13 +830,16 @@ function cepheKutusu(b) {
       "<p><b>özet:</b> " + esc(ge.ozet || "—") + "</p>" +
       "</div>";
   }
+  /* STEERING-8: görünür yüz = kod adı BÜYÜK + durum ışığı + rol rozetleri; ölçüm/emir/ajanId kartDetay'da */
   return (
     '<div class="gorevKutu ' + ds + '">' +
-    '<div class="kutuBas"><span class="kutuKod">' + esc(b.kodAdi) + '</span><span class="kutuDurumChip ' + (c.canli ? "durum-canli" : "") + '">' + esc(c.canli ? "CANLI" : "HAT") + "</span></div>" +
+    '<div class="kutuBas"><span class="kutuKod">' + esc(b.kodAdi) + '</span><span class="nokta ' + (c.canli ? "yesil" : "gri") + '" role="img" aria-label="' + esc(c.etiket) + '"></span><span class="kutuDurumChip ' + (c.canli ? "durum-canli" : "") + '">' + esc(c.canli ? "CANLI" : "HAT") + "</span></div>" +
     '<p class="kutuAd">' + esc(b.cephe || b.gorev || "—") + "</p>" +
     '<p class="kutuSorumlu atanmis">sorumlu: ' + esc(b.kodAdi) + " (bu hattın kendisi) · " + esc(c.etiket) + "</p>" +
-    ajanIdSatiri +
+    cepheRolRozetleri(b) +
+    '<details class="kartDetay"><summary>kadro detayı — roller · hedef · ölçümler · görev emri</summary>' +
     '<div class="ajanKart">' +
+    ajanIdSatiri +
     "<p><b>rol:</b> " + esc(b.rol || "—") + "</p>" +
     rollerSatiri +
     "<p><b>hedef/dizin:</b> " + esc(b.hedef || "—") + "</p>" +
@@ -703,8 +849,14 @@ function cepheKutusu(b) {
     "<p><b>denetim:</b> " + esc(b.denetim || "—") + "</p>" +
     '<p><b>kaynak:</b> ' + esc(b.kaynakAciklama || "—") + "</p>" +
     emirBlok +
-    "</div></div>"
+    "</div></details></div>"
   );
+}
+
+/* STEERING-8: kadro kartının AÇIK yüzündeki rol rozetleri (SSOT rollerden; render-only). */
+function cepheRolRozetleri(b) {
+  if (!Array.isArray(b.roller) || b.roller.length === 0) return "";
+  return '<div class="rolRozetSatiri">' + b.roller.map((r) => '<span class="rolRozet">' + esc(ROL_ETIKET_TR[r] || r) + "</span>").join("") + "</div>";
 }
 
 /* STEERING-5/6: rol atama satırı — N:M · SSOT 5 çekirdek rol anahtarı (graf SSOT ile aynı) · boş dizi dürüst 'atanmadı' */
@@ -793,6 +945,7 @@ async function planYukle() {
     G = null;
     kirmiziYuzGoster("planHata", "planAlani", UC.graf + " — " + e.message);
     $("dalgaAlani").innerHTML = "";
+    ozetYaz("planOzet", "plan verisi okunamadı");
   }
 }
 
@@ -801,9 +954,16 @@ async function kadroYukle() {
     K = await cek(UC.kadro);
     kirmiziYuzKapat("orduHata");
     if (G) dalgaYaz(); // ceph satırı + sorumlu işaretleri kadro gelince tamamlanır
+    /* STEERING-8: canlı ajan sayısı (kadro birleşiminden; render-only) */
+    const birlikler = Array.isArray(K.birlikler) ? K.birlikler : [];
+    const canli = birlikler.filter((b) => b.canlilik && b.canlilik.canli).length;
+    ozetYaz("ozetCanli", String(canli));
+    ozetYaz("ozetCanliAlt", birlikler.length + " birlik · kira: " + (K.kiraEtiketi || "bilinmiyor"));
   } catch (e) {
     K = null;
     kirmiziYuzGoster("orduHata", "dalgaAlani", UC.kadro + " — " + e.message);
+    ozetYaz("ozetCanli", "okunamadı");
+    ozetYaz("ozetCanliAlt", "");
   }
 }
 
@@ -814,9 +974,13 @@ async function akisYukle() {
     kirmiziYuzKapat("akisHata");
     const olaylar = Array.isArray(v.olaylar) ? v.olaylar : [];
     if (olaylar.length === 0) {
+      $("akisOzet").textContent = "akış kaydı yok — handoff/kira-log/429 defterlerinin hepsi boş ya da yok (dürüst boş)";
       $("akisAlani").innerHTML = '<p class="bosSatir">akış kaydı yok — handoff/kira-log/429 defterlerinin hepsi boş ya da yok (dürüst boş)</p>';
       return;
     }
+    const d0 = new Date(olaylar[0].zamanISO);
+    const zaman0 = Number.isFinite(d0.getTime()) ? d0.toLocaleString("tr-TR", { dateStyle: "short", timeStyle: "medium" }) : olaylar[0].zamanISO;
+    $("akisOzet").innerHTML = "en yeni: <b>" + esc(olaylar[0].ad) + "</b> · " + esc(zaman0) + " · toplam <b>" + olaylar.length + "</b> olay";
     const TUR_AD = { handoff: "HANDOFF", kira: "KİRA", "429": "429" };
     const TUR_MONO = { handoff: true, kira: false, "429": false };
     $("akisAlani").innerHTML =
@@ -836,6 +1000,7 @@ async function akisYukle() {
       "</ol>";
   } catch (e) {
     kirmiziYuzGoster("akisHata", "akisAlani", UC.akis + " — " + e.message);
+    ozetYaz("akisOzet", "akış verisi okunamadı");
   }
 }
 
@@ -853,15 +1018,24 @@ async function saglikYukle() {
       "</div>"
     );
     $("saglikAlani").innerHTML = kartlar.join("") || '<p class="bosSatir">sorun sınıfı kaydı yok (dürüst boş)</p>';
+    /* STEERING-8: tek özet satırı — fren dağılımı (render-only) */
+    const frenler = { ACIK: 0, KISMEN: 0, COGU: 0, diger: 0 };
+    for (const s of siniflar) frenler[s.fren in frenler ? s.fren : "diger"]++;
+    $("saglikOzet").innerHTML =
+      siniflar.length === 0
+        ? "sorun sınıfı kaydı yok (dürüst boş)"
+        : "<b>" + siniflar.length + "</b> sorun sınıfı · frenler: ACIK <b>" + frenler.ACIK + "</b> · KISMEN <b>" + frenler.KISMEN + "</b> · COGU <b>" + frenler.COGU + "</b>";
     const kuyruk = Array.isArray(v.fixKuyrugu) ? v.fixKuyrugu : [];
     $("cozumListe").innerHTML = kuyruk.map((f) => "<li>" + esc(f) + "</li>").join("") || '<li class="bosSatir">fix kuyruğu boş</li>';
   } catch (e) {
     kirmiziYuzGoster("saglikHata", "saglikAlani", UC.saglik + " — " + e.message);
+    ozetYaz("saglikOzet", "sağlık verisi okunamadı");
   }
 }
 
 /* ---- (5) LOG: birleşik detay kayıtları (BÖLÜM 6 spec eki) ---- */
 const LOG_SAATLER = ["1", "6", "24", "168"];
+const ACIK_SATIR = 5; /* STEERING-8: son 5 satır açık kalır; kalanı details'ta */
 let logSaat = "24"; /* varsayılan pencere: 24 saat — düğmelerle değişir (server-side filtre) */
 
 /* UUID -> 8 hane kısa önek (tama title/aria taşınır); UUID olmayan kimlik TAM kalır */
@@ -881,35 +1055,49 @@ async function logYukle() {
       (typeof v.penceredeToplam === "number" ? " · pencerede " + v.penceredeToplam : "") +
       (v.atlanan ? " · atlanan " + v.atlanan : "");
     if (kayitlar.length === 0) {
+      $("logOzet").textContent = "pencerede kayıt yok (dürüst boş)";
+      $("logAcik").innerHTML = "";
+      $("logDetayOzet").textContent = "tüm kayıtlar";
       $("logAlani").innerHTML = '<p class="bosSatir">pencerede kayıt yok — kaynaklar boş ya da zaman filtresi dışı (dürüst boş)</p>';
       return;
     }
     const TUR_AD = { kira: "KİRA", "429": "429", handoff: "HANDOFF", log: "LOG" };
+    const satirHtml = (k) => {
+      const d = new Date(k.zamanISO);
+      const zaman = Number.isFinite(d.getTime()) ? d.toISOString().replace("T", " ").slice(0, 19) : String(k.zamanISO);
+      const kisa = kisaIdGoster(k.ajanId);
+      const ajanSatiri = kisa
+        ? '<span class="logAjanId mono" title="' + esc(k.ajanId) + '" aria-label="ajan kimliği: ' + esc(k.ajanId) + '">' + esc(kisa) + "</span>"
+        : '<span class="logAjanId olculmedi">ajanId yok</span>';
+      return (
+        '<li class="logSatir"><span class="olayCubuk t-' + esc(k.tur) + '"></span>' +
+        '<span class="logZaman mono">' + esc(zaman) + "</span>" +
+        '<span class="olayTuru">' + esc(TUR_AD[k.tur] || k.tur) + "</span>" +
+        '<span class="logKod">' + esc(k.kodAdi || "(kod adı çözülmedi)") + "</span>" +
+        ajanSatiri +
+        '<span class="logDetay">' + esc(k.detay) + "</span>" +
+        '<span class="logKaynak" title="' + esc(k.kaynakDosya || "—") + '">' + esc(k.kaynakDosya || "—") + "</span>" +
+        "</li>"
+      );
+    };
+    /* STEERING-8: son 5 satır AÇIK — kalan kayıtlar details'ta (progressive disclosure) */
+    const acikKayitlar = kayitlar.slice(0, ACIK_SATIR);
+    const kalanKayitlar = kayitlar.slice(ACIK_SATIR);
+    $("logOzet").innerHTML = "pencerede <b>" + kayitlar.length + "</b> kayıt · en yeni: <b>" + esc(kayitlar[0].kodAdi || kayitlar[0].detay || "?") + "</b>";
+    $("logAcik").innerHTML =
+      '<ol class="logListe" aria-label="son ' + acikKayitlar.length + ' kayıt açık — en yeni en üstte">' + acikKayitlar.map(satirHtml).join("") + "</ol>";
+    $("logDetayOzet").textContent =
+      kalanKayitlar.length > 0
+        ? "tüm kayıtlar — kalan " + kalanKayitlar.length + " satır (toplam " + kayitlar.length + ")"
+        : "tüm kayıtlar (hepsi yukarıda)";
     $("logAlani").innerHTML =
-      '<ol class="logListe" aria-label="birleşik detay kayıtları — en yeni en üstte">' +
-      kayitlar
-        .map((k) => {
-          const d = new Date(k.zamanISO);
-          const zaman = Number.isFinite(d.getTime()) ? d.toISOString().replace("T", " ").slice(0, 19) : String(k.zamanISO);
-          const kisa = kisaIdGoster(k.ajanId);
-          const ajanSatiri = kisa
-            ? '<span class="logAjanId mono" title="' + esc(k.ajanId) + '" aria-label="ajan kimliği: ' + esc(k.ajanId) + '">' + esc(kisa) + "</span>"
-            : '<span class="logAjanId olculmedi">ajanId yok</span>';
-          return (
-            '<li class="logSatir"><span class="olayCubuk t-' + esc(k.tur) + '"></span>' +
-            '<span class="logZaman mono">' + esc(zaman) + "</span>" +
-            '<span class="olayTuru">' + esc(TUR_AD[k.tur] || k.tur) + "</span>" +
-            '<span class="logKod">' + esc(k.kodAdi || "(kod adı çözülmedi)") + "</span>" +
-            ajanSatiri +
-            '<span class="logDetay">' + esc(k.detay) + "</span>" +
-            '<span class="logKaynak" title="' + esc(k.kaynakDosya || "—") + '">' + esc(k.kaynakDosya || "—") + "</span>" +
-            "</li>"
-          );
-        })
-        .join("") +
-      "</ol>";
+      kalanKayitlar.length > 0
+        ? '<ol class="logListe" aria-label="birleşik detay kayıtları — en yeni en üstte">' + kalanKayitlar.map(satirHtml).join("") + "</ol>"
+        : "";
   } catch (e) {
     kirmiziYuzGoster("logHata", "logAlani", UC.log + " — " + e.message);
+    $("logAcik").innerHTML = "";
+    $("logOzet").textContent = "log verisi okunamadı";
   }
 }
 

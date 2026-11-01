@@ -5,22 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>paseo-pano</title>
 <style>
-  :root { color-scheme: dark; }
-  body { margin:0; font:14px/1.5 system-ui, sans-serif; background:#111418; color:#d8dee6; }
-  nav { display:flex; gap:4px; padding:10px 16px; background:#171b21; border-bottom:1px solid #262c36; position:sticky; top:0; }
-  nav a { color:#8b95a3; text-decoration:none; padding:6px 12px; border-radius:8px; }
-  nav a.aktif { background:#232a35; color:#fff; }
+  /* STEERING-8 (kullanıcı emri «tüm sayfaları beyaz yap»): SAF BEYAZ zemin + okunur koyu metin —
+     yalnız RENK değişti; düzen/davranış dokunulmadı. */
+  :root { color-scheme: light; }
+  body { margin:0; font:14px/1.5 system-ui, sans-serif; background:#ffffff; color:#1a2332; }
+  nav { display:flex; gap:4px; padding:10px 16px; background:#ffffff; border-bottom:1px solid #e4eaf2; position:sticky; top:0; }
+  nav a { color:#51617a; text-decoration:none; padding:6px 12px; border-radius:8px; }
+  nav a.aktif { background:#eef2f7; color:#0f4c81; }
   main { padding:20px 24px; max-width:960px; }
-  select { background:#1d232c; color:#d8dee6; border:1px solid #2c3440; border-radius:8px; padding:6px 10px; }
-  .kart { background:#171b21; border:1px solid #262c36; border-radius:12px; padding:14px 16px; margin:12px 0; }
+  select { background:#ffffff; color:#1a2332; border:1px solid #e4eaf2; border-radius:8px; padding:6px 10px; }
+  .kart { background:#ffffff; border:1px solid #e4eaf2; border-radius:12px; padding:14px 16px; margin:12px 0; }
   .kart h3 { margin:0 0 8px; font-size:15px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
-  .kutu { background:#1d232c; border-radius:8px; padding:10px 12px; }
+  .kutu { background:#f6f8fb; border-radius:8px; padding:10px 12px; }
   .kutu b { display:block; font-size:20px; }
-  .kutu span { color:#8b95a3; font-size:12px; }
-  .damga { color:#8b95a3; font-size:12px; margin-top:8px; }
-  .uyari { color:#e0a34a; }
-  code { background:#232a35; padding:1px 6px; border-radius:6px; }
+  .kutu span { color:#51617a; font-size:12px; }
+  .damga { color:#51617a; font-size:12px; margin-top:8px; }
+  .uyari { color:#b45309; }
+  code { background:#eef2f7; padding:1px 6px; border-radius:6px; }
 </style>
 </head>
 <body>

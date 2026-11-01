@@ -208,6 +208,20 @@ export function aktifIsOku(yol) {
   return { aktifIs: duz.length > 0 ? duz : null, satir: govde.filter((s) => s.trim()).length };
 }
 
+// Son damga: '## Son damgalar' basligindan ONCEKI son tarihli damga satiri (bölgenin en yenisi).
+// Eski hata (server.js'te): basliktan SONRAKI ilk satir = arsivin en yeni OZETI -> panel bayat damga gosteriyordu.
+export function sonDamgaSatiri(satirlar) {
+  const i = satirlar.findIndex((s) => s.trim() === '## Son damgalar');
+  if (i < 0) return null;
+  for (let k = i - 1; k >= 0; k--) {
+    const s = satirlar[k].trim();
+    if (/^- \d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 160);
+    if (s.startsWith('#')) break; // damga bolgesi bitti — yukari tasma yok
+  }
+  // bolge bossa durust geri dusus: arsivin ilk satiri (eski davranis)
+  return (satirlar.slice(i + 1).find((s) => s.trim().startsWith('- ')) ?? null)?.trim().slice(0, 160) ?? null;
+}
+
 // --- 429 defteri ozeti (jsonl; bozuk satir atlanir + sayilir) -------------------------
 
 export function defterOzet(yol) {

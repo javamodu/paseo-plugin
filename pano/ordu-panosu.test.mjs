@@ -19,7 +19,7 @@ import {
   kadroDogrula, kiraEtiketi, kadroBirlesim, aktifIsOku, defterOzet, gitHeadOku,
   akisBirlestir, handoffOlaylari, kiraOlaylari, defterKayitlari, akisTopla,
   saglikBirlesim, enOlduruculer, frenSayilari, sorunBirlesim, genelSaglikIsigi, grafSayim,
-  kisaAjanId, kuyrukOku, ajanEslemeKur, logBirlesik, projelerTara,
+  kisaAjanId, kuyrukOku, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri,
 } from "./ordu-birlesim.mjs";
 
 const KOK = fileURLToPath(new URL(".", import.meta.url));
@@ -181,10 +181,15 @@ test("9- (2b) durustluk: ATANMADI etiketi + olculmedi + OLCUM kaynak beyani", ()
 
 test("10- TASARIM-MANIFESTOSU §1-2-4-5-6-7 hizli pinler", () => {
   ok("§1 baz 16px", /body\s*\{[^}]*font-size:\s*16px/.test(HTML));
-  ok("§1 bolum-etiket 20px", /\.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(HTML));
+  ok("§1 bolum-etiket 22px (STEERING-8: baslik 22-24px penceresi)", /\.bolum-etiket\s*\{[^}]*font-size:\s*22px/.test(HTML));
   ok("§2 tek viewport: body overflow:hidden", /body\s*\{[^}]*overflow:\s*hidden/.test(HTML));
   ok("§2 main panel-ici kayar (overflow-y:auto)", /main\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
-  ok("§4 light tema tokenlari", HTML.includes("--zemin:#f4f6f9") && HTML.includes("--metin:#1a2332"));
+  ok("§4 light tema tokenlari", HTML.includes("--metin:#1a2332"));
+  ok("§4 BEYAZ zemin (STEERING-8: 'tum sayfalari beyaz yap' — saf beyaz)", /--zemin:\s*#ffffff/.test(HTML) && /--yuzey2:\s*#ffffff/.test(HTML) && !HTML.includes("--zemin:#f4f6f9"));
+  ok("§2 NEFES: bolum arasi 48px (STEERING-8)", /main\s*\{[^}]*gap:\s*48px/.test(HTML));
+  ok("§2 nefes: bolum padding 22px 24px", /\.bolum\s*\{[^}]*padding:\s*22px 24px/.test(HTML));
+  ok("§2 nefes: satir 1.5", /body\s*\{[^}]*line-height:\s*1\.5/.test(HTML));
+  ok("§2 max-width 1200px ortali", /main\s*\{[^}]*max-width:\s*1200px/.test(HTML));
   ok("§5 44px dokunma (--min-dokunma)", HTML.includes("--min-dokunma:44px") && /\.projeSec\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
   ok("§5 prefers-reduced-motion kapatir", HTML.includes("@media (prefers-reduced-motion: reduce)"));
   ok("§6 @keyframes YOK", !HTML.includes("@keyframes"));
@@ -199,6 +204,48 @@ test("10- TASARIM-MANIFESTOSU §1-2-4-5-6-7 hizli pinler", () => {
   }
   ok("§7 title yalniz kimlik (graf surumu — sayac yok)", jsKisim().includes('document.title = "ORDU KOMUTA PANELİ — ordu graf "'));
   ok("§7 meta description (kimlik)", htmlKisim().includes('<meta name="description"'));
+});
+
+test("10b- STEERING-8 TEK BAKIS: ozet seridi (6 buyuk kart) + progressive disclosure", () => {
+  const h = htmlKisim();
+  const j = jsKisim();
+  /* 6 buyuk kart: id + rakam 36px + etiket 14px */
+  ok("ozetGrid alani", h.includes('id="ozetGrid"'));
+  for (const id of ["ozetSaglik", "ozetGorev", "ozetCanli", "ozetSiradaki", "ozetGraf", "ozetDamga"]) {
+    ok("ozet karti: " + id, h.includes('id="' + id + '"'));
+  }
+  ok("§1 rakam 32-40px penceresi: 36px", /\.ozetDeger\s*\{[^}]*font-size:\s*36px/.test(HTML));
+  ok("§1 ozet etiketi 14px", /\.ozetEtiket\s*\{[^}]*font-size:\s*14px/.test(HTML));
+  /* kart dolusu render-only: kaynak zaten var olan genel/kadro uc verisi (yeni fetch YOK) */
+  ok("ozet degerleri genel ucunden (ozetYaz helper)", j.includes("function ozetYaz("));
+  ok("canli ajan kadro birlesiminden", j.includes('b.canlilik && b.canlilik.canli'));
+  ok("cekin sayisi DEGISMEDI (hala 7 — ozet seridi yeni fetch acmaz)", (j.match(/cek\(UC\./g) || []).length === 7);
+  /* fail-closed: genel olunce bayat sayi ekranda kalmaz */
+  ok("ozet kartlari fail-closed (catch icinde 'okunamadi')", j.includes('ozetYaz(id, "okunamadı")'));
+  /* progressive disclosure: <details> KAPALI varsayilan (kaynakta open attribute YOK) */
+  ok("<details> KAPALI varsayilan (open attribute YOK)", !/<details[^>]*\sopen[\s>]/.test(h));
+  ok("LOG son 5 satir ACIK kalir (ACIK_SATIR = 5)", j.includes("ACIK_SATIR = 5") && h.includes('id="logAcik"'));
+  ok("LOG kalan kayitlar details icinde", h.includes('id="logDetay"') && h.includes('id="logDetayOzet"'));
+  /* bolum tek-ozet satirlari */
+  for (const id of ["planOzet", "akisOzet", "saglikOzet", "logOzet"]) {
+    ok("bolum ozet satiri: " + id, h.includes('id="' + id + '"'));
+  }
+  /* nefes: kart grid'i >=1024 2-3 kolon (auto-fit), alti tek kolon */
+  ok("ozetGrid auto-fit kart grid'i", /\.ozetGrid\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fit/.test(HTML));
+  ok("720px kirilimda tek kolon", /@media \(max-width:720px\)[\s\S]*?\.ozetGrid\s*\{[^}]*grid-template-columns:\s*1fr/.test(HTML));
+  /* kadro karti: ajan adi BUYUK + durum isigi + rol rozetleri gorunur */
+  ok("ajan adi 20px BUYUK (.kutuKod)", /\.kutuKod\s*\{[^}]*font-size:\s*20px/.test(HTML));
+  ok("gorev emri + olcum + ajanId kutunun <details>'inda", /function cepheKutusu\([\s\S]*?kartDetay[\s\S]*?emirBlok/.test(j) || (j.includes('class="kartDetay"') && j.includes("emirBlok")));
+  ok("rol rozetleri acik yuzde (cepheRolRozetleri)", j.includes("function cepheRolRozetleri("));
+});
+
+test("10c- BEYAZ zemin diger sayfalar (kapsul-tuval + iskelet — yalniz zemin/renk)", () => {
+  const tuval = readFileSync(new URL("./kapsul-tuval.html", import.meta.url), "utf8");
+  ok("kapsul-tuval zemin SAF BEYAZ", tuval.includes("--zemin:#ffffff"));
+  ok("kapsul-tuval eski gri zemin kalkti", !tuval.includes("--zemin:#f4f6f9"));
+  const iskelet = readFileSync(new URL("./iskelet.html", import.meta.url), "utf8");
+  ok("iskelet body zemini SAF BEYAZ (beyaz uzerinde okunur koyu metin)", /body\s*\{[^}]*background:\s*#ffffff/.test(iskelet));
+  ok("iskelet color-scheme light", iskelet.includes("color-scheme: light"));
 });
 
 test("11- emoji YOK + dis URL YOK + webfont YOK", () => {
@@ -452,6 +499,27 @@ test("28- aktifIsOku: STATE_BOARD blogundan duz metin (link/kalin soyulur) + dur
   assert.equal(aktifIsOku(join(d, "baska.md")).aktifIs, null, "baslik yoksa null");
   assert.equal(aktifIsOku(join(d, "yok.md")).aktifIs, null, "dosya yoksa null");
   rmSync(d, { recursive: true, force: true });
+});
+
+test("28b- sonDamgaSatiri: basliktan ONCEKI son tarihli damga (arsiv ilk satiri DEGIL — canli bayat-damga bulgusu)", () => {
+  // canli bulgu: panel SON DAMGA karti 2026-10-31 03:11 gosteriyordu; gercek son damga bolgede 2026-11-01 19:26
+  const satirlar = [
+    "## Devreden",
+    "",
+    "- 2026-11-01 17:53 | OTODEV PILOT-0 KAPANDI",
+    "- 2026-11-01 19:26 | ORDU KOMUTA PANELI KAPALI",
+    "## Son damgalar",
+    "- 2026-10-31 03:11 | BEKCI EKSIK KAPATMA",
+    "- 2026-10-30 (ozet) · eski kayit",
+  ];
+  assert.equal(sonDamgaSatiri(satirlar), "- 2026-11-01 19:26 | ORDU KOMUTA PANELI KAPALI");
+  // tarihli olmayan madde atlanir — tarih deseni sart
+  assert.equal(sonDamgaSatiri(["- madde", "- 2026-11-01 10:00 | D", "## Son damgalar", "- y"]), "- 2026-11-01 10:00 | D");
+  // damga bolgesi bos -> arsivin ilk satirina durust geri dusus (eski davranis)
+  assert.equal(sonDamgaSatiri(["## Son damgalar", "- 2026-10-31 03:11 | BEKCI", "- x"]), "- 2026-10-31 03:11 | BEKCI");
+  // baslik yok -> null; bos dizi -> null
+  assert.equal(sonDamgaSatiri(["- 2026-11-01 a"]), null);
+  assert.equal(sonDamgaSatiri([]), null);
 });
 
 test("29- defterOzet: gecerli+bozuk satirlar sayilir; dosya yoksa sifir+null", () => {
