@@ -1,0 +1,52 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "OPENCODE-2026-11-01",
+  "konu": "Paseo ajan 8cc610a4 isinin yarim kalmasi - kok neden",
+  "maddeler": [
+    {
+      "id": "OK-01",
+      "baslik": "glm53u-claude auth arizasi koordinatoru ve KD-a alt-ajanini oldurdu (403 -> 401)",
+      "dosyaRef": "C:/Users/gatep/.claude/projects/D--Vibecode-ordu/5a494d40-1798-4d4c-b752-8b1e5b0a83e0.jsonl",
+      "etiket": "saglayici-ariza",
+      "siddet": "yuksek",
+      "oneri": "authentication_failed icin ajan seviyesinde uyari + alternatif saglayiciya devir; sessiz idle yerine requiresAttention",
+      "islenme": null
+    },
+    {
+      "id": "OK-02",
+      "baslik": "PK plani ve STATE 06:44 damgasi commit edilmeden kaldi; commit zinciri 0135a47'de durdu",
+      "dosyaRef": "plans/COKLU-PROJE-429-KALKANI-PLANI-2026-11-01.md",
+      "etiket": "yarim-is",
+      "siddet": "orta",
+      "oneri": "plan + STATE tek commit; sonra K7 push emri",
+      "islenme": null
+    },
+    {
+      "id": "OK-03",
+      "baslik": "KD-a cekirdek diyeti uygulanmadi: cekirdek.ts degismedi, v0.24 yok, rapor dizini yok; yalniz _olcum-tmp.mts taslagi",
+      "dosyaRef": "plugin/_olcum-tmp.mts",
+      "etiket": "yarim-is",
+      "siddet": "yuksek",
+      "oneri": "KD-a yazicisini saglam saglayiciyla yeniden dispatch et; gecici dosyayi kapanista sil",
+      "islenme": null
+    },
+    {
+      "id": "OK-04",
+      "baslik": "Otomatik devir kurulu degil: ordu icin nobet schedule yok, kira dosyasi yok, olumden sonra handoff yok",
+      "dosyaRef": "plans/OTODEV-OTOMATIK-DEVIR-PLANI-2026-11-01.md",
+      "etiket": "iddia-disk-uyumsuz",
+      "siddet": "yuksek",
+      "oneri": "A2 pilot emri + kalici nobet schedule; kurulmadan 'otomatik devir' denmemeli (E10)",
+      "islenme": null
+    },
+    {
+      "id": "OK-05",
+      "baslik": "Auth arizasi 429-kalkani kapsami disinda; retry dongusu her turda ayni hatayi uretti",
+      "dosyaRef": "plans/COKLU-PROJE-429-KALKANI-PLANI-2026-11-01.md",
+      "etiket": "tasarim-boslugu",
+      "siddet": "orta",
+      "oneri": "PK planina auth/5xx sinifi ekle; ayni hatada 2. turdan sonra dur ve operatoru uyar",
+      "islenme": null
+    }
+  ]
+}
