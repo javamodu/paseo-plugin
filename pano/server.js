@@ -16,11 +16,31 @@ import { timingSafeEqual } from "node:crypto";
 import { join, resolve } from "node:path";
 import { atamaTaslakla, onayla } from "./graf-yonetim.js"; // D-3 cekirdegi (yazilmaz, yalniz cagrilir)
 import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
+import { kiraDurum, kiraYoluCoz, logOku } from "./devir-kira.mjs"; // ORDU paneli: kira/log kaynagi (salt-okur)
+import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
 const KAPSUL_DIR = process.env.ORDU_KAPSUL_DIR || join(import.meta.dirname, "..", "plans", "kapsuller");
 const ATAMA_DIR = process.env.ORDU_ATAMA_DIR || join(import.meta.dirname, "..", "plans", "atamalar"); // D-3 cift-kayit hedefi (KA-4)
+// ORDU KOMUTA PANELI (2026-11-01 spec + 17:5x guncellemesi): SALT-OKUR ek yollar (env ile ezilebilir;
+// mevcut uclarin/verilerin davranisi AYNEN — yalnizca EKLEME, /api/graf ve /api/veri degismez):
+const ORDU_KOK = process.env.ORDU_KOK || join(import.meta.dirname, "..");
+const ORDU_HTML = join(import.meta.dirname, "ordu-panosu.html");
+const KADRO_JSON = process.env.ORDU_KADRO_JSON || join(import.meta.dirname, "ordu-kadro.json");
+const HANDOFF_DIR = process.env.ORDU_HANDOFF_DIR || join(ORDU_KOK, "plans", "handoff");
+const SORUN_OZET = process.env.ORDU_SORUN_JSON || join(ORDU_KOK, "raporlar", "sorun-envanteri-2026-11-01", "OZET.json");
+const DEFTER_429 = process.env.ORDU_429_DEFTER || join(ORDU_KOK, "plugin", "data", "429-defter.jsonl");
+const STATE_MD = process.env.ORDU_STATE_MD || join(ORDU_KOK, "STATE_BOARD.md");
+// BOLUM 6 (LOG spec eki): kira-log + deney defteri/ajanlari (salt-okur; panel diske log YAZMAZ)
+const KIRA_LOG = process.env.ORDU_KIRA_LOG || join(ORDU_KOK, "core", "data", "devir-kira.json-log.jsonl");
+const DENAY_LOG = process.env.ORDU_DENAY_LOG || join(ORDU_KOK, "raporlar", "deney-canli-panel-2026-10-29", "log.jsonl");
+const DENAY_AJANLAR = process.env.ORDU_DENAY_AJANLAR || join(ORDU_KOK, "raporlar", "deney-canli-panel-2026-10-29", "ajanlar.json");
+const LOG_TAVAN = 200; // goruntuleme tavani — kaynak defterler append-only, panel silmez
+// STEERING-7: Paseo agents deposu (salt-okur canli tarama) — env PASEO_EV test fixture'i icin ezilebilir.
+// ~/.paseo/config.json'da workspace kayit defteri YOK (koordinator kontrolu) — diskteki tek canli kaynak agents/ taramasi.
+const PASEO_EV = process.env.PASEO_EV || join(process.env.USERPROFILE || "C:\\Users\\gatep", ".paseo");
+const ORDU_DIZIN_ADI = ORDU_KOK.replace(/[\\/:]+/g, "-"); // ordu kokunun Paseo agents dizin adi — boli isaretleri VE surucu iki noktasi tireye (D:\Vibecode\ordu -> D-Vibecode-ordu; olcumle kanitlandi)
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
 const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
@@ -182,6 +202,13 @@ const sunucu = http.createServer((req, res) => {
     res.end(readFileSync(join(import.meta.dirname, "kapsul-tuval.html"), "utf8"));
     return;
   }
+  // ORDU KOMUTA PANELI (2026-11-01): salt-okur komuta yuzu. HTML statik; veriyi /api/ordu/* uclarindan ceker.
+  if (req.method === "GET" && url.pathname === "/ordu") {
+    if (!existsSync(ORDU_HTML)) { jsonYaz(res, 404, { hata: "ordu-panosu.html yok: " + ORDU_HTML + " (fail-closed)" }); return; }
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+    res.end(readFileSync(ORDU_HTML, "utf8"));
+    return;
+  }
   if (req.method === "GET" && url.pathname === "/api/graf") {
     if (!existsSync(GRAF_JSON)) { jsonYaz(res, 404, { hata: "graf SSOT yok: " + GRAF_JSON + " (fail-closed)" }); return; }
     try {
@@ -302,6 +329,97 @@ const sunucu = http.createServer((req, res) => {
   if (req.method === "GET" && url.pathname === "/api/atama/durum") {
     const { harita, bozuk } = atamaDurum(join(ATAMA_DIR, "onayli.jsonl"));
     jsonYaz(res, 200, { harita, bozuk });
+    return;
+  }
+  // ORDU KOMUTA PANELI uclari (2026-11-01): 4 SALT-OKUR uclar — EKLEME, mevcut uclar AYNEN.
+  // Yazma ucu YOK (token kapisi gerekmez); her istekte diskten okunur (bayat onbellek yok);
+  // hata halinde 500 json + surec ayakta kalir (fail-closed, GD-005 deseni).
+  if (req.method === "GET" && url.pathname === "/api/ordu/genel") {
+    try {
+      const kira = kiraDurum(kiraYoluCoz());
+      const defter = defterOzet(DEFTER_429);
+      const sorun = existsSync(SORUN_OZET) ? sorunBirlesim(JSON.parse(readFileSync(SORUN_OZET, "utf8"))) : null;
+      const graf = existsSync(GRAF_JSON) ? grafSayim(JSON.parse(readFileSync(GRAF_JSON, "utf8"))) : null;
+      const son429Ms = defter.sonKayit && typeof defter.sonKayit.damgaISO === "string" ? Date.parse(defter.sonKayit.damgaISO) : null;
+      let sonDamga = null;
+      try {
+        const orduRepo = repolariBul().find((r) => r.ad === "ordu");
+        if (orduRepo) sonDamga = repoOzeti(orduRepo).sonDamga ?? null; // telemetry.jsonl yoksa repolariBul listeye koymaz -> null (durus)
+      } catch { /* sonDamga salt bilgidir; bozuksa null ile gosterilir */ }
+      jsonYaz(res, 200, {
+        olcumAniISO: new Date().toISOString(), // OLCUM ANI etiketi: snapshot'i canli gosterme kurali
+        sonDamga,
+        aktifIs: aktifIsOku(STATE_MD).aktifIs,
+        kira,
+        defter,
+        gitHead: gitHeadOku(ORDU_KOK),
+        sorun,
+        grafSayim: graf,
+        saglikIsigi: genelSaglikIsigi({ kiraEtiketi: kiraEtiketi(kira), fren: sorun ? sorun.frenSayilari : null, son429Ms, simdiMs: Date.now() }),
+      });
+    } catch (e) { jsonYaz(res, 500, { hata: "ordu genel okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/api/ordu/kadro") {
+    if (!existsSync(KADRO_JSON)) { jsonYaz(res, 404, { hata: "kadro SSOT yok: " + KADRO_JSON + " (fail-closed)" }); return; }
+    try {
+      jsonYaz(res, 200, { olcumAniISO: new Date().toISOString(), ...kadroBirlesim(JSON.parse(readFileSync(KADRO_JSON, "utf8")), kiraDurum(kiraYoluCoz())) });
+    } catch (e) { jsonYaz(res, 500, { hata: "kadro birlesim hatasi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/api/ordu/akis") {
+    try {
+      jsonYaz(res, 200, { olcumAniISO: new Date().toISOString(), ...akisTopla({ handoffDir: HANDOFF_DIR, kiraYolu: kiraYoluCoz(), defterYolu: DEFTER_429, logOkuFn: logOku }) });
+    } catch (e) { jsonYaz(res, 500, { hata: "akis okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/api/ordu/saglik") {
+    if (!existsSync(SORUN_OZET)) { jsonYaz(res, 404, { hata: "sorun envanteri yok: " + SORUN_OZET + " (fail-closed)" }); return; }
+    try {
+      const kira = kiraDurum(kiraYoluCoz());
+      jsonYaz(res, 200, { olcumAniISO: new Date().toISOString(), ...saglikBirlesim(JSON.parse(readFileSync(SORUN_OZET, "utf8")), { defterToplam: defterOzet(DEFTER_429).toplam, kiraEtiketi: kiraEtiketi(kira) }) });
+    } catch (e) { jsonYaz(res, 500, { hata: "saglik okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  // BOLUM 6 (LOG spec eki): birlesik detay kayitlari — kira-log + 429-defter + handoff dogumlari
+  // + deney defteri. SALT-OKUR (panel diske log YAZMAZ); saat filtresi server-side; tavan son 200.
+  if (req.method === "GET" && url.pathname === "/api/ordu/log") {
+    const saatHam = url.searchParams.get("saat");
+    let saat = null;
+    if (saatHam !== null) {
+      if (!["1", "6", "24", "168"].includes(saatHam)) { jsonYaz(res, 422, { hata: "gecersiz saat filtresi (izinli: 1|6|24|168)", alinan: saatHam }); return; }
+      saat = Number(saatHam);
+    }
+    try {
+      // ajan eslemesi: kadro ajanId'leri (olculmus) + deney ajanlar.json (snapshot etiketli)
+      let esleme = new Map();
+      try {
+        const kadro = existsSync(KADRO_JSON) ? JSON.parse(readFileSync(KADRO_JSON, "utf8")) : null;
+        const deney = existsSync(DENAY_AJANLAR) ? JSON.parse(readFileSync(DENAY_AJANLAR, "utf8")) : null;
+        esleme = ajanEslemeKur(kadro, deney);
+      } catch { /* esleme tuzugu: kayitlar ajanId'siz durust gosterilir */ }
+      jsonYaz(res, 200, {
+        olcumAniISO: new Date().toISOString(),
+        pencereSaat: saat,
+        ...logBirlesik({ kiraLogYolu: KIRA_LOG, defterYolu: DEFTER_429, handoffDir: HANDOFF_DIR, deneyLogYolu: DENAY_LOG, esleme, saat, tavan: LOG_TAVAN }),
+        appendOnlyNotu: "kanıt defterleri append-only'dir; panel yalnız pencere gösterir (diske log YAZMAZ, silme YAPMAZ)",
+      });
+    } catch (e) { jsonYaz(res, 500, { hata: "ordu log okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  // STEERING-7: Paseo projeleri — agents/<dizin>/<agentId>.json taramasi. SALT-OKUR, HER ISTEGTE
+  // diskten (bayat onbellek YOK). systemPrompt YANITA GIRMEZ (yalniz sayim alanlari cikar);
+  // bozuk JSON atlanir + sayilir. Ajan kaydi olmayan dizin gorunmez (daemon kayit defteri diskte kapali).
+  if (req.method === "GET" && url.pathname === "/api/ordu/projeler") {
+    try {
+      const { projeler, atlanan } = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI });
+      jsonYaz(res, 200, {
+        olcumAniISO: new Date().toISOString(), // OLCUM ANI etiketi: tarama anindan kanit
+        projeler,
+        atlanan,
+        kapsamNotu: "ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — liste yalnız en az bir ajan kaydı taşıyan dizinleri gösterir",
+      });
+    } catch (e) { jsonYaz(res, 500, { hata: "paseo projeler okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
   if (req.method === "GET" && url.pathname === "/api/veri") {

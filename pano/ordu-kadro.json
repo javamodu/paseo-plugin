@@ -1,0 +1,289 @@
+{
+  "surum": 4,
+  "damgaISO": "2026-11-01T18:21:14+03:00",
+  "kaynak": "ORDU KOMUTA PANELİ görev spec'i (operator 2026-11-01 + spec güncellemesi 17:5x + BÖLÜM 6 LOG spec eki 18:1x + STEERING-5 görev-emri/rol-modeli 18:2x) + plans/gorev-grafigi-2026-10-26.json ajanKadrosu/roller/yetkiMatrisi + canlı kaynak ölçümleri (Paseo schedule listesi + tur geçmişi + list_agents 2026-11-01T15:12Z [ajanId ölçümü]; kira: core/data/devir-kira.json; telemetri: raporlar/telemetri-haftalik/2026-W44.md). Kod adları bu dosyada yaşar — ajan ID'leri ekranda kısa önek + title'da tam. Damga date komutuyla ölçüldü.",
+  "not": "ÇİFT-TEMEL (STEERING-5): bu dosya + plans/gorev-grafigi-2026-10-26.json hem insan-okur panel hem makine-okur tüketiminin TEK kaynağıdır — panel kopya YAZMAZ, salt-okur render eder; kopya yok olduğu için insan/makine görünümü her zaman senkron (S8 drift imkânsız). canlılık işareti server ucu /api/ordu/kadro'da kiraDurum ile BİRLEŞTİRİLİR (kira devirSinifi operator→KURMAY sınıfı, nobet→nöbet sınıfı kartı canlı YEŞİL). Bu dosya statik kayıttır; canlılığı ASLA kendisi iddia etmez. 'olcum' alanı YALNIZ ölçülmüş değerleri taşır (kaynak etiketi zorunlu); ölçümü olmayan alan 'ölçülmedi' gösterilir — sayı asla uydurulmaz. 'ajanId' yalnız Paseo'dan ölçülmüş kimlik taşır (ajanIdKaynak etiketi zorunlu); ölçülemeyen kart ajanId satırı taşımaz — panel 'ölçülemedi' der. 'gorevEmri' EK-3 4 alanlı yapılandırılmış emirdir (makine-okur) + kısa insan-okur özet. 'rolAtamasi' N:M haritadır: anahtarlar gorev-grafigi SSOT'nin 5 çekirdek rol adını BİREBİR kullanır (MANAGER · CODER · TESTER · INSAN-VEKILI-PROXY · GOZLEMCI — STEERING-6: paneldeki rol anahtarı = makinenin graf JSON'unda aradığı anahtar; KULLANICI insandır, alt-ajan değil); uzmanlaşmalar (nöbetçi/ölçücü/devir-doğrulayıcı/graf-kurmacı) çekirdek rolün ÜST etiketidir ('uzmanlik' alanı), ayrı çekirdek rol DEĞİL. Spawn senkronu: koordinatörün dispatch brief'i bu kaydın içeriğiyle eşleşir — tam otomasyon (spawn ucunun kayıttan initialPrompt üretmesi) ileriki aşamadır, 'otomatiktir' DENMEZ. 'cephe' = grafa bağlı olmayan canlı çalışma hattı etiketi (GÖREV GRAF + ORDU görünümünün ORDU CEPHESİ satırı). Graf görev kutularının sorumlusu 'ATANMADI'dır — kadroda hiçbir graf görevine sahte atama YOKTUR.",
+  "rolAtamasi": {
+    "MANAGER": ["KURMAY-1"],
+    "CODER": ["NOBET-1"],
+    "TESTER": ["KURMAY-1"],
+    "INSAN-VEKILI-PROXY": [],
+    "GOZLEMCI": ["KARTAL-30"]
+  },
+  "birlikler": [
+    {
+      "kodAdi": "KOMUTAN",
+      "rol": "insan operatör — komuta zinciri tepesi",
+      "roller": ["KULLANICI"],
+      "uzmanlik": "komutan — insan (alt-ajan değil)",
+      "tur": "komutan",
+      "gorev": "hedef koyar · kapı düdüğü ([INSAN] BASLAT/kabul/restart/push/tag) · kill-switch STOP/kill-9",
+      "hedef": "bütün ordu — insan kartları PENDING bekler (EK-2: ajan/proxy onay veremez)",
+      "dosyalar": [
+        "kararlar/",
+        "plans/PLAN.md",
+        "STATE_BOARD.md"
+      ],
+      "cephe": "komuta hattı — hedef + kapı düdüğü + kill-switch (mevcut emir: komuta paneli spec'i ve güncellemeleri, 2026-11-01)",
+      "denetim": "[INSAN] kapıları — BASLAT/kabul/restart/push (yetkiMatrisi insan kartı: yetki=false, PENDING bekler)",
+      "gorevEmri": {
+        "hedef": "hedef koyar ve kapı kararlarını verir — komuta zinciri tepesi (insan)",
+        "ciktiFormati": "karar kayıtları (kararlar/) + STATE_BOARD damgaları + [INSAN] onay cümleleri",
+        "aracKaynak": "kararlar/ · plans/PLAN.md · STATE_BOARD.md",
+        "gorevSiniri": {
+          "yapar": ["hedef koyma", "[INSAN] kapıları: BASLAT/kabul/restart/push/tag", "kill-switch (STOP / kill-9)"],
+          "yapmaz": ["silme/kabul-çevirisi/kapsam/hedef/anahtar/para (yetkiMatrisi: yetki=false)", "ajan/proxy adına onay (EK-2)"]
+        },
+        "ozet": "insan operatör — hedef koyar, kapıları düdükler, kill-switch elinde tutar"
+      },
+      "kaynakAciklama": "graf yetkiMatrisi insan kartı: insanKarti yetki=false (PENDING bekler); silme/kabul-çevirisi/kapsam/hedef/anahtar/para ASLA (silmeKabulCeviriKapsamHedefAnahtarPara yetki=false)",
+      "canliKaynak": "statik"
+    },
+    {
+      "kodAdi": "KURMAY-1",
+      "rol": "koordinatör oturumu · glm-5.3 Claude Code motoru",
+      "roller": ["MANAGER", "TESTER"],
+      "uzmanlik": "graf-kurmacı (grafı tutan) + koordinatör + bağımsız doğrulama",
+      "tur": "kurmay",
+      "gorev": "plan yürütme + devir + bağımsız doğrulama (rapor eskir, kod durur)",
+      "hedef": "plans/PLAN.md · STATE_BOARD.md",
+      "dosyalar": [
+        "plans/PLAN.md",
+        "STATE_BOARD.md",
+        "plans/handoff/",
+        "CODEMAP.md",
+        "raporlar/"
+      ],
+      "cephe": "koordinasyon hattı — plan yürütme + devir + bağımsız doğrulama; mevcut iş: ORDU KOMUTA PANELİ inşası (2026-11-01 spec + BÖLÜM 6 + STEERING-5)",
+      "denetim": "bağımsız doğrulama — kanıt-hash ile diskten koşulur (rapor eskir, kod durur)",
+      "gorevEmri": {
+        "hedef": "koordinasyon + devir zinciri + yazıcı dispatch + bağımsız doğrulama (rapor eskir, kod durur)",
+        "ciktiFormati": "handoff MD (devir zinciri) + STATE_BOARD damgaları + doğrulama raporları (kanıt-hash'li)",
+        "aracKaynak": "plans/PLAN.md · STATE_BOARD.md · plans/handoff/ · raporlar/ · CODEMAP.md",
+        "gorevSiniri": {
+          "yapar": ["plan yürütme ve yazıcı dispatch", "devir alma / devir yazma (kira sırasına göre)", "bağımsız doğrulama — kanıtı diskten koşma"],
+          "yapmaz": ["commit/push (tek elden operatör — K7)", "gizli değerlere dokunma (PANO_TOKEN)", "mevcut uç davranışını bozma (ekleme-only sözleşme)"]
+        },
+        "ozet": "koordinatör — planı yürütür, devri alır, yazarları görevlendirir, bağımsız doğrular; commit tek elden operatör"
+      },
+      "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7",
+      "ajanIdKaynak": "Paseo list_agents ölçümü 2026-11-01T15:12Z: KD-c duman ajanı 7bbe3f5b'nin parent-agent-id'si (d2457dc devir-alma turunu yürüten oturum) + son etkinlik 2026-11-01T15:10:22Z — KURMAY-1 koordinatör oturumunun Paseo ajan kimliği",
+      "kaynakAciklama": "kira devirSinifi 'operator' sahibi KURMAY sınıfına bağlanır — canlılık kira durumundan (devir-kira.json) okunur, bu kayıt kendisi iddia etmez; manager VE graf-kurmacı rolleri şu an İKİSİ DE bu ajanda (kullanıcı kuralı: aynı ajan da olabilir)",
+      "canliKaynak": "kira"
+    },
+    {
+      "kodAdi": "NOBET-1",
+      "rol": "otodev-nobet-pilot-0 schedule ajanı · glm53u-claude/glm-5.3",
+      "roller": ["CODER"],
+      "uzmanlik": "nöbetçi (otomatik devir — handoff yazar)",
+      "tur": "nobet",
+      "gorev": "otomatik devir nöbeti — 10 dk cadence (cron 7-59/10), node pano/nobet.mjs durum çıkış koduna göre devir zinciri (0=sessiz · 2=devir · 1=RED)",
+      "hedef": "plans/handoff/",
+      "dosyalar": [
+        "plans/handoff/",
+        "pano/nobet.mjs",
+        "core/data/devir-kira.json",
+        "plans/OTODEV-OTOMATIK-DEVIR-PLANI-2026-11-01.md"
+      ],
+      "cephe": "otomatik devir nöbeti — pilot 4 koşu TAMAMLANDI (maxRuns=4 tükendi; kalıcı nöbet [INSAN] kararı bekler)",
+      "denetim": "nöbet RED kapıları fail-closed — tavan/zincir/bozuk karardan ÖNCE döner (pano/nobet.mjs); kira tek-yazar kilidi",
+      "olcum": {
+        "calismaSuresi": [
+          {
+            "ad": "run#1",
+            "sure": "6dk47sn",
+            "sonuc": "hata — 429 retry limit (exceeded retry limit, last status: 429)",
+            "kaynak": "Paseo schedule 3b6cd207 tur kaydı: 2026-11-01T14:17:00.750Z → 14:23:47.540Z"
+          },
+          {
+            "ad": "run#2",
+            "sure": "2dk47sn",
+            "sonuc": "nöbet sessiz — kira taze (exit 0)",
+            "kaynak": "Paseo schedule 3b6cd207 tur kaydı: 2026-11-01T14:27:01.001Z → 14:29:47.970Z"
+          },
+          {
+            "ad": "run#3",
+            "sure": "5dk37sn",
+            "sonuc": "devir — HANDOFF-2026-11-01-1741.md yazıldı; kira döngüsü 4dk08sn (al 17:37:59 → bırak 17:42:07)",
+            "kaynak": "Paseo schedule 3b6cd207 tur kaydı: 2026-11-01T14:37:00.544Z → 14:42:37.235Z + handoff raporu"
+          },
+          {
+            "ad": "run#4",
+            "sure": "2dk20sn",
+            "sonuc": "RED — echo-borcu-acik (bilinçli, dosyaya yazmaz; fail-closed)",
+            "kaynak": "Paseo schedule 3b6cd207 tur kaydı: 2026-11-01T14:47:00.126Z → 14:49:20.311Z"
+          }
+        ],
+        "kaynakNotu": "süreler Paseo tur kaydından (startedAt→endedAt) ölçüldü; graf görevlerine süre ölçümü YOKTUR — görev-başı süre 'ölçülmedi' gösterilir"
+      },
+      "gorevEmri": {
+        "hedef": "otodev-nobet-pilot-0 — otomatik devir nöbeti (10 dk cadence, cron 7-59/10)",
+        "ciktiFormati": "handoff MD (nöbet koşuları) + kira durumu + RED JSON (fail-closed)",
+        "aracKaynak": "pano/nobet.mjs · core/data/devir-kira.json (+ kira-log) · plans/handoff/ · plans/OTODEV-OTOMATIK-DEVIR-PLANI-2026-11-01.md",
+        "gorevSiniri": {
+          "yapar": ["nobet.mjs durum çıkış koduna göre devir zinciri (0=sessiz · 2=devir · 1=RED)", "kira al / bırak (tek-yazar kilidi, --pid zorunlu)"],
+          "yapmaz": ["RED durumunda dosya yazma (fail-closed)", "kalıcı kurulum (diskC %9,9 < %10 — A0 plan kararı; [INSAN] kararı bekler)"]
+        },
+        "ozet": "otomatik devir nöbetçisi — pilot 4 koşu tamamlandı, maxRuns tükendi: ŞU AN KOŞMUYOR"
+      },
+      "ajanId": "432e03b7-9004-445c-857d-ebf3b6661d53",
+      "ajanIdKaynak": "Paseo list_agents ölçümü 2026-11-01T15:12Z: schedule 3b6cd207 run#3 ajanı (14:37:15Z doğum — son devir koşusu; kira sahibi nobet-ajan-21180). Koşu ajanları ölçüldü: 2127c899 (run#2), 3497ea77 (run#4); run#1 ajanı 429 fırtınasında doğamadı (defterdeki 2df1e48f/95042ce9 doğum denemeleri 429'lu — kimlik eşleşmez, dürüst not)",
+      "kaynakAciklama": "Paseo schedule 3b6cd207 (ölçüm: 2026-11-01 canlı liste + tur geçmişi; GEÇİCİ maxRuns=4 TÜKENDİ — diskC %9,9<%10 kalıcı kurulum yasak, A0 plan kararı; kalıcı nöbet HENÜZ kurulmadı [INSAN] kararı bekler). Canlılık kira devirSinifi 'nobet' sahibinden okunur",
+      "canliKaynak": "kira"
+    },
+    {
+      "kodAdi": "KARTAL-30",
+      "rol": "top-30 benchmark ajanı",
+      "roller": ["GOZLEMCI"],
+      "uzmanlik": "ölçücü (top-30 benchmark döngüsü)",
+      "tur": "asker",
+      "gorev": "model benchmark döngüsü — tek görevi kendi döngüsünü kapatmak (operator direktifi)",
+      "hedef": "raporlar/model-benchmark-2026-11-01/ · puanlama/ (kurulacak — diskte 2026-11-01 itibarıyla YOK, dürüst not)",
+      "dosyalar": [
+        "raporlar/model-benchmark-2026-11-01/",
+        "core/evidence/provider-bench-latest.html",
+        "core/evidence/provider-katalog.html"
+      ],
+      "cephe": "top-30 model benchmark döngüsü — operator direktifi: benchmark/puanlama/evidence dosyalarını onun döngüsü kapatır",
+      "denetim": "— (döngünün kendi kapanış ölçütü: puanlama raporu + top30.json; ayrı denetim bacağı tanımlı değil)",
+      "olcum": {
+        "benchmark": "tur 727 · cache-hit %71.4 (token-ağırlıklı) · alt-ajan turları 217",
+        "kaynak": "raporlar/telemetri-haftalik/2026-W44.md (haftalık telemetri 2026-W44; ölçüm kaynağı etiketi)"
+      },
+      "gorevEmri": {
+        "hedef": "top-30 model benchmark döngüsü — kendi döngüsünü kapatmak (operator direktifi)",
+        "ciktiFormati": "model-benchmark raporları + top30.json + puanlama kayıtları + provider-bench evidence",
+        "aracKaynak": "raporlar/model-benchmark-2026-11-01/ · puanlama/ (kurulacak) · core/evidence/provider-bench-latest.html · core/evidence/provider-katalog.html",
+        "gorevSiniri": {
+          "yapar": ["benchmark/puanlama/evidence dosyalarının kendi döngüsünü kapatma"],
+          "yapmaz": ["commit (operatör işler)", "kendi alanı dışına çıkma"]
+        },
+        "ozet": "top-30 benchmark askeri — benchmark/puanlama/evidence alanı onun döngüsü; commit etmez"
+      },
+      "kaynakAciklama": "operator direktifi: benchmark/puanlama/evidence dosyalarını onun döngüsü kapatır — şu an untracked/bekleyen; canlı oturum kanıtı kira taşımaz (statik kayıt). Ölçüm W44 telemetrisinden; tur sayısı 727'dir (720 değil) — diskteki ölçüm esas alınır. ajanId: Paseo list_agents ölçümünde (2026-11-01T15:12Z, 50 saat pencere) benchmark ajanı GÖRÜLMEDİ — ölçülemedi, uydurulmaz",
+      "canliKaynak": "statik"
+    },
+    {
+      "kodAdi": "DEVIR-1",
+      "rol": "devir zinciri doğrulama ajanı",
+      "roller": ["TESTER"],
+      "uzmanlik": "devir-doğrulayıcı (echo 3 sorusu + kopuk zincir alarmı)",
+      "tur": "asker",
+      "gorev": "devir zincirini bağımsız doğrulama — handoff echo 3 sorusu (kirli dosyalar? · son commit? · bekleyen ilk onay?) + kopuk zincir alarmı",
+      "hedef": "plans/handoff/ zinciri",
+      "dosyalar": [
+        "plans/handoff/"
+      ],
+      "cephe": "devir zinciri doğrulama hattı — şu an KURMAY-1 oturumunca yürütülüyor (ayrı canlı oturum YOK)",
+      "denetim": "handoff echo 3 sorusu + kopuk zincir alarmı (nöbet run#4 bu kapıyı canlıda tetikledi: RED echo-borcu-acik)",
+      "gorevEmri": {
+        "hedef": "devir zincirini bağımsız doğrulama — echo 3 sorusu + kopuk zincir alarmı",
+        "ciktiFormati": "handoff MD içinde echo yanıtları (ilk 3 satır kuralı) + doğrulama bulguları",
+        "aracKaynak": "plans/handoff/ zinciri",
+        "gorevSiniri": {
+          "yapar": ["echo 3 sorusu (kirli dosyalar? · son commit? · bekleyen ilk onay?)", "kopuk zincir tespiti ve alarm"],
+          "yapmaz": ["yazma (salt-okur doğrulayıcı)", "karara müdahale"]
+        },
+        "ozet": "devir zinciri doğrulayıcısı — şu an bacakları KURMAY-1 oturumunca yürütülüyor (ayrı canlı oturum YOK)"
+      },
+      "kaynakAciklama": "rol tanımı — ayrı canlı oturumu şu an YOK (doğrulama bacakları koordinatör oturumunca yürütülüyor); canlı oturum doğduğunda canliKaynak güncellenir",
+      "canliKaynak": "statik"
+    },
+    {
+      "kodAdi": "MANAGER",
+      "rol": "graf ajanKadrosu.MANAGER rol şablonu — KURMAY sınıfı (codex/glm-5.3)",
+      "roller": ["MANAGER"],
+      "uzmanlik": "graf rol şablonu — ATANMADI",
+      "tur": "kurmay",
+      "gorev": "graf tutar · READY seç · kapsül üret · replan TASLAĞI (yazma yetkisi yok — graf rollers.MANAGER yapmaz listesi)",
+      "hedef": "plans/ + raporlar/ (append-only)",
+      "dosyalar": [
+        "plans/"
+      ],
+      "gorevEmri": {
+        "hedef": "graf tutarlılığı — READY görev seçimi, kapsül üretimi, replan TASLAĞI",
+        "ciktiFormati": "atama TASLAK kayıtları (onay insan kapısı — ajan aktör onaylayamaz)",
+        "aracKaynak": "plans/ + raporlar/ (append-only)",
+        "gorevSiniri": {
+          "yapar": ["graf tutma", "READY görev seçme", "kapsül üretme", "replan taslağı"],
+          "yapmaz": ["graf SSOT'ya doğrudan yazma (graf rollers.MANAGER yapmaz listesi)", "onay yetkisi (insan kapısı)"]
+        },
+        "ozet": "graf rol şablonu — ATANMADI (henüz canlı ajan yok)"
+      },
+      "kaynakAciklama": "graf rol şablonu — henüz canlı ajan yok (ATANMADI)",
+      "canliKaynak": "graf"
+    },
+    {
+      "kodAdi": "CODER",
+      "rol": "graf ajanKadrosu.CODER rol şablonu (codex/glm-5.3)",
+      "roller": ["CODER"],
+      "uzmanlik": "graf rol şablonu — ATANMADI",
+      "tur": "asker",
+      "gorev": "kapsüldeki dizinde iş · kanıt dosyası + sonek-hash · bütçe içinde kal (kapsül dizini DIŞI yasak)",
+      "hedef": "kapsül dizini (görevde belirtilen; dışı YASAK)",
+      "dosyalar": [
+        "plans/kapsuller/"
+      ],
+      "gorevEmri": {
+        "hedef": "kapsüldeki dizinde üretim — kanıt dosyası + sonek-hash, bütçe (LOC) içinde",
+        "ciktiFormati": "kanıt dosyaları + test çıktıları (sonek-hash'li)",
+        "aracKaynak": "plans/kapsuller/ (atanan kapsül dizini)",
+        "gorevSiniri": {
+          "yapar": ["kapsül dizininde üretim", "bütçe (LOC/test) içinde kalma"],
+          "yapmaz": ["kapsül dizini DIŞINA çıkma (yasak)", "graf/SSOT yazma"]
+        },
+        "ozet": "graf rol şablonu — ATANMADI (henüz canlı ajan yok)"
+      },
+      "kaynakAciklama": "graf rol şablonu — henüz canlı ajan yok (ATANMADI)",
+      "canliKaynak": "graf"
+    },
+    {
+      "kodAdi": "TESTER",
+      "rol": "graf ajanKadrosu.TESTER rol şablonu — bilinçli 2. provider (glm53u-codex/glm-5.3) · DENETÇİ ROLÜ",
+      "roller": ["TESTER"],
+      "uzmanlik": "graf rol şablonu (denetçi) — ATANMADI",
+      "tur": "asker",
+      "gorev": "kanıtı diskten oku · ölçüt vs kanıt · FAIL→yeniden-üretim talimatı (max 2) · altın-set ile kendi isabeti ölçülür",
+      "hedef": "tüm repo SALT-OKUR (koda yazma yok)",
+      "dosyalar": [
+        "core/test/"
+      ],
+      "gorevEmri": {
+        "hedef": "kanıtı diskten oku, ölçüt vs kanıt — FAIL'de yeniden-üretim talimatı (max 2)",
+        "ciktiFormati": "denetim raporu (ölçüt-kanıt karşılaştırması + altın-set isabeti)",
+        "aracKaynak": "core/test/ + tüm repo SALT-OKUR",
+        "gorevSiniri": {
+          "yapar": ["kanıtı diskten okuma", "ölçüt vs kanıt karşılaştırma", "altın-set ile kendi isabetini ölçme"],
+          "yapmaz": ["koda yazma (tüm repo salt-okur)"]
+        },
+        "ozet": "graf rol şablonu (denetçi) — ATANMADI (henüz canlı ajan yok)"
+      },
+      "kaynakAciklama": "graf rol şablonu — henüz canlı ajan yok (ATANMADI); graf rollers.TESTER yapar listesi denetçi bacaktır (kanıtı diskten oku · ölçüt vs kanıt)",
+      "canliKaynak": "graf"
+    },
+    {
+      "kodAdi": "GOZLEMCI",
+      "rol": "graf ajanKadrosu.GOZLEMCI rol şablonu (codex/glm-5.3)",
+      "roller": ["GOZLEMCI"],
+      "uzmanlik": "graf rol şablonu — ATANMADI",
+      "tur": "asker",
+      "gorev": "M1-M3 meta-ölçüm · alarm üret (karara müdahale yok)",
+      "hedef": "salt-okur",
+      "dosyalar": [
+        "raporlar/"
+      ],
+      "gorevEmri": {
+        "hedef": "M1-M3 meta-ölçüm + alarm üretimi (karara müdahale yok)",
+        "ciktiFormati": "gözlem raporları + alarm kayıtları",
+        "aracKaynak": "raporlar/ (salt-okur)",
+        "gorevSiniri": {
+          "yapar": ["meta-ölçüm (M1-M3)", "alarm üretme"],
+          "yapmaz": ["karara müdahale", "yazma (salt-okur)"]
+        },
+        "ozet": "graf rol şablonu — ATANMADI (henüz canlı ajan yok)"
+      },
+      "kaynakAciklama": "graf rol şablonu — henüz canlı ajan yok (ATANMADI)",
+      "canliKaynak": "graf"
+    }
+  ]
+}

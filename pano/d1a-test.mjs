@@ -48,9 +48,12 @@ try {
     const servis = await r.json();
     const disk = JSON.parse(readFileSync(GRAF_YOLU, "utf8"));
     assert.deepEqual(servis, disk, "servis ile disk farkli — cift SSOT kokusu");
-    assert.equal(servis.grafSurumu, "v6");
-    assert.equal(servis.gorevler.length, 24);
-    assert.equal(servis.kenarlar.length, 29);
+    // pin = bilinçli SSOT-snapshot alarmı: graf evrilince pin güncellenmezse npm test kırmızı kalır
+    // (S8 drift alarmı — sessiz evrim yasak). v6/24/29 → v14/40/15 (2026-11-01; graf 10-27'den beri
+    // v14'dü, pin bayattı ve npm test o zamandan beri koşulmamıştı — koordinatör bulgusu).
+    assert.equal(servis.grafSurumu, "v14");
+    assert.equal(servis.gorevler.length, 40);
+    assert.equal(servis.kenarlar.length, 15);
   });
 
   gec("kenar uclari gecerli (DAG somut dogrulama)", async () => {

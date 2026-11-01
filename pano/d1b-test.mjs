@@ -39,7 +39,8 @@ try {
   gec("/tuval yuz: kart dugmesi + token alani isaretleri", async () => {
     const h = await (await fetch(base + "/tuval")).text();
     assert.ok(h.includes("KAPSÜL KARTI OLUŞTUR"), "kart dugmesi yok");
-    assert.ok(h.includes("PANO_TOKEN (kart yazma kapısı)"), "token alani yok");
+    // token alanı marker'ı K8-2a'da (58fd9f4) evrildi: nesir yerine DOM düğümü pini — daha az kırılgan
+    assert.ok(h.includes('<input id="token"'), "token alani yok");
   });
 
   gec("token basligi YOK -> 401 (gecersiz); PANO_TOKEN env YOK sunucu -> 403 fail-closed", async () => {
