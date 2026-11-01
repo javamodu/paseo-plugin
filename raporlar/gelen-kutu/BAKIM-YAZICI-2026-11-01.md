@@ -65,3 +65,14 @@ Not: istemci-duvarı süreler Windows disk önbelleği nedeniyle koşular arası
 - **İzole koşum + temizlik**: port 4936 (4934'e çakışma YOK); koşum sonu tüm sunucular kapatıldı, temp dizinleri silindi (4936 boş; A/B ölçüm portları 62430/62455/63175/63212 kapalı; `bakim-*` temp kalıntısı 0).
 - **GD-002 semantiği kararı**: token ÇAĞRANI doğrular, İÇERİĞİ değil — sunucu "ai-manager:glm-5.3" yazarlığını doğrulayamaz. Bu yüzden HER manager-yanit kaydı `dogrulanmamis: true` taşır; işaretsiz eski kayıtlar da doğrulanmamış varsayılmalı.
 - **Kapsam dışı kalan**: GD-007 (Qoder post-commit — operator kaldırdı, denetçi raporunda işlenmiş) · GD-009/GD-010 (ORDU-1 K8-2a kapsamında KAPANDI — zaten kayıtlı).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **GD-001 — halledildi:** BAKIM-GP kapanışı — ACAO sabit köken + deney POST PANO_TOKEN fail-closed; deney-server.test.mjs 13/13; kayıt: 0225dc7
+- **GD-002 — halledildi:** manager-yanit token kapısı + dogrulanmamis isareti; kayıt: 0225dc7
+- **GD-003 — halledildi:** iskelet.html esc() (imza kapsul-tuval:1012 birebir); iskelet.test.mjs 4/4; kayıt: 0225dc7
+- **GD-004 — halledildi:** tokenSabitEsit timingSafeEqual + uzunluk ön-kontrolü; kayıt: 0225dc7
+- **GD-005 — halledildi:** try/catch + 500 jsonYaz (ENOTDIR enjeksiyonunda süreç ayakta); kayıt: 0225dc7
+- **GD-006 — halledildi:** Buffer.concat + tek utf8 decode; kayıt: 0225dc7
+- **GD-008 — halledildi:** stat-doğrulamalı okuma + 16384 B tail + perf alanı + olcumOku(); A/B: 1. çağrı 91462 B / 2..21. çağrı 0 B; kayıt: 0225dc7
+- Kanıt koşulu (rapor şartı: bugün server-bakim.test.mjs EXIT=0): yeniden koşuldu — node --test pano/server-bakim.test.mjs **EXIT=0, fail 0** (2026-11-01, ölçüldü).

@@ -59,3 +59,20 @@
 - D:\Vibecode\ordu\plans\K8-DALGA2-PLANI-2026-10-31.md (§H)
 
 **Şema ikizi:** raporlar/gelen-kutu/GUVENLIK-DENETCI-2026-11-01.json (schemaSurum 1, append-only).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **K1 — halledildi:** önerisi GD-004 — timingSafeEqual 0225dc7'de (bugün server-bakim.test.mjs EXIT=0 fail 0); kayıt: 0225dc7
+- **K2 — halledildi:** önerisi GD-002 — manager-yanit token kapısı 0225dc7'de; kayıt: 0225dc7
+- **K4 — halledildi:** önerisi GD-003 — iskelet esc 0225dc7'de; kayıt: 0225dc7
+- **K5 — halledildi:** önerisi GD-001 — ACAO sabit + POST token kapısı 0225dc7'de; kayıt: 0225dc7
+- **K6 — halledildi:** önerileri GD-005/GD-006 — 0225dc7'de; kayıt: 0225dc7
+- **K7 — halledildi:** önerisi (pinlerin kapanış denetiminde tekrar koşulması) yerine geldi — ORDU-3 k8-2a D8 çapraz doğrulama; kayıt: 58fd9f4
+- **K8 — halledildi:** kapsamı GD-001 — 0225dc7'de; kayıt: 0225dc7
+- **K9 — halledildi:** GD-008 0225dc7 + GD-009/010 58fd9f4; kayıt: 0225dc7, 58fd9f4
+- **K10 — kısmen:** SH-f pini K8-2a'da kanıtlandı (D3/D7); SH-e + SH-c K8-2b [insan] emri bekler; kayıt: 58fd9f4
+- **SH-a — halledildi:** önerisi GD-004 — 0225dc7'de; kayıt: 0225dc7
+- **SH-b — halledildi:** önerisi GD-002 — 0225dc7'de; kayıt: 0225dc7
+- **SH-f — halledildi:** K8-2a denetiminde pini kanıtlandı (D3 puan alanı YOK + D7 denetim ucu YOK); kayıt: 58fd9f4
+- **SH-g — halledildi:** izole koşum disiplini BAKIM-YAZICI kapanışında pinlendi (test token'ı bellekte; temp dosyalarında 0 geçiş); kayıt: 0225dc7
+Bekleyen: K3, SH-c (merkezî write-set), SH-e (pre-commit kapsam whitelist) — K8-2b [insan] emri bekler; SH-d — GRAF SSOT yazma ucu henüz inşa edilmedi (öneri inşa anında geçerli); plan kuyruğunda.

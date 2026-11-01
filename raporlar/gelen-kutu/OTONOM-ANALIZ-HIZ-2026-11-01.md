@@ -57,3 +57,16 @@ Kaynaklar: `plans/handoff/` dosya adları (ls ölçümü 05:1x) · `git log --fo
 3. d_sess kör noktası: worktree (dk-run) ve Paseo ajan oturumları ana proje dizininde transcript bırakmaz → Oct 27/30 «uzak» değerleri şişkin, ölçüm dışı tutuldu; bu dönemlerde iş kesintisiz sürdü (gece 5-ajan dalgası — STATE_BOARD.md:52) — yani ordu'nun uzak-dönem açığı zaten kısmen çok-ajan nöbetleriyle kapanıyor, teklifin marjinal kazancı orada küçüktür (en büyük kazanç orkestrasyonsuz replarda: txt-to-cad 42 dk medyan).
 4. txt-to-cad handoff yazım saati = git ekleme commit zamanı (dosya adında saat yok) — gerçek yazımdan birkaç dk sonradır (closeout kalibrasyonu med 4 dk); etki ±5 dk, medyan sınıfını değiştirmez.
 5. Bu rapor 2 rapor dosyası yazdı (salt-okur sözleşme); süreç/ağ/commit YOK; damga ölçüldü (2026-11-01T05:13). KALITE raporuyla örtüşme tamamlayıcıdır (hız ↔ kalite aynı teklifin iki yüzü).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **HIZ-01 — işlendi:** ölçüm tabanı senteze girdi (manuel-ardıl duruş med 18,0 dk / n=62 / yeni-sekme 23 dk — 4 boyut tablosu) + OTODEV planına kök ağrı olarak yazıldı; kayıt: 9d42973, 4d4df25
+- **HIZ-02 — işlendi:** watchdog teorik gecikmesi (~7 dk) sentez HIZ satırının kazanç dayanağı + OTODEV hedefi (devir toplam süresi ≤ 10 dk); kayıt: 9d42973, 4d4df25
+- **HIZ-03 — işlendi:** bulgu sentez KOŞULLU gerekçesine girdi; tek-aktör kilidi OTODEV parça 1'de kira olarak koda indi; nöbet kira ölüyken devir alır, watchdog 2. derece yedek (koşul 7) — nöbetin devralma hakkını bırakması önerisi aynen benimsenmedi (dürüst not); kayıt: 9d42973, 4d4df25
+- **HIZ-04 — işlendi:** sentez koşul 3 (iş ≤3 + nöbet 1 + devir 1/pencere + ~20 istek/dk + 429'da 10-15 dk geri çekilme) + OTODEV parça 3 + A1 yaması Y2 (istekDk 20 kodda); kayıt: 9d42973, 4d4df25, 0135a47
+- **HIZ-05 — işlendi:** sentez koşul 3 (spawn CPU eşiği >%85 bekle) + OTODEV A1 yaması Y1 (varsayılan 85; test 84 OK / 85 RED); kayıt: 9d42973, 4d4df25, 0135a47
+- **HIZ-06 — işlendi:** kazanç katmanları sentez HIZ satırına girdi (aktif 3-6x / uzak 10-100x) + yol haritası pilot-0 seçimi (scraper — en yüksek devir sıklığı); kayıt: 9d42973
+- **HIZ-07 — işlendi:** yanma→devir sıklığı→duruş zinciri sentez PERFORMANS boyutuna + yol haritası 1 kütle diyeti planı + KD-a uygulaması (kural 47→38); kayıt: 9d42973, c265d99, f811936
+- **HIZ-08 — işlendi:** echo-borç ilk-tur maliyeti sentez koşul 5 (mini tur her devirden önce) + OTODEV parça 2/5 + A1 kodu (echo 3-soru zorunlu, zincirKontrol kırmızısı — pano/devir-kira.mjs); kayıt: 9d42973, 4d4df25, 0135a47
+- **HIZ-10 — işlendi:** dürüst beyan sentez Dürüst notlar'a aynen taşındı (aa1ac225 / 341-369 / 429-kesintisi kanıtlanamadı); kayıt: 9d42973
+Bekleyen: HIZ-09 — fork-deseni önerisi senteze/plana girmedi (OTODEV Paseo create_schedule yolunu seçti); [insan]/plan kuyruğunda.

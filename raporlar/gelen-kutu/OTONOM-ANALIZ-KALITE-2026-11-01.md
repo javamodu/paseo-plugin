@@ -70,3 +70,19 @@ Okundu: kararlar/K-0057.md (tam). Desen: 3 çalışma ajanı (ORDU-1 yazıcı/OR
 - aa1ac225 / ef9ad74 / 08891d0 hash'leri repoda yok (git cat-file fatal ×3) — bu üç vakaya atıf YAPILAMADI; zincir-kırılma analizi mevcut echo/zincir kanıtlarıyla yürütüldü.
 - Gelen-kutu işlenme gecikmesi kalite-döngüsü açığı olarak ölçüldü: 69 madde 24s+ işlenmemiş (raporlar/takip-sozlesme/2026-10-31.md:5) — K-0017.md:11 mezarlık freninin yaşadığı kanıt; otonom zincir bulgu ÜRETEN kapıları işlenme kapısıyla eşlemezse denetim etkisiz kalır.
 - Bu rapor yalnız 2 rapor dosyası yazdı (salt-okur sözleşme); süreç/ağ/commit YOK; damga ölçüldü (2026-11-01T05:04).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **KAL-01 — işlendi:** sentez koşul 5 + kalite-kapıları (echo-doluluk bacağı zincir-kontrol'e) + OTODEV parça 2/5; A1 kodunda echo 3-soru zorunlu + zincirKontrol kırmızısı; kayıt: 9d42973, 4d4df25, 0135a47
+- **KAL-02 — işlendi:** echo diski yeniden ölçer mekanizması sentez KALİTE gerekçesine + OTODEV devir zinciri (kira → handoff → echo → izinli iş sınıfı); kayıt: 9d42973, 4d4df25
+- **KAL-04 — işlendi:** süreç-embodied bilgi koruması OTODEV kapı mekanizmasına girdi (PANO_TOKEN devralana verilmez + restart/kill [insan] kapısı); envanter-etiket mekanizması uygulanmadı; kayıt: 4d4df25
+- **KAL-06 — işlendi:** echo-doluluk bacağı sentez kalite-kapılarına + OTODEV parça 5; A1 kodunda zincirKontrol (devir-kira.mjs:251-258); damga-ölçüm bacağı eklenmedi (dürüst sınır); kayıt: 9d42973, 4d4df25, 0135a47
+- **KAL-07 — işlendi:** sentez koşul 4 (watchdog ASLA yazıcı/denetçi değil) + denetçi rotasyonu kalite-kapılarında + OTODEV rol ayrımı; A1 kodunda devirSinifi yalnız operator|nobet; kayıt: 9d42973, 4d4df25, 0135a47
+- **KAL-08 — işlendi:** boş maddeler[] kırmızı sayan şema kapısı sentez kalite-kapılarına aynen girdi; kayıt: 9d42973
+- **KAL-09 — işlendi:** [insan]-kapıları STATE'ten KODA sentez koşul 6 + OTODEV kapı listesi + brief'e [insan] kapı listesi; tek-SSOT kapı defteri uygulanmadı; kayıt: 9d42973, 4d4df25
+- **KAL-10 — işlendi:** zincir-uzunluğu sınırı sentez koşul 5 (≤3 ardışık devir → insan turu) + OTODEV A1 yaması Y3 koda geçti (ardisikDevir >3 → insan-kapısı RED; testler v20-v22); kayıt: 9d42973, 4d4df25, 0135a47
+- **KAL-11 — işlendi:** devirSinifi şema alanı sentez kalite-kapılarına + OTODEV parça 5; A1 kodunda alan mevcut (operator|nobet); mekanik/kanitli/yargı/insan-kapısı ayrımı fişte değil — pilot aşaması işi; kayıt: 9d42973, 4d4df25, 0135a47
+- **KAL-12 — işlendi:** dürüstlük kaydı sentez Dürüst notlar'a taşındı (aa1ac225 / ef9ad74 / 08891d0 kanıtlanamadı); kayıt: 9d42973
+- **KAL-13 — kısmen:** işlenme gecikmesi bulgusu bu borç kapanış görevine dönüştü — 8 rapor / 84 madde damgalanıyor (bu işlenme commit'i); devir döngüsüne otomatik bağlama önerisi uygulanmadı; kayıt: bu işlenme commit'i
+- **KAL-14 — işlendi:** destek bulgusu sentez PERFORMANS boyutuna + yol haritası 1 (kütle diyeti); kayıt: 9d42973, c265d99
+Bekleyen: KAL-03 (paralel yazıcı drifti — kimsin doğrulaması plana girmedi), KAL-05 (DERSLER aktarım mekanizması plana girmedi); [insan]/plan kuyruğunda.

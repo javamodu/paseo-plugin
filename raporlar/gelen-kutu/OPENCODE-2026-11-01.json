@@ -10,7 +10,7 @@
       "etiket": "saglayici-ariza",
       "siddet": "yuksek",
       "oneri": "authentication_failed icin ajan seviyesinde uyari + alternatif saglayiciya devir; sessiz idle yerine requiresAttention",
-      "islenme": null
+      "islenme": "kısmen (2026-11-01): tanı tescillendi — 401/403 teşhisi devir kaydına girdi (glm53u-claude /v1/messages 401; aynı anahtarla /models + /chat/completions + /responses 200 — SUNUCU TARAFI) + benchmark rev.4 motorMatrisi CALISMIYOR + kütle-diyeti dürüst sınır 3; önerilen mekanizma (ajan-seviyesi auth uyarısı + alternatif sağlayıcıya devir) uygulanmadı — kalkan429 yalnız 429 sınıfını görür; kayit: d2457dc, 8d42c05, 0aa0cbf"
     },
     {
       "id": "OK-02",
@@ -19,7 +19,7 @@
       "etiket": "yarim-is",
       "siddet": "orta",
       "oneri": "plan + STATE tek commit; sonra K7 push emri",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): PK-1 planı + STATE 06:44 damgası + echo zinciri (HANDOFF-2026-11-01-0609) 38d450a ile commit'lendi (KD-0 yarım iş kurtarma; kapanış notu 9dae4da); K7 push ayrı [insan] emri — bekler; kayit: 38d450a"
     },
     {
       "id": "OK-03",
@@ -28,7 +28,7 @@
       "etiket": "yarim-is",
       "siddet": "yuksek",
       "oneri": "KD-a yazicisini saglam saglayiciyla yeniden dispatch et; gecici dosyayi kapanista sil",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): KD-a zinciri tamamlandı — cekirdek.ts v2.1 / 22 kural (f811936) + v0.24 sürüm damgası + tag v0.24-kilit (704c9ef) + rapor dizini raporlar/kutle-diyeti-2026-11-01/ (0aa0cbf); plugin/_olcum-tmp.mts silindi (disk doğrulandı — dosya yok); kayit: f811936, 704c9ef, 0aa0cbf"
     },
     {
       "id": "OK-04",
@@ -37,7 +37,7 @@
       "etiket": "iddia-disk-uyumsuz",
       "siddet": "yuksek",
       "oneri": "A2 pilot emri + kalici nobet schedule; kurulmadan 'otomatik devir' denmemeli (E10)",
-      "islenme": null
+      "islenme": "kısmen (2026-11-01): OTODEV planı yazıldı (A2 pilot aşaması + kanıt ölçütü: sekme açma 0) + A1 kod tamam (devir-kira/brief/tavan + Y1-Y4 yamaları, 40 vaka ×2 yeşil); A2 pilot + kalıcı nöbet schedule KURULMADI — [insan] emri bekler; otomatik devir kurulu değil dürüst beyanı kütle-diyeti sınır 3'te sürüyor; kayit: 4d4df25, 0135a47, 0aa0cbf"
     },
     {
       "id": "OK-05",

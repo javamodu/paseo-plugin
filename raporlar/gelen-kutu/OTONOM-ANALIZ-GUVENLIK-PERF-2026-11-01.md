@@ -95,3 +95,18 @@ Girdi ölçümleri (R): STATE_BOARD.md 57.080 B; son handoff (HANDOFF-2026-10-31
 - Memory: codefast-400-hata-olustu-gecici.md (RPM 25 ölçümü; 2026-10-29) · subagent-olcek-kurali.md (kademeli artırım)
 
 **Şema ikizi:** raporlar/gelen-kutu/OTONOM-ANALIZ-GUVENLIK-PERF-2026-11-01.json (schemaSurum 1, append-only).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **OAGP-1 — işlendi:** sentez koşul 2 (kira lease + süreç-çıkış kanıtı olmadan devir YOK) + OTODEV parça 1; A1 kodu devir-kira.mjs (çift-yazar RED, TTL aşımı yalnız pidCanliMi ile); kayıt: 9d42973, 4d4df25, 0135a47
+- **OAGP-2 — işlendi:** yanlış-ölüm dersleri sentez koşul 2 + OTODEV parça 1 (ölünüp-dirilme vakası) + A1 yaması Y4 (pidCanliMi — sahibi ayaktaysa RED); kayıt: 9d42973, 4d4df25, 0135a47
+- **OAGP-3 — işlendi:** headless bypass bulgusu sentez koşul 1 (devir Paseo içinden) + OTODEV headless YASAK satırı; kayıt: 9d42973, 4d4df25
+- **OAGP-4 — işlendi:** watchdog script yüzeyi sentez koşul 4 (write-set dışı + sabit şablon — Qoder dersi); Qoder tracker 58fd9f4 ile karantinada; kayıt: 9d42973, 58fd9f4
+- **OAGP-5 — işlendi:** kill yasağı sentez koşul 2 (yeni gelen çekilir, kill ETMEZ) + OTODEV süreç kill [insan] kapısı; kayıt: 9d42973, 4d4df25
+- **OAGP-6 — işlendi:** rate tabanı sentez koşul 3 + OTODEV parça 3 + A1 yaması Y2 (istekDk 20); kayıt: 9d42973, 4d4df25, 0135a47
+- **OAGP-7 — işlendi:** crashloop freni sentez koşul 3 + PK-1 kodda (kalkan429: 12 dk bekleme + tavan 2 otomatik deneme → insan kapısı); kayıt: 9d42973, 2e9b573
+- **OAGP-8 — işlendi:** diskC %10 sınırı sentez koşul 7 + OTODEV A0 (geçici maxRuns pilot); kayıt: 9d42973, 4d4df25
+- **OAGP-9 — işlendi:** token bütçesi hesabı sentez Dürüst notlar + koşul 7 (ölçülmeden kapsam büyütme yok) + yol haritası 4; kayıt: 9d42973
+- **OAGP-10 — işlendi:** [insan]-kapı koda inmesi sentez koşul 6 + OTODEV kapı mekanizması; kayıt: 9d42973, 4d4df25
+- **OAGP-11 — işlendi:** katman örtüşmesi sentez koşul 7 (watchdog 2. derece) + yol haritası 3; kayıt: 9d42973
+Bekleyen: OAGP-12 — autoArchive/budama izleme ölçümü senteze/plana girmedi; [insan]/plan kuyruğunda.

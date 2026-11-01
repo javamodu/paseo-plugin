@@ -83,3 +83,11 @@ ordu'nun v2.1'i (`sozlesme\PASEO-VERIMLILIK-REHBERI-v2.1.md`, 96 satır, 2026-10
 | KKT-7 | Sürüm kopyaları dağınık: v1.4 (BUSINESS-REALITY-ENGINE) + 2 PLANI dosyası + v2.1 dış EK dosyaları (46 satır) — sadeleştirme bunlara dokunmaz | envanter | dusuk | BUSINESS-REALITY-ENGINE\arastirma\PASEO-VERIMLILIK-REHBERI-v1.4.md (107 satır) vb. |
 
 Ayrıntılar ve öneriler json yan dosyada (schemaSurum:1, maddeler KKT-1..7, islenme:null).
+
+## İşlenme (gelen-kutu borç kapanışı, 2026-11-01 16:44)
+
+- **KKT-1 — halledildi:** senkron + kilit + reload zinciri tamamlandı (çekirdek v2.1/22 kural; tag v0.24-kilit; canlı reload duman ajanıyla doğrulandı); kayıt: f811936, 704c9ef, d2457dc
+- **KKT-2 — halledildi:** zincir yürütüldü + önce/sonra ölçüm 47 → 38 TUTTU (kütle-diyeti OZET); kayıt: f811936, 704c9ef, 0aa0cbf, d2457dc
+- **KKT-3 — halledildi:** v2.0 arşiv işaretçisi düzeltildi (cekirdek.ts satır 3 → v2.1 + arsiv/ yolu); kayıt: f811936
+- **KKT-5 — halledildi:** 47 taban + 38 tahmini KD-a ölçümüyle doğrulandı (47→38 TUTTU, 22+16); kayıt: f811936, 0aa0cbf
+Bekleyen: KKT-4 (GÖREV A budama kararında nullproxy bağımlılığı bilinci — kanıt yok), KKT-6 (v2.0 tek kopya yedek kararı — ayrı K kararı alınmadı), KKT-7 (eski sürüm kopyaları atıf kırığı taraması — yapılmadı); [insan]/plan kuyruğunda.

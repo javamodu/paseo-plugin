@@ -11,7 +11,7 @@
       "etiket": "enjeksiyon-kaynagi",
       "siddet": "orta",
       "oneri": "GÖREV B sadeleştirmesi ordu\\plugin'e senkronize edilip kilit atılıncaya ve 'paseo plugin reload' (KILIT.md rollback notundaki komut) çalıştırılincaya kadar canlı enjeksiyon v0.23 ÇEKİRDEK'i (31 kural) sürdürür; değişiklikler şimdilik yalnız D:\\Vibecode\\paseo-verimlilik çalışma ağacında.",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): önerideki zincir tamamlandı — senkron (çekirdek v2.1 / 22 kural, f811936) + kilit (tag v0.24-kilit, 704c9ef) + canlı reload d2457dc'de duman ajanıyla doğrulandı (canlı enjeksiyon artık 22 kural); kayit: f811936, 704c9ef, d2457dc"
     },
     {
       "id": "KKT-2",
@@ -20,7 +20,7 @@
       "etiket": "cift-ev",
       "siddet": "orta",
       "oneri": "GÖREV B kapanışında senkron + kilit + reload zinciri planlansın; senkron öncesi/sonrası kural sayımı ayrı ölçülsün (beklenen 47→38 = ÇEKİRDEK 22 + ANAYASA 13 + ordu AGENTS 3).",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): senkron + kilit + reload zinciri planlandı ve yürütüldü; önce/sonra kural sayımı ayrı ölçüldü — 47 → 38 TUTTU (kütle-diyeti OZET ölçüm tablosu); kayit: f811936, 704c9ef, 0aa0cbf, d2457dc"
     },
     {
       "id": "KKT-3",
@@ -29,7 +29,7 @@
       "etiket": "kirik-isaretci",
       "siddet": "dusuk",
       "oneri": "İşaretçi ordu\\sozlesme\\PASEO-VERIMLILIK-REHBERI-v2.1.md yolunu gösterecek şekilde düzeltilsin ya da tam metin paket reposuna konulsun; ajan 'tam metni proje sahibinden istenir' yönlendirmesiyle boş yere paket reposunu arıyor.",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): v2.0 arşiv işaretçisi düzeltildi — cekirdek.ts satır 3 artık v2.1 + v2.0 arsiv/ yolunu gösteriyor (kütle-diyeti kapanışı Ne değişti kaydı); pakete tam metin konulmadı — arşiv yolu tercih edildi; kayit: f811936"
     },
     {
       "id": "KKT-4",
@@ -47,7 +47,7 @@
       "etiket": "olcum-taban",
       "siddet": "bilgi",
       "oneri": "GÖREV B'nin ÇEKİRDEK 31→22 düşürmesi (senkron sonrası) toplamı 38'e indirir → 40 sarı eşiği altına iner; ~49 raporlanacaksa 47'ye düzeltilsin.",
-      "islenme": null
+      "islenme": "halledildi (2026-11-01): 47 tabanı + 38 tahmini KD-a ölçümüyle doğrulandı (Toplam kural 47 → 38 TUTTU, 22+16); ~49 iddiası yerine ölçülmüş 47 taban alındı; kayit: f811936, 0aa0cbf"
     },
     {
       "id": "KKT-6",
