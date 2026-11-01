@@ -179,27 +179,28 @@ test("9- (2b) durustluk: ATANMADI etiketi + olculmedi + OLCUM kaynak beyani", ()
   ok("cephe alani kadrodan (b.cephe)", j.includes("b.cephe"));
 });
 
-test("10- TASARIM-MANIFESTOSU §1-2-4-5-6-7 hizli pinler", () => {
+test("10- TASARIM-MANIFESTOSU §1-2-4-5-6-7 pinleri — STEERING-9 R3 tabani (kapsul-tuval token'lari birebir)", () => {
   ok("§1 baz 16px", /body\s*\{[^}]*font-size:\s*16px/.test(HTML));
-  ok("§1 bolum-etiket 22px (STEERING-8: baslik 22-24px penceresi)", /\.bolum-etiket\s*\{[^}]*font-size:\s*22px/.test(HTML));
-  ok("§2 tek viewport: body overflow:hidden", /body\s*\{[^}]*overflow:\s*hidden/.test(HTML));
-  ok("§2 main panel-ici kayar (overflow-y:auto)", /main\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
+  ok("§1 bolum-etiket 20px (R3 olcegi — kapsul-tuval ile ayni)", /\.bolum-etiket\s*\{[^}]*font-size:\s*20px/.test(HTML));
+  ok("§2 tek viewport: body height:100vh + overflow:hidden (sutunlar kendi icinde kayar)", /body\s*\{[^}]*height:\s*100vh/.test(HTML) && /body\s*\{[^}]*overflow:\s*hidden/.test(HTML));
   ok("§4 light tema tokenlari", HTML.includes("--metin:#1a2332"));
-  ok("§4 BEYAZ zemin (STEERING-8: 'tum sayfalari beyaz yap' — saf beyaz)", /--zemin:\s*#ffffff/.test(HTML) && /--yuzey2:\s*#ffffff/.test(HTML) && !HTML.includes("--zemin:#f4f6f9"));
-  ok("§2 NEFES: bolum arasi 48px (STEERING-8)", /main\s*\{[^}]*gap:\s*48px/.test(HTML));
+  ok("§4 R3 token'lari birebir: yuzey2/yuzey3/glow", HTML.includes("--yuzey2:#eef2f7") && HTML.includes("--yuzey3:#e4eaf2") && HTML.includes("--glow:rgba(15,76,129,0.18)"));
+  ok("§4 BEYAZ zemin (STEERING-8 mirasi)", /--zemin:\s*#ffffff/.test(HTML) && !HTML.includes("--zemin:#f4f6f9"));
+  ok("§4 radius 8/6/4 (R3)", HTML.includes("--radius:8px") && HTML.includes("--radius-k:6px") && HTML.includes("--radius-cip:4px"));
   ok("§2 nefes: bolum padding 22px 24px", /\.bolum\s*\{[^}]*padding:\s*22px 24px/.test(HTML));
   ok("§2 nefes: satir 1.5", /body\s*\{[^}]*line-height:\s*1\.5/.test(HTML));
-  ok("§2 max-width 1200px ortali", /main\s*\{[^}]*max-width:\s*1200px/.test(HTML));
+  ok("§2 main max-width 1760px (kapsul-tuval duzeni)", /main\s*\{[^}]*max-width:\s*1760px/.test(HTML));
   ok("§5 44px dokunma (--min-dokunma)", HTML.includes("--min-dokunma:44px") && /\.projeSec\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
   ok("§5 prefers-reduced-motion kapatir", HTML.includes("@media (prefers-reduced-motion: reduce)"));
   ok("§6 @keyframes YOK", !HTML.includes("@keyframes"));
   const gecisler = (HTML.match(/transition:\s*[^;}]+/g) || []).filter((g) => !/^transition:\s*none/.test(g));
-  ok("§6 gecis beyani var (yalniz renk; none kapatmasi tarama disi)", gecisler.length >= 1, "bulunan: " + gecisler.length);
+  ok("§6 gecis beyani var (none kapatmasi tarama disi)", gecisler.length >= 1, "bulunan: " + gecisler.length);
+  const IZINLI = ["color", "border-color", "background", "transform", "opacity"]; /* E12: anim/transform siniri */
   for (const g of gecisler) {
     const parcalar = g.replace(/^transition:\s*/, "").split(",");
     for (const p of parcalar) {
       const ozellik = p.trim().split(/\s+/)[0];
-      ok("§6 gecis ozelligi renk: " + p.trim().slice(0, 30), ozellik === "color" || ozellik === "border-color");
+      ok("§6 gecis ozelligi E12 izinli (renk/transform/opacity): " + p.trim().slice(0, 40), IZINLI.includes(ozellik));
     }
   }
   ok("§7 title yalniz kimlik (graf surumu — sayac yok)", jsKisim().includes('document.title = "ORDU KOMUTA PANELİ — ordu graf "'));
@@ -246,6 +247,55 @@ test("10c- BEYAZ zemin diger sayfalar (kapsul-tuval + iskelet — yalniz zemin/r
   const iskelet = readFileSync(new URL("./iskelet.html", import.meta.url), "utf8");
   ok("iskelet body zemini SAF BEYAZ (beyaz uzerinde okunur koyu metin)", /body\s*\{[^}]*background:\s*#ffffff/.test(iskelet));
   ok("iskelet color-scheme light", iskelet.includes("color-scheme: light"));
+});
+
+test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitter + ordu-* localStorage (TABAN kapsul-tuval R3)", () => {
+  const h = htmlKisim();
+  const j = jsKisim();
+  /* --- ana duzen: main grid 5 hucre (kapsul-tuval R2/R3 deseni birebir) --- */
+  ok("main grid 5 kolon: solW · 6px · minmax(0,1fr) · 6px · sagW", /main\s*\{[^}]*grid-template-columns:\s*var\(--solW\)\s*6px\s*minmax\(0,\s*1fr\)\s*6px\s*var\(--sagW\)/.test(HTML));
+  ok("genislik degiskenleri: --solW 280px / --sagW 380px", HTML.includes("--solW:280px") && HTML.includes("--sagW:380px"));
+  ok("grid-cocuklar ACIK kolonlara sabitlenir (kapali panel kaydirmaz — kapsul-tuval bug-fix deseni)", /main\s*>\s*#sol\s*\{\s*grid-column:\s*1\s*;?\s*\}/.test(HTML) && /main\s*>\s*#orta\s*\{\s*grid-column:\s*3\s*;?\s*\}/.test(HTML) && /main\s*>\s*#sag\s*\{\s*grid-column:\s*5\s*;?\s*\}/.test(HTML));
+  ok("ORDU-disi kart 1/-1 hucre (kolonlar kapaliyken tam genislik)", /#bolum-projekart\s*\{\s*grid-column:\s*1\s*\/\s*-1/.test(HTML));
+  ok("[hidden] acik kurali (display kurallari ezmesin — kapsul-tuval deseni)", /\[hidden\]\s*\{\s*display:\s*none\s*!important/.test(HTML));
+  ok("main overflow:hidden (kaydirma yalniz sutunlarda)", /main\s*\{[^}]*overflow:\s*hidden/.test(HTML));
+  for (const id of ["sol", "orta", "sag", "splitSol", "splitSag"]) ok('kolon kabugu id="' + id + '"', h.includes('id="' + id + '"'));
+  ok("#sol + #sag kendi icinde kayar (overflow-y:auto)", /#sol\s*\{[^}]*overflow-y:\s*auto/.test(HTML) && /#sag\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
+  /* --- ORTA: VS Code tarzi sekmeler (3 sabit: PLAN · AKIS · SISTEM SAGLIGI) --- */
+  ok("#sekmeSerit role=tablist", h.includes('<div id="sekmeSerit" role="tablist"'));
+  ok("3 sekme (role=tab)", (h.match(/role="tab"/g) || []).length === 3, "bulunan: " + (h.match(/role="tab"/g) || []).length);
+  ok("sekme id'leri: sek-plan/sek-akis/sek-saglik", h.includes('id="sek-plan"') && h.includes('id="sek-akis"') && h.includes('id="sek-saglik"'));
+  ok("PLAN baslangicta aktif (aria-selected=true + tabindex=0)", /id="sek-plan"[^>]*aria-selected="true"/.test(h) && /id="sek-plan"[^>]*tabindex="0"/.test(h));
+  ok("akis/saglik sekmeleri aria-selected=false + tabindex=-1", /id="sek-akis"[^>]*aria-selected="false"/.test(h) && /id="sek-saglik"[^>]*tabindex="-1"/.test(h));
+  ok("3 tabpanel (role=tabpanel)", (h.match(/role="tabpanel"/g) || []).length === 3, "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
+  ok("planBolum 'sekmePanel acik' ile baslar", h.includes('<section class="sekmePanel acik" id="planBolum"'));
+  ok("akisBolum/saglikBolum hidden baslar", /id="akisBolum"[^>]*hidden/.test(h) && /id="saglikBolum"[^>]*hidden/.test(h));
+  ok("sekme govdesi kendi icinde kayar (#sekmeGovde overflow-y:auto)", /#sekmeGovde\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
+  ok("bolumler sekmelerin icinde yerinde (plan/akis/saglik id'leri korunur)", h.includes('id="bolum-plan"') && h.includes('id="bolum-akis"') && h.includes('id="bolum-saglik"'));
+  /* --- SPLITTER x2 (pointer + klavye ±16px + clamp) --- */
+  ok("splitter HTML tam (splitSol — role/aria-orientation/aria-valuenow/tabindex)", h.includes('<div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="280" tabindex="0"></div>'));
+  ok("splitter HTML tam (splitSag)", h.includes('<div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="380" tabindex="0"></div>'));
+  /* --- localStorage: ordu- onekli anahtarlar; tuvalinkilerle CAKISMAZ --- */
+  ok("kaydet('ordu-' + taraf + 'W') — ordu onekli", j.includes('kaydet("ordu-" + taraf + "W"'));
+  ok("oku('ordu-' + taraf + 'W') — ordu onekli", j.includes('oku("ordu-" + taraf + "W"'));
+  ok("tuvalin anahtarlariyla cakisma YOK ('tuval-solW'/'tuval-sagW' literalleri YOK)", !HTML.includes("tuval-solW") && !HTML.includes("tuval-sagW"));
+  /* --- 3 script istisnasi (baska script degisikligi YASAK) --- */
+  ok("istisna (a): sekmeDegistir UI-only fonksiyonu", j.includes("function sekmeDegistir(") && j.includes("const SEKME_PANEL ="));
+  ok("istisna (a): sekme click dinleyicisi", j.includes('btn.addEventListener("click", () => sekmeDegistir(btn.dataset.sekme))'));
+  ok("istisna (a): baslangis PLAN aktif", j.includes('sekmeDegistir("plan")'));
+  const sA = j.indexOf("function sekmeDegistir(");
+  const sB = j.indexOf('document.querySelectorAll(".sekme")');
+  ok("istisna (a): sekmeDegistir govdesi fetch/cek ICERMEZ (yalniz class/aria/hidden)", sA >= 0 && sB > sA && !/cek\(|fetch\(/.test(j.slice(sA, sB)));
+  ok("istisna (b): splitterKur + genislikKenetle (kapsul-tuval ADIM-C kopyasi)", j.includes("function splitterKur(") && j.includes("function genislikKenetle("));
+  ok("istisna (b): setPointerCapture + lostpointercapture", j.includes("setPointerCapture") && j.includes("lostpointercapture"));
+  ok("istisna (b): klavye ±16px (ArrowLeft/ArrowRight)", j.includes('e.key === "ArrowLeft"') && j.includes("-16 : 16"));
+  ok("istisna (b): clamp 180px - 45vw", j.includes("Math.max(180, Math.min(Math.round(window.innerWidth * 0.45)"));
+  ok("istisna (c): gorunumDegistir kolon kabuklarini da gizler", j.includes('"sol", "splitSol", "orta", "splitSag", "sag"'));
+  /* --- duncyari ~<900px: sutunlar alt alta (sol → orta → sag) --- */
+  ok("899px kirilimda body scroll geri gelir (overflow:auto)", /@media \(max-width:899px\)[\s\S]*?body\s*\{[^}]*overflow:\s*auto/.test(HTML));
+  ok("899px kirilimda splitter gizlenir", /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
+  /* --- LOG sag kolonda: defter gorunumu (mono satirlar — kapsul-tuval .defterGovde deseni) --- */
+  ok("logListe mono defter gorunumu (font-family:var(--mono) + 13px)", /\.logListe\s*\{[^}]*font-family:\s*var\(--mono\)/.test(HTML));
 });
 
 test("11- emoji YOK + dis URL YOK + webfont YOK", () => {
