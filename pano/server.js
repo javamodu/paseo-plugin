@@ -220,10 +220,13 @@ const sunucu = http.createServer((req, res) => {
     res.end(readFileSync(join(import.meta.dirname, "iskelet.html"), "utf8"));
     return;
   }
-  // D-1a: kapsul-tuval uretim yuzu (kapsul-tuval.html) + gorev-grafigi makine SSOT'u (salt-okur)
+  // PANEL-SIFIR-1 (kullanici emri 2026-11-03 'ana pano ve kapsul tuval alt sayfalari iptal' +
+  //   'hersey iptal arayuz refactor'): /tuval uretim yuzu KAPANDI — 302 /ordu (kok / deseniyle
+  //   birebir ayni yanit). kapsul-tuval.html DOSYA diskte kalir (silinmez — kapsul kart
+  //   altyapisi POST /api/kart ile ayri isler); yalnizca route kapandi.
   if (req.method === "GET" && url.pathname === "/tuval") {
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
-    res.end(readFileSync(join(import.meta.dirname, "kapsul-tuval.html"), "utf8"));
+    res.writeHead(302, { Location: "/ordu", "Cache-Control": "no-store" });
+    res.end();
     return;
   }
   // ORDU KOMUTA PANELI (2026-11-01): salt-okur komuta yuzu. HTML statik; veriyi /api/ordu/* uclarindan ceker.

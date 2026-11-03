@@ -1,6 +1,6 @@
 // D-1a hermetik testler — kapsul tuval masaustu cekirdegi (zero-dep; gercek node cocuk sureci + gercek fetch).
-// Kapsam: /tuval servisi, /api/graf (disk ile birebir + kenar gecerliligi), fail-closed graf yoklugu,
-// /api/repolar regresyonu (izole KOKLER), 404 kapisinin gecerliligi. PANO_PORT=0 -> gecici port (catisma yok).
+// Kapsam: /tuval 302 (PANEL-SIFIR-1 — uretim yuzu kapandi, dosya diskte kalir), /api/graf (disk ile birebir + kenar gecerliligi), fail-closed graf yoklugu,
+// /api/repolar regresyonu (izole KOKLER), 404 kapisinin gecerliligi, kok/ordu/iskelet yuz pinleri. PANO_PORT=0 -> gecici port (catisma yok).
 import { spawn } from "node:child_process";
 import { readFileSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -33,13 +33,10 @@ try {
   ana = await sunucuBaslat({ PANO_PORT: "0", PANO_KOKLER: gecici, ORDU_GRAF_JSON: undefined });
   const base = "http://127.0.0.1:" + ana.port;
 
-  gec("/tuval HTML servisi — iki mod dugmesi + baslik", async () => {
-    const r = await fetch(base + "/tuval");
-    assert.equal(r.status, 200);
-    assert.ok((r.headers.get("content-type") || "").includes("text/html"));
-    const h = await r.text();
-    assert.ok(h.includes("KAPSÜL TUVAL"), "baslik yok");
-    assert.ok(h.includes("İNSAN OKUR") && h.includes("MAKİNE OKUR"), "iki mod dugmesi yok");
+  gec("/tuval — PANEL-SIFIR-1 (kullanici emri 2026-11-03 'kapsul tuval alt sayfasi iptal'): uretim yuzu KAPANDI — 302 /ordu; kapsul-tuval.html DOSYA diskte kalir", async () => {
+    const r = await fetch(base + "/tuval", { redirect: "manual" });
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.get("location"), "/ordu");
   });
 
   gec("/api/graf — disk graf JSON'u ile BIREBIR + surum/dugum/kenar", async () => {
@@ -86,9 +83,15 @@ try {
     assert.equal(r.status, 404);
   });
 
-  gec("iskelet / regresyonu — mevcut yuz bozulmadi", async () => {
-    const r = await fetch(base + "/");
-    assert.equal(r.status, 200);
+  gec("kok / + /ordu + /iskelet yuzleri — PANEL-SIFIR-1 sonrasi pin seti (kok 302 /ordu; /ordu 200 HTML; /iskelet 200 AYNEN)", async () => {
+    const r1 = await fetch(base + "/", { redirect: "manual" });
+    assert.equal(r1.status, 302);
+    assert.equal(r1.headers.get("location"), "/ordu");
+    const r2 = await fetch(base + "/ordu", { redirect: "manual" });
+    assert.equal(r2.status, 200);
+    assert.ok((r2.headers.get("content-type") || "").includes("text/html"));
+    const r3 = await fetch(base + "/iskelet");
+    assert.equal(r3.status, 200);
   });
 
   // testler BURADA kosulur — finally cocuklari oldurmeden ONCE (once-kill-sonra-kos = olcu sunucuya fetch)

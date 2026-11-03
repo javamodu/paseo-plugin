@@ -36,10 +36,13 @@ try {
   ana = await sunucuBaslat({ PANO_PORT: "0", PANO_KOKLER: kokler, ORDU_KAPSUL_DIR: kartEv, PANO_TOKEN: TOKEN });
   const base = "http://127.0.0.1:" + ana.port;
 
-  gec("/tuval yuz: kart dugmesi + token alani isaretleri", async () => {
-    const h = await (await fetch(base + "/tuval")).text();
-    assert.ok(h.includes("KAPSÜL KARTI OLUŞTUR"), "kart dugmesi yok");
+  gec("/tuval yuz PANEL-SIFIR-1: uretim yuzu KAPANDI (302 /ordu — d1a'da da pinlenir); kapsul-tuval.html DOSYA diskte kalir (isaretler dosyadan okunur)", async () => {
+    const r = await fetch(base + "/tuval", { redirect: "manual" });
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.get("location"), "/ordu");
     // token alanı marker'ı K8-2a'da (58fd9f4) evrildi: nesir yerine DOM düğümü pini — daha az kırılgan
+    const h = readFileSync(join(PANO, "kapsul-tuval.html"), "utf8");
+    assert.ok(h.includes("KAPSÜL KARTI OLUŞTUR"), "kart dugmesi yok");
     assert.ok(h.includes('<input id="token"'), "token alani yok");
   });
 

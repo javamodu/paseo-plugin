@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD ae91303 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 94bbc60 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -81,9 +81,9 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0060.md` (3.2KB) — K-0060 — Composer gönderim köprüsü: dar spawn izni (PANEL-EXPLORER-1 FAZ-A)
 - `kararlar/K-0061.md` (4.3KB) — K-0061 — ORDU paneli yoğunluk dili: kompakt tek-bakış (PANEL-KOMPAKT-1)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (32 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, mesaj-ucu.test.mjs)
+- `pano/` (32 dosya: en yeni d1b-test.mjs, ordu-panosu.test.mjs, d1a-test.mjs)
 - `plans/` (103 dosya: en yeni HANDOFF-2026-11-01-1741.md, SORUN-KAPATMA-3AJAN-PLANI-2026-11-01.md, HANDOFF-2026-11-01-1658.md)
-- `raporlar/` (292 dosya: en yeni PANEL-ANA-1-FAZ-K-2026-11-03.md, 2026-W45.md, PANEL-ANA-1-FAZ-J-2026-11-03.md)
+- `raporlar/` (293 dosya: en yeni PANEL-SIFIR-1-2026-11-03.md, 2026-W45.md, PANEL-ANA-1-FAZ-K-2026-11-03.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {

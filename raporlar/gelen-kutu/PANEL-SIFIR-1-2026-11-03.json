@@ -1,0 +1,24 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-SIFIR-1-2026-11-03",
+  "baslik": "PANEL-SIFIR-1 teslim: arayüz sıfır kabuğu (3 kolon: sol tek-seviye ağaç + orta sekmeli graf + sağ chat) — test süiti yeşil, rapor teslim",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs",
+    "pano/server.js",
+    "pano/d1a-test.mjs",
+    "pano/d1b-test.mjs"
+  ],
+  "etiket": ["pano", "arayuz-sifir", "test", "teslim"],
+  "siddet": "bilgi",
+  "oneri": "Koordinatör kapanışı: npm test (yazıcı koşumu EXIT=0), diff denetimi (server.js tek hunk GET /tuval 302; POST uçları hunk 0), 4937 RESTART (server.js değişti), canlı DOM + ekran kanıtı, commit tek elden. d1a/d1b kapsam genişlemesi bilinçli (tam süit yeşil şartı). Composer altta-sabit CSS kaynaklı (kayıtlı FAZ-C mirası). Test sayısı dürüst düştü: ok 603→504, test bloğu 71→63.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 22:20): (1) bağımsız koşum node --test pano/ordu-panosu.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs = tests 103 pass 103 fail 0 EXIT=0 (çıktı dosya + gerçek çıkış kodu; 63 pano + 7 d1a + 12 d1b + 21 scripts). (2) diff denetimi: server.js TEK hunk (GET /tuval 302 /ordu; POST uçlarına hunk 0) + HTML veri katmanı bütün (x-pano-token + type=password + POST /api/mesaj + optgroup + esc + CHAT_TAVAN + localStorage + coarse + 899 + viewport AYNEN; yasak sembol 0; tek dış URL = SVG namespace). (3) 4937 RESTART koordinatörce: eski PID 37100 durduruldu → YENİ PID 19304 (PANO_PORT/PANO_TOKEN yalnız env-blokta; komut satırı temiz); route ölçümü: / 302→/ordu · /tuval 302→/ordu · /ordu 200 · /iskelet 200 · api projeler/kadro/graf 200. (4) CANLI DOM: 3 kolon (sol/orta/sag) + üstbar YOK + /tuval linki YOK + ağaç 77 proje satırı TEK SEVİYE (grup 0, agacOzet yok) + orta ana sekme şeridi + sekme gövdesi + task grafı (ORDU seçili: KRİTİK YOL DC-S0→DC-H4 metni, 8 alt eleman) + sağ chatListe + composer + GÖNDER; TAM etiket örneği 'ajan ordusu paseo desktop'; composer SARMALAYICISI kolon dibinde (bolum-composer flex:0 0 auto, y295+382=677 ≈ dib 678; chatListe flex:1 1 auto + min-height:0 + overflow-y:auto — koordinatör ilk '100px boşluk' yanılgısı form/wrapper ayrımıymış, düzen DOĞRU; 829/899px küçük pencerede chat alanının dar olması normal). (5) MOBIL (390x844, taze sekme + reload): order sol 1 / orta 2 / sag 3 ölçüldü (ySol 8 < yOrta 3268 < ySag 6962) + yatay taşma YOK + GÖNDER 40 (fine §5) + select 44 + ağaç satır 32. (6) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-sifir1-kabuk.png (154,4 KB, 1600x1000, PNG imza doğrulandı — taze sekmeden; orijinal kullanıcı sekmesi /ordu'da bırakıldı, kare iletişimi resize sonrası geçici koptu — sayfa kendisi canlı). (7) test sekmesi açıldı-ölçüldü-kapatıldı (kontrollü disiplin). (8) SONRAKİ DALGA: FAZ-M — oturum tıkla → transcript yükle (~/.claude/projects/<slug>/<sessionId>.jsonl tail-read) + composer İKİ TÜR AJAN (tıklanan oturumun ajanı = proje iç manager + KURMAY-1 = tepe sistem ajanı; kullanıcı onayı 2026-11-03). Tek elden commit bu kapanışta.",
+  "olcumAniISO": "2026-11-03T22:09:00",
+  "yazici": "glm53u-claude/glm-5.3 ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e",
+  "kanit": {
+    "panoTest": "63/63 PASS EXIT=0 (node --test ordu-panosu.test.mjs)",
+    "npmTest": "d1a 7/7 + d1b 12/12 + node --test 74/74, NPM_EXIT=0",
+    "geciciDosya": "pano/__sifir-debug.mjs SILINDI (Test-Path False)",
+    "htmlSatir": 1366
+  }
+}
