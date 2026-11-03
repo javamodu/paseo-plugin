@@ -31,6 +31,18 @@ function istekYap(port, yol, govde, token) {
   });
 }
 
+function istekYapGetir(port, yol) {
+  return new Promise((tamam, kapat) => {
+    const req = http.request({ host: "127.0.0.1", port, path: yol, method: "GET" }, (res) => {
+      let ham = "";
+      res.on("data", (p) => { ham += p; });
+      res.on("end", () => tamam({ durum: res.statusCode, konum: res.headers.location, govde: ham }));
+    });
+    req.on("error", (e) => kapat(new Error("http istegi hatasi: " + e.message)));
+    req.end();
+  });
+}
+
 // server.js'i PANO_PORT=0 ile doğurur, stdout'taki portu okur (4377 ASLA kullanılmaz).
 async function sunucuDogur(env) {
   const cocuk = spawn(process.execPath, [SERVER_JS], { env: { ...process.env, ...env } });
@@ -113,6 +125,31 @@ test("69- izole server: 503 (köprü zinciri çözümsüz — GERÇEK send YOK) 
     /* (c) farklı hedef: zincir çözümsüz aynı şekilde 503 (hedef bağımsız) */
     r = await istekYap(port, "/api/mesaj", { hedef: HEDEF2, mesaj: "diger hedef" }, token);
     assert.equal(r.durum, 503, "farkli hedef de zincir cozumsuzken 503");
+  } finally {
+    if (sunucu) sunucu.kill();
+    rmSync(d, { recursive: true, force: true });
+  }
+});
+
+test("70- izole server: GET / → 302 /ordu (ANA PANEL) · GET /iskelet 200 HTML · GET /ordu 200 HTML", async () => {
+  const d = mkdtempSync(join(tmpdir(), "paseo-mesaj-kok-"));
+  let sunucu = null;
+  try {
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd") });
+    sunucu = cocuk;
+    /* (a) kök → 302 /ordu — ana panel ORDU (kullanıcı emri 2026-11-03) */
+    let r = await istekYapGetir(port, "/");
+    assert.equal(r.durum, 302, "kok 302 olmali: " + JSON.stringify(r));
+    assert.equal(r.konum, "/ordu", "Location /ordu'yu gostermeli");
+    /* (b) eski iskelet yerinde kalır: /iskelet 200 + HTML */
+    r = await istekYapGetir(port, "/iskelet");
+    assert.equal(r.durum, 200, "iskelet 200 kalmali");
+    assert.ok(r.govde.includes("<!DOCTYPE html") || r.govde.includes("<html"), "iskelet HTML servis etmeli");
+    /* (c) ordu paneli HTML servis eder (fail-closed: dosya repo kökünde gerçek dosyadır) */
+    r = await istekYapGetir(port, "/ordu");
+    assert.equal(r.durum, 200, "ordu 200 kalmali");
+    assert.ok(r.govde.includes("<!DOCTYPE html") || r.govde.includes("<html"), "ordu HTML servis etmeli");
+    assert.ok(r.govde.length > 1000, "ordu HTML gövdesi dolu olmali (" + r.govde.length + " bayt)");
   } finally {
     if (sunucu) sunucu.kill();
     rmSync(d, { recursive: true, force: true });

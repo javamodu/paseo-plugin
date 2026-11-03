@@ -208,7 +208,14 @@ const IZINLI_EMIRLER = new Set(["not-dus"]); // prototip dar-listesi: yalniz not
 
 const sunucu = http.createServer((req, res) => {
   const url = new URL(req.url, "http://127.0.0.1");
+  // ANA PANEL (kullanici emri 2026-11-03 'ana panel yapalim'): kok artik ORDU paneline yonlenir;
+  // eski iskelet /iskelet'te erisilebilir kalir. 302 (kalici degil) — test sunucusu port/token degisebilir.
   if (req.method === "GET" && url.pathname === "/") {
+    res.writeHead(302, { Location: "/ordu", "Cache-Control": "no-store" });
+    res.end();
+    return;
+  }
+  if (req.method === "GET" && url.pathname === "/iskelet") {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.end(readFileSync(join(import.meta.dirname, "iskelet.html"), "utf8"));
     return;
