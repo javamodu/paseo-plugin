@@ -1,0 +1,28 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-C-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-C — sağ panel TEK chat birimi: liste üstte esnek + composer altta sabit (yazıcı teslimi)",
+  "tarih": "2026-11-03T17:13",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "chat", "composer", "flex"],
+  "siddet": "bilgi",
+  "ozet": "Sağ kolon TEK chat birimi: #bolum-composer BÖLÜMÜ (section + COMPOSER h2) KALDIRILDI; composerForm + composerSonuc + logNot #bolum-chat içine indi (sarmalayıcı div id=bolum-composer class=composerAlan — JS yenileme girdi koruması odakIcindeMi('#bolum-composer') bu kimlikle byte-birebir yaşar, JS HUNK YOK). Flex zinciri: #bolum-chat flex:1 1 auto + min-height:0 (kolonu doldurur) → .chatListe flex:1 1 auto + min-height:0 + overflow-y:auto (kalan yükseklik + kendi içinde kayar; eski min-height:140px bilinçli gitti) → .composerAlan flex:none + border-top ayraç (alt kenara yapışık SABİT). İstif <899px: bölüm flex:none + liste 140px tabanı. composerForm içi AYNEN (alan sırası + id'ler + 2 optgroup + POST /api/mesaj + x-pano-token).",
+  "kanit": {
+    "panoNpm": { "tests": 76, "pass": 76, "fail": 0, "exit": 0, "not": "mevcut 75 vakanın tamamı yeşil + 51i YENI (13 ok)" }
+  },
+  "bilincliPinDegisimleri": [],
+  "yeniPinler": [
+    "51i (kaynak-pin) — tek-bölüm (section id=bolum-composer YOK; COMPOSER h2 kalıntısı YOK) + composer #bolum-chat içinde sarmalayıcı div.composerAlan + bölüm kapanışı composer'dan sonra + #bolum-chat flex:1 1 auto/min-height:0 + .chatListe flex:1 1 auto/min-height:0/overflow-y:auto + .composerAlan flex:none/border-top + 899px media (bölüm flex:none + liste min-height:140px) + alan sırası AYNEN (Hedef→Mesaj→token→GÖNDER) + 6 composer id AYNEN + odakIcindeMi('#bolum-composer') JS'te AYNEN + submit/optgroup JS pini"
+  ],
+  "yapamadim": [
+    "canlı DOM/PNG kanıtı YOK — 4937'ye dokunma yasağı (HTML diskten servis edilir; tarayıcı koordinatör kapanışında)",
+    "K2 görsel kabul kullanıcıda (açık)",
+    "brief iç çelişkisi ('#bolum-composer kalıntısı YOK' vs 'JS AYNEN') sarmalayıcı-div çözümüyle giderildi — alternatif (JS'de 4 seçiciyi #composerForm'a çevirmek) JS değişikliği olurdu, brief'e aykırı; koordinatör onayına sunuldu"
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu: sağ kolon tek birim — liste alanının pencereyle esnemesi + composer alt kenara yapışıklığı (PNG raporlar/ordu-panosu-2026-11-03/ altına); istifte liste 140px tabanı",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 17:19): (1) koordinatör koşumları pano npm 76/76 + repo glob 298/298 (297+51i) EXIT=0 — yazıcı iddiası birebir. (2) diff denetimi: html +44/−28, 5 hunk = 4 CSS + 1 HTML, JS bölgesine hunk YOK. (3) SARMALAYICI-DIV KARARI KOORDİNATÖR ONAYI: KABUL — id=bolum-composer sarmalayıcı div'te yaşar, JS odakIcindeMi('#bolum-composer') (4 yer) byte-birebir; brief'teki 'kalıntı YOK' pini koordinatör hatasıydı (bağımlılığı bilmeden yazdı), yazıcı çelişkiyi dürüst rapor edip doğru çözümü seçti. (4) CANLI DOM 4937 (yenilemeyle): composer=DIV parent #bolum-chat, h2 COMPOSER YOK, #sag 654 → bölüm 646 dolu, liste 109 + composer 384; pencere küçülme testi 888→700: liste 109→98 emildi, composer 384 sabit alt kenarda, dış kaydırma YOK; optgroup 2 · GÖNDER 40 · emoji 0 · role=log AYNEN. (5) ekran kanıtı ekran-kanit-ana-chat-birim.png (134,7 KB). (6) K2 kullanıcıda — açık. Kuyruk: FAZ-D (proje sekmeleri genişlik) + FAZ-E (sol ağaç etiketleri aşırı minimal — kullanıcı steering'i 17:19) aynı yazıcıya tek brief."
+}

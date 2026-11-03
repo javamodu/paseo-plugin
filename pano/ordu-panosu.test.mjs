@@ -1738,3 +1738,24 @@ test("51h- PANEL-ANA-1 (kaynak-pin): orta panel ALT SEKMELER kısa ad + DAR — 
   ok("sekme geçişi yalnız renk (E12: transition color/background)", /\.sekme\s*\{[^}]*transition:\s*color 160ms ease, background 160ms ease/.test(HTML));
   ok("cila sınırı: gölge YOK kalır + petrol tek aksan AYNEN (K-0061)", (HTML.replace(/box-shadow:\s*inset[^;}]*[;}]/g, "").match(/box-shadow/g) || []).length === 0 && HTML.includes("--camgobegi:#0f4c81"));
 });
+
+test("51i- PANEL-ANA-1 FAZ-C (kaynak-pin): sağ kolon TEK chat birimi — liste üstte ESNEK + composer ALTTA SABİT (eski ayrı #bolum-composer bölümü KALDIRILDI; JS AYNEN)", () => {
+  const h = htmlKisim();
+  const j = jsKisim();
+  /* --- tek-bölüm yapısı: ayrı composer BÖLÜMÜ + başlığı gider --- */
+  ok("#sag'da TEK .bolum: bolum-chat; eski <section id=bolum-composer> KALDIRILDI", h.includes('<section class="bolum" id="bolum-chat"') && !/<section[^>]*id="bolum-composer"/.test(h));
+  ok("COMPOSER h2 başlığı YOK (composer-baslik id'si + h2 gövdesi kalıntısı)", !h.includes('id="composer-baslik"') && !/COMPOSER\s*<\/h2/.test(h));
+  ok("composer #bolum-chat İÇİNDE (sarmalayıcı div.composerAlan — bölüm değil)", h.indexOf('id="bolum-chat"') < h.indexOf('id="bolum-composer"') && h.indexOf('id="bolum-composer"') < h.indexOf('id="composerForm"') && h.includes('<div id="bolum-composer" class="composerAlan"'));
+  ok("bölüm kapanışı composer'dan SONRA (form bölümün içinde kalır — kopuk değil)", h.indexOf("</section>", h.indexOf('id="composerForm"')) > h.indexOf('id="composerForm"'));
+  /* --- flex zinciri: liste kolonun kalanını doldurur + kendi içinde kayar; composer altta SABİT --- */
+  ok("TEK birim esner: #bolum-chat flex:1 1 auto + min-height:0 (kolonu doldurur)", /#bolum-chat\s*\{[^}]*flex:\s*1 1 auto[^}]*min-height:\s*0/.test(HTML));
+  ok("liste ESNEK + kendi içinde kayar: .chatListe flex:1 1 auto + min-height:0 + overflow-y:auto (eski min-height:140px BİLİNÇLİ gitti)", /\.chatListe\s*\{[^}]*flex:\s*1 1 auto[^}]*min-height:\s*0[^}]*overflow-y:\s*auto/.test(HTML));
+  ok("composer ALTTA SABİT: .composerAlan flex:none (ayraç çizgisi border-top ile)", /\.composerAlan\s*\{[^}]*flex:\s*none[^}]*border-top:\s*1px solid var\(--cizgi\)/.test(HTML));
+  ok("istifte (<899px) doğal sıra korunur: bölüm flex:none + liste min tabanı 140px geri döner", /@media \(max-width:899px\)[\s\S]*?#bolum-chat\s*\{[^}]*flex:\s*none/.test(HTML) && /@media \(max-width:899px\)[\s\S]*?\.chatListe\s*\{[^}]*min-height:\s*140px/.test(HTML));
+  /* --- composer İÇİ AYNEN: alan sırası + id'ler + JS girdi koruması --- */
+  const sira = ["composerHedef", "composerMesaj", "token", "composerGonder"].map((id) => h.indexOf('id="' + id + '"'));
+  ok("composer alan sırası AYNEN: Hedef → Mesaj → token → GÖNDER", sira.every((i) => i >= 0) && sira.every((i, k) => k === 0 || i > sira[k - 1]));
+  ok("composer id'leri AYNEN (form/hedef/mesaj/token/gonder/sonuc — JS $('…') çağrıları yaşar)", ["composerForm", "composerHedef", "composerMesaj", "token", "composerGonder", "composerSonuc"].every((id) => h.includes('id="' + id + '"')));
+  ok("JS AYNEN: yenileme girdi koruması odakIcindeMi(\"#bolum-composer\") seçicisi sarmalayıcı kimliğiyle yaşar (JS hunk YOK)", j.includes('odakIcindeMi("#bolum-composer")'));
+  ok("JS AYNEN: composer submit + 2 AYRI optgroup davranışı değişmedi (JS hunk YOK sınıfı)", j.includes('$("composerForm").addEventListener') && j.includes("optgroup"));
+});

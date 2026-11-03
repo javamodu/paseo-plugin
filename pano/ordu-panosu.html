@@ -517,13 +517,25 @@
   }
   #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 8px; letter-spacing:0.02em; }
 
-  /* ---- (PANEL-CHAT-1) SAĞ = CHAT PANELİ: seçili konuşma TEK kompakt satır + oturum
-     mesaj listesi (bellek-içi — localStorage YOK) + composer AYNEN. Görsel dil
-     kapsul-tuval.html #sag/#chatBolum'dan ESİNLENİR (renk/yoğunluk; KOD KOPYA EDİLMEZ —
-     tuval 4930 deney sunucusuna POST eder, bu panel ASLA). Mesaj girişi: [HH:mm]
-     [hedef kısa ad] metin (esc + kisalt 80 + title TAM) + İNCE sonuç satırı —
-     «gönderildi» yeşil / «hata: …» kırmızı, DÜZ METİN, sembol karakteri YOK (§4). ---- */
-  #bolum-chat { display:flex; flex-direction:column; }
+  /* ---- (PANEL-CHAT-1) SAĞ = TEK CHAT BİRİMİ (PANEL-ANA-1 FAZ-C: liste üstte ESNEK +
+     composer ALTTA SABİT — her chat uygulaması düzeni): seçili konuşma TEK kompakt satır +
+     oturum notu üstte → MESAJ LİSTESİ kolonun kalan yüksekliğini doldurur, kendi içinde
+     kayar (flex:1 1 auto + min-height:0 zinciri: #sag → bölüm → liste) → composer
+     alt bölge (flex:none — ayraç çizgisiyle). Görsel dil kapsul-tuval.html #sag/#chatBolum'dan
+     ESİNLENİR (renk/yoğunluk; KOD KOPYA EDİLMEZ — tuval 4930 deney sunucusuna POST eder,
+     bu panel ASLA). Mesaj girişi: [HH:mm] [hedef kısa ad] metin (esc + kisalt 80 + title
+     TAM) + İNCE sonuç satırı — «gönderildi» yeşil / «hata: …» kırmızı, DÜZ METİN,
+     sembol karakteri YOK (§4). ---- */
+  #bolum-chat {
+    display:flex; flex-direction:column; flex:1 1 auto; min-height:0;
+    /* FAZ-C: #sag kolonunu dolduran TEK birim — eski ikinci .bolum kardeş (COMPOSER
+       başlıklı) bu bölümün İÇİNE indi; min-height:0 zinciri listeye kadar iner */
+  }
+  .composerAlan {
+    flex:none; margin-top:8px; padding-top:8px; border-top:1px solid var(--cizgi);
+    /* FAZ-C: composer alt bölge — formun alt kenarı kolonun alt kenarına yapışık;
+       ince ayraç çizgisi COMPOSER başlığının yerine (kimlik JS girdi koruması için) */
+  }
   .chatBaslikSatiri {
     display:flex; align-items:center; gap:6px; min-height:26px;
     margin:0 0 6px; font-size:12px; font-weight:600; color:var(--metin);
@@ -534,7 +546,7 @@
   .chatBaslikSaglayici { flex:none; margin-left:auto; font:600 10.5px var(--mono); color:var(--ikincil); }
   .chatOturumNotu { margin:0 0 6px; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
   .chatListe {
-    flex:1 1 auto; min-height:140px; overflow-y:auto;
+    flex:1 1 auto; min-height:0; overflow-y:auto;
     display:flex; flex-direction:column; gap:4px; padding:2px;
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
   }
@@ -558,7 +570,7 @@
 
   /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER
      KOMPAKT: 12px metin · GÖNDER 40px (KISAT alt sınırı); select/input 44px dokunma KORUNUR ---- */
-  #composerForm { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  #composerForm { display:flex; flex-direction:column; gap:8px; margin-top:0; }
   #composerForm select, #composerForm textarea, #composerForm input {
     width:100%; font:inherit; font-size:12px; color:var(--metin);
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); padding:5px 8px;
@@ -590,6 +602,10 @@
     #sag { width:100%; overflow:visible; }
     #sekmeGovde { overflow:visible; }
     #altSekmeSerit { margin:0 -10px 8px; } /* dar ekranda govde padding'iyle hizalanır */
+    /* FAZ-C istifte tek chat birimi doğal sıra: liste üstte (min taban 140px — dar
+       ekranda boş liste kutusu görünür kalır) + composer altta; bölüm içerik boyuna döner */
+    #bolum-chat { flex:none; }
+    .chatListe { min-height:140px; }
   }
   @media (max-width:720px) {
     .ustSag { margin-left:0; width:100%; }
@@ -883,25 +899,25 @@
       <p class="chatOturumNotu">Bu oturumda gönderilenler — yenileyince temizlenir (tam geçmiş Paseo sekmesinde)</p>
       <div id="chatListe" class="chatListe" role="log" aria-live="polite" aria-label="bu oturumda gönderilen mesajlar ve gönderim sonuçları"></div>
       <p class="bosSatir" id="chatBos">bu oturumda henüz mesaj gönderilmedi</p>
-    </section>
-    <section class="bolum" id="bolum-composer" aria-labelledby="composer-baslik">
-      <h2 class="bolum-etiket" id="composer-baslik">
-        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5 H18 V15 H8 L4 18 V15 H2 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 9 H14 M6 12 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        COMPOSER
-      </h2>
-      <form id="composerForm" novalidate>
-        <label class="gorunur" for="composerHedef">Hedef</label>
-        <select id="composerHedef" aria-label="mesaj hedefi — ordu yönetimi ya da seçili projenin ajanları">
-          <option value="">hedef seçilmedi</option>
-        </select>
-        <label class="gorunur" for="composerMesaj">Mesaj</label>
-        <textarea id="composerMesaj" rows="4" placeholder="gönderilecek mesaj…" maxlength="4096"></textarea>
-        <label class="gorunur" for="token">PANO token</label>
-        <input id="token" type="password" autocomplete="off" placeholder="PANO_TOKEN değeri" />
-        <button type="submit" id="composerGonder">GÖNDER</button>
-      </form>
-      <p id="composerSonuc" role="status" aria-live="polite"></p>
-      <p class="logNot">gönderim POST /api/mesaj — dar spawn köprüsü (K-0060 TASLAK); token değeri hiçbir yere KAYDEDİLMEZ, yalnız istek başlığında gider</p>
+      <!-- PANEL-ANA-1 FAZ-C: composer ARTIK TEK chat biriminin alt bölgesi (ayrı .bolum
+           kardeş + COMPOSER h2 KALDIRILDI — liste üstte esnek, form altta SABİT).
+           id="bolum-composer" BİLİNÇLİ sarmalayıcı div'te yaşar: JS yenileme girdi
+           koruması odakIcindeMi("#bolum-composer") bu kimlikle çalışır — JS AYNEN. -->
+      <div id="bolum-composer" class="composerAlan" aria-label="mesaj gönderim alanı — composer">
+        <form id="composerForm" novalidate>
+          <label class="gorunur" for="composerHedef">Hedef</label>
+          <select id="composerHedef" aria-label="mesaj hedefi — ordu yönetimi ya da seçili projenin ajanları">
+            <option value="">hedef seçilmedi</option>
+          </select>
+          <label class="gorunur" for="composerMesaj">Mesaj</label>
+          <textarea id="composerMesaj" rows="4" placeholder="gönderilecek mesaj…" maxlength="4096"></textarea>
+          <label class="gorunur" for="token">PANO token</label>
+          <input id="token" type="password" autocomplete="off" placeholder="PANO_TOKEN değeri" />
+          <button type="submit" id="composerGonder">GÖNDER</button>
+        </form>
+        <p id="composerSonuc" role="status" aria-live="polite"></p>
+        <p class="logNot">gönderim POST /api/mesaj — dar spawn köprüsü (K-0060 TASLAK); token değeri hiçbir yere KAYDEDİLMEZ, yalnız istek başlığında gider</p>
+      </div>
     </section>
   </section>
 
