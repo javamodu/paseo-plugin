@@ -6,6 +6,6 @@
   "description": "paseo pano prototipi — izole, bagimliliksiz (node:http)",
   "scripts": {
     "start": "node server.js",
-    "test": "node d1a-test.mjs && node d1b-test.mjs && node --test ordu-panosu.test.mjs"
+    "test": "node d1a-test.mjs && node d1b-test.mjs && node --test ordu-panosu.test.mjs paseo-kopru.test.mjs mesaj-ucu.test.mjs"
   }
 }

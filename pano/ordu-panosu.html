@@ -10,19 +10,20 @@
 <title>ORDU KOMUTA PANELİ — ordu</title>
 <style>
   /* =====================================================================
-     ORDU KOMUTA PANELİ — STEERING-9 (kullanıcı emri «önceki tasarımı baz al»
-     + «üç dikey bölüm: sol sağ panel ve orta sayfa»). TABAN: kapsul-tuval.html
-     R3 tasarımı (2026-10-30, onaylı) — token'lar birebir: saf beyaz zemin ·
-     tek aksan petrol mavisi · --yuzey2/--yuzey3 yüzey katmanları · radius 8/6/4.
-     ANA DÜZEN (kapsul-tuval R2/R3 deseni): main = grid BEŞ HÜCRE —
-     SOL (GENEL DURUM özet şeridi + akordiyon) · 6px splitter · ORTA (VS Code
-     tarzı sekmeler: PLAN · AKIŞ · SİSTEM SAĞLIĞI) · 6px splitter · SAĞ (LOG —
-     kanıt defteri görünümü). TEK VIEWPORT: body scroll YOK; her sütun kendi
-     içinde kayar. Splitter ×2: sürükle/ok tuşları (±16px) + localStorage
-     («ordu-solW»/«ordu-sagW» — tuvalin anahtarlarından AYRI).
-     Veri katmanı DEĞİŞMEDİ (3 istisna: sekmeDegistir UI-only · splitterKur
-     kopyası · gorunumDegistir kolon-kabuğu satırları). EMOJİ YOK · webfont
-     YOK · dış URL YOK · animasyon tanımı YOK · prefers-reduced-motion kapatır.
+     ORDU KOMUTA PANELİ — FAZ-B (PANEL-EXPLORER-1; operatör yönlendirmesi
+     2026-11-03 «VS Code tarzı: sol explorer · orta sekmeli sayfa · sağ composer»).
+     TABAN: kapsul-tuval.html R3 tasarımı (2026-10-30, onaylı) — token'lar birebir:
+     saf beyaz zemin · tek aksan petrol mavisi · --yuzey2/--yuzey3 · radius 8/6/4.
+     ANA DÜZEN (5 hücre grid AYNEN): SOL (GEZGİN ağacı — projeler + konuşmalar)
+     · 6px splitter · ORTA (sekmeli editör: ORDU SABİT sekme + proje sekmeleri;
+     ORDU içinde 5 alt sekme DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG)
+     · 6px splitter · SAĞ (seçili KONUŞMA kartı + COMPOSER — gerçek gönderim).
+     TEK VIEWPORT: body scroll YOK; her sütun kendi içinde kayar. Splitter ×2:
+     sürükle/ok tuşları (±16px) + localStorage («ordu-solW»/«ordu-sagW» — tuvalin
+     anahtarlarından AYRI; ağaç durumu «ordu-agac-*» anahtarlarında).
+     Veri katmanı 7 GET ucu AYNEN; gönderim tek YAZMA ucu POST /api/mesaj.
+     EMOJİ YOK · webfont YOK · dış URL YOK · animasyon tanımı YOK ·
+     prefers-reduced-motion kapatır.
      ===================================================================== */
   :root {
     --zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;
@@ -46,7 +47,7 @@
   select, a { touch-action:manipulation; }
   a:focus-visible, select:focus-visible, tr:focus-visible { outline:2px solid var(--camgobegi); outline-offset:2px; }
 
-  /* ---- ÜST BAR: marka + proje select + pano sayfa bağlantıları ---- */
+  /* ---- ÜST BAR: marka + pano sayfa bağlantıları (FAZ-B: proje select KALDIRILDI — gezgin ağacı tek seçim yolu) ---- */
   .ustbar {
     position:relative; z-index:10; display:flex; align-items:center; gap:10px 16px; flex-wrap:wrap;
     padding:10px 16px; background:var(--yuzey); border-bottom:1px solid var(--cizgi);
@@ -54,11 +55,6 @@
   .marka { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.04em; font-size:16px; }
   .marka svg { display:block; }
   .ustSag { margin-left:auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .projeSec {
-    min-height:var(--min-dokunma); min-width:210px; padding:4px 12px;
-    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); color:var(--metin);
-    font-size:15px; font-weight:600; cursor:pointer;
-  }
   .ustNav { display:flex; gap:6px; }
   .ustNav a {
     display:inline-flex; align-items:center; min-height:var(--min-dokunma); padding:0 14px;
@@ -88,7 +84,6 @@
   main > #orta { grid-column:3; }
   main > #splitSag { grid-column:4; }
   main > #sag { grid-column:5; }
-  main > #bolum-projekart { grid-column:1 / -1; } /* ORDU dışı kart — kolonlar kapalıyken tam genişlik */
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; }
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
@@ -124,15 +119,18 @@
   .bolumIci { max-height:560px; overflow-y:auto; padding-right:4px; }
 
   /* =====================================================================
-     ORTA: VS CODE TARZI SEKMELER (kapsul-tuval #sekmeSerit deseni) —
-     sabit 3 sekme: PLAN · AKIŞ · SİSTEM SAĞLIĞI. Sekme gövdesi kendi
-     içinde kayar; geçiş animasyonu yalnız transform/opacity (E12, ≤600ms).
+     ORTA: SEKMELİ EDİTÖR (kapsul-tuval sekme deseni) —
+     ANA şeridi: ORDU sekmesi SABİT + proje sekmeleri (X ile kapanır);
+     ALT şeridi (yalnız ORDU sekmesinde): DURUM · PLAN · AKIŞ · SİSTEM
+     SAĞLIĞI · LOG. Sekme gövdesi kendi içinde kayar; geçiş animasyonu
+     yalnız transform/opacity (E12, ≤600ms).
      ===================================================================== */
-  #sekmeSerit {
+  #anaSekmeSerit {
     display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
     background:var(--yuzey2); border:1px solid var(--cizgi); border-bottom:0;
     border-radius:var(--radius) var(--radius) 0 0; padding:6px 6px 0;
   }
+  .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; }
   .sekme {
     flex:none; display:inline-flex; align-items:center; gap:8px; padding:0 16px;
     min-height:var(--min-dokunma); border:1px solid transparent; border-bottom:0;
@@ -399,6 +397,81 @@
   .onlemAlani ul, .onlemAlani ol { margin:0; padding-left:20px; }
   .onlemAlani li { font-size:15px; margin:3px 0; overflow-wrap:anywhere; }
 
+  /* ---- (FAZ-B) GEZGİN AĞACI (SOL): proje + konuşma düğümleri — akordiyon + seçili düğüm ---- */
+  .agac { display:flex; flex-direction:column; gap:2px; }
+  .agacProje { display:flex; flex-direction:column; }
+  .agacProjeBas {
+    display:flex; align-items:center; gap:8px; width:100%; min-height:var(--min-dokunma);
+    padding:4px 10px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer;
+    overflow-wrap:anywhere; transition:background 160ms ease; /* E12: yalnız renk */
+  }
+  .agacProjeBas:hover { background:var(--yuzey2); }
+  .agacProjeBas .agacOk {
+    flex:none; width:8px; height:8px; border-right:2px solid var(--ikincil); border-bottom:2px solid var(--ikincil);
+    transform:rotate(-45deg); transition:transform 200ms ease; /* E12: yalnız transform */
+  }
+  .agacProje.acik .agacProjeBas .agacOk { transform:rotate(45deg); } /* açık: aşağı bakar */
+  .agacAd { flex:1; min-width:0; }
+  .agacSayi { flex:none; font:700 12px var(--mono); color:var(--ikincil); }
+  .agacCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 4px 18px; }
+  .agacAjan {
+    display:flex; align-items:center; gap:8px; width:100%; min-height:var(--min-dokunma);
+    padding:4px 10px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font-size:14px; text-align:left; cursor:pointer; overflow-wrap:anywhere;
+  }
+  .agacAjan:hover { background:var(--yuzey2); color:var(--metin); }
+  .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
+  .agacAjan .nokta { flex:none; width:9px; height:9px; }
+  .agacAjan .nokta.kapali { opacity:0.45; } /* closed = soluk */
+  .agacAjanId { flex:none; font:700 12px var(--mono); color:var(--ikincil); }
+  .agacEtiket { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* ---- (FAZ-B) ANA SEKME ŞERİDİ: proje sekmeleri — X ile kapanır; ORDU sekmesi SABİT ---- */
+  .sekme.anaSekme { gap:6px; }
+  .sekmeKapat {
+    flex:none; display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font:700 15px var(--mono); line-height:1; cursor:pointer;
+    transition:color 160ms, background 160ms; /* E12: yalnız renk */
+  }
+  .sekmeKapat:hover { color:var(--tehlike); background:var(--yuzey2); }
+
+  /* ---- (FAZ-B) ALT SEKME ŞERİDİ (ORDU sekmesi içinde): DURUM·PLAN·AKIŞ·SİSTEM SAĞLIĞI·LOG ---- */
+  #altSekmeSerit {
+    display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
+    background:var(--yuzey2); border:1px solid var(--cizgi); border-bottom:0;
+    border-radius:var(--radius-k) var(--radius-k) 0 0; padding:4px 6px 0;
+  }
+  #altSekmeSerit .sekme { font-size:13.5px; min-height:var(--min-dokunma); padding:0 12px; }
+
+  /* ---- (FAZ-B) KONUŞMA KARTI (SAĞ üst): seçili konuşma — mesaj geçmişi YOK (dürüst sınır) ---- */
+  .konusmaKart {
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
+    padding:16px 18px 18px; display:flex; flex-direction:column; gap:6px;
+  }
+  .konusmaKart .gdEtiket { margin-bottom:2px; }
+  .konusmaKimlik { font-family:var(--mono); font-size:13px; color:var(--ikincil); overflow-wrap:anywhere; }
+
+  /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER ---- */
+  #composerForm { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+  #composerForm select, #composerForm textarea, #composerForm input {
+    width:100%; font:inherit; font-size:15px; color:var(--metin);
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); padding:8px 12px;
+  }
+  #composerForm select, #composerForm input { min-height:var(--min-dokunma); } /* §5: 44px dokunma */
+  #composerForm textarea { min-height:104px; resize:vertical; line-height:1.5; }
+  #composerForm label.gorunur { font-size:14px; font-weight:700; color:var(--ikincil); }
+  #composerGonder {
+    min-height:var(--min-dokunma); padding:0 18px; border:1px solid var(--camgobegi); border-radius:var(--radius-k);
+    background:var(--camgobegi); color:#fff; font-size:15px; font-weight:700; letter-spacing:0.04em; cursor:pointer;
+    transition:background 160ms; /* E12: yalnız renk */
+  }
+  #composerGonder:disabled { background:var(--yuzey3); color:var(--ikincil); cursor:default; }
+  #composerSonuc { font-size:14px; color:var(--ikincil); margin:6px 0 0; overflow-wrap:anywhere; min-height:20px; }
+  #composerSonuc.hata { color:var(--tehlike); font-weight:600; }
+  #composerSonuc.basarili { color:var(--basari); font-weight:600; }
+
   /* ---- DUYARLI (~<900px): sütunlar alt alta (sol → orta → sağ); body scroll geri gelir.
      Tuvalin drawer/perde mekaniği KOPYALANMADI (kullanıcı emri «sadece» — basit tut). ---- */
   @media (max-width:899px) {
@@ -411,7 +484,6 @@
   }
   @media (max-width:720px) {
     .ustSag { margin-left:0; width:100%; }
-    .projeSec { flex:1; }
     .ozetGrid { grid-template-columns:1fr; }
     .dalgaKutular { grid-template-columns:1fr; }
   }
@@ -429,12 +501,7 @@
     <span>ORDU KOMUTA PANELİ</span>
   </div>
   <div class="ustSag">
-    <label class="gizli" for="projeSec">Proje seç</label>
-    <select id="projeSec" class="projeSec" aria-label="proje seçimi">
-      <option value="ordu" selected>ORDU PROJESİ</option>
-      <!-- STEERING-7: ikinci grup — Paseo canlı tarama (JS doldurur; kaynakta boş kalır) -->
-      <optgroup label="PROJE DURUMLARI — Paseo canlı tarama" id="projeGrup"></optgroup>
-    </select>
+    <!-- FAZ-B: proje seçimi ÜSTTEKİ select'ten GEZGİN AĞACINA taşındı (tek seçim yolu — çift kaynak yasak) -->
     <nav class="ustNav" aria-label="pano sayfaları">
       <a href="/">ana pano</a>
       <a href="/tuval">kapsül tuval</a>
@@ -444,101 +511,114 @@
 
 <main id="icerik">
 
-  <!-- STEERING-7/9: ORDU DIŞI PROJE SEÇİMİ — kolon kabukları kapanır, kart tam genişlikte tek görünür yüz olur
-       (grid'de 1 / -1 hücresi bekliyor; 6-bölüm detay paneli YALNIZ ORDU'da) -->
-  <section class="bolum" id="bolum-projekart" aria-labelledby="projeKart-baslik" hidden>
-    <h2 class="bolum-etiket" id="projeKart-baslik">
-      <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="11" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="11" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="11" y="11" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      PROJE DURUMU — <span id="projeKartAd">?</span>
-    </h2>
-    <div class="kartSatiri" id="projeKartIci"></div>
-    <div id="projeHata" class="kirmiziYuz" role="alert" hidden></div>
-    <p class="rolSatiri senkron">detay paneli şu an yalnız ORDU projesi için; diğer projeler durum kartı gösterir.</p>
-    <p class="rolSatiri senkron">ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — tarama yalnız ajan kaydı taşıyan dizinleri listeler.</p>
-  </section>
-
-  <!-- ============ SOL (#sol): GENEL DURUM — TEK BAKIŞ özet şeridi + akordiyon detay ============ -->
-  <section id="sol" aria-label="genel durum — özet şeridi ve akordiyon detaylar">
-    <section class="bolum" id="bolum-genel" aria-labelledby="genel-baslik">
-      <h2 class="bolum-etiket" id="genel-baslik">
-        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 6 V10 L13 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        GENEL DURUM
+  <!-- ============ SOL (#sol): GEZGİN — ağaç: projeler + konuşmalar (akordiyon + seçim) ============
+       FAZ-B: proje başlığına tıkla → akordiyon AÇ/KAPA + o projenin sekmesi ORTA'da açılır;
+       konuşma düğümüne tıkla → seçili konuşma (SAĞ kart + composer hedefi).
+       Akordiyon + seçili düğüm localStorage'da kalıcı (ordu-agac-acik / ordu-agac-secili —
+       ordu-solW / ordu-sagW anahtarlarıyla ÇAKIŞMAZ). ORDU projesi ağaçta İLK ve özel işaretli. -->
+  <section id="sol" aria-label="gezgin — projeler ve konuşmalar">
+    <section class="bolum" id="bolum-agac" aria-labelledby="agac-baslik">
+      <h2 class="bolum-etiket" id="agac-baslik">
+        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 M6 8 H14 M6 12 H11 M9 16 H13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        GEZGİN
       </h2>
-      <div class="ozetGrid" id="ozetGrid">
-        <div class="ozetKart">
-          <span class="ozetEtiket">Sağlık ışığı</span>
-          <span class="ozetDeger yazi" id="ozetSaglik">—</span>
-          <span class="ozetAlt" id="ozetSaglikAlt"></span>
-        </div>
-        <div class="ozetKart">
-          <span class="ozetEtiket">Görev sayımı</span>
-          <span class="ozetDeger" id="ozetGorev">—</span>
-          <span class="ozetAlt" id="ozetGorevAlt"></span>
-        </div>
-        <div class="ozetKart">
-          <span class="ozetEtiket">Canlı ajan</span>
-          <span class="ozetDeger" id="ozetCanli">—</span>
-          <span class="ozetAlt" id="ozetCanliAlt"></span>
-        </div>
-        <div class="ozetKart">
-          <span class="ozetEtiket">Sıradaki görev</span>
-          <span class="ozetDeger yazi" id="ozetSiradaki">—</span>
-          <span class="ozetAlt" id="ozetSiradakiAlt"></span>
-        </div>
-        <div class="ozetKart">
-          <span class="ozetEtiket">Graf sürümü</span>
-          <span class="ozetDeger mono" id="ozetGraf">—</span>
-          <span class="ozetAlt" id="ozetGrafAlt"></span>
-        </div>
-        <div class="ozetKart">
-          <span class="ozetEtiket">Son damga</span>
-          <span class="ozetDeger damga" id="ozetDamga">—</span>
-          <span class="ozetAlt" id="ozetDamgaAlt"></span>
-        </div>
-      </div>
-      <details class="detay" id="genelDetay">
-        <summary>durum kartları · en büyük sorunlar · sağlık ışığı · çözüm yolları · graf sayımı</summary>
-        <div class="detayIci">
-          <div id="genelKartlar" class="kartSatiri"></div>
-          <div class="semsiyeGrid">
-            <div class="semsiyeKart">
-              <div class="semsiyeBas">EN BÜYÜK SORUNLAR</div>
-              <div id="genelSorunlar"></div>
-            </div>
-            <div class="semsiyeKart">
-              <div class="semsiyeBas">GENEL SAĞLIK IŞIĞI</div>
-              <div id="genelIsik"></div>
-            </div>
-            <div class="semsiyeKart">
-              <div class="semsiyeBas">ÇÖZÜM YOLLARI — fix kuyruğu</div>
-              <div id="genelCozum"></div>
-            </div>
-            <div class="semsiyeKart">
-              <div class="semsiyeBas">GRAF DURUMU + İLERLEME</div>
-              <div id="grafDurum"></div>
-            </div>
-          </div>
-        </div>
-      </details>
-      <div id="genelHata" class="kirmiziYuz" role="alert" hidden></div>
+      <p class="bolumOzet" id="agacOzet">tarama bekleniyor…</p>
+      <div id="agacAlani" class="agac"></div>
+      <div id="agacHata" class="kirmiziYuz" role="alert" hidden></div>
+      <p class="logNot">ağaç salt-okur disk taramasından (projeler ucu); ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ</p>
     </section>
   </section>
 
   <!-- STEERING-9: sol panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
   <div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="280" tabindex="0"></div>
 
-  <!-- ============ ORTA (#orta): VS CODE TARZI SEKMELER — PLAN · AKIŞ · SİSTEM SAĞLIĞI ============ -->
-  <section id="orta" aria-label="orta sütun — sekmeler: PLAN · AKIŞ · SİSTEM SAĞLIĞI">
-    <h2 class="gizli">Orta sütun — sekmeler: PLAN, AKIŞ, SİSTEM SAĞLIĞI</h2>
-    <div id="sekmeSerit" role="tablist" aria-label="panel sekmeleri — PLAN · AKIŞ · SİSTEM SAĞLIĞI">
-      <button class="sekme" id="sek-plan" role="tab" type="button" data-sekme="plan" aria-selected="true" aria-controls="planBolum" tabindex="0">PLAN</button>
-      <button class="sekme" id="sek-akis" role="tab" type="button" data-sekme="akis" aria-selected="false" aria-controls="akisBolum" tabindex="-1">AKIŞ</button>
-      <button class="sekme" id="sek-saglik" role="tab" type="button" data-sekme="saglik" aria-selected="false" aria-controls="saglikBolum" tabindex="-1">SİSTEM SAĞLIĞI</button>
+  <!-- ============ ORTA (#orta): SEKMELİ EDİTÖR — ana sekmeler (ORDU SABİT + projeler) + ORDU alt sekmeleri ============
+       FAZ-B: ana sekme şeridi — ORDU sekmesi SABİT (kapatılamaz) + açık proje sekmeleri (X ile kapanır).
+       ORDU sekmesi içinde 5 ALT SEKME: DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG (LOG sağdan taşındı).
+       Proje sekmesi: DURUM TABLOSU (satır = konuşma). Hiç sekme yokken fail-closed boş yüz. -->
+  <section id="orta" aria-label="orta sütun — proje sekmeleri ve ORDU panel sekmeleri">
+    <h2 class="gizli">Orta sütun — ana sekmeler: ORDU + projeler; ORDU alt sekmeleri: DURUM, PLAN, AKIŞ, SİSTEM SAĞLIĞI, LOG</h2>
+    <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, proje sekmeleri X ile kapanır">
+      <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
+    </div>
+    <div id="altSekmeSerit" role="tablist" aria-label="ORDU panel sekmeleri — DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG">
+      <button type="button" class="sekme aktif" id="sek-durum" role="tab" data-sekme="durum" aria-selected="true" aria-controls="durumBolum" tabindex="0">DURUM</button>
+      <button type="button" class="sekme" id="sek-plan" role="tab" data-sekme="plan" aria-selected="false" aria-controls="planBolum" tabindex="-1">PLAN</button>
+      <button type="button" class="sekme" id="sek-akis" role="tab" data-sekme="akis" aria-selected="false" aria-controls="akisBolum" tabindex="-1">AKIŞ</button>
+      <button type="button" class="sekme" id="sek-saglik" role="tab" data-sekme="saglik" aria-selected="false" aria-controls="saglikBolum" tabindex="-1">SİSTEM SAĞLIĞI</button>
+      <button type="button" class="sekme" id="sek-log" role="tab" data-sekme="log" aria-selected="false" aria-controls="logBolum" tabindex="-1">LOG</button>
     </div>
     <div id="sekmeGovde">
 
+      <!-- DURUM alt sekmesi: GENEL DURUM — TEK BAKIŞ özet şeridi + akordiyon detay (FAZ-B: SOL'dan ORTA'ya taşındı) -->
+      <section class="sekmePanel" id="durumBolum" role="tabpanel" aria-labelledby="sek-durum">
+        <section class="bolum" id="bolum-genel" aria-labelledby="genel-baslik">
+          <h2 class="bolum-etiket" id="genel-baslik">
+            <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 6 V10 L13 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            GENEL DURUM
+          </h2>
+          <div class="ozetGrid" id="ozetGrid">
+            <div class="ozetKart">
+              <span class="ozetEtiket">Sağlık ışığı</span>
+              <span class="ozetDeger yazi" id="ozetSaglik">—</span>
+              <span class="ozetAlt" id="ozetSaglikAlt"></span>
+            </div>
+            <div class="ozetKart">
+              <span class="ozetEtiket">Görev sayımı</span>
+              <span class="ozetDeger" id="ozetGorev">—</span>
+              <span class="ozetAlt" id="ozetGorevAlt"></span>
+            </div>
+            <div class="ozetKart">
+              <span class="ozetEtiket">Canlı ajan</span>
+              <span class="ozetDeger" id="ozetCanli">—</span>
+              <span class="ozetAlt" id="ozetCanliAlt"></span>
+            </div>
+            <div class="ozetKart">
+              <span class="ozetEtiket">Sıradaki görev</span>
+              <span class="ozetDeger yazi" id="ozetSiradaki">—</span>
+              <span class="ozetAlt" id="ozetSiradakiAlt"></span>
+            </div>
+            <div class="ozetKart">
+              <span class="ozetEtiket">Graf sürümü</span>
+              <span class="ozetDeger mono" id="ozetGraf">—</span>
+              <span class="ozetAlt" id="ozetGrafAlt"></span>
+            </div>
+            <div class="ozetKart">
+              <span class="ozetEtiket">Son damga</span>
+              <span class="ozetDeger damga" id="ozetDamga">—</span>
+              <span class="ozetAlt" id="ozetDamgaAlt"></span>
+            </div>
+          </div>
+          <details class="detay" id="genelDetay">
+            <summary>durum kartları · en büyük sorunlar · sağlık ışığı · çözüm yolları · graf sayımı</summary>
+            <div class="detayIci">
+              <div id="genelKartlar" class="kartSatiri"></div>
+              <div class="semsiyeGrid">
+                <div class="semsiyeKart">
+                  <div class="semsiyeBas">EN BÜYÜK SORUNLAR</div>
+                  <div id="genelSorunlar"></div>
+                </div>
+                <div class="semsiyeKart">
+                  <div class="semsiyeBas">GENEL SAĞLIK IŞIĞI</div>
+                  <div id="genelIsik"></div>
+                </div>
+                <div class="semsiyeKart">
+                  <div class="semsiyeBas">ÇÖZÜM YOLLARI — fix kuyruğu</div>
+                  <div id="genelCozum"></div>
+                </div>
+                <div class="semsiyeKart">
+                  <div class="semsiyeBas">GRAF DURUMU + İLERLEME</div>
+                  <div id="grafDurum"></div>
+                </div>
+              </div>
+            </div>
+          </details>
+          <div id="genelHata" class="kirmiziYuz" role="alert" hidden></div>
+        </section>
+      </section>
+
       <!-- PLAN sekmesi: (a) faz tablosu + (b) görev graf + ordu dalga görünümü -->
-      <section class="sekmePanel acik" id="planBolum" role="tabpanel" aria-labelledby="sek-plan">
+      <section class="sekmePanel" id="planBolum" role="tabpanel" aria-labelledby="sek-plan" hidden>
         <section class="bolum" id="bolum-plan" aria-labelledby="plan-baslik">
           <h2 class="bolum-etiket" id="plan-baslik">
             <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4.5 H17 M3 10 H17 M3 15.5 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -610,55 +690,114 @@
         </section>
       </section>
 
+      <!-- LOG alt sekmesi: kanıt defteri görünümü (FAZ-B: SAĞ sütundan ORTA'ya taşındı) -->
+      <section class="sekmePanel" id="logBolum" role="tabpanel" aria-labelledby="sek-log" hidden>
+        <section class="bolum" id="bolum-log" aria-labelledby="log-baslik">
+          <h2 class="bolum-etiket" id="log-baslik">
+            <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 4 H15 V16 H5 Z M7 7 H13 M7 10 H13 M7 13 H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            LOG
+          </h2>
+          <p class="bolumOzet" id="logOzet">log verisi bekleniyor…</p>
+          <div class="logUstSatir">
+            <div class="logFiltre" role="group" aria-label="zaman penceresi filtresi">
+              <button type="button" class="filtreBtn" data-saat="1" aria-pressed="false">1sa</button>
+              <button type="button" class="filtreBtn" data-saat="6" aria-pressed="false">6sa</button>
+              <button type="button" class="filtreBtn" data-saat="24" aria-pressed="true">24sa</button>
+              <button type="button" class="filtreBtn" data-saat="168" aria-pressed="false">7gün</button>
+            </div>
+            <p class="logTavan" id="logTavan">son 200 kayıt</p>
+          </div>
+          <div id="logAcik"></div>
+          <details class="detay" id="logDetay">
+            <summary id="logDetayOzet">tüm kayıtlar</summary>
+            <div class="detayIci"><div id="logAlani"></div></div>
+          </details>
+          <p class="logNot">kanıt defterleri append-only'dir; panel yalnız pencere gösterir (diske log YAZMAZ, silme YAPMAZ)</p>
+          <div id="logHata" class="kirmiziYuz" role="alert" hidden></div>
+        </section>
+      </section>
+
+      <!-- PROJE SEKMESİ: DURUM TABLOSU — satır = konuşma; başlıkta durum dağılımı (kartYaz'ın tablo hali) -->
+      <section class="sekmePanel" id="projeSayfa" role="tabpanel" hidden>
+        <section class="bolum" id="bolum-projetablo" aria-labelledby="projetablo-baslik">
+          <h2 class="bolum-etiket" id="projetablo-baslik">
+            <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="11" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="11" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="11" y="11" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            PROJE DURUMU — <span id="projeTabloAd">?</span>
+          </h2>
+          <p class="bolumOzet" id="projeTabloOzet">proje verisi bekleniyor…</p>
+          <div class="bolumIci" id="projeTabloIci"></div>
+          <div id="projeHata" class="kirmiziYuz" role="alert" hidden></div>
+          <p class="rolSatiri senkron">her satır bir Paseo ajan kaydıdır (konuşma); konuşma seçmek için gezgin ağacını kullan — mesaj geçmişi bu tabloda YOK.</p>
+        </section>
+      </section>
+
+      <!-- fail-closed boş yüz: açık proje sekmesi kalmadığında (ORDU sekmesi şeritte sabittir, tıklanır) -->
+      <section class="sekmePanel" id="bosSayfa" role="tabpanel" hidden>
+        <p class="bosSatir">hiç sekme açık değil — gezginden bir proje seç ya da sabit ORDU sekmesine dön</p>
+      </section>
+
     </div>
   </section>
 
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
   <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="380" tabindex="0"></div>
 
-  <!-- ============ SAĞ (#sag): LOG — kanıt defteri görünümü (filtre + son 5 satır AÇIK) ============ -->
-  <section id="sag" aria-label="log — birleşik kanıt kayıtları (kanıt defteri görünümü)">
-    <section class="bolum" id="bolum-log" aria-labelledby="log-baslik">
-      <h2 class="bolum-etiket" id="log-baslik">
-        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 4 H15 V16 H5 Z M7 7 H13 M7 10 H13 M7 13 H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        LOG
+  <!-- ============ SAĞ (#sag): SEÇİLİ KONUŞMA + COMPOSER — gerçek gönderim (FAZ-B) ============
+       Üst: seçili konuşma kartı (tam kimlik + kısa · durum · son etkinlik · sağlayıcı · etiket;
+       mesaj geçmişi YOK — dürüst sınır). Alt: composer — hedef select İKİ AYRI optgroup:
+       (1) ORDU YÖNETİM (kadro rolAtamasi MANAGER — KURMAY-1; disk taramasındaki kimlikle)
+       (2) SEÇİLİ PROJENİN AJANLARI (yönetim kimlikleri HARİÇ — manager ile proje ajanı KARIŞMAZ).
+       Token değeri AKLA/LOCALSTORAGE'A girmez — yalnız istek başlığında gider. -->
+  <section id="sag" aria-label="seçili konuşma ve composer — mesaj gönderimi">
+    <section class="bolum" id="bolum-konusma" aria-labelledby="konusma-baslik">
+      <h2 class="bolum-etiket" id="konusma-baslik">
+        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 V13 H9 L5 17 V13 H3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        KONUŞMA
       </h2>
-      <p class="bolumOzet" id="logOzet">log verisi bekleniyor…</p>
-      <div class="logUstSatir">
-        <div class="logFiltre" role="group" aria-label="zaman penceresi filtresi">
-          <button type="button" class="filtreBtn" data-saat="1" aria-pressed="false">1sa</button>
-          <button type="button" class="filtreBtn" data-saat="6" aria-pressed="false">6sa</button>
-          <button type="button" class="filtreBtn" data-saat="24" aria-pressed="true">24sa</button>
-          <button type="button" class="filtreBtn" data-saat="168" aria-pressed="false">7gün</button>
-        </div>
-        <p class="logTavan" id="logTavan">son 200 kayıt</p>
-      </div>
-      <div id="logAcik"></div>
-      <details class="detay" id="logDetay">
-        <summary id="logDetayOzet">tüm kayıtlar</summary>
-        <div class="detayIci"><div id="logAlani"></div></div>
-      </details>
-      <p class="logNot">kanıt defterleri append-only'dir; panel yalnız pencere gösterir (diske log YAZMAZ, silme YAPMAZ)</p>
-      <div id="logHata" class="kirmiziYuz" role="alert" hidden></div>
+      <div id="konusmaKart" class="konusmaKart"></div>
+      <p class="logNot">mesaj geçmişi burada YOK — Paseo sekmesinde görülür (dürüst sınır; panel yalnız disk taramasındaki kaydı gösterir)</p>
+      <div id="konusmaHata" class="kirmiziYuz" role="alert" hidden></div>
+    </section>
+    <section class="bolum" id="bolum-composer" aria-labelledby="composer-baslik">
+      <h2 class="bolum-etiket" id="composer-baslik">
+        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5 H18 V15 H8 L4 18 V15 H2 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 9 H14 M6 12 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        COMPOSER
+      </h2>
+      <form id="composerForm" novalidate>
+        <label class="gorunur" for="composerHedef">Hedef</label>
+        <select id="composerHedef" aria-label="mesaj hedefi — ordu yönetimi ya da seçili projenin ajanları">
+          <option value="">hedef seçilmedi</option>
+        </select>
+        <label class="gorunur" for="composerMesaj">Mesaj</label>
+        <textarea id="composerMesaj" rows="4" placeholder="gönderilecek mesaj…" maxlength="4096"></textarea>
+        <label class="gorunur" for="token">PANO token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="PANO_TOKEN değeri" />
+        <button type="submit" id="composerGonder">GÖNDER</button>
+      </form>
+      <p id="composerSonuc" role="status" aria-live="polite"></p>
+      <div id="composerHata" class="kirmiziYuz" role="alert" hidden></div>
+      <p class="logNot">gönderim POST /api/mesaj — dar spawn köprüsü (K-0060 TASLAK); token değeri hiçbir yere KAYDEDİLMEZ, yalnız istek başlığında gider</p>
     </section>
   </section>
 
 </main>
 
-<noscript><p style="text-align:center;padding:14px;color:#51617a">Etkileşimler kapalı — komuta panelinin beş bölümü JavaScript ile GET /api/ordu/* uçlarından render edilir; veri olmadan bölüm içerikleri doğmaz (fail-closed).</p></noscript>
+<noscript><p style="text-align:center;padding:14px;color:#51617a">Etkileşimler kapalı — komuta panelinin gezgin/sekmeler/composer blokları JavaScript ile GET /api/ordu/* uçlarından render edilir; veri olmadan içerikler doğmaz (fail-closed).</p></noscript>
 
 <script>
 "use strict";
-// ORDU KOMUTA PANELİ — salt-okur veri: /api/ordu/{genel,kadro,akis,saglik,log} + /api/graf.
+// ORDU KOMUTA PANELİ — FAZ-B (PANEL-EXPLORER-1): SOL gezgin ağacı · ORTA sekmeli editör
+// (ORDU SABİT sekme + 5 alt sekme + proje sekmeleri) · SAĞ seçili konuşma + composer.
+// Salt-okur veri: /api/ordu/{genel,kadro,akis,saglik,log,projeler} + /api/graf — AYNEN;
+// tek YAZMA ucu composer'ın POST /api/mesaj'ı (dar spawn köprüsü — K-0060 TASLAK).
 // Her VERİ KAYNAĞININ kendi kırmızı yüzü var (fail-closed): uç ölse/bayatsa o yüz boşalır +
 // kırmızı 'veri okunamadı' görünür — bayat veri ekranda KALMAZ. 30 sn yenileme.
+// YENİLEME GİRDİ KORUMASI: composer girdileri/ağaç odaktayken o kaplara innerHTML YAZILMAZ —
+// document.activeElement ASLA ezilmez (odakIcindeMi + gonderiyor bayrağı).
 // DÜRÜSTLÜK (§8): ölçümü olmayan alan asla sayı göstermez ('ölçülmedi'); ölçümlü alanlar
 // ÖLÇÜM etiketi + kaynak beyanı taşır; graf görev kutularının sorumlusu kadroda atama
-// YOKSA 'ATANMADI'dır — sahte atama yasak. Ajanlar KOD ADIYLA listelenir
-// (pano/ordu-kadro.json SSOT) — ajan ID'leri ekranda yok.
-// STEERING-8 (render-only): özet şeridi + <details> progressive disclosure — veri katmanı
-// (fetch/esc/uç adları/yenileme) DEĞİŞMEDİ; özet kartları fail-closed'dur (veri ölünce
-// 'okunamadı' yazar, bayat sayı ekranda durmaz).
+// YOKSA 'ATANMADI'dır — sahte atama yasak. Ağaç/konuşma kartı ajan KIMLIĞİNİ gösterir
+// (tarama kaynağı); kadro cephe kutuları KOD ADIYLA listelenir (pano/ordu-kadro.json SSOT).
 const UC = { genel: "/api/ordu/genel", kadro: "/api/ordu/kadro", akis: "/api/ordu/akis", saglik: "/api/ordu/saglik", log: "/api/ordu/log", projeler: "/api/ordu/projeler", graf: "/api/graf" };
 const YENILE_SN = 30;
 let G = null; // graf SSOT — yalnız son başarılı fetch
@@ -1073,11 +1212,14 @@ async function kadroYukle() {
     const canli = birlikler.filter((b) => b.canlilik && b.canlilik.canli).length;
     ozetYaz("ozetCanli", String(canli));
     ozetYaz("ozetCanliAlt", birlikler.length + " birlik · kira: " + (K.kiraEtiketi || "bilinmiyor"));
+    /* FAZ-B: ORDU YÖNETİM optgroup kaynağı kadro geldi — composer hedef listesi tazelensin (girdi korumasıyla) */
+    if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
   } catch (e) {
     K = null;
     kirmiziYuzGoster("orduHata", "dalgaAlani", UC.kadro + " — " + e.message);
     ozetYaz("ozetCanli", "okunamadı");
     ozetYaz("ozetCanliAlt", "");
+    if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle(); /* yönetim grubu dürüst boşalır */
   }
 }
 
@@ -1215,85 +1357,387 @@ async function logYukle() {
   }
 }
 
-/* ---- (STEERING-7) PROJE DURUMLARI — Paseo canlı tarama (salt-okur; her yenilemede diskten) ---- */
-let P = null; // Paseo proje taraması — yalnız son başarılı fetch (bayat kart verisi ekranda kalmaz)
-let seciliProje = "ordu"; // select değeri: "ordu" = 6-bölüm detay paneli; dizin adı = durum kartı
+/* ---- (FAZ-B) PROJE DURUMLARI — Paseo canlı tarama: GEZGİN AĞACI + ANA SEKMELER + COMPOSER ---- */
+let P = null; // Paseo proje taraması — yalnız son başarılı fetch (bayat veri ekranda kalmaz)
+
+/* GEZGİN ağacı durumu — localStorage kalıcı (anahtarlar ordu-agac-*: ordu-solW/sagW ile ÇAKIŞMAZ).
+   oku/kaydet fonksiyon bildirimleri hoisted'dir — buradaki ilk okuma güvenli. */
+let agacAcik = new Set();
+try {
+  const kayitliAcik = oku("ordu-agac-acik");
+  if (kayitliAcik) {
+    const d = JSON.parse(kayitliAcik);
+    if (Array.isArray(d)) agacAcik = new Set(d.filter((x) => typeof x === "string"));
+  }
+} catch (e) { /* bozuk kayıt: boş ağaçla başla (fail-closed) */ }
+let agacSecili = oku("ordu-agac-secili") || null; // seçili konuşma TAM ajan kimliği | null
+let seciliKonusma = null; // { ajan, projeDizin, projeAdi, orduMu } — SAĞ kart + composer hedefi
+
+/* ANA SEKME durumu: ORDU sekmesi SABİT (kapatılamaz); proje sekmeleri X ile kapanır.
+   Sekme listesi bilinçli olarak KALICI DEĞİL (oturum-içi çalışma yüzü); ağaç/seçim kalıcıdır. */
+let acikSekmeler = []; // açık proje sekmeleri (dizin adları; ORDU hariç)
+let aktifSekme = "ordu"; // "ordu" | dizin | null (null = boş yüz)
+let aktifAltSekme = "durum"; // ORDU sekmesi içindeki alt sekme
+
+/* YENİLEME GİRDİ KORUMASI (FAZ-B'nin en riskli kısmı): 30sn döngüsü sürerken composer
+   girdileri (hedef/mesaj/token) ve ağaç düğümleri ODAKTAYKEN içlerinde innerHTML YAZILMAZ —
+   document.activeElement ASLA ezilmez. Veri çekilir; girdi taşımayan kaplar tazelenir. */
+function odakIcindeMi(secici) {
+  const el = document.activeElement;
+  return !!(el && typeof el.closest === "function" && el.closest(secici));
+}
+let gonderiyor = false; // composer gönderimi sürerken hedef listesi/girdileri DEĞİŞMEZ
 
 async function projelerYukle() {
   try {
     P = await cek(UC.projeler);
-    kirmiziYuzKapat("projeHata");
-    grupDoldur();
-    if (seciliProje !== "ordu") kartYaz();
+    kirmiziYuzKapat("agacHata");
+    if (!odakIcindeMi("#bolum-agac")) agacYaz();
+    if (!seciliKonusma && agacSecili) konusmaSecGuncelle(); /* kalıcı seçimi taramayla eşle */
+    if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
+    if (aktifSekme && aktifSekme !== "ordu") projeTabloYaz();
   } catch (e) {
     P = null;
-    if (seciliProje !== "ordu") kirmiziYuzGoster("projeHata", "projeKartIci", UC.projeler + " — " + e.message);
-    /* ORDU görünümündeyken tarama ölürse: kart görünmüyor, kırmızı yüz kart alanında bekler */
+    kirmiziYuzGoster("agacHata", "agacAlani", UC.projeler + " — " + e.message);
+    $("agacOzet").textContent = "proje taraması okunamadı";
   }
 }
 
-function grupDoldur() {
-  const grup = $("projeGrup");
-  const kalinan = $("projeSec").value;
-  while (grup.firstChild) grup.removeChild(grup.firstChild);
-  if (!P || !Array.isArray(P.projeler)) return;
-  for (const pr of P.projeler) {
-    const o = document.createElement("option");
-    o.value = pr.dizin;
-    o.textContent = pr.projeAdi; /* §7: seçenek etiketi yalnız ad — sayaç/rozet meta YAZMAZ */
-    grup.appendChild(o);
-  }
-  $("projeSec").value = kalinan; /* seçim korunur; kayıt taramadan düştüyse ORDU'ya döner */
-  if ($("projeSec").value !== kalinan) gorunumDegistir("ordu");
+/* ---- GEZGİN: ağaç render — ORDU projesi İLK + özel işaret; her düğüm 44px; etiket esc() ---- */
+const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" }; /* closed = soluk */
+
+function ajanDugumHtml(a, pr) {
+  const secili = agacSecili === a.ajanKimligi;
+  const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
+  const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const etiket = typeof a.etiket === "string" && a.etiket.trim() ? esc(a.etiket) : '<span class="olculmedi">(başlıksız)</span>';
+  return (
+    '<button type="button" class="agacAjan' + (secili ? " secili" : "") + '" data-ajan="' + esc(a.ajanKimligi) + '" data-proje="' + esc(pr.dizin) + '" title="' + esc(a.ajanKimligi) + '">' +
+    '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span>' +
+    '<span class="agacAjanId">' + esc(kisa) + "</span>" +
+    '<span class="agacEtiket">' + etiket + "</span>" +
+    "</button>"
+  );
 }
 
-function kartYaz() {
-  const alan = $("projeKartIci");
+function agacYaz() {
   if (!P || !Array.isArray(P.projeler)) {
-    kirmiziYuzGoster("projeHata", "projeKartIci", UC.projeler + " — veri yok (fail-closed; bayat kart gösterilmez)");
+    $("agacOzet").textContent = "tarama verisi yok";
+    $("agacAlani").innerHTML = '<p class="bosSatir">proje taraması yok (fail-closed)</p>';
     return;
   }
-  const pr = P.projeler.find((p) => p.dizin === seciliProje);
+  /* ORDU önce (özel işaret), kalanlar Türkçe locale ada göre — kaynak sırasına değil kararlı render'a bağla */
+  const projeler = [...P.projeler].sort((a, b) => (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0) || String(a.projeAdi).localeCompare(String(b.projeAdi), "tr"));
+  let html = "";
+  let toplamAjan = 0;
+  for (const pr of projeler) {
+    const acik = agacAcik.has(pr.dizin);
+    const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
+    toplamAjan += ajanlar.length;
+    html +=
+      '<div class="agacProje' + (acik ? " acik" : "") + '">' +
+      '<button type="button" class="agacProjeBas" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '">' +
+      '<span class="agacOk" aria-hidden="true"></span>' +
+      (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
+      '<span class="agacAd">' + esc(pr.projeAdi) + "</span>" +
+      '<span class="agacSayi">' + ajanlar.length + "</span>" +
+      "</button>" +
+      (acik
+        ? '<div class="agacCocuklar">' + (ajanlar.map((a) => ajanDugumHtml(a, pr)).join("") || '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>"
+        : "") +
+      "</div>";
+  }
+  $("agacOzet").innerHTML = "<b>" + projeler.length + "</b> proje · <b>" + toplamAjan + "</b> ajan kaydı · ölçüm " + esc(P.olcumAniISO || "—");
+  $("agacAlani").innerHTML = html || '<p class="bosSatir">taramada proje yok (dürüst boş)</p>';
+}
+
+/* ağaç tıklamaları (temsilci dinleyici): proje → akordiyon + sekme aç; ajan → seçili konuşma */
+$("agacAlani").addEventListener("click", (e) => {
+  const projeDugumu = e.target.closest(".agacProjeBas");
+  if (projeDugumu) {
+    const dizin = projeDugumu.dataset.proje;
+    if (agacAcik.has(dizin)) agacAcik.delete(dizin);
+    else agacAcik.add(dizin);
+    kaydet("ordu-agac-acik", JSON.stringify([...agacAcik]));
+    sekmeAc(dizin); /* projeye tıkla → ORTA'da o projenin sekmesi (akordiyonla birlikte) */
+    agacYaz();
+    return;
+  }
+  const ajanDugumu = e.target.closest(".agacAjan");
+  if (ajanDugumu) {
+    agacSecili = ajanDugumu.dataset.ajan;
+    kaydet("ordu-agac-secili", agacSecili || "");
+    konusmaSecGuncelle();
+    agacYaz();
+  }
+});
+
+/* seçili konuşmayı P taramasında bul → SAĞ kart + composer hedefi (yoksa dürüst boş kart) */
+function konusmaSecGuncelle() {
+  seciliKonusma = null;
+  if (agacSecili && P && Array.isArray(P.projeler)) {
+    for (const pr of P.projeler) {
+      const a = (Array.isArray(pr.ajanlar) ? pr.ajanlar : []).find((x) => x.ajanKimligi === agacSecili);
+      if (a) {
+        seciliKonusma = { ajan: a, projeDizin: pr.dizin, projeAdi: pr.projeAdi, orduMu: !!pr.orduMu };
+        break;
+      }
+    }
+  }
+  konusmaKartYaz();
+  if (!gonderiyor) composerHedefGuncelle();
+}
+
+/* ---- SAĞ: seçili konuşma kartı (mesaj geçmişi YOK — dürüst sınır; Paseo sekmesinde görülür) ---- */
+function konusmaKartYaz() {
+  const kart = $("konusmaKart");
+  if (!seciliKonusma) {
+    kirmiziYuzKapat("konusmaHata");
+    kart.innerHTML = '<p class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</p>';
+    return;
+  }
+  const a = seciliKonusma.ajan;
+  const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
+  kart.innerHTML =
+    '<div class="gdEtiket">' + esc(seciliKonusma.projeAdi) + (seciliKonusma.orduMu ? " (ORDU)" : "") + "</div>" +
+    '<p class="kutuAd">' + esc(typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : "(başlıksız ajan)") + "</p>" +
+    '<p class="konusmaKimlik" title="' + esc(a.ajanKimligi) + '">' + esc(a.ajanKimligi) + " · kısa " + esc(kisa) + "</p>" +
+    '<p class="miniSatir"><span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span> <b>' + esc(a.lastStatus || "durum bilinmiyor") + "</b></p>" +
+    '<p class="miniSatir">son etkinlik: <span class="mono">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</span></p>" +
+    '<p class="miniSatir">sağlayıcı: ' + esc(a.provider || "bilinmiyor") + "</p>";
+}
+
+/* ---- SAĞ: COMPOSER hedef listesi — İKİ AYRI optgroup (manager ile proje ajanı KARIŞMAZ) ----
+   (1) ORDU YÖNETİM: kadro rolAtamasi.MANAGER birlikleri — ajanKimlik disk taramasındaysa gönderilebilir,
+       değilse dürüst devre-dışı seçenek (fail-closed: sunucu beyaz listesi zaten REDder).
+   (2) SEÇİLİ PROJENİN AJANLARI: seçili konuşmanın (yoksa aktif sekmenin) projesi — yönetim kimlikleri HARİÇ. */
+function yonetimKimlikleri() {
+  const liste = [];
+  if (K && K.rolAtamasi && Array.isArray(K.rolAtamasi.MANAGER) && Array.isArray(K.birlikler)) {
+    for (const kodAdi of K.rolAtamasi.MANAGER) {
+      const b = K.birlikler.find((x) => x.kodAdi === kodAdi);
+      if (b && typeof b.ajanId === "string" && b.ajanId.trim()) liste.push({ kodAdi, kimlik: b.ajanId });
+    }
+  }
+  return liste;
+}
+
+function diskAjanKumesi() {
+  const kume = new Set();
+  if (P && Array.isArray(P.projeler)) {
+    for (const pr of P.projeler) for (const a of Array.isArray(pr.ajanlar) ? pr.ajanlar : []) kume.add(a.ajanKimligi);
+  }
+  return kume;
+}
+
+function composerHedefGuncelle() {
+  const sec = $("composerHedef");
+  const seciliProjeDizini = seciliKonusma ? seciliKonusma.projeDizin : aktifSekme && aktifSekme !== "ordu" ? aktifSekme : null;
+  const pr = P && Array.isArray(P.projeler) && seciliProjeDizini ? P.projeler.find((x) => x.dizin === seciliProjeDizini) : null;
+  const yonetim = yonetimKimlikleri();
+  const diskte = diskAjanKumesi();
+  const eskiDeger = sec.value;
+  let html = '<option value="">hedef seçilmedi</option>';
+  /* (1) ORDU YÖNETİM */
+  html += '<optgroup label="ORDU YÖNETİM">';
+  if (yonetim.length === 0) html += '<option value="" disabled>kayıtlı yönetici yok (kadro rolAtamasi boş)</option>';
+  for (const y of yonetim) {
+    html += diskte.has(y.kimlik)
+      ? '<option value="' + esc(y.kimlik) + '">' + esc(y.kodAdi + " — " + y.kimlik.slice(0, 8)) + "</option>"
+      : '<option value="" disabled>' + esc(y.kodAdi) + " — disk taramasında yok (gönderilemez)</option>";
+  }
+  html += "</optgroup>";
+  /* (2) SEÇİLİ PROJENİN AJANLARI — yönetim kimlikleri HARİÇ */
+  const yonetimKumesi = new Set(yonetim.map((y) => y.kimlik));
+  const ajanlar = pr ? (Array.isArray(pr.ajanlar) ? pr.ajanlar : []) : [];
+  const projeAjanlari = ajanlar.filter((a) => !yonetimKumesi.has(a.ajanKimligi));
+  html += '<optgroup label="SEÇİLİ PROJE: ' + esc(pr ? pr.projeAdi : "yok") + ' AJANLARI">';
+  if (projeAjanlari.length === 0) html += '<option value="" disabled>' + (pr ? "bu projede yönetim dışı ajan yok" : "proje seçilmedi (gezgin ya da sekme)") + "</option>";
+  for (const a of projeAjanlari) {
+    const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+    const etiket = typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : "(başlıksız)";
+    html += '<option value="' + esc(a.ajanKimligi) + '">' + esc(kisa + " · " + etiket) + "</option>";
+  }
+  html += "</optgroup>";
+  sec.innerHTML = html;
+  /* seçim korunur: eski değer hâlâ listedeyse geri koy; yoksa seçili konuşmanın kimliği */
+  let hedef = "";
+  if (eskiDeger && [...sec.options].some((o) => o.value === eskiDeger)) hedef = eskiDeger;
+  else if (seciliKonusma && [...sec.options].some((o) => o.value === seciliKonusma.ajan.ajanKimligi)) hedef = seciliKonusma.ajan.ajanKimligi;
+  sec.value = hedef;
+}
+
+/* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü K-0060 TASLAK) ---- */
+$("composerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const sonuc = $("composerSonuc");
+  const hedef = $("composerHedef").value;
+  const mesaj = $("composerMesaj").value;
+  const token = $("token").value; /* değer AKLA/LOCALSTORAGE'A girmez — yalnız istek başlığında gider */
+  kirmiziYuzKapat("composerHata");
+  sonuc.className = "";
+  if (!hedef) {
+    sonuc.textContent = "hedef seçilmedi (ORDU YÖNETİM ya da seçili projenin ajanları)";
+    sonuc.className = "hata";
+    return;
+  }
+  if (!mesaj.trim()) {
+    sonuc.textContent = "mesaj boş";
+    sonuc.className = "hata";
+    return;
+  }
+  const dugme = $("composerGonder");
+  gonderiyor = true;
+  dugme.disabled = true;
+  dugme.textContent = "gönderiliyor…";
+  sonuc.textContent = "gönderiliyor…";
+  try {
+    const r = await fetch("/api/mesaj", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-pano-token": token },
+      body: JSON.stringify({ hedef, mesaj }),
+      cache: "no-store",
+    });
+    let v = null;
+    try { v = await r.json(); } catch (e2) { /* gövde JSON değil — dürüst ham durum kodu kalır */ }
+    if (r.ok && v && v.gonderildi) {
+      sonuc.textContent = "gönderildi — " + hedef.slice(0, 8) + " · " + (v.zamanISO || "?");
+      sonuc.className = "basarili";
+      $("composerMesaj").value = ""; /* gönderilen mesaj editörde beklemesin */
+    } else {
+      sonuc.textContent = "";
+      kirmiziYuzGoster("composerHata", null, "POST /api/mesaj — HTTP " + r.status + (v && v.hata ? " · " + v.hata : ""));
+    }
+  } catch (e2) {
+    sonuc.textContent = "";
+    kirmiziYuzGoster("composerHata", null, "POST /api/mesaj — " + e2.message);
+  } finally {
+    gonderiyor = false;
+    dugme.disabled = false;
+    dugme.textContent = "GÖNDER";
+  }
+});
+
+/* ---- ORTA: ANA SEKME şeridi — ORDU SABİT + proje sekmeleri (X ile kapanır) ---- */
+function anaSekmeYaz() {
+  const serit = $("anaSekmeSerit");
+  let html =
+    '<button type="button" class="sekme' + (aktifSekme === "ordu" ? " aktif" : "") + '" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="' + (aktifSekme === "ordu" ? "true" : "false") + '" tabindex="' + (aktifSekme === "ordu" ? 0 : -1) + '">ORDU</button>';
+  for (const dizin of acikSekmeler) {
+    const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x.dizin === dizin) : null;
+    const ad = pr ? pr.projeAdi : dizin; /* kayıt taramadan düştüyse dizin adı dürüst yedek */
+    const aktif = aktifSekme === dizin;
+    html +=
+      '<span class="anaSekmeGrup" role="presentation">' +
+      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(dizin) + '">' + esc(ad) + "</button>" +
+      '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat">x</button>' +
+      "</span>";
+  }
+  serit.innerHTML = html;
+}
+
+$("anaSekmeSerit").addEventListener("click", (e) => {
+  const kapat = e.target.closest(".sekmeKapat");
+  if (kapat) { sekmeKapat(kapat.dataset.kapat); return; }
+  const sek = e.target.closest("[data-ana]");
+  if (sek) anaSekmeDegistir(sek.dataset.ana);
+});
+
+function sekmeAc(dizin) {
+  if (!dizin || dizin === "ordu") { anaSekmeDegistir("ordu"); return; }
+  if (!acikSekmeler.includes(dizin)) acikSekmeler.push(dizin);
+  anaSekmeDegistir(dizin);
+}
+
+function sekmeKapat(dizin) {
+  const i = acikSekmeler.indexOf(dizin);
+  if (i >= 0) acikSekmeler.splice(i, 1);
+  if (aktifSekme === dizin) {
+    if (acikSekmeler.length > 0) anaSekmeDegistir(acikSekmeler[acikSekmeler.length - 1]);
+    else anaSekmeBos(); /* son proje sekmesi kapandı → fail-closed boş yüz; ORDU şeritte sabit, tıklanır */
+  } else anaSekmeYaz();
+}
+
+const ALT_SEKME_PANEL = { durum: "durumBolum", plan: "planBolum", akis: "akisBolum", saglik: "saglikBolum", log: "logBolum" };
+
+function altPanelUygula() {
+  for (const s of Object.keys(ALT_SEKME_PANEL)) {
+    $(ALT_SEKME_PANEL[s]).hidden = !(aktifSekme === "ordu" && s === aktifAltSekme);
+  }
+}
+
+function panelSiniflariTazele() {
+  /* görünür panel(ler) .acik alır (geçiş animasyonu yalnız transform/opacity — E12) */
+  document.querySelectorAll(".sekmePanel").forEach((p) => p.classList.toggle("acik", !p.hidden));
+}
+
+function anaSekmeDegistir(id) {
+  if (id !== "ordu" && !acikSekmeler.includes(id)) id = "ordu"; /* kapanmış/düşmüş sekme → ORDU'ya dön (fail-closed) */
+  aktifSekme = id;
+  anaSekmeYaz();
+  $("altSekmeSerit").hidden = id !== "ordu";
+  altPanelUygula();
+  $("projeSayfa").hidden = id === "ordu";
+  $("bosSayfa").hidden = true;
+  if (id !== "ordu") projeTabloYaz();
+  requestAnimationFrame(panelSiniflariTazele);
+  if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle(); /* proje grubu seçili projeye döner */
+}
+
+function anaSekmeBos() {
+  aktifSekme = null;
+  anaSekmeYaz();
+  $("altSekmeSerit").hidden = true;
+  $("projeSayfa").hidden = true;
+  $("bosSayfa").hidden = false;
+  for (const s of Object.keys(ALT_SEKME_PANEL)) $(ALT_SEKME_PANEL[s]).hidden = true;
+  requestAnimationFrame(panelSiniflariTazele);
+}
+
+/* ---- ORTA: PROJE SEKMESİ içeriği — DURUM TABLOSU (satır = konuşma; başlıkta durum dağılımı) ---- */
+function projeTabloYaz() {
+  if (!aktifSekme || aktifSekme === "ordu") return;
+  if (!P || !Array.isArray(P.projeler)) {
+    kirmiziYuzGoster("projeHata", "projeTabloIci", UC.projeler + " — veri yok (fail-closed; bayat tablo gösterilmez)");
+    return;
+  }
+  const pr = P.projeler.find((x) => x.dizin === aktifSekme);
   if (!pr) {
-    kirmiziYuzGoster("projeHata", "projeKartIci", "proje kaydı taramada bulunamadı: " + seciliProje);
+    kirmiziYuzGoster("projeHata", "projeTabloIci", "proje kaydı taramada bulunamadı: " + aktifSekme);
     return;
   }
   kirmiziYuzKapat("projeHata");
   const d = pr.durumSayilari || {};
   const durum = ["running", "idle", "error", "closed", "diger"].map((k) => k + " " + (d[k] !== undefined ? d[k] : 0)).join(" · ");
-  const sag = Object.entries(pr.saglayicilar || {}).map(([ad, adet]) => esc(ad) + " " + adet).join(" · ");
-  const ajanlar = (pr.sonAjanlar || [])
-    .map((a) => '<li class="projeAjan"><span class="mono">' + esc(a.ajanId || "—") + "</span> · " + esc(a.lastStatus || "bilinmiyor") + " · " + esc(a.sonEtkinlikISO || "ölçülemedi") + "</li>")
-    .join("");
-  $("projeKartAd").textContent = pr.projeAdi;
-  alan.innerHTML =
-    '<div class="gdKart"><div class="gdEtiket">AJAN SAYISI</div><div class="gdDeger">' + esc(String(pr.ajanSayisi)) + "</div></div>" +
-    '<div class="gdKart"><div class="gdEtiket">DURUM DAĞILIMI</div><div class="gdDeger">' + esc(durum) + "</div></div>" +
-    '<div class="gdKart"><div class="gdEtiket">SAĞLAYICILAR</div><div class="gdDeger">' + (sag || "—") + "</div></div>" +
-    '<div class="gdKart"><div class="gdEtiket">SON ETKİNLİK</div><div class="gdDeger mono">' + (pr.sonEtkinlikISO ? esc(pr.sonEtkinlikISO) : '<span class="olculmedi">ölçülemedi</span>') + "</div></div>" +
-    '<div class="gdKart"><div class="gdEtiket">SON 5 AJAN</div><ul class="projeAjanListe">' + (ajanlar || '<li class="bosSatir">—</li>') + "</ul></div>" +
-    '<div class="gdKart"><div class="gdEtiket">ÖLÇÜM ANI</div><div class="gdDeger mono">' + esc(P.olcumAniISO || "—") + "</div>" +
-    '<div class="kaynakKucuk">bozuk atlanan kayıt: ' + esc(String(P.atlanan !== undefined ? P.atlanan : 0)) + (pr.orduMu ? " · bu dizin ORDU projesinin kendisi" : "") + "</div></div>";
+  $("projeTabloAd").textContent = pr.projeAdi;
+  $("projeTabloOzet").innerHTML =
+    "<b>" + esc(String(pr.ajanSayisi)) + "</b> ajan kaydı · durum dağılımı: " + esc(durum) +
+    " · ölçüm " + esc(P.olcumAniISO || "—") + " · atlanan " + esc(String(P.atlanan !== undefined ? P.atlanan : 0)) +
+    (pr.orduMu ? " · bu dizin ORDU projesinin kendisi" : "");
+  const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
+  const satirlar = ajanlar.map((a) => {
+    const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "—";
+    const etiket = typeof a.etiket === "string" && a.etiket.trim() ? esc(a.etiket) : '<span class="olculmedi">(başlıksız)</span>';
+    return (
+      "<tr>" +
+      '<td class="mono" title="' + esc(a.ajanKimligi) + '">' + esc(kisa) + "</td>" +
+      "<td>" + etiket + "</td>" +
+      '<td><span class="nokta ' + (NOKTA_SINIF[a.lastStatus] || "gri") + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span> ' + esc(a.lastStatus || "bilinmiyor") + "</td>" +
+      '<td class="mono">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</td>" +
+      "<td>" + esc(a.provider || "bilinmiyor") + "</td>" +
+      "</tr>"
+    );
+  });
+  $("projeTabloIci").innerHTML =
+    satirlar.length === 0
+      ? '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>'
+      : '<table class="planTablo"><caption class="gizli">proje konuşma tablosu — kısa kimlik, etiket, durum, son etkinlik, sağlayıcı</caption><thead><tr>' +
+        '<th scope="col">Kimlik</th><th scope="col">Etiket</th><th scope="col">Durum</th><th scope="col">Son etkinlik</th><th scope="col">Sağlayıcı</th>' +
+        "</tr></thead><tbody>" +
+        satirlar.join("") +
+        "</tbody></table>";
 }
-
-function gorunumDegistir(deger) {
-  seciliProje = deger;
-  const ordu = deger === "ordu";
-  for (const id of ["bolum-genel", "bolum-plan", "bolum-akis", "bolum-saglik", "bolum-log"]) {
-    $(id).hidden = !ordu;
-  }
-  $("bolum-projekart").hidden = ordu;
-  /* STEERING-9 (c) — YALNIZ hidden satırları eklendi: ORDU dışı proje seçilince
-     kolon kabukları (#sol/#splitSol/#orta/#splitSag/#sag) da gizlenir; kart tam
-     genişlikte tek görünür yüz olur (grid'de 1 / -1 hücresi zaten bekliyor). */
-  for (const id of ["sol", "splitSol", "orta", "splitSag", "sag"]) {
-    $(id).hidden = !ordu;
-  }
-  if (ordu) kirmiziYuzKapat("projeHata");
-  else kartYaz();
-}
-
-$("projeSec").addEventListener("change", () => { gorunumDegistir($("projeSec").value); });
 
 document.querySelectorAll(".filtreBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -1305,27 +1749,30 @@ document.querySelectorAll(".filtreBtn").forEach((btn) => {
   });
 });
 
-/* ---- STEERING-9 (a): SEKME — YALNIZ UI (class/aria/hidden; fetch/veri YOK).
-   Başlangıç: PLAN aktif. Geçiş animasyonu yalnız transform/opacity (E12, ≤600ms). ---- */
-const SEKME_PANEL = { plan: "planBolum", akis: "akisBolum", saglik: "saglikBolum" };
+/* ---- (FAZ-B) ALT SEKME (ORDU sekmesi içinde): DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG —
+   YALNIZ UI (class/aria/hidden; fetch/veri YOK — sözleşme aynı). Geçiş animasyonu
+   yalnız transform/opacity (E12, ≤600ms). Dinleyici statik alt şeride bağlı —
+   ana sekmeler (dinamik) data-sekme TAŞIMAZ, bu dinleyiciye girmez. ---- */
 function sekmeDegistir(ad) {
-  const aktif = SEKME_PANEL[ad] ? ad : "plan";
-  for (const s of Object.keys(SEKME_PANEL)) {
+  const aktif = ALT_SEKME_PANEL[ad] ? ad : "durum";
+  aktifAltSekme = aktif;
+  for (const s of Object.keys(ALT_SEKME_PANEL)) {
     const sekme = $("sek-" + s);
-    const panel = $(SEKME_PANEL[s]);
+    const panel = $(ALT_SEKME_PANEL[s]);
     const acik = s === aktif;
     sekme.setAttribute("aria-selected", acik ? "true" : "false");
     sekme.tabIndex = acik ? 0 : -1;
-    panel.hidden = !acik;
+    sekme.classList.toggle("aktif", acik);
   }
-  document.querySelectorAll(".sekmePanel").forEach((p) => p.classList.remove("acik"));
-  const gorunen = $(SEKME_PANEL[aktif]);
-  requestAnimationFrame(() => { if (gorunen && !gorunen.hidden) gorunen.classList.add("acik"); });
+  altPanelUygula();
+  requestAnimationFrame(panelSiniflariTazele);
 }
-document.querySelectorAll(".sekme").forEach((btn) => {
-  btn.addEventListener("click", () => sekmeDegistir(btn.dataset.sekme));
+$("altSekmeSerit").addEventListener("click", (e) => {
+  const sek = e.target.closest("[data-sekme]");
+  if (sek) sekmeDegistir(sek.dataset.sekme);
 });
-sekmeDegistir("plan"); /* başlangıç: PLAN aktif */
+anaSekmeDegistir("ordu"); /* başlangıç: ORDU ana sekmesi aktif */
+sekmeDegistir("durum"); /* başlangıç: DURUM alt sekmesi aktif */
 
 /* ---- STEERING-9 (b): SPLITTER ×2 — kapsul-tuval.html ADIM-C deseninin KOPYASI
    (pointer events + klavye ←/→ ±16px + clamp 180px–45vw + aria-valuenow).
@@ -1392,6 +1839,7 @@ window.addEventListener("resize", () => { /* 45vw tavanı pencereyle daralabilir
 });
 
 function hepsiniYukle() { genelYukle(); planYukle(); kadroYukle(); akisYukle(); saglikYukle(); logYukle(); projelerYukle(); }
+konusmaKartYaz(); /* başlangıçta dürüst boş kart (P gelince kalıcı seçim eşleşirse dolar) */
 hepsiniYukle();
 setInterval(hepsiniYukle, YENILE_SN * 1000);
 </script>

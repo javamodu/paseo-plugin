@@ -1,0 +1,26 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-EXPLORER-1-2026-11-03",
+  "baslik": "ORDU paneli FAZ-B: gezgin ağacı + sekmeli editör + composer (üç-kolon VS Code tarzı)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "faz-b", "composer", "vm-test"],
+  "siddet": "bilgi",
+  "oneri": "Koordinatör 4937 izole sunucusunda canlı DOM doğrulaması (agac/sekme/composer) + K-0060 denetimi sonrası yürürlük; gerçek paseo send canlı testi koordinatör sorumluluğunda.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 14:03): üç yapılamayan da koordinatör tarafından kapatıldı — (1) gerçek paseo send CANLI KOŞULDU: 4937 izole sunucu + atılabilir KOPRU-TEST ajanı (4d02440d) → yanlış token 401 · gerçek gönderim 200 {gonderildi:true} + daemon kuyruk makbuzu · ardışık 429; (2) canlı DOM doğrulandı: GEZGİN 74 proje/1036 kayıt · ORDU akordiyonu + 134 konuşma düğümü · composer İKİ AYRI optgroup (ORDU YÖNETİM: KURMAY-1 tek · SEÇİLİ PROJE AJANLARI: 60, yönetim hariç) · konuşma tıklanınca hedef select tam kimliğe bağlandı · görünür kırmızı yüz 0 (LOG alt-sekmesi gizli panel metni — bilinen iyi huylu sınıf); (3) K-0060 YÜRÜRLÜKTE. Koordinatör bağımsız koşumlar: npm zinciri 68/68 + glob 290/290 fail 0. Kanıt: raporlar/ordu-panosu-2026-11-03/ekran-kanit-explorer-composer.png.",
+  "olcum": {
+    "damga": "2026-11-03 13:52",
+    "HEAD": "03872b6",
+    "orduPanosuTestleri": "58/58 (fail 0)",
+    "npmZinciri": "d1a 7/7 + d1b 12/12 + node --test ordu-panosu+paseo-kopru+mesaj-ucu 68/68",
+    "globRegresyon": "node --test pano/*.test.mjs scripts/*.test.mjs = 290/290 fail 0 (repo kökünden)"
+  },
+  "yapilamayan": [
+    "Gerçek paseo send çağrısı canlıda TEST EDİLMEDİ (görev sınırı: canlı yan etki koordinatör sorumluluğunda).",
+    "Canlı DOM doğrulaması yapılmadı (koordinatörün 4937 Paseo sekmesinde).",
+    "K-0060 halen TASLAK — yürürlükte değil; composer gönderimi sunucu tarafında köprünün whitelist + token kapısına bağlı."
+  ],
+  "islenmeNotu": "yapilamanan maddeleri yazıcı dürüstçe sınırdan devretti; koordinatör kapanışında üçü de kanıtlı kapatıldı (islenme alanı) — maddeler append-only ilkesiyle değiştirilmedi"
+}

@@ -84,20 +84,29 @@ test("1- bes bolum + iki alt-bolum (spec guncellemesi: ORDU bolumu 2b'ye birlest
   ok("siralama basitten karmasiga: genel < plan < akis < saglik < log", genelIdx < planIdx && planIdx < akisIdx && akisIdx < sagIdx && sagIdx < logIdx);
 });
 
-test("2- proje SELECT (STEERING-7): ORDU secenegi + PROJE DURUMLARI canli-tarama grubu ikisi de var", () => {
-  ok('select id="projeSec"', HTML.includes('id="projeSec"'));
-  const secenek = (htmlKisim().match(/<option/g) || []).length;
-  ok("statik kaynakta 1 option (ORDU PROJESI) — tarama secenekleri JS ile eklenir", secenek === 1, "bulunan: " + secenek);
-  ok("ORDU PROJESI etiketi", HTML.includes(">ORDU PROJESİ</option>"));
-  ok("sec icin gizli label (erisilebilirlik)", HTML.includes('for="projeSec"'));
-  ok("ikinci grup: optgroup PROJE DURUMLARI — Paseo canli tarama", HTML.includes('<optgroup label="PROJE DURUMLARI — Paseo canlı tarama" id="projeGrup">'));
-  ok("proje durum karti bolumu (default gizli)", /<section[^>]*bolum-projekart[^>]*hidden/.test(HTML));
-  ok("kart h2 + dinamik ad alani", HTML.includes('PROJE DURUMU — <span id="projeKartAd"'));
-  ok("durust satir: detay paneli yalniz ORDU", HTML.includes("detay paneli şu an yalnız ORDU projesi için; diğer projeler durum kartı gösterir"));
-  ok("durust satir: dogmamis workspace gorunmez", HTML.includes("ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ"));
+test("2- GEZGİN AĞACI (FAZ-B): SOL kolon = projeler + konuşmalar; üstteki select KALDIRILDI (tek seçim yolu ağaç)", () => {
+  /* --- KALDIRILANLAR (bilinçli: ağaç tek seçim yolu — çift kaynak yasak) --- */
+  ok("üstteki proje select KALDIRILDI", !HTML.includes('id="projeSec"') && !HTML.includes('id="projeGrup"'));
+  ok("proje durum kartı bölümü KALDIRILDI (tablo ORTA sekmeye taşındı)", !HTML.includes('id="bolum-projekart"') && !HTML.includes('id="projeKartIci"'));
+  ok("gorunumDegistir ikili modu KALDIRILDI", !jsKisim().includes("function gorunumDegistir("));
+  /* --- YENİ: gezgin ağacı kabuğu --- */
+  ok("SOL = GEZGİN (bolum-agac + h2 GEZGİN)", HTML.includes('id="bolum-agac"') && /GEZGİN\s*<\/h2/.test(HTML));
+  ok("ağaç kapları: agacAlani + agacOzet + agacHata (fail-closed kırmızı yüz)", HTML.includes('id="agacAlani"') && HTML.includes('id="agacOzet"') && HTML.includes('id="agacHata"'));
+  ok("ağaç CSS sınıfları (agac/agacProje/agacAjan/agacCocuklar)", /\.agac\s*\{/.test(HTML) && /\.agacProje\s*\{/.test(HTML) && /\.agacAjan\s*\{/.test(HTML) && /\.agacCocuklar\s*\{/.test(HTML));
+  ok("ağaç düğümü 44px dokunma (§5)", /\.agacProjeBas\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("durum noktası sınıfları: running yesil · idle gri · error kirmizi · closed KAPALI-soluk", jsKisim().includes('const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" }') && /\.nokta\.kapali\s*\{[^}]*opacity:\s*0\.45/.test(HTML));
+  /* --- kalıcılık: ordu-agac-* anahtarları (ordu-solW/sagW ile ÇAKIŞMAZ) --- */
   const j = jsKisim();
-  ok("gorunumDegistir: 5 bolum gizlenir/kart gosterilir", j.includes('"bolum-genel", "bolum-plan", "bolum-akis", "bolum-saglik", "bolum-log"') && j.includes('$("bolum-projekart").hidden = ordu'));
-  ok("select change dinleyicisi gorunumu degistirir", j.includes('$("projeSec").addEventListener("change"'));
+  ok("akordiyon kalıcı: ordu-agac-acik", j.includes('kaydet("ordu-agac-acik"') && j.includes('oku("ordu-agac-acik")'));
+  ok("seçili düğüm kalıcı: ordu-agac-secili", j.includes('kaydet("ordu-agac-secili"') && j.includes('oku("ordu-agac-secili")'));
+  ok("tuval/panel genişlik anahtarlarıyla çakışma YOK", !HTML.includes("tuval-solW") && !HTML.includes("tuval-sagW"));
+  /* --- davranış: proje tıkla → akordiyon + sekme; ajan tıkla → seçili konuşma --- */
+  ok("proje düğümüne tıkla → akordiyon AÇ/KAPA + sekme açılır", j.includes("agacAcik.has(dizin)") && j.includes("sekmeAc(dizin)"));
+  ok("ajan düğümüne tıkla → seçili konuşma + composer hedefi", j.includes("agacSecili = ajanDugumu.dataset.ajan") && j.includes("konusmaSecGuncelle()"));
+  ok("ağaç etiketi esc() ile taşınır (ham title — XSS yükü zararsız)", j.includes("esc(a.etiket)"));
+  ok("ajan kimliği TAM uuid'yle data-ajan'da (whitelist gönderim hedefi) + 8 hane görünüde", j.includes('data-ajan="\' + esc(a.ajanKimligi)') && j.includes("a.ajanId || kisaIdGoster(a.ajanKimligi)"));
+  ok("dürüst satır: doğmamış workspace görünmez (ağaçta taşındı)", HTML.includes("ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ"));
+  ok("tarama ölürse ağacın KENDİ kırmızı yüzü (agacHata + P=null)", j.includes('kirmiziYuzGoster("agacHata", "agacAlani"') && j.includes("P = null"));
 });
 
 test("3- esc() birebir korunur + tum dinamik metin esc'ten gecer", () => {
@@ -190,7 +199,7 @@ test("10- TASARIM-MANIFESTOSU §1-2-4-5-6-7 pinleri — STEERING-9 R3 tabani (ka
   ok("§2 nefes: bolum padding 22px 24px", /\.bolum\s*\{[^}]*padding:\s*22px 24px/.test(HTML));
   ok("§2 nefes: satir 1.5", /body\s*\{[^}]*line-height:\s*1\.5/.test(HTML));
   ok("§2 main max-width 1760px (kapsul-tuval duzeni)", /main\s*\{[^}]*max-width:\s*1760px/.test(HTML));
-  ok("§5 44px dokunma (--min-dokunma)", HTML.includes("--min-dokunma:44px") && /\.projeSec\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("§5 44px dokunma (--min-dokunma; FAZ-B: composer girdileri + GÖNDER + ağaç düğümleri)", HTML.includes("--min-dokunma:44px") && /#composerForm select, #composerForm input\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /\.agacProjeBas\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
   ok("§5 prefers-reduced-motion kapatir", HTML.includes("@media (prefers-reduced-motion: reduce)"));
   ok("§6 @keyframes YOK", !HTML.includes("@keyframes"));
   const gecisler = (HTML.match(/transition:\s*[^;}]+/g) || []).filter((g) => !/^transition:\s*none/.test(g));
@@ -256,20 +265,21 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("main grid 5 kolon: solW · 6px · minmax(0,1fr) · 6px · sagW", /main\s*\{[^}]*grid-template-columns:\s*var\(--solW\)\s*6px\s*minmax\(0,\s*1fr\)\s*6px\s*var\(--sagW\)/.test(HTML));
   ok("genislik degiskenleri: --solW 280px / --sagW 380px", HTML.includes("--solW:280px") && HTML.includes("--sagW:380px"));
   ok("grid-cocuklar ACIK kolonlara sabitlenir (kapali panel kaydirmaz — kapsul-tuval bug-fix deseni)", /main\s*>\s*#sol\s*\{\s*grid-column:\s*1\s*;?\s*\}/.test(HTML) && /main\s*>\s*#orta\s*\{\s*grid-column:\s*3\s*;?\s*\}/.test(HTML) && /main\s*>\s*#sag\s*\{\s*grid-column:\s*5\s*;?\s*\}/.test(HTML));
-  ok("ORDU-disi kart 1/-1 hucre (kolonlar kapaliyken tam genislik)", /#bolum-projekart\s*\{\s*grid-column:\s*1\s*\/\s*-1/.test(HTML));
+  ok("FAZ-B: ORDU-disi 1/-1 kart hucresi KALDIRILDI (kart → ORTA proje sekmesi tablosu)", !/#bolum-projekart\s*\{/.test(HTML));
   ok("[hidden] acik kurali (display kurallari ezmesin — kapsul-tuval deseni)", /\[hidden\]\s*\{\s*display:\s*none\s*!important/.test(HTML));
   ok("main overflow:hidden (kaydirma yalniz sutunlarda)", /main\s*\{[^}]*overflow:\s*hidden/.test(HTML));
   for (const id of ["sol", "orta", "sag", "splitSol", "splitSag"]) ok('kolon kabugu id="' + id + '"', h.includes('id="' + id + '"'));
   ok("#sol + #sag kendi icinde kayar (overflow-y:auto)", /#sol\s*\{[^}]*overflow-y:\s*auto/.test(HTML) && /#sag\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
-  /* --- ORTA: VS Code tarzi sekmeler (3 sabit: PLAN · AKIS · SISTEM SAGLIGI) --- */
-  ok("#sekmeSerit role=tablist", h.includes('<div id="sekmeSerit" role="tablist"'));
-  ok("3 sekme (role=tab)", (h.match(/role="tab"/g) || []).length === 3, "bulunan: " + (h.match(/role="tab"/g) || []).length);
-  ok("sekme id'leri: sek-plan/sek-akis/sek-saglik", h.includes('id="sek-plan"') && h.includes('id="sek-akis"') && h.includes('id="sek-saglik"'));
-  ok("PLAN baslangicta aktif (aria-selected=true + tabindex=0)", /id="sek-plan"[^>]*aria-selected="true"/.test(h) && /id="sek-plan"[^>]*tabindex="0"/.test(h));
-  ok("akis/saglik sekmeleri aria-selected=false + tabindex=-1", /id="sek-akis"[^>]*aria-selected="false"/.test(h) && /id="sek-saglik"[^>]*tabindex="-1"/.test(h));
-  ok("3 tabpanel (role=tabpanel)", (h.match(/role="tabpanel"/g) || []).length === 3, "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
-  ok("planBolum 'sekmePanel acik' ile baslar", h.includes('<section class="sekmePanel acik" id="planBolum"'));
-  ok("akisBolum/saglikBolum hidden baslar", /id="akisBolum"[^>]*hidden/.test(h) && /id="saglikBolum"[^>]*hidden/.test(h));
+  /* --- ORTA (FAZ-B): ANA sekme şeridi (ORDU SABİT + proje sekmeleri X ile) + ALT şerit (5 sekme) --- */
+  ok("#anaSekmeSerit role=tablist (ORDU sabit sekme kaynakta)", h.includes('<div id="anaSekmeSerit" role="tablist"') && h.includes('id="sek-ordu"'));
+  ok("statik kaynakta 6 role=tab: ORDU + DURUM·PLAN·AKIŞ·SİSTEM SAĞLIĞI·LOG (proje sekmeleri JS ile eklenir)", (h.match(/role="tab"/g) || []).length === 6, "bulunan: " + (h.match(/role="tab"/g) || []).length);
+  ok("alt sekme id'leri: sek-durum/plan/akis/saglik/log", h.includes('id="sek-durum"') && h.includes('id="sek-plan"') && h.includes('id="sek-akis"') && h.includes('id="sek-saglik"') && h.includes('id="sek-log"'));
+  ok("ORDU + DURUM baslangicta aktif (aria-selected=true + tabindex=0)", /id="sek-ordu"[^>]*aria-selected="true"/.test(h) && /id="sek-durum"[^>]*aria-selected="true"/.test(h) && /id="sek-durum"[^>]*tabindex="0"/.test(h));
+  ok("plan/akis/saglik/log alt sekmeleri aria-selected=false + tabindex=-1", /id="sek-plan"[^>]*aria-selected="false"/.test(h) && /id="sek-akis"[^>]*aria-selected="false"/.test(h) && /id="sek-saglik"[^>]*aria-selected="false"/.test(h) && /id="sek-log"[^>]*aria-selected="false"/.test(h));
+  ok("7 statik tabpanel: 5 alt sekme + projeSayfa + bosSayfa (fail-closed boş yüz)", (h.match(/role="tabpanel"/g) || []).length === 7, "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
+  ok("durumBolum hidden OLMADAN baslar (no-JS dürüst yüz)", /<section class="sekmePanel" id="durumBolum"[^>]*>/.test(h));
+  ok("planBolum/akisBolum/saglikBolum/logBolum/projeSayfa/bosSayfa hidden baslar", /id="planBolum"[^>]*hidden/.test(h) && /id="akisBolum"[^>]*hidden/.test(h) && /id="saglikBolum"[^>]*hidden/.test(h) && /id="logBolum"[^>]*hidden/.test(h) && /id="projeSayfa"[^>]*hidden/.test(h) && /id="bosSayfa"[^>]*hidden/.test(h));
+  ok("LOG ORTA kolona TASINDI (logBolum sekmeGovde içinde — #sag'dan DEĞİL)", h.indexOf('id="logBolum"') > h.indexOf('id="sekmeGovde"') && h.indexOf('id="logBolum"') < h.indexOf('id="bolum-konusma"'));
   ok("sekme govdesi kendi icinde kayar (#sekmeGovde overflow-y:auto)", /#sekmeGovde\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
   ok("bolumler sekmelerin icinde yerinde (plan/akis/saglik id'leri korunur)", h.includes('id="bolum-plan"') && h.includes('id="bolum-akis"') && h.includes('id="bolum-saglik"'));
   /* --- SPLITTER x2 (pointer + klavye ±16px + clamp) --- */
@@ -279,18 +289,18 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("kaydet('ordu-' + taraf + 'W') — ordu onekli", j.includes('kaydet("ordu-" + taraf + "W"'));
   ok("oku('ordu-' + taraf + 'W') — ordu onekli", j.includes('oku("ordu-" + taraf + "W"'));
   ok("tuvalin anahtarlariyla cakisma YOK ('tuval-solW'/'tuval-sagW' literalleri YOK)", !HTML.includes("tuval-solW") && !HTML.includes("tuval-sagW"));
-  /* --- 3 script istisnasi (baska script degisikligi YASAK) --- */
-  ok("istisna (a): sekmeDegistir UI-only fonksiyonu", j.includes("function sekmeDegistir(") && j.includes("const SEKME_PANEL ="));
-  ok("istisna (a): sekme click dinleyicisi", j.includes('btn.addEventListener("click", () => sekmeDegistir(btn.dataset.sekme))'));
-  ok("istisna (a): baslangis PLAN aktif", j.includes('sekmeDegistir("plan")'));
+  /* --- script sözleşmesi (FAZ-B): alt sekme UI-only · splitter kopyası · FAZ-B blokları --- */
+  ok("sözleşme: sekmeDegistir UI-only fonksiyonu (ALT_SEKME_PANEL)", j.includes("function sekmeDegistir(") && j.includes("const ALT_SEKME_PANEL ="));
+  ok("sözleşme: alt sekme dinleyicisi statik şeride bağlı (delegation)", j.includes('$("altSekmeSerit").addEventListener("click"'));
+  ok("sözleşme: baslangis ORDU + DURUM aktif", j.includes('anaSekmeDegistir("ordu")') && j.includes('sekmeDegistir("durum")'));
   const sA = j.indexOf("function sekmeDegistir(");
-  const sB = j.indexOf('document.querySelectorAll(".sekme")');
-  ok("istisna (a): sekmeDegistir govdesi fetch/cek ICERMEZ (yalniz class/aria/hidden)", sA >= 0 && sB > sA && !/cek\(|fetch\(/.test(j.slice(sA, sB)));
-  ok("istisna (b): splitterKur + genislikKenetle (kapsul-tuval ADIM-C kopyasi)", j.includes("function splitterKur(") && j.includes("function genislikKenetle("));
-  ok("istisna (b): setPointerCapture + lostpointercapture", j.includes("setPointerCapture") && j.includes("lostpointercapture"));
-  ok("istisna (b): klavye ±16px (ArrowLeft/ArrowRight)", j.includes('e.key === "ArrowLeft"') && j.includes("-16 : 16"));
-  ok("istisna (b): clamp 180px - 45vw", j.includes("Math.max(180, Math.min(Math.round(window.innerWidth * 0.45)"));
-  ok("istisna (c): gorunumDegistir kolon kabuklarini da gizler", j.includes('"sol", "splitSol", "orta", "splitSag", "sag"'));
+  const sB = j.indexOf("function splitterKur(");
+  ok("sözleşme: sekmeDegistir govdesi fetch/cek ICERMEZ (yalniz class/aria/hidden)", sA >= 0 && sB > sA && !/cek\(|fetch\(/.test(j.slice(sA, sB)));
+  ok("sözleşme: splitterKur + genislikKenetle (kapsul-tuval ADIM-C kopyasi AYNEN)", j.includes("function splitterKur(") && j.includes("function genislikKenetle("));
+  ok("sözleşme: setPointerCapture + lostpointercapture", j.includes("setPointerCapture") && j.includes("lostpointercapture"));
+  ok("sözleşme: klavye ±16px (ArrowLeft/ArrowRight)", j.includes('e.key === "ArrowLeft"') && j.includes("-16 : 16"));
+  ok("sözleşme: clamp 180px - 45vw", j.includes("Math.max(180, Math.min(Math.round(window.innerWidth * 0.45)"));
+  ok("FAZ-B: 7 GET ucu AYNEN — tek YAZMA ucu POST /api/mesaj (composer)", j.includes('method: "POST"') && j.includes('"/api/mesaj"') && (j.match(/cek\(UC\./g) || []).length === 7);
   /* --- duncyari ~<900px: sutunlar alt alta (sol → orta → sag) --- */
   ok("899px kirilimda body scroll geri gelir (overflow:auto)", /@media \(max-width:899px\)[\s\S]*?body\s*\{[^}]*overflow:\s*auto/.test(HTML));
   ok("899px kirilimda splitter gizlenir", /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
@@ -953,7 +963,12 @@ test("46- server.js kaynak-pini: /api/ordu/log ucu + saat dogrulama + mevcut ucl
   for (const u of ['"/api/graf"', '"/api/veri"', '"/api/repolar"', '"/api/kart"', '"/api/atama/durum"', '"/tuval"']) {
     ok("mevcut uc yerinde: " + u, srv.includes("url.pathname === " + u));
   }
-  ok("yazma ucu YALNIZ mevcut olanlar (POST /api/kart + /api/atama + /api/emir)", (srv.match(/req\.method === "POST"/g) || []).length === 4, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj = 5 POST (bilincl genisletme — K-0060 TASLAK)", (srv.match(/req\.method === "POST"/g) || []).length === 5, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("/api/mesaj ucu (FAZ-A: Composer gonderim)", srv.includes('"/api/mesaj"'));
+  ok("server.js'e child_process GELMEDI (spawn yalnız paseo-kopru.mjs'te)", !srv.includes("child_process") && srv.includes('from "./paseo-kopru.mjs"'));
+  ok("token kapisi mesaj ucunda aynen (403/401)", srv.includes("mesaj gonderme kapali (fail-closed)"));
+  ok("hedef beyaz liste projelerTara'dan (30sn TTL) + min 2sn aralik", srv.includes("hedefBeyazListe()") && srv.includes("GONDERIM_ARALIK_MS"));
+  ok("kopru zinciri cozumsuz -> 503 (fail-closed)", srv.includes("kopru zinciri cozumlenemedi"));
 });
 
 /* ===================== (6) STEERING-5/6 — gorev emri + SSOT rol modeli ===================== */
@@ -1127,10 +1142,17 @@ test("50- projelerTara (STEERING-7): agents dizin taramasi + durum/saglayici say
     const gamma = r.projeler[2];
     assert.equal(gamma.sonAjanlar.length, 5, "sonAjanlar tavani 5");
     assert.equal(gamma.ajanSayisi, 6);
+    /* FAZ-A (PANEL-EXPLORER-1): ajanlar TAM listesi — Composer hedef seçiminin veri kaynağı */
+    assert.ok(Array.isArray(alfa.ajanlar) && alfa.ajanlar.length === 2, "ajanlar TAM listesi projede tasınır");
+    assert.equal(alfa.ajanlar[0].ajanKimligi, "11111111-1111-4111-8111-111111111111", "ajanKimligi TAM uuid");
+    assert.equal(alfa.ajanlar[0].ajanId, "11111111", "kisa onek korunur");
+    assert.ok(alfa.ajanlar.every((a) => "lastStatus" in a && "sonEtkinlikISO" in a && "provider" in a && "etiket" in a), "her ajan kaydi 6 alani tasir (ajanKimligi/ajanId/lastStatus/sonEtkinlikISO/provider/etiket)");
+    assert.ok(alfa.sonAjanlar.every((s) => alfa.ajanlar.some((a) => a.ajanId === s.ajanId)), "sonAjanlar ajanlar listesiyle uyumlu");
+    assert.equal(gamma.ajanlar.length, 6, "gamma ajanlar TAM liste (tavansiz — sonAjanlar degil)");
     const metin = JSON.stringify(r);
     ok("systemPrompt YANITA SIZMAZ", !metin.includes("systemPrompt"));
     ok("sozlesme metni YANITA SIZMAZ", !metin.includes("SÖZLEŞME"));
-    ok("ajan title YANITA GIRMEZ (kararsiz alan)", !metin.includes("kararsız"));
+    ok("ajan title YALNIZ etiket alaninda ham deger olarak tasınır (FAZ-A bilinçli değişim; UI'da esc() ile)", metin.includes("kararsız başlık") && alfa.ajanlar.every((a) => a.etiket === "kararsız başlık"));
     /* agents dizini yok / bos: hata DEGIL — bos liste (durust) */
     assert.deepEqual(projelerTara(join(tmp, "yok")), { projeler: [], atlanan: 0 });
     mkdirSync(join(tmp, "bos-agents", "agents"), { recursive: true });
@@ -1140,7 +1162,7 @@ test("50- projelerTara (STEERING-7): agents dizin taramasi + durum/saglayici say
   }
 });
 
-test("51- STEERING-7 kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskten) + UI kart davranisi (vm) + POST sayisi DEGISMEZ", () => {
+test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskten) + UI tablo davranisi (vm) + composer + POST sayisi", () => {
   let srv = "";
   try { srv = readFileSync(new URL("./server.js", import.meta.url), "utf8"); } catch { srv = ""; }
   ok("server.js okunur", srv.length > 0);
@@ -1149,45 +1171,180 @@ test("51- STEERING-7 kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte 
   ok("projelerTara ucta cagrilir (her istekte diskten — bayat onbellek yok)", srv.includes("projelerTara(PASEO_EV"));
   ok("ordu dizin adi koke hesaplanir — boli isaretleri VE surucu iki noktasi tireye (olcumle kanitlandi: D:\\Vibecode\\ordu -> D-Vibecode-ordu)", srv.includes("ORDU_DIZIN_ADI") && srv.includes(".replace(/[\\\\/:]+/g, \"-\")"));
   ok("kapsam notu uctan doner", srv.includes("kapsamNotu"));
-  ok("yazma ucu YALNIZ mevcut 4 (salt-okur ekleme; POST degismedi)", (srv.match(/req\.method === "POST"/g) || []).length === 4, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj = 5 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 5, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
   const j = jsKisim();
   ok("UC.projeler sabiti", j.includes('"/api/ordu/projeler"'));
   ok("projelerYukle cek ile cagirir", j.includes("await cek(UC.projeler)"));
-  ok("grupDoldur optgroup'i temizleyerek doldurur", j.includes('$("projeGrup")') && j.includes("removeChild(grup.firstChild)"));
-  ok("secim korunur; kayit dustuyse ORDU'ya doner", j.includes('$("projeSec").value = kalinan'));
-  ok("secenek etiketi yalniz projeAdi (sayaç YOK — §7)", j.includes("o.textContent = pr.projeAdi"));
-  ok("kart alanlari: ajan sayisi + durum + saglayici + son etkinlik + son 5 ajan + OLCUM ANI", j.includes("AJAN SAYISI") && j.includes("DURUM DAĞILIMI") && j.includes("SAĞLAYICILAR") && j.includes("SON ETKİNLİK") && j.includes("SON 5 AJAN") && j.includes("ÖLÇÜM ANI"));
-  ok("kart fail-closed: veri yoksa kirmizi yuz + icerik bosalir", j.includes('kirmiziYuzGoster("projeHata", "projeKartIci"'));
-  ok("tarama olurse P=null (bayat kart verisi kalmaz)", j.includes("P = null"));
-  /* davranis (vm): kartYaz sahte DOM ile — sayimlar, OLCUM ANI, esc */
-  const kartA = HTML.indexOf("function kartYaz()");
-  const kartB = HTML.indexOf("function gorunumDegistir(");
-  ok("kartYaz + gorunumDegistir yerinde", kartA >= 0 && kartB > kartA);
+  ok("FAZ-B: tarama olurse P=null (bayat tablo verisi kalmaz)", j.includes("P = null"));
+  ok("FAZ-B: tablo fail-closed: veri yoksa kirmizi yuz + icerik bosalir", j.includes('kirmiziYuzGoster("projeHata", "projeTabloIci"'));
+  /* --- composer: İKİ AYRI optgroup — manager ile proje ajanı KARIŞMAZ (operatör emri) --- */
+  ok("composer hedef select (bolum-composer + composerHedef)", HTML.includes('id="bolum-composer"') && HTML.includes('id="composerHedef"'));
+  ok("optgroup 1: ORDU YÖNETİM (kadro rolAtamasi.MANAGER)", j.includes('optgroup label="ORDU YÖNETİM"') && j.includes("K.rolAtamasi.MANAGER"));
+  ok("optgroup 2: SEÇİLİ PROJENİN AJANLARI", j.includes("AJANLARI"));
+  ok("KURMAY-1 grubu DISK taramasiyla kesisir (yoksa devre-disi dürüst seçenek)", j.includes("diskAjanKumesi()") && j.includes("disk taramasında yok (gönderilemez)"));
+  ok("yönetim kimlikleri proje grubunda HARİÇ tutulur (KARIŞMAZ pini)", j.includes("yonetimKumesi.has(a.ajanKimligi)"));
+  ok("gönderim: POST /api/mesaj + token başlığı + gonderiliyor durumu", j.includes('"/api/mesaj"') && j.includes('"x-pano-token"') && j.includes("gönderiliyor…"));
+  ok("token input (değer AKLA girmez — yalnız başlıkta)", HTML.includes('<input id="token" type="password"') && !j.includes('kaydet("token"'));
+  ok("composer textarea + 4096 tavan", HTML.includes('id="composerMesaj"') && HTML.includes('maxlength="4096"'));
+  ok("seçili konuşma kartı: kimlik + durum + etkinlik + sağlayıcı + dürüst geçmiş-YOK notu", HTML.includes('id="konusmaKart"') && HTML.includes("mesaj geçmişi burada YOK"));
+  ok("yenileme girdi koruması: odakIcindeMi + gonderiyor bayrağı", j.includes("function odakIcindeMi(") && j.includes("let gonderiyor = false") && j.includes('odakIcindeMi("#bolum-composer")'));
+  ok("ağaç yenilenmesi odakta atlanır (activeElement ezilmez)", j.includes('odakIcindeMi("#bolum-agac")'));
+  /* davranis (vm): projeTabloYaz sahte DOM ile — tablo satırları, durum dağılımı, OLCUM ANI, esc */
+  const tabloA = HTML.indexOf("function projeTabloYaz()");
+  const tabloB = HTML.indexOf('document.querySelectorAll(".filtreBtn")');
+  ok("projeTabloYaz yerinde (FAZ-B: kartYaz'ın tablo hali)", tabloA >= 0 && tabloB > tabloA);
   const sahte = {};
   const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
-  const kartFn = vm.runInNewContext(HTML.slice(kartA, kartB) + "\nkartYaz", {
-    $: sahte$, esc: fnAl("esc"),
+  const tabloFn = vm.runInNewContext(HTML.slice(tabloA, tabloB) + "\nprojeTabloYaz", {
+    $: sahte$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
     kirmiziYuzKapat: () => {}, kirmiziYuzGoster: () => {},
+    UC: { projeler: "/api/ordu/projeler" },
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
     P: {
       olcumAniISO: "2026-11-01T18:00:00Z", atlanan: 1,
       projeler: [{
         dizin: "P-x", projeAdi: "P-x", ajanSayisi: 2, sonEtkinlikISO: "2026-11-01T12:00:00Z",
         durumSayilari: { running: 1, idle: 1, error: 0, closed: 0, diger: 0 },
         saglayicilar: { "glm53u-claude": 2 },
-        sonAjanlar: [{ ajanId: "12345678", lastStatus: "<script>", sonEtkinlikISO: "2026-11-01T12:00:00Z" }],
+        ajanlar: [
+          { ajanKimligi: "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7", ajanId: "8cc610a4", lastStatus: "running", sonEtkinlikISO: "2026-11-01T12:00:00Z", provider: "glm53u-claude", etiket: "<script>inject</script>" },
+          { ajanKimligi: "432e03b7-9004-445c-857d-ebf3b6661d53", ajanId: "432e03b7", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T11:00:00Z", provider: "glm53u-claude", etiket: null },
+        ],
         orduMu: true,
       }],
     },
-    seciliProje: "P-x",
+    aktifSekme: "P-x",
   });
-  kartFn();
-  const ic = sahte.projeKartIci.innerHTML;
-  ok("kart: ajan sayisi etiketi + degeri", ic.includes("AJAN SAYISI") && ic.includes(">2<"));
-  ok("kart: durum dagilimi degerleri", ic.includes("running 1") && ic.includes("idle 1"));
-  ok("kart: OLCUM ANI damgasi", ic.includes("ÖLÇÜM ANI") && ic.includes("2026-11-01T18:00:00Z"));
-  ok("kart: ordu dizini notu", ic.includes("bu dizin ORDU projesinin kendisi"));
-  ok("kart: lastStatus esc'ten gecer (XSS yuku zararsiz)", ic.includes("&lt;script&gt;"));
-  ok("kart: bozuk atlanan kayit sayisi durust gosterilir", ic.includes("bozuk atlanan kayıt: 1"));
-  ok("kart basligi textContent ile atanir (innerHTML DEGIL)", sahte.projeKartAd.textContent === "P-x");
-  ok("kart: son 5 ajan satiri (id + durum + etkinlik)", ic.includes("projeAjanListe") && ic.includes("12345678") && ic.includes("&lt;script&gt;") && ic.includes("2026-11-01T12:00:00Z"));
+  tabloFn();
+  const ic = sahte.projeTabloIci.innerHTML;
+  ok("tablo: durum dagilimi başlıkta (running 1 · idle 1)", sahte.projeTabloOzet.innerHTML.includes("running 1") && sahte.projeTabloOzet.innerHTML.includes("idle 1"));
+  ok("tablo: satır = konuşma (kısa kimlik hücreleri)", ic.includes("8cc610a4") && ic.includes("432e03b7"));
+  ok("tablo: TAM kimlik title'da (gönderim hedefi doğrulanabilir)", ic.includes('title="8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"'));
+  ok("tablo: son etkinlik + sağlayıcı sütunları", ic.includes("2026-11-01T12:00:00Z") && ic.includes("glm53u-claude"));
+  ok("tablo: etiket esc'ten gecer (XSS yuku zararsiz)", ic.includes("&lt;script&gt;inject&lt;/script&gt;"));
+  ok("tablo: etiket yoksa dürüst '(başlıksız)'", ic.includes("(başlıksız)"));
+  ok("tablo: OLCUM ANI + atlanan sayısı dürüst", sahte.projeTabloOzet.innerHTML.includes("2026-11-01T18:00:00Z") && sahte.projeTabloOzet.innerHTML.includes("atlanan 1"));
+  ok("tablo başligi textContent ile atanir (innerHTML DEGIL)", sahte.projeTabloAd.textContent === "P-x");
+  ok("tablo: ordu dizini notu", sahte.projeTabloOzet.innerHTML.includes("bu dizin ORDU projesinin kendisi"));
+});
+
+test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + composerHedefGuncelle (KURMAY-1 YALNIZ yonetim grubunda)", () => {
+  /* --- (1) agacYaz: ORDU projesi basta + ajan dugumleri + durum noktalari + secili --- */
+  const agacA = HTML.indexOf("function ajanDugumHtml(");
+  const agacB = HTML.indexOf('$("agacAlani").addEventListener');
+  ok("ajanDugumHtml + agacYaz yerinde", agacA >= 0 && agacB > agacA);
+  const sahte = {};
+  const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+  const agacFn = vm.runInNewContext(HTML.slice(agacA, agacB) + "\nagacYaz", {
+    $: sahte$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    P: {
+      olcumAniISO: "2026-11-03T09:00:00Z",
+      projeler: [
+        { dizin: "D-diger", projeAdi: "diger proje", orduMu: false, ajanlar: [] },
+        { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
+          { ajanKimligi: "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7", ajanId: "8cc610a4", lastStatus: "running", sonEtkinlikISO: "t", provider: "p", etiket: "KURMAY <b>" },
+          { ajanKimligi: "432e03b7-9004-445c-857d-ebf3b6661d53", ajanId: "432e03b7", lastStatus: "closed", sonEtkinlikISO: "t", provider: "p", etiket: null },
+        ] },
+      ],
+    },
+    agacAcik: new Set(["D-Vibecode-ordu"]),
+    agacSecili: "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7",
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+  });
+  agacFn();
+  const agacHtml = sahte.agacAlani.innerHTML;
+  ok("agac: ORDU projesi once (ozel isaret + cip)", agacHtml.indexOf("ORDU</span>") >= 0 && agacHtml.indexOf("ordu") < agacHtml.indexOf("diger proje"));
+  ok("agac: acik projenin ajan dugumleri gorunur, kapali projenin cocuklari YOK", agacHtml.includes("8cc610a4") && !agacHtml.includes('data-proje="D-diger"><button'));
+  ok("agac: secili dugum .secili sinifi", /class="agacAjan secili"[^>]*data-ajan="8cc610a4/.test(agacHtml));
+  ok("agac: running yesil + closed KAPALI (soluk) nokta siniflari", agacHtml.includes('nokta yesil') && agacHtml.includes('nokta kapali'));
+  ok("agac: etiket esc'ten gecer (XSS yuku zararsiz)", agacHtml.includes("KURMAY &lt;b&gt;"));
+  ok("agac: basliksiz ajan durust '(başlıksız)'", agacHtml.includes("(başlıksız)"));
+  ok("agac: yalniz ACIK projenin cocuklari render edilir (D-diger akordiyon kapali)", (agacHtml.split('class="agacCocuklar"').length - 1) === 1);
+  ok("agac ozeti: proje + ajan sayimi olcumle", sahte.agacOzet.innerHTML.includes("2</b> ajan kaydı"));
+
+  /* --- (2) composerHedefGuncelle: KURMAY-1 YALNIZ ORDU YONETIM grubunda (KARISMAZ pini) --- */
+  const compA = HTML.indexOf("function yonetimKimlikleri()");
+  const compB = HTML.indexOf('$("composerForm").addEventListener');
+  ok("yonetimKimlikleri + diskAjanKumesi + composerHedefGuncelle yerinde", compA >= 0 && compB > compA);
+  const sahte2 = {};
+  const sahte2$ = (id) => (sahte2[id] = sahte2[id] || { innerHTML: "", textContent: "", value: "", options: [] });
+  const KURMAY_KIMLIK = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7";
+  const compFn = vm.runInNewContext(HTML.slice(compA, compB) + "\ncomposerHedefGuncelle", {
+    $: sahte2$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    K: { rolAtamasi: { MANAGER: ["KURMAY-1"] }, birlikler: [{ kodAdi: "KURMAY-1", ajanId: KURMAY_KIMLIK }] },
+    P: { projeler: [
+      { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
+        { ajanKimligi: KURMAY_KIMLIK, ajanId: "8cc610a4", lastStatus: "running", etiket: "KURMAY-1" },
+        { ajanKimligi: "432e03b7-9004-445c-857d-ebf3b6661d53", ajanId: "432e03b7", lastStatus: "idle", etiket: "proje ajanı" },
+      ] },
+    ] },
+    seciliKonusma: null, aktifSekme: "D-Vibecode-ordu", gonderiyor: false, /* aktif sekme = ordu PROJESI (yönetim-grubu ayrımı tam görünsün) */
+  });
+  const secSham = { innerHTML: "", value: "", options: [] };
+  sahte2.composerHedef = secSham;
+  compFn();
+  const ch = secSham.innerHTML;
+  const yonetimGrubu = ch.slice(ch.indexOf("ORDU YÖNETİM"), ch.indexOf("</optgroup>"));
+  const projeGrubu = ch.slice(ch.lastIndexOf("AJANLARI"));
+  ok("composer: optgroup ORDU YÖNETİM var", ch.includes('optgroup label="ORDU YÖNETİM"'));
+  ok("composer: KURMAY-1 yalniz YONETIM grubunda (pini — manager ile proje ajanı KARIŞMAZ)", yonetimGrubu.includes(KURMAY_KIMLIK) && !projeGrubu.includes(KURMAY_KIMLIK));
+  ok("composer: yonetim grubu disk taramasi KESISIMI (kaynak: kadro ajanId + tarama)", yonetimGrubu.includes("KURMAY-1 — 8cc610a4"));
+  ok("composer: proje grubu yonetim HARIC ajanlari listeler", projeGrubu.includes("432e03b7") && projeGrubu.includes("proje ajanı"));
+  /* --- (3) yonetici DISKTE YOK senaryosu: devre-disi secenek (fail-closed dürüst) --- */
+  const secSham2 = { innerHTML: "", value: "", options: [] };
+  const sahte3 = { composerHedef: secSham2 };
+  const compFn2 = vm.runInNewContext(HTML.slice(compA, compB) + "\ncomposerHedefGuncelle", {
+    $: (id) => sahte3[id] || (sahte3[id] = { innerHTML: "", textContent: "", value: "", options: [] }),
+    esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    K: { rolAtamasi: { MANAGER: ["KURMAY-1"] }, birlikler: [{ kodAdi: "KURMAY-1", ajanId: KURMAY_KIMLIK }] },
+    P: { projeler: [
+      { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
+        { ajanKimligi: "432e03b7-9004-445c-857d-ebf3b6661d53", ajanId: "432e03b7", lastStatus: "idle", etiket: "proje ajanı" },
+      ] },
+    ] },
+    seciliKonusma: null, aktifSekme: "ordu", gonderiyor: false,
+  });
+  compFn2();
+  ok("composer: yonetim diskinde yoksa DEVRE-DISI secenek (fail-closed dürüst)", secSham2.innerHTML.includes("disk taramasında yok (gönderilemez)"));
+  ok("composer: yonetici diske donmediginde gonderilebilir deger YOK (value bos)", secSham2.innerHTML.includes('value="' + KURMAY_KIMLIK + '"') === false && secSham2.value === "");
+});
+
+test("51c- FAZ-B davranis (vm): ana sekme yonetimi — ORDU SABIT + X ile kapanis + bos yuz + gecersiz donus", () => {
+  const sekA = HTML.indexOf("function anaSekmeYaz()");
+  const sekB = HTML.indexOf("function projeTabloYaz()");
+  ok("ana sekme fonksiyonlari yerinde (anaSekmeYaz..anaSekmeBos)", sekA >= 0 && sekB > sekA);
+  const sahte = {};
+  const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+  let seritHtml = "";
+  const seritSham = {
+    get innerHTML() { return seritHtml; },
+    set innerHTML(v) { seritHtml = String(v); },
+    addEventListener: () => {},
+  };
+  const fns = vm.runInNewContext(HTML.slice(sekA, sekB) + "\n[anaSekmeDegistir, sekmeAc, sekmeKapat, anaSekmeBos]", {
+    $: (id) => (id === "anaSekmeSerit" ? seritSham : sahte$(id)),
+    esc: fnAl("esc"),
+    P: { projeler: [{ dizin: "P-x", projeAdi: "P-x", ajanlar: [] }] },
+    acikSekmeler: [], aktifSekme: "ordu", aktifAltSekme: "durum",
+    ALT_SEKME_PANEL: { durum: "durumBolum", plan: "planBolum", akis: "akisBolum", saglik: "saglikBolum", log: "logBolum" },
+    document: { querySelectorAll: () => ({ forEach: () => {} }) }, /* panelSiniflariTazele sham'i */
+    requestAnimationFrame: (f) => f(),
+    projeTabloYaz: () => {}, composerHedefGuncelle: () => {}, odakIcindeMi: () => false, gonderiyor: false,
+  });
+  const [anaSekmeDegistir, sekmeAc, sekmeKapat] = fns;
+  /* sekme ac: ORDU sabit sereitte kalir + yeni sekme aktif olur */
+  sekmeAc("P-x");
+  ok("ORDU sekmesi seritte SABIT (acilisla birlikte durur)", seritHtml.includes('id="sek-ordu"'));
+  ok("yeni proje sekmesi aktif (aria-selected=true, data-ana)", /data-ana="P-x"[^>]*aria-selected="true"/.test(seritHtml) && seritHtml.includes('data-kapat="P-x"'));
+  ok("ORDU sekmesi aktif degil (aria-selected=false)", /id="sek-ordu"[^>]*aria-selected="false"/.test(seritHtml));
+  ok("proje sekmesi acikken alt sirit gizlenir + proje sayfasi gorunur", sahte.altSekmeSerit.hidden === true && sahte.projeSayfa.hidden === false);
+  /* gecersiz ana sekme: ORDU'ya coerced (fail-closed) */
+  anaSekmeDegistir("P-yok");
+  ok("gecersiz ana sekme ORDU'ya doner (ORDU aktif + alt sirit geri)", /id="sek-ordu"[^>]*aria-selected="true"/.test(seritHtml) && sahte.altSekmeSerit.hidden === false && sahte.projeSayfa.hidden === true);
+  /* son sekme kapaninca: bos yuz (ORDU sereitte durur ama bos yuz gorunur) */
+  anaSekmeDegistir("P-x");
+  sekmeKapat("P-x");
+  ok("son sekme kapaninca bos yuz (fail-closed 'gezginden proje seç')", sahte.bosSayfa.hidden === false && sahte.altSekmeSerit.hidden === true && sahte.projeSayfa.hidden === true);
+  ok("ORDU dugmesi sereitte durmaya devam eder (kapatilamaz)", seritHtml.includes('id="sek-ordu"') && !seritHtml.includes('data-kapat'));
+  ok("kaynak pini: coercion ORDU'ya + bos yuz metni gezginden secer", HTML.includes('if (id !== "ordu" && !acikSekmeler.includes(id)) id = "ordu"') && HTML.includes("hiç sekme açık değil — gezginden bir proje seç"));
 });

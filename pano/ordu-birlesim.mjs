@@ -626,10 +626,12 @@ export function projelerTara(paseoEv, secenekler = {}) {
       let k; try { k = JSON.parse(readFileSync(join(projeYolu, f), 'utf8')); } catch { atlanan++; continue; }
       if (!k || typeof k !== 'object' || typeof k.id !== 'string' || !k.id.trim()) { atlanan++; continue; }
       ajanlar.push({
+        ajanKimligi: k.id, // TAM kimlik — Composer gönderim hedefi (whitelist) ağaç/kart kısa önek değil bunu kullanır
         ajanId: kisaAjanId(k.id),
         lastStatus: typeof k.lastStatus === 'string' && k.lastStatus.trim() ? k.lastStatus : null,
         sonEtkinlikISO: typeof k.lastActivityAt === 'string' && Number.isFinite(Date.parse(k.lastActivityAt)) ? k.lastActivityAt : null,
         provider: typeof k.provider === 'string' && k.provider.trim() ? k.provider : null,
+        etiket: typeof k.title === 'string' && k.title.trim() ? k.title : null, // ham değer — UI'da esc() ile (kararsız alan)
       });
     }
     if (ajanlar.length === 0) continue; // ajani hic dogmamis workspace bu kaynakta gorunmez
@@ -652,6 +654,7 @@ export function projelerTara(paseoEv, secenekler = {}) {
       dizin: d,
       projeAdi: d, // dizin basename'i — ajan title'lari kararsiz (mojibake dahil), kullanilmaz
       ajanSayisi: ajanlar.length,
+      ajanlar, // TAM liste (FAZ-A): her kayıt ajanKimligi + kısa önek + durum + etkinlik + sağlayıcı + etiket — Composer hedef seçiminin veri kaynağı
       sonEtkinlikISO,
       durumSayilari,
       saglayicilar,

@@ -18,6 +18,7 @@ import { atamaTaslakla, onayla } from "./graf-yonetim.js"; // D-3 cekirdegi (yaz
 import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
 import { kiraDurum, kiraYoluCoz, logOku } from "./devir-kira.mjs"; // ORDU paneli: kira/log kaynagi (salt-okur)
 import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
+import { mesajGonder } from "./paseo-kopru.mjs"; // FAZ-A Composer köprüsü (K-0060 TASLAK) — süreç doğurma YALNIZ bu modülde
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
@@ -47,6 +48,13 @@ const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
 const GOVDE_LIMIT_BAYT = 4096; // POST govde tavani (BAYT — GD-006): asiminda baglanti kesilir
 const onbellek = new Map(); // repo -> { ts, veri }
 const sseIstemci = new Set();
+// PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): Composer gonderim koprUsu — dar spawn izni
+// (paseo-kopru.mjs'te SABIT argv + beyaz-liste hedef + UTF-8 prompt-file + --no-wait + timeout).
+const KOPRU_KOK_CMD = process.env.PANO_KOPRU_KOK_CMD || null; // izole test kancasi: zincir cozumsuz simulasyonu (503)
+const HEDEF_TTL_MS = 30_000; // hedef beyaz-liste onbellek TTL (/api/veri deseni)
+const GONDERIM_ARALIK_MS = 2_000; // ayni hedefe min gonderim araligi (bellek-ici)
+let hedefOnbellek = { ts: -Infinity, kume: new Set() };
+const sonGonderim = new Map(); // hedef -> son gonderim ms
 
 // GD-004: zaman-sabit token karsilastirma — uzunluk FARKLIYSA timingSafeEqual hic cagrilmez
 // (uzunluk sirmaz; uzunluk esitse icerik karsilastirmasi sabit sureli). TOKEN yoksa her sey RED.
@@ -148,6 +156,19 @@ function veriGetir(repoAd) {
   const veri = { schemaSurum: 1, uretim: new Date().toISOString(), ttlSn: TTL_MS / 1000, ...repoOzeti(repo) };
   onbellek.set(repoAd, { ts: Date.now(), veri });
   return veri;
+}
+
+// FAZ-A: hedef beyaz listesi — projelerTara taramasindaki TUM ajan kimlikleri (TAM uuid).
+// 30sn TTL onbellek (/api/veri deseni); tarama olurse kume bos kalir -> her hedef RED (fail-closed).
+function hedefBeyazListe() {
+  if (Date.now() - hedefOnbellek.ts < HEDEF_TTL_MS) return hedefOnbellek.kume;
+  const kume = new Set();
+  try {
+    const { projeler } = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI });
+    for (const p of projeler) for (const a of p.ajanlar || []) if (a && typeof a.ajanKimligi === "string" && a.ajanKimligi) kume.add(a.ajanKimligi);
+  } catch { /* tarama olurse bos kume — hedefler RED (fail-closed) */ }
+  hedefOnbellek = { ts: Date.now(), kume };
+  return kume;
 }
 
 function jsonYaz(res, kod, obj) {
@@ -416,6 +437,43 @@ const sunucu = http.createServer((req, res) => {
         kapsamNotu: "ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — liste yalnız en az bir ajan kaydı taşıyan dizinleri gösterir",
       });
     } catch (e) { jsonYaz(res, 500, { hata: "paseo projeler okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): POST /api/mesaj — Composer gonderim ucu (5. POST).
+  // Token kapisi aynen (403/401) · govde 4096 bayt · hedef whitelist = projelerTara taramasi
+  // (30sn TTL onbellek) · ayni hedefe min 2sn aralik · kopru zinciri cozulmezse 503 (fail-closed).
+  // server.js surec dogurmaz — spawn yalniz paseo-kopru.mjs'te SABIT argv ile.
+  if (req.method === "POST" && url.pathname === "/api/mesaj") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — mesaj gonderme kapali (fail-closed)" }); return; }
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
+      let istek = null;
+      try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001 sinifi
+      const hedef = typeof istek.hedef === "string" ? istek.hedef.trim() : "";
+      const mesaj = typeof istek.mesaj === "string" ? istek.mesaj : "";
+      if (!hedef) { jsonYaz(res, 400, { hata: "hedef zorunlu (Paseo ajan kimligi)" }); return; }
+      if (!mesaj.trim()) { jsonYaz(res, 400, { hata: "mesaj bos olamaz" }); return; }
+      const beyaz = hedefBeyazListe();
+      if (!beyaz.has(hedef)) { jsonYaz(res, 400, { hata: "hedef whitelist disi (Paseo agents taramasinda YOK)", hedef }); return; }
+      const simdi = Date.now();
+      const onceki = sonGonderim.get(hedef);
+      if (onceki !== undefined && simdi - onceki < GONDERIM_ARALIK_MS) {
+        jsonYaz(res, 429, { hata: "ayni hedefe cok sik gonderim (min 2sn aralik)", bekMs: GONDERIM_ARALIK_MS - (simdi - onceki) });
+        return;
+      }
+      sonGonderim.set(hedef, simdi);
+      mesajGonder(hedef, mesaj, { beyazListe: beyaz, kokCmd: KOPRU_KOK_CMD ?? undefined })
+        .then((sonuc) => {
+          if (sonuc && sonuc.hata) {
+            if (String(sonuc.hata).startsWith("kopru-cozulmedi")) { jsonYaz(res, 503, { hata: "kopru zinciri cozumlenemedi — gonderim yapilmadi (fail-closed)", detay: sonuc.hata }); return; }
+            jsonYaz(res, 502, { hata: "kopru gonderilemedi", detay: sonuc.hata });
+            return;
+          }
+          jsonYaz(res, 200, { gonderildi: true, hedef, zamanISO: new Date().toISOString(), yanit: sonuc && sonuc.yanit !== undefined ? sonuc.yanit : null });
+        })
+        .catch((e) => jsonYaz(res, 500, { hata: "mesaj gonderim beklenmedik hata: " + (e instanceof Error ? e.message : "bilinmeyen") }));
+    });
     return;
   }
   if (req.method === "GET" && url.pathname === "/api/veri") {
