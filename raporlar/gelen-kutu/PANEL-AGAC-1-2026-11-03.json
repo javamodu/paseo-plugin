@@ -1,0 +1,36 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-AGAC-1",
+  "baslik": "ordu-panosu.html GEZGİN ağacı genel-görünüm yüzü — proje satırında GERÇEK çalışan sayısı + hata uyarı ikonu (SVG, emoji yok), ajanlar ÇALIŞAN/BEKLEYEN/HATA/KAPALI/DİĞER durum gruplu akordiyon, özet satırında aktif/toplam proje, kalıcı yukarı/aşağı sıralama (ordu-agac-sira); başlık role=button div (W3C düğme-içinde-düğme yasağı)",
+  "tarih": "2026-11-03",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs",
+    "raporlar/gelen-kutu/PANEL-AGAC-1-2026-11-03.md"
+  ],
+  "etiket": ["pano", "arayuz", "gezgin", "agac", "kompakt", "steering-2026-11-03", "panel-agac-1"],
+  "siddet": "bilgi",
+  "kanit": {
+    "panoNpmTest": "72/72 pass, 0 fail (taban 71 + yeni 51f)",
+    "repoGenelTest": "node --test pano/*.test.mjs scripts/*.test.mjs — 294/294 pass, 0 fail, EXIT=0 (taban 293 + 51f)",
+    "test0Parse": "vm.Script tüm inline script parse — yeşil (canlı SyntaxError regresyon pini korundu)",
+    "test51eKorunur": "51e secimiZorla kapanış düzeltmesi yeşil — veri katmanı davranışı değişmedi"
+  },
+  "bilincliPinDegisimleri": [
+    "51b vm context: agacGrupAcik (Set [running,closed]) + agacSira (null) eklendi — durum gruplu render'ın yeni durum değişkenleri; KAPALI grubu fixture'ta açık verildi ki 'nokta kapali' düğüm davranışı görünsün (kapalı grubun düğümleri artık render edilmez); ok() pinleri değişmedi, fixture genişledi",
+    ".agacSayi içeriği: TOPLAM kayıt -> ÇALIŞAN (running) sayısı (steering emri 'kaç ajan çalışıyor'); toplam dürüstçe başlık title'ına taşındı ('N çalışan · M ajan kaydı')",
+    "proje başlığı <button> -> <div role=button tabindex=0> (W3C: düğme içinde düğme yasak — brief TUZAK 1); klavye yolu keydown + Enter/Space -> click() ile birebir korunur"
+  ],
+  "yeniPinler": [
+    "test 51f (vm + kaynak): çalışan sayısı gerçek sayımdan (toplam 4 iken 2 görünür + dürüst title) · uyarı ikonu VAR/YOK (yalnız hatalı ajanlı projede, 1 kez, aria-label + sayı title'ı) · aktif proje sayısı (>=1 running) · grup sayıları + boş grup render EDİLMEZ + kapalı grup/proje düğüm render ETMEZ + DİĞER dürüst grubu · kalıcı sıra: kayıt yok -> varsayılan (ORDU önce + tr locale), kayıt var -> ezer + kayıt-dışı yok sayılır · agacSirala: bir satır kaydırır + kalıcıya yazar + uç satır sessiz no-op · taşıma/grup tıklaması sekme/akordiyon/seçimi tetiklemez (spy) · proje/ajan tıklama regresyonu AYNEN · Enter/Space -> click + preventDefault · emoji YOK (render çıktısı taranır) · token alanı YOK · data-ajan TAM uuid · role=button div + taşıma başlık dışında · 28px hedef CSS · keydown dinleyicisi"
+  ],
+  "yapamadim": [
+    "canlı DOM doğrulaması + ekran PNG: görev sınırı — 4937'ye dokunmak yasak, koordinatör işi",
+    "token göstergesi: bu dalgada bilinçli YOK — ajan verisinde token alanı yoktur (uydurma E10 ihlalidir); veri köprüsü koordinatörün ikinci dalgası",
+    "taşıma sonrası odak korunumu: agacYaz innerHTML yeniden yazdığından odak body'ye düşer — mevcut akordiyon davranışının aynı deseni (regresyon değil); iyileştirme koordinatör kararına açık",
+    "tasarım kapısı K-0061 resmî kapanışı: koordinatör yetkisinde (kod §4/§6/§7/§8 pinleriyle yeşil)"
+  ],
+  "veriKatmani": "7 GET ucu + fetch sayısı AYNEN + POST /api/mesaj + x-pano-token + esc() + 30sn yenileme + odakIcindeMi/gonderiyor + composer 2 AYRI optgroup + secimiZorla AYNEN; server.js/paseo-kopru.mjs/ordu-birlesim.mjs/package.json/kararlar/ DOKUNULMADI; PANO_TOKEN hiçbir dosyaya/loga yazılmadı; commit/push YOK (tek elden koordinatör — K7); 4937'ye dokunulmadı; geçici dosya bırakılmadı (TEMP'teki 4 ordu-panosu-* boş dizin 2026-11-01 tarihli önceki oturum artığı — bu koşuma ait değil).",
+  "oneri": "Koordinatör: (1) canlı DOM doğrulaması 4937 (HTML diskten taze) — grup başlıkları + çalışan sayıları + uyarı ikonları + taşıma/kalıcılık (ordu-agac-grup / ordu-agac-sira) ölçülsün; (2) ekran PNG kanıtı raporlar/ordu-panosu-2026-11-03/; (3) TASARIM KAPISI K-0061 kapanışı; (4) K2 görsel kabul kullanıcıda — açık kalır.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 15:42): (1) KOORDINATOR BAGIMSIZ KOSUMLARI: pano npm 72/72 + repo glob 294/294 EXIT=0 — yazici iddiasiyla birebir. (2) KOD PINLERI: ⚠ emoji karakteri 0 (uyari ikonu SVG — §4 temiz) · data-ajan/secimiZorla/agacSira/agacGrupAcik/role=button 34 yerde. (3) CANLI SERVIS KANITI (tarayici otomasyon konagi KOPUK — durust sinir): GET /ordu 200 + yeni kod isaretcileri servis ediliyor (agacSira · agacGrupAcik · role=button) + /api/ordu/projeler GERCEK veri: 74 proje · 4 aktif (>=1 running) · 4 running — render'in yaptigi sayimin aynisi sunucu tarafinda capraz-dogrulandi. CANLI DOM + EKRAN PNG: tarayici konagi bagli DEGIL — bu kapanista YAPILAMADI (durust); konak donunce PANEL-CHAT-1 kapanisinda yapilacak. (4) TASHIH: rapor md 3. satirda yazici kimligi YANLIS yazilmis (8cc610a4 = koordinator KURMAY-1'in kimligi) — dogru yazici ajani 7f543518-b6c1-4b5a-aa04-af5607a67abc'dir; bu islenme kaydiyla duzeltilir (md govdesi dokunulmadi — append-only). (5) K2 gorsel kabul KULLANICIDA — acik. Tek elden commit bu kapanista atilir (damga STATE_BOARD'da)."
+}

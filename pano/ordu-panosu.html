@@ -426,11 +426,14 @@
   .onlemAlani li { font-size:11.5px; margin:2px 0; overflow-wrap:anywhere; }
 
   /* ---- (FAZ-B) GEZGİN AĞACI (SOL): KOMPAKT — ~28px düğüm · 12px metin ·
-     durum noktası 8px · girinti 12px; düğüm adı kısa ad kuralı (JS kisalt) ---- */
+     durum noktası 8px · girinti 12px; düğüm adı kısa ad kuralı (JS kisalt).
+     PANEL-AGAC-1: proje başlığı role="button" DIV'dir (yukarı/aşağı taşıma
+     düğmeleri başlığın DIŞINDA — W3C: düğme içinde düğme yasak). ---- */
   .agac { display:flex; flex-direction:column; gap:1px; }
   .agacProje { display:flex; flex-direction:column; }
+  .agacProjeSatir { display:flex; align-items:stretch; }
   .agacProjeBas {
-    display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
+    display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:28px;
     padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
     color:var(--metin); font-size:12px; font-weight:700; text-align:left; cursor:pointer;
     white-space:nowrap; transition:background 160ms ease; /* E12: yalnız renk */
@@ -443,7 +446,38 @@
   .agacProje.acik .agacProjeBas .agacOk { transform:rotate(45deg); } /* açık: aşağı bakar */
   .agacAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
   .agacSayi { flex:none; font:700 10.5px var(--mono); color:var(--ikincil); }
+  /* PANEL-AGAC-1: hata uyarı ikonu (inline SVG — emoji YASAK §4) + taşıma düğmeleri
+     (hover/odak görünür: gizliyken Tab sırasına girmezler — 74 satır x2 durmaz) */
+  .agacUyari { flex:none; display:inline-flex; align-items:center; color:var(--tehlike); }
+  .agacTasi { display:none; flex:none; align-items:stretch; }
+  .agacProjeSatir:hover .agacTasi, .agacProjeSatir:focus-within .agacTasi { display:flex; }
+  .agacTasiBtn {
+    display:inline-flex; align-items:center; justify-content:center; width:28px; min-height:28px;
+    border:0; border-radius:var(--radius-cip); background:transparent; color:var(--ikincil);
+    cursor:pointer; transition:color 160ms, background 160ms; /* E12: yalnız renk */
+  }
+  .agacTasiBtn:hover { color:var(--metin); background:var(--yuzey2); }
+  .agacProjeBas:focus-visible, .agacTasiBtn:focus-visible, .agacGrupBas:focus-visible {
+    outline:2px solid var(--camgobegi); outline-offset:-2px;
+  }
   .agacCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 2px 12px; }
+  /* PANEL-AGAC-1: durum gruplu alt-akordiyon — ÇALIŞAN/BEKLEYEN/HATA/KAPALI/DİĞER;
+     boş grup render EDİLMEZ (0'lık başlık gürültü) */
+  .agacGrup { display:flex; flex-direction:column; }
+  .agacGrupBas {
+    display:flex; align-items:center; gap:5px; width:100%; min-height:28px;
+    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font:700 10px var(--mono); letter-spacing:0.06em; text-align:left;
+    cursor:pointer; white-space:nowrap; transition:color 160ms, background 160ms; /* E12: yalnız renk */
+  }
+  .agacGrupBas:hover { color:var(--metin); background:var(--yuzey2); }
+  .agacGrupBas .agacOk {
+    flex:none; width:5px; height:5px; border-right:2px solid var(--ikincil); border-bottom:2px solid var(--ikincil);
+    transform:rotate(-45deg); transition:transform 200ms ease; /* E12: yalnız transform */
+  }
+  .agacGrup.acik .agacGrupBas .agacOk { transform:rotate(45deg); }
+  .agacGrupAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+  .agacGrupCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 2px 8px; }
   .agacAjan {
     display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
     padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
@@ -547,11 +581,16 @@
 
 <main id="icerik">
 
-  <!-- ============ SOL (#sol): GEZGİN — ağaç: projeler + konuşmalar (akordiyon + seçim) ============
-       FAZ-B: proje başlığına tıkla → akordiyon AÇ/KAPA + o projenin sekmesi ORTA'da açılır;
-       konuşma düğümüne tıkla → seçili konuşma (SAĞ kart + composer hedefi).
-       Akordiyon + seçili düğüm localStorage'da kalıcı (ordu-agac-acik / ordu-agac-secili —
-       ordu-solW / ordu-sagW anahtarlarıyla ÇAKIŞMAZ). ORDU projesi ağaçta İLK ve özel işaretli. -->
+  <!-- ============ SOL (#sol): GEZGİN — ağaç: projeler + konuşmalar (durum gruplu akordiyon + seçim) ============
+       PANEL-AGAC-1 (steering 2026-11-03 «genel görünüm»): proje satırı = GERÇEK çalışan
+       sayısı (sağda) + hata uyarı ikonu (yalnız hatalı ajanı olan projede); ajan düğümleri
+       ÇALIŞAN/BEKLEYEN/HATA/KAPALI/DİĞER durum gruplu alt-akordiyonda; özet satırı aktif/
+       toplam proje; proje sırası yukarı/aşağı taşınabilir. Proje başlığına tıkla →
+       akordiyon AÇ/KAPA + o projenin sekmesi ORTA'da açılır; konuşma düğümüne tıkla →
+       seçili konuşma (SAĞ kart + composer hedefi). Akordiyon + seçili düğüm + grup tercihi +
+       sıra localStorage'da kalıcı (ordu-agac-acik / ordu-agac-secili / ordu-agac-grup /
+       ordu-agac-sira — ordu-solW / ordu-sagW anahtarlarıyla ÇAKIŞMAZ). ORDU projesi ağaçta
+       İLK ve özel işaretli. Token göstergesi bilinçli YOK: ajan verisinde token alanı yoktur. -->
   <section id="sol" aria-label="gezgin — projeler ve konuşmalar">
     <section class="bolum" id="bolum-agac" aria-labelledby="agac-baslik">
       <h2 class="bolum-etiket" id="agac-baslik">
@@ -1422,6 +1461,26 @@ try {
     if (Array.isArray(d)) agacAcik = new Set(d.filter((x) => typeof x === "string"));
   }
 } catch (e) { /* bozuk kayıt: boş ağaçla başla (fail-closed) */ }
+/* PANEL-AGAC-1: durum grubu tercihi (açık grup ADLARI — grup adına göredir, proje
+   başına değil; kayıtlı tercih varsayılanı EZER; varsayılan ÇALIŞAN + HATA açık) */
+let agacGrupAcik = new Set(["running", "error"]);
+try {
+  const kayitliGrup = oku("ordu-agac-grup");
+  if (kayitliGrup) {
+    const d = JSON.parse(kayitliGrup);
+    if (Array.isArray(d)) agacGrupAcik = new Set(d.filter((x) => typeof x === "string"));
+  }
+} catch (e) { /* bozuk kayıt: varsayılan gruplarla başla (fail-closed) */ }
+/* PANEL-AGAC-1: kalıcı proje sırası (dizin adları dizisi) | null = varsayılan sıra
+   (ORDU önce + tr locale ada göre) AYNEN; kayıt varsa kayıt öncelikli */
+let agacSira = null;
+try {
+  const kayitliSira = oku("ordu-agac-sira");
+  if (kayitliSira) {
+    const d = JSON.parse(kayitliSira);
+    if (Array.isArray(d) && d.every((x) => typeof x === "string")) agacSira = d;
+  }
+} catch (e) { /* bozuk kayıt: varsayılan sırayla başla (fail-closed) */ }
 let agacSecili = oku("ordu-agac-secili") || null; // seçili konuşma TAM ajan kimliği | null
 let seciliKonusma = null; // { ajan, projeDizin, projeAdi, orduMu } — SAĞ kart + composer hedefi
 
@@ -1480,39 +1539,148 @@ function ajanDugumHtml(a, pr) {
   );
 }
 
+/* ---- (PANEL-AGAC-1) GEZGİN = GENEL GÖRÜNÜM yüzü: proje satırında GERÇEK çalışan
+   sayısı (lastStatus === "running" sayımı — ajanlar.length TOPLAM kayıttır, «çalışıyor»
+   DEĞİL; toplam başlık title'ında dürüst) + hata uyarı ikonu (inline SVG — emoji YASAK
+   §4, yalnız hatalı ajanı olan projede); ajanlar DURUM GRUPLU alt-akordiyonda (boş grup
+   render EDİLMEZ); ağaç özetinde aktif (>=1 çalışan ajanı olan) / toplam proje; proje
+   sırası yukarı/aşağı taşınabilir + kalıcı. Token alanı bilinçli YOK: ajan verisinde
+   token yoktur — uydurma E10 ihlalidir; veri köprüsü koordinatörün ikinci dalgası. ---- */
+const GRUP_SIRA = ["running", "idle", "error", "closed", "diger"]; /* render sırası */
+const GRUP_ADI = { running: "ÇALIŞAN", idle: "BEKLEYEN", error: "HATA", closed: "KAPALI", diger: "DİĞER" };
+const UYARI_SVG =
+  '<svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true" focusable="false">' +
+  '<path d="M7 1.5 L12.8 12.2 H1.2 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+  '<path d="M7 5.2 V8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+  '<circle cx="7" cy="10.4" r="0.9" fill="currentColor"/></svg>';
+const YUKARI_SVG = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M5 1 L9 7 H1 Z" fill="currentColor"/></svg>';
+const ASAGI_SVG = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M5 9 L1 3 H9 Z" fill="currentColor"/></svg>';
+
+function agacVarsayilanSira(projeler) {
+  /* ORDU önce (özel işaret), kalanlar Türkçe locale ada göre — kaynak sırasına değil kararlı render'a bağla */
+  return [...projeler].sort((a, b) => (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0) || String(a.projeAdi).localeCompare(String(b.projeAdi), "tr"));
+}
+
+function agacSiraUygula(projeler) {
+  /* kalıcı sıra kaydı YOKSA varsayılan AYNEN; kayıt varsa kayıt önceliklidir —
+     kayıtta olmayan projeler varsayılan sıranın sonuna dürüstçe eklenir (fail-closed) */
+  const varsayilan = agacVarsayilanSira(projeler);
+  if (!Array.isArray(agacSira) || agacSira.length === 0) return varsayilan;
+  const kayitli = [];
+  const kullanilan = new Set();
+  for (const d of agacSira) {
+    if (kullanilan.has(d)) continue; /* bozuk kayıt: mükerrer giriş yinelenmez */
+    const p = varsayilan.find((x) => x.dizin === d);
+    if (p) { kayitli.push(p); kullanilan.add(d); }
+  }
+  return [...kayitli, ...varsayilan.filter((p) => !kullanilan.has(p.dizin))];
+}
+
+function agacGruplariHtml(pr, ajanlar) {
+  if (ajanlar.length === 0) return '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>';
+  const gruplar = new Map();
+  for (const a of ajanlar) {
+    const kod = GRUP_SIRA.includes(a.lastStatus) ? a.lastStatus : "diger"; /* bilinmeyen durum dürüstçe DİĞER */
+    if (!gruplar.has(kod)) gruplar.set(kod, []);
+    gruplar.get(kod).push(a);
+  }
+  let html = "";
+  for (const kod of GRUP_SIRA) {
+    const liste = gruplar.get(kod);
+    if (liste && liste.length > 0) html += agacGrupHtml(kod, liste, pr); /* boş grup render EDİLMEZ */
+  }
+  return html;
+}
+
+function agacGrupHtml(kod, liste, pr) {
+  const acik = agacGrupAcik.has(kod);
+  return (
+    '<div class="agacGrup' + (acik ? " acik" : "") + '">' +
+    '<button type="button" class="agacGrupBas" data-grup="' + kod + '" aria-expanded="' + acik + '" title="' + GRUP_ADI[kod] + " — " + liste.length + ' ajan">' +
+    '<span class="agacOk" aria-hidden="true"></span>' +
+    '<span class="agacGrupAd">' + GRUP_ADI[kod] + "</span>" +
+    '<span class="agacSayi">' + liste.length + "</span>" +
+    "</button>" +
+    (acik ? '<div class="agacGrupCocuklar">' + liste.map((a) => ajanDugumHtml(a, pr)).join("") + "</div>" : "") +
+    "</div>"
+  );
+}
+
 function agacYaz() {
   if (!P || !Array.isArray(P.projeler)) {
     $("agacOzet").textContent = "tarama verisi yok";
     $("agacAlani").innerHTML = '<p class="bosSatir">proje taraması yok (fail-closed)</p>';
     return;
   }
-  /* ORDU önce (özel işaret), kalanlar Türkçe locale ada göre — kaynak sırasına değil kararlı render'a bağla */
-  const projeler = [...P.projeler].sort((a, b) => (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0) || String(a.projeAdi).localeCompare(String(b.projeAdi), "tr"));
+  const projeler = agacSiraUygula(P.projeler);
   let html = "";
   let toplamAjan = 0;
+  let aktifProje = 0; /* >= 1 ÇALIŞAN ajanı olan proje (gerçek sayım — uydurma yok) */
   for (const pr of projeler) {
     const acik = agacAcik.has(pr.dizin);
     const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
     toplamAjan += ajanlar.length;
+    const calisan = ajanlar.filter((x) => x.lastStatus === "running").length;
+    const hatali = ajanlar.filter((x) => x.lastStatus === "error").length;
+    if (calisan > 0) aktifProje++;
     html +=
       '<div class="agacProje' + (acik ? " acik" : "") + '">' +
-      '<button type="button" class="agacProjeBas" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '">' +
+      '<div class="agacProjeSatir">' +
+      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
       '<span class="agacAd">' + esc(pr.projeAdi) + "</span>" +
-      '<span class="agacSayi">' + ajanlar.length + "</span>" +
-      "</button>" +
-      (acik
-        ? '<div class="agacCocuklar">' + (ajanlar.map((a) => ajanDugumHtml(a, pr)).join("") || '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>"
+      (hatali > 0
+        ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
         : "") +
+      '<span class="agacSayi">' + calisan + "</span>" +
+      "</div>" +
+      '<span class="agacTasi">' +
+      '<button type="button" class="agacTasiBtn" data-yon="-1" data-proje="' + esc(pr.dizin) + '" aria-label="projeyi yukarı taşı" title="projeyi yukarı taşı">' + YUKARI_SVG + "</button>" +
+      '<button type="button" class="agacTasiBtn" data-yon="1" data-proje="' + esc(pr.dizin) + '" aria-label="projeyi aşağı taşı" title="projeyi aşağı taşı">' + ASAGI_SVG + "</button>" +
+      "</span>" +
+      "</div>" +
+      (acik ? '<div class="agacCocuklar">' + agacGruplariHtml(pr, ajanlar) + "</div>" : "") +
       "</div>";
   }
-  $("agacOzet").innerHTML = "<b>" + projeler.length + "</b> proje · <b>" + toplamAjan + "</b> ajan kaydı · ölçüm " + esc(P.olcumAniISO || "—");
+  $("agacOzet").innerHTML = "<b>" + aktifProje + "</b> aktif / <b>" + projeler.length + "</b> proje · <b>" + toplamAjan + "</b> ajan kaydı · ölçüm " + esc(P.olcumAniISO || "—");
   $("agacAlani").innerHTML = html || '<p class="bosSatir">taramada proje yok (dürüst boş)</p>';
 }
 
-/* ağaç tıklamaları (temsilci dinleyici): proje → akordiyon + sekme aç; ajan → seçili konuşma */
+function agacSirala(dizin, yon) {
+  if (!P || !Array.isArray(P.projeler)) return;
+  const liste = agacSiraUygula(P.projeler).map((p) => p.dizin);
+  const i = liste.indexOf(dizin);
+  const j = i + (yon === -1 ? -1 : 1);
+  if (i < 0 || j < 0 || j >= liste.length) return; /* uç satır: sessiz no-op */
+  const gecici = liste[i];
+  liste[i] = liste[j];
+  liste[j] = gecici;
+  agacSira = liste;
+  kaydet("ordu-agac-sira", JSON.stringify(liste));
+  agacYaz();
+}
+
+/* ağaç tıklamaları (temsilci dinleyici): sıra düğmeleri ve durum GRUP başlıkları ÖNCE
+   ele alınır — erken dönüş, proje/ajan davranışını tetiklemesin; sonra proje başlığı →
+   akordiyon + sekme; ajan düğümü → seçili konuşma. Proje başlığı role="button" div
+   olduğundan Enter/Space klavye yolu keydown dinleyicisinde tıklamaya çevrilir
+   (W3C: düğme içinde düğme yasak — taşıma düğmeleri başlığın DIŞINDA). */
 $("agacAlani").addEventListener("click", (e) => {
+  const tasiDugumu = e.target.closest(".agacTasiBtn");
+  if (tasiDugumu) {
+    agacSirala(tasiDugumu.dataset.proje, Number(tasiDugumu.dataset.yon));
+    return; /* taşıma akordiyonu/sekmeyi/ seçimi tetiklemez */
+  }
+  const grupDugumu = e.target.closest(".agacGrupBas");
+  if (grupDugumu) {
+    const kod = grupDugumu.dataset.grup;
+    if (agacGrupAcik.has(kod)) agacGrupAcik.delete(kod);
+    else agacGrupAcik.add(kod);
+    kaydet("ordu-agac-grup", JSON.stringify([...agacGrupAcik]));
+    agacYaz();
+    return; /* grup başlığı proje davranışını tetiklemez */
+  }
   const projeDugumu = e.target.closest(".agacProjeBas");
   if (projeDugumu) {
     const dizin = projeDugumu.dataset.proje;
@@ -1529,6 +1697,17 @@ $("agacAlani").addEventListener("click", (e) => {
     kaydet("ordu-agac-secili", agacSecili || "");
     konusmaSecGuncelle(true); /* ağaç tıklaması: composer hedefi de tıklanan konuşmaya döner (kapanış düzeltmesi — yenileme yolu elle seçimi korur) */
     agacYaz();
+  }
+});
+
+/* klavye yolu: başlık DIV role=button → Enter/Space tıklamaya çevrilir
+   (Space'in sayfayı kaydırması önlenir; ok tuşları taşıma düğmelerinde zaten düğme) */
+$("agacAlani").addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const baslik = e.target.closest(".agacProjeBas");
+  if (baslik) {
+    e.preventDefault();
+    baslik.click();
   }
 });
 

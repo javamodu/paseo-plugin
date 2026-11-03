@@ -1290,6 +1290,12 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
     },
     agacAcik: new Set(["D-Vibecode-ordu"]),
     agacSecili: "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7",
+    /* PANEL-AGAC-1 (bilinçli fixture genişletmesi): durum gruplu render için yeni
+       durum değişkenleri — KAPALI grubu da AÇIK verilir ki 'nokta kapali' düğümü
+       (kapalı akordiyon altında artık render edilmez) davranışı görünsün; sıra
+       kaydı yok → varsayılan sıra (ORDU önce) */
+    agacGrupAcik: new Set(["running", "closed"]),
+    agacSira: null,
     NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
   });
   agacFn();
@@ -1474,4 +1480,145 @@ test("51e- KOMPAKT kapanis duzeltmesi (vm): agac tiklamasi composer hedefini TIK
   secSham.value = "silinmis-kimlik";
   fn();
   ok("yenileme: eski değer listede yoksa seçili konuşmaya döner", secSham.value === A2);
+});
+
+test("51f- PANEL-AGAC-1 (vm): çalışan sayısı GERÇEK sayımdan + hata uyarı ikonu + aktif/toplam proje + durum grupları (boş grup YOK) + kalıcı sıra + taşıma/grup tıklaması proje davranışını DURDURUR", () => {
+  const j = jsKisim();
+  /* --- kaynak pinleri --- */
+  ok("grup kalıcılığı: ordu-agac-grup (kaydet + oku)", j.includes('kaydet("ordu-agac-grup"') && j.includes('oku("ordu-agac-grup")'));
+  ok("sıra kalıcılığı: ordu-agac-sira (kaydet + oku)", j.includes('kaydet("ordu-agac-sira"') && j.includes('oku("ordu-agac-sira")'));
+  ok("durum grup sabitleri: render sırası + Türkçe adlar", j.includes('const GRUP_SIRA = ["running", "idle", "error", "closed", "diger"]') && j.includes('const GRUP_ADI = { running: "ÇALIŞAN", idle: "BEKLEYEN", error: "HATA", closed: "KAPALI", diger: "DİĞER" }'));
+  ok("varsayılan açık gruplar: ÇALIŞAN + HATA", j.includes('new Set(["running", "error"])'));
+  ok("çalışan sayısı GERÇEK sayım (lastStatus === running; ajanlar.length TOPLAM kayıttır)", j.includes('x.lastStatus === "running"') && j.includes('x.lastStatus === "error"'));
+  ok("proje başlığı role=button DIV (W3C: düğme içinde düğme YASAK)", j.includes('<div class="agacProjeBas" role="button"') && !j.includes('<button type="button" class="agacProjeBas"'));
+  ok("taşıma düğmeleri başlığın DIŞINDA (agacTasi) + klavye yolu keydown dinleyicisi", j.includes('<span class="agacTasi">') && j.includes('$("agacAlani").addEventListener("keydown"'));
+  ok("taşıma hedefi 28px (K-0061 kompakt satır yüksekliği)", /\.agacTasiBtn\s*\{[^}]*width:\s*28px/.test(HTML) && /\.agacTasiBtn\s*\{[^}]*min-height:\s*28px/.test(HTML));
+  ok("uyarı ikonu inline SVG + role=img (emoji YASAK §4)", j.includes("const UYARI_SVG") && j.includes('<span class="agacUyari" role="img"'));
+  ok("tıklama temsilcisi: sıra + grup başlıkları ÖNCE (erken dönüş — TRAP 2)", j.indexOf('closest(".agacTasiBtn")') >= 0 && j.indexOf('closest(".agacTasiBtn")') < j.indexOf('closest(".agacProjeBas")') && j.indexOf('closest(".agacGrupBas")') < j.indexOf('closest(".agacProjeBas")'));
+  ok("ağaç özeti aktif/toplam: 'N aktif / M proje'", j.includes("</b> aktif / <b>"));
+  ok("başlık title'ı dürüst: 'çalışan · toplam ajan kaydı'", j.includes(" çalışan · "));
+  ok("taşıma aria-label'ları (yukarı/aşağı)", j.includes('aria-label="projeyi yukarı taşı"') && j.includes('aria-label="projeyi aşağı taşı"'));
+
+  /* --- (1) agacYaz davranışı: çalışan sayısı + uyarı + gruplar + boş grup yok --- */
+  const R1 = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"; /* running (P-alfa) */
+  const R2 = "128a3edc-b2a6-4eff-b0ff-f430015fa045"; /* running (P-alfa) */
+  const I1 = "432e03b7-9004-445c-857d-ebf3b6661d53"; /* idle (P-alfa) */
+  const E1 = "b7f2c915-3a9e-4c21-8f14-09d3a2c6e7b8"; /* error (P-beta) */
+  const D1 = "c9e8d7a6-2b4f-4e3a-9c21-7f0a1b2c3d4e"; /* bilinmeyen durum → DİĞER (P-alfa) */
+  const FIX = {
+    olcumAniISO: "2026-11-03T12:00:00Z",
+    projeler: [
+      { dizin: "P-alfa", projeAdi: "alfa", orduMu: false, ajanlar: [
+        { ajanKimligi: R1, ajanId: "8cc610a4", lastStatus: "running", etiket: "çalışan ajan 1" },
+        { ajanKimligi: R2, ajanId: "128a3edc", lastStatus: "running", etiket: "çalışan ajan 2" },
+        { ajanKimligi: I1, ajanId: "432e03b7", lastStatus: "idle", etiket: "bekleyen ajan" },
+        { ajanKimligi: D1, ajanId: "c9e8d7a6", lastStatus: "hazirlaniyor", etiket: "bilinmeyen durum" },
+      ] },
+      { dizin: "P-beta", projeAdi: "beta", orduMu: false, ajanlar: [
+        { ajanKimligi: E1, ajanId: "b7f2c915", lastStatus: "error", etiket: "hatalı ajan" },
+      ] },
+      { dizin: "D-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [] },
+    ],
+  };
+  const sahte = {};
+  const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+  const ctx = {
+    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    P: FIX, agacAcik: new Set(["P-alfa"]), agacSecili: null,
+    agacGrupAcik: new Set(["running", "error"]), agacSira: null,
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+  };
+  const agacFn = vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctx);
+  agacFn();
+  const h = sahte.agacAlani.innerHTML;
+  ok("özet: 1 aktif / 3 proje · 5 ajan kaydı (gerçek sayım — uydurma yok)", sahte.agacOzet.innerHTML.includes("1</b> aktif / <b>3</b> proje") && sahte.agacOzet.innerHTML.includes("5</b> ajan kaydı"));
+  ok("varsayılan sıra: ORDU önce (kayıt yok)", h.indexOf("ORDU</span>") < h.indexOf("alfa") && h.indexOf("alfa") < h.indexOf("beta"));
+  const alfaBasIdx = h.indexOf('data-proje="P-alfa"');
+  const alfaBas = h.slice(alfaBasIdx, h.indexOf("</div>", alfaBasIdx));
+  ok("proje satırı: sağda ÇALIŞAN sayısı (2 — toplam 4 DEĞİL) + dürüst title", alfaBas.includes('<span class="agacSayi">2</span>') && !alfaBas.includes('<span class="agacSayi">4</span>') && alfaBas.includes('title="2 çalışan · 4 ajan kaydı"'));
+  ok("hata uyarısı: YALNIZ hatalı ajanı olan projede (P-beta VAR · P-alfa/D-ordu YOK)", (h.match(/class="agacUyari"/g) || []).length === 1 && h.indexOf('class="agacUyari"') > h.indexOf('data-proje="P-beta"'));
+  ok("uyarı ikonu aria-label + dürüst sayı title'ı", h.includes('aria-label="hata durumunda ajan var"') && h.includes('title="1 ajan hata durumunda"'));
+  ok("durum grupları: ÇALIŞAN + BEKLEYEN + DİĞER başlıkları; boş HATA grubu render EDİLMEZ", h.includes('data-grup="running"') && h.includes('data-grup="idle"') && h.includes('data-grup="diger"') && !h.includes('data-grup="error"'));
+  ok("grup başlığı: ad + sağda sayı (ÇALIŞAN 2)", h.includes(">ÇALIŞAN</span><span class=\"agacSayi\">2</span>"));
+  ok("ÇALIŞAN açık: 2 ajan düğümü render; BEKLEYEN/DİĞER kapalı: düğüm YOK (yalnız başlık sayısı)", h.includes('data-ajan="' + R1 + '"') && h.includes('data-ajan="' + R2 + '"') && !h.includes('data-ajan="' + I1 + '"') && !h.includes('data-ajan="' + D1 + '"'));
+  ok("kapalı projenin (P-beta) grupları render EDİLMEZ", !h.includes('data-ajan="' + E1 + '"'));
+  ok("data-ajan TAM uuid korunur (seçim/gönderim değişmez)", h.includes('data-ajan="' + R1 + '"'));
+  const emojiHtml = h.match(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}]/gu) || [];
+  ok("ağaç çıktısında emoji karakteri YOK (uyarı/ok ikonları inline SVG — §4)", emojiHtml.length === 0, "bulunan: " + emojiHtml.length);
+  ok("token alanı YOK (veri köprüsü ikinci dalgada — uydurma E10 ihlali)", !/token/i.test(h));
+
+  /* --- (2) kalıcı sıra kaydı VARSAYILANI Ezer (kullanıcı düzeni öncelikli) --- */
+  ctx.agacSira = ["P-beta", "P-yok"]; /* kayıtta olmayan proje yok sayılır + eksikler sona eklenir */
+  agacFn();
+  const h2 = sahte.agacAlani.innerHTML;
+  ok("kayıtlı sıra ezer: P-beta önce; kayıtta olmayan 'P-yok' dürüstçe yok sayılır", h2.indexOf("beta") < h2.indexOf("ORDU</span>") && h2.indexOf("ORDU</span>") < h2.indexOf("alfa") && !h2.includes("P-yok"));
+
+  /* --- (3) agacSirala: bir satır kaydırır + kalıcıya yazar; uç satırda sessiz no-op --- */
+  const kayit = [];
+  const kaydetSpy = (a, v) => kayit.push([a, v]);
+  const sirCtx = {
+    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    P: FIX, agacAcik: new Set(), agacSecili: null,
+    agacGrupAcik: new Set(["running", "error"]), agacSira: null,
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+    kaydet: kaydetSpy,
+  };
+  const sirFn = vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacSirala", sirCtx);
+  sirFn("P-alfa", -1); /* varsayılan sıra: D-ordu, P-alfa, P-beta → P-alfa bir satır yukarı */
+  assert.deepEqual([...sirCtx.agacSira], ["P-alfa", "D-ordu", "P-beta"], "taşıma: bir satır kaydırır");
+  ok("sıra kalıcıya yazılır (ordu-agac-sira)", kayit.some(([a]) => a === "ordu-agac-sira"));
+  ok("taşıma sonrası ağaç yeniden render (P-alfa başta)", sahte.agacAlani.innerHTML.indexOf("alfa") < sahte.agacAlani.innerHTML.indexOf("ORDU</span>"));
+  const kayitSayisi = kayit.length;
+  sirFn("P-alfa", -1); /* zaten başta: sessiz no-op */
+  assert.deepEqual([...sirCtx.agacSira], ["P-alfa", "D-ordu", "P-beta"], "uç satır: sıra değişmez");
+  assert.equal(kayit.length, kayitSayisi, "uç satır: kalıcıya YENİ kayıt yazılmaz");
+
+  /* --- (4) tıklama temsilcisi: taşıma + grup başlığı proje/ajan davranışını tetiklemez --- */
+  const dinleyiciler = {};
+  const agacSham = { addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; } };
+  const cagrilar = { sirala: [], sekme: [], secim: [], yaz: 0 };
+  const kayit2 = [];
+  const dlgCtx = {
+    $: (id) => (id === "agacAlani" ? agacSham : { addEventListener: () => {} }),
+    agacSirala: (d, y) => { cagrilar.sirala.push([d, y]); },
+    sekmeAc: (d) => { cagrilar.sekme.push(d); },
+    konusmaSecGuncelle: (z) => { cagrilar.secim.push(z); },
+    agacYaz: () => { cagrilar.yaz++; },
+    agacAcik: new Set(["P-alfa"]),
+    agacGrupAcik: new Set(["running", "error"]),
+    agacSecili: null,
+    kaydet: (a) => { kayit2.push(a); },
+  };
+  vm.runInNewContext(HTML.slice(HTML.indexOf('$("agacAlani").addEventListener("click"'), HTML.indexOf("function konusmaSecGuncelle")), dlgCtx);
+  ok("delegasyon kayıtlı: click + keydown dinleyicileri", !!dinleyiciler.click && !!dinleyiciler.keydown);
+  const olay = (eslesen, dugum) => ({ target: { closest: (s) => (s === eslesen ? dugum : null) } });
+  /* (4a) taşıma düğmesi: agacSirala çağrılır; akordiyon/sekme/selection DEĞİŞMEZ */
+  dinleyiciler.click(olay(".agacTasiBtn", { dataset: { proje: "P-beta", yon: "-1" } }));
+  assert.deepEqual(cagrilar.sirala, [["P-beta", -1]], "taşıma: agacSirala(proje, yon) çağrılır");
+  assert.deepEqual(cagrilar.sekme, [], "taşıma: sekme açMAZ");
+  assert.equal(dlgCtx.agacAcik.size, 1, "taşıma: akordiyonu bozmaz");
+  /* (4b) grup başlığı: grup açılır/kapanır + kalıcıya yazılır; proje davranışı YOK */
+  dinleyiciler.click(olay(".agacGrupBas", { dataset: { grup: "idle" } }));
+  ok("grup başlığı: kapalı grup AÇILIR", dlgCtx.agacGrupAcik.has("idle"));
+  ok("grup tercihi kalıcıya yazılır (ordu-agac-grup)", kayit2.includes("ordu-agac-grup"));
+  assert.deepEqual(cagrilar.sekme, [], "grup başlığı: sekme açmaz");
+  dinleyiciler.click(olay(".agacGrupBas", { dataset: { grup: "idle" } }));
+  ok("grup başlığı: ikinci tıklama KAPATIR", !dlgCtx.agacGrupAcik.has("idle"));
+  /* (4c) proje başlığı (regresyon): akordiyon + sekme AYNEN */
+  dinleyiciler.click(olay(".agacProjeBas", { dataset: { proje: "P-beta" } }));
+  ok("proje başlığı: akordiyon açılır + sekme açılır (mevcut davranış korunur)", dlgCtx.agacAcik.has("P-beta") && cagrilar.sekme.includes("P-beta"));
+  ok("ordu-agac-acik kalıcıya yazılır", kayit2.includes("ordu-agac-acik"));
+  /* (4d) ajan düğümü (regresyon): seçim + konusmaSecGuncelle(true) AYNEN */
+  dinleyiciler.click(olay(".agacAjan", { dataset: { ajan: R1, proje: "P-alfa" } }));
+  assert.equal(dlgCtx.agacSecili, R1, "ajan düğümü: seçili konuşma TAM kimlikle");
+  assert.deepEqual(cagrilar.secim, [true], "ajan düğümü: konusmaSecGuncelle(true) — 51e düzeltmesi korunur");
+  ok("ordu-agac-secili kalıcıya yazılır", kayit2.includes("ordu-agac-secili"));
+  /* (4e) klavye: başlık DIV role=button → Enter/Space tıklamaya çevrilir */
+  let tiklandi = 0, engellendi = 0;
+  const baslikSham = { closest: (s) => (s === ".agacProjeBas" ? baslikSham : null), click: () => { tiklandi++; } };
+  dinleyiciler.keydown({ key: "Enter", target: baslikSham, preventDefault: () => { engellendi++; } });
+  dinleyiciler.keydown({ key: " ", target: baslikSham, preventDefault: () => { engellendi++; } });
+  ok("klavye: Enter + Space başlık tıklamasına çevrilir (kaydırma önlenir)", tiklandi === 2 && engellendi === 2);
+  dinleyiciler.keydown({ key: "a", target: baslikSham, preventDefault: () => { engellendi++; } });
+  ok("klavye: diğer tuşlar geçer (yalnız Enter/Space)", tiklandi === 2);
 });
