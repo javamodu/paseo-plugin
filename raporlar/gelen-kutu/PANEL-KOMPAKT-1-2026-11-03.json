@@ -1,0 +1,33 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-KOMPAKT-1",
+  "baslik": "ordu-panosu.html kompakt redesign — baz 13px, taşma üç katman kesildi, kısa ad kuralı, panel 240/320 + KENAR clamp, EK steering TEK PANEL birleşimi (paseoOzet + bitişik üst çubuklar)",
+  "tarih": "2026-11-03",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs",
+    "raporlar/gelen-kutu/PANEL-KOMPAKT-1-2026-11-03.md"
+  ],
+  "etiket": ["pano", "arayuz", "kompakt", "steering-2026-11-03", "panel-kompakt-1"],
+  "siddet": "bilgi",
+  "kanit": {
+    "panoNpmTest": "70/70 pass, 0 fail, EXIT=0 (taban 68 + yeni 10e + 51d)",
+    "repoGenelTest": "node --test pano/*.test.mjs scripts/*.test.mjs — 292/292 pass, 0 fail, EXIT=0 (taban 290)",
+    "test0Parse": "vm.Script tüm inline script parse — yeşil (canlı SyntaxError regresyon pini korundu)"
+  },
+  "bilincliPinDegisimleri": [
+    "test 2: agacProjeBas/agacAjan 44px -> 28px (kompakt steering)",
+    "test 10: body 16px -> 13px; bolum-etiket 20px -> 15px/600; bolum padding 22px 24px -> 10px 12px; satir 1.5 -> 1.4; radius 8/6 -> 6/4; GÖNDER 44px -> 40px (KISAT alt sınırı; select/input 44px KORUNDU)",
+    "test 10b: ozetDeger 36px -> 22px/600; ozetEtiket 14px -> 11px; kutuKod 20px -> 14px",
+    "test 10d: --solW/--sagW 280/380 -> 240/320; aria-valuenow 280/380 -> 240/320; genel clamp 180px-45vw -> KENAR taraf-bazli (sol 200-360, sag 260-460); logListe 13px -> 12px",
+    "test 51b: basliksiz ajan '(başlıksız)' -> 8 hane kimlik + TAM kimlik title; vm context'e kisalt eklendi"
+  ],
+  "yeniPinler": [
+    "test 10e: kompakt yoğunluk + ellipsis katmanları + kisalt + KENAR + fallback 240/320 + 900-1279 media + --cizgi:#e2e8f0 + gölge-yok + paseoOzet + bitişik üst çubuk ailesi + colgroup kolonları",
+    "test 51d: kisalt eşik tablosu (vm) + ajanDugumHtml kısa ad kuralı (etiket 20 · title TAM · data-ajan TAM uuid)"
+  ],
+  "ekSteeringNotu": "PROJE DURUMLARI bloğu HTML gövdesinde zaten yoktu (PANEL-EXPLORER-1'de ağaç lehine söküldü; grep doğrulaması yalnız bayat JS yorumu buldu — yorum güncellendi). DURUM alt-sekmesine paseoOzet kompakt satırı eklendi ('Paseo taraması: N proje · M ajan'; tarama ölürse fail-closed dürüst metin).",
+  "veriKatmani": "7 GET ucu + POST /api/mesaj + esc() + 30sn yenileme + odakIcindeMi/gonderiyor AYNEN; server.js/paseo-kopru.mjs/ordu-birlesim.mjs/package.json DOKUNULMADI; PANO_TOKEN hiçbir dosyaya/loga yazılmadı; commit/push YOK; 4937'ye dokunulmadı.",
+  "oneri": "Koordinatör canlı DOM doğrulaması (4937, HTML diskten taze) + ekran PNG kanıtı + TASARIM KAPISI kapanışı (§1 bu işte steering'le geçersiz — §4/§6/§7/§8 yeşil) + K2 görsel kabul kullanıcıda.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 15:16): (1) CANLI DOM doğrulandı (4937, HTML diskten taze): kompakt canlı — ağaç düğümleri kısa ad tek satır (kisalt etiket 19+…) + title TAM uuid + data-ajan TAM uuid (62 ORDU düğümü ölçüldü) · paseoOzet tek satırı canlı «Paseo taraması: 74 proje · 1037 ajan» · composer İKİ AYRI optgroup (ORDU YÖNETİM: 1 · SEÇİLİ PROJE: 61, yönetim hariç) · görünür kırmızı yüz 0; ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-kompakt.png (148 KB, 1534x888). (2) TASARIM KAPISI koordinatörle KAPANDI: kararlar/K-0061.md YÜRÜRLÜKTE — §1 (baz 16px/nefes) bu panelde kullanıcı steering'iyle askıda; §4/§6 grep temiz (yalnız bilinen iyi huylu favicon data-SVG); §5 GÖNDER 40px + select/input 44px. (3) KOORDİNATÖR BULGUSU + DÜZELTME (gizil regresyon): composer hedef select'i ağaç tıklamasını takip ETMİYORDU — kart doluyor, select eski değerde kalıyordu (taze sayfada ilk tıklama çalıştığı için PANEL-EXPLORER-1 kanıtı bunu göremedi; localStorage'dan gelen seçimle görünür oldu). Düzeltme: konusmaSecGuncelle(secimiZorla)/composerHedefGuncelle(secimiZorla) — tıklama yolu TIKLANAN konuşmayı hedefler, 30sn yenileme yolu elle seçilmiş değeri KORUR (yönetim seçimi ezilmez); test 51e YENİ (vm: zorla takip + elle seçim korunur + listede olmayan eski değere dürüst dönüş). Canlı kanıt: tıklanan 074a43f2 → select 074a43f2-f0b… + kart doldu. DÜRÜST NOT: koordinatörün ilk düzeltmesinde kendi yazım hatası (seciliKonsma→seciliKonusma) vardı — 51e kırmızı çıkardı, dış-sinyalle (test çıktısı) düzeltildi. (4) K2 görsel kabul KULLANICIDA — açık. Koordinatör bağımsız koşumlar: pano npm 71/71 (70 + 51e) + repo glob 293/293 (292 + 51e) EXIT=0."
+}

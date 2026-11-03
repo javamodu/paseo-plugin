@@ -12,8 +12,15 @@
   /* =====================================================================
      ORDU KOMUTA PANELİ — FAZ-B (PANEL-EXPLORER-1; operatör yönlendirmesi
      2026-11-03 «VS Code tarzı: sol explorer · orta sekmeli sayfa · sağ composer»).
-     TABAN: kapsul-tuval.html R3 tasarımı (2026-10-30, onaylı) — token'lar birebir:
-     saf beyaz zemin · tek aksan petrol mavisi · --yuzey2/--yuzey3 · radius 8/6/4.
+     KOMPAKT (PANEL-KOMPAKT-1; kullanıcı steering 2026-11-03 «görsel olarak
+     sıkışık ve metinler kayıyor — minimal kompakt, tek bakış»): baz 13px/1.4 ·
+     özet şerit auto-fit minmax(150px,1fr) · her metin hücresi ellipsis + title ·
+     ağaç ~28px · sekme 30px · GÖNDER 40px · sol 240 (200-360) · sağ 320
+     (260-460) · 900-1279px kolonlar daralır. TASARIM-MANIFESTOSU §1'in
+     nefes/baz-16px maddesi bu işte kullanıcı steering'iyle GEÇERSİZ;
+     §4/§6/§7/§8 AYNEN geçerli.
+     TABAN: kapsul-tuval.html R3 tasarımı (2026-10-30, onaylı) — token'lar:
+     saf beyaz zemin · tek aksan petrol mavisi · --yuzey2/--yuzey3 · radius 6/4.
      ANA DÜZEN (5 hücre grid AYNEN): SOL (GEZGİN ağacı — projeler + konuşmalar)
      · 6px splitter · ORTA (sekmeli editör: ORDU SABİT sekme + proje sekmeleri;
      ORDU içinde 5 alt sekme DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG)
@@ -28,9 +35,9 @@
   :root {
     --zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;
     --camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;
-    --metin:#1a2332; --ikincil:#51617a; --cizgi:rgba(26,35,50,0.14); --glow:rgba(15,76,129,0.18);
-    --radius:8px; --radius-k:6px; --radius-cip:4px; --min-dokunma:44px;
-    --solW:280px; --sagW:380px;
+    --metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);
+    --radius:6px; --radius-k:4px; --radius-cip:4px; --min-dokunma:44px;
+    --solW:240px; --sagW:320px;
     --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
   }
   * { box-sizing:border-box; margin:0; font:inherit; }
@@ -38,7 +45,7 @@
   body {
     background:var(--zemin); color:var(--metin);
     font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size:16px; line-height:1.5;
+    font-size:13px; line-height:1.4; /* KOMPAKT: baz 13px (steering 2026-11-03) */
     height:100vh; overflow:hidden; /* TEK VIEWPORT — body scroll YOK, her sütun kendi içinde kayar */
     display:flex; flex-direction:column;
   }
@@ -49,17 +56,17 @@
 
   /* ---- ÜST BAR: marka + pano sayfa bağlantıları (FAZ-B: proje select KALDIRILDI — gezgin ağacı tek seçim yolu) ---- */
   .ustbar {
-    position:relative; z-index:10; display:flex; align-items:center; gap:10px 16px; flex-wrap:wrap;
-    padding:10px 16px; background:var(--yuzey); border-bottom:1px solid var(--cizgi);
+    position:relative; z-index:10; display:flex; align-items:center; gap:8px 12px; flex-wrap:wrap;
+    padding:6px 12px; background:var(--yuzey); border-bottom:1px solid var(--cizgi);
   }
-  .marka { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.04em; font-size:16px; }
+  .marka { display:flex; align-items:center; gap:8px; font-weight:700; letter-spacing:0.04em; font-size:14px; }
   .marka svg { display:block; }
-  .ustSag { margin-left:auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .ustNav { display:flex; gap:6px; }
+  .ustSag { margin-left:auto; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .ustNav { display:flex; gap:4px; }
   .ustNav a {
-    display:inline-flex; align-items:center; min-height:var(--min-dokunma); padding:0 14px;
+    display:inline-flex; align-items:center; min-height:32px; padding:0 10px;
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    color:var(--ikincil); font-size:13.5px; font-weight:600; text-decoration:none;
+    color:var(--ikincil); font-size:12px; font-weight:600; text-decoration:none;
     transition:color 160ms ease, border-color 160ms ease; /* E12: yalnız renk */
   }
   .ustNav a:hover { color:var(--camgobegi); border-color:rgba(15,76,129,0.45); }
@@ -75,7 +82,7 @@
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
     display:grid; gap:0;
     grid-template-columns:var(--solW) 6px minmax(0,1fr) 6px var(--sagW); /* duvar 6px — kapsul-tuval deseni */
-    width:100%; max-width:1760px; margin:0 auto; padding:12px 16px 16px;
+    width:100%; max-width:1760px; margin:0 auto; padding:0 12px 12px;
     overflow:hidden;
   }
   main > * { grid-row:1; }
@@ -84,6 +91,8 @@
   main > #orta { grid-column:3; }
   main > #splitSag { grid-column:4; }
   main > #sag { grid-column:5; }
+  /* EK STEERING: üstbarla bitişik orta şerit — sol/sağ panel kutuları üstten nefes alır */
+  #sol > .bolum, #sag > .bolum { margin-top:8px; }
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; }
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
@@ -106,17 +115,17 @@
 
   .bolum {
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:var(--radius);
-    padding:22px 24px 26px; overflow:hidden;
+    padding:10px 12px 12px; overflow:hidden;
   }
-  .bolum-etiket { /* R3 ölçeği — bölüm başlığı 20px (kapsul-tuval ile aynı) */
-    display:flex; align-items:center; gap:12px; margin:2px 0 10px;
-    font-size:20px; font-weight:700; color:var(--metin); letter-spacing:0.01em;
+  .bolum-etiket { /* KOMPAKT: bölüm başlığı 15px/600 (steering 2026-11-03) */
+    display:flex; align-items:center; gap:8px; margin:0 0 8px;
+    font-size:15px; font-weight:600; color:var(--metin); letter-spacing:0.01em;
   }
-  .bolum-etiket::before { content:""; width:22px; height:4px; border-radius:2px; background:var(--camgobegi); flex:none; }
+  .bolum-etiket::before { content:""; width:14px; height:3px; border-radius:2px; background:var(--camgobegi); flex:none; }
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
-  .bolumOzet { font-size:16px; color:var(--ikincil); margin:0 0 8px; overflow-wrap:anywhere; }
+  .bolumOzet { font-size:12px; color:var(--ikincil); margin:0 0 6px; overflow-wrap:anywhere; }
   .bolumOzet b { color:var(--metin); font-variant-numeric:tabular-nums; }
-  .bolumIci { max-height:560px; overflow-y:auto; padding-right:4px; }
+  .bolumIci { max-height:480px; overflow-y:auto; padding-right:4px; }
 
   /* =====================================================================
      ORTA: SEKMELİ EDİTÖR (kapsul-tuval sekme deseni) —
@@ -125,54 +134,60 @@
      SAĞLIĞI · LOG. Sekme gövdesi kendi içinde kayar; geçiş animasyonu
      yalnız transform/opacity (E12, ≤600ms).
      ===================================================================== */
+  /* =====================================================================
+     EK STEERING 2026-11-03 («iki parçalı görünüm birleşsin — TEK PANEL»):
+     üstbar + ana sekme şeridi + alt sekme şeridi TEK bitişik görsel aile —
+     ana şeridin üst kenarı üstbarla bitişik (main padding-top:0), alt şerit
+     ana şeride sıfır aralıkla eklenir; köşe radius'u yalnız govdenin altında.
+     ===================================================================== */
   #anaSekmeSerit {
     display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
-    background:var(--yuzey2); border:1px solid var(--cizgi); border-bottom:0;
-    border-radius:var(--radius) var(--radius) 0 0; padding:6px 6px 0;
+    background:var(--yuzey2); border:1px solid var(--cizgi); border-top:0; border-bottom:0;
+    border-radius:0; padding:4px 4px 0;
   }
   .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; }
-  .sekme {
-    flex:none; display:inline-flex; align-items:center; gap:8px; padding:0 16px;
-    min-height:var(--min-dokunma); border:1px solid transparent; border-bottom:0;
+  .sekme { /* KOMPAKT: 30px sekme · 12px etiket */
+    flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
+    min-height:30px; border:1px solid transparent; border-bottom:0;
     border-radius:var(--radius-k) var(--radius-k) 0 0;
-    background:transparent; color:var(--ikincil); font-size:14.5px; font-weight:600;
+    background:transparent; color:var(--ikincil); font-size:12px; font-weight:600;
     white-space:nowrap; position:relative; cursor:pointer;
   }
   .sekme:hover { color:var(--metin); }
   .sekme.aktif { background:var(--yuzey); color:var(--metin); border-color:var(--cizgi); }
-  .sekme.aktif::after { content:""; position:absolute; left:10px; right:10px; top:0; height:3px; border-radius:0 0 3px 3px; background:var(--camgobegi); }
+  .sekme.aktif::after { content:""; position:absolute; left:8px; right:8px; top:0; height:2px; border-radius:0 0 3px 3px; background:var(--camgobegi); }
   #sekmeGovde {
     flex:1 1 auto; min-height:0; overflow-y:auto; position:relative;
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:0 0 var(--radius) var(--radius);
-    padding:14px 16px 20px;
+    padding:8px 12px 12px;
   }
   #sekmeGovde .bolum { border:0; border-radius:0; background:transparent; padding:0 0 8px; } /* panel zaten kutu — iç kart çerçevesi çift olmasın */
   .sekmePanel { opacity:0; transform:translateY(8px); transition:opacity 200ms ease, transform 200ms ease; } /* E12: yalnız transform/opacity */
   .sekmePanel.acik { opacity:1; transform:none; }
   .sekmePanel[hidden] { display:none; } /* display kuralı [hidden]'ı ezmesin — açık kural */
 
-  /* ---- TEK BAKIŞ (SOL): 6 BÜYÜK sayı kartı (STEERING-8 mirası) ---- */
-  .ozetGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap:20px; margin:6px 0 16px; }
+  /* ---- KOMPAKT (steering 2026-11-03): TEK kompakt şerit — auto-fit minmax(150px,1fr);
+     rakam 22px/600; etiket 11px uppercase; her kart TEK satır değer (ellipsis + title) ---- */
+  .ozetGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap:8px; margin:4px 0 12px; }
   .ozetKart {
-    border:1px solid var(--cizgi); border-radius:var(--radius); background:var(--yuzey);
-    padding:20px 22px; display:flex; flex-direction:column; gap:8px; min-height:120px;
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
+    padding:8px 10px; display:flex; flex-direction:column; gap:2px; min-width:0;
   }
-  .ozetEtiket { font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
-  .ozetDeger { font-size:36px; font-weight:800; line-height:1.15; color:var(--metin); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+  .ozetEtiket { font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ozetDeger { font-size:22px; font-weight:600; line-height:1.25; color:var(--metin); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .ozetDeger.mono { font-family:var(--mono); }
-  .ozetDeger.yazi { font-size:22px; line-height:1.3; font-weight:700; }
-  .ozetDeger.damga { font-size:24px; font-family:var(--mono); font-weight:700; }
-  .ozetDeger .nokta { width:16px; height:16px; margin-right:10px; }
-  .ozetAlt { font-size:14.5px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .ozetDeger.yazi { font-size:14px; font-weight:600; }
+  .ozetDeger.damga { font-size:13px; font-family:var(--mono); font-weight:600; }
+  .ozetDeger .nokta { width:10px; height:10px; margin-right:6px; }
+  .ozetAlt { font-size:11px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-  /* ---- PROGRESSIVE DISCLOSURE: <details> KAPALI varsayılan; kapsul-tuval
-     .akordiyon görünümü (yuzey2 başlık + ≥44px dokunma + dönen chevron) ---- */
-  details.detay { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); margin-top:12px; overflow:hidden; }
+  /* ---- PROGRESSIVE DISCLOSURE: <details> KAPALI varsayılan (KOMPAKT: 32px başlık) ---- */
+  details.detay { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); margin-top:8px; overflow:hidden; }
   details.detay > summary {
-    list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px;
-    min-height:var(--min-dokunma); padding:4px 12px;
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px;
+    min-height:32px; padding:2px 10px;
     background:var(--yuzey2); border:0; color:var(--metin); text-align:left;
-    font-size:15px; font-weight:700; overflow-wrap:anywhere;
+    font-size:12.5px; font-weight:600; overflow-wrap:anywhere;
     transition:background 160ms ease; /* E12: yalnız renk */
   }
   details.detay > summary::-webkit-details-marker { display:none; }
@@ -184,132 +199,145 @@
     transition:transform 200ms ease; /* E12: yalnız transform */
   }
   details.detay[open] > summary::after { transform:rotate(45deg); } /* açık: aşağı bakar (rotate-90) */
-  .detayIci { padding:8px 14px 16px; }
+  .detayIci { padding:6px 10px 10px; }
 
   /* ---- fail-closed KIRMIZI YÜZ (bölüm içi; bayat veri kalmaz — içerik boşalır) ---- */
   .kirmiziYuz {
-    border:1px solid rgba(220,38,38,0.35); border-left:4px solid var(--tehlike);
-    background:rgba(220,38,38,0.06); color:#991b1b; padding:12px 14px; border-radius:var(--radius-k);
-    font-size:15px; font-weight:600; margin-top:8px;
+    border:1px solid rgba(220,38,38,0.35); border-left:3px solid var(--tehlike);
+    background:rgba(220,38,38,0.06); color:#991b1b; padding:8px 10px; border-radius:var(--radius-k);
+    font-size:12px; font-weight:600; margin-top:6px;
   }
-  .bosSatir { color:var(--ikincil); font-size:14px; padding:6px 2px; }
+  .bosSatir { color:var(--ikincil); font-size:12px; padding:4px 2px; }
 
-  /* ---- (1) GENEL DURUM: kart satırı + şemsiye alt-bölüm grid'i (detayda) ---- */
-  .kartSatiri { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap:12px; }
+  /* ---- (1) GENEL DURUM: kart satırı + şemsiye alt-bölüm grid'i (detayda) — KOMPAKT ---- */
+  .kartSatiri { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap:8px; }
   .gdKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:16px 20px 18px; display:flex; flex-direction:column; gap:4px; min-height:80px;
+    padding:8px 10px; display:flex; flex-direction:column; gap:3px; min-width:0;
   }
-  .gdEtiket { font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
-  .gdDeger { font-size:16px; color:var(--metin); overflow-wrap:anywhere; }
-  .gdDeger.mono { font-family:var(--mono); font-weight:700; font-size:15px; }
-  .gdKart .aktifMetin { max-height:128px; overflow-y:auto; white-space:pre-wrap; font-size:14.5px; color:var(--metin); }
-  .semsiyeGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap:14px; margin-top:14px; }
+  .gdEtiket { font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gdDeger { font-size:12px; color:var(--metin); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gdDeger.mono { font-family:var(--mono); font-weight:700; }
+  .gdKart .aktifMetin { max-height:72px; overflow-y:auto; white-space:pre-wrap; font-size:12px; color:var(--metin); }
+  .semsiyeGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap:8px; margin-top:8px; }
   .semsiyeKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:16px 20px 18px; display:flex; flex-direction:column; gap:6px; min-width:0;
+    padding:8px 10px; display:flex; flex-direction:column; gap:4px; min-width:0;
   }
-  .semsiyeBas { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); }
-  .nokta { width:12px; height:12px; border-radius:50%; display:inline-block; flex:none; vertical-align:-1px; }
+  .semsiyeBas { display:flex; align-items:center; gap:6px; font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); }
+  .nokta { width:10px; height:10px; border-radius:50%; display:inline-block; flex:none; vertical-align:-1px; }
   .nokta.yesil { background:var(--basari); }
   .nokta.sari { background:var(--uyari); }
   .nokta.kirmizi { background:var(--tehlike); }
   .nokta.gri { background:var(--ikincil); }
-  .miniSatir { font-size:15px; color:var(--metin); overflow-wrap:anywhere; }
+  .miniSatir { font-size:12px; color:var(--metin); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .miniSatir .miniNo { font-family:var(--mono); font-weight:700; color:var(--camgobegi); margin-right:6px; }
   .miniSatir .tekrar { color:var(--ikincil); font-variant-numeric:tabular-nums; }
-  .semsiyeKart ul { margin:0; padding-left:20px; }
-  .semsiyeKart li { font-size:15px; margin:2px 0; overflow-wrap:anywhere; }
-  .sayimSatiri { display:flex; gap:14px; flex-wrap:wrap; font-size:16px; font-variant-numeric:tabular-nums; }
-  .sayimSatiri b { font-family:var(--mono); font-size:16px; }
+  .semsiyeKart ul { margin:0; padding-left:16px; }
+  .semsiyeKart li { font-size:11.5px; margin:1px 0; overflow-wrap:anywhere; }
+  .sayimSatiri { display:flex; gap:12px; flex-wrap:wrap; font-size:12px; font-variant-numeric:tabular-nums; }
+  .sayimSatiri b { font-family:var(--mono); font-size:12px; }
 
-  /* ---- (2a) FAZ/SPRINT PLAN TABLOSU ---- */
-  table.planTablo { width:100%; border-collapse:collapse; }
+  /* ---- (2a) FAZ/SPRINT PLAN TABLOSU — KOMPAKT: table-layout:fixed + kolon
+     genişlikleri (colgroup JS'te); her hücre TEK satır (ellipsis + title JS'te) ---- */
+  table.planTablo { width:100%; border-collapse:collapse; table-layout:fixed; }
   .planTablo th {
-    text-align:left; font-size:13px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
-    color:var(--ikincil); padding:6px 10px; border-bottom:2px solid var(--cizgi); white-space:nowrap;
+    text-align:left; font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--ikincil); padding:3px 8px; border-bottom:1px solid var(--cizgi); white-space:nowrap;
   }
-  .planTablo td { padding:8px 10px; border-bottom:1px solid var(--cizgi); vertical-align:top; font-size:15px; }
+  .planTablo td { padding:4px 8px; border-bottom:1px solid var(--cizgi); vertical-align:top; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .planTablo tr:last-child td { border-bottom:0; }
-  .planTablo .sira { font-family:var(--mono); font-weight:700; font-size:14px; color:var(--ikincil); white-space:nowrap; }
-  .planTablo .gKod { font-family:var(--mono); font-weight:700; font-size:14.5px; white-space:nowrap; }
-  .planTablo .gAd { min-width:180px; }
-  .planTablo .gRol { color:var(--ikincil); font-size:14px; white-space:nowrap; }
-  .planTablo .gDurum { font-weight:600; white-space:nowrap; }
-  .planTablo .gDizin { color:var(--ikincil); font-size:14px; overflow-wrap:anywhere; min-width:150px; }
+  .planTablo .sira { font-family:var(--mono); font-weight:700; font-size:11px; color:var(--ikincil); }
+  .planTablo .gKod { font-family:var(--mono); font-weight:700; font-size:11.5px; }
+  .planTablo .gAd { font-weight:600; }
+  .planTablo .gRol { color:var(--ikincil); font-size:11.5px; }
+  .planTablo .gDurum { font-weight:600; }
+  .planTablo .gDizin { color:var(--ikincil); font-size:11.5px; }
   .planTablo tr.fazBaslik td {
-    padding:8px 10px; background:var(--yuzey3); border-bottom:2px solid var(--cizgi);
-    font-size:14px; font-weight:700; letter-spacing:0.02em; color:var(--camgobegi);
+    padding:4px 8px; background:var(--yuzey3); border-bottom:1px solid var(--cizgi);
+    font-size:11.5px; font-weight:700; letter-spacing:0.02em; color:var(--camgobegi);
   }
-  .planTablo tr.fazBaslik .fazSayi { font-family:var(--mono); font-weight:700; color:var(--ikincil); font-size:13.5px; }
+  .planTablo tr.fazBaslik .fazSayi { font-family:var(--mono); font-weight:700; color:var(--ikincil); font-size:11px; }
   .planTablo tr.aktifSatir { background:rgba(15,76,129,0.08); }
-  .planTablo tr.aktifSatir td:first-child { border-left:3px solid var(--camgobegi); }
+  .planTablo tr.aktifSatir td:first-child { border-left:2px solid var(--camgobegi); }
   .cip {
-    display:inline-block; font:700 11px var(--mono); letter-spacing:0.05em;
-    border-radius:3px; padding:2px 6px; border:1px solid rgba(15,76,129,0.4);
+    display:inline-block; font:700 10px var(--mono); letter-spacing:0.05em;
+    border-radius:3px; padding:1px 5px; border:1px solid rgba(15,76,129,0.4);
     color:var(--camgobegi); background:var(--yuzey); white-space:nowrap;
   }
   .planTablo tfoot td {
-    padding:10px; border-top:2px solid var(--cizgi); font-size:13.5px; color:var(--ikincil);
+    padding:4px 8px; border-top:1px solid var(--cizgi); font-size:11px; color:var(--ikincil);
     font-variant-numeric:tabular-nums;
   }
+  /* KOMPAKT kolon genişlikleri (colgroup <col> sınıfları — JS tabloYaz/projeTabloYaz basar) */
+  .planTablo .colSira { width:34px; }
+  .planTablo .colKod { width:84px; }
+  .planTablo .colAd { width:auto; }
+  .planTablo .colRol { width:88px; }
+  .planTablo .colDurum { width:104px; }
+  .planTablo .colDizin { width:150px; }
+  .planTablo .colKimlik { width:84px; }
+  .planTablo .colEtiket { width:auto; }
+  .planTablo .colDurum2 { width:92px; }
+  .planTablo .colEtkinlik { width:148px; }
+  .planTablo .colSaglayici { width:110px; }
 
-  /* ---- (2b) GÖREV GRAF + ORDU: dalga satırları + kutular (canvas/SVG çizim YOK) ---- */
-  .dalgaSatiri { border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:16px 18px 18px; margin-bottom:12px; }
+  /* ---- (2b) GÖREV GRAF + ORDU: dalga satırları + kutular (canvas/SVG çizim YOK) — KOMPAKT ---- */
+  .dalgaSatiri { border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:8px 10px 10px; margin-bottom:8px; }
   .dalgaSatiri.cepheSatiri { border-style:solid; border-color:rgba(4,120,87,0.35); }
-  .dalgaBas { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
-  .dalgaAd { font-size:16px; font-weight:700; font-family:var(--mono); color:var(--metin); }
-  .dalgaSayi { font-size:13.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
-  .dalgaKutular { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(360px, 100%), 1fr)); gap:16px; }
+  .dalgaBas { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .dalgaAd { font-size:13px; font-weight:700; font-family:var(--mono); color:var(--metin); }
+  .dalgaSayi { font-size:11px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
+  .dalgaKutular { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap:8px; }
   .gorevKutu {
-    max-width:100%; border:1px solid var(--cizgi); border-left:4px solid var(--ikincil);
-    border-radius:var(--radius-k); background:var(--yuzey2); padding:16px 18px 18px;
-    display:flex; flex-direction:column; gap:6px;
+    max-width:100%; border:1px solid var(--cizgi); border-left:3px solid var(--ikincil);
+    border-radius:var(--radius-k); background:var(--yuzey2); padding:8px 10px 10px;
+    display:flex; flex-direction:column; gap:4px; min-width:0;
   }
   .gorevKutu.durum-hazir { border-left-color:var(--basari); }
   .gorevKutu.durum-bekle { border-left-color:var(--uyari); }
   .gorevKutu.durum-kapali { border-left-color:var(--ikincil); opacity:0.85; }
   .gorevKutu.durum-diger { border-left-color:var(--camgobegi); }
   .gorevKutu.durum-canli { border-left-color:var(--basari); }
-  .kutuBas { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .kutuKod { font-family:var(--mono); font-weight:700; font-size:20px; } /* ajan adı BÜYÜK (STEERING-8) */
-  .kutuDurumChip { font:700 11px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:2px 6px; border:1px solid var(--cizgi); color:var(--ikincil); background:var(--yuzey); white-space:nowrap; }
+  .kutuBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .kutuKod { font-family:var(--mono); font-weight:700; font-size:14px; } /* KOMPAKT: ajan adı (eski STEERING-8 20px — kompakt steering ile değişti) */
+  .kutuDurumChip { font:700 10px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:1px 5px; border:1px solid var(--cizgi); color:var(--ikincil); background:var(--yuzey); white-space:nowrap; }
   .kutuDurumChip.durum-hazir { color:var(--basari); border-color:rgba(4,120,87,0.45); }
   .kutuDurumChip.durum-bekle { color:var(--uyari); border-color:rgba(180,83,9,0.45); }
   .kutuDurumChip.durum-canli { color:var(--basari); border-color:rgba(4,120,87,0.45); }
-  .kutuAd { font-size:16px; color:var(--metin); overflow-wrap:anywhere; }
-  .kutuSorumlu { font-size:14.5px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .kutuAd { font-size:12px; color:var(--metin); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .kutuSorumlu { font-size:11.5px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .kutuSorumlu.atanmadi { font-weight:600; }
   .kutuSorumlu.atanmis { font-weight:700; color:var(--basari); }
-  .rolRozetSatiri { display:flex; gap:8px; flex-wrap:wrap; }
+  .rolRozetSatiri { display:flex; gap:6px; flex-wrap:wrap; }
   .rolRozet {
-    display:inline-block; font-size:13px; font-weight:700; padding:3px 10px;
+    display:inline-block; font-size:10.5px; font-weight:700; padding:1px 8px;
     border:1px solid var(--cizgi); border-radius:999px; color:var(--ikincil); background:var(--yuzey); white-space:nowrap;
   }
   .ajanKart {
-    border-top:1px dashed var(--cizgi); margin-top:3px; padding-top:8px;
-    display:flex; flex-direction:column; gap:4px;
+    border-top:1px dashed var(--cizgi); margin-top:3px; padding-top:6px;
+    display:flex; flex-direction:column; gap:3px;
   }
-  .ajanKart p { font-size:14px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .ajanKart p { font-size:11.5px; color:var(--ikincil); overflow-wrap:anywhere; }
   .ajanKart p b { color:var(--metin); font-weight:600; }
   .ajanKart .olcumSatiri { color:var(--basari); font-weight:600; }
   .olcumEtiket { font:700 10.5px var(--mono); letter-spacing:0.06em; color:var(--basari); border:1px solid rgba(4,120,87,0.45); border-radius:3px; padding:1px 5px; background:var(--yuzey); }
   .olculmedi { color:var(--ikincil); font-style:italic; }
-  .zincirSatiri { font-family:var(--mono); font-size:14px; color:var(--ikincil); overflow-wrap:anywhere; margin-top:8px; }
-  .zincirSatiri.kritik { color:var(--metin); font-size:14.5px; font-weight:600; }
+  .zincirSatiri { font-family:var(--mono); font-size:11px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:6px; }
+  .zincirSatiri.kritik { color:var(--metin); font-size:11.5px; font-weight:600; }
   .tuvalLink {
-    display:inline-flex; align-items:center; min-height:var(--min-dokunma); padding:0 14px; margin-top:8px;
+    display:inline-flex; align-items:center; min-height:32px; padding:0 12px; margin-top:6px;
     border:1px dashed rgba(15,76,129,0.45); border-radius:var(--radius-k);
-    color:var(--camgobegi); font-size:14.5px; font-weight:600; text-decoration:none;
+    color:var(--camgobegi); font-size:12px; font-weight:600; text-decoration:none;
   }
   .tuvalLink:hover { border-style:solid; }
 
   /* ---- kadro/görev kutusu İÇİ detay: GÖREV EMRİ + ölçümler + ajanId burada ---- */
-  details.kartDetay { margin-top:8px; border-top:1px dashed var(--cizgi); }
+  details.kartDetay { margin-top:6px; border-top:1px dashed var(--cizgi); }
   details.kartDetay > summary {
     list-style:none; cursor:pointer; display:flex; align-items:center;
-    min-height:var(--min-dokunma); padding:4px 2px;
-    font-size:14px; font-weight:700; color:var(--ikincil);
+    min-height:28px; padding:2px 2px;
+    font-size:11.5px; font-weight:700; color:var(--ikincil);
     transition:color 160ms ease; /* E12: yalnız renk */
   }
   details.kartDetay > summary::-webkit-details-marker { display:none; }
@@ -322,165 +350,173 @@
   details.kartDetay[open] > summary::after { transform:rotate(45deg); }
   details.kartDetay > summary:hover { color:var(--camgobegi); }
 
-  /* ---- (3) AKIŞ: tek kronolojik akış (handoff · kira · 429) ---- */
-  .akisLejant { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:8px; }
-  .akisLejant span { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--ikincil); font-weight:600; }
-  .akisLejant .nokta { width:9px; height:9px; }
+  /* ---- (3) AKIŞ: tek kronolojik akış (handoff · kira · 429) — KOMPAKT: satır başına 1 satır ---- */
+  .akisLejant { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+  .akisLejant span { display:inline-flex; align-items:center; gap:6px; font-size:11px; color:var(--ikincil); font-weight:600; }
+  .akisLejant .nokta { width:8px; height:8px; }
   ol.akisListe { list-style:none; margin:0; padding:0; }
   .akisListe li {
-    display:flex; align-items:baseline; gap:10px; padding:9px 12px;
+    display:flex; align-items:baseline; gap:8px; padding:4px 8px;
     border-bottom:1px solid var(--cizgi);
   }
   .akisListe li:last-child { border-bottom:0; }
-  .olayCubuk { width:4px; border-radius:2px; align-self:stretch; flex:none; }
+  .olayCubuk { width:3px; border-radius:2px; align-self:stretch; flex:none; }
   .olayCubuk.t-handoff { background:var(--camgobegi); }
   .olayCubuk.t-kira { background:var(--basari); }
   .olayCubuk.t-429 { background:var(--tehlike); }
-  .olayTuru { flex:none; font:700 11.5px var(--mono); letter-spacing:0.04em; color:var(--ikincil); width:74px; }
-  .olayAd { flex:1; font-size:16px; overflow-wrap:anywhere; }
-  .olayAd.mono { font-family:var(--mono); font-size:14px; font-weight:600; }
-  .olayZaman { flex:none; font-family:var(--mono); font-size:13.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
+  .olayTuru { flex:none; font:700 10.5px var(--mono); letter-spacing:0.04em; color:var(--ikincil); width:56px; white-space:nowrap; }
+  .olayAd { flex:1; min-width:0; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .olayAd.mono { font-family:var(--mono); font-weight:600; }
+  .olayZaman { flex:none; font-family:var(--mono); font-size:11px; color:var(--ikincil); font-variant-numeric:tabular-nums; }
 
-  /* ---- (5) LOG (SAĞ): kanıt defteri görünümü — mono satırlar (kapsul-tuval .defterGovde deseni) ---- */
-  .logUstSatir { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
-  .logFiltre { display:flex; gap:8px; flex-wrap:wrap; }
+  /* ---- (5) LOG (SAĞ): kanıt defteri görünümü — mono satırlar; KOMPAKT: nowrap + ellipsis ---- */
+  .logUstSatir { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .logFiltre { display:flex; gap:6px; flex-wrap:wrap; }
   .filtreBtn {
-    min-height:44px; min-width:44px; padding:6px 14px; font-size:14px; font-weight:600;
+    min-height:28px; min-width:28px; padding:2px 10px; font-size:11.5px; font-weight:600;
     color:var(--ikincil); background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:var(--radius-cip);
     cursor:pointer; transition:color 160ms, border-color 160ms; /* E12: yalnız renk */
   }
   .filtreBtn[aria-pressed="true"] { color:var(--camgobegi); border-color:var(--camgobegi); }
-  .logTavan { margin:0; font-size:13px; font-weight:600; color:var(--ikincil); }
-  ol.logListe { list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px; line-height:1.75; font-variant-numeric:tabular-nums; }
+  .logTavan { margin:0; font-size:11px; font-weight:600; color:var(--ikincil); }
+  ol.logListe { list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:12px; line-height:1.6; font-variant-numeric:tabular-nums; }
   .logListe li.logSatir {
-    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; padding:7px 10px;
-    border-bottom:1px solid rgba(26,35,50,0.08);
+    display:flex; align-items:baseline; gap:8px; padding:4px 8px;
+    border-bottom:1px solid rgba(26,35,50,0.08); white-space:nowrap;
   }
   .logListe li.logSatir:last-child { border-bottom:0; }
   .olayCubuk.t-log { background:var(--ikincil); }
-  .logZaman { flex:none; font-family:var(--mono); font-size:12.5px; color:var(--ikincil); font-variant-numeric:tabular-nums; width:150px; }
-  .logKod { flex:none; font-size:13.5px; font-weight:700; color:var(--metin); letter-spacing:0.02em; }
-  .logAjanId { flex:none; font-family:var(--mono); font-size:12px; color:var(--ikincil); }
-  .logDetay { flex:1 1 240px; font-size:13px; overflow-wrap:anywhere; }
-  .logKaynak { flex:1 1 100%; font-family:var(--mono); font-size:11.5px; color:var(--ikincil); overflow-wrap:anywhere; }
-  .logNot { margin:8px 0 0; font-size:13px; color:var(--ikincil); }
-  .ajanIdSatiri { margin:2px 0; font-family:var(--mono); font-size:12px; color:var(--ikincil); overflow-wrap:anywhere; }
-  .kaynakKucuk { font-size:11.5px; }
+  .logZaman { flex:none; font-family:var(--mono); font-size:11px; color:var(--ikincil); font-variant-numeric:tabular-nums; width:128px; }
+  .logKod { flex:none; font-size:11.5px; font-weight:700; color:var(--metin); letter-spacing:0.02em; }
+  .logAjanId { flex:none; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
+  .logDetay { flex:1 1 auto; min-width:0; font-size:12px; overflow:hidden; text-overflow:ellipsis; }
+  .logKaynak { flex:none; max-width:220px; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); overflow:hidden; text-overflow:ellipsis; }
+  .logNot { margin:6px 0 0; font-size:11.5px; color:var(--ikincil); }
+  .ajanIdSatiri { margin:2px 0; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .kaynakKucuk { font-size:10.5px; }
 
-  /* ---- EK-3 görev emri bloğu + rol atama/senkron dürüst satırları (kutunun details'ında) ---- */
-  .emirBlok { margin:10px 0 0; padding:12px 14px; border:1px dashed var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); }
-  .emirBaslik { font:700 11px var(--mono); letter-spacing:0.08em; color:var(--metin); margin:0 0 6px; }
-  .emirBlok p { margin:3px 0; font-size:14px; overflow-wrap:anywhere; } /* §1: ajanKart alt-metin olcegiyle ayni */
-  .rolSatiri { margin:6px 0 0; font-size:14px; color:var(--metin); overflow-wrap:anywhere; }
-  .rolSatiri.senkron { color:var(--ikincil); font-size:14px; margin:8px 0 0; }
+  /* ---- EK-3 görev emri bloğu + rol atama/senkron dürüst satırları (kutunun details'ında) — KOMPAKT ---- */
+  .emirBlok { margin:8px 0 0; padding:8px 10px; border:1px dashed var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); }
+  .emirBaslik { font:700 10.5px var(--mono); letter-spacing:0.08em; color:var(--metin); margin:0 0 4px; }
+  .emirBlok p { margin:2px 0; font-size:11.5px; overflow-wrap:anywhere; }
+  .rolSatiri { margin:4px 0 0; font-size:11.5px; color:var(--metin); overflow-wrap:anywhere; }
+  .rolSatiri.senkron { color:var(--ikincil); font-size:11.5px; margin:6px 0 0; }
   .atanmadiEtiket { color:var(--ikincil); font-style:italic; }
 
-  /* ---- STEERING-7: proje durum kartı — son 5 ajan mini listesi ---- */
-  .projeAjanListe { list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:3px; }
-  .projeAjan { font-size:13px; color:var(--ikincil); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+  /* ---- STEERING-7: proje durum kartı — son 5 ajan mini listesi (KOMPAKT) ---- */
+  .projeAjanListe { list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:2px; }
+  .projeAjan { font-size:11px; color:var(--ikincil); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-  /* ---- (4) SİSTEM SAĞLIĞI: sınıf kartları + önlemler + çözüm yolları ---- */
-  .saglikGrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap:12px; }
-  .saglikKart { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); padding:16px 18px 18px; display:flex; flex-direction:column; gap:4px; }
-  .saglikBas { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .saglikAd { font-size:16px; font-weight:700; flex:1; min-width:180px; }
-  .fren { flex:none; font:700 11.5px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:2px 7px; border:1px solid; }
+  /* ---- (4) SİSTEM SAĞLIĞI: sınıf kartları + önlemler + çözüm yolları — KOMPAKT ---- */
+  .saglikGrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap:8px; }
+  .saglikKart { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2); padding:8px 10px; display:flex; flex-direction:column; gap:3px; min-width:0; }
+  .saglikBas { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .saglikAd { font-size:12.5px; font-weight:700; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .fren { flex:none; font:700 10.5px var(--mono); letter-spacing:0.05em; border-radius:3px; padding:1px 6px; border:1px solid; }
   .fren.KISMEN { color:var(--uyari); border-color:rgba(180,83,9,0.45); background:rgba(180,83,9,0.07); }
   .fren.COGU { color:var(--basari); border-color:rgba(4,120,87,0.45); background:rgba(4,120,87,0.07); }
   .fren.ACIK { color:var(--tehlike); border-color:rgba(220,38,38,0.45); background:rgba(220,38,38,0.07); }
   .fren.bilinmiyor { color:var(--ikincil); border-color:var(--cizgi); background:var(--yuzey); }
-  .saglikAlt { font-size:14.5px; color:var(--ikincil); }
+  .saglikAlt { font-size:11.5px; color:var(--ikincil); }
   .saglikAlt .tekrar { font-weight:700; color:var(--metin); font-variant-numeric:tabular-nums; }
-  .saglikAlt.kaynak { overflow-wrap:anywhere; }
-  .onlemAlani { margin-top:14px; border-top:1px dashed var(--cizgi); padding-top:10px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap:12px; }
-  .onlemAlani h3 { font-size:16px; font-weight:700; margin-bottom:6px; }
-  .onlemAlani ul, .onlemAlani ol { margin:0; padding-left:20px; }
-  .onlemAlani li { font-size:15px; margin:3px 0; overflow-wrap:anywhere; }
+  .saglikAlt.kaynak { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .onlemAlani { margin-top:10px; border-top:1px dashed var(--cizgi); padding-top:8px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap:8px; }
+  .onlemAlani h3 { font-size:13px; font-weight:700; margin-bottom:4px; }
+  .onlemAlani ul, .onlemAlani ol { margin:0; padding-left:18px; }
+  .onlemAlani li { font-size:11.5px; margin:2px 0; overflow-wrap:anywhere; }
 
-  /* ---- (FAZ-B) GEZGİN AĞACI (SOL): proje + konuşma düğümleri — akordiyon + seçili düğüm ---- */
-  .agac { display:flex; flex-direction:column; gap:2px; }
+  /* ---- (FAZ-B) GEZGİN AĞACI (SOL): KOMPAKT — ~28px düğüm · 12px metin ·
+     durum noktası 8px · girinti 12px; düğüm adı kısa ad kuralı (JS kisalt) ---- */
+  .agac { display:flex; flex-direction:column; gap:1px; }
   .agacProje { display:flex; flex-direction:column; }
   .agacProjeBas {
-    display:flex; align-items:center; gap:8px; width:100%; min-height:var(--min-dokunma);
-    padding:4px 10px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer;
-    overflow-wrap:anywhere; transition:background 160ms ease; /* E12: yalnız renk */
+    display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
+    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--metin); font-size:12px; font-weight:700; text-align:left; cursor:pointer;
+    white-space:nowrap; transition:background 160ms ease; /* E12: yalnız renk */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
   .agacProjeBas .agacOk {
-    flex:none; width:8px; height:8px; border-right:2px solid var(--ikincil); border-bottom:2px solid var(--ikincil);
+    flex:none; width:7px; height:7px; border-right:2px solid var(--ikincil); border-bottom:2px solid var(--ikincil);
     transform:rotate(-45deg); transition:transform 200ms ease; /* E12: yalnız transform */
   }
   .agacProje.acik .agacProjeBas .agacOk { transform:rotate(45deg); } /* açık: aşağı bakar */
-  .agacAd { flex:1; min-width:0; }
-  .agacSayi { flex:none; font:700 12px var(--mono); color:var(--ikincil); }
-  .agacCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 4px 18px; }
+  .agacAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+  .agacSayi { flex:none; font:700 10.5px var(--mono); color:var(--ikincil); }
+  .agacCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 2px 12px; }
   .agacAjan {
-    display:flex; align-items:center; gap:8px; width:100%; min-height:var(--min-dokunma);
-    padding:4px 10px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font-size:14px; text-align:left; cursor:pointer; overflow-wrap:anywhere;
+    display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
+    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font-size:12px; text-align:left; cursor:pointer;
   }
   .agacAjan:hover { background:var(--yuzey2); color:var(--metin); }
   .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
-  .agacAjan .nokta { flex:none; width:9px; height:9px; }
+  .agacAjan .nokta { flex:none; width:8px; height:8px; }
   .agacAjan .nokta.kapali { opacity:0.45; } /* closed = soluk */
-  .agacAjanId { flex:none; font:700 12px var(--mono); color:var(--ikincil); }
-  .agacEtiket { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .agacDugumAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
   /* ---- (FAZ-B) ANA SEKME ŞERİDİ: proje sekmeleri — X ile kapanır; ORDU sekmesi SABİT ---- */
   .sekme.anaSekme { gap:6px; }
   .sekmeKapat {
     flex:none; display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font:700 15px var(--mono); line-height:1; cursor:pointer;
+    width:20px; height:20px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font:700 12px var(--mono); line-height:1; cursor:pointer;
     transition:color 160ms, background 160ms; /* E12: yalnız renk */
   }
   .sekmeKapat:hover { color:var(--tehlike); background:var(--yuzey2); }
 
-  /* ---- (FAZ-B) ALT SEKME ŞERİDİ (ORDU sekmesi içinde): DURUM·PLAN·AKIŞ·SİSTEM SAĞLIĞI·LOG ---- */
+  /* ---- (FAZ-B) ALT SEKME ŞERİDİ (ORDU sekmesi içinde): DURUM·PLAN·AKIŞ·SİSTEM SAĞLIĞI·LOG
+     EK STEERING: ana şeride bitişik tek aile — negatif marjla sekmeGovde üstüne yapışır ---- */
   #altSekmeSerit {
     display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
     background:var(--yuzey2); border:1px solid var(--cizgi); border-bottom:0;
-    border-radius:var(--radius-k) var(--radius-k) 0 0; padding:4px 6px 0;
+    border-left:0; border-right:0; border-radius:0; padding:2px 4px 0;
+    margin:0 -12px 8px;
   }
-  #altSekmeSerit .sekme { font-size:13.5px; min-height:var(--min-dokunma); padding:0 12px; }
+  #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 12px; }
 
   /* ---- (FAZ-B) KONUŞMA KARTI (SAĞ üst): seçili konuşma — mesaj geçmişi YOK (dürüst sınır) ---- */
   .konusmaKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:16px 18px 18px; display:flex; flex-direction:column; gap:6px;
+    padding:8px 10px; display:flex; flex-direction:column; gap:4px; min-width:0;
   }
-  .konusmaKart .gdEtiket { margin-bottom:2px; }
-  .konusmaKimlik { font-family:var(--mono); font-size:13px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .konusmaKart .gdEtiket { margin-bottom:1px; }
+  .konusmaKimlik { font-family:var(--mono); font-size:11px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-  /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER ---- */
-  #composerForm { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+  /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER
+     KOMPAKT: 12px metin · GÖNDER 40px (KISAT alt sınırı); select/input 44px dokunma KORUNUR ---- */
+  #composerForm { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
   #composerForm select, #composerForm textarea, #composerForm input {
-    width:100%; font:inherit; font-size:15px; color:var(--metin);
-    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); padding:8px 12px;
+    width:100%; font:inherit; font-size:12px; color:var(--metin);
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); padding:5px 8px;
   }
   #composerForm select, #composerForm input { min-height:var(--min-dokunma); } /* §5: 44px dokunma */
-  #composerForm textarea { min-height:104px; resize:vertical; line-height:1.5; }
-  #composerForm label.gorunur { font-size:14px; font-weight:700; color:var(--ikincil); }
+  #composerForm textarea { min-height:64px; resize:vertical; line-height:1.4; }
+  #composerForm label.gorunur { font-size:11px; font-weight:700; color:var(--ikincil); }
   #composerGonder {
-    min-height:var(--min-dokunma); padding:0 18px; border:1px solid var(--camgobegi); border-radius:var(--radius-k);
-    background:var(--camgobegi); color:#fff; font-size:15px; font-weight:700; letter-spacing:0.04em; cursor:pointer;
+    min-height:40px; padding:0 16px; border:1px solid var(--camgobegi); border-radius:var(--radius-k);
+    background:var(--camgobegi); color:#fff; font-size:13px; font-weight:700; letter-spacing:0.04em; cursor:pointer;
     transition:background 160ms; /* E12: yalnız renk */
   }
   #composerGonder:disabled { background:var(--yuzey3); color:var(--ikincil); cursor:default; }
-  #composerSonuc { font-size:14px; color:var(--ikincil); margin:6px 0 0; overflow-wrap:anywhere; min-height:20px; }
+  #composerSonuc { font-size:11.5px; color:var(--ikincil); margin:4px 0 0; overflow-wrap:anywhere; min-height:16px; }
   #composerSonuc.hata { color:var(--tehlike); font-weight:600; }
   #composerSonuc.basarili { color:var(--basari); font-weight:600; }
 
-  /* ---- DUYARLI (~<900px): sütunlar alt alta (sol → orta → sağ); body scroll geri gelir.
-     Tuvalin drawer/perde mekaniği KOPYALANMADI (kullanıcı emri «sadece» — basit tut). ---- */
+  /* ---- DUYARLI — KOMPAKT: 900-1279px kolonlar daralır (kayıtlı kullanıcı değeri varsa
+     JS inline style önceliklidir — localStorage'a saygı); ~<900px sütunlar alt alta (sol →
+     orta → sağ); body scroll geri gelir. Tuvalin drawer/perde mekaniği KOPYALANMADI. ---- */
+  @media (min-width:900px) and (max-width:1279px) {
+    :root { --solW:200px; --sagW:280px; }
+  }
   @media (max-width:899px) {
     body { height:auto; overflow:auto; }
-    main { display:flex; flex-direction:column; height:auto; overflow:visible; padding:14px 14px 24px; gap:14px; }
+    main { display:flex; flex-direction:column; height:auto; overflow:visible; padding:8px 10px 16px; gap:10px; }
     .splitter { display:none; } /* akış tek kolon — tutamaçlar anlamsız */
     #sol { width:100%; overflow:visible; }
     #sag { width:100%; overflow:visible; }
     #sekmeGovde { overflow:visible; }
+    #altSekmeSerit { margin:0 -10px 8px; } /* dar ekranda govde padding'iyle hizalanır */
   }
   @media (max-width:720px) {
     .ustSag { margin-left:0; width:100%; }
@@ -530,7 +566,7 @@
   </section>
 
   <!-- STEERING-9: sol panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
-  <div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="280" tabindex="0"></div>
+  <div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="240" tabindex="0"></div>
 
   <!-- ============ ORTA (#orta): SEKMELİ EDİTÖR — ana sekmeler (ORDU SABİT + projeler) + ORDU alt sekmeleri ============
        FAZ-B: ana sekme şeridi — ORDU sekmesi SABİT (kapatılamaz) + açık proje sekmeleri (X ile kapanır).
@@ -557,6 +593,9 @@
             <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 6 V10 L13 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             GENEL DURUM
           </h2>
+          <!-- EK STEERING 2026-11-03 («TEK PANEL birleşsin»): proje listesi YALNIZ soldaki
+               gezgin ağacında — burada TEK kompakt tarama satırı (çift kaynak yasak) -->
+          <p class="bolumOzet" id="paseoOzet">Paseo taraması bekleniyor…</p>
           <div class="ozetGrid" id="ozetGrid">
             <div class="ozetKart">
               <span class="ozetEtiket">Sağlık ışığı</span>
@@ -740,7 +779,7 @@
   </section>
 
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
-  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="380" tabindex="0"></div>
+  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="320" tabindex="0"></div>
 
   <!-- ============ SAĞ (#sag): SEÇİLİ KONUŞMA + COMPOSER — gerçek gönderim (FAZ-B) ============
        Üst: seçili konuşma kartı (tam kimlik + kısa · durum · son etkinlik · sağlayıcı · etiket;
@@ -809,6 +848,15 @@ const $ = (id) => document.getElementById(id);
 
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
+/* KISA AD KURALI (steering 2026-11-03 «kısa oturum isimleri»): n karakterden uzunsa
+   n-1 karakter + '…'; null/undefined → null (dürüst — boş dize uydurulmaz).
+   Kısaltılmış yüz her yerde title ile TAM metni taşır (CSS ellipsis + JS kisalt birlikte). */
+function kisalt(metin, n) {
+  if (metin === null || metin === undefined) return null;
+  const s = String(metin);
+  return s.length > n ? s.slice(0, n - 1) + "…" : s;
+}
+
 async function cek(yol) {
   const r = await fetch(yol, { cache: "no-store" });
   if (!r.ok) throw new Error("HTTP " + r.status + " — " + yol);
@@ -823,8 +871,9 @@ function kirmiziYuzGoster(hataId, icerikId, ney) {
 }
 function kirmiziYuzKapat(hataId) { $(hataId).hidden = true; }
 
-/* STEERING-8: özet kartı yazıcı (render-only; element yoksa sessiz atlar). */
-function ozetYaz(id, metin) { const el = $(id); if (el) el.textContent = metin; }
+/* STEERING-8: özet kartı yazıcı (render-only; element yoksa sessiz atlar).
+   KOMPAKT: kısaltılan yüz title ile TAM metni taşır (ellipsis + title). */
+function ozetYaz(id, metin) { const el = $(id); if (el) { el.textContent = metin; el.title = metin; } }
 
 /* kiraDurum sonucundan dürüst etiket (nobet.mjs 4+2 tablosu ile aynı). */
 function kiraEtiketi(k) {
@@ -918,6 +967,7 @@ async function genelYukle() {
     if (isik && isik.renk) {
       const sinif2 = isik.renk === "kirmizi" ? "kirmizi" : isik.renk === "sari" ? "sari" : "yesil";
       $("ozetSaglik").innerHTML = '<span class="nokta ' + sinif2 + '" role="img" aria-label="' + esc(isik.etiket || isik.renk) + '"></span>' + esc(isik.etiket || isik.renk);
+      $("ozetSaglik").title = isik.etiket || isik.renk; /* KOMPAKT: nokta+etiket kartında title TAM etiket */
       ozetYaz("ozetSaglikAlt", Array.isArray(isik.neden) && isik.neden.length > 0 ? isik.neden[0] : "test durumu: " + (isik.testDurumu || "ölçülmedi"));
     } else {
       ozetYaz("ozetSaglik", "ölçülemedi");
@@ -969,11 +1019,11 @@ function tabloYaz() {
       satirlar +=
         '<tr class="' + (aktif ? "aktifSatir" : "") + '">' +
         '<td class="sira">' + sira + "</td>" +
-        '<td class="gKod">' + esc(g.id) + "</td>" +
-        '<td class="gAd">' + esc(g.gorev || "—") + "</td>" +
-        '<td class="gRol">' + esc(g.rol || "—") + "</td>" +
+        '<td class="gKod" title="' + esc(g.id) + '">' + esc(g.id) + "</td>" +
+        '<td class="gAd" title="' + esc(g.gorev || "—") + '">' + esc(g.gorev || "—") + "</td>" +
+        '<td class="gRol" title="' + esc(g.rol || "—") + '">' + esc(g.rol || "—") + "</td>" +
         '<td class="gDurum" title="' + esc(g.durum || "—") + '">' + esc(durumKisa) + (aktif ? ' <span class="cip">AKTİF</span>' : "") + "</td>" +
-        '<td class="gDizin">' + esc(g.dizin || "—") + "</td>" +
+        '<td class="gDizin" title="' + esc(g.dizin || "—") + '">' + esc(g.dizin || "—") + "</td>" +
         "</tr>";
     }
   }
@@ -985,7 +1035,7 @@ function tabloYaz() {
   $("planAlani").innerHTML =
     satirlar.length === 0
       ? '<p class="bosSatir">graf SSOT\'ta görev yok (fail-closed değil — plan verisi dürüst boş)</p>'
-      : '<table class="planTablo"><caption class="gizli">faz gruplu görev tablosu — sıra, kod, ad, rol, durum, hedef dizin</caption><thead><tr>' +
+      : '<table class="planTablo"><caption class="gizli">faz gruplu görev tablosu — sıra, kod, ad, rol, durum, hedef dizin</caption><colgroup><col class="colSira"><col class="colKod"><col class="colAd"><col class="colRol"><col class="colDurum"><col class="colDizin"></colgroup><thead><tr>' +
         '<th scope="col">Sıra</th><th scope="col">Kod</th><th scope="col">Ad</th><th scope="col">Rol</th><th scope="col">Durum</th><th scope="col">Hedef dizin</th>' +
         "</tr></thead><tbody>" +
         satirlar +
@@ -1250,7 +1300,7 @@ async function akisYukle() {
         .map((o) => {
           const d = new Date(o.zamanISO);
           const zaman = Number.isFinite(d.getTime()) ? d.toLocaleString("tr-TR", { dateStyle: "short", timeStyle: "medium" }) : o.zamanISO;
-          return '<li><span class="olayCubuk t-' + esc(o.turu) + '"></span><span class="olayTuru">' + esc(TUR_AD[o.turu] || o.turu) + '</span><span class="olayAd' + (TUR_MONO[o.turu] ? " mono" : "") + '">' + esc(o.ad) + '</span><span class="olayZaman">' + esc(zaman) + "</span></li>";
+          return '<li><span class="olayCubuk t-' + esc(o.turu) + '"></span><span class="olayTuru">' + esc(TUR_AD[o.turu] || o.turu) + '</span><span class="olayAd' + (TUR_MONO[o.turu] ? " mono" : "") + '" title="' + esc(o.ad) + '">' + esc(kisalt(o.ad, 80) || o.ad) + '</span><span class="olayZaman">' + esc(zaman) + "</span></li>";
         })
         .join("") +
       "</ol>";
@@ -1329,9 +1379,9 @@ async function logYukle() {
         '<li class="logSatir"><span class="olayCubuk t-' + esc(k.tur) + '"></span>' +
         '<span class="logZaman mono">' + esc(zaman) + "</span>" +
         '<span class="olayTuru">' + esc(TUR_AD[k.tur] || k.tur) + "</span>" +
-        '<span class="logKod">' + esc(k.kodAdi || "(kod adı çözülmedi)") + "</span>" +
+        '<span class="logKod" title="' + esc(k.kodAdi || "(kod adı çözülmedi)") + '">' + esc(k.kodAdi || "(kod adı çözülmedi)") + "</span>" +
         ajanSatiri +
-        '<span class="logDetay">' + esc(k.detay) + "</span>" +
+        '<span class="logDetay" title="' + esc(k.detay) + '">' + esc(k.detay) + "</span>" +
         '<span class="logKaynak" title="' + esc(k.kaynakDosya || "—") + '">' + esc(k.kaynakDosya || "—") + "</span>" +
         "</li>"
       );
@@ -1357,7 +1407,9 @@ async function logYukle() {
   }
 }
 
-/* ---- (FAZ-B) PROJE DURUMLARI — Paseo canlı tarama: GEZGİN AĞACI + ANA SEKMELER + COMPOSER ---- */
+/* ---- (FAZ-B) Paseo canlı tarama: GEZGİN AĞACI + ANA SEKMELER + COMPOSER + DURUM paseoOzet
+   (EK STEERING 2026-11-03: eski PROJE DURUMLARI bloğu zaten yok — ağaç tek kaynak; DURUM'da
+   yalnız tek kompakt «Paseo taraması: N proje · M ajan» satırı) ---- */
 let P = null; // Paseo proje taraması — yalnız son başarılı fetch (bayat veri ekranda kalmaz)
 
 /* GEZGİN ağacı durumu — localStorage kalıcı (anahtarlar ordu-agac-*: ordu-solW/sagW ile ÇAKIŞMAZ).
@@ -1392,6 +1444,10 @@ async function projelerYukle() {
   try {
     P = await cek(UC.projeler);
     kirmiziYuzKapat("agacHata");
+    /* EK STEERING: DURUM alt-sekmesinde TEK kompakt satır — proje listesi ağaçta (tek kaynak) */
+    const prj = Array.isArray(P.projeler) ? P.projeler : [];
+    const aj = prj.reduce((t, x) => t + (Array.isArray(x.ajanlar) ? x.ajanlar.length : 0), 0);
+    $("paseoOzet").textContent = "Paseo taraması: " + prj.length + " proje · " + aj + " ajan";
     if (!odakIcindeMi("#bolum-agac")) agacYaz();
     if (!seciliKonusma && agacSecili) konusmaSecGuncelle(); /* kalıcı seçimi taramayla eşle */
     if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
@@ -1400,22 +1456,26 @@ async function projelerYukle() {
     P = null;
     kirmiziYuzGoster("agacHata", "agacAlani", UC.projeler + " — " + e.message);
     $("agacOzet").textContent = "proje taraması okunamadı";
+    $("paseoOzet").textContent = "Paseo taraması okunamadı (fail-closed — bayat sayı gösterilmez)";
   }
 }
 
-/* ---- GEZGİN: ağaç render — ORDU projesi İLK + özel işaret; her düğüm 44px; etiket esc() ---- */
+/* ---- GEZGİN: ağaç render — ORDU projesi İLK + özel işaret; KOMPAKT ~28px düğüm ---- */
 const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" }; /* closed = soluk */
 
 function ajanDugumHtml(a, pr) {
   const secili = agacSecili === a.ajanKimligi;
   const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
-  const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
-  const etiket = typeof a.etiket === "string" && a.etiket.trim() ? esc(a.etiket) : '<span class="olculmedi">(başlıksız)</span>';
+  /* KISA AD KURALI (steering 2026-11-03): etiket VARSA kisalt(etiket,20); yoksa kısa kimlik.
+     data-ajan TAM kimliktir (seçim/yerleşim değişmez); düğüm adı .agacDugumAd'da tek satır.
+     Sağ kart TAM kimlik + TAM etiket göstermeye DEVAM EDER. */
+  const etiketVar = typeof a.etiket === "string" && a.etiket.trim();
+  const ad = etiketVar ? kisalt(a.etiket, 20) : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const adTitle = etiketVar ? esc(a.etiket) : esc(a.ajanKimligi);
   return (
     '<button type="button" class="agacAjan' + (secili ? " secili" : "") + '" data-ajan="' + esc(a.ajanKimligi) + '" data-proje="' + esc(pr.dizin) + '" title="' + esc(a.ajanKimligi) + '">' +
     '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span>' +
-    '<span class="agacAjanId">' + esc(kisa) + "</span>" +
-    '<span class="agacEtiket">' + etiket + "</span>" +
+    '<span class="agacDugumAd" title="' + adTitle + '">' + esc(ad) + "</span>" +
     "</button>"
   );
 }
@@ -1467,13 +1527,15 @@ $("agacAlani").addEventListener("click", (e) => {
   if (ajanDugumu) {
     agacSecili = ajanDugumu.dataset.ajan;
     kaydet("ordu-agac-secili", agacSecili || "");
-    konusmaSecGuncelle();
+    konusmaSecGuncelle(true); /* ağaç tıklaması: composer hedefi de tıklanan konuşmaya döner (kapanış düzeltmesi — yenileme yolu elle seçimi korur) */
     agacYaz();
   }
 });
 
-/* seçili konuşmayı P taramasında bul → SAĞ kart + composer hedefi (yoksa dürüst boş kart) */
-function konusmaSecGuncelle() {
+/* seçili konuşmayı P taramasında bul → SAĞ kart + composer hedefi (yoksa dürüst boş kart);
+   secimiZorla: AĞAÇ TIKLAMASINDAN geldiyse composer hedefi tıklanan konuşmaya döner
+   (gizil kusur düzeltmesi 2026-11-03: kart doluyor ama select eski değerde kalıyordu) */
+function konusmaSecGuncelle(secimiZorla) {
   seciliKonusma = null;
   if (agacSecili && P && Array.isArray(P.projeler)) {
     for (const pr of P.projeler) {
@@ -1485,7 +1547,7 @@ function konusmaSecGuncelle() {
     }
   }
   konusmaKartYaz();
-  if (!gonderiyor) composerHedefGuncelle();
+  if (!gonderiyor) composerHedefGuncelle(secimiZorla);
 }
 
 /* ---- SAĞ: seçili konuşma kartı (mesaj geçmişi YOK — dürüst sınır; Paseo sekmesinde görülür) ---- */
@@ -1505,7 +1567,7 @@ function konusmaKartYaz() {
     '<p class="konusmaKimlik" title="' + esc(a.ajanKimligi) + '">' + esc(a.ajanKimligi) + " · kısa " + esc(kisa) + "</p>" +
     '<p class="miniSatir"><span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span> <b>' + esc(a.lastStatus || "durum bilinmiyor") + "</b></p>" +
     '<p class="miniSatir">son etkinlik: <span class="mono">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</span></p>" +
-    '<p class="miniSatir">sağlayıcı: ' + esc(a.provider || "bilinmiyor") + "</p>";
+    '<p class="miniSatir" title="' + esc(a.provider || "bilinmiyor") + '">sağlayıcı: ' + esc(kisalt(a.provider, 16) || "bilinmiyor") + "</p>";
 }
 
 /* ---- SAĞ: COMPOSER hedef listesi — İKİ AYRI optgroup (manager ile proje ajanı KARIŞMAZ) ----
@@ -1531,7 +1593,7 @@ function diskAjanKumesi() {
   return kume;
 }
 
-function composerHedefGuncelle() {
+function composerHedefGuncelle(secimiZorla) {
   const sec = $("composerHedef");
   const seciliProjeDizini = seciliKonusma ? seciliKonusma.projeDizin : aktifSekme && aktifSekme !== "ordu" ? aktifSekme : null;
   const pr = P && Array.isArray(P.projeler) && seciliProjeDizini ? P.projeler.find((x) => x.dizin === seciliProjeDizini) : null;
@@ -1561,14 +1623,15 @@ function composerHedefGuncelle() {
   }
   html += "</optgroup>";
   sec.innerHTML = html;
-  /* seçim korunur: eski değer hâlâ listedeyse geri koy; yoksa seçili konuşmanın kimliği */
+  /* seçim: AĞAÇ TIKLAMASI (secimiZorla) tıklanan konuşmayı hedefler; yenileme eski (elle seçilmiş) değeri korur; ikisi de yoksa seçili konuşmanın kimliği */
   let hedef = "";
-  if (eskiDeger && [...sec.options].some((o) => o.value === eskiDeger)) hedef = eskiDeger;
+  if (secimiZorla && seciliKonusma && [...sec.options].some((o) => o.value === seciliKonusma.ajan.ajanKimligi)) hedef = seciliKonusma.ajan.ajanKimligi;
+  else if (eskiDeger && [...sec.options].some((o) => o.value === eskiDeger)) hedef = eskiDeger;
   else if (seciliKonusma && [...sec.options].some((o) => o.value === seciliKonusma.ajan.ajanKimligi)) hedef = seciliKonusma.ajan.ajanKimligi;
   sec.value = hedef;
 }
 
-/* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü K-0060 TASLAK) ---- */
+/* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü K-0060 YÜRÜRLÜKTE) ---- */
 $("composerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const sonuc = $("composerSonuc");
@@ -1718,21 +1781,22 @@ function projeTabloYaz() {
   const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
   const satirlar = ajanlar.map((a) => {
     const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "—";
+    const etiketMetin = typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : "(başlıksız)";
     const etiket = typeof a.etiket === "string" && a.etiket.trim() ? esc(a.etiket) : '<span class="olculmedi">(başlıksız)</span>';
     return (
       "<tr>" +
       '<td class="mono" title="' + esc(a.ajanKimligi) + '">' + esc(kisa) + "</td>" +
-      "<td>" + etiket + "</td>" +
+      '<td title="' + esc(etiketMetin) + '">' + etiket + "</td>" +
       '<td><span class="nokta ' + (NOKTA_SINIF[a.lastStatus] || "gri") + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span> ' + esc(a.lastStatus || "bilinmiyor") + "</td>" +
-      '<td class="mono">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</td>" +
-      "<td>" + esc(a.provider || "bilinmiyor") + "</td>" +
+      '<td class="mono" title="' + esc(a.sonEtkinlikISO || "ölçülemedi") + '">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</td>" +
+      '<td title="' + esc(a.provider || "bilinmiyor") + '">' + esc(a.provider || "bilinmiyor") + "</td>" +
       "</tr>"
     );
   });
   $("projeTabloIci").innerHTML =
     satirlar.length === 0
       ? '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>'
-      : '<table class="planTablo"><caption class="gizli">proje konuşma tablosu — kısa kimlik, etiket, durum, son etkinlik, sağlayıcı</caption><thead><tr>' +
+      : '<table class="planTablo"><caption class="gizli">proje konuşma tablosu — kısa kimlik, etiket, durum, son etkinlik, sağlayıcı</caption><colgroup><col class="colKimlik"><col class="colEtiket"><col class="colDurum2"><col class="colEtkinlik"><col class="colSaglayici"></colgroup><thead><tr>' +
         '<th scope="col">Kimlik</th><th scope="col">Etiket</th><th scope="col">Durum</th><th scope="col">Son etkinlik</th><th scope="col">Sağlayıcı</th>' +
         "</tr></thead><tbody>" +
         satirlar.join("") +
@@ -1775,24 +1839,28 @@ anaSekmeDegistir("ordu"); /* başlangıç: ORDU ana sekmesi aktif */
 sekmeDegistir("durum"); /* başlangıç: DURUM alt sekmesi aktif */
 
 /* ---- STEERING-9 (b): SPLITTER ×2 — kapsul-tuval.html ADIM-C deseninin KOPYASI
-   (pointer events + klavye ←/→ ±16px + clamp 180px–45vw + aria-valuenow).
+   (pointer events + klavye ←/→ ±16px + taraf-bazlı clamp + aria-valuenow).
+   KOMPAKT (steering 2026-11-03): sol 240 (200-360) · sağ 320 (260-460) —
    localStorage anahtarları «ordu-solW» / «ordu-sagW»: tuvalin kendi anahtarlarından
-   AYRI — aynı origin'de iki sayfa açıkken birbirinin genişliğini EZMESİN. ---- */
+   AYRI — aynı origin'de iki sayfa açıkken birbirinin genişliğini EZMESİN.
+   Kayıtlı kullanıcı değeri ÖNCELİKLİDİR (media 900-1279 daraltması yalnız kayıt yokken). ---- */
 function kaydet(anahtar, deger) { try { localStorage.setItem(anahtar, deger); } catch (e) { /* gizli mod: sessiz */ } }
 function oku(anahtar) { try { return localStorage.getItem(anahtar); } catch (e) { return null; } }
+const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 260, max: 460 } };
 function genislikUygula(taraf, px) {
   document.documentElement.style.setProperty(taraf === "sol" ? "--solW" : "--sagW", Math.round(px) + "px");
   const kolon = $(taraf === "sol" ? "splitSol" : "splitSag");
   if (kolon) kolon.setAttribute("aria-valuenow", String(Math.round(px))); /* WAI-ARIA separator değeri */
 }
-function genislikKenetle(w) { /* en az 180px (nefes alt sınırı) · en çok 45vw (orta ezilmesin) */
-  return Math.max(180, Math.min(Math.round(window.innerWidth * 0.45), w));
+function genislikKenetle(taraf, w) { /* KOMPAKT taraf-bazlı clamp: sol 200-360 · sağ 260-460 */
+  const k = KENAR[taraf] || KENAR.sol;
+  return Math.max(k.min, Math.min(k.max, Math.round(w)));
 }
 function splitterKur(id, taraf) {
   const kolon = $(id);
   const hareket = (ev) => {
     let w = taraf === "sol" ? basGenis + (ev.clientX - basX) : basGenis - (ev.clientX - basX);
-    genislikUygula(taraf, genislikKenetle(w));
+    genislikUygula(taraf, genislikKenetle(taraf, w));
   };
   let basX = 0, basGenis = 0;
   kolon.addEventListener("pointerdown", (e) => {
@@ -1801,7 +1869,7 @@ function splitterKur(id, taraf) {
     kolon.classList.add("aktif");
     basX = e.clientX;
     const kok = getComputedStyle(document.documentElement);
-    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 280 : 380);
+    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 320);
     kolon.addEventListener("pointermove", hareket);
   });
   const bitis = () => {
@@ -1809,7 +1877,7 @@ function splitterKur(id, taraf) {
     kolon.removeEventListener("pointermove", hareket);
     const kok = getComputedStyle(document.documentElement);
     const w = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
-    if (isFinite(w) && w >= 180) kaydet("ordu-" + taraf + "W", String(w));
+    if (isFinite(w) && w >= KENAR[taraf].min) kaydet("ordu-" + taraf + "W", String(w));
   };
   kolon.addEventListener("pointerup", bitis);
   kolon.addEventListener("pointercancel", bitis);
@@ -1818,23 +1886,23 @@ function splitterKur(id, taraf) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
     const kok = getComputedStyle(document.documentElement);
-    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || 380;
-    const w = genislikKenetle(simdi + (e.key === "ArrowLeft" ? -16 : 16));
+    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 320);
+    const w = genislikKenetle(taraf, simdi + (e.key === "ArrowLeft" ? -16 : 16));
     genislikUygula(taraf, w);
     kaydet("ordu-" + taraf + "W", String(w));
   });
 }
 splitterKur("splitSol", "sol");
 splitterKur("splitSag", "sag");
-/* açılış: kayıtlı genişlikler (clamp'li — pencere arada küçülmüş olabilir) */
+/* açılış: kayıtlı genişlikler (clamp'li — pencere arada değişmiş olabilir) */
 for (const taraf of ["sol", "sag"]) {
   const w = parseInt(oku("ordu-" + taraf + "W"), 10);
-  if (isFinite(w) && w >= 180) genislikUygula(taraf, genislikKenetle(w));
+  if (isFinite(w) && w >= KENAR[taraf].min) genislikUygula(taraf, genislikKenetle(taraf, w));
 }
-window.addEventListener("resize", () => { /* 45vw tavanı pencereyle daralabilir — değerleri yeniden kenetle */
+window.addEventListener("resize", () => { /* taraf tavanları pencereyle daralabilir — değerleri yeniden kenetle */
   for (const taraf of ["sol", "sag"]) {
     const w = parseInt(getComputedStyle(document.documentElement).getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
-    if (isFinite(w)) genislikUygula(taraf, genislikKenetle(w));
+    if (isFinite(w)) genislikUygula(taraf, genislikKenetle(taraf, w));
   }
 });
 
