@@ -33,8 +33,8 @@
      sürükle/ok tuşları (±16px) + localStorage («ordu-solW»/«ordu-sagW» — tuvalin
      anahtarlarından AYRI; ağaç durumu «ordu-agac-*» anahtarlarında).
      Veri katmanı 7 GET ucu AYNEN; gönderim tek YAZMA ucu POST /api/mesaj.
-     EMOJİ YOK · webfont YOK · dış URL YOK · animasyon tanımı YOK ·
-     prefers-reduced-motion kapatır.
+     EMOJİ YOK · webfont YOK · dış URL YOK · animasyon yalnız nabız keyframes
+     (FAZ-H: opacity-only, ≤2) · prefers-reduced-motion kapatır.
      ===================================================================== */
   :root {
     --zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;
@@ -49,7 +49,7 @@
   body {
     background:var(--zemin); color:var(--metin);
     font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size:13px; line-height:1.4; /* KOMPAKT: baz 13px (steering 2026-11-03) */
+    font-size:15px; line-height:1.55; /* FAZ-H (steering «okunaklı» 2026-11-03): kompakt baz 13→15px + nefes 1.4→1.55 — K-0061 §5 minimumları yukarı taşınır */
     height:100vh; overflow:hidden; /* TEK VIEWPORT — body scroll YOK, her sütun kendi içinde kayar */
     display:flex; flex-direction:column;
   }
@@ -96,7 +96,7 @@
   main > #splitSag { grid-column:4; }
   main > #sag { grid-column:5; }
   /* EK STEERING: üstbarla bitişik orta şerit — sol/sağ panel kutuları üstten nefes alır */
-  #sol > .bolum, #sag > .bolum { margin-top:8px; }
+  #sol > .bolum, #sag > .bolum { margin-top:16px; } /* FAZ-H nefes: 8→16px dikey boşluk (ilk kutu üstten nefes alır) */
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; }
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
@@ -119,11 +119,11 @@
 
   .bolum {
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:var(--radius);
-    padding:10px 12px 12px; overflow:hidden;
+    padding:16px 20px 20px; overflow:hidden; /* FAZ-H nefes: 10px 12px 12px → 16px 20px 20px */
   }
-  .bolum-etiket { /* KOMPAKT: bölüm başlığı 15px/600 (steering 2026-11-03) */
-    display:flex; align-items:center; gap:8px; margin:0 0 8px;
-    font-size:15px; font-weight:600; color:var(--metin); letter-spacing:0.01em;
+  .bolum-etiket { /* FAZ-H: bölüm başlığı 15→18px (okunabilirlik öncelikli) */
+    display:flex; align-items:center; gap:8px; margin:0 0 10px;
+    font-size:18px; font-weight:600; color:var(--metin); letter-spacing:0.01em;
   }
   .bolum-etiket::before { content:""; width:14px; height:3px; border-radius:2px; background:var(--camgobegi); flex:none; }
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
@@ -156,11 +156,11 @@
      katmanı burada taşma EMNİYETİDİR; görünür kesme JS kisalt + title TAM. ---- */
   #anaSekmeSerit .sekme { padding:0 8px; } /* alt şeritle aynı dar dolgu (FAZ-B ailesi) */
   .anaSekmeGrup .sekme { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
-  .sekme { /* KOMPAKT: 30px sekme · 12px etiket */
+  .sekme { /* FAZ-H: 30px sekme · 12→15px etiket (okunabilirlik; §5 ≥26px korunur) */
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
-    min-height:30px; border:1px solid transparent; border-bottom:0;
+    min-height:34px; border:1px solid transparent; border-bottom:0;
     border-radius:var(--radius-k) var(--radius-k) 0 0;
-    background:transparent; color:var(--ikincil); font-size:12px; font-weight:600;
+    background:transparent; color:var(--ikincil); font-size:15px; font-weight:600;
     white-space:nowrap; position:relative; cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
@@ -171,27 +171,28 @@
   #sekmeGovde {
     flex:1 1 auto; min-height:0; overflow-y:auto; position:relative;
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:0 0 var(--radius) var(--radius);
-    padding:8px 12px 12px;
+    padding:10px 16px 16px; /* FAZ-H nefes: 8px 12px 12px → */
   }
   #sekmeGovde .bolum { border:0; border-radius:0; background:transparent; padding:0 0 8px; } /* panel zaten kutu — iç kart çerçevesi çift olmasın */
   .sekmePanel { opacity:0; transform:translateY(8px); transition:opacity 200ms ease, transform 200ms ease; } /* E12: yalnız transform/opacity */
   .sekmePanel.acik { opacity:1; transform:none; }
   .sekmePanel[hidden] { display:none; } /* display kuralı [hidden]'ı ezmesin — açık kural */
 
-  /* ---- KOMPAKT (steering 2026-11-03): TEK kompakt şerit — auto-fit minmax(150px,1fr);
-     rakam 22px/600; etiket 11px uppercase; her kart TEK satır değer (ellipsis + title) ---- */
-  .ozetGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap:8px; margin:4px 0 12px; }
+  /* ---- FAZ-H (steering «büyük resim ve yazılar» 2026-11-03): TEK kompakt şerit —
+     auto-fit minmax(150px,1fr); rakam 22→30px/700 HERO görünümü; etiket 11→13px
+     uppercase; her kart TEK satır değer (ellipsis + title) ---- */
+  .ozetGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap:10px; margin:6px 0 14px; }
   .ozetKart {
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
-    padding:8px 10px; display:flex; flex-direction:column; gap:2px; min-width:0;
+    padding:10px 14px; display:flex; flex-direction:column; gap:4px; min-width:0; /* FAZ-H nefes */
   }
-  .ozetEtiket { font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .ozetDeger { font-size:22px; font-weight:600; line-height:1.25; color:var(--metin); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ozetEtiket { font-size:13px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ozetDeger { font-size:30px; font-weight:700; line-height:1.2; color:var(--metin); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } /* FAZ-H: 22/600 → 30/700 */
   .ozetDeger.mono { font-family:var(--mono); }
-  .ozetDeger.yazi { font-size:14px; font-weight:600; }
-  .ozetDeger.damga { font-size:13px; font-family:var(--mono); font-weight:600; }
-  .ozetDeger .nokta { width:10px; height:10px; margin-right:6px; }
-  .ozetAlt { font-size:11px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ozetDeger.yazi { font-size:16px; font-weight:600; }
+  .ozetDeger.damga { font-size:14px; font-family:var(--mono); font-weight:600; }
+  .ozetDeger .nokta { width:12px; height:12px; margin-right:6px; }
+  .ozetAlt { font-size:12px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
   /* ---- PROGRESSIVE DISCLOSURE: <details> KAPALI varsayılan (KOMPAKT: 32px başlık) ---- */
   details.detay { border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); margin-top:8px; overflow:hidden; }
@@ -238,10 +239,11 @@
   }
   .semsiyeBas { display:flex; align-items:center; gap:6px; font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ikincil); }
   .nokta { width:10px; height:10px; border-radius:50%; display:inline-block; flex:none; vertical-align:-1px; }
-  .nokta.yesil { background:var(--basari); }
+  .nokta.yesil { background:var(--basari); animation:nabiz 2s ease-in-out infinite; } /* FAZ-H: çalışan ajanlarda nabız — yalnız opacity (E12) */
   .nokta.sari { background:var(--uyari); }
   .nokta.kirmizi { background:var(--tehlike); }
   .nokta.gri { background:var(--ikincil); }
+  @keyframes nabiz { 0%, 100% { opacity:1; } 50% { opacity:0.45; } } /* FAZ-H dinamik akış: TEK yeni keyframes; reduced-motion'da kapalı */
   .miniSatir { font-size:12px; color:var(--metin); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .miniSatir .miniNo { font-family:var(--mono); font-weight:700; color:var(--camgobegi); margin-right:6px; }
   .miniSatir .tekrar { color:var(--ikincil); font-variant-numeric:tabular-nums; }
@@ -254,10 +256,10 @@
      genişlikleri (colgroup JS'te); her hücre TEK satır (ellipsis + title JS'te) ---- */
   table.planTablo { width:100%; border-collapse:collapse; table-layout:fixed; }
   .planTablo th {
-    text-align:left; font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
-    color:var(--ikincil); padding:3px 8px; border-bottom:1px solid var(--cizgi); white-space:nowrap;
+    text-align:left; font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--ikincil); padding:4px 10px; border-bottom:1px solid var(--cizgi); white-space:nowrap; /* FAZ-H: 10.5→11px */
   }
-  .planTablo td { padding:4px 8px; border-bottom:1px solid var(--cizgi); vertical-align:top; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .planTablo td { padding:6px 10px; border-bottom:1px solid var(--cizgi); vertical-align:top; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } /* FAZ-H: 12px/4-8 → 14px/6-10 (satır ≈34px) */
   .planTablo tr:last-child td { border-bottom:0; }
   .planTablo .sira { font-family:var(--mono); font-weight:700; font-size:11px; color:var(--ikincil); }
   .planTablo .gKod { font-family:var(--mono); font-weight:700; font-size:11.5px; }
@@ -278,7 +280,7 @@
     color:var(--camgobegi); background:var(--yuzey); white-space:nowrap;
   }
   .planTablo tfoot td {
-    padding:4px 8px; border-top:1px solid var(--cizgi); font-size:11px; color:var(--ikincil);
+    padding:5px 10px; border-top:1px solid var(--cizgi); font-size:12px; color:var(--ikincil); /* FAZ-H: 11→12px */
     font-variant-numeric:tabular-nums;
   }
   /* KOMPAKT kolon genişlikleri (colgroup <col> sınıfları — JS tabloYaz/projeTabloYaz basar) */
@@ -445,9 +447,9 @@
   .agacProje { display:flex; flex-direction:column; }
   .agacProjeSatir { display:flex; align-items:stretch; }
   .agacProjeBas {
-    display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:28px;
-    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--metin); font-size:13px; font-weight:700; text-align:left; cursor:pointer; /* E-ek2: 12→13px (kompakt baz 13px; okunabilirlik öne geçti) */
+    display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:32px;
+    padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer; /* FAZ-H: 13→15px + satır 28→32px (E-ek2 kaldırıldı — okunabilirlik ölçeği) */
     white-space:nowrap; transition:background 160ms ease; /* E12: yalnız renk */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
@@ -457,14 +459,14 @@
   }
   .agacProje.acik .agacProjeBas .agacOk { transform:rotate(45deg); } /* açık: aşağı bakar */
   .agacAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
-  .agacSayi { flex:none; font:700 10.5px var(--mono); color:var(--ikincil); }
+  .agacSayi { flex:none; font:700 13px var(--mono); color:var(--ikincil); } /* FAZ-H: 10.5→13px kalın (büyük resim — rozet okunur) */
   /* PANEL-AGAC-1: hata uyarı ikonu (inline SVG — emoji YASAK §4) + taşıma düğmeleri
      (hover/odak görünür: gizliyken Tab sırasına girmezler — 74 satır x2 durmaz) */
   .agacUyari { flex:none; display:inline-flex; align-items:center; color:var(--tehlike); }
   .agacTasi { display:none; flex:none; align-items:stretch; }
   .agacProjeSatir:hover .agacTasi, .agacProjeSatir:focus-within .agacTasi { display:flex; }
   .agacTasiBtn {
-    display:inline-flex; align-items:center; justify-content:center; width:28px; min-height:28px;
+    display:inline-flex; align-items:center; justify-content:center; width:32px; min-height:32px; /* FAZ-H: satır 28→32px ile hizalı */
     border:0; border-radius:var(--radius-cip); background:transparent; color:var(--ikincil);
     cursor:pointer; transition:color 160ms, background 160ms; /* E12: yalnız renk */
   }
@@ -477,9 +479,9 @@
      boş grup render EDİLMEZ (0'lık başlık gürültü) */
   .agacGrup { display:flex; flex-direction:column; }
   .agacGrupBas {
-    display:flex; align-items:center; gap:5px; width:100%; min-height:28px;
-    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font:700 11px var(--mono); letter-spacing:0.06em; text-align:left; /* E-ek2: 10→11px */
+    display:flex; align-items:center; gap:5px; width:100%; min-height:32px;
+    padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font:700 12px var(--mono); letter-spacing:0.06em; text-align:left; /* FAZ-H: 11→12px + satır 28→32px */
     cursor:pointer; white-space:nowrap; transition:color 160ms, background 160ms; /* E12: yalnız renk */
   }
   .agacGrupBas:hover { color:var(--metin); background:var(--yuzey2); }
@@ -491,9 +493,9 @@
   .agacGrupAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
   .agacGrupCocuklar { display:flex; flex-direction:column; gap:1px; padding:0 0 2px 8px; }
   .agacAjan {
-    display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
-    padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font-size:13px; text-align:left; cursor:pointer; /* E-ek2: 12→13px — .agacDugumAd buradan kalıtır (kompakt baz 13px) */
+    display:flex; align-items:center; gap:6px; width:100%; min-height:32px;
+    padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); font-size:15px; text-align:left; cursor:pointer; /* FAZ-H: 13→15px + satır 28→32px — .agacDugumAd buradan kalıtır */
   }
   .agacAjan:hover { background:var(--yuzey2); color:var(--metin); }
   .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
@@ -519,9 +521,9 @@
     display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
     background:var(--yuzey2); border:1px solid var(--cizgi); border-bottom:0;
     border-left:0; border-right:0; border-radius:0; padding:2px 4px 0;
-    margin:0 -12px 8px;
+    margin:0 -16px 10px; /* FAZ-H nefes: -12px → -16px (sekmeGovde padding'iyle hizalı) + 8→10px */
   }
-  #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 8px; letter-spacing:0.02em; }
+  #altSekmeSerit .sekme { font-size:15px; min-height:34px; padding:0 8px; letter-spacing:0.02em; } /* FAZ-H: 12→15px etiket */
 
   /* ---- (PANEL-CHAT-1) SAĞ = TEK CHAT BİRİMİ (PANEL-ANA-1 FAZ-C: liste üstte ESNEK +
      composer ALTTA SABİT — her chat uygulaması düzeni): seçili konuşma TEK kompakt satır +
@@ -565,11 +567,11 @@
   .chatMesaj.basarili { border-left-color:var(--basari); }
   .chatMesaj.hata { border-left-color:var(--tehlike); background:rgba(220,38,38,0.06); }
   .chatSatir { display:flex; align-items:baseline; gap:6px; min-width:0; margin:0; white-space:nowrap; }
-  .chatSaat { flex:none; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
-  .chatKimlik { flex:none; font:600 10.5px var(--mono); color:var(--camgobegi); }
-  .chatMetin { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:12px; color:var(--metin); }
+  .chatSaat { flex:none; font-family:var(--mono); font-size:11px; color:var(--ikincil); } /* FAZ-H: 10.5→11px */
+  .chatKimlik { flex:none; font:600 11px var(--mono); color:var(--camgobegi); } /* FAZ-H: 10.5→11px */
+  .chatMetin { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:15px; color:var(--metin); } /* FAZ-H: 12→15px (chat liste metni) */
   .chatSonucSatiri { margin:2px 0 0; }
-  .chatSonuc { font-size:11px; font-weight:600; color:var(--ikincil); }
+  .chatSonuc { font-size:12px; font-weight:600; color:var(--ikincil); } /* FAZ-H: 11→12px */
   .chatSonuc.bekliyor { color:var(--ikincil); }
   .chatSonuc.basarili { color:var(--basari); }
   .chatSonuc.hata { color:var(--tehlike); }
@@ -1725,7 +1727,7 @@ function agacYaz() {
       '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
-      '<span class="agacAd">' + esc(kisalt(etiket, 14) || etiket) + "</span>" +
+      '<span class="agacAd">' + esc(kisalt(etiket, 12) || etiket) + "</span>" + /* FAZ-H: 14→12 (font 15px'e büyüdü — satır genişliği dengesi; title TAM etiket AYNEN) */
       (hatali > 0
         ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
         : "") +
@@ -2027,7 +2029,7 @@ function anaSekmeYaz() {
        AYNEN — seçim yolu değişmez; sekmeKapat aynen. */
     html +=
       '<span class="anaSekmeGrup" role="presentation">' +
-      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' + esc(kisalt(ad, 16) || ad) + "</button>" +
+      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' + esc(kisalt(ad, 14) || ad) + "</button>" + /* FAZ-H: 16→14 (font 15px'e büyüdü — şerit dengesi; title TAM ad + dizin AYNEN; data-ana TAM dizin AYNEN) */
       '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat">x</button>' +
       "</span>";
   }

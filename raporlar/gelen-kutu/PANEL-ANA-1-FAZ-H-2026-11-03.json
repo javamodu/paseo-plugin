@@ -1,0 +1,54 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-H-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-H — tipografi ölçeği büyütme + nefes alan yerleşim + çalışan noktası nabzı (yazıcı teslimi)",
+  "tarih": "2026-11-03T18:33",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "tipografi", "nefes", "nabiz", "olcek"],
+  "ozet": "(1) ordu-panosu.html CSS: baz 13→15px + line-height 1.4→1.55; .bolum padding 10px 12px 12px→16px 20px 20px + kolon arası margin-top 8→16px; .bolum-etiket 15→18px; .sekme 30px/12px→34px/15px (ana + alt şerit); #sekmeGovde padding 8px 12px 12px→10px 16px 16px + #altSekmeSerit negatif marj -12px→-16px hizalı; özet hero .ozetDeger 22/600→30/700 + .ozetEtiket 11→13 + .yazi 14→16 + .damga 13→14 + .ozetAlt 11→12 + .ozetKart padding 8 10→10 14 + grid gap 8→10 + kart gap 2→4 + .ozetDeger .nokta 10→12px; planTablo th 10.5→11 + td 12px/4px 8px→14px/6px 10px (satır ≈34px) + tfoot 11→12; ağaç .agacProjeBas/.agacAjan 28px/13px→32px/15px + .agacGrupBas 28px/11px→32px/12px + .agacTasiBtn 28→32px + .agacSayi 10.5→13px kalın; chat .chatMetin 12→15 + .chatSaat/.chatKimlik 10.5→11 + .chatSonuc 11→12. (2) nabız (dinamik akış): .nokta.yesil animation:nabiz 2s ease-in-out infinite + TEK yeni @keyframes nabiz { 0%,100% opacity:1; 50% opacity:0.45 } — opacity-only (E12: layout özellik animasyonu YOK); prefers-reduced-motion bloğu zaten animation:none — nabız da kapanır. (3) JS (yalnız 2 hunk — yorum + eşik): ağaç kisalt(etiket,14)→12, ana sekme kisalt(ad,16)→14; title'lar TAM etiket AYNEN + data-proje/data-ana/data-ajan TAM dizin AYNEN. Veri/fetch/composer/CHAT_TAVAN/optgroup/esc katmanına hunk YOK. Renk dili AYNEN (petrol tek aksan — YENİ renk YOK).",
+  "kanit": {
+    "panoNpm": { "tests": 79, "pass": 79, "fail": 0, "exit": 0, "not": "78 bilinçli pin güncellemesi + 51l YENİ (18 pin: tipografi ölçeği + nefes + nabız + kisalt eşik + §5 korunum + veri katmanı + renk token seti)" }
+  },
+  "bilincliPinDegisimleri": [
+    "test 2 ~96: ağaç düğüm 28px→32px (proje + ajan)",
+    "test 10 ~192-193: baz 13px→15px + bolum-etiket 15px→18px; test adı KOMPAKT→FAZ-H ölçek",
+    "test 10 ~199-200: bolum padding 10px 12px→16px 20px + line-height 1.4→1.55",
+    "test 10 ~202: ağaç 28px→32px (§5 ≥26px korunur cümlesi güncellendi)",
+    "test 10 ~204: '§6 @keyframes YOK' → '§6 keyframes FAZ-H istisna: yalnız nabiz (≤2) + blok opacity-only' (brief'in yeni @keyframes izni)",
+    "test 10b ~227-228: ozetDeger 22px/600→30px/700 + ozetEtiket 11px→13px",
+    "test 10e ~317: ozetGrid gap 8→10px",
+    "test 10e ~319: sekme 30px/12px→34px/15px",
+    "test 10e ~321: agacAjan 28px/13px→32px/15px",
+    "test 10e ~326: planTablo td 4px 8px→6px 10px",
+    "test 10e ~351: altSekmeSerit marj 0 -12px 8px→0 -16px 10px (sekmeGovde padding hizası)",
+    "test 51f ~1499: agacTasiBtn 28px→32px",
+    "test 51h ~1739: DAR alt sekme 30px/12px→34px/15px",
+    "test 51j ~1772: kisalt(ad,16)→kisalt(ad,14)",
+    "test 51j ~1791: vm beklenen '012345678901234…'→'0123456789012…' (kisalt 14 = 13 karakter + …)",
+    "test 51j ~1796: kisalt(etiket,14)→kisalt(etiket,12)",
+    "test 51j ~1801-1803: ağaç font 13px→15px + grup 11px→12px + satır 28px→32px",
+    "test 51k ~1897: vm beklenen '0123456789012…'→'01234567890…' (kisalt 12 = 11 karakter + …)",
+    "test 51k ~1909: vm beklenen 'sekme basligi u…'→'sekme basligi…' (kisalt 14; 'sekme basligi' tam 13 karakter)"
+  ],
+  "yeniPinler": [
+    "51l — tipografi ölçeği (baz 15 + ağaç 15/15/12 + sekme 15 + bolum-etiket 18 + hero 30/700 + chat 15 + tablo 14/6-10) · nefes (bolum 16/20 + kolon 16 + sekmeGovde 10/16/16 + ozetKart 10 14) · satır ailesi 32px (proje+ajan+grup+taşıma) · agacSayi 13px kalın · nabız (animation + @keyframes opacity-only + ≤2 + reduced-motion kapatır) · kisalt eşikleri (12 ağaç + 14 sekme; 12/20/80/16 kapsam-dışı AYNEN) · §5 korunum (GÖNDER 40 + --min-dokunma 44 + 34px/32px) · veri katmanı AYNEN (7 GET + POST + CHAT_TAVAN) · renk token seti birebir"
+  ],
+  "yapamadim": [
+    "canlı DOM kanıtı KOŞAMADIM — 4937'ye dokunma yasağı; değişiklik YALNIZ HTML/CSS olduğundan yenileme yeter, restart GEREKMEZ (koordinatör kapanışında ölçülmeli)",
+    "K2 görsel kabul kullanıcıda (açık)"
+  ],
+  "durustNotlar": [
+    "brief'te 'ana şerit + alt şerit sekme fontu 13 → 15px' deniyordu; kaynakta gerçek değer 12px'ti (FAZ-B DAR) — hedef 15px AYNEN uygulandı, başlangıç değeri 12 idi. Bilinçli pin test 10e ~319 + 51h ~1739'da 12→15 olarak işaretlendi.",
+    "composer form girdileri (12px) bilinçli olarak 15px'e büyütülmEDi: brief'in tipografi kalem listesinde composer yoktu; §5 44px dokunma + GÖNDER 40px zaten korunuyor. İstenirse tek CSS hunk'luk ayrı dalga.",
+    "planTablo alt sınıfları (.gRol/.gDizin 11.5px, tr.fazBaslik 11.5px, .cip 10px) ölçek büyütülmEdi — brief yalnız 'tablo satırı fontu 13→14 + satır yüksekliği 30→34' hedefini verdi; td 14px + padding 6px 10px ≈34px satır hedefi karşılandı.",
+    "nabız YALNIZ .nokta.yesil'de (running ajan noktası) — özet kartındaki yeşil nokta da .nokta.yesil sınıfını paylaştığı için orada da atar (aynı sınıf, tek kural; ayrım istenirse ayrı sınıf gerekir — bilinçli: running durumun TEK göstergesi, tutarlı).",
+    "ağaç kisalt eşikleri font büyümesiyle DARALTILDI (14→12 ağaç, 16→14 sekme): 15px fontta 14 karakter ≈ eski 13px'te 16 karakter genişliği — satır genişliği dengesi; title TAM etiket + hover erişimi AYNEN.",
+    "899px altı istif medyasındaki 140px chatListe tabanı AYNEN bırakıldı (dar ekran kompaktlığı)."
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu (YENİLEME yeter — yalnız HTML/CSS değişti, restart GEREKMEZ): (a) ağaç satırları 15px/32px + hero rakamlar 30px kalın; (b) sekme etiketleri 15px/34px; (c) çalışan ajan noktası 2sn nabız (reduced-motion'da kapalı); (d) ekran PNG raporlar/ordu-panosu-2026-11-03/ altına. K2 görsel kabul kullanıcıda.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 18:40): (1) koordinatör koşumları pano npm 79/79 + repo glob 301/301 (300+51l, kurulmuş pano+scripts deseni) EXIT=0 — birebir; arka plan görevinde, çıktı dosyadan. (2) diff denetimi: 2 dosya +103/-68; 16 CSS hunk + TAM 2 JS hunk (agacYaz kisalt 14->12 + anaSekmeYaz 16->14, dürüst yorumlu); veri katmanı hunk YOK (esc desen eşleşmeleri aynı 2 hunk satırı — yanlış pozitif); @keyframes sayısı 1 (nabiz opacity-only) + reduced-motion kapatır. (3) KOORDINATÖR TASHIHI (yorum düzeyi): banner 'animasyon tanımı YOK' cümlesi nabiz ile bayatladı -> 'animasyon yalnız nabız keyframes (FAZ-H: opacity-only, ≤2)'; tashih sonrası pano npm 79/79 yeniden yeşil. (4) CANLI DOM 4937 (yenilemeyle, restart GEREKMEDİ): baz 15px/1.55 + ağaç 15px/32px + kisalt 12 ('ajan ordusu…' + title TAM + data-proje TAM) + grup 12px + rozet 13px + sekme 15px/34px + etiket 18px/600 + bolum padding 16px 20px 20px + hero sayısal 30px/700 ('40'·'0'·'v14') + metin 16px + damga 14px (yazıcı tablosuyla birebir) + NABIZ CANLI (computed 'nabiz 2s') + chat 15px + GONDER 40px + sembol ana şerit/chat 0. (5) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-h.png (111,9 KB, 1918x1110, PNG imza doğrulandı); tarayıcı konağı ölçüm öncesi koptu (bilinen aksaklık) — bekle-tekrar ile döndü. (6) yazıcı dürüst notları kabul (sekme kaynak 12px'ti hedef 15 AYNEN · composer girdileri bilinçli büyütülmedi · planTablo alt sınıfları brief dışı · nabiz nokta.yesil tek kural · 899px tabanı AYNEN). K2 görsel kabul kullanıcıda — açık. Kuyruk: FAZ-I yok (yeni steering gelirse); 'sonra diğerlerini ekleyelim' (tuval GRAF/PROJE/API yüzleri) beklemede."
+}

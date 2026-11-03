@@ -93,7 +93,7 @@ test("2- GEZGİN AĞACI (FAZ-B): SOL kolon = projeler + konuşmalar; üstteki se
   ok("SOL = GEZGİN (bolum-agac + h2 GEZGİN)", HTML.includes('id="bolum-agac"') && /GEZGİN\s*<\/h2/.test(HTML));
   ok("ağaç kapları: agacAlani + agacOzet + agacHata (fail-closed kırmızı yüz)", HTML.includes('id="agacAlani"') && HTML.includes('id="agacOzet"') && HTML.includes('id="agacHata"'));
   ok("ağaç CSS sınıfları (agac/agacProje/agacAjan/agacCocuklar)", /\.agac\s*\{/.test(HTML) && /\.agacProje\s*\{/.test(HTML) && /\.agacAjan\s*\{/.test(HTML) && /\.agacCocuklar\s*\{/.test(HTML));
-  ok("ağaç düğümü KOMPAKT ~28px (steering 2026-11-03; eski 44px pin BİLİNÇLİ değişti)", /\.agacProjeBas\s*\{[^}]*min-height:\s*28px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*28px/.test(HTML));
+  ok("ağaç düğümü FAZ-H 32px (steering «okunaklı» 2026-11-03; 28→32 — eski 44px pin BİLİNÇLİ değişti)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   ok("durum noktası sınıfları: running yesil · idle gri · error kirmizi · closed KAPALI-soluk", jsKisim().includes('const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" }') && /\.nokta\.kapali\s*\{[^}]*opacity:\s*0\.45/.test(HTML));
   /* --- kalıcılık: ordu-agac-* anahtarları (ordu-solW/sagW ile ÇAKIŞMAZ) --- */
   const j = jsKisim();
@@ -188,20 +188,22 @@ test("9- (2b) durustluk: ATANMADI etiketi + olculmedi + OLCUM kaynak beyani", ()
   ok("cephe alani kadrodan (b.cephe)", j.includes("b.cephe"));
 });
 
-test("10- TASARIM pinleri — KOMPAKT steering 2026-11-03 (baz 13px; §1 nefes maddesi kullanıcı steering'iyle GEÇERSİZ — koordinatör brief yetkisi; §4/§6/§7 AYNEN)", () => {
-  ok("KOMPAKT baz 13px (BİLİNÇLİ: eski §1 16px — steering 2026-11-03)", /body\s*\{[^}]*font-size:\s*13px/.test(HTML));
-  ok("KOMPAKT bolum-etiket 15px/600 (eski 20px — BİLİNÇLİ)", /\.bolum-etiket\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.bolum-etiket\s*\{[^}]*font-weight:\s*600/.test(HTML));
+test("10- TASARIM pinleri — FAZ-H ölçek 2026-11-03 (baz 15px — steering «okunaklı/büyük yazılar»; §4/§6/§7 AYNEN; §5 minimumlar yukarı taşındı)", () => {
+  ok("FAZ-H baz 15px (BİLİNÇLİ: kompakt 13px — steering 2026-11-03 «yazılar çok küçük»)", /body\s*\{[^}]*font-size:\s*15px/.test(HTML));
+  ok("FAZ-H bolum-etiket 18px/600 (BİLİNÇLİ: kompakt 15px)", /\.bolum-etiket\s*\{[^}]*font-size:\s*18px/.test(HTML) && /\.bolum-etiket\s*\{[^}]*font-weight:\s*600/.test(HTML));
   ok("§2 tek viewport: body height:100vh + overflow:hidden (sutunlar kendi icinde kayar)", /body\s*\{[^}]*height:\s*100vh/.test(HTML) && /body\s*\{[^}]*overflow:\s*hidden/.test(HTML));
   ok("§4 light tema tokenlari", HTML.includes("--metin:#1a2332"));
   ok("§4 R3 token'lari birebir: yuzey2/yuzey3/glow", HTML.includes("--yuzey2:#eef2f7") && HTML.includes("--yuzey3:#e4eaf2") && HTML.includes("--glow:rgba(15,76,129,0.18)"));
   ok("§4 BEYAZ zemin (STEERING-8 mirasi)", /--zemin:\s*#ffffff/.test(HTML) && !HTML.includes("--zemin:#f4f6f9"));
   ok("KOMPAKT radius 6/4/4 (eski 8/6/4 — BİLİNÇLİ)", HTML.includes("--radius:6px") && HTML.includes("--radius-k:4px") && HTML.includes("--radius-cip:4px"));
-  ok("KOMPAKT bolum padding 10px 12px (eski 22px 24px — BİLİNÇLİ)", /\.bolum\s*\{[^}]*padding:\s*10px 12px/.test(HTML));
-  ok("KOMPAKT satir 1.4 (eski 1.5 — BİLİNÇLİ)", /body\s*\{[^}]*line-height:\s*1\.4/.test(HTML));
+  ok("FAZ-H bolum padding 16px 20px (nefes — BİLİNÇLİ: kompakt 10px 12px)", /\.bolum\s*\{[^}]*padding:\s*16px 20px/.test(HTML));
+  ok("FAZ-H satir 1.55 (nefes — BİLİNÇLİ: kompakt 1.4)", /body\s*\{[^}]*line-height:\s*1\.55/.test(HTML));
   ok("§2 main max-width 1760px (kapsul-tuval duzeni)", /main\s*\{[^}]*max-width:\s*1760px/.test(HTML));
   ok("§5 44px dokunma KALIR: composer girdileri (select/input); GÖNDER 40px KISAT alt sınırı + ağaç 28px KOMPAKT (BİLİNÇLİ)", HTML.includes("--min-dokunma:44px") && /#composerForm select, #composerForm input\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  ok("§5 44px dokunma KALIR: composer girdileri (select/input); GÖNDER 40px KISAT alt sınırı + ağaç 32px FAZ-H (BİLİNÇLİ: 28→32)", HTML.includes("--min-dokunma:44px") && /#composerForm select, #composerForm input\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   ok("§5 prefers-reduced-motion kapatir", HTML.includes("@media (prefers-reduced-motion: reduce)"));
-  ok("§6 @keyframes YOK", !HTML.includes("@keyframes"));
+  const nabizBlok = HTML.match(/@keyframes\s+nabiz\s*\{[\s\S]*?\}\s*\}/);
+  ok("§6 keyframes FAZ-H istisna: yalnız nabiz (≤2 yeni — brief) + blok opacity-only (layout animasyon YASAK)", (HTML.match(/@keyframes/g) || []).length <= 2 && HTML.includes("@keyframes nabiz") && !!nabizBlok && !/(width|height|padding|margin|top|left|right|bottom|font-size)\s*:/.test(nabizBlok[0]) && /\.nokta\.yesil\s*\{[^}]*animation:\s*nabiz/.test(HTML));
   const gecisler = (HTML.match(/transition:\s*[^;}]+/g) || []).filter((g) => !/^transition:\s*none/.test(g));
   ok("§6 gecis beyani var (none kapatmasi tarama disi)", gecisler.length >= 1, "bulunan: " + gecisler.length);
   const IZINLI = ["color", "border-color", "background", "transform", "opacity"]; /* E12: anim/transform siniri */
@@ -224,8 +226,8 @@ test("10b- STEERING-8 TEK BAKIS: ozet seridi (6 buyuk kart) + progressive disclo
   for (const id of ["ozetSaglik", "ozetGorev", "ozetCanli", "ozetSiradaki", "ozetGraf", "ozetDamga"]) {
     ok("ozet karti: " + id, h.includes('id="' + id + '"'));
   }
-  ok("KOMPAKT rakam 22px/600 tek satir (eski 36px — BİLİNÇLİ)", /\.ozetDeger\s*\{[^}]*font-size:\s*22px/.test(HTML) && /\.ozetDeger\s*\{[^}]*font-weight:\s*600/.test(HTML));
-  ok("KOMPAKT ozet etiketi 11px (eski 14px — BİLİNÇLİ)", /\.ozetEtiket\s*\{[^}]*font-size:\s*11px/.test(HTML));
+  ok("FAZ-H rakam 30px/700 tek satir (BİLİNÇLİ: kompakt 22px/600 — steering «büyük resim»)", /\.ozetDeger\s*\{[^}]*font-size:\s*30px/.test(HTML) && /\.ozetDeger\s*\{[^}]*font-weight:\s*700/.test(HTML));
+  ok("FAZ-H ozet etiketi 13px (BİLİNÇLİ: kompakt 11px)", /\.ozetEtiket\s*\{[^}]*font-size:\s*13px/.test(HTML));
   /* kart dolusu render-only: kaynak zaten var olan genel/kadro uc verisi (yeni fetch YOK) */
   ok("ozet degerleri genel ucunden (ozetYaz helper)", j.includes("function ozetYaz("));
   ok("canli ajan kadro birlesiminden", j.includes('b.canlilik && b.canlilik.canli'));
@@ -312,16 +314,16 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   const h = htmlKisim();
   const j = jsKisim();
   /* --- yoğunluk: özet şerit + sekmeler + ağaç + composer --- */
-  ok("ozetGrid KOMPAKT serit: auto-fit minmax(150px) + gap 8px", /\.ozetGrid\s*\{[^}]*minmax\(min\(150px,\s*100%\),\s*1fr\)/.test(HTML) && /\.ozetGrid\s*\{[^}]*gap:\s*8px/.test(HTML));
+  ok("ozetGrid FAZ-H serit: auto-fit minmax(150px) + gap 10px (BİLİNÇLİ: 8→10 nefes)", /\.ozetGrid\s*\{[^}]*minmax\(min\(150px,\s*100%\),\s*1fr\)/.test(HTML) && /\.ozetGrid\s*\{[^}]*gap:\s*10px/.test(HTML));
   ok("ozetDeger TEK satır: nowrap + ellipsis; ozetAlt ellipsis", /\.ozetDeger\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && /\.ozetAlt\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML));
-  ok("sekme 30px + 12px etiket (KOMPAKT)", /\.sekme\s*\{[^}]*min-height:\s*30px/.test(HTML) && /\.sekme\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  ok("sekme 34px + 15px etiket (FAZ-H — BİLİNÇLİ: 30/12)", /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML));
   ok("sekmeKapat 20px hedef (KOMPAKT)", /\.sekmeKapat\s*\{[^}]*width:\s*20px/.test(HTML) && /\.sekmeKapat\s*\{[^}]*height:\s*20px/.test(HTML));
-  ok("agacAjan 28px + 13px metin (E-ek2 bilinçli: 12→13px — okunabilirlik öne geçti, kompakt baz 13px); durum noktasi 8px; girinti 12px", /\.agacAjan\s*\{[^}]*min-height:\s*28px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*13px/.test(HTML) && /\.agacAjan \.nokta\s*\{[^}]*width:\s*8px/.test(HTML) && /\.agacCocuklar\s*\{[^}]*padding:\s*0 0 2px 12px/.test(HTML));
+  ok("agacAjan FAZ-H 32px + 15px metin (BİLİNÇLİ: 28/13); durum noktasi 8px; girinti 12px", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacAjan \.nokta\s*\{[^}]*width:\s*8px/.test(HTML) && /\.agacCocuklar\s*\{[^}]*padding:\s*0 0 2px 12px/.test(HTML));
   ok("composer 12px metin + GÖNDER 40px (KISAT alt sınırı)", /#composerForm select, #composerForm textarea, #composerForm input\s*\{[^}]*font-size:\s*12px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   /* --- taşma kesme: ellipsis her metin hücresinde + title tam metin --- */
   ok("olayAd ellipsis + nowrap (AKIŞ satır başına 1 satır)", /\.olayAd\s*\{[^}]*white-space:\s*nowrap/.test(HTML) && /\.olayAd\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML));
   ok("logDetay ellipsis + logSatir nowrap + logKaynak max-width", /\.logDetay\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && /\.logListe li\.logSatir\s*\{[^}]*white-space:\s*nowrap/.test(HTML) && /\.logKaynak\s*\{[^}]*max-width:\s*220px/.test(HTML));
-  ok("planTablo table-layout:fixed + td 4px 8px + ellipsis + colgroup JS'te", /\.planTablo\s*\{[^}]*table-layout:\s*fixed/.test(HTML) && /\.planTablo td\s*\{[^}]*padding:\s*4px 8px/.test(HTML) && /\.planTablo td\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && j.includes('<colgroup><col class="colSira">'));
+  ok("planTablo table-layout:fixed + td FAZ-H 6px 10px (satır ≈34px) + ellipsis + colgroup JS'te", /\.planTablo\s*\{[^}]*table-layout:\s*fixed/.test(HTML) && /\.planTablo td\s*\{[^}]*padding:\s*6px 10px/.test(HTML) && /\.planTablo td\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && j.includes('<colgroup><col class="colSira">'));
   ok("proje tablosu colgroup'u (colKimlik..colSaglayici)", j.includes('<colgroup><col class="colKimlik">'));
   ok("kolon CSS siniflari (colSira/colKod/colDurum/colEtkinlik...)", /\.planTablo \.colSira\s*\{/.test(HTML) && /\.planTablo \.colEtkinlik\s*\{/.test(HTML));
   ok("AKIŞ satır adı kisalt(o.ad, 80) + title TAM metin", j.includes("kisalt(o.ad, 80)") && j.includes('class="olayAd\' + (TUR_MONO'));
@@ -346,7 +348,7 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   ok("paseoOzet fail-closed (tarama ölürse dürüst metin)", j.includes('"Paseo taraması okunamadı'));
   ok("eski PROJE DURUMLARI bloğu YOK (çift kaynak yasak — ağaç tek kaynak)", !h.includes('id="bolum-projekart"') && !j.includes("projeKartIci"));
   ok("üst çubuklar bitişik tek aile: anaSekmeSerit border-top:0 + main padding-top 0", /#anaSekmeSerit\s*\{[^}]*border-top:\s*0/.test(HTML) && /main\s*\{[^}]*padding:\s*0 12px 12px/.test(HTML));
-  ok("alt sekme şeridi govdeye bitişik (negatif marj + radius 0)", /#altSekmeSerit\s*\{[^}]*margin:\s*0 -12px 8px/.test(HTML));
+  ok("alt sekme şeridi govdeye bitişik (negatif marj — FAZ-H: -16px sekmeGovde padding'iyle hizalı + radius 0)", /#altSekmeSerit\s*\{[^}]*margin:\s*0 -16px 10px/.test(HTML));
 });
 
 test("11- emoji YOK + dis URL YOK + webfont YOK", () => {
@@ -1494,7 +1496,7 @@ test("51f- PANEL-AGAC-1 (vm): çalışan sayısı GERÇEK sayımdan + hata uyar�
   ok("çalışan sayısı GERÇEK sayım (lastStatus === running; ajanlar.length TOPLAM kayıttır)", j.includes('x.lastStatus === "running"') && j.includes('x.lastStatus === "error"'));
   ok("proje başlığı role=button DIV (W3C: düğme içinde düğme YASAK)", j.includes('<div class="agacProjeBas" role="button"') && !j.includes('<button type="button" class="agacProjeBas"'));
   ok("taşıma düğmeleri başlığın DIŞINDA (agacTasi) + klavye yolu keydown dinleyicisi", j.includes('<span class="agacTasi">') && j.includes('$("agacAlani").addEventListener("keydown"'));
-  ok("taşıma hedefi 28px (K-0061 kompakt satır yüksekliği)", /\.agacTasiBtn\s*\{[^}]*width:\s*28px/.test(HTML) && /\.agacTasiBtn\s*\{[^}]*min-height:\s*28px/.test(HTML));
+  ok("taşıma hedefi FAZ-H 32px (satır ölçeğiyle hizalı; ≥26px korunur)", /\.agacTasiBtn\s*\{[^}]*width:\s*32px/.test(HTML) && /\.agacTasiBtn\s*\{[^}]*min-height:\s*32px/.test(HTML));
   ok("uyarı ikonu inline SVG + role=img (emoji YASAK §4)", j.includes("const UYARI_SVG") && j.includes('<span class="agacUyari" role="img"'));
   ok("tıklama temsilcisi: sıra + grup başlıkları ÖNCE (erken dönüş — TRAP 2)", j.indexOf('closest(".agacTasiBtn")') >= 0 && j.indexOf('closest(".agacTasiBtn")') < j.indexOf('closest(".agacProjeBas")') && j.indexOf('closest(".agacGrupBas")') < j.indexOf('closest(".agacProjeBas")'));
   ok("ağaç özeti aktif/toplam: 'N aktif / M proje'", j.includes("</b> aktif / <b>"));
@@ -1734,7 +1736,7 @@ test("51h- PANEL-ANA-1 (kaynak-pin): orta panel ALT SEKMELER kısa ad + DAR — 
   ok("bölüm h2 başlıkları TAM ad AYNEN (SAĞLIK yalnız SEKME kısa adıdır)", /SİSTEM SAĞLIĞI\s*<\/h2/.test(HTML));
   /* --- DAR sekme stili: yatay dolgu 12px → 8px; 30px satır ailesi KORUNUR (§5 ≥26px) --- */
   ok("DAR alt sekme: #altSekmeSerit .sekme padding:0 8px (eski 12px — BİLİNÇLİ)", /#altSekmeSerit \.sekme\s*\{[^}]*padding:\s*0 8px/.test(HTML));
-  ok("DAR alt sekme: 30px satır + 12px etiket KOMPAKT ailede kalır (§5 ≥26px)", /#altSekmeSerit \.sekme\s*\{[^}]*min-height:\s*30px/.test(HTML) && /#altSekmeSerit \.sekme\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  ok("FAZ-H alt sekme: 34px satır + 15px etiket (BİLİNÇLİ: 30/12; §5 ≥26px)", /#altSekmeSerit \.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /#altSekmeSerit \.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML));
   /* --- cila (görsel yalnız — veri katmanı AYNEN): focus/hover/aktif hiyerarşisi --- */
   ok("sekme klavye odağı görünür (.sekme:focus-visible outline petrol)", /\.sekme:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--camgobegi\)/.test(HTML));
   ok("aktif olmayan sekme hover yüzü (yuzey3 — aktif sekme hover'da DEĞİŞMEZ)", /\.sekme:not\(\.aktif\):hover\s*\{[^}]*background:\s*var\(--yuzey3\)/.test(HTML));
@@ -1767,7 +1769,7 @@ test("51i- PANEL-ANA-1 FAZ-C (kaynak-pin): sağ kolon TEK chat birimi — liste 
 test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri DAR (kisalt 16 + title TAM ad — dizin + max-width emniyeti) · ağaç etiketleri «aşırı minimal» (12/14 + satır title birleşik) + okunabilirlik (13px) · AKTİF projeler ÜSTTE (stabil ayrım — kayıt değişmez)", () => {
   const j = jsKisim();
   /* --- FAZ-D: ana şerit proje sekmeleri (steering «üst sekme çok fazla geniş oluyor dağılıyor») --- */
-  ok("proje sekmesi etiketi kisalt(ad, 16) (kisalt null dönerse dürüst yedek ad)", j.includes("kisalt(ad, 16) || ad"));
+  ok("proje sekmesi etiketi FAZ-H kisalt(ad, 14) (BİLİNÇLİ: 16→14 — font 15px'e büyüdü; kisalt null dönerse dürüst yedek ad)", j.includes("kisalt(ad, 14) || ad"));
   ok("proje sekmesi title TAM ad — dizin (eski title=dizin yok — bilinçli değişti)", j.includes('esc(ad + " — " + dizin)'));
   ok("data-ana TAM dizin AYNEN (seçim/kapatma yolu değişmez)", j.includes('data-ana="\' + esc(dizin) + \'"'));
   ok("DAR dolgu: #anaSekmeSerit .sekme padding:0 8px (alt şerit FAZ-B ailesiyle aynı)", /#anaSekmeSerit \.sekme\s*\{[^}]*padding:\s*0 8px/.test(HTML));
@@ -1786,19 +1788,19 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctx2)();
   const hs = sahte2.anaSekmeSerit.innerHTML;
-  ok("vm: uzun ad 15+'…' görünür (kisalt 16) — sekme DAR kalır", hs.includes(">012345678901234…</button>"));
+  ok("vm: uzun ad 13+'…' görünür (kisalt 14 — FAZ-H) — sekme DAR kalır", hs.includes(">0123456789012…</button>"));
   ok("vm: title TAM ad — dizin + data-ana TAM dizin (kaybolduğu yerde erişilebilir kalır)", hs.includes('title="01234567890123456789012 — P-uzun"') && hs.includes('data-ana="P-uzun"'));
   ok("vm: kısa ad aynen + ORDU sabit sekme şeridin İLKİNDE", hs.includes(">kisa</button>") && hs.indexOf('id="sek-ordu"') < hs.indexOf('data-ana="P-uzun"'));
   /* --- FAZ-E: ağaç etiketleri (steering «aşırı minimal» + E-ek1/E-ek2 «kısalmıyor/küçük») --- */
   ok("oturum düğümü etiketi kisalt(a.etiket, 12) (eski 20 — bilinçli)", j.includes("kisalt(a.etiket, 12)"));
-  ok("proje satırı görünen adı kisalt(etiket, 14) — etiket = projeEtiketi(pr) (FAZ-G bilinçli: eski kisalt(pr.projeAdi,14))", j.includes("const etiket = projeEtiketi(pr)") && j.includes("kisalt(etiket, 14) || etiket"));
+  ok("proje satırı görünen adı FAZ-H kisalt(etiket, 12) — etiket = projeEtiketi(pr) (BİLİNÇLİ: 14→12 — font 15px'e büyüdü)", j.includes("const etiket = projeEtiketi(pr)") && j.includes("kisalt(etiket, 12) || etiket"));
   ok("E-ek1+FAZ-G: satır title'ı birleşik dürüst bicim 'TAM etiket — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
   ok("E-ek1: agacAd'in KENDİ title'i YOK (TAM ad satır title'ında — çift tooltip kaldırıldı)", !j.includes('class="agacAd" title='));
   ok("CHAT başlığındaki kisalt(a.etiket, 20) AYNEN (kullanıcı «soldaki» dedi — yalnız ağaç)", j.includes("kisalt(a.etiket, 20)"));
   ok("AKIŞ satırı kisalt(o.ad, 80) AYNEN (bu turun kapsamı dışı)", j.includes("kisalt(o.ad, 80)"));
-  ok("E-ek2: .agacProjeBas font-size:13px + .agacAjan font-size:13px (12→13 — kompakt baz 13px)", /\.agacProjeBas\s*\{[^}]*font-size:\s*13px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*13px/.test(HTML));
-  ok("E-ek2: .agacGrupBas 11px mono (10→11)", /\.agacGrupBas\s*\{[^}]*font:\s*700 11px var\(--mono\)/.test(HTML));
-  ok("E-ek2: satır yüksekliği 28px KORUNUR (§5 ≥26px; yalnız font büyür)", /\.agacProjeBas\s*\{[^}]*min-height:\s*28px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*28px/.test(HTML));
+  ok("FAZ-H: .agacProjeBas font-size:15px + .agacAjan font-size:15px (BİLİNÇLİ: 13→15 — okunabilirlik ölçeği)", /\.agacProjeBas\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*15px/.test(HTML));
+  ok("FAZ-H: .agacGrupBas 12px mono (BİLİNÇLİ: 11→12)", /\.agacGrupBas\s*\{[^}]*font:\s*700 12px var\(--mono\)/.test(HTML));
+  ok("FAZ-H: satır yüksekliği 32px (BİLİNÇLİ: 28→32; §5 ≥26px korunur)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   /* --- FAZ-F: aktif projeler ÜSTTE (steering «solda aktif projeler üstte olsun pasifler aşağıda») --- */
   ok("FAZ-F kaynak: calisanSay (running sayımı — .agacSayi'nın aynısı) + gorunen stabil ayrımı", j.includes("const calisanSay = (pr) =>") && j.includes("const gorunen = [...projeler].sort") && j.includes("for (const pr of gorunen)"));
   ok("FAZ-F: kalıcı kayıt ŞEMASI AYNEN (ordu-agac-sira; YENİ anahtar YOK — aktiflik tercihe bağlı değil)", j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(aktif|pasif|fa)/.test(j));
@@ -1892,7 +1894,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxG)();
   const hg = sahteG.agacAlani.innerHTML;
-  ok("vm agac: baslik etikete akar — gorunen kisalt(baslik,14), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">0123456789012…</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: baslik etikete akar — gorunen kisalt(baslik,12 — FAZ-H), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">01234567890…</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
   ok("vm agac: baslik YOKSA dashed yedek aynen (beta)", hg.includes(">beta</span>") && hg.includes('title="beta — 0 çalışan · 1 ajan kaydı"'));
   ok("vm agac: kimlik yolu DEGISMEZ (data-proje TAM dizin)", hg.includes('data-proje="P-alfa"') && hg.includes('data-proje="P-beta"'));
   const sahte2 = {};
@@ -1904,5 +1906,36 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctxS)();
   const hs = sahte2.anaSekmeSerit.innerHTML;
-  ok("vm ana sekme: baslik etikete akar — kisalt(.,16) + title 'TAM baslik — dizin' + data-ana TAM dizin", hs.includes(">sekme basligi u…</button>") && hs.includes('title="sekme basligi uzun ornek metni — P-uzun"') && hs.includes('data-ana="P-uzun"'));
+  ok("vm ana sekme: baslik etikete akar — FAZ-H kisalt(.,14) + title 'TAM baslik — dizin' + data-ana TAM dizin", hs.includes(">sekme basligi…</button>") && hs.includes('title="sekme basligi uzun ornek metni — P-uzun"') && hs.includes('data-ana="P-uzun"'));
+});
+
+test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız + kisalt eşikleri — steering «yazılar çok küçük okunaklu yap modern sade minimalist kompkat az yerde çok işlev dinamik akışlar nefes alan tasarım büyük resim ve yazılar» 2026-11-03", () => {
+  const j = jsKisim();
+  /* --- TİPOGRAFİ ölçeği (ana kalem — ölçülebilir hedefler) --- */
+  ok("baz 15px + line-height 1.55 (nefes 1.5-1.6 bandında)", /body\s*\{[^}]*font-size:\s*15px/.test(HTML) && /body\s*\{[^}]*line-height:\s*1\.55/.test(HTML));
+  ok("bolum-etiket 18px/600 (bölüm başlıkları okunur)", /\.bolum-etiket\s*\{[^}]*font-size:\s*18px/.test(HTML));
+  ok("ağaç ölçeği: agacProjeBas 15px + agacAjan 15px + agacGrupBas 12px mono", /\.agacProjeBas\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacGrupBas\s*\{[^}]*font:\s*700 12px var\(--mono\)/.test(HTML));
+  ok("ağaç satır yüksekliği 32px ailesi (proje + ajan + grup + taşıma hedefi)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacGrupBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacTasiBtn\s*\{[^}]*min-height:\s*32px/.test(HTML));
+  ok("agacSayi rozet 13px kalın mono (büyük resim — sayı okunur)", /\.agacSayi\s*\{[^}]*font:\s*700 13px var\(--mono\)/.test(HTML));
+  ok("ana + alt şerit sekme fontu 15px", /\.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML) && /#altSekmeSerit \.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML));
+  ok("özet hero: ozetDeger 30px/700 + ozetEtiket 13px + yazi 16px + damga 14px + ozetAlt 12px", /\.ozetDeger\s*\{[^}]*font-size:\s*30px/.test(HTML) && /\.ozetDeger\s*\{[^}]*font-weight:\s*700/.test(HTML) && /\.ozetEtiket\s*\{[^}]*font-size:\s*13px/.test(HTML) && /\.ozetDeger\.yazi\s*\{[^}]*font-size:\s*16px/.test(HTML) && /\.ozetDeger\.damga\s*\{[^}]*font-size:\s*14px/.test(HTML) && /\.ozetAlt\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  ok("chat liste metni 15px + saat/kimlik 11px + sonuc 12px", /\.chatMetin\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatKimlik\s*\{[^}]*11px var\(--mono\)/.test(HTML) && /\.chatSonuc\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  ok("planTablo satır: td 14px + padding 6px 10px (satır ≈34px) + th 11px + tfoot 12px", /\.planTablo td\s*\{[^}]*font-size:\s*14px/.test(HTML) && /\.planTablo td\s*\{[^}]*padding:\s*6px 10px/.test(HTML) && /\.planTablo th\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.planTablo tfoot td\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  /* --- NEFES (padding/dikey boşluk) --- */
+  ok("bolum padding 16px 20px 20px + kolonlar arası 16px", /\.bolum\s*\{[^}]*padding:\s*16px 20px 20px/.test(HTML) && /#sol > \.bolum, #sag > \.bolum\s*\{[^}]*margin-top:\s*16px/.test(HTML));
+  ok("sekmeGovde padding 10px 16px 16px + altSekmeSerit negatif marj -16px hizalı", /#sekmeGovde\s*\{[^}]*padding:\s*10px 16px 16px/.test(HTML) && /#altSekmeSerit\s*\{[^}]*margin:\s*0 -16px 10px/.test(HTML));
+  ok("ozetKart nefes: padding 10px 14px + gap 4px + grid gap 10px", /\.ozetKart\s*\{[^}]*padding:\s*10px 14px/.test(HTML) && /\.ozetKart\s*\{[^}]*gap:\s*4px/.test(HTML) && /\.ozetGrid\s*\{[^}]*gap:\s*10px/.test(HTML));
+  /* --- DİNAMİK AKIŞ: çalışan noktası nabzı (opacity-only; ≤2 yeni keyframes) --- */
+  ok("nabız: .nokta.yesil animation:nabiz 2s infinite", /\.nokta\.yesil\s*\{[^}]*animation:\s*nabiz 2s ease-in-out infinite/.test(HTML));
+  const nabizBlok = HTML.match(/@keyframes\s+nabiz\s*\{[\s\S]*?\}\s*\}/);
+  ok("nabız keyframes blok opacity-only (layout özellik animasyonu YASAK — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !!nabizBlok && nabizBlok[0].includes("opacity") && !/(width|height|padding|margin|top|left|right|bottom)\s*:/.test(nabizBlok[0]));
+  ok("nabız reduced-motion'da kapalı (bilgi hareketi tercihe saygı)", /@media \(prefers-reduced-motion: reduce\)[\s\S]*?animation:\s*none/.test(HTML));
+  /* --- KISALT eşikleri (font büyüdü — satır genişliği dengesi; title TAM AYNEN) --- */
+  ok("ağaç etiket eşiği 12 (BİLİNÇLİ: 14→12) + ana sekme eşiği 14 (BİLİNÇLİ: 16→14)", j.includes("kisalt(etiket, 12) || etiket") && j.includes("kisalt(ad, 14) || ad"));
+  ok("kisalt eşik ötesi AYNEN (oturum 12 · chat 20 · akış 80 · sağlayıcı 16 — bu turun kapsamı dışı)", j.includes("kisalt(a.etiket, 12)") && j.includes("kisalt(a.etiket, 20)") && j.includes("kisalt(o.ad, 80)") && j.includes("kisalt(a.provider, 16)"));
+  /* --- K-0061 §5 minimumlar yukarı taşındı (aşağı düşmez) --- */
+  ok("§5 korunur: GÖNDER min-height 40px + --min-dokunma 44px + sekme 34px ≥26px + ağaç 32px ≥26px", /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML) && HTML.includes("--min-dokunma:44px") && /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
+  /* --- veri katmanı hunk YOK (diff denetimi desteği) --- */
+  ok("veri katmanı AYNEN: cek(UC. sayısı 7 + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
+  ok("renk dili AYNEN: petrol tek aksan + token seti birebir (YENİ renk YOK — FAZ-H yalnız ölçek/nefes)", HTML.includes("--camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;") && HTML.includes("--zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;") && HTML.includes("--metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);"));
 });
