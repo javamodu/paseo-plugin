@@ -966,6 +966,18 @@ function kisalt(metin, n) {
   return s.length > n ? s.slice(0, n - 1) + "…" : s;
 }
 
+/* FAZ-G (2026-11-03, kullanıcı rename'leri ağaçta görünsün): proje ETİKETİ tek noktadan —
+   workspaces.json'dan birleşen baslik VARSA o, yoksa dizin adı (dashed yol DÜRÜST yedek —
+   uydurma başlık YOK, E10). Başlık kararsız KULLANICI verisidir: yalnız esc() ile akıtılır
+   (ajandaki etiket deseni). Kimlik yolu DEĞİŞMEZ: data-proje/data-ana TAM dizin AYNEN;
+   ORDU cipi/orduMu dizin köklü KALIR. Kullanım: ağaç satırı + ana sekme + chat başlığı +
+   optgroup + proje detay adı (hepsi TEK yardımcıdan). */
+function projeEtiketi(pr) {
+  if (pr && typeof pr.baslik === "string" && pr.baslik.trim()) return pr.baslik;
+  if (pr && typeof pr.projeAdi === "string" && pr.projeAdi.trim()) return pr.projeAdi;
+  return "?"; /* her ikisi de yoksa dürüst soru işareti — boş etiket uydurulmaz */
+}
+
 async function cek(yol) {
   const r = await fetch(yol, { cache: "no-store" });
   if (!r.ok) throw new Error("HTTP " + r.status + " — " + yol);
@@ -1552,7 +1564,7 @@ try {
   }
 } catch (e) { /* bozuk kayıt: varsayılan sırayla başla (fail-closed) */ }
 let agacSecili = oku("ordu-agac-secili") || null; // seçili konuşma TAM ajan kimliği | null
-let seciliKonusma = null; // { ajan, projeDizin, projeAdi, orduMu } — SAĞ kart + composer hedefi
+let seciliKonusma = null; // { ajan, projeDizin, projeEtiket, orduMu } — SAĞ kart + composer hedefi (kimlik yolu projeDizin)
 
 /* ANA SEKME durumu: ORDU sekmesi SABİT (kapatılamaz); proje sekmeleri X ile kapanır.
    Sekme listesi bilinçli olarak KALICI DEĞİL (oturum-içi çalışma yüzü); ağaç/seçim kalıcıdır. */
@@ -1699,19 +1711,21 @@ function agacYaz() {
     const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
     toplamAjan += ajanlar.length;
     const calisan = calisanSay(pr);
+    const etiket = projeEtiketi(pr); /* FAZ-G: baslik VARSA etiket — dashed yol dürüst yedek */
     const hatali = ajanlar.filter((x) => x.lastStatus === "error").length;
     if (calisan > 0) aktifProje++;
     html +=
       '<div class="agacProje' + (acik ? " acik" : "") + '">' +
       '<div class="agacProjeSatir">' +
-      /* FAZ-E + E-ek1 («aşırı minimal» + «kısalmıyor» steering'leri 2026-11-03): görünen ad
-         kisalt(.,14); TAM ad SATIR title'ında — çalışan/kayıt bilgisi KORUNARAK birleşik
-         bicim 'TAM ad — N çalışan · M ajan kaydı'; data-proje TAM dizin AYNEN; aria-expanded
-         AYNEN. (agacAd'in kendi title'i kaldirildi — satir title'i zaten TAM adı taşır.) */
-      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(pr.projeAdi) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
+      /* FAZ-E + E-ek1 + FAZ-G («aşırı minimal» + «kısalmıyor» + rename steering'leri 2026-11-03):
+         görünen ad kisalt(etiket,14) — etiket = baslik VARSA baslik (workspaces.json), yoksa
+         dizin adı DÜRÜST yedek; satır title'ı TAM etiket — çalışan/kayıt bilgisi KORUNARAK
+         birleşik bicim; data-proje TAM dizin AYNEN (kimlik yolu DEĞİŞMEZ); aria-expanded
+         AYNEN. (agacAd'in kendi title'i kaldirildi — satir title'i zaten TAM etiketi taşır.) */
+      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
-      '<span class="agacAd">' + esc(kisalt(pr.projeAdi, 14) || pr.projeAdi) + "</span>" +
+      '<span class="agacAd">' + esc(kisalt(etiket, 14) || etiket) + "</span>" +
       (hatali > 0
         ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
         : "") +
@@ -1802,7 +1816,7 @@ function konusmaSecGuncelle(secimiZorla) {
     for (const pr of P.projeler) {
       const a = (Array.isArray(pr.ajanlar) ? pr.ajanlar : []).find((x) => x.ajanKimligi === agacSecili);
       if (a) {
-        seciliKonusma = { ajan: a, projeDizin: pr.dizin, projeAdi: pr.projeAdi, orduMu: !!pr.orduMu };
+        seciliKonusma = { ajan: a, projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr), orduMu: !!pr.orduMu };
         break;
       }
     }
@@ -1827,7 +1841,7 @@ function chatBaslikYaz() {
   const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
   satir.innerHTML =
     '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span>' +
-    '<span class="chatBaslikAd" title="' + esc(a.ajanKimligi) + '">' + esc(ad) + " · " + esc(seciliKonusma.projeAdi) + (seciliKonusma.orduMu ? " (ORDU)" : "") + "</span>" +
+    '<span class="chatBaslikAd" title="' + esc(a.ajanKimligi) + '">' + esc(ad) + " · " + esc(seciliKonusma.projeEtiket) + (seciliKonusma.orduMu ? " (ORDU)" : "") + "</span>" +
     '<span class="chatBaslikSaglayici" title="' + esc(a.provider || "sağlayıcı bilinmiyor") + '">' + esc(kisalt(a.provider, 16) || "sağlayıcı?") + "</span>";
 }
 
@@ -1875,7 +1889,7 @@ function composerHedefGuncelle(secimiZorla) {
   const yonetimKumesi = new Set(yonetim.map((y) => y.kimlik));
   const ajanlar = pr ? (Array.isArray(pr.ajanlar) ? pr.ajanlar : []) : [];
   const projeAjanlari = ajanlar.filter((a) => !yonetimKumesi.has(a.ajanKimligi));
-  html += '<optgroup label="SEÇİLİ PROJE: ' + esc(pr ? pr.projeAdi : "yok") + ' AJANLARI">';
+  html += '<optgroup label="SEÇİLİ PROJE: ' + esc(pr ? projeEtiketi(pr) : "yok") + ' AJANLARI">';
   if (projeAjanlari.length === 0) html += '<option value="" disabled>' + (pr ? "bu projede yönetim dışı ajan yok" : "proje seçilmedi (gezgin ya da sekme)") + "</option>";
   for (const a of projeAjanlari) {
     const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
@@ -2006,7 +2020,7 @@ function anaSekmeYaz() {
     '<button type="button" class="sekme' + (aktifSekme === "ordu" ? " aktif" : "") + '" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="' + (aktifSekme === "ordu" ? "true" : "false") + '" tabindex="' + (aktifSekme === "ordu" ? 0 : -1) + '">ORDU</button>';
   for (const dizin of acikSekmeler) {
     const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x.dizin === dizin) : null;
-    const ad = pr ? pr.projeAdi : dizin; /* kayıt taramadan düştüyse dizin adı dürüst yedek */
+    const ad = pr ? projeEtiketi(pr) : dizin; /* FAZ-G: baslik VARSA etiket; kayıt taramadan düştüyse dizin adı dürüst yedek */
     const aktif = aktifSekme === dizin;
     /* FAZ-D (steering «üst sekme çok fazla geniş oluyor»): etiket kisalt(ad,16) +
        title TAM ad — dizin (kisalt null dönerse dürüst yedek ad); data-ana TAM dizin
@@ -2093,7 +2107,7 @@ function projeTabloYaz() {
   kirmiziYuzKapat("projeHata");
   const d = pr.durumSayilari || {};
   const durum = ["running", "idle", "error", "closed", "diger"].map((k) => k + " " + (d[k] !== undefined ? d[k] : 0)).join(" · ");
-  $("projeTabloAd").textContent = pr.projeAdi;
+  $("projeTabloAd").textContent = projeEtiketi(pr); /* FAZ-G: baslik VARSA etiket (textContent — esc gerekmez) */
   $("projeTabloOzet").innerHTML =
     "<b>" + esc(String(pr.ajanSayisi)) + "</b> ajan kaydı · durum dağılımı: " + esc(durum) +
     " · ölçüm " + esc(P.olcumAniISO || "—") + " · atlanan " + esc(String(P.atlanan !== undefined ? P.atlanan : 0)) +

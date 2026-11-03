@@ -608,8 +608,36 @@ export function logBirlesik({ kiraLogYolu, defterYolu, handoffDir, deneyLogYolu,
 // Bozuk JSON dosyalar ATLANIR + sayilir (mevcut tolerans deseni).
 const BILINEN_DURUMLAR = ['running', 'idle', 'error', 'closed'];
 
+// FAZ-G (PANEL-ANA-1, 2026-11-03): Paseo workspace kayit defteri — SALT-OKUR BASLIK birlesimi.
+// Kaynak: join(paseoEv, 'projects', 'workspaces.json') (test fixture'i ayni PASEO_EV duzeniyle
+// ezilebilir). Eslesme anahtari: cwd -> dash cevirimi ([\\/:]+ tek tire — server.js ORDU_DIZIN_ADI
+// deseni AYNEN) = agents/<dizin> adi. Ayni cwd'de BIRDEN FAZLA workspace olabilir (olculdu:
+// D:\Vibecode\ordu icin 6 kayit) -> secim: archivedAt bos (aktif) + updatedAt en yeni.
+// title bos/null -> baslik YOK (UI'da dashed yol durust yedek — uydurma baslik YOK, E10).
+// Kayit defteri BOZUK/OKUNAMAZSA -> tarama DEGIL, yalniz basliklar bos kalir (fail-closed ayri).
+// Baslik kararsiz KULLANICI verisidir: yanitta tasinir, UI'da esc() ile akitalir (etiket deseni).
+function workspaceBasliklari(paseoEv) {
+  const harita = new Map(); // dash-dizin -> baslik
+  let ham;
+  try { ham = JSON.parse(readFileSync(join(String(paseoEv), 'projects', 'workspaces.json'), 'utf8')); } catch { return harita; }
+  if (!Array.isArray(ham)) return harita; // beklenmedik sekil -> bos harita (fail-closed ayri)
+  const aday = new Map(); // dash-dizin -> { baslik, ms }
+  for (const w of ham) {
+    if (!w || typeof w !== 'object' || typeof w.cwd !== 'string' || !w.cwd.trim()) continue;
+    if (w.archivedAt) continue; // arsivli kayit baslik tasimaz
+    const ms = typeof w.updatedAt === 'string' && Number.isFinite(Date.parse(w.updatedAt)) ? Date.parse(w.updatedAt) : -Infinity;
+    const mevcut = aday.get(w.cwd);
+    if (mevcut === undefined || ms >= mevcut.ms) aday.set(w.cwd, { ms, baslik: typeof w.title === 'string' && w.title.trim() ? w.title : null });
+  }
+  for (const [cwd, v] of aday) {
+    if (v.baslik !== null) harita.set(cwd.replace(/[\\/:]+/g, '-'), v.baslik);
+  }
+  return harita;
+}
+
 export function projelerTara(paseoEv, secenekler = {}) {
   const kok = join(String(paseoEv), 'agents');
+  const basliklar = workspaceBasliklari(paseoEv); // FAZ-G: workspaces.json basliklari (salt-okur)
   const projeler = []; let atlanan = 0;
   let dizinler = [];
   try { dizinler = readdirSync(kok); } catch { return { projeler: [], atlanan: 0 }; }
@@ -653,6 +681,7 @@ export function projelerTara(paseoEv, secenekler = {}) {
     projeler.push({
       dizin: d,
       projeAdi: d, // dizin basename'i — ajan title'lari kararsiz (mojibake dahil), kullanilmaz
+      baslik: basliklar.has(d) ? basliklar.get(d) : null, // FAZ-G: workspaces.json TAM basligi; YOK = null (UI'da dashed yol durust yedek; kararsiz alan — UI'da esc() ile)
       ajanSayisi: ajanlar.length,
       ajanlar, // TAM liste (FAZ-A): her kayıt ajanKimligi + kısa önek + durum + etkinlik + sağlayıcı + etiket — Composer hedef seçiminin veri kaynağı
       sonEtkinlikISO,

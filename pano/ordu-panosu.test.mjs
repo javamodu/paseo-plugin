@@ -1237,7 +1237,7 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   const sahte = {};
   const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
   const tabloFn = vm.runInNewContext(HTML.slice(tabloA, tabloB) + "\nprojeTabloYaz", {
-    $: sahte$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sahte$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     kirmiziYuzKapat: () => {}, kirmiziYuzGoster: () => {},
     UC: { projeler: "/api/ordu/projeler" },
     NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
@@ -1277,7 +1277,7 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
   const sahte = {};
   const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
   const agacFn = vm.runInNewContext(HTML.slice(agacA, agacB) + "\nagacYaz", {
-    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     P: {
       olcumAniISO: "2026-11-03T09:00:00Z",
       projeler: [
@@ -1317,7 +1317,7 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
   const sahte2$ = (id) => (sahte2[id] = sahte2[id] || { innerHTML: "", textContent: "", value: "", options: [] });
   const KURMAY_KIMLIK = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7";
   const compFn = vm.runInNewContext(HTML.slice(compA, compB) + "\ncomposerHedefGuncelle", {
-    $: sahte2$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sahte2$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     K: { rolAtamasi: { MANAGER: ["KURMAY-1"] }, birlikler: [{ kodAdi: "KURMAY-1", ajanId: KURMAY_KIMLIK }] },
     P: { projeler: [
       { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
@@ -1342,7 +1342,7 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
   const sahte3 = { composerHedef: secSham2 };
   const compFn2 = vm.runInNewContext(HTML.slice(compA, compB) + "\ncomposerHedefGuncelle", {
     $: (id) => sahte3[id] || (sahte3[id] = { innerHTML: "", textContent: "", value: "", options: [] }),
-    esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     K: { rolAtamasi: { MANAGER: ["KURMAY-1"] }, birlikler: [{ kodAdi: "KURMAY-1", ajanId: KURMAY_KIMLIK }] },
     P: { projeler: [
       { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
@@ -1371,6 +1371,7 @@ test("51c- FAZ-B davranis (vm): ana sekme yonetimi — ORDU SABIT + X ile kapani
   const fns = vm.runInNewContext(HTML.slice(sekA, sekB) + "\n[anaSekmeDegistir, sekmeAc, sekmeKapat, anaSekmeBos]", {
     $: (id) => (id === "anaSekmeSerit" ? seritSham : sahte$(id)),
     esc: fnAl("esc"), kisalt: fnAl("kisalt"), /* FAZ-D bilinçli ekleme: anaSekmeYaz artık kisalt(ad,16) çağırır */
+    projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G bilinçli ekleme: anaSekmeYaz etiketi projeEtiketi(pr)'den alır */
     P: { projeler: [{ dizin: "P-x", projeAdi: "P-x", ajanlar: [] }] },
     acikSekmeler: [], aktifSekme: "ordu", aktifAltSekme: "durum",
     ALT_SEKME_PANEL: { durum: "durumBolum", plan: "planBolum", akis: "akisBolum", saglik: "saglikBolum", log: "logBolum" },
@@ -1451,7 +1452,7 @@ test("51e- KOMPAKT kapanis duzeltmesi (vm): agac tiklamasi composer hedefini TIK
   const sham = {};
   const sham$ = (id) => sham[id] || (sham[id] = { innerHTML: "", textContent: "", value: "", options: [], className: "", hidden: true });
   const ctx = {
-    $: sham$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sham$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     kirmiziYuzKapat: () => {}, NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
     K: { rolAtamasi: { MANAGER: ["KURMAY-1"] }, birlikler: [{ kodAdi: "KURMAY-1", ajanId: KURMAY }] },
     P: { projeler: [ { dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
@@ -1524,7 +1525,7 @@ test("51f- PANEL-AGAC-1 (vm): çalışan sayısı GERÇEK sayımdan + hata uyar�
   const sahte = {};
   const sahte$ = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
   const ctx = {
-    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     P: FIX, agacAcik: new Set(["P-alfa"]), agacSecili: null,
     agacGrupAcik: new Set(["running", "error"]), agacSira: null,
     NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
@@ -1560,7 +1561,7 @@ test("51f- PANEL-AGAC-1 (vm): çalışan sayısı GERÇEK sayımdan + hata uyar�
   const kayit = [];
   const kaydetSpy = (a, v) => kayit.push([a, v]);
   const sirCtx = {
-    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    $: sahte$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G */
     P: FIX, agacAcik: new Set(), agacSecili: null,
     agacGrupAcik: new Set(["running", "error"]), agacSira: null,
     NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
@@ -1776,7 +1777,7 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   const sahte2 = {};
   const $2 = (id) => (sahte2[id] = sahte2[id] || { innerHTML: "" });
   const ctx2 = {
-    $: $2, esc: fnAl("esc"), kisalt: fnAl("kisalt"),
+    $: $2, esc: fnAl("esc"), kisalt: fnAl("kisalt"), projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G: anaSekmeYaz etiketi yardımcıdan */
     P: { projeler: [
       { dizin: "P-uzun", projeAdi: "01234567890123456789012", orduMu: false, ajanlar: [] },
       { dizin: "P-kisa", projeAdi: "kisa", orduMu: false, ajanlar: [] },
@@ -1790,8 +1791,8 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   ok("vm: kısa ad aynen + ORDU sabit sekme şeridin İLKİNDE", hs.includes(">kisa</button>") && hs.indexOf('id="sek-ordu"') < hs.indexOf('data-ana="P-uzun"'));
   /* --- FAZ-E: ağaç etiketleri (steering «aşırı minimal» + E-ek1/E-ek2 «kısalmıyor/küçük») --- */
   ok("oturum düğümü etiketi kisalt(a.etiket, 12) (eski 20 — bilinçli)", j.includes("kisalt(a.etiket, 12)"));
-  ok("proje satırı görünen adı kisalt(pr.projeAdi, 14) (eski TAM — bilinçli)", j.includes("kisalt(pr.projeAdi, 14) || pr.projeAdi"));
-  ok("E-ek1: satır title'ı birleşik dürüst bicim 'TAM ad — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR)", j.includes('esc(pr.projeAdi) + " — " + calisan + " çalışan · " + ajanlar.length'));
+  ok("proje satırı görünen adı kisalt(etiket, 14) — etiket = projeEtiketi(pr) (FAZ-G bilinçli: eski kisalt(pr.projeAdi,14))", j.includes("const etiket = projeEtiketi(pr)") && j.includes("kisalt(etiket, 14) || etiket"));
+  ok("E-ek1+FAZ-G: satır title'ı birleşik dürüst bicim 'TAM etiket — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
   ok("E-ek1: agacAd'in KENDİ title'i YOK (TAM ad satır title'ında — çift tooltip kaldırıldı)", !j.includes('class="agacAd" title='));
   ok("CHAT başlığındaki kisalt(a.etiket, 20) AYNEN (kullanıcı «soldaki» dedi — yalnız ağaç)", j.includes("kisalt(a.etiket, 20)"));
   ok("AKIŞ satırı kisalt(o.ad, 80) AYNEN (bu turun kapsamı dışı)", j.includes("kisalt(o.ad, 80)"));
@@ -1801,4 +1802,107 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   /* --- FAZ-F: aktif projeler ÜSTTE (steering «solda aktif projeler üstte olsun pasifler aşağıda») --- */
   ok("FAZ-F kaynak: calisanSay (running sayımı — .agacSayi'nın aynısı) + gorunen stabil ayrımı", j.includes("const calisanSay = (pr) =>") && j.includes("const gorunen = [...projeler].sort") && j.includes("for (const pr of gorunen)"));
   ok("FAZ-F: kalıcı kayıt ŞEMASI AYNEN (ordu-agac-sira; YENİ anahtar YOK — aktiflik tercihe bağlı değil)", j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(aktif|pasif|fa)/.test(j));
+});
+
+test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json baslik birlesimi — dash eslesme + coklu-cwd secim (aktif + en yeni) + arsiv/basliksiz yedek + bozuk-JSON fail-closed; UI'da etiket TEK yardimcidan (projeEtiketi), kimlik yolu DEGISMEZ", () => {
+  const j = jsKisim();
+  const birlesim = readFileSync(new URL("./ordu-birlesim.mjs", import.meta.url), "utf8");
+
+  /* --- (A) ordu-birlesim.mjs kaynak pinleri --- */
+  ok("kaynak SALT-OKUR: join(paseoEv,'projects','workspaces.json') (test fixture'i PASEO_EV duzeniyle ezilir)", birlesim.includes("join(String(paseoEv), 'projects', 'workspaces.json')"));
+  ok("dash eslesme deseni server.js ORDU_DIZIN_ADI ile AYNEN: [\\\\/:]+ tek tire", birlesim.includes("replace(/[\\\\/:]+/g, '-')"));
+  ok("coklu-cwd secim: arsivli kayit baslik TASIMAZ (archivedAt skip)", birlesim.includes("if (w.archivedAt) continue;"));
+  ok("coklu-cwd secim: aktif kayitlarin updatedAt EN YENISI kazanir (Date.parse karsilastirmasi)", birlesim.includes("Date.parse(w.updatedAt)"));
+  ok("title bos/null -> baslik YOK (uydurma yok, E10; UI'da dashed yol yedek)", birlesim.includes("typeof w.title === 'string' && w.title.trim()"));
+  ok("kayit defteri BOZUK/OKUNAMAZ -> tarama DEGIL: bos harita (fail-closed ayri)", birlesim.includes("} catch { return harita; }"));
+  ok("projelerTara kaydina baslik alani: YOK = null (dashed yedek; kararsiz alan — UI'da esc() ile)", birlesim.includes("baslik: basliklar.has(d) ? basliklar.get(d) : null"));
+
+  /* --- (B) birlesim davranisi (gercek tmp fixture) --- */
+  const tmp = tempKok();
+  try {
+    const ag = join(tmp, "agents");
+    for (const d of ["D-alfa", "D-beta", "D-yedek", "C-fwd-slash"]) mkdirSync(join(ag, d), { recursive: true });
+    const ajanYaz = (d, id) => writeFileSync(join(ag, d, id + ".json"), JSON.stringify({ id, provider: "glm53u-claude", lastStatus: "running", lastActivityAt: "2026-11-02T10:00:00Z", title: "oturum etiketi" }));
+    ajanYaz("D-alfa", "11111111-1111-4111-8111-111111111111");
+    ajanYaz("D-beta", "22222222-2222-4222-8222-222222222222");
+    ajanYaz("D-yedek", "33333333-3333-4333-8333-333333333333");
+    ajanYaz("C-fwd-slash", "44444444-4444-4444-8444-444444444444");
+    mkdirSync(join(tmp, "projects"), { recursive: true });
+    writeFileSync(join(tmp, "projects", "workspaces.json"), JSON.stringify([
+      { workspaceId: "w1", cwd: "D:\\alfa", title: "eski ama aktif baslik", updatedAt: "2026-10-01T00:00:00Z", archivedAt: null },
+      { workspaceId: "w2", cwd: "D:\\alfa", title: "en yeni ama ARSIVLI", updatedAt: "2026-11-05T00:00:00Z", archivedAt: "2026-11-05T00:00:00Z" },
+      { workspaceId: "w3", cwd: "D:\\beta", title: "beta basligi", updatedAt: "2026-11-04T00:00:00Z", archivedAt: null },
+      { workspaceId: "w4", cwd: "D:\\yedek", title: null, updatedAt: "2026-11-04T00:00:00Z", archivedAt: null },
+      { workspaceId: "w5", cwd: "C:/fwd/slash", title: "ileri bolu cwd basligi", updatedAt: "2026-11-04T00:00:00Z", archivedAt: null },
+      { workspaceId: "w6", cwd: "D:\\taramada-yok", title: "ajani yok disarida", updatedAt: "2026-11-04T00:00:00Z", archivedAt: null },
+    ]));
+    const r = projelerTara(tmp);
+    const bul = (d) => r.projeler.find((p) => p.dizin === d);
+    assert.equal(bul("D-alfa").baslik, "eski ama aktif baslik", "arsivli en yeni DEGIL: aktif kayit kazanir");
+    assert.equal(bul("D-beta").baslik, "beta basligi", "tek aktif kaydin basligi birlesir");
+    assert.equal(bul("D-yedek").baslik, null, "title null -> baslik YOK (dashed yol yedek)");
+    assert.equal(bul("C-fwd-slash").baslik, "ileri bolu cwd basligi", "ileri bolu cwd dash cevirimiyle eslesir ([\\\\/:]+ deseni)");
+    ok("agents'ta olmayan cwd'nin basligi sessizce disarida kalir (tarama listede yok)", r.projeler.every((p) => p.dizin !== "D-taramada-yok"));
+    ok("tarama ALANI degismedi (projeAdi dizin basename; orduMu dizin koklu)", r.projeler.every((p) => p.projeAdi === p.dizin));
+    /* BOZUK workspaces.json: tarama DEGIL — projeler yasar, basliklar bos (fail-closed ayri) */
+    const tmp2 = tempKok();
+    try {
+      const ag2 = join(tmp2, "agents");
+      mkdirSync(join(ag2, "D-x"), { recursive: true });
+      writeFileSync(join(ag2, "D-x", "55555555-5555-4555-8555-555555555555.json"), JSON.stringify({ id: "55555555-5555-4555-8555-555555555555", lastStatus: "idle", lastActivityAt: "2026-11-02T10:00:00Z" }));
+      mkdirSync(join(tmp2, "projects"), { recursive: true });
+      writeFileSync(join(tmp2, "projects", "workspaces.json"), "{bozuk json");
+      const r2 = projelerTara(tmp2);
+      assert.equal(r2.projeler.length, 1, "bozuk kayit defteri taramayi DURDURMAZ (fail-closed ayri)");
+      assert.equal(r2.projeler[0].baslik, null, "bozuk defter -> basliklar bos kalir, dashed yol aynen");
+    } finally { rmSync(tmp2, { recursive: true, force: true }); }
+  } finally { rmSync(tmp, { recursive: true, force: true }); }
+
+  /* --- (C) ordu-panosu.html kaynak pinleri: etiket TEK yardimcidan --- */
+  ok("UI yardimcisi: function projeEtiketi(pr) — baslik VARSA o, yoksa projeAdi", j.includes("function projeEtiketi(pr)") && j.includes('typeof pr.baslik === "string" && pr.baslik.trim()'));
+  ok("kullanim 1/5 agac satiri: etiket = projeEtiketi(pr) (kisalt 14 + satir title)", j.includes("const etiket = projeEtiketi(pr)"));
+  ok("kullanim 2/5 ana sekme: ad = pr ? projeEtiketi(pr) : dizin (taramadan dustuysae dizin yedek)", j.includes("pr ? projeEtiketi(pr) : dizin"));
+  ok("kullanim 3/5 chat basligi: seciliKonusma.projeEtiket (kimlik yolu projeDizin AYNEN)", j.includes("projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr)") && j.includes("seciliKonusma.projeEtiket"));
+  ok("kullanim 4/5 composer optgroup: 'SEÇİLİ PROJE: etiket AJANLARI'", j.includes('pr ? projeEtiketi(pr) : "yok"'));
+  ok("kullanim 5/5 proje detay adı: projeTabloAd = projeEtiketi(pr)", j.includes('$("projeTabloAd").textContent = projeEtiketi(pr)'));
+  ok("kimlik yolu DEGISMEZ: data-proje TAM dizin AYNEN (agac + tasi dugmeleri)", j.includes('data-proje="\' + esc(pr.dizin)'));
+  ok("data-ana TAM dizin AYNEN (ana sekme kimligi)", j.includes('data-ana="\' + esc(dizin)'));
+
+  /* --- (D) vm: baslik etikete AKAR, yoksa yedek --- */
+  const R1 = "11111111-1111-4111-8111-111111111111";
+  const R2 = "22222222-2222-4222-8222-222222222222";
+  const FIXG = {
+    olcumAniISO: "2026-11-03T12:00:00Z",
+    projeler: [
+      { dizin: "P-alfa", projeAdi: "P-alfa", baslik: "01234567890123456789012", orduMu: false, ajanlar: [
+        { ajanKimligi: R1, ajanId: "11111111", lastStatus: "running", etiket: "çalışan ajan" },
+      ] },
+      { dizin: "P-beta", projeAdi: "beta", orduMu: false, ajanlar: [
+        { ajanKimligi: R2, ajanId: "22222222", lastStatus: "idle", etiket: "bekleyen ajan" },
+      ] },
+    ],
+  };
+  const sahteG = {};
+  const $g = (id) => (sahteG[id] = sahteG[id] || { innerHTML: "", textContent: "", hidden: true });
+  const ctxG = {
+    $: $g, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+    P: FIXG, agacAcik: new Set(["P-alfa"]), agacSecili: null,
+    agacGrupAcik: new Set(["running", "error"]), agacSira: null,
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+  };
+  vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxG)();
+  const hg = sahteG.agacAlani.innerHTML;
+  ok("vm agac: baslik etikete akar — gorunen kisalt(baslik,14), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">0123456789012…</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: baslik YOKSA dashed yedek aynen (beta)", hg.includes(">beta</span>") && hg.includes('title="beta — 0 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: kimlik yolu DEGISMEZ (data-proje TAM dizin)", hg.includes('data-proje="P-alfa"') && hg.includes('data-proje="P-beta"'));
+  const sahte2 = {};
+  const $2 = (id) => (sahte2[id] = sahte2[id] || { innerHTML: "" });
+  const ctxS = {
+    $: $2, esc: fnAl("esc"), kisalt: fnAl("kisalt"), projeEtiketi: fnAl("projeEtiketi"),
+    P: { projeler: [ { dizin: "P-uzun", projeAdi: "P-uzun", baslik: "sekme basligi uzun ornek metni", orduMu: false, ajanlar: [] } ] },
+    aktifSekme: "ordu", acikSekmeler: ["P-uzun"],
+  };
+  vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctxS)();
+  const hs = sahte2.anaSekmeSerit.innerHTML;
+  ok("vm ana sekme: baslik etikete akar — kisalt(.,16) + title 'TAM baslik — dizin' + data-ana TAM dizin", hs.includes(">sekme basligi u…</button>") && hs.includes('title="sekme basligi uzun ornek metni — P-uzun"') && hs.includes('data-ana="P-uzun"'));
 });

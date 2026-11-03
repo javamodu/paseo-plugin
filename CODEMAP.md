@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 85c4721 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 16db2f2 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -81,11 +81,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0060.md` (3.2KB) — K-0060 — Composer gönderim köprüsü: dar spawn izni (PANEL-EXPLORER-1 FAZ-A)
 - `kararlar/K-0061.md` (4.3KB) — K-0061 — ORDU paneli yoğunluk dili: kompakt tek-bakış (PANEL-KOMPAKT-1)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
-- `pano/` (32 dosya: en yeni ordu-panosu.test.mjs, mesaj-ucu.test.mjs, server.js)
+- `pano/` (32 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, mesaj-ucu.test.mjs)
 - `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `plans/` (103 dosya: en yeni HANDOFF-2026-11-01-1741.md, SORUN-KAPATMA-3AJAN-PLANI-2026-11-01.md, HANDOFF-2026-11-01-1658.md)
 - `plugin/` (74 dosya: en yeni kalkan429.ts, index.server.ts, kalkan429.test.ts)
-- `raporlar/` (287 dosya: en yeni PANEL-ANA-1-FAZ-DEF-2026-11-03.md, 2026-W45.md, PANEL-ANA-1-FAZ-C-2026-11-03.md)
+- `raporlar/` (288 dosya: en yeni PANEL-ANA-1-FAZ-G-2026-11-03.md, 2026-W45.md, PANEL-ANA-1-FAZ-DEF-2026-11-03.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -117,6 +117,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
 - `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
 - `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (108.3KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (111.6KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

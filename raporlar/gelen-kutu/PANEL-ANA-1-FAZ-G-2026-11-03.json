@@ -1,0 +1,42 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-G-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-G — başlık birleşimi: workspaces.json rename'leri ağaçta/sekmelerde görünür (yazıcı teslimi)",
+  "tarih": "2026-11-03T18:02",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-birlesim.mjs",
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "birlesim", "workspaces", "etiket"],
+  "ozet": "(1) ordu-birlesim.mjs: workspaceBasliklari(paseoEv) SALT-OKUR — join(paseoEv,'projects','workspaces.json') okur; eşleşme cwd -> dash çevirimi ([\\/:]+ tek tire, server.js ORDU_DIZIN_ADI deseni AYNEN) = agents/<dizin>; aynı cwd'de çoklu kayıtta archivedAt boş (aktif) + updatedAt en yeni seçilir; title boş/null -> başlık YOK (dashed yol dürüst yedek, E10); kayıt defteri bozuk/okunamazsa -> tarama DEĞİL yalnız başlıklar boş (fail-closed ayrı). projelerTara her proje kaydına baslik alanı ekler (TAM başlık; yok = null). (2) ordu-panosu.html: TEK yardımcı projeEtiketi(pr) — baslik VARSA o, yoksa projeAdi ('?' dürüst son yedek); 5 kullanım noktası: ağaç satırı (kisalt 14 + satır title birleşik) + ana sekme (kisalt 16 + title 'TAM etiket — dizin') + chat başlığı (seciliKonusma.projeEtiket; kimlik yolu projeDizin AYNEN) + composer optgroup + projeTabloAd; data-proje/data-ana TAM dizin AYNEN (kimlik yolu DEĞİŞMEZ); ORDU cipi/orduMu dizin köklü KALIR; agacVarsayilanSira sıralaması projeAdi (dizin) üzerinden AYNEN. server.js'e DOKUNULMADI.",
+  "kanit": {
+    "panoNpm": { "tests": 78, "pass": 78, "fail": 0, "exit": 0, "not": "mevcut 77 vakanın tamamı yeşil + 51k YENI (7 kaynak-pin A + 7 birleşim davranış B + 8 UI pin C + 4 vm D)" },
+    "repoGlob": { "tests": 343, "pass": 342, "fail": 1, "not": "yazıcının geniş glob'u (pano+scripts+raporlar suitleri); tek kırmızı raporlar/uzun-gorev-verimi-2026-11-01/judge.test.mjs — vm 100ms zaman-aşımı harness'i, paralel yük altında flake; TEK BAŞINA 8/8 yeşil; dalganın 3 dosyasına ve kurulmuş glob'a dahil DEĞİL" }
+  },
+  "bilincliPinDegisimleri": [
+    "pano/ordu-panosu.test.mjs ~1240/1280/1320/1345 (test 51/51b): 4 vm ctx'e projeEtiketi EKLENDİ (FAZ-G: agacYaz/projeTabloYaz/composerHedefGuncelle etiketi yardımcıdan alır — eski ctx'lerde ReferenceError)",
+    "pano/ordu-panosu.test.mjs ~1374 (51c), ~1455 (51e), ~1528+~1564 (51f), ~1781 (51j): 5 vm ctx'e projeEtiketi EKLENDİ (aynı neden)",
+    "pano/ordu-panosu.test.mjs 51j FAZ-E pinleri: 'kisalt(pr.projeAdi,14)' -> 'const etiket = projeEtiketi(pr)' + 'kisalt(etiket,14)'; E-ek1 title pini 'esc(pr.projeAdi)+' -> 'esc(etiket)+' (FAZ-G etiket kaynağı değişti)"
+  ],
+  "yeniPinler": [
+    "51k (A kaynak-pin) — join(paseoEv,'projects','workspaces.json') salt-okur + dash deseni [\\\\/:]+ tek tire + archivedAt skip + updatedAt Date.parse seçimi + title trim kontrolü + bozuk defter 'catch { return harita; }' fail-closed + baslik:has/get:null alan pini",
+    "51k (B birleşim davranışı) — tmp fixture: arşivli-en-yeni KAYBEDER (aktif kazanır) · tek aktif başlık birleşir · title null -> baslik null (dashed yedek) · ileri bölü cwd dash çevirimiyle eşleşir · agents'ta olmayan cwd dışarıda kalır · tarama alanı değişmez (projeAdi=dizin) · bozuk workspaces.json -> proje YAŞAR + baslik null",
+    "51k (C UI pin) — function projeEtiketi + baslik trim kontrolü + 5 kullanım noktası (ağaç etiket / ana sekme / chat projeEtiket+projeDizin / optgroup / projeTabloAd) + data-proje & data-ana TAM dizin AYNEN",
+    "51k (D vm) — ağaç: başlık etikete akar (kisalt 14 + title 'TAM başlık — N çalışan · M ajan kaydı') + başlık yoksa beta yedek aynen + data-proje TAM dizin; ana sekme: kisalt 16 + title 'TAM başlık — dizin' + data-ana TAM dizin"
+  ],
+  "yapamadim": [
+    "canlı DOM kanıtı KOŞAMADIM — 4937'ye dokunma yasağı; değişiklik canlıya [insan] restart'ında biner (koordinatör kapanışında ölçülür)",
+    "K2 görsel kabul kullanıcıda (açık)"
+  ],
+  "durustNotlar": [
+    "çoklu-cwd seçim semantiği brief'in_literal okuması_: aktif (archivedAt boş) kayıtlar arasından updatedAt en yeni SEÇİLİR; seçilen kaydın title'ı boşsa başlık YOKtur — daha eski başlıklı aktif kayıt devreye girmez (nadir kenar durumu; gerçek diskte ORDU cwd'sinde 6 kayıt / 1 aktif, ölçüldü).",
+    "brief'teki 'title ... TAM DIZIN AYNEN (kimlik yolu DEGISMEZ)' ibaresi kimlik-yolu kaygısı olarak okundu: data-proje/data-ana TAM dizin AYNEN korundu; title'lar etiketin TAM halini taşımaya devam ediyor (ana sekme title'ı '— dizin' sön ekini zaten içerir; ağaç satırında dizini data-proje taşır; ajan düğümü title'ı TAM uuid AYNEN). Farklı yorum istenirse tek düzeltme noktası projeEtiketi çevresi.",
+    "workspaces.json gerçek diskten SALT-OKUR ölçüldü: 198 kayıt; alanlar koordinatör brief'iyle birebir (workspaceId/cwd/kind/title/branch/updatedAt/archivedAt); ORDU cwd'sinde 6 kayıt, tek aktif -> 'ajan ordusu paseo desktop'.",
+    "server.js'e DOKUNULMADI (görev sınırı): /api/ordu/projeler zaten projelerTara'dan besleniyor; başlıklar birleşim katmanında çözüldü.",
+    "repo-glob koşumumun tek kırmızısı (judge.test.mjs) dalgadan bağımsız zamanlama-flake — tek başına 8/8; koordinatör kurulmuş glob'u FAZ-DEF'te 299/299'du."
+  ],
+  "oneri": "koordinatör kapanışında [insan] restart sonrası canlı 4937 /ordu: (a) ağaçta 'ajan ordusu paseo desktop' etiketi (dashed yol yerine) + hover'da 'TAM başlık — N çalışan · M ajan kaydı' title; (b) ana şeritte başlıklı sekmeler dar + title 'TAM başlık — dizin'; (c) chat başlığı ve proje detay adında başlık görünür (ekran PNG raporlar/ordu-panosu-2026-11-03/ altına)",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 18:15): (1) koordinatör koşumları pano npm 78/78 + repo glob 300/300 (kurulmuş pano+scripts deseni) EXIT=0 — pano iddiası birebir, geniş-glob flake'i kurulmuş glob'a dahil değil; (arka plan görevinde tamamlandı, çıktı dosyadan: PANO_EXIT=0 GLOB_EXIT=0). (2) diff denetimi +169/-22 (birlesim +29/0 · html +38/-15 · test +124/-7) birebir; workspaceBasliklari salt-okur + fail-closed pinli. (3) 4937 restart koordinatörce yapıldı (kendi izole test sunucusu; 4377 üretimine dokunulMADI): yeni PID 37100, token env-blok'ta. (4) canlı API: 74 proje, 39 baslik'lı; ORDU baslik='ajan ordusu paseo desktop' dizin='D-Vibecode-ordu'. (5) CANLI DOM: ağaç rename başlıkları gösteriyor ('ajan ordusu p…' title 'ajan ordusu paseo desktop — 1 çalışan · 65 ajan kaydı' + data-proje TAM; 'agentic note …'; 'S53-C: MCP ku…'; 'fse ai custom…'; 'speakrapid') 13px/28px; FAZ-D sekme kontrollü test 'agentic note ta…' 113px + max-width 180 + title 'TAM başlık — TAM dizin' + data-ana TAM; projeTabloAd 'agentic note taker'; GONDER 40px; sembol taraması UI bölgeleri 0 — oklar/isaretler dinamik VERİ katmanında (DURUM/PLAN/SAĞLIK API metinleri; dosya pinleri testte sembol 0). (6) kontrollü test dürüst notu: sekme açıldı-ölçüldü-kapatıldı-sayfa yenilendi (durum geri); tarayıcı konağı ölçümde koptu (bilinen aksaklık) — bekle-tekrar ile döndü. (7) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-g.png (157,7 KB, 1918x1110, PNG imza doğrulandı). (8) yazıcı dürüst notları kabul: (d) title-etiket + data-dizin yorumu canlıda kanıtlandı; (e) çoklu-cwd kenarı nadir. K2 görsel kabul kullanıcıda — açık. Kuyruk: FAZ-H (yeni steering: büyük/okunaklı yazılar + nefes alan modern minimalist kompakt tasarım)."
+}
