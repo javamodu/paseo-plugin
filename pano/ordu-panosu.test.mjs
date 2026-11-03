@@ -1719,3 +1719,22 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   ok("birikim: 4 giriş oturum listesinde (başarı+hata karışık, sıra korunur)", oturumMesajlari.length === 4 && (sham.chatListe.innerHTML.match(/class="chatMesaj/g) || []).length === 4);
   ok("kayıt yapısı: saat/hedefKisa/hedefKimlik/metin/sonuc alanları (bellek-içi)", oturumMesajlari.every((m) => typeof m.saat === "string" && m.hedefKimlik === A1 && typeof m.metin === "string" && m.sonuc && typeof m.sonuc.tur === "string"));
 });
+
+test("51h- PANEL-ANA-1 (kaynak-pin): orta panel ALT SEKMELER kısa ad + DAR — SİSTEM SAĞLIĞI görünürde «SAĞLIK», TAM ad title/aria'da; cila pinleri (K-0061 korunur)", () => {
+  const h = htmlKisim();
+  /* --- kısa ad: SİSTEM SAĞLIĞI → SAĞLIK; TAM ad title'da; erişilebilirlik AYNEN --- */
+  ok("sek-saglik görünür etiketi KISA ad 'SAĞLIK' + title TAM ad 'SİSTEM SAĞLIĞI'", /id="sek-saglik"[^>]*title="SİSTEM SAĞLIĞI"[^>]*>SAĞLIK<\/button>/.test(h));
+  ok("sek-saglik etiketi uzun ad taşımayı BIRAKTI (eski >SİSTEM SAĞLIĞI< kalıntısı YOK)", !/id="sek-saglik"[^>]*>SİSTEM SAĞLIĞI</.test(h));
+  ok("5 alt sekmenin HEPSİNDE title (tam ad) + role=tab + aria-controls AYNEN", ["durum", "plan", "akis", "saglik", "log"].every((s) => new RegExp('id="sek-' + s + '"[^>]*role="tab"[^>]*aria-controls="' + s + 'Bolum"[^>]*title="').test(h)));
+  ok("tablist aria-label TAM adları taşımayı sürdürür (görünmez a11y betimleme)", h.includes('aria-label="ORDU panel sekmeleri — DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG"'));
+  ok("bölüm h2 başlıkları TAM ad AYNEN (SAĞLIK yalnız SEKME kısa adıdır)", /SİSTEM SAĞLIĞI\s*<\/h2/.test(HTML));
+  /* --- DAR sekme stili: yatay dolgu 12px → 8px; 30px satır ailesi KORUNUR (§5 ≥26px) --- */
+  ok("DAR alt sekme: #altSekmeSerit .sekme padding:0 8px (eski 12px — BİLİNÇLİ)", /#altSekmeSerit \.sekme\s*\{[^}]*padding:\s*0 8px/.test(HTML));
+  ok("DAR alt sekme: 30px satır + 12px etiket KOMPAKT ailede kalır (§5 ≥26px)", /#altSekmeSerit \.sekme\s*\{[^}]*min-height:\s*30px/.test(HTML) && /#altSekmeSerit \.sekme\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  /* --- cila (görsel yalnız — veri katmanı AYNEN): focus/hover/aktif hiyerarşisi --- */
+  ok("sekme klavye odağı görünür (.sekme:focus-visible outline petrol)", /\.sekme:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--camgobegi\)/.test(HTML));
+  ok("aktif olmayan sekme hover yüzü (yuzey3 — aktif sekme hover'da DEĞİŞMEZ)", /\.sekme:not\(\.aktif\):hover\s*\{[^}]*background:\s*var\(--yuzey3\)/.test(HTML));
+  ok("aktif sekme hiyerarşisi: font-weight 700 (pasif 600)", /\.sekme\.aktif\s*\{[^}]*font-weight:\s*700/.test(HTML));
+  ok("sekme geçişi yalnız renk (E12: transition color/background)", /\.sekme\s*\{[^}]*transition:\s*color 160ms ease, background 160ms ease/.test(HTML));
+  ok("cila sınırı: gölge YOK kalır + petrol tek aksan AYNEN (K-0061)", (HTML.replace(/box-shadow:\s*inset[^;}]*[;}]/g, "").match(/box-shadow/g) || []).length === 0 && HTML.includes("--camgobegi:#0f4c81"));
+});

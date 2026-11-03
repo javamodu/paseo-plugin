@@ -156,10 +156,12 @@
     border-radius:var(--radius-k) var(--radius-k) 0 0;
     background:transparent; color:var(--ikincil); font-size:12px; font-weight:600;
     white-space:nowrap; position:relative; cursor:pointer;
+    transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
-  .sekme:hover { color:var(--metin); }
-  .sekme.aktif { background:var(--yuzey); color:var(--metin); border-color:var(--cizgi); }
+  .sekme:not(.aktif):hover { color:var(--metin); background:var(--yuzey3); }
+  .sekme.aktif { background:var(--yuzey); color:var(--metin); border-color:var(--cizgi); font-weight:700; }
   .sekme.aktif::after { content:""; position:absolute; left:8px; right:8px; top:0; height:2px; border-radius:0 0 3px 3px; background:var(--camgobegi); }
+  .sekme:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-2px; }
   #sekmeGovde {
     flex:1 1 auto; min-height:0; overflow-y:auto; position:relative;
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:0 0 var(--radius) var(--radius);
@@ -503,7 +505,9 @@
   }
   .sekmeKapat:hover { color:var(--tehlike); background:var(--yuzey2); }
 
-  /* ---- (FAZ-B) ALT SEKME ŞERİDİ (ORDU sekmesi içinde): DURUM·PLAN·AKIŞ·SİSTEM SAĞLIĞI·LOG
+  /* ---- (FAZ-B) ALT SEKME ŞERİDİ (ORDU sekmesi içinde): DURUM·PLAN·AKIŞ·SAĞLIK·LOG
+     (PANEL-ANA-1: KISA AD + DAR — SİSTEM SAĞLIĞI sekmesi görünürde «SAĞLIK»,
+     TAM ad title + aria'da; DAR: yatay dolgu 12px → 8px, sekme ailesi 30px'de)
      EK STEERING: ana şeride bitişik tek aile — negatif marjla sekmeGovde üstüne yapışır ---- */
   #altSekmeSerit {
     display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
@@ -511,7 +515,7 @@
     border-left:0; border-right:0; border-radius:0; padding:2px 4px 0;
     margin:0 -12px 8px;
   }
-  #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 12px; }
+  #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 8px; letter-spacing:0.02em; }
 
   /* ---- (PANEL-CHAT-1) SAĞ = CHAT PANELİ: seçili konuşma TEK kompakt satır + oturum
      mesaj listesi (bellek-içi — localStorage YOK) + composer AYNEN. Görsel dil
@@ -652,11 +656,11 @@
       <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
     </div>
     <div id="altSekmeSerit" role="tablist" aria-label="ORDU panel sekmeleri — DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG">
-      <button type="button" class="sekme aktif" id="sek-durum" role="tab" data-sekme="durum" aria-selected="true" aria-controls="durumBolum" tabindex="0">DURUM</button>
-      <button type="button" class="sekme" id="sek-plan" role="tab" data-sekme="plan" aria-selected="false" aria-controls="planBolum" tabindex="-1">PLAN</button>
-      <button type="button" class="sekme" id="sek-akis" role="tab" data-sekme="akis" aria-selected="false" aria-controls="akisBolum" tabindex="-1">AKIŞ</button>
-      <button type="button" class="sekme" id="sek-saglik" role="tab" data-sekme="saglik" aria-selected="false" aria-controls="saglikBolum" tabindex="-1">SİSTEM SAĞLIĞI</button>
-      <button type="button" class="sekme" id="sek-log" role="tab" data-sekme="log" aria-selected="false" aria-controls="logBolum" tabindex="-1">LOG</button>
+      <button type="button" class="sekme aktif" id="sek-durum" role="tab" data-sekme="durum" aria-selected="true" aria-controls="durumBolum" tabindex="0" title="DURUM">DURUM</button>
+      <button type="button" class="sekme" id="sek-plan" role="tab" data-sekme="plan" aria-selected="false" aria-controls="planBolum" tabindex="-1" title="PLAN">PLAN</button>
+      <button type="button" class="sekme" id="sek-akis" role="tab" data-sekme="akis" aria-selected="false" aria-controls="akisBolum" tabindex="-1" title="AKIŞ">AKIŞ</button>
+      <button type="button" class="sekme" id="sek-saglik" role="tab" data-sekme="saglik" aria-selected="false" aria-controls="saglikBolum" tabindex="-1" title="SİSTEM SAĞLIĞI">SAĞLIK</button>
+      <button type="button" class="sekme" id="sek-log" role="tab" data-sekme="log" aria-selected="false" aria-controls="logBolum" tabindex="-1" title="LOG">LOG</button>
     </div>
     <div id="sekmeGovde">
 

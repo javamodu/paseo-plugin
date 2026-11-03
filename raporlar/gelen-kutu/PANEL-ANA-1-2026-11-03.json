@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-B — orta panel alt sekmeleri kısa ad + dar + modern/net cila (yazıcı teslimi)",
+  "tarih": "2026-11-03T17:01",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; kimlik koordinatör dürtmesi dd073053; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "sekme", "kompakt", "cila"],
+  "siddet": "bilgi",
+  "ozet": "(a) ORTA panel alt sekmeleri KISA ad + DAR: SİSTEM SAĞLIĞI görünürde 'SAĞLIK' (TAM ad title özniteliğinde; 5/5 sekmede title TAM ad; role=tab/tablist/aria-selected/aria-controls AYNEN; tablist aria-label + bölüm h2 TAM adlar AYNEN) + DAR stil (#altSekmeSerit .sekme padding 12px→8px + letter-spacing; 30px satır ailesi K-0061 §5 ≥26px korunur). (b) MODERN/NET CILA görsel yalnız: .sekme:focus-visible petrol outline + :not(.aktif):hover yuzey3 + .aktif font-weight 700 + renk-geçişi transition (E12) — gölge YOK, 1px kenar, petrol tek aksan KORUNARAK; yeni blok/veri/fetch YOK.",
+  "kanit": {
+    "panoNpm": { "tests": 75, "pass": 75, "fail": 0, "exit": 0, "not": "mevcut 74 vakanın tamamı yeşil + 51h YENI (12 ok)" }
+  },
+  "bilincliPinDegisimleri": [],
+  "yeniPinler": [
+    "51h (kaynak-pin) — sek-saglik kısa ad SAĞLIK + title='SİSTEM SAĞLIĞI' · eski uzun etiket kalıntısı YOK · 5/5 sekmede title+role+aria-controls · tablist aria-label TAM adlar · h2 TAM ad AYNEN · DAR padding 0 8px + 30px/12px aile · .sekme:focus-visible outline · :not(.aktif):hover yuzey3 · .aktif font-weight:700 · transition color/background · gölge YOK + petrol #0f4c81 tek aksan"
+  ],
+  "yapamadim": [
+    "canlı DOM/PNG kanıtı YOK — 4937'ye dokunma yasağı (HTML diskten servis edilir; tarayıcı konak koordinatör kapanışında)",
+    "K2 görsel kabul kullanıcıda (açık)"
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu yüzünde SAĞLIK kısa adı + title tooltip TAM ad + dar sekme genişliği doğrulansın (ekran kanıtı PNG raporlar/ordu-panosu-2026-11-03/ altına)",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 17:06): (1) koordinatör koşumları pano npm 75/75 + repo glob 297/297 (296+51h) EXIT=0 — yazıcı iddiası birebir. (2) kod pinleri + diff denetimi: html +13/−9 yalnız CSS + sekme etiketleri — JS/veri katmanı hunk YOK (fetch 2 · /api/mesaj 5 · CHAT_TAVAN 2 · optgroup 2 · secimiZorla 6 · konusmaKart 0 · sembol/emoji 0 · title='SİSTEM SAĞLIĞI'>SAĞLIK pini VAR). (3) CANLI DOM 4937 (HTML diskten, restart'sız yansıdı; sekme yenilemeyle): 5 sekme ölçüldü [DURUM 64 · PLAN 49 · AKIŞ 44 · SAĞLIK 59 · LOG 41 px; padding 8px · min-height 30px] + sek-saglik görünür 'SAĞLIK' + title 'SİSTEM SAĞLIĞI' + tablist aria-label TAM adlar + aktif 700/pasif 600 + emoji 0 + chat role=log AYNEN + GÖNDER 40px. (4) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-sekme.png (115,9 KB, 1534x888). (5) yazıcı kimliği DOĞRU — 3f3584c0; brief'in açık kimlik alanı + dürtme işe yaradı, tashih GEREKMEDİ. (6) K2 görsel kabul kullanıcıda — açık; tek elden commit bu kapanışta."
+}
