@@ -1981,3 +1981,48 @@ test("51m- PANEL-ANA-1 FAZ-I (kaynak-pin + vm): sağ chat TUVAL DİLİ — balon
   const basM = { saat: "18:42", hedefKisa: "kurmay", hedefKimligi: A, hedefKimlik: A, metin: "tamamlandı", sonuc: { tur: "basarili", metin: "12:00" } };
   ok("vm başarı: 'gönderildi · 12:00' ince satır + chat-kullanici basarili sınıfı", chatMesajHtml(basM).includes(">gönderildi · 12:00") && chatMesajHtml(basM).includes('chatMesaj chat-kullanici basarili'));
 });
+
+test("51n- PANEL-ANA-1 FAZ-J (kaynak-pin + vm): responsive + mobile touch %100 — pointer:coarse 44px dokunma hedefleri (masaüstü BİREBİR AYNEN) + <899px istif sırası (durum→chat→ağaç) + planTablo yatay kaydırma + touch-action + overscroll", () => {
+  const j = jsKisim();
+  const h = htmlKisim();
+  /* --- viewport meta AYNEN (dokunulmadı; user-scalable KAPATILMAZ — erişilebilirlik) --- */
+  ok("viewport meta AYNEN: width=device-width, initial-scale=1 + user-scalable YOK (pinch zoom açık)", h.includes('<meta name="viewport" content="width=device-width, initial-scale=1">') && !/user-scalable\s*=\s*no/i.test(h));
+  /* --- pointer:coarse bloğu (YENİ) — dokunmatikte 44px; masaüstü kompakt AYNEN --- */
+  ok("pointer:coarse bloğu var (dokunmatik işaretçi)", /@media \(pointer:coarse\)/.test(HTML));
+  ok("coarse: .sekme min-height var(--min-dokunma)", /@media \(pointer:coarse\)[\s\S]*?\.sekme\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("coarse: ağaç satır ailesi 44px (agacProjeBas/agacGrupBas/agacAjan)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacGrupBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("coarse: taşı düğmesi 44px kare", /@media \(pointer:coarse\)[\s\S]*?\.agacTasiBtn\s*\{[^}]*width:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("coarse: sekmeKapat 44px + filtreBtn 44px", /@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*width:\s*var\(--min-dokunma\)/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.filtreBtn\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("coarse: GÖNDER 44px (masaüstünde 40px §5 — yalnız coarse kuralı)", /@media \(pointer:coarse\)[\s\S]*?#composerGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("MASAÜSTÜ KOMPAKT AYNEN: .sekme 34px + ağaç 32px + GÖNDER 40px kaynakta DEĞİŞMEDİ (coarse yalnız medya kuralında)", /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  /* --- <899px istif sırası (CSS order — DOM değişmez) --- */
+  ok("899px istif sırası: #orta order:1 → #sag order:2 → #sol order:3 (durum üstte, ağaç en altta)", /@media \(max-width:899px\)[\s\S]*?#orta\s*\{\s*order:1;\s*\}[\s\S]*?#sag\s*\{\s*order:2;\s*\}[\s\S]*?#sol\s*\{\s*order:3;/.test(HTML));
+  ok("DOM sırası DEĞİŞMEDİ (order yalnız CSS): #sol grid-column:1 → #orta:3 → #sag:5 kaynakta AYNEN", /main > #sol\s*\{[^}]*grid-column:1/.test(HTML) && /main > #orta\s*\{[^}]*grid-column:3/.test(HTML) && /main > #sag\s*\{[^}]*grid-column:5/.test(HTML));
+  ok("FAZ-C istif mirası AYNEN: liste 140px tabanı + composer altta + splitter gizli", /@media \(max-width:899px\)[\s\S]*?\.chatListe\s*\{[^}]*min-height:\s*140px/.test(HTML) && /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
+  /* --- planTablo yatay kaydırma --- */
+  ok(".tabloSarma CSS: overflow-x:auto", /\.tabloSarma\s*\{[^}]*overflow-x:\s*auto/.test(HTML));
+  ok("899px savunma: .planTablo min-width:640px (hücre nowrap AYNEN — sıkışmaz kayar)", /@media \(max-width:899px\)[\s\S]*?\.planTablo\s*\{[^}]*min-width:\s*640px/.test(HTML));
+  ok("JS render 2 noktada sarmalar (planTabloYaz + projeTabloYaz)", (j.match(/<div class="tabloSarma"><table class="planTablo">/g) || []).length === 2);
+  ok("hücre nowrap FAZ-H AYNEN (satır ≈34px — sıkışma çözümü kaydırma, hücre ezme YOK)", /\.planTablo td\s*\{[^}]*font-size:\s*14px/.test(HTML) && /\.planTablo td\s*\{[^}]*white-space:\s*nowrap/.test(HTML));
+  /* --- vm: render çıktısı sarmalayıcı + table içte --- */
+  const planAlani = { innerHTML: "" };
+  const planOzet = { innerHTML: "" };
+  const tabloFn = HTML.slice(HTML.indexOf("function tabloYaz("), HTML.indexOf("function kutuSorumlusu("));
+  const tabloYaz = vm.runInNewContext(tabloFn + "\ntabloYaz", {
+    $: (id) => (id === "planOzet" ? planOzet : planAlani),
+    esc: fnAl("esc"), fazGruplari: fnAl("fazGruplari"),
+    G: { grafSurumu: "v99", kritikYol: ["g1"], gorevler: [
+      { id: "g1", gorev: "görev bir", rol: "CODER", durum: "HAZIR", aktif: true, dizin: "D-test" },
+    ] },
+  });
+  tabloYaz();
+  ok("vm tabloYaz: çıktı .tabloSarma sarmalayıcı İÇİNDE <table class=planTablo> (kapanış dahil)", planAlani.innerHTML.startsWith('<div class="tabloSarma"><table class="planTablo">') && planAlani.innerHTML.endsWith("</table></div>"));
+  /* --- touch-action + overscroll --- */
+  ok("touch-action:manipulation etkileşimlilerde (button/sekme/ağaç satırı/taşı/kapat/filtre)", /select, a, button, \.sekme, \.agacProjeBas, \.agacGrupBas, \.agacAjan, \.agacTasiBtn, \.sekmeKapat, \.filtreBtn\s*\{[^}]*touch-action:\s*manipulation/.test(HTML));
+  ok("splitter touch-action:none AYNEN (sürükleme — güçlü kural zaten)", /\.splitter\s*\{[^}]*touch-action:\s*none/.test(HTML));
+  ok("overscroll-behavior:contain — .chatListe + #sol (kaydırma zinciri sayfaya zıplamaz)", /\.chatListe\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML) && /#sol\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML));
+  /* --- sınır: drawer/hamburger YOK + veri katmanı AYNEN --- */
+  ok("drawer/perde/hamburger MEKANİZMASI YOK (kayıtlı karar — istif + order yeter; FAZ-C mirası yorumdaki 'kopyalanmadı' cümlesi dokümantasyondur, mekanizma değil)", !/hamburger/i.test(HTML) && !/id="(drawer|perde|menuBtn|navToggle)"/i.test(HTML) && !/class="[^"]*\b(drawer|perde|hamburger)\b/.test(HTML));
+  ok("veri katmanı AYNEN: cek(UC. 7 + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 2", (j.match(/cek\(UC\./g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 2);
+  ok("localStorage şeması AYNEN (ordu-agac-sira — YENİ anahtar YOK)", j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(aktif|pasif|fa|touch|mobile)/.test(j));
+});

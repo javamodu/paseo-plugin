@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 04e86de — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD b67ee48 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -6,7 +6,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `AGENTS.md` (3.1KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
 - `ANAYASA.md` (3.1KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
-- `arsiv/` (99 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
+- `arsiv/` (98 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
 - `core/` (153 dosya: en yeni dc-h1-faults.mjs, dc-h1-fault-matrix.test.ts, dc-pilot-b.test.ts)
 - `DERSLER.md` (98KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
@@ -82,10 +82,8 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0061.md` (4.3KB) — K-0061 — ORDU paneli yoğunluk dili: kompakt tek-bakış (PANEL-KOMPAKT-1)
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (32 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, mesaj-ucu.test.mjs)
-- `PASEO-VERIMLILIK-PLANI.md` (12.7KB) — PASEO VERİMLİLİK PLANI | 1. Verimlilik kazanç tablosu (ÖNEM SIRASIYLA) | 2. Plugin mimarisi (tek plugin: `paseo-verimlilik`)
 - `plans/` (103 dosya: en yeni HANDOFF-2026-11-01-1741.md, SORUN-KAPATMA-3AJAN-PLANI-2026-11-01.md, HANDOFF-2026-11-01-1658.md)
-- `plugin/` (76 dosya: en yeni cekirdek-diyet.test.ts, sadelestirme.test.ts, cekirdek.ts)
-- `raporlar/` (290 dosya: en yeni PANEL-ANA-1-FAZ-I-2026-11-03.md, 2026-W45.md, 2026-11-03.md)
+- `raporlar/` (291 dosya: en yeni PANEL-ANA-1-FAZ-J-2026-11-03.md, 2026-W45.md, PANEL-ANA-1-FAZ-I-2026-11-03.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
@@ -112,11 +110,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (8.5KB)
 - `scripts/zincir-kontrol.ps1` (1.3KB)
-- `sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md` (12.4KB) — PASEO VERİMLİLİK REHBERİ — Uygulama-Üstü Ajan Sözleşmesi (v2.1) | 1. Altın Kurallar (önce bunlar) | 2. Bağlam Bütçesi (her turda bilinç)
-- `sozlesme/REHBER-EK-OTONOM.md` (1.5KB) — REHBER-EK — Otonom Mod (REHBER §7 devamı; K-0052 taşınması)
-- `sozlesme/REHBER-EK-OZ-DEGERLENDIRME.md` (1.5KB) — REHBER-EK — Öz-Değerlendirme + Sürüm Disiplini (REHBER §10; K-0052 taşınması)
-- `sozlesme/REHBER-EK-SURE-EKONOMISI.md` (1.1KB) — REHBER-EK — EK-5 Süre Ekonomisi (REHBER §11; K-0052 taşınması)
-- `sozlesme/REHBER-EK-YENI-PROJE.md` (1.2KB) — REHBER-EK — Yeni Projede İlk 15 Dakika (REHBER §9; K-0052 taşınması)
-- `STATE_BOARD.md` (115.9KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
+- `STATE_BOARD.md` (118.5KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş | Son damgalar
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

@@ -55,7 +55,7 @@
   }
   .gizli { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
   [hidden] { display:none !important; } /* display kuralları [hidden]'ı ezmesin — açık kural (kapsul-tuval deseni) */
-  select, a { touch-action:manipulation; }
+  select, a, button, .sekme, .agacProjeBas, .agacGrupBas, .agacAjan, .agacTasiBtn, .sekmeKapat, .filtreBtn { touch-action:manipulation; } /* FAZ-J: çift dokunma zoom gecikmesi ölür; pinch zoom SAYFADA açık kalır (splitter'ın kendi touch-action:none'ı sürüklemek için AYNEN) */
   a:focus-visible, select:focus-visible, tr:focus-visible { outline:2px solid var(--camgobegi); outline-offset:2px; }
 
   /* ---- ÜST BAR: marka + pano sayfa bağlantıları (FAZ-B: proje select KALDIRILDI — gezgin ağacı tek seçim yolu) ---- */
@@ -98,7 +98,7 @@
   /* EK STEERING: üstbarla bitişik orta şerit — sol/sağ panel kutuları üstten nefes alır */
   #sol > .bolum, #sag > .bolum { margin-top:16px; } /* FAZ-H nefes: 8→16px dikey boşluk (ilk kutu üstten nefes alır) */
 
-  #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; }
+  #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; overscroll-behavior:contain; } /* FAZ-J: iç liste dolunca kaydırma zinciri sayfaya zıplamaz */
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; }
   #sag { display:flex; flex-direction:column; min-width:0; min-height:0; overflow-y:auto; }
   #sol::-webkit-scrollbar, #sag::-webkit-scrollbar, #sekmeGovde::-webkit-scrollbar, .bolumIci::-webkit-scrollbar { width:8px; }
@@ -284,6 +284,7 @@
     font-variant-numeric:tabular-nums;
   }
   /* KOMPAKT kolon genişlikleri (colgroup <col> sınıfları — JS tabloYaz/projeTabloYaz basar) */
+  .tabloSarma { overflow-x:auto; } /* FAZ-J: planTablo yatay kaydırma — hücre nowrap + satır ≈34px FAZ-H AYNEN; dar ekranda sıkışmaz YATAY kayar (JS 2 render noktası sarmalar) */
   .planTablo .colSira { width:34px; }
   .planTablo .colKod { width:84px; }
   .planTablo .colAd { width:auto; }
@@ -557,7 +558,7 @@
     background:var(--yuzey2); border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
   }
   .chatListe {
-    flex:1 1 auto; min-height:0; overflow-y:auto;
+    flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; /* FAZ-J: kaydırma zinciri kesilir — tüm sayfa zıplamaz */
     display:flex; flex-direction:column; gap:6px; padding:2px; /* FAZ-I: gap 4→6 (tuval chat hattı) */
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
   }
@@ -618,11 +619,18 @@
   @media (max-width:899px) {
     body { height:auto; overflow:auto; }
     main { display:flex; flex-direction:column; height:auto; overflow:visible; padding:8px 10px 16px; gap:10px; }
+    /* FAZ-J istif SIRASI (CSS order — DOM değişmez; kimlik yolları/data-* AYNEN):
+       durum özeti ÜSTTE → chat ORTADA → ağaç EN ALTTA (74 projelik ağaç telefonda
+       kaydırma duvarıydı — kullanıcı önce durumu görür). */
+    #orta { order:1; }
+    #sag { order:2; }
+    #sol { order:3; }
     .splitter { display:none; } /* akış tek kolon — tutamaçlar anlamsız */
     #sol { width:100%; overflow:visible; }
     #sag { width:100%; overflow:visible; }
     #sekmeGovde { overflow:visible; }
     #altSekmeSerit { margin:0 -10px 8px; } /* dar ekranda govde padding'iyle hizalanır */
+    .planTablo { min-width:640px; } /* FAZ-J savunma: hücre nowrap AYNEN — tablo .tabloSarma içinde yatay kayar, sıkışmaz */
     /* FAZ-C istifte tek chat birimi doğal sıra: liste üstte (min taban 140px — dar
        ekranda boş liste kutusu görünür kalır) + composer altta; bölüm içerik boyuna döner */
     #bolum-chat { flex:none; }
@@ -632,6 +640,17 @@
     .ustSag { margin-left:0; width:100%; }
     .ozetGrid { grid-template-columns:1fr; }
     .dalgaKutular { grid-template-columns:1fr; }
+  }
+  /* ---- FAZ-J (steering «mobile touch %100» 2026-11-03): KOABA (dokunmatik) işaretçide
+     dokunma hedefleri 44px'e büyür (var(--min-dokunma)) — masaüstü (pointer:fine) K-0061
+     kompakt dil BİREBİR AYNEN kalır (34px/32px satırlar yalnız İNCE işaretçide geçerli). ---- */
+  @media (pointer:coarse) {
+    .sekme { min-height:var(--min-dokunma); }
+    .agacProjeBas, .agacGrupBas, .agacAjan { min-height:var(--min-dokunma); }
+    .agacTasiBtn { width:var(--min-dokunma); min-height:var(--min-dokunma); }
+    .sekmeKapat { width:var(--min-dokunma); height:var(--min-dokunma); }
+    .filtreBtn { min-height:var(--min-dokunma); min-width:var(--min-dokunma); }
+    #composerGonder { min-height:var(--min-dokunma); } /* yalnız coarse — masaüstünde 40px §5 KORUNUR */
   }
   /* hareket azaltma: tüm animasyon/akış kapanır — sekme/akordiyon anında açılır */
   @media (prefers-reduced-motion: reduce) {
@@ -1171,11 +1190,11 @@ function tabloYaz() {
   $("planAlani").innerHTML =
     satirlar.length === 0
       ? '<p class="bosSatir">graf SSOT\'ta görev yok (fail-closed değil — plan verisi dürüst boş)</p>'
-      : '<table class="planTablo"><caption class="gizli">faz gruplu görev tablosu — sıra, kod, ad, rol, durum, hedef dizin</caption><colgroup><col class="colSira"><col class="colKod"><col class="colAd"><col class="colRol"><col class="colDurum"><col class="colDizin"></colgroup><thead><tr>' +
+      : '<div class="tabloSarma"><table class="planTablo"><caption class="gizli">faz gruplu görev tablosu — sıra, kod, ad, rol, durum, hedef dizin</caption><colgroup><col class="colSira"><col class="colKod"><col class="colAd"><col class="colRol"><col class="colDurum"><col class="colDizin"></colgroup><thead><tr>' +
         '<th scope="col">Sıra</th><th scope="col">Kod</th><th scope="col">Ad</th><th scope="col">Rol</th><th scope="col">Durum</th><th scope="col">Hedef dizin</th>' +
         "</tr></thead><tbody>" +
         satirlar +
-        '</tbody><tfoot><tr><td colspan="6">GRAF TAMAMI — ' + esc(String(toplam)) + " görev · aktif " + esc(String(aktifSayi)) + " · KAPALI " + esc(String(kapali)) + " · kritik yol " + esc(String(yol.length)) + " adım · graf " + esc(G.grafSurumu || "?") + "</td></tr></tfoot></table>";
+        '</tbody><tfoot><tr><td colspan="6">GRAF TAMAMI — ' + esc(String(toplam)) + " görev · aktif " + esc(String(aktifSayi)) + " · KAPALI " + esc(String(kapali)) + " · kritik yol " + esc(String(yol.length)) + " adım · graf " + esc(G.grafSurumu || "?") + "</td></tr></tfoot></table></div>";
 }
 
 /* ---- (2b) GÖREV GRAF + ORDU — dalga görünümü ---- */
@@ -2150,11 +2169,11 @@ function projeTabloYaz() {
   $("projeTabloIci").innerHTML =
     satirlar.length === 0
       ? '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>'
-      : '<table class="planTablo"><caption class="gizli">proje konuşma tablosu — kısa kimlik, etiket, durum, son etkinlik, sağlayıcı</caption><colgroup><col class="colKimlik"><col class="colEtiket"><col class="colDurum2"><col class="colEtkinlik"><col class="colSaglayici"></colgroup><thead><tr>' +
+      : '<div class="tabloSarma"><table class="planTablo"><caption class="gizli">proje konuşma tablosu — kısa kimlik, etiket, durum, son etkinlik, sağlayıcı</caption><colgroup><col class="colKimlik"><col class="colEtiket"><col class="colDurum2"><col class="colEtkinlik"><col class="colSaglayici"></colgroup><thead><tr>' +
         '<th scope="col">Kimlik</th><th scope="col">Etiket</th><th scope="col">Durum</th><th scope="col">Son etkinlik</th><th scope="col">Sağlayıcı</th>' +
         "</tr></thead><tbody>" +
         satirlar.join("") +
-        "</tbody></table>";
+        "</tbody></table></div>";
 }
 
 document.querySelectorAll(".filtreBtn").forEach((btn) => {
