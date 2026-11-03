@@ -1,0 +1,44 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-K-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-K — ağaç etiketleri TAM: kisalt KALDIRILDI (proje satırı + oturum düğümü) + uzun adlar SARAR (white-space:normal + overflow-wrap:anywhere; ellipsis/nowrap 3 ağaç sınıfında biter) (yazıcı teslimi)",
+  "tarih": "2026-11-03T21:10",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "agac", "etiket", "okunabilirlik"],
+  "ozet": "Veri ZATEN akıyordu (FAZ-G: projeEtiketi = workspaces.json başlık VEYA dashed dizin; 1057/1058 ajan kaydında Paseo etiketi) — sorun yalnız görsel kırpma; bu dalga %100 UI. (1) CSS 3 kural: .agacProjeBas white-space:nowrap→normal; .agacAd overflow:hidden/text-overflow:ellipsis KALDIRILDI + overflow-wrap:anywhere (dashed adlar boşluksuz — yalnız anywhere kırar); .agacDugumAd nowrap/ellipsis KALDIRILDI + white-space:normal + overflow-wrap:anywhere; min-height:32px ailesi KORUNUR (satır sarınca doğal uzar, SABİT height YOK); FAZ-J coarse 44px bloğu DOKUNULMADI. (2) JS TAM 2 render hunk: agacYaz proje satırı esc(kisalt(etiket,12)||etiket) → esc(etiket) (TAM etiket — başlık VARSA kullanıcının Paseo rename'i, yoksa dizin dürüst yedek); ajanDugumHtml kisalt(a.etiket,12) → TAM a.etiket (kullanıcının Paseo'da yazdığı ad), etiket YOKSA dürüst yedek (ajanId/kisaIdGoster) AYNEN; satır title birleşik bicim + adTitle + data-proje/data-ajan TAM AYNEN; bayat yorum blokları aynı dalgada güncellendi (FAZ-H tashih dersi). KAPSAM DIŞI BİLİNÇLİ: ana sekme DAR (kisalt 14 + max-width 180 — FAZ-D kayıtlı karar) · chat başlık (kisalt 20) · composer optgroup · FAZ-J responsive blokları · veri katmanı (server.js/ordu-birlesim.mjs/fetch/POST/projeEtiketi) hunk 0. YENİ @keyframes/renk/sembol YOK.",
+  "kanit": {
+    "panoNpm": { "tests": 82, "pass": 82, "fail": 0, "exit": 0, "not": "81 baz (5 kırılan pin bilinçli güncellemeyle yeşil) + 51o YENİ 14 pin (vm TAM etiket + dürüst yedek + kimlik yolu + CSS 3 sınıf sarma + kalıntı 0 + sabit height yok + kapsam dışı aynen + render kaynağında kisalt 0 + korunum 32/coarse/§5 + veri katmanı aynen)" }
+  },
+  "bilincliPinDegisimleri": [
+    "10e ~333: .agacDugumAd ellipsis pini → white-space:normal + overflow-wrap:anywhere + ellipsis kalıntısı 0",
+    "10e ~323 (blok yorumu): 'ellipsis her metin hücresinde' → ağaç istisnası eklendi",
+    "51d ~1402 (test başlığı): 'etiket 12 — FAZ-E' → 'etiket TAM — FAZ-K'",
+    "51d ~1413-1415 (yorum): kisa ad kuralı → FAZ-K gerçeği",
+    "51d ~1425-1427: uzun etiket 11+'…' vm pini → TAM etiket + '…' kalıntısı YOK",
+    "51j ~1795: kisalt(a.etiket, 12) → etiketVar ? a.etiket : (TAM) + kalıntı 0",
+    "51j ~1796: kisalt(etiket, 12) || etiket → esc(etiket) + \"</span>\" (TAM) + kalıntı 0",
+    "51k ~1897: vm agac görünür 11+'…' → TAM 23 karakter",
+    "51l ~1934: ağaç etiket eşiği 12 pini → TAM + ana sekme 14 AYNEN",
+    "51l ~1935: oturum 12 eşik listesinden çıkarıldı (chat 20/akış 80/sağlayıcı 16 AYNEN)"
+  ],
+  "yeniPinler": [
+    "51o — vm: rename başlık TAM ('dodo lemon') + başlıksız ajan dürüst yedek (8 hane, uydurma YOK) + kimlik yolu değişmez (data-proje TAM + data-ajan TAM uuid + title TAM) · CSS: 3 ağaç sınıfında normal/anywhere + ellipsis/nowrap/hidden kalıntı 0 + sabit height YOK · render kaynağında kisalt çağrısı 0 (yorumlar ayıklanmış dilim) · kapsam dışı aynen (sekme DAR + chat 20) · korunum (32 ailesi + coarse 44 + GÖNDER 40) · veri katmanı aynen + keyframes ≤2"
+  ],
+  "yapamadim": [
+    "canlı DOM kanıtı KOŞAMADIM — 4937'ye dokunma yasağı; HTML/CSS/JS render değişti → yenileme yeter, restart GEREKMEZ (koordinatör kapanışında ölçülmeli)",
+    "K2 görsel kabul kullanıcıda (açık — yenileme yeterli)"
+  ],
+  "durustNotlar": [
+    "51o'nun ilk iki taslak pini kendi tuzağına düştü: (i) height kalıntı pini min-height içindeki height'ı yakalıyordu (kelime sınırı '-' öncesinde eşleşir) → [^-] koşulu; (ii) kisalt-0 pini dilimi chat başlık fonksiyonunu (kisalt 20 bilinçli) VE 1762'deki FAZ-K yorum metnini ('kisalt(' içerir) kapsıyordu → dilim function agacSirala('ya daraltıldı + yorum ayıklama.",
+    "ağaç satırları uzun adlarla 2-3 satıra uzar (74 projelik ağaçta dikey büyüme) — istenen davranışın doğrudan sonucu; yoğunluk dengesi istenirse ayrı steering.",
+    "ana sekme DAR + chat başlık + optgroup kısaltmaları bilinçli kaldı — kullanıcı yalnız ağaç istedi (brief açık kapsam; FAZ-D kayıtlı karar).",
+    "FAZ-E/E-ek1/E-ek2 'aşırı minimal' kısa ad karar zinciri AĞAÇ kapsamında geri alındı; sekme/chat kapsamındaki mirası bilinçli duruyor.",
+    "ajanDugumHtml XSS vm pini (esc'ten geçer) 51d'de aynen yeşil — TAM etiket esc() ile sarılıyor, değişiklik yok."
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu (YENİLEME yeter — restart GEREKMEZ): (a) ağaçta TAM proje adları (rename başlıkları + uzun dashed adlar sararak); (b) oturum adları TAM (Paseo'daki adlar); (c) ekran PNG raporlar/ordu-panosu-2026-11-03/ altına. K2 kullanıcıda.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 ~21:20): (1) koordinatör koşumu repo glob (pano+scripts) 304/304 pass 0 fail EXIT=0 (çıktı dosya + gerçek çıkış kodu). (2) diff denetimi: 2 dosya +73/-26; HTML TAM 5 hunk = 3 CSS (452/460/503) + 2 render (1642/1752) — teslimat birebir; veri katmanına hunk 0. (3) CANLI DOM 4937 (yenilemeyle, restart GEREKMEDİ): 74 proje satırında TAM etiketler ('ajan ordusu paseo desktop' · 'S53-C: MCP kuyruk yazma + entegrasyon' · uzun dashed adlar TAM) + kısaltılı (…) etiket 0 + 31 satır çok-satırlı sarmış (height>34) + .agacAd canlı normal/anywhere/clip + .agacDugumAd CSSOM normal/anywhere (akordiyon kapalı — DOM'da düğüm yok, dürüst). (4) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-k-tam-etiketler.png (121,4 KB, 1534x888, PNG imza doğrulandı). (5) yazıcı dürüst notları kabul (51o regex tuzakları düzeltimi · uzun adlar 2-3 satır istenenin sonucu · sekme/chat kısaltmaları bilinçli kaldı · FAZ-E zinciri ağaç kapsamında geri alındı). (6) SONRAKİ DALGA: kullanıcı aynı pencerede ARAYÜZ SIFIRLAMA emri verdi ('herşey iptal arayüz refactor tüm herşeyi sök .. sadece: sol klasör isimleri altında oturum isimleri akordiyon · orta boş sekmeli yapı · sağ normal chat altta sabit composer · responsive' + 'komple sıfırla' + 'arayüz sıfırlanıyor') — FAZ-K ağaç davranışı (TAM etiketler + sarma) SIFIR kabuğunun sol kolonuna AYNEN TAŞINACAK; bu kapanış SIFIR öncesi temiz taban. K2 görsel kabul kullanıcıda (yenileme yeterli). Tek elden commit bu kapanışta."
+}

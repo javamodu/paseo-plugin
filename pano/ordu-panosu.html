@@ -451,7 +451,7 @@
     display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:32px;
     padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
     color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer; /* FAZ-H: 13→15px + satır 28→32px (E-ek2 kaldırıldı — okunabilirlik ölçeği) */
-    white-space:nowrap; transition:background 160ms ease; /* E12: yalnız renk */
+    white-space:normal; transition:background 160ms ease; /* E12: yalnız renk — FAZ-K: nowrap→normal (TAM etiket sarar) */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
   .agacProjeBas .agacOk {
@@ -459,7 +459,7 @@
     transform:rotate(-45deg); transition:transform 200ms ease; /* E12: yalnız transform */
   }
   .agacProje.acik .agacProjeBas .agacOk { transform:rotate(45deg); } /* açık: aşağı bakar */
-  .agacAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+  .agacAd { flex:1; min-width:0; overflow-wrap:anywhere; } /* FAZ-K: ellipsis/hidden KALDIRILDI — TAM etiket; dashed adlar boşluksuz, ancak anywhere ile kırılır */
   .agacSayi { flex:none; font:700 13px var(--mono); color:var(--ikincil); } /* FAZ-H: 10.5→13px kalın (büyük resim — rozet okunur) */
   /* PANEL-AGAC-1: hata uyarı ikonu (inline SVG — emoji YASAK §4) + taşıma düğmeleri
      (hover/odak görünür: gizliyken Tab sırasına girmezler — 74 satır x2 durmaz) */
@@ -502,7 +502,7 @@
   .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
   .agacAjan .nokta { flex:none; width:8px; height:8px; }
   .agacAjan .nokta.kapali { opacity:0.45; } /* closed = soluk */
-  .agacDugumAd { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .agacDugumAd { flex:1; min-width:0; white-space:normal; overflow-wrap:anywhere; } /* FAZ-K: nowrap/ellipsis KALDIRILDI — TAM oturum adı (kullanıcının Paseo'da yazdığı) sarar */
 
   /* ---- (FAZ-B) ANA SEKME ŞERİDİ: proje sekmeleri — X ile kapanır; ORDU sekmesi SABİT ---- */
   .sekme.anaSekme { gap:6px; }
@@ -1641,12 +1641,12 @@ const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "
 function ajanDugumHtml(a, pr) {
   const secili = agacSecili === a.ajanKimligi;
   const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
-  /* KISA AD KURALI (steering 2026-11-03 «aşırı minimal» — FAZ-E): etiket VARSA
-     kisalt(etiket,12); yoksa kısa kimlik. data-ajan TAM kimliktir (seçim/yerleşim
-     değişmez); düğüm adı .agacDugumAd'da tek satır.
-     Sağ kart TAM kimlik + TAM etiket göstermeye DEVAM EDER. */
+  /* FAZ-K (steering «oturum isimleri ben paseo'da yazdığım isimleri kullan» 2026-11-03):
+     TAM etiket (kullanıcının Paseo'da yazdığı ad) — kisalt KALDIRILDI; yoksa kısa kimlik
+     dürüst yedek. data-ajan TAM kimliktir (seçim/yerleşim değişmez); düğüm adı
+     .agacDugumAd'da SARAR (çok satır). Sağ kart TAM kimlik + TAM etiket AYNEN. */
   const etiketVar = typeof a.etiket === "string" && a.etiket.trim();
-  const ad = etiketVar ? kisalt(a.etiket, 12) : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const ad = etiketVar ? a.etiket : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
   const adTitle = etiketVar ? esc(a.etiket) : esc(a.ajanKimligi);
   return (
     '<button type="button" class="agacAjan' + (secili ? " secili" : "") + '" data-ajan="' + esc(a.ajanKimligi) + '" data-proje="' + esc(pr.dizin) + '" title="' + esc(a.ajanKimligi) + '">' +
@@ -1751,15 +1751,15 @@ function agacYaz() {
     html +=
       '<div class="agacProje' + (acik ? " acik" : "") + '">' +
       '<div class="agacProjeSatir">' +
-      /* FAZ-E + E-ek1 + FAZ-G («aşırı minimal» + «kısalmıyor» + rename steering'leri 2026-11-03):
-         görünen ad kisalt(etiket,14) — etiket = baslik VARSA baslik (workspaces.json), yoksa
-         dizin adı DÜRÜST yedek; satır title'ı TAM etiket — çalışan/kayıt bilgisi KORUNARAK
-         birleşik bicim; data-proje TAM dizin AYNEN (kimlik yolu DEĞİŞMEZ); aria-expanded
-         AYNEN. (agacAd'in kendi title'i kaldirildi — satir title'i zaten TAM etiketi taşır.) */
+      /* FAZ-K (steering «klasör isimlerini doğrudan yaz» 2026-11-03): görünen ad TAM etiket —
+         etiket = baslik VARSA baslik (workspaces.json — kullanıcının Paseo rename'i), yoksa
+         dizin adı DÜRÜST yedek; kisalt KALDIRILDI (okunmaz kırpma gitti); satır title'ı TAM
+         etiket — çalışan/kayıt bilgisi KORUNARAK birleşik bicim; data-proje TAM dizin AYNEN
+         (kimlik yolu DEĞİŞMEZ); aria-expanded AYNEN; .agacAd SARAR (white-space:normal). */
       '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
-      '<span class="agacAd">' + esc(kisalt(etiket, 12) || etiket) + "</span>" + /* FAZ-H: 14→12 (font 15px'e büyüdü — satır genişliği dengesi; title TAM etiket AYNEN) */
+      '<span class="agacAd">' + esc(etiket) + "</span>" + /* FAZ-K: kisalt(etiket,12) KALDIRILDI — TAM etiket sarar */
       (hatali > 0
         ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
         : "") +

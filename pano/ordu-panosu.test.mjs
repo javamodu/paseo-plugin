@@ -320,7 +320,7 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   ok("sekmeKapat 20px hedef (KOMPAKT)", /\.sekmeKapat\s*\{[^}]*width:\s*20px/.test(HTML) && /\.sekmeKapat\s*\{[^}]*height:\s*20px/.test(HTML));
   ok("agacAjan FAZ-H 32px + 15px metin (BİLİNÇLİ: 28/13); durum noktasi 8px; girinti 12px", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacAjan \.nokta\s*\{[^}]*width:\s*8px/.test(HTML) && /\.agacCocuklar\s*\{[^}]*padding:\s*0 0 2px 12px/.test(HTML));
   ok("composer 12px metin + GÖNDER 40px (KISAT alt sınırı)", /#composerForm select, #composerForm textarea, #composerForm input\s*\{[^}]*font-size:\s*12px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
-  /* --- taşma kesme: ellipsis her metin hücresinde + title tam metin --- */
+  /* --- taşma kesme: ellipsis metin hücrelerinde + title tam metin (ağaç adları FAZ-K'da sarar — istisna) --- */
   ok("olayAd ellipsis + nowrap (AKIŞ satır başına 1 satır)", /\.olayAd\s*\{[^}]*white-space:\s*nowrap/.test(HTML) && /\.olayAd\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML));
   ok("logDetay ellipsis + logSatir nowrap + logKaynak max-width", /\.logDetay\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && /\.logListe li\.logSatir\s*\{[^}]*white-space:\s*nowrap/.test(HTML) && /\.logKaynak\s*\{[^}]*max-width:\s*220px/.test(HTML));
   ok("planTablo table-layout:fixed + td FAZ-H 6px 10px (satır ≈34px) + ellipsis + colgroup JS'te", /\.planTablo\s*\{[^}]*table-layout:\s*fixed/.test(HTML) && /\.planTablo td\s*\{[^}]*padding:\s*6px 10px/.test(HTML) && /\.planTablo td\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && j.includes('<colgroup><col class="colSira">'));
@@ -330,7 +330,7 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   ok("LOG satır kod/detay title TAM metin", j.includes('<span class="logKod" title="\' + esc(k.kodAdi') && j.includes('<span class="logDetay" title="\' + esc(k.detay'));
   ok("ozetYaz title TAM metin (el.title = metin)", j.includes("el.textContent = metin; el.title = metin;"));
   ok("kisalt fonksiyonu yerinde (kısa ad kuralı)", j.includes("function kisalt(metin, n)"));
-  ok("agac düğüm adı .agacDugumAd (tek satır) — eski agacAjanId/agacEtiket KALDIRILDI", /\.agacDugumAd\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && !HTML.includes(".agacAjanId") && !HTML.includes(".agacEtiket"));
+  ok("agac düğüm adı .agacDugumAd SARAR (FAZ-K: white-space:normal + overflow-wrap:anywhere — ellipsis/nowrap KALDIRILDI) — eski agacAjanId/agacEtiket KALDIRILDI", /\.agacDugumAd\s*\{[^}]*white-space:\s*normal/.test(HTML) && /\.agacDugumAd\s*\{[^}]*overflow-wrap:\s*anywhere/.test(HTML) && !/\.agacDugumAd\s*\{[^}]*ellipsis/.test(HTML) && !HTML.includes(".agacAjanId") && !HTML.includes(".agacEtiket"));
   ok("sağ kart sağlayıcı kisalt(a.provider, 16) + title TAM", j.includes("kisalt(a.provider, 16)"));
   ok("PANEL-CHAT-1: sağ başlık satırı TAM kimliği title'da taşır (eski kart '· kısa' satırı BİLİNÇLİ kalktı — kart TEK satıra indi)", j.includes("chatBaslikAd\" title=\"' + esc(a.ajanKimligi) + '\""));
   /* --- panel genişlikleri: varsayılan + KENAR + 900-1279 kırılımı --- */
@@ -1399,7 +1399,7 @@ test("51c- FAZ-B davranis (vm): ana sekme yonetimi — ORDU SABIT + X ile kapani
   ok("kaynak pini: coercion ORDU'ya + bos yuz metni gezginden secer", HTML.includes('if (id !== "ordu" && !acikSekmeler.includes(id)) id = "ordu"') && HTML.includes("hiç sekme açık değil — gezginden bir proje seç"));
 });
 
-test("51d- KOMPAKT (steering 2026-11-03) davranis (vm): kisalt() esik tablosu + ajanDugumHtml kisa ad kurali (etiket 12 — FAZ-E «aşırı minimal» · title TAM · data-ajan TAM uuid)", () => {
+test("51d- KOMPAKT (steering 2026-11-03) davranis (vm): kisalt() esik tablosu + ajanDugumHtml ad kurali (etiket TAM — FAZ-K «paseo'da yazdığım isimleri kullan» · title TAM · data-ajan TAM uuid)", () => {
   const kisalt = fnAl("kisalt");
   assert.equal(kisalt(null, 20), null, "null → null (boş dize uydurulmaz)");
   assert.equal(kisalt(undefined, 20), null, "undefined → null");
@@ -1410,8 +1410,8 @@ test("51d- KOMPAKT (steering 2026-11-03) davranis (vm): kisalt() esik tablosu + 
   assert.equal(kisalt(12345, 3), "12…", "sayi metne iner (String())");
   assert.equal(kisalt("", 5), "", "bos dize aynen");
 
-  /* ajanDugumHtml: kisa ad kurali — etiket VARSA kisalt(etiket,12) (FAZ-E bilinçli:
-     20 → 12 «aşırı minimal») + title TAM etiket;
+  /* ajanDugumHtml: FAZ-K (steering «oturum isimleri ben paseo'da yazdığım isimleri
+     kullan» 2026-11-03) — etiket VARSA TAM a.etiket (kisalt 12 KALDIRILDI) + title TAM etiket;
      yoksa 8 hane kimlik + title TAM kimlik; data-ajan TAM uuid (secim/gonderim degismez) */
   const dgnA = HTML.indexOf("function ajanDugumHtml(");
   const dgnB = HTML.indexOf("function agacYaz()");
@@ -1422,9 +1422,9 @@ test("51d- KOMPAKT (steering 2026-11-03) davranis (vm): kisalt() esik tablosu + 
   });
   const pr = { dizin: "D-Vibecode-ordu" };
   const uuid = "432e03b7-9004-445c-857d-ebf3b6661d53";
-  /* (1) uzun etiket → 11 + '…' (FAZ-E: eşik 12) + title TAM etiket */
+  /* (1) uzun etiket → TAM etiket (FAZ-K: kisalt KALDIRILDI) + title TAM etiket */
   const h1 = dgnFn({ ajanKimligi: uuid, ajanId: "432e03b7", lastStatus: "running", etiket: "0123456789012345678901" }, pr);
-  ok("kural: uzun etiket kisalir (11 + '…' — FAZ-E eşik 12)", h1.includes('>01234567890…</span>'));
+  ok("kural: uzun etiket TAM görünür (FAZ-K — kisalt 12 KALDIRILDI, '…' kalıntısı YOK)", h1.includes('>0123456789012345678901</span>') && !h1.includes('>01234567890…</span>'));
   ok("kural: dugum title TAM etiketi tasir", h1.includes('title="0123456789012345678901"'));
   ok("kural: dugum adı .agacDugumAd icinde (tek satir)", /class="agacDugumAd"/.test(h1));
   /* (2) etiket yok → 8 hane kimlik + title TAM kimlik (dürüst yedek) */
@@ -1792,8 +1792,8 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   ok("vm: title TAM ad — dizin + data-ana TAM dizin (kaybolduğu yerde erişilebilir kalır)", hs.includes('title="01234567890123456789012 — P-uzun"') && hs.includes('data-ana="P-uzun"'));
   ok("vm: kısa ad aynen + ORDU sabit sekme şeridin İLKİNDE", hs.includes(">kisa</button>") && hs.indexOf('id="sek-ordu"') < hs.indexOf('data-ana="P-uzun"'));
   /* --- FAZ-E: ağaç etiketleri (steering «aşırı minimal» + E-ek1/E-ek2 «kısalmıyor/küçük») --- */
-  ok("oturum düğümü etiketi kisalt(a.etiket, 12) (eski 20 — bilinçli)", j.includes("kisalt(a.etiket, 12)"));
-  ok("proje satırı görünen adı FAZ-H kisalt(etiket, 12) — etiket = projeEtiketi(pr) (BİLİNÇLİ: 14→12 — font 15px'e büyüdü)", j.includes("const etiket = projeEtiketi(pr)") && j.includes("kisalt(etiket, 12) || etiket"));
+  ok("oturum düğümü etiketi TAM a.etiket (FAZ-K — kisalt(a.etiket,12) KALDIRILDI; steering «oturum isimleri ben paseo'da yazdığım isimleri kullan»)", j.includes("etiketVar ? a.etiket :") && !j.includes("kisalt(a.etiket, 12)"));
+  ok("proje satırı görünen adı TAM etiket (FAZ-K — kisalt(etiket,12) KALDIRILDI; steering «klasör isimlerini doğrudan yaz») — etiket = projeEtiketi(pr)", j.includes("const etiket = projeEtiketi(pr)") && j.includes('esc(etiket) + "</span>"') && !j.includes("kisalt(etiket, 12) || etiket"));
   ok("E-ek1+FAZ-G: satır title'ı birleşik dürüst bicim 'TAM etiket — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
   ok("E-ek1: agacAd'in KENDİ title'i YOK (TAM ad satır title'ında — çift tooltip kaldırıldı)", !j.includes('class="agacAd" title='));
   ok("CHAT başlığındaki kisalt(a.etiket, 20) AYNEN (kullanıcı «soldaki» dedi — yalnız ağaç)", j.includes("kisalt(a.etiket, 20)"));
@@ -1894,7 +1894,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxG)();
   const hg = sahteG.agacAlani.innerHTML;
-  ok("vm agac: baslik etikete akar — gorunen kisalt(baslik,12 — FAZ-H), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">01234567890…</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: baslik etikete akar — gorunen TAM baslik (FAZ-K: kisalt KALDIRILDI), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">01234567890123456789012</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
   ok("vm agac: baslik YOKSA dashed yedek aynen (beta)", hg.includes(">beta</span>") && hg.includes('title="beta — 0 çalışan · 1 ajan kaydı"'));
   ok("vm agac: kimlik yolu DEGISMEZ (data-proje TAM dizin)", hg.includes('data-proje="P-alfa"') && hg.includes('data-proje="P-beta"'));
   const sahte2 = {};
@@ -1931,8 +1931,8 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   ok("nabız keyframes blok opacity-only (layout özellik animasyonu YASAK — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !!nabizBlok && nabizBlok[0].includes("opacity") && !/(width|height|padding|margin|top|left|right|bottom)\s*:/.test(nabizBlok[0]));
   ok("nabız reduced-motion'da kapalı (bilgi hareketi tercihe saygı)", /@media \(prefers-reduced-motion: reduce\)[\s\S]*?animation:\s*none/.test(HTML));
   /* --- KISALT eşikleri (font büyüdü — satır genişliği dengesi; title TAM AYNEN) --- */
-  ok("ağaç etiket eşiği 12 (BİLİNÇLİ: 14→12) + ana sekme eşiği 14 (BİLİNÇLİ: 16→14)", j.includes("kisalt(etiket, 12) || etiket") && j.includes("kisalt(ad, 14) || ad"));
-  ok("kisalt eşik ötesi AYNEN (oturum 12 · chat 20 · akış 80 · sağlayıcı 16 — bu turun kapsamı dışı)", j.includes("kisalt(a.etiket, 12)") && j.includes("kisalt(a.etiket, 20)") && j.includes("kisalt(o.ad, 80)") && j.includes("kisalt(a.provider, 16)"));
+  ok("ağaç etiketi TAM (FAZ-K — kisalt(etiket,12) KALDIRILDI) + ana sekme eşiği 14 (BİLİNÇLİ: 16→14 — sekme DAR kalır, FAZ-D kayıtlı karar)", !j.includes("kisalt(etiket, 12) || etiket") && j.includes("kisalt(ad, 14) || ad"));
+  ok("kisalt eşik ötesi AYNEN (FAZ-K sonrası: chat 20 · akış 80 · sağlayıcı 16 — oturum 12 KALDIRILDI; bu turun kapsamı dışı olanlar aynen)", !j.includes("kisalt(a.etiket, 12)") && j.includes("kisalt(a.etiket, 20)") && j.includes("kisalt(o.ad, 80)") && j.includes("kisalt(a.provider, 16)"));
   /* --- K-0061 §5 minimumlar yukarı taşındı (aşağı düşmez) --- */
   ok("§5 korunur: GÖNDER min-height 40px + --min-dokunma 44px + sekme 34px ≥26px + ağaç 32px ≥26px", /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML) && HTML.includes("--min-dokunma:44px") && /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   /* --- veri katmanı hunk YOK (diff denetimi desteği) --- */
@@ -2025,4 +2025,51 @@ test("51n- PANEL-ANA-1 FAZ-J (kaynak-pin + vm): responsive + mobile touch %100 �
   ok("drawer/perde/hamburger MEKANİZMASI YOK (kayıtlı karar — istif + order yeter; FAZ-C mirası yorumdaki 'kopyalanmadı' cümlesi dokümantasyondur, mekanizma değil)", !/hamburger/i.test(HTML) && !/id="(drawer|perde|menuBtn|navToggle)"/i.test(HTML) && !/class="[^"]*\b(drawer|perde|hamburger)\b/.test(HTML));
   ok("veri katmanı AYNEN: cek(UC. 7 + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 2", (j.match(/cek\(UC\./g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 2);
   ok("localStorage şeması AYNEN (ordu-agac-sira — YENİ anahtar YOK)", j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(aktif|pasif|fa|touch|mobile)/.test(j));
+});
+
+test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt KALDIRILDI (okunmaz kırpma gitti) + uzun adlar SARAR (white-space:normal + overflow-wrap:anywhere); ana sekme/chat/optgroup kısaltmaları BİLİNÇLİ KALDI (kayıtlı kararlar) — steering «proje isimlerini kısaltırken okunmaz yapmışsın klasör isimlerini doğrudan yaz onları göster oturum ismini de aynı yap şimdilik» + «oturum isimleri ben paseo da yazdığım isimleri kullan» 2026-11-03", () => {
+  const j = jsKisim();
+  const h = htmlKisim();
+  /* --- (1) CSS: 3 ağaç sınıfı SARAR; ellipsis/nowrap kalıntısı 0 (yalnız ağaç kapsamı) --- */
+  ok(".agacProjeBas white-space:normal (FAZ-K: nowrap→normal — proje adı satırına sarar)", /\.agacProjeBas\s*\{[^}]*white-space:\s*normal/.test(HTML) && !/\.agacProjeBas\s*\{[^}]*white-space:\s*nowrap/.test(HTML));
+  ok(".agacAd overflow-wrap:anywhere (FAZ-K: overflow:hidden/ellipsis KALDIRILDI — dashed adlar 'D-Vibecode-...' boşluksuz, ancak anywhere ile kırılır)", /\.agacAd\s*\{[^}]*overflow-wrap:\s*anywhere/.test(HTML) && !/\.agacAd\s*\{[^}]*(ellipsis|overflow:\s*hidden)/.test(HTML));
+  ok(".agacDugumAd white-space:normal + overflow-wrap:anywhere (FAZ-K: nowrap/ellipsis KALDIRILDI — oturum adı kullanıcının Paseo'daki adıyla sarar)", /\.agacDugumAd\s*\{[^}]*white-space:\s*normal/.test(HTML) && /\.agacDugumAd\s*\{[^}]*overflow-wrap:\s*anywhere/.test(HTML) && !/\.agacDugumAd\s*\{[^}]*(ellipsis|nowrap|overflow:\s*hidden)/.test(HTML));
+  ok("ağaç sınıflarında SABİT height YOK (min-height ile satır sarınca doğal uzar — 'min-' öneki hariç)", !/\.agac(ProjeBas|Ajan|DugumAd)\s*\{[^}]*[^-]\bheight:\s*[0-9]/.test(HTML) && !/\.agac(ProjeBas|Ajan|DugumAd)\s*\{[^}]*^\s*height:/m.test(HTML));
+  ok("KAPSAM DIŞI AYNEN: ana sekme DAR (max-width:180 + ellipsis — FAZ-D kayıtlı karar) + chat başlığı kisalt 20", /\.anaSekmeGrup \.sekme\s*\{[^}]*max-width:\s*180px[^}]*text-overflow:\s*ellipsis/.test(HTML) && j.includes("kisalt(a.etiket, 20)"));
+  /* --- (2) JS: ağaç renderında kisalt KALINTISI 0 (ajanDugumHtml → agacSirala arası ağaç render ailesi; yorumlar ayıklanır — FAZ-K yorumları 'KALDIRILDI' sözcüğünü taşır) --- */
+  const agacKaynak = HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf("function agacSirala(")).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+  ok("ağaç render kaynağında kisalt ÇAĞRISI 0 (ajanDugumHtml + grup + agacYaz — TAM etiket; chat başlık 20 BİLİNÇLİ kalır — bu dilimin DIŞINDA)", !/kisalt\(/.test(agacKaynak));
+  ok("proje satırı: '<span class=\"agacAd\">' + esc(etiket) TAM (başlık VARSA başlık = kullanıcının Paseo rename'i)", j.includes('<span class="agacAd">\' + esc(etiket) + "</span>"'));
+  ok("oturum düğümü: etiketVar ? a.etiket (TAM) : dürüst yedek (ajanId/kisaIdGoster) — yedek AYNEN", j.includes('etiketVar ? a.etiket : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?"'));
+  ok("satır title birleşik bicim AYNEN (TAM etiket + çalışan/kayıt bilgisi korunur)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
+  /* --- (3) vm: uzun etiketli sahte proje + başlıksız ajan dürüst yedek --- */
+  const R1 = "33333333-3333-4333-8333-333333333333";
+  const FIXK = {
+    olcumAniISO: "2026-11-03T21:00:00Z",
+    projeler: [
+      { dizin: "D-Vibecode-Chrome-extension-sarisite-export", projeAdi: "D-Vibecode-Chrome-extension-sarisite-export", baslik: "dodo lemon", orduMu: false, ajanlar: [
+        { ajanKimligi: R1, ajanId: null, lastStatus: "idle", etiket: null },
+      ] },
+    ],
+  };
+  const sahteK = {};
+  const $k = (id) => (sahteK[id] = sahteK[id] || { innerHTML: "", textContent: "", hidden: true });
+  const ctxK = {
+    $: $k, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+    P: FIXK, agacAcik: new Set(["D-Vibecode-Chrome-extension-sarisite-export"]), agacSecili: null,
+    agacGrupAcik: new Set(["running", "error", "idle"]), agacSira: null,
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+  };
+  vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxK)();
+  const hk = sahteK.agacAlani.innerHTML;
+  ok("vm agac: rename başlık TAM görünür ('dodo lemon' — workspaces.json'dan)", hk.includes(">dodo lemon</span>"));
+  ok("vm agac: başlıksız ajan DÜRÜST YEDİK AYNEN (etiket YOK → 8 hane kimlik, 'başlıksız' uydurması YOK)", /class="agacDugumAd"[^>]*>33333333</.test(hk) && !hk.includes("başlıksız"));
+  ok("vm agac: kimlik yolu DEĞİŞMEZ (data-proje TAM dizin + data-ajan TAM uuid + title TAM etiket)", hk.includes('data-proje="D-Vibecode-Chrome-extension-sarisite-export"') && hk.includes('data-ajan="' + R1 + '"') && hk.includes('title="dodo lemon — 0 çalışan · 1 ajan kaydı"'));
+  /* --- (4) korunum: min-height 32 ailesi + FAZ-J coarse 44 aynen --- */
+  ok("ağaç satır min-height 32px ailesi KORUNUR (sarma doğal uzama — sabit height YOK)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacGrupBas\s*\{[^}]*min-height:\s*32px/.test(HTML));
+  ok("FAZ-J coarse 44px AYNEN (pointer:coarse bloğu bu dalgada DOKUNULMADI)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacGrupBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.agacTasiBtn\s*\{[^}]*width:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("§5 satır ≥26px + GÖNDER 40px AYNEN (FAZ-K ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  /* --- (5) veri katmanı AYNEN (kisaltma yalnız UI'da — server.js/ordu-birlesim.mjs hunk 0) --- */
+  ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 5 kullanım noktası + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length >= 5 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
+  ok("YENİ @keyframes/renk/sembol YOK (nabız 1 aynen — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !/--yeni-(renk|token)/.test(h));
 });
