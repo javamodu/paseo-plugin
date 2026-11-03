@@ -279,7 +279,7 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("7 statik tabpanel: 5 alt sekme + projeSayfa + bosSayfa (fail-closed boş yüz)", (h.match(/role="tabpanel"/g) || []).length === 7, "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
   ok("durumBolum hidden OLMADAN baslar (no-JS dürüst yüz)", /<section class="sekmePanel" id="durumBolum"[^>]*>/.test(h));
   ok("planBolum/akisBolum/saglikBolum/logBolum/projeSayfa/bosSayfa hidden baslar", /id="planBolum"[^>]*hidden/.test(h) && /id="akisBolum"[^>]*hidden/.test(h) && /id="saglikBolum"[^>]*hidden/.test(h) && /id="logBolum"[^>]*hidden/.test(h) && /id="projeSayfa"[^>]*hidden/.test(h) && /id="bosSayfa"[^>]*hidden/.test(h));
-  ok("LOG ORTA kolona TASINDI (logBolum sekmeGovde içinde — #sag'dan DEĞİL)", h.indexOf('id="logBolum"') > h.indexOf('id="sekmeGovde"') && h.indexOf('id="logBolum"') < h.indexOf('id="bolum-konusma"'));
+  ok("LOG ORTA kolona TASINDI (logBolum sekmeGovde içinde — #sag'dan DEĞİL)", h.indexOf('id="logBolum"') > h.indexOf('id="sekmeGovde"') && h.indexOf('id="logBolum"') < h.indexOf('id="bolum-chat"'));
   ok("sekme govdesi kendi icinde kayar (#sekmeGovde overflow-y:auto)", /#sekmeGovde\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
   ok("bolumler sekmelerin icinde yerinde (plan/akis/saglik id'leri korunur)", h.includes('id="bolum-plan"') && h.includes('id="bolum-akis"') && h.includes('id="bolum-saglik"'));
   /* --- SPLITTER x2 (pointer + klavye ±16px + clamp) --- */
@@ -330,7 +330,7 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   ok("kisalt fonksiyonu yerinde (kısa ad kuralı)", j.includes("function kisalt(metin, n)"));
   ok("agac düğüm adı .agacDugumAd (tek satır) — eski agacAjanId/agacEtiket KALDIRILDI", /\.agacDugumAd\s*\{[^}]*text-overflow:\s*ellipsis/.test(HTML) && !HTML.includes(".agacAjanId") && !HTML.includes(".agacEtiket"));
   ok("sağ kart sağlayıcı kisalt(a.provider, 16) + title TAM", j.includes("kisalt(a.provider, 16)"));
-  ok("sağ kart TAM kimlik + kısa kalır (değişmez)", j.includes('esc(a.ajanKimligi) + " · kısa "'));
+  ok("PANEL-CHAT-1: sağ başlık satırı TAM kimliği title'da taşır (eski kart '· kısa' satırı BİLİNÇLİ kalktı — kart TEK satıra indi)", j.includes("chatBaslikAd\" title=\"' + esc(a.ajanKimligi) + '\""));
   /* --- panel genişlikleri: varsayılan + KENAR + 900-1279 kırılımı --- */
   ok("varsayılan genişlikler --solW:240px / --sagW:320px", HTML.includes("--solW:240px") && HTML.includes("--sagW:320px"));
   ok("KENAR taraf-bazlı clamp: sol 200-360 · sag 260-460", j.includes("const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 260, max: 460 } }"));
@@ -1227,7 +1227,7 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   ok("gönderim: POST /api/mesaj + token başlığı + gonderiliyor durumu", j.includes('"/api/mesaj"') && j.includes('"x-pano-token"') && j.includes("gönderiliyor…"));
   ok("token input (değer AKLA girmez — yalnız başlıkta)", HTML.includes('<input id="token" type="password"') && !j.includes('kaydet("token"'));
   ok("composer textarea + 4096 tavan", HTML.includes('id="composerMesaj"') && HTML.includes('maxlength="4096"'));
-  ok("seçili konuşma kartı: kimlik + durum + etkinlik + sağlayıcı + dürüst geçmiş-YOK notu", HTML.includes('id="konusmaKart"') && HTML.includes("mesaj geçmişi burada YOK"));
+  ok("PANEL-CHAT-1: sağ panel CHAT — oturum listesi + dürüst oturum notu (eski konusmaKart 'geçmiş YOK' notu BİLİNÇLİ değişti)", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes("Bu oturumda gönderilenler — yenileyince temizlenir"));
   ok("yenileme girdi koruması: odakIcindeMi + gonderiyor bayrağı", j.includes("function odakIcindeMi(") && j.includes("let gonderiyor = false") && j.includes('odakIcindeMi("#bolum-composer")'));
   ok("ağaç yenilenmesi odakta atlanır (activeElement ezilmez)", j.includes('odakIcindeMi("#bolum-agac")'));
   /* davranis (vm): projeTabloYaz sahte DOM ile — tablo satırları, durum dağılımı, OLCUM ANI, esc */
@@ -1468,7 +1468,7 @@ test("51e- KOMPAKT kapanis duzeltmesi (vm): agac tiklamasi composer hedefini TIK
   secSham.value = A1; ctx.agacSecili = A2;
   fn(true);
   ok("tıklama: hedef TIKLANAN konuşmaya döner (eski değer yutulmaz)", secSham.value === A2);
-  ok("tıklama: sağ kart tıklanan konuşmayı gösterir", sham.konusmaKart.innerHTML.includes(A2));
+  ok("tıklama: sağ başlık satırı tıklanan konuşmayı gösterir (TAM kimlik title'da — PANEL-CHAT-1)", sham.chatBaslik.innerHTML.includes(A2));
   ok("tıklama: seciliKonusma tıklanan ajana bağlandı", ctx.seciliKonusma && ctx.seciliKonusma.ajan.ajanKimligi === A2);
 
   /* (2) YENİLEME (zorlasız): elle seçilmiş YÖNETİM hedefi korunur (elle seçim yenilemede ezilmez) */
@@ -1621,4 +1621,101 @@ test("51f- PANEL-AGAC-1 (vm): çalışan sayısı GERÇEK sayımdan + hata uyar�
   ok("klavye: Enter + Space başlık tıklamasına çevrilir (kaydırma önlenir)", tiklandi === 2 && engellendi === 2);
   dinleyiciler.keydown({ key: "a", target: baslikSham, preventDefault: () => { engellendi++; } });
   ok("klavye: diğer tuşlar geçer (yalnız Enter/Space)", tiklandi === 2);
+});
+
+test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası render + role=log + esc() XSS pini + localStorage YASAK + dürüst hata satırı + composer pinleri AYNEN", async () => {
+  const j = jsKisim();
+  /* --- kaynak pinleri --- */
+  ok("mesaj listesi: role=log + aria-live=polite + otomatik en alta kaydırma", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes('aria-live="polite"') && j.includes("liste.scrollTop = liste.scrollHeight"));
+  ok("oturum dürüst notu: 'Bu oturumda gönderilenler — yenileyince temizlenir'", HTML.includes("Bu oturumda gönderilenler — yenileyince temizlenir"));
+  const chatA = HTML.indexOf("const CHAT_TAVAN");
+  const chatB = HTML.indexOf("function anaSekmeYaz()");
+  ok("chat bloğu yerinde (CHAT_TAVAN … anaSekmeYaz)", chatA >= 0 && chatB > chatA);
+  const chatSlice = HTML.slice(chatA, chatB);
+  ok("bellek-içi: mesaj listesi KALICI DEĞİL — chat diliminde kaydet(/localStorage YOK", !/kaydet\(/.test(chatSlice) && !chatSlice.includes("localStorage"));
+  ok("30sn yenileme mesaj listesine DOKUNMAZ ($(\"chatListe\") erişimi yalnız 1 yerde — chatMesajYaz)", (j.match(/\$\("chatListe"\)/g) || []).length === 1);
+  ok("giriş yüzü: [HH:mm] [hedef kısa ad] metin + İNCE sonuç satırı (düz metin)", chatSlice.includes('<span class="chatSaat">[') && chatSlice.includes('<span class="chatKimlik" title="') && chatSlice.includes('chatSonuc'));
+  ok("tavan: 200 + en eski düşer (shift)", chatSlice.includes("const CHAT_TAVAN = 200") && chatSlice.includes("oturumMesajlari.shift()"));
+  ok("composer AYNEN: POST /api/mesaj + x-pano-token başlığı + gonderiyor bayrağı", chatSlice.includes('"/api/mesaj"') && chatSlice.includes('"x-pano-token"') && chatSlice.includes("gonderiyor = true"));
+  ok("composer AYNEN: hedef boş + mesaj boş istemci doğrulamaları (fail-closed yüz)", chatSlice.includes("hedef seçilmedi") && chatSlice.includes("mesaj boş"));
+  ok("sonuç satırı DÜZ METİN: composerHata kirmiziYüzü BİLİNÇLİ kalktı (hata ince satırda)", !chatSlice.includes("kirmiziYuzGoster") && !HTML.includes('id="composerHata"'));
+  ok("eski konusmaKart/bolum-konusma kalıntısı YOK (blok kalktı — TEK satır + liste)", !HTML.includes('id="konusmaKart"') && !HTML.includes('id="bolum-konusma"') && !HTML.includes("function konusmaKartYaz"));
+
+  /* --- davranış (vm): gönderim → liste render + sonuç satırı + esc + localStorage yok --- */
+  const A1 = "432e03b7-9004-445c-857d-ebf3b6661d53";
+  const dinleyiciler = {};
+  const sham = {};
+  const sham$ = (id) => sham[id] || (sham[id] = { innerHTML: "", textContent: "", value: "", hidden: true, disabled: false, className: "", scrollTop: 0, scrollHeight: 500, addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; } });
+  let fetchCagr = null;
+  let yanit = { ok: true, json: async () => ({ gonderildi: true, zamanISO: "2026-11-03T12:00:00Z" }) };
+  let agHatasi = false;
+  const ctx = {
+    $: sham$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"),
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+    P: { projeler: [{ dizin: "D-Vibecode-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [
+      { ajanKimligi: A1, ajanId: "432e03b7", lastStatus: "running", etiket: "proje ajanı 1" },
+    ] }] },
+    seciliKonusma: null, gonderiyor: false,
+    fetch: async (yol, secenek) => { fetchCagr = { yol, secenek }; if (agHatasi) throw new Error("bağlantı koptu"); return yanit; },
+  };
+  const [oturumMesajlari, chatMesajYaz] = vm.runInNewContext(chatSlice + "\n[oturumMesajlari, chatMesajYaz]", ctx);
+  ok("submit dinleyicisi kayıtlı (composerForm sham'ında)", typeof dinleyiciler.submit === "function");
+  const gonder = () => dinleyiciler.submit({ preventDefault: () => {} });
+  /* girdi sham'ları önceden doğar (dinleyici gövdesi ilk çağrıda okur — kayıt sırasında değil) */
+  for (const id of ["composerHedef", "composerMesaj", "token", "composerGonder", "composerSonuc", "chatListe", "chatBos"]) sham$(id);
+
+  /* (1) doğrulama: hedef boş → istek YOK + liste boş + composerSonuc dürüst */
+  sham.composerHedef.value = "";
+  sham.composerMesaj.value = "hedefsiz mesaj";
+  await gonder();
+  ok("doğrulama: hedef boş → istek ATILMAZ + giriş listeye DÜŞMEZ", fetchCagr === null && oturumMesajlari.length === 0);
+  ok("doğrulama: composerSonuc dürüst hata metni (role=status)", sham.composerSonuc.textContent.includes("hedef seçilmedi"));
+  sham.composerHedef.value = A1;
+  sham.composerMesaj.value = "  ";
+  await gonder();
+  ok("doğrulama: mesaj boş → giriş listeye DÜŞMEZ", oturumMesajlari.length === 0 && sham.composerSonuc.textContent.includes("mesaj boş"));
+
+  /* (2) başarı: giriş düşer → [HH:mm] [kısa ad] metin + 'gönderildi' + editör temizlenir */
+  sham.token.value = "sahte-token"; /* sahte token — yalnız başlıkta yolculuk yapar */
+  sham.composerMesaj.value = "test mesajı";
+  await gonder();
+  const h1 = sham.chatListe.innerHTML;
+  ok("gönderim: istek POST /api/mesaj + token YALNIZ başlıkta (x-pano-token)", fetchCagr.yol === "/api/mesaj" && fetchCagr.secenek.method === "POST" && fetchCagr.secenek.headers["x-pano-token"] === "sahte-token" && !fetchCagr.secenek.body.includes("sahte-token"));
+  ok("gönderim: gövde hedef+mesaj JSON (kimlik TAM)", fetchCagr.secenek.body.includes(A1) && fetchCagr.secenek.body.includes("test mesajı"));
+  ok("liste: giriş satırı [HH:mm] [432e03b7] metin (saat kalıbı ölçülür)", /\[\d{2}:\d{2}\]/.test(h1) && h1.includes("[432e03b7]") && h1.includes("test mesajı"));
+  ok("liste: başarı İNCE satır 'gönderildi' (yeşil sınıf; sembol karakteri YOK)", h1.includes(">gönderildi") && h1.includes("chatSonuc basarili") && h1.includes('chatMesaj basarili'));
+  ok("liste: hedef kısa ad title'ı TAM kimlik taşır", h1.includes('title="' + A1 + '"'));
+  ok("liste: boş-durum satırı gizlenir + otomatik en alta kaydırma", sham.chatBos.hidden === true && sham.chatListe.scrollTop === sham.chatListe.scrollHeight);
+  ok("gönderim sonrası: editör temizlenir (gönderilen mesaj beklemesin)", sham.composerMesaj.value === "");
+  ok("dugme geri döner: GÖNDER + disabled=false", sham.composerGonder.textContent === "GÖNDER" && sham.composerGonder.disabled === false);
+
+  /* (3) hata 429: 'hata: HTTP 429 — …' kırmızı ince satır + mesaj editörde KALIR (yeniden denenebilir) */
+  yanit = { ok: false, status: 429, json: async () => ({ hata: "pencere dolu" }) };
+  sham.composerMesaj.value = "<script>alert(1)</script> " + "x".repeat(100);
+  await gonder();
+  const h2 = sham.chatListe.innerHTML;
+  ok("hata: İNCE satır 'hata: HTTP 429 — pencere dolu' (kırmızı sınıf)", h2.includes(">hata: HTTP 429 — pencere dolu") && h2.includes("chatSonuc hata") && h2.includes('chatMesaj hata'));
+  ok("hata: mesaj editörde KALIR (yeniden deneme yüzü dürüst)", sham.composerMesaj.value.includes("<script>"));
+  ok("XSS: mesaj metni esc'ten geçer (görüntü + title)", h2.includes("&lt;script&gt;alert(1)&lt;/script&gt;") && !h2.includes("<script>alert"));
+  ok("taşma: görüntü kisalt(80) + '…'; title TAM metin", h2.includes("…") && /title="&lt;script&gt;alert\(1\)&lt;\/script&gt; x{100}"/.test(h2));
+
+  /* (4) ağ hatası: fetch reddi → dürüst 'hata: bağlantı koptu' */
+  agHatasi = true;
+  sham.composerMesaj.value = "bağlantı denemesi";
+  await gonder();
+  ok("ağ hatası: 'hata: bağlantı koptu' ince satırda (kirmiziYüz DEĞİL)", sham.chatListe.innerHTML.includes("hata: bağlantı koptu") && sham.chatListe.innerHTML.includes("chatMesaj hata"));
+  agHatasi = false;
+
+  /* (4b) kurtarma: ağ döndü → yeniden gönderim 'gönderildi' ile kapanır */
+  yanit = { ok: true, json: async () => ({ gonderildi: true, zamanISO: "2026-11-03T12:05:00Z" }) };
+  await gonder();
+  ok("kurtarma: yeniden gönderim 'gönderildi' ince satırıyla kapanır (editör temizlenir)", sham.chatListe.innerHTML.includes("chatMesaj basarili") && sham.composerMesaj.value === "");
+
+  /* (5) emoji taraması: render çıktısında sembol karakteri YOK (§4 — renk diliyle anlatılır) */
+  const emojiChat = (sham.chatListe.innerHTML.match(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}\u{2713}\u{2714}\u{26A0}]/gu) || []);
+  ok("chat çıktısında emoji/✓/⚠ karakteri YOK (düz metin — §4)", emojiChat.length === 0, "bulunan: " + emojiChat.length);
+
+  /* (6) liste oturum-içi birikir: 4 gönderim = 4 giriş; her biri kendi sonucunu taşır */
+  ok("birikim: 4 giriş oturum listesinde (başarı+hata karışık, sıra korunur)", oturumMesajlari.length === 4 && (sham.chatListe.innerHTML.match(/class="chatMesaj/g) || []).length === 4);
+  ok("kayıt yapısı: saat/hedefKisa/hedefKimlik/metin/sonuc alanları (bellek-içi)", oturumMesajlari.every((m) => typeof m.saat === "string" && m.hedefKimlik === A1 && typeof m.metin === "string" && m.sonuc && typeof m.sonuc.tur === "string"));
 });

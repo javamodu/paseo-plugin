@@ -12,6 +12,9 @@
   /* =====================================================================
      ORDU KOMUTA PANELİ — FAZ-B (PANEL-EXPLORER-1; operatör yönlendirmesi
      2026-11-03 «VS Code tarzı: sol explorer · orta sekmeli sayfa · sağ composer»).
+     PANEL-CHAT-1 (2026-11-03): SAĞ kolon CHAT paneline döndü — seçili konuşma TEK
+     kompakt satır + oturum mesaj listesi (bellek-içi, localStorage YOK) + composer
+     AYNEN; görsel dil kapsul-tuval #sag/#chatBolum'dan esinlenir (kod kopyası YOK).
      KOMPAKT (PANEL-KOMPAKT-1; kullanıcı steering 2026-11-03 «görsel olarak
      sıkışık ve metinler kayıyor — minimal kompakt, tek bakış»): baz 13px/1.4 ·
      özet şerit auto-fit minmax(150px,1fr) · her metin hücresi ellipsis + title ·
@@ -24,7 +27,8 @@
      ANA DÜZEN (5 hücre grid AYNEN): SOL (GEZGİN ağacı — projeler + konuşmalar)
      · 6px splitter · ORTA (sekmeli editör: ORDU SABİT sekme + proje sekmeleri;
      ORDU içinde 5 alt sekme DURUM · PLAN · AKIŞ · SİSTEM SAĞLIĞI · LOG)
-     · 6px splitter · SAĞ (seçili KONUŞMA kartı + COMPOSER — gerçek gönderim).
+     · 6px splitter · SAĞ (CHAT paneli — PANEL-CHAT-1: seçili konuşma satırı + oturum
+     mesaj listesi + COMPOSER — gerçek gönderim; eski konuşma KARTI kalktı).
      TEK VIEWPORT: body scroll YOK; her sütun kendi içinde kayar. Splitter ×2:
      sürükle/ok tuşları (±16px) + localStorage («ordu-solW»/«ordu-sagW» — tuvalin
      anahtarlarından AYRI; ağaç durumu «ordu-agac-*» anahtarlarında).
@@ -509,13 +513,44 @@
   }
   #altSekmeSerit .sekme { font-size:12px; min-height:30px; padding:0 12px; }
 
-  /* ---- (FAZ-B) KONUŞMA KARTI (SAĞ üst): seçili konuşma — mesaj geçmişi YOK (dürüst sınır) ---- */
-  .konusmaKart {
-    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey2);
-    padding:8px 10px; display:flex; flex-direction:column; gap:4px; min-width:0;
+  /* ---- (PANEL-CHAT-1) SAĞ = CHAT PANELİ: seçili konuşma TEK kompakt satır + oturum
+     mesaj listesi (bellek-içi — localStorage YOK) + composer AYNEN. Görsel dil
+     kapsul-tuval.html #sag/#chatBolum'dan ESİNLENİR (renk/yoğunluk; KOD KOPYA EDİLMEZ —
+     tuval 4930 deney sunucusuna POST eder, bu panel ASLA). Mesaj girişi: [HH:mm]
+     [hedef kısa ad] metin (esc + kisalt 80 + title TAM) + İNCE sonuç satırı —
+     «gönderildi» yeşil / «hata: …» kırmızı, DÜZ METİN, sembol karakteri YOK (§4). ---- */
+  #bolum-chat { display:flex; flex-direction:column; }
+  .chatBaslikSatiri {
+    display:flex; align-items:center; gap:6px; min-height:26px;
+    margin:0 0 6px; font-size:12px; font-weight:600; color:var(--metin);
+    white-space:nowrap; overflow:hidden;
   }
-  .konusmaKart .gdEtiket { margin-bottom:1px; }
-  .konusmaKimlik { font-family:var(--mono); font-size:11px; color:var(--ikincil); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chatBaslikSatiri .nokta { flex:none; width:8px; height:8px; }
+  .chatBaslikAd { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+  .chatBaslikSaglayici { flex:none; margin-left:auto; font:600 10.5px var(--mono); color:var(--ikincil); }
+  .chatOturumNotu { margin:0 0 6px; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
+  .chatListe {
+    flex:1 1 auto; min-height:140px; overflow-y:auto;
+    display:flex; flex-direction:column; gap:4px; padding:2px;
+    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
+  }
+  .chatListe::-webkit-scrollbar { width:8px; }
+  .chatListe::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
+  .chatMesaj {
+    flex:none; border:1px solid var(--cizgi); border-left:3px solid var(--ikincil);
+    border-radius:var(--radius-k); background:var(--yuzey2); padding:4px 8px; min-width:0;
+  }
+  .chatMesaj.basarili { border-left-color:var(--basari); }
+  .chatMesaj.hata { border-left-color:var(--tehlike); background:rgba(220,38,38,0.06); }
+  .chatSatir { display:flex; align-items:baseline; gap:6px; min-width:0; margin:0; white-space:nowrap; }
+  .chatSaat { flex:none; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
+  .chatKimlik { flex:none; font:600 10.5px var(--mono); color:var(--camgobegi); }
+  .chatMetin { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:12px; color:var(--metin); }
+  .chatSonucSatiri { margin:2px 0 0; }
+  .chatSonuc { font-size:11px; font-weight:600; color:var(--ikincil); }
+  .chatSonuc.bekliyor { color:var(--ikincil); }
+  .chatSonuc.basarili { color:var(--basari); }
+  .chatSonuc.hata { color:var(--tehlike); }
 
   /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER
      KOMPAKT: 12px metin · GÖNDER 40px (KISAT alt sınırı); select/input 44px dokunma KORUNUR ---- */
@@ -820,21 +855,30 @@
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
   <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="320" tabindex="0"></div>
 
-  <!-- ============ SAĞ (#sag): SEÇİLİ KONUŞMA + COMPOSER — gerçek gönderim (FAZ-B) ============
-       Üst: seçili konuşma kartı (tam kimlik + kısa · durum · son etkinlik · sağlayıcı · etiket;
-       mesaj geçmişi YOK — dürüst sınır). Alt: composer — hedef select İKİ AYRI optgroup:
+  <!-- ============ SAĞ (#sag): CHAT PANELİ (PANEL-CHAT-1 — kullanıcı emri 2026-11-03
+       «tuval chat panelini ana dash sağ paneli yap … sadece dediklerimi yap: sol proje
+       listesi, sağ chat, ortada detaylar») ============
+       Üst: seçili konuşmanın öz bilgisi TEK kompakt satır (kısa ad + durum noktası +
+       sağlayıcı kısa; title TAM kimlik — ayrı kart bloğu KALKTI). Orta: MESAJ LİSTESİ —
+       yalnız BU OTURUMDA gönderilenler (bellek-içi dizi; localStorage YOK — geçmiş
+       uydurma E10 ihlali; dürüst oturum notu üstte). Mesaj girişi: [HH:mm] [hedef kısa
+       ad] metin + İNCE sonuç satırı (gönderildi yeşil / hata kırmızı — düz metin).
+       Alt: composer AYNEN — hedef select İKİ AYRI optgroup:
        (1) ORDU YÖNETİM (kadro rolAtamasi MANAGER — KURMAY-1; disk taramasındaki kimlikle)
        (2) SEÇİLİ PROJENİN AJANLARI (yönetim kimlikleri HARİÇ — manager ile proje ajanı KARIŞMAZ).
+       Görsel dil kapsul-tuval.html #sag/#chatBolum'dan ESİNLENİR (renk/yoğunluk — KOD
+       KOPYA EDİLMEZ; tuval 4930 deney sunucusuna POST eder, bu panel ASLA).
        Token değeri AKLA/LOCALSTORAGE'A girmez — yalnız istek başlığında gider. -->
-  <section id="sag" aria-label="seçili konuşma ve composer — mesaj gönderimi">
-    <section class="bolum" id="bolum-konusma" aria-labelledby="konusma-baslik">
-      <h2 class="bolum-etiket" id="konusma-baslik">
-        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 V13 H9 L5 17 V13 H3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        KONUŞMA
+  <section id="sag" aria-label="sohbet paneli — seçili konuşma, oturum mesaj listesi ve composer">
+    <section class="bolum" id="bolum-chat" aria-labelledby="chat-baslik">
+      <h2 class="bolum-etiket" id="chat-baslik">
+        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 V13 H9 L5 17 V13 H3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 7.5 H14 M6 10.5 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        CHAT
       </h2>
-      <div id="konusmaKart" class="konusmaKart"></div>
-      <p class="logNot">mesaj geçmişi burada YOK — Paseo sekmesinde görülür (dürüst sınır; panel yalnız disk taramasındaki kaydı gösterir)</p>
-      <div id="konusmaHata" class="kirmiziYuz" role="alert" hidden></div>
+      <p class="chatBaslikSatiri" id="chatBaslik"><span class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</span></p>
+      <p class="chatOturumNotu">Bu oturumda gönderilenler — yenileyince temizlenir (tam geçmiş Paseo sekmesinde)</p>
+      <div id="chatListe" class="chatListe" role="log" aria-live="polite" aria-label="bu oturumda gönderilen mesajlar ve gönderim sonuçları"></div>
+      <p class="bosSatir" id="chatBos">bu oturumda henüz mesaj gönderilmedi</p>
     </section>
     <section class="bolum" id="bolum-composer" aria-labelledby="composer-baslik">
       <h2 class="bolum-etiket" id="composer-baslik">
@@ -853,7 +897,6 @@
         <button type="submit" id="composerGonder">GÖNDER</button>
       </form>
       <p id="composerSonuc" role="status" aria-live="polite"></p>
-      <div id="composerHata" class="kirmiziYuz" role="alert" hidden></div>
       <p class="logNot">gönderim POST /api/mesaj — dar spawn köprüsü (K-0060 TASLAK); token değeri hiçbir yere KAYDEDİLMEZ, yalnız istek başlığında gider</p>
     </section>
   </section>
@@ -865,7 +908,8 @@
 <script>
 "use strict";
 // ORDU KOMUTA PANELİ — FAZ-B (PANEL-EXPLORER-1): SOL gezgin ağacı · ORTA sekmeli editör
-// (ORDU SABİT sekme + 5 alt sekme + proje sekmeleri) · SAĞ seçili konuşma + composer.
+// (ORDU SABİT sekme + 5 alt sekme + proje sekmeleri) · SAĞ chat paneli (PANEL-CHAT-1:
+// seçili konuşma TEK satır + oturum mesaj listesi + composer).
 // Salt-okur veri: /api/ordu/{genel,kadro,akis,saglik,log,projeler} + /api/graf — AYNEN;
 // tek YAZMA ucu composer'ın POST /api/mesaj'ı (dar spawn köprüsü — K-0060 TASLAK).
 // Her VERİ KAYNAĞININ kendi kırmızı yüzü var (fail-closed): uç ölse/bayatsa o yüz boşalır +
@@ -1725,28 +1769,28 @@ function konusmaSecGuncelle(secimiZorla) {
       }
     }
   }
-  konusmaKartYaz();
+  chatBaslikYaz();
   if (!gonderiyor) composerHedefGuncelle(secimiZorla);
 }
 
-/* ---- SAĞ: seçili konuşma kartı (mesaj geçmişi YOK — dürüst sınır; Paseo sekmesinde görülür) ---- */
-function konusmaKartYaz() {
-  const kart = $("konusmaKart");
+/* ---- (PANEL-CHAT-1) SAĞ: seçili konuşma başlığı — TEK kompakt satır (kısa ad + durum
+   noktası + sağlayıcı kısa; title TAM kimlik; ayrı kart bloğu KALKTI — mesaj geçmişi
+   yine YOK: liste yalnız BU OTURUMDA gönderilenleri gösterir) ---- */
+function chatBaslikYaz() {
+  const satir = $("chatBaslik");
   if (!seciliKonusma) {
-    kirmiziYuzKapat("konusmaHata");
-    kart.innerHTML = '<p class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</p>';
+    satir.innerHTML = '<span class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</span>';
     return;
   }
   const a = seciliKonusma.ajan;
   const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const etiketVar = typeof a.etiket === "string" && a.etiket.trim();
+  const ad = etiketVar ? kisalt(a.etiket, 20) : kisa;
   const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
-  kart.innerHTML =
-    '<div class="gdEtiket">' + esc(seciliKonusma.projeAdi) + (seciliKonusma.orduMu ? " (ORDU)" : "") + "</div>" +
-    '<p class="kutuAd">' + esc(typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : "(başlıksız ajan)") + "</p>" +
-    '<p class="konusmaKimlik" title="' + esc(a.ajanKimligi) + '">' + esc(a.ajanKimligi) + " · kısa " + esc(kisa) + "</p>" +
-    '<p class="miniSatir"><span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span> <b>' + esc(a.lastStatus || "durum bilinmiyor") + "</b></p>" +
-    '<p class="miniSatir">son etkinlik: <span class="mono">' + esc(a.sonEtkinlikISO || "ölçülemedi") + "</span></p>" +
-    '<p class="miniSatir" title="' + esc(a.provider || "bilinmiyor") + '">sağlayıcı: ' + esc(kisalt(a.provider, 16) || "bilinmiyor") + "</p>";
+  satir.innerHTML =
+    '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc(a.lastStatus || "durum bilinmiyor") + '"></span>' +
+    '<span class="chatBaslikAd" title="' + esc(a.ajanKimligi) + '">' + esc(ad) + " · " + esc(seciliKonusma.projeAdi) + (seciliKonusma.orduMu ? " (ORDU)" : "") + "</span>" +
+    '<span class="chatBaslikSaglayici" title="' + esc(a.provider || "sağlayıcı bilinmiyor") + '">' + esc(kisalt(a.provider, 16) || "sağlayıcı?") + "</span>";
 }
 
 /* ---- SAĞ: COMPOSER hedef listesi — İKİ AYRI optgroup (manager ile proje ajanı KARIŞMAZ) ----
@@ -1810,15 +1854,63 @@ function composerHedefGuncelle(secimiZorla) {
   sec.value = hedef;
 }
 
-/* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü K-0060 YÜRÜRLÜKTE) ---- */
+/* ---- (PANEL-CHAT-1) SAĞ: MESAJ LİSTESİ — yalnız BU OTURUMDA gönderilenler. Bellek-içi
+   dizi (localStorage YOK — geçmiş uydurma E10 ihlali; yenileyince temizlenir — dürüst
+   oturum notu listede üstte). Giriş yüzü: [HH:mm] [hedef kısa ad] metin — esc() + görüntü
+   kisalt(80) + title TAM; altında İNCE sonuç satırı: «gönderildi» yeşil / «hata: …»
+   kırmızı — DÜZ METİN, sembol karakteri YOK (§4). 30sn yenileme döngüsü bu listeye
+   DOKUNMAZ (yalnız gönderim eylemi yazar). ---- */
+const CHAT_TAVAN = 200; /* bellek tavanı — en eski giriş düşer (oturum-içi) */
+const oturumMesajlari = []; /* { saat, hedefKisa, hedefKimlik, metin, sonuc: { tur, metin } } */
+
+/* hedefin kısa adı: disk taramasında ajanId (yoksa 8 hane kimlik öneki); taramada
+   bulunamayan kimliğin dürüst yedeği 8 hane önek — uydurma ad YOK */
+function hedefKisaAd(kimlik) {
+  if (P && Array.isArray(P.projeler)) {
+    for (const pr of P.projeler) {
+      for (const a of Array.isArray(pr.ajanlar) ? pr.ajanlar : []) {
+        if (a.ajanKimligi === kimlik) return a.ajanId || kisaIdGoster(kimlik) || "?";
+      }
+    }
+  }
+  return kisaIdGoster(kimlik) || "?";
+}
+
+function chatMesajHtml(m) {
+  const sinif = m.sonuc.tur === "hata" ? " hata" : m.sonuc.tur === "basarili" ? " basarili" : "";
+  const sonucHtml =
+    m.sonuc.tur === "bekliyor"
+      ? '<span class="chatSonuc bekliyor">gönderiliyor…</span>'
+      : m.sonuc.tur === "basarili"
+        ? '<span class="chatSonuc basarili">gönderildi' + (m.sonuc.metin ? " · " + esc(m.sonuc.metin) : "") + "</span>"
+        : '<span class="chatSonuc hata">hata: ' + esc(m.sonuc.metin) + "</span>";
+  return (
+    '<div class="chatMesaj' + sinif + '">' +
+    '<p class="chatSatir"><span class="chatSaat">[' + esc(m.saat) + ']</span> <span class="chatKimlik" title="' + esc(m.hedefKimlik) + '">[' + esc(m.hedefKisa) + ']</span> <span class="chatMetin" title="' + esc(m.metin) + '">' + esc(kisalt(m.metin, 80) || m.metin) + "</span></p>" +
+    '<p class="chatSonucSatiri">' + sonucHtml + "</p>" +
+    "</div>"
+  );
+}
+
+function chatMesajYaz() {
+  const liste = $("chatListe");
+  liste.innerHTML = oturumMesajlari.map(chatMesajHtml).join("");
+  $("chatBos").hidden = oturumMesajlari.length > 0;
+  liste.scrollTop = liste.scrollHeight; /* otomatik en alta kaydırma (role=log) */
+}
+
+/* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü
+     K-0060 YÜRÜRLÜKTE). PANEL-CHAT-1: gönderim mesaj girişi olarak listeye DÜŞER; sonuç
+     ince satırda (gönderildi/hata). Token boşsa sunucu 401/403 döner ve hata satırı
+     dürüst belirir — mevcut fail-closed davranış KORUNUR, istemcide token yoklaması YOK. ---- */
 $("composerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const sonuc = $("composerSonuc");
   const hedef = $("composerHedef").value;
   const mesaj = $("composerMesaj").value;
   const token = $("token").value; /* değer AKLA/LOCALSTORAGE'A girmez — yalnız istek başlığında gider */
-  kirmiziYuzKapat("composerHata");
   sonuc.className = "";
+  sonuc.textContent = "";
   if (!hedef) {
     sonuc.textContent = "hedef seçilmedi (ORDU YÖNETİM ya da seçili projenin ajanları)";
     sonuc.className = "hata";
@@ -1833,7 +1925,17 @@ $("composerForm").addEventListener("submit", async (e) => {
   gonderiyor = true;
   dugme.disabled = true;
   dugme.textContent = "gönderiliyor…";
-  sonuc.textContent = "gönderiliyor…";
+  /* mesaj girişi ÖNCE düşer (bekliyor yüzü); sonuç satırı fetch bitince dolar */
+  const kayit = {
+    saat: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+    hedefKisa: hedefKisaAd(hedef),
+    hedefKimlik: hedef,
+    metin: mesaj,
+    sonuc: { tur: "bekliyor", metin: "" },
+  };
+  oturumMesajlari.push(kayit);
+  if (oturumMesajlari.length > CHAT_TAVAN) oturumMesajlari.shift(); /* tavan: en eski düşer */
+  chatMesajYaz();
   try {
     const r = await fetch("/api/mesaj", {
       method: "POST",
@@ -1844,17 +1946,15 @@ $("composerForm").addEventListener("submit", async (e) => {
     let v = null;
     try { v = await r.json(); } catch (e2) { /* gövde JSON değil — dürüst ham durum kodu kalır */ }
     if (r.ok && v && v.gonderildi) {
-      sonuc.textContent = "gönderildi — " + hedef.slice(0, 8) + " · " + (v.zamanISO || "?");
-      sonuc.className = "basarili";
+      kayit.sonuc = { tur: "basarili", metin: v.zamanISO || "" };
       $("composerMesaj").value = ""; /* gönderilen mesaj editörde beklemesin */
     } else {
-      sonuc.textContent = "";
-      kirmiziYuzGoster("composerHata", null, "POST /api/mesaj — HTTP " + r.status + (v && v.hata ? " · " + v.hata : ""));
+      kayit.sonuc = { tur: "hata", metin: "HTTP " + r.status + (v && v.hata ? " — " + v.hata : "") };
     }
   } catch (e2) {
-    sonuc.textContent = "";
-    kirmiziYuzGoster("composerHata", null, "POST /api/mesaj — " + e2.message);
+    kayit.sonuc = { tur: "hata", metin: e2.message };
   } finally {
+    chatMesajYaz();
     gonderiyor = false;
     dugme.disabled = false;
     dugme.textContent = "GÖNDER";
@@ -2086,7 +2186,7 @@ window.addEventListener("resize", () => { /* taraf tavanları pencereyle daralab
 });
 
 function hepsiniYukle() { genelYukle(); planYukle(); kadroYukle(); akisYukle(); saglikYukle(); logYukle(); projelerYukle(); }
-konusmaKartYaz(); /* başlangıçta dürüst boş kart (P gelince kalıcı seçim eşleşirse dolar) */
+chatBaslikYaz(); /* başlangıçta dürüst boş satır (P gelince kalıcı seçim eşleşirse dolar); mesaj listesi oturum-içi — boş başlar */
 hepsiniYukle();
 setInterval(hepsiniYukle, YENILE_SN * 1000);
 </script>

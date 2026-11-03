@@ -1,0 +1,36 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-CHAT-1-2026-11-03",
+  "baslik": "PANEL-CHAT-1 — tuval chat panelini ana dash sağ paneli yap (yazıcı teslimi)",
+  "tarih": "2026-11-03T16:04",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 8cc610a4 devri; brief koordinatör 8cc610a4, mesaj ae592b3e)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "chat", "composer", "panel"],
+  "siddet": "bilgi",
+  "ozet": "SAĞ panel CHAT paneline dönüştü: (a) konuşma başlığı TEK kompakt satır (kisalt + title TAM kimlik; eski kart bloğu kalktı) + (b) oturum-içi bellek mesaj listesi role=log (localStorage YOK — E10; tavan 200) + dürüst not + (c) [HH:mm] [hedef kısa ad] metin + İNCE sonuç satırı (başarı yeşil / hata kırmızı, düz metin — sembol YOK) + (d) composer AYNEN (POST /api/mesaj + x-pano-token; hata durumunda mesaj editörde kalır) + (e) kapsul-tuval salt-okur ilham. Veri katmanı dokunulmadı.",
+  "kanit": {
+    "orduPanosuTest": { "tests": 63, "pass": 63, "fail": 0, "exit": 0 },
+    "panoNpm": { "tests": 73, "pass": 73, "fail": 0, "exit": 0 },
+    "coreNpm": { "tests": 467, "pass": 467, "fail": 0, "exit": 0 },
+    "repoGlob": { "komut": "node --test \"pano/*.test.mjs\" \"scripts/*.test.mjs\"", "tests": 295, "pass": 295, "fail": 0, "exit": 0, "not": "taban 294 + yeni 51g" },
+    "globDeseni": "chat render çıktısında emoji/✓/⚠ eşleşme 0 (51g senaryo 5)"
+  },
+  "bilincliPinDegisimleri": [
+    "test satır 282 — LOG konum işaretçisi: id=bolum-konusma -> id=bolum-chat",
+    "test satır 333 — başlık pini: kart bloğu -> tek satır literal chatBaslikAd + title esc(a.ajanKimligi)",
+    "test satır 1230 — 51 kaynak pini: id=chatListe + role=log + oturum dürüst notu",
+    "test satır 1471 — 51e sham pini: konusmaKart -> chatBaslik innerHTML"
+  ],
+  "yeniPinler": [
+    "51g (async vm) — kaynak: role=log/aria-live/scrollTop, localStorage YASAK, $(\"chatListe\") yalnız 1 yerde, CHAT_TAVAN=200+shift, composer pinleri AYNEN, kirmiziYuzGoster+composerHata YOK, konusmaKart kalıntısı YOK; davranış: doğrulama/başarı/429/ağ hatası/kurtarma/emoji taraması/birikim-4-giriş + XSS esc + token yalnız başlıkta"
+  ],
+  "yapamadim": [
+    "canlı DOM/PNG kanıtı YOK — 4937'ye dokunma yasağı (koordinatör kapanışına açık)",
+    "K2 görsel kabul kullanıcıda (açık)"
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937'de tek gerçek gönderimle [HH:mm] [kısa ad] yüzü + hata durumunda mesajın editörde kalışı doğrulansın; K2 kullanıcı kabulü Paseo sekmesi canlıyken",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 16:34): (1) koordinatör koşumları: pano npm 74/74 (yazıcının 73'ü + koordinatörün yeni 70 no'lu kök-rota testi — ayrı commit) + repo glob 296/296 + core 467/467 EXIT=0; dürüst not: üst üste koşumda core 465/467 ve 463/467 (farklı 'canlı' gerçek-süreç testleri her seferinde — önceki süitin node çocukları kapanırken zamanlama çekişmesi), tek başına temiz koşum 467/467 + izole daemon-canli 3/3 + core kaynak kirli değil — yazıcı iddiası tutarlı. (2) kod pinleri: sembol/emoji kaynak 0 · chatListe role=log + aria-live=polite + CHAT_TAVAN 200 + oturumMesajlari bellek-içi · konusmaKart/bolum-konusma kalıntı 0 · composer AYNEN (POST /api/mesaj + x-pano-token + 2 AYRI optgroup + secimiZorla 51e). (3) CANLI DOM (konak bu kapanışta döndü — AGAC'ın ertelenmiş borcu da kapandı): yapı pinleri (role=log, dürüst boş durum, kompakt başlık, 2 optgroup, token password, GÖNDER 40px, emoji 0) + GERÇEK HTTP hata yolu (yanlış token -> 401 -> '[16:33] [074a43f2] canlı kanıt…' + 'hata: HTTP 401 — token geçersiz' + mesaj editörde KALDI + düğme döndü; hiçbir gerçek ajana mesaj GİTMEDİ) + dürüst sıfırlama (yenileme -> 0 giriş + boş durum + editör temiz). (4) ekran kanıtları: raporlar/ordu-panosu-2026-11-03/ekran-kanit-chat.png (127,9 KB, 1534x888, 401 satırı görünür) + ekran-kanit-agac-canli.png (127,5 KB). (5) TASHİH: rapor md 3. satırda yazıcı kimliği YANLIŞ ('ajan 8cc610a4 devri' — 8cc610a4 koordinatördür); doğru yazıcı 3887fcc0-088f-4ec4-b4a1-6d8829baac62; md gövdesi dokunulmadı (append-only). (6) K2 görsel kabul kullanıcıda — açık; tek elden commit bu kapanışta."
+}
