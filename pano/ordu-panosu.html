@@ -552,33 +552,46 @@
   .chatBaslikSatiri .nokta { flex:none; width:8px; height:8px; }
   .chatBaslikAd { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; }
   .chatBaslikSaglayici { flex:none; margin-left:auto; font:600 10.5px var(--mono); color:var(--ikincil); }
-  .chatOturumNotu { margin:0 0 6px; font-family:var(--mono); font-size:10.5px; color:var(--ikincil); }
+  .chatOturumNotu { /* FAZ-I: chat-sistem görünümünde İNCE balon (tuval dili) */
+    margin:0 0 8px; font-size:11.5px; color:var(--ikincil);
+    background:var(--yuzey2); border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
+  }
   .chatListe {
     flex:1 1 auto; min-height:0; overflow-y:auto;
-    display:flex; flex-direction:column; gap:4px; padding:2px;
+    display:flex; flex-direction:column; gap:6px; padding:2px; /* FAZ-I: gap 4→6 (tuval chat hattı) */
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
   }
   .chatListe::-webkit-scrollbar { width:8px; }
   .chatListe::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
+  /* FAZ-I (steering «tuvaldeki gibi normal chat» 2026-11-03): BALON mesajlar — kapsul-tuval
+     #chatBolum dili uyarlanır (salt-okur ilham; kopya YOK): gönderilen mesaj SAĞA hizalı petrol
+     balon; hata kırmızı tonu KALIR; eski log satır görünümü ([saat] [hedef] metin) KALKAR (bilinçli). */
   .chatMesaj {
-    flex:none; border:1px solid var(--cizgi); border-left:3px solid var(--ikincil);
-    border-radius:var(--radius-k); background:var(--yuzey2); padding:4px 8px; min-width:0;
+    flex:none; border-radius:var(--radius-k); padding:8px 10px; min-width:0;
+    font-size:15px; line-height:1.55; overflow-wrap:anywhere; /* FAZ-H ölçek taşındı: metin 15px artık balonda */
   }
-  .chatMesaj.basarili { border-left-color:var(--basari); }
-  .chatMesaj.hata { border-left-color:var(--tehlike); background:rgba(220,38,38,0.06); }
-  .chatSatir { display:flex; align-items:baseline; gap:6px; min-width:0; margin:0; white-space:nowrap; }
-  .chatSaat { flex:none; font-family:var(--mono); font-size:11px; color:var(--ikincil); } /* FAZ-H: 10.5→11px */
-  .chatKimlik { flex:none; font:600 11px var(--mono); color:var(--camgobegi); } /* FAZ-H: 10.5→11px */
-  .chatMetin { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:15px; color:var(--metin); } /* FAZ-H: 12→15px (chat liste metni) */
+  .chatMesaj p { margin:0; }
+  .chatMesaj.chat-kullanici {
+    background:rgba(15,76,129,0.08); border:1px solid rgba(15,76,129,0.3); color:var(--metin);
+    align-self:flex-end; max-width:92%; /* gönderilen mesaj — SAĞA hizalı (tuval deseni) */
+  }
+  .chatMesaj.chat-kullanici.basarili { border-color:rgba(4,120,87,0.4); } /* gönderildi — yeşil kenar (eski sol kenar sinyalinin karşılığı) */
+  .chatMesaj.chat-kullanici.hata { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.35); } /* hata balonu kırmızı tonu KALIR */
+  .chatKim { font-size:11.5px; font-weight:700; letter-spacing:0.06em; color:var(--ikincil); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik) */
+  .chatSaat { font-size:11px; color:var(--ikincil); margin:4px 0 0; white-space:nowrap; } /* balonun ALTINDA (tuval deseni) */
   .chatSonucSatiri { margin:2px 0 0; }
   .chatSonuc { font-size:12px; font-weight:600; color:var(--ikincil); } /* FAZ-H: 11→12px */
   .chatSonuc.bekliyor { color:var(--ikincil); }
   .chatSonuc.basarili { color:var(--basari); }
   .chatSonuc.hata { color:var(--tehlike); }
+  #chatBos { /* FAZ-I: boş durum — chat-sistem görünümünde İNCE balon */
+    margin:6px 0 0; color:var(--ikincil);
+    background:var(--yuzey2); border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
+  }
 
   /* ---- (FAZ-B) COMPOSER (SAĞ alt): hedef select (İKİ AYRI optgroup) + textarea + token + GÖNDER
      KOMPAKT: 12px metin · GÖNDER 40px (KISAT alt sınırı); select/input 44px dokunma KORUNUR ---- */
-  #composerForm { display:flex; flex-direction:column; gap:8px; margin-top:0; }
+  #composerForm { display:flex; flex-direction:column; gap:6px; margin-top:0; } /* FAZ-I cila: gap 8→6 (tuval chatForm/chatSecim hizası) */
   #composerForm select, #composerForm textarea, #composerForm input {
     width:100%; font:inherit; font-size:12px; color:var(--metin);
     border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey); padding:5px 8px;
@@ -1938,9 +1951,14 @@ function chatMesajHtml(m) {
       : m.sonuc.tur === "basarili"
         ? '<span class="chatSonuc basarili">gönderildi' + (m.sonuc.metin ? " · " + esc(m.sonuc.metin) : "") + "</span>"
         : '<span class="chatSonuc hata">hata: ' + esc(m.sonuc.metin) + "</span>";
+  /* FAZ-I (tuval dili): BALON — alıcı etiketi ÜSTTE (title TAM kimlik), TAM metin
+     (kisalt YOK — balon kendi sarar, overflow-wrap), saat ALTta; sonuç İNCE satır balon
+     içinde. Eski [saat] [hedef] log formatı KALDIRILDI (bilinçli). esc() her yerde. */
   return (
-    '<div class="chatMesaj' + sinif + '">' +
-    '<p class="chatSatir"><span class="chatSaat">[' + esc(m.saat) + ']</span> <span class="chatKimlik" title="' + esc(m.hedefKimlik) + '">[' + esc(m.hedefKisa) + ']</span> <span class="chatMetin" title="' + esc(m.metin) + '">' + esc(kisalt(m.metin, 80) || m.metin) + "</span></p>" +
+    '<div class="chatMesaj chat-kullanici' + sinif + '">' +
+    '<div class="chatKim" title="' + esc(m.hedefKimlik) + '">' + esc(m.hedefKisa) + "</div>" +
+    "<p>" + esc(m.metin) + "</p>" +
+    '<div class="chatSaat">' + esc(m.saat) + "</div>" +
     '<p class="chatSonucSatiri">' + sonucHtml + "</p>" +
     "</div>"
   );

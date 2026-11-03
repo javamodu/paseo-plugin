@@ -1,0 +1,42 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-I-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-I — sağ chat paneli tuval diline geçti: balon mesajlar (gönderilen sağa hizalı petrol balon; eski [saat][hedef] log satırı KALKAR) (yazıcı teslimi)",
+  "tarih": "2026-11-03T19:02",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "chat", "balon", "tuval-dili"],
+  "ozet": "(1) ordu-panosu.html CSS (tek blok hunk ~552-598): .chatListe gap 4→6 (tuval hattı); .chatMesaj BALON — 15px/1.55 + padding 8px 10px + var(--radius-k) + overflow-wrap:anywhere + .chatMesaj p margin:0; .chat-kullanici (gönderilen) — rgba(15,76,129,0.08) bg + 1px rgba(15,76,129,0.3) kenar + align-self:flex-end (SAĞA hizalı) + max-width:92%; .chat-kullanici.hata — rgba(220,38,38,0.06) bg + rgba(220,38,38,0.35) kırmızı kenar (eski kırmızı ton KALIR); .chat-kullanici.basarili — rgba(4,120,87,0.4) yeşil kenar (eski sol kenar sinyalinin karşılığı); .chatKim 11.5px/700 + letter-spacing .06em + ikincil + margin 0 0 3px (balonun ÜSTÜNDE alıcı etiketi); .chatSaat 11px + ikincil + margin 4px 0 0 (ALTTA — mono kaldı); chatOturumNotu + #chatBos — chat-sistem İNCE balon (yuzey2 + 1px dashed cizgi); #composerForm gap 8→6 (tuval chatForm hizası — gönderim mantığı AYNEN). Eski .chatSatir/.chatKimlik/.chatMetin sınıfları KALDIRILDI (bilinçli). (2) chatMesajHtml render fonksiyonu: '<div class=chatMesaj chat-kullanici + durum>' + .chatKim (esc(hedefKisa), title esc(hedefKimlik) TAM kimlik) + '<p>' esc(m.metin) TAM metin (kisalt 80 KALDIRILDI — balon kendi sarar) + .chatSaat esc(m.saat) + İNCE sonuç satırı balon içinde (chatSonuc davranışı AYNEN: bekliyor 'gönderiliyor…' / basarili 'gönderildi · …' / hata 'hata: …'); [saat]/[hedef] köşeli parantez log formatı KALKAR (bilinçli). esc() her yerde. (3) Composer gönderim mantığına hunk YOK — diff'te fetch/x-pano-token/gonderiyor/optgroup satır değişimi 0 (ölçüldü); GÖNDER 40px §5 + 2 AYRI optgroup + token password AYNEN. AYNA: role=log + aria-live=polite + otomatik en alta kaydırma · CHAT_TAVAN 200 + shift · oturum-içi bellek (localStorage YOK) · 30sn odak koruması odakIcindeMi('#bolum-composer') · kompakt konuşma başlık satırı KORUNUR. YENİ @keyframes YOK · YENİ renk YOK (petrol/basari/tehlike rgba tonları tuval deseninden).",
+  "kanit": {
+    "panoNpm": { "tests": 80, "pass": 80, "fail": 0, "exit": 0, "not": "79 baz + 51m YENİ (17 pin: balon CSS yapısı + hata/başarı kenar tonları + chatKim/chatSaat + gap 6 + boş durum balon + kalıntı 0 + ayna korunum + vm render 6 vaka [hata balonu + yapı sırası + XSS/TAM metin + köşeli parantez yok + bekliyor + başarı])" }
+  },
+  "bilincliPinDegisimleri": [
+    "51g ~1643: 'giriş yüzü [HH:mm] [hedef kısa ad] metin' → balon pini (chatKim title + chatMesaj chat-kullanici + chatSonuc)",
+    "51g ~1691: '[HH:mm] [432e03b7] metin' → balon pini (kısa ad >432e03b7</div> + <p>metin</p> + köşeli parantez YOK)",
+    "51g ~1692: 'chatMesaj basarili' → 'chatMesaj chat-kullanici basarili'",
+    "51g ~1703: 'chatMesaj hata' → 'chatMesaj chat-kullanici hata'",
+    "51g ~1706: taşma pini 'kisalt(80) + … + title TAM' → 'TAM metin balonda (kisalt(m.metin,80) KALDIRILDI)'",
+    "51g ~1712/~1718: 'chatMesaj hata/basarili' → chat-kullanici'li sınıf bireşimi",
+    "51l ~1922: 'chatMetin 15px + chatKimlik 11px mono' → '.chatMesaj 15px/1.55 + chatKim 11.5px/700 + chatSaat 11px' (eski sınıflar KALKTI)"
+  ],
+  "yeniPinler": [
+    "51m — balon gövde (15/1.55 + 8-10 padding + radius + overflow-wrap + p margin 0) · chat-kullanici (petrol rgba + flex-end + 92%) · hata kırmızı ton + başarı yeşil kenar · chatKim üstte/chatSaat altta · chatListe gap 6 · boş durum + oturum notu chat-sistem İNCE balon · composer gap 6 cila · eski chatSatir/chatKimlik/chatMetin + köşeli parantez + kisalt(m.metin,80) kalıntısı 0 · ayna (role=log + CHAT_TAVAN + POST + optgroup 2 + GÖNDER 40 + odak koruması + başlık satırı) · vm 6 vaka (hata balonu kırmızı + yapı sırası kim→metin→saat→sonuç + XSS/TAM metin 120 karakter kesilmedi + köşeli parantez yok + bekliyor nötr + başarı)"
+  ],
+  "yapamadim": [
+    "canlı DOM kanıtı KOŞAMADIM — 4937'ye dokunma yasağı; YALNIZ HTML/CSS/render değişti → yenileme yeter, restart GEREKMEZ (koordinatör kapanışında ölçülmeli)",
+    "K2 görsel kabul kullanıcıda (açık)"
+  ],
+  "durustNotlar": [
+    "tuvaldeki .chat-sistem/.chat-manager/.chat-operator balon çeşitleri ALINMADI — ordu chat'inde tek konuşma türü var (gönderilen mesaj); chat-sistem görünümü yalnız boş durum + oturum notu balonlarında kullanıldı (brief'in 2. maddesi).",
+    "tuvaldeki ▸ glifi ve chatSecim sağlayıcı/rol select'i ALINMADI (brief açıkça yasakladı — GÖNDER düz metin KALDI; composer'ın kendi işlevi var).",
+    "başarı durumu için balona İNCE yeşil kenar (rgba(4,120,87,0.4)) eklendi: eski görünümde border-left:3px yeşil sinyal vardı, balon dilinde karşılığı kenar tonu — sonuç satırı yeşil metni zaten taşıyor; istenirse kenarsız da olur (tek CSS satırı).",
+    "hata balonu SAĞA hizalı kalır (chat-kullanici + hata bireşimi): gönderilen-başarısız mesaj — yeniden deneme yüzü dürüst; sol hizalı ayrı hata balonu tasarımı brief'te yok.",
+    "chatSaat mono ailesinden düz 11px'e geçti (tuval deseni); saat metni zaten HH:mm.",
+    "dürüst boş durum metinleri AYNEN ('bu oturumda henüz mesaj gönderilmedi' + 'Bu oturumda gönderilenler — yenileyince temizlenir') — yalnız görünüm balonlaştı."
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu (YENİLEME yeter — restart GEREKMEZ): (a) mesaj gönder → sağa hizalı petrol balon (alıcı üstte + TAM metin + saat altta); (b) hata durumu → kırmızı tonlu balon + mesaj editörde kalır; (c) boş durum → kesik çizgili ince sistem balonu; (d) ekran PNG raporlar/ordu-panosu-2026-11-03/ altına. K2 görsel kabul kullanıcıda.",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 19:17): (1) koordinatör koşumları pano npm 80/80 + repo glob 302/302 (301+51m, kurulmuş pano+scripts deseni) EXIT=0 — birebir; dürüst süreç notu: ilk yakalama denemesinde grep ℹ çokbayt sorunu $?'i grep'e bağlamıştı, gerçek çıkış kodlarıyla ikinci koşum düzeltti. (2) diff denetimi: 2 dosya +82/-22, HTML'de TAM 2 hunk (CSS bloğu + chatMesajHtml); veri katmanına hunk 0; @keyframes 1 (nabız) aynen. (3) CANLI DOM 4937 (yenilemeyle, restart GEREKMEDİ): .chat-kullanici align-self:flex-end + max-width 92% + petrol rgba(15,76,129,0.08/0.3) + .chatKim 11.5/700 + .chatSaat 11px + hata balonu kırmızı ton + #chatBos dashed ince balon GÖRÜNÜR + chatListe role=log + aria-live=polite + gap 6 + composer optgroup 2 + GÖNDER 40px + sembol 0 + token password (kaynak satır 936) + x-pano-token (satır 2014). (4) mesaj bilinçli GÖNDERİLMEDİ (gerçek ajana gerçek prompt düşer — dış-etki); render 51m vm 6 vaka + boş durum/not balonları canlıda ölçüldü. (5) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-i.png (115,4 KB, 1918x1110, PNG imza doğrulandı). (6) yazıcı dürüst notları kabul (chat-manager/operator brief 2. madde · yeşil kenar eski sinyal karşılığı · hata sağda kalır · chatSaat düz). K2 görsel kabul kullanıcıda — açık. Kuyruk: FAZ-J dispatch (kullanıcı steering'i 'sayfa responsive olmalı mobile touch %100' — brief hazır)."
+}

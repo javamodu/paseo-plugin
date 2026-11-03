@@ -1640,7 +1640,7 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   const chatSlice = HTML.slice(chatA, chatB);
   ok("bellek-içi: mesaj listesi KALICI DEĞİL — chat diliminde kaydet(/localStorage YOK", !/kaydet\(/.test(chatSlice) && !chatSlice.includes("localStorage"));
   ok("30sn yenileme mesaj listesine DOKUNMAZ ($(\"chatListe\") erişimi yalnız 1 yerde — chatMesajYaz)", (j.match(/\$\("chatListe"\)/g) || []).length === 1);
-  ok("giriş yüzü: [HH:mm] [hedef kısa ad] metin + İNCE sonuç satırı (düz metin)", chatSlice.includes('<span class="chatSaat">[') && chatSlice.includes('<span class="chatKimlik" title="') && chatSlice.includes('chatSonuc'));
+  ok("giriş yüzü FAZ-I: BALON — chatKim (title TAM kimlik) + TAM metin + chatSaat + İNCE sonuç satırı", chatSlice.includes('<div class="chatKim" title="') && chatSlice.includes('class="chatMesaj chat-kullanici') && chatSlice.includes("chatSonuc"));
   ok("tavan: 200 + en eski düşer (shift)", chatSlice.includes("const CHAT_TAVAN = 200") && chatSlice.includes("oturumMesajlari.shift()"));
   ok("composer AYNEN: POST /api/mesaj + x-pano-token başlığı + gonderiyor bayrağı", chatSlice.includes('"/api/mesaj"') && chatSlice.includes('"x-pano-token"') && chatSlice.includes("gonderiyor = true"));
   ok("composer AYNEN: hedef boş + mesaj boş istemci doğrulamaları (fail-closed yüz)", chatSlice.includes("hedef seçilmedi") && chatSlice.includes("mesaj boş"));
@@ -1688,8 +1688,8 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   const h1 = sham.chatListe.innerHTML;
   ok("gönderim: istek POST /api/mesaj + token YALNIZ başlıkta (x-pano-token)", fetchCagr.yol === "/api/mesaj" && fetchCagr.secenek.method === "POST" && fetchCagr.secenek.headers["x-pano-token"] === "sahte-token" && !fetchCagr.secenek.body.includes("sahte-token"));
   ok("gönderim: gövde hedef+mesaj JSON (kimlik TAM)", fetchCagr.secenek.body.includes(A1) && fetchCagr.secenek.body.includes("test mesajı"));
-  ok("liste: giriş satırı [HH:mm] [432e03b7] metin (saat kalıbı ölçülür)", /\[\d{2}:\d{2}\]/.test(h1) && h1.includes("[432e03b7]") && h1.includes("test mesajı"));
-  ok("liste: başarı İNCE satır 'gönderildi' (yeşil sınıf; sembol karakteri YOK)", h1.includes(">gönderildi") && h1.includes("chatSonuc basarili") && h1.includes('chatMesaj basarili'));
+  ok("liste: giriş BALONU chatKim kısa ad + saat HH:mm (köşeli parantez YOK — FAZ-I)", /\d{2}:\d{2}/.test(h1) && h1.includes(">432e03b7</div>") && h1.includes("<p>test mesajı</p>") && !h1.includes("[432e03b7]"));
+  ok("liste: başarı İNCE satır 'gönderildi' (yeşil sınıf; sembol karakteri YOK)", h1.includes(">gönderildi") && h1.includes("chatSonuc basarili") && h1.includes('chatMesaj chat-kullanici basarili'));
   ok("liste: hedef kısa ad title'ı TAM kimlik taşır", h1.includes('title="' + A1 + '"'));
   ok("liste: boş-durum satırı gizlenir + otomatik en alta kaydırma", sham.chatBos.hidden === true && sham.chatListe.scrollTop === sham.chatListe.scrollHeight);
   ok("gönderim sonrası: editör temizlenir (gönderilen mesaj beklemesin)", sham.composerMesaj.value === "");
@@ -1700,22 +1700,22 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   sham.composerMesaj.value = "<script>alert(1)</script> " + "x".repeat(100);
   await gonder();
   const h2 = sham.chatListe.innerHTML;
-  ok("hata: İNCE satır 'hata: HTTP 429 — pencere dolu' (kırmızı sınıf)", h2.includes(">hata: HTTP 429 — pencere dolu") && h2.includes("chatSonuc hata") && h2.includes('chatMesaj hata'));
+  ok("hata: İNCE satır 'hata: HTTP 429 — pencere dolu' (kırmızı sınıf)", h2.includes(">hata: HTTP 429 — pencere dolu") && h2.includes("chatSonuc hata") && h2.includes('chatMesaj chat-kullanici hata'));
   ok("hata: mesaj editörde KALIR (yeniden deneme yüzü dürüst)", sham.composerMesaj.value.includes("<script>"));
   ok("XSS: mesaj metni esc'ten geçer (görüntü + title)", h2.includes("&lt;script&gt;alert(1)&lt;/script&gt;") && !h2.includes("<script>alert"));
-  ok("taşma: görüntü kisalt(80) + '…'; title TAM metin", h2.includes("…") && /title="&lt;script&gt;alert\(1\)&lt;\/script&gt; x{100}"/.test(h2));
+  ok("FAZ-I taşma: TAM metin balonda (kisalt(m.metin,80) KALDIRILDI — balon kendi sarar; kesme '…' YOK)", !chatSlice.includes("kisalt(m.metin, 80)") && h2.includes("&lt;script&gt;alert(1)&lt;/script&gt; " + "x".repeat(100)));
 
   /* (4) ağ hatası: fetch reddi → dürüst 'hata: bağlantı koptu' */
   agHatasi = true;
   sham.composerMesaj.value = "bağlantı denemesi";
   await gonder();
-  ok("ağ hatası: 'hata: bağlantı koptu' ince satırda (kirmiziYüz DEĞİL)", sham.chatListe.innerHTML.includes("hata: bağlantı koptu") && sham.chatListe.innerHTML.includes("chatMesaj hata"));
+  ok("ağ hatası: 'hata: bağlantı koptu' ince satırda (kirmiziYüz DEĞİL)", sham.chatListe.innerHTML.includes("hata: bağlantı koptu") && sham.chatListe.innerHTML.includes("chatMesaj chat-kullanici hata"));
   agHatasi = false;
 
   /* (4b) kurtarma: ağ döndü → yeniden gönderim 'gönderildi' ile kapanır */
   yanit = { ok: true, json: async () => ({ gonderildi: true, zamanISO: "2026-11-03T12:05:00Z" }) };
   await gonder();
-  ok("kurtarma: yeniden gönderim 'gönderildi' ince satırıyla kapanır (editör temizlenir)", sham.chatListe.innerHTML.includes("chatMesaj basarili") && sham.composerMesaj.value === "");
+  ok("kurtarma: yeniden gönderim 'gönderildi' ince satırıyla kapanır (editör temizlenir)", sham.chatListe.innerHTML.includes("chatMesaj chat-kullanici basarili") && sham.composerMesaj.value === "");
 
   /* (5) emoji taraması: render çıktısında sembol karakteri YOK (§4 — renk diliyle anlatılır) */
   const emojiChat = (sham.chatListe.innerHTML.match(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}\u{2713}\u{2714}\u{26A0}]/gu) || []);
@@ -1919,7 +1919,7 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   ok("agacSayi rozet 13px kalın mono (büyük resim — sayı okunur)", /\.agacSayi\s*\{[^}]*font:\s*700 13px var\(--mono\)/.test(HTML));
   ok("ana + alt şerit sekme fontu 15px", /\.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML) && /#altSekmeSerit \.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML));
   ok("özet hero: ozetDeger 30px/700 + ozetEtiket 13px + yazi 16px + damga 14px + ozetAlt 12px", /\.ozetDeger\s*\{[^}]*font-size:\s*30px/.test(HTML) && /\.ozetDeger\s*\{[^}]*font-weight:\s*700/.test(HTML) && /\.ozetEtiket\s*\{[^}]*font-size:\s*13px/.test(HTML) && /\.ozetDeger\.yazi\s*\{[^}]*font-size:\s*16px/.test(HTML) && /\.ozetDeger\.damga\s*\{[^}]*font-size:\s*14px/.test(HTML) && /\.ozetAlt\s*\{[^}]*font-size:\s*12px/.test(HTML));
-  ok("chat liste metni 15px + saat/kimlik 11px + sonuc 12px", /\.chatMetin\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatKimlik\s*\{[^}]*11px var\(--mono\)/.test(HTML) && /\.chatSonuc\s*\{[^}]*font-size:\s*12px/.test(HTML));
+  ok("chat balon FAZ-I: .chatMesaj 15px/1.55 + chatKim 11.5px/700 + chatSaat 11px + sonuc 12px (eski chatMetin/chatKimlik KALKTI — 51m'de kalıntı pini)", /\.chatMesaj\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.chatMesaj\s*\{[^}]*line-height:\s*1\.55/.test(HTML) && /\.chatKim\s*\{[^}]*font-size:\s*11\.5px/.test(HTML) && /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatSonuc\s*\{[^}]*font-size:\s*12px/.test(HTML));
   ok("planTablo satır: td 14px + padding 6px 10px (satır ≈34px) + th 11px + tfoot 12px", /\.planTablo td\s*\{[^}]*font-size:\s*14px/.test(HTML) && /\.planTablo td\s*\{[^}]*padding:\s*6px 10px/.test(HTML) && /\.planTablo th\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.planTablo tfoot td\s*\{[^}]*font-size:\s*12px/.test(HTML));
   /* --- NEFES (padding/dikey boşluk) --- */
   ok("bolum padding 16px 20px 20px + kolonlar arası 16px", /\.bolum\s*\{[^}]*padding:\s*16px 20px 20px/.test(HTML) && /#sol > \.bolum, #sag > \.bolum\s*\{[^}]*margin-top:\s*16px/.test(HTML));
@@ -1938,4 +1938,46 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   /* --- veri katmanı hunk YOK (diff denetimi desteği) --- */
   ok("veri katmanı AYNEN: cek(UC. sayısı 7 + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
   ok("renk dili AYNEN: petrol tek aksan + token seti birebir (YENİ renk YOK — FAZ-H yalnız ölçek/nefes)", HTML.includes("--camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;") && HTML.includes("--zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;") && HTML.includes("--metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);"));
+});
+
+test("51m- PANEL-ANA-1 FAZ-I (kaynak-pin + vm): sağ chat TUVAL DİLİ — balon mesajlar (gönderilen SAĞA hizalı petrol balon + chatKim üstte/chatSaat altta + TAM metin) + hata kırmızı tonu KALIR + eski log satır görünümü KALKAR (bilinçli)", () => {
+  const j = jsKisim();
+  const h = htmlKisim();
+  /* --- balon yapı (CSS — kapsul-tuval #chatBolum dili uyarlanır) --- */
+  ok("balon gövde: 15px/1.55 + padding 8px 10px + radius + overflow-wrap:anywhere (balon kendi sarar)", /\.chatMesaj\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.chatMesaj\s*\{[^}]*line-height:\s*1\.55/.test(HTML) && /\.chatMesaj\s*\{[^}]*padding:\s*8px 10px/.test(HTML) && /\.chatMesaj\s*\{[^}]*border-radius:\s*var\(--radius-k\)/.test(HTML) && /\.chatMesaj\s*\{[^}]*overflow-wrap:\s*anywhere/.test(HTML));
+  ok("balon içindeki p margin:0 (tuval deseni)", /\.chatMesaj p\s*\{[^}]*margin:\s*0/.test(HTML));
+  ok("chat-kullanici: petrol balon rgba(15,76,129,0.08)/0.3 + SAĞA hizalı (align-self:flex-end + max-width:92%)", /\.chatMesaj\.chat-kullanici\s*\{[^}]*background:\s*rgba\(15,76,129,0\.08\)/.test(HTML) && /\.chatMesaj\.chat-kullanici\s*\{[^}]*border:\s*1px solid rgba\(15,76,129,0\.3\)/.test(HTML) && /\.chatMesaj\.chat-kullanici\s*\{[^}]*align-self:\s*flex-end/.test(HTML) && /\.chatMesaj\.chat-kullanici\s*\{[^}]*max-width:\s*92%/.test(HTML));
+  ok("hata balonu kırmızı tonu KALIR: rgba(220,38,38,0.06) bg + kırmızı kenar", /\.chat-kullanici\.hata\s*\{[^}]*background:\s*rgba\(220,38,38,0\.06\)/.test(HTML) && /\.chat-kullanici\.hata\s*\{[^}]*border-color:\s*rgba\(220,38,38,0\.35\)/.test(HTML));
+  ok("başarı kenarı yeşil ton (eski sol kenar sinyalinin karşılığı — basari rgba)", /\.chat-kullanici\.basarili\s*\{[^}]*border-color:\s*rgba\(4,120,87,0\.4\)/.test(HTML));
+  ok("chatKim ÜSTTE: 11.5px/700 + letter-spacing 0.06em + ikincil + margin-bottom 3px", /\.chatKim\s*\{[^}]*font-size:\s*11\.5px/.test(HTML) && /\.chatKim\s*\{[^}]*font-weight:\s*700/.test(HTML) && /\.chatKim\s*\{[^}]*letter-spacing:\s*0\.06em/.test(HTML) && /\.chatKim\s*\{[^}]*margin:\s*0 0 3px/.test(HTML));
+  ok("chatSaat ALTTA: 11px + ikincil + margin-top 4px (tuval deseni)", /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatSaat\s*\{[^}]*margin:\s*4px 0 0/.test(HTML) && !/\.chatSaat\s*\{[^}]*font-family:\s*var\(--mono\)/.test(HTML));
+  ok("chatListe flex column + gap 6px (tuval chat hattı)", /\.chatListe\s*\{[^}]*display:\s*flex; flex-direction:\s*column;\s*gap:\s*6px/.test(HTML));
+  ok("boş durum İNCE balon: chatOturumNotu + #chatBos chat-sistem görünümü (yuzey2 + dashed)", /\.chatOturumNotu\s*\{[^}]*background:\s*var\(--yuzey2\)/.test(HTML) && /\.chatOturumNotu\s*\{[^}]*border:\s*1px dashed var\(--cizgi\)/.test(HTML) && /#chatBos\s*\{[^}]*border:\s*1px dashed var\(--cizgi\)/.test(HTML) && /#chatBos\s*\{[^}]*background:\s*var\(--yuzey2\)/.test(HTML));
+  ok("composer cila: #composerForm gap 6px (tuval chatForm hizası — gönderim mantığı AYNEN)", /#composerForm\s*\{[^}]*gap:\s*6px/.test(HTML));
+  /* --- eski log satır görünümü KALKAR (bilinçli pin — kalıntı 0) --- */
+  ok("eski chatSatir/chatKimlik/chatMetin sınıf kalıntısı 0 (bilinçli: balon dili)", !HTML.includes("chatSatir") && !HTML.includes("chatKimlik") && !HTML.includes("chatMetin"));
+  ok("köşeli parantez log formatı render'da KALDI (bilinçli: [saat]/[hedef] gitti)", !j.includes("'[' + esc(m.saat)") && !j.includes("'[' + esc(m.hedefKisa)"));
+  ok("kisalt(m.metin, 80) kalıntısı 0 (balon kendi sarar — TAM metin esc ile)", !j.includes("kisalt(m.metin, 80)"));
+  /* --- AYNA korunur --- */
+  ok("role=log + aria-live=polite AYNEN", /id="chatListe"[^>]*role="log"[^>]*aria-live="polite"/.test(h));
+  ok("CHAT_TAVAN 200 + shift AYNEN (oturum-içi bellek — localStorage YOK)", j.includes("const CHAT_TAVAN = 200") && j.includes("oturumMesajlari.shift()"));
+  ok("composer AYNEN: POST /api/mesaj + 2 AYRI optgroup + GÖNDER 40px §5", j.includes('"/api/mesaj"') && (j.match(/<optgroup/g) || []).length === 2 && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  ok("30sn odak koruması AYNEN: odakIcindeMi(\"#bolum-composer\")", j.includes('odakIcindeMi("#bolum-composer")'));
+  ok("kompakt konuşma başlık satırı KORUNUR (durum noktası + seçili konuşma + sağlayıcı)", /\.chatBaslikSatiri\s*\{/.test(HTML) && j.includes("chatBaslikYaz"));
+  /* --- vm: balon render — hata yolu + esc/XSS + yapı sırası --- */
+  const A = "432e03b7-9004-445c-857d-ebf3b6661d53";
+  const chatFn = HTML.slice(HTML.indexOf("function chatMesajHtml("), HTML.indexOf("function chatMesajYaz("));
+  const chatMesajHtml = vm.runInNewContext(chatFn + "\nchatMesajHtml", { esc: fnAl("esc"), kisalt: fnAl("kisalt") });
+  const hataM = { saat: "18:40", hedefKisa: "432e03b7", hedefKimlik: A, metin: '<script>x</script> ' + "u".repeat(120), sonuc: { tur: "hata", metin: "HTTP 429 — pencere dolu" } };
+  const balon = chatMesajHtml(hataM);
+  ok("vm hata balonu: chatMesaj chat-kullanici hata sınıfı (kırmızı yüz balon dilinde)", balon.includes('class="chatMesaj chat-kullanici hata"'));
+  ok("vm yapı sırası: chatKim ÜSTTE (title TAM kimlik + kısa ad) → metin → saat → sonuç", balon.indexOf('<div class="chatKim" title="' + A + '">432e03b7</div>') < balon.indexOf("<p>&lt;script&gt;") && balon.indexOf('<div class="chatSaat">18:40</div>') < balon.indexOf('class="chatSonucSatiri"'));
+  ok("vm XSS: TAM metin esc'ten geçer (120 karakter KESİLMEDİ — kisalt YOK)", balon.includes("&lt;script&gt;x&lt;/script&gt; " + "u".repeat(120)) && !balon.includes("<script>x"));
+  ok("vm saat: HH:mm köşeli parantez YOK (log formatı gitti)", balon.includes('<div class="chatSaat">18:40</div>') && !balon.includes("[18:40]"));
+  ok("vm hata: sonuç İNCE satır balon içinde ('hata: HTTP 429 — pencere dolu')", balon.includes('class="chatSonuc hata">hata: HTTP 429 — pencere dolu'));
+  const bekleM = { saat: "18:41", hedefKisa: "kurmay", hedefKimlik: A, metin: "deneme", sonuc: { tur: "bekliyor", metin: "" } };
+  const bekleyen = chatMesajHtml(bekleM);
+  ok("vm bekliyor: nötr balon (chat-kullanici — ekstra durum sınıfı YOK) + 'gönderiliyor…'", bekleyen.includes('class="chatMesaj chat-kullanici"') && bekleyen.includes(">gönderiliyor…"));
+  const basM = { saat: "18:42", hedefKisa: "kurmay", hedefKimligi: A, hedefKimlik: A, metin: "tamamlandı", sonuc: { tur: "basarili", metin: "12:00" } };
+  ok("vm başarı: 'gönderildi · 12:00' ince satır + chat-kullanici basarili sınıfı", chatMesajHtml(basM).includes(">gönderildi · 12:00") && chatMesajHtml(basM).includes('chatMesaj chat-kullanici basarili'));
 });
