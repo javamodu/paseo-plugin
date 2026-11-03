@@ -1,0 +1,39 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-DEF-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-D+E+F (+E-ek1/E-ek2) — ana şerit sekmeleri DAR + ağaç etiketleri aşırı minimal/okunabilir + aktif projeler ÜSTTE (yazıcı teslimi)",
+  "tarih": "2026-11-03T17:33",
+  "yazici": "glm53u-claude/glm-5.3 (ajan 3f3584c0-aa80-44f4-a71d-bf82c9b7671e; koordinatör KURMAY-1 8cc610a4)",
+  "dosyaRef": [
+    "pano/ordu-panosu.html",
+    "pano/ordu-panosu.test.mjs"
+  ],
+  "etiket": ["pano", "arayuz", "agac", "sekme", "kompakt", "siralama"],
+  "ozet": "TEK dalga, ÜÇ faz: FAZ-D ana şerit proje sekmeleri DAR — etiket kisalt(ad,16) + title 'TAM ad — dizin' + data-ana TAM dizin AYNEN + CSS #anaSekmeSerit .sekme padding:0 8px + .anaSekmeGrup .sekme max-width:180px/overflow:hidden/text-overflow:ellipsis (taşma emniyeti) + ORDU sabit sekme + sekmeKapat AYNEN. FAZ-E ağaç etiketleri «aşırı minimal»: oturum düğümü kisalt(a.etiket,12) (eski 20), proje satırı görünen ad kisalt(pr.projeAdi,14); E-ek1: satır title'ı birleşik dürüst bicim 'TAM projeAdi — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR; agacAd'in kendi title'i kaldırıldı — çift tooltip yok); E-ek2 font büyütme: .agacProjeBas/.agacAjan 12→13px (kompakt baz 13px), .agacGrupBas 10→11px, satır 28px KORUNUR (§5 ≥26px); CHAT başlığındaki kisalt(a.etiket,20) + AKIŞ kisalt(o.ad,80) AYNEN (kullanıcı «soldaki» dedi). FAZ-F aktif projeler ÜSTTE: agacYaz'da stabil ayrım — PRIMARY aktif-öncelik (calisanSay>0, lastStatus running sayımının aynısı), SECONDARY mevcut sıra (ORDU-önce + ordu-agac-sira ↑/↓ tercihi) GRUP İÇİNDE yaşar; kalıcı kayıt ŞEMASI DEĞİŞMEZ, YENİ localStorage anahtarı YOK, yeni başlık/blok YOK.",
+  "kanit": {
+    "panoNpm": { "tests": 77, "pass": 77, "fail": 0, "exit": 0, "not": "mevcut 76 vakanın tamamı yeşil + 51j YENI (23 ok: kaynak-pin + vm davranış)" }
+  },
+  "bilincliPinDegisimleri": [
+    "pano/ordu-panosu.test.mjs satır ~319 (test 10): '.agacAjan font-size:12px' → 13px (E-ek2 — okunabilirlik öne geçti)",
+    "pano/ordu-panosu.test.mjs satır ~1539 (test 51f): alfa title pini 'title=\"2 çalışan · 4 ajan kaydı\"' → 'title=\"alfa — 2 çalışan · 4 ajan kaydı\"' (E-ek1 birleşik bicim)",
+    "pano/ordu-panosu.test.mjs satır ~1536 (test 51f(1)): FAZ-F — eski 'ORDU önce' sıra pini → 'AKTİF P-alfa üstte; pasifler [ORDU, beta] grup içi ORDU-önce'",
+    "pano/ordu-panosu.test.mjs satır ~1556 (test 51f(2)): kayıtlı-sıra pini → 'aktif P-alfa üstte; pasifler kayıtlı sırada [beta, ORDU]'",
+    "pano/ordu-panosu.test.mjs satır ~1373 (test 51c): vm ctx'e kisalt EKLENDİ (FAZ-D bilinçli: anaSekmeYaz artık kisalt(ad,16) çağırır — eski ctx'te fonksiyon yoktu, ReferenceError)",
+    "pano/ordu-panosu.test.mjs satır ~1399-1426 (test 51d): başlık/açıklama + beklenen dize '>01234567890…</span>' (FAZ-E eşik 20→12)"
+  ],
+  "yeniPinler": [
+    "51j (kaynak-pin + vm) — FAZ-D: kisalt(ad,16) + esc(ad + ' — ' + dizin) + data-ana TAM dizin + #anaSekmeSerit .sekme padding:0 8px + .anaSekmeGrup .sekme max-width:180px/overflow/ellipsis + ORDU sabit + sekmeKapat; vm: uzun ad 15+'…' görünür + title 'TAM — dizin' + data-ana TAM + kısa ad aynen + ORDU ilk. FAZ-E: kisalt(a.etiket,12) + kisalt(pr.projeAdi,14) + E-ek1 birleşik satır title pini + agacAd kendi title'i YOK + chat kisalt(a.etiket,20) AYNEN + akis kisalt(o.ad,80) AYNEN + E-ek2 font pinleri (13/13/11px) + 28px korunur. FAZ-F: calisanSay/gorunen kaynak pinleri + ordu-agac-sira şeması aynen + YENİ anahtar YOK pini",
+    "51f(2)'ye ek ok: FAZ-F 'kayıt YENİ anahtar doğurmaz' (ordu-agac-aktif/pasif/fa desenine karşı)"
+  ],
+  "yapamadim": [
+    "canlı DOM/PNG kanıtı YOK — 4937'ye dokunma yasağı (HTML diskten servis edilir; tarayıcı koordinatör kapanışında)",
+    "K2 görsel kabul kullanıcıda (açık)",
+    "başlık-birleşme (workspaces.json rename'lerin okunması) FAZ-G AYRI DALGA — bu tura ALINMADI (koordinatör sınırı)"
+  ],
+  "durustNotlar": [
+    "text-overflow:ellipsis inline-flex düğmede glif BASMAZ (tarayıcı semantiği) — ana şeritte CSS katmanı yalnız taşma EMNİYETİDİR; görünür kesme JS kisalt(.,16) + title TAM'dır (CSS yorumunda + raporda kayıtlı). Ağaçtaki .agacAd/.agacDugumAd blok-düzey flex öğesidir — orada ellipsis glif basar, kisalt birincil kesme yine de JS'tir",
+    "agacSirala (↑/↓) ham agacSiraUygula sırası üzerinde çalışır — grup SINIRI geçen taşımalar (aktif↔pasif arası) FAZ-F ayrımında görüntüde no-op'tir; grup İÇİ taşımalar aynen çalışır (51f(3) aynen yeşil). Bu bilinen sınır, davranış kaybı değil"
+  ],
+  "oneri": "koordinatör kapanışında canlı 4937 /ordu: (a) ana şeritte uzun adlı proje sekmesi dar + hover'da title 'TAM ad — dizin'; (b) sol ağaçta aktif projeler üstte + dar/okunur etiketler (13px) + satır hover'ında 'TAM ad — N çalışan · M ajan kaydı' title; (c) ↑/↓ ile grup-içi sıra (ekran PNG raporlar/ordu-panosu-2026-11-03/ altına)",
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-03 17:39): (1) koordinatör koşumları pano npm 77/77 + repo glob 299/299 (298+51j, kurulmuş pano+scripts deseni) EXIT=0 — yazıcı iddiası birebir. (2) diff denetimi: html +32/−11 · test +53/−10; JS hunk'ları yalnız anaSekmeYaz + agacYaz + ajanDugumHtml + CSS font blokları — fetch/optgroup/CHAT_TAVAN/composer hunk YOK. (3) CANLI DOM 4937 (diskten, restart'sız): ağaç proje satırı 14 kar + title 'TAM ad — N çalışan · M ajan kaydı' + 13px + 28px satır; oturum 12 kar + 13px + data-ajan TAM 36; grup başlığı 11px; FAZ-F ilk 3 satır aktif (çalışan 1) sonra 0'lar; FAZ-D uzun sekme 'c-Users-gatep-L…' 16 kar + 118px + max-width 180 + title 'TAM ad — dizin' (kapatınca şerit ORDU'ya döndü); GÖNDER 40px + composer AYNEN (sarmalayıcı + optgroup 2 + token password); emoji 0; chat role=log. (4) kontrollü canlı test dürüst notu: sekme aç/kapa kullanıcının görünümünde ölçüldü, sonunda kapatıldı + sayfa yenilendi. (5) EK BULGU (daldan bağımsız): plans/uygulama-paketleri/DC-H1-2026-10-28/dogrula.test.mjs kırmızı (planned-file-already-exists 35 madde — eski plan-durumu doğrulaması; kurulmuş glob'a dahil değil) — [insan] kuyruğuna alındı. (6) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-def.png (134,5 KB). (7) K2 görsel kabul KULLANICIDA — açık. Kuyruk: FAZ-G — workspaces.json başlık birleşimi (198 kayıt, cwd anahtarlı; sunucu tarafı ordu-birlesim.mjs + 4937 restart)."
+}

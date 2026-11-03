@@ -150,6 +150,12 @@
     border-radius:0; padding:4px 4px 0;
   }
   .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; }
+  /* ---- (FAZ-D) ANA ŞERİT PROJE SEKMELERİ: DAR aile + taşma emniyeti ----
+     K-0061 üç-katman: CSS max-width/clip + JS kisalt(ad,16) + title TAM ad.
+     Not: text-overflow flex kapsayıcıda glif basmaz (tarayıcı semantiği) — CSS
+     katmanı burada taşma EMNİYETİDİR; görünür kesme JS kisalt + title TAM. ---- */
+  #anaSekmeSerit .sekme { padding:0 8px; } /* alt şeritle aynı dar dolgu (FAZ-B ailesi) */
+  .anaSekmeGrup .sekme { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
   .sekme { /* KOMPAKT: 30px sekme · 12px etiket */
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
     min-height:30px; border:1px solid transparent; border-bottom:0;
@@ -441,7 +447,7 @@
   .agacProjeBas {
     display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:28px;
     padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--metin); font-size:12px; font-weight:700; text-align:left; cursor:pointer;
+    color:var(--metin); font-size:13px; font-weight:700; text-align:left; cursor:pointer; /* E-ek2: 12→13px (kompakt baz 13px; okunabilirlik öne geçti) */
     white-space:nowrap; transition:background 160ms ease; /* E12: yalnız renk */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
@@ -473,7 +479,7 @@
   .agacGrupBas {
     display:flex; align-items:center; gap:5px; width:100%; min-height:28px;
     padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font:700 10px var(--mono); letter-spacing:0.06em; text-align:left;
+    color:var(--ikincil); font:700 11px var(--mono); letter-spacing:0.06em; text-align:left; /* E-ek2: 10→11px */
     cursor:pointer; white-space:nowrap; transition:color 160ms, background 160ms; /* E12: yalnız renk */
   }
   .agacGrupBas:hover { color:var(--metin); background:var(--yuzey2); }
@@ -487,7 +493,7 @@
   .agacAjan {
     display:flex; align-items:center; gap:6px; width:100%; min-height:28px;
     padding:1px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font-size:12px; text-align:left; cursor:pointer;
+    color:var(--ikincil); font-size:13px; text-align:left; cursor:pointer; /* E-ek2: 12→13px — .agacDugumAd buradan kalıtır (kompakt baz 13px) */
   }
   .agacAjan:hover { background:var(--yuzey2); color:var(--metin); }
   .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
@@ -1589,11 +1595,12 @@ const NOKTA_SINIF = { running: "yesil", idle: "gri", error: "kirmizi", closed: "
 function ajanDugumHtml(a, pr) {
   const secili = agacSecili === a.ajanKimligi;
   const nokta = NOKTA_SINIF[a.lastStatus] || "gri";
-  /* KISA AD KURALI (steering 2026-11-03): etiket VARSA kisalt(etiket,20); yoksa kısa kimlik.
-     data-ajan TAM kimliktir (seçim/yerleşim değişmez); düğüm adı .agacDugumAd'da tek satır.
+  /* KISA AD KURALI (steering 2026-11-03 «aşırı minimal» — FAZ-E): etiket VARSA
+     kisalt(etiket,12); yoksa kısa kimlik. data-ajan TAM kimliktir (seçim/yerleşim
+     değişmez); düğüm adı .agacDugumAd'da tek satır.
      Sağ kart TAM kimlik + TAM etiket göstermeye DEVAM EDER. */
   const etiketVar = typeof a.etiket === "string" && a.etiket.trim();
-  const ad = etiketVar ? kisalt(a.etiket, 20) : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
+  const ad = etiketVar ? kisalt(a.etiket, 12) : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
   const adTitle = etiketVar ? esc(a.etiket) : esc(a.ajanKimligi);
   return (
     '<button type="button" class="agacAjan' + (secili ? " secili" : "") + '" data-ajan="' + esc(a.ajanKimligi) + '" data-proje="' + esc(pr.dizin) + '" title="' + esc(a.ajanKimligi) + '">' +
@@ -1677,23 +1684,34 @@ function agacYaz() {
     return;
   }
   const projeler = agacSiraUygula(P.projeler);
+  /* FAZ-F (kullanıcı emri «aktif projeler üstte olsun pasifler aşağıda» 2026-11-03):
+     PRIMARY anahtar = aktif öncelik (>= 1 GERÇEK ÇALIŞAN — lastStatus running sayımının
+     aynısı); SECONDARY = mevcut sıra AYNEN (ORDU-önce varsayılanı + kayıtlı ↑/↓ tercihi
+     ordu-agac-sira) GRUP İÇİNDE yaşar. Stabil ayrım — kalıcı kayıt DEĞİŞMEZ, yeni
+     localStorage anahtarı YOK; yalnız görüntü sırası. Yeni başlık/blok YOK (kompakt dil). */
+  const calisanSay = (pr) => (Array.isArray(pr.ajanlar) ? pr.ajanlar.filter((x) => x.lastStatus === "running").length : 0);
+  const gorunen = [...projeler].sort((a, b) => (calisanSay(b) > 0 ? 1 : 0) - (calisanSay(a) > 0 ? 1 : 0));
   let html = "";
   let toplamAjan = 0;
   let aktifProje = 0; /* >= 1 ÇALIŞAN ajanı olan proje (gerçek sayım — uydurma yok) */
-  for (const pr of projeler) {
+  for (const pr of gorunen) {
     const acik = agacAcik.has(pr.dizin);
     const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
     toplamAjan += ajanlar.length;
-    const calisan = ajanlar.filter((x) => x.lastStatus === "running").length;
+    const calisan = calisanSay(pr);
     const hatali = ajanlar.filter((x) => x.lastStatus === "error").length;
     if (calisan > 0) aktifProje++;
     html +=
       '<div class="agacProje' + (acik ? " acik" : "") + '">' +
       '<div class="agacProjeSatir">' +
-      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
+      /* FAZ-E + E-ek1 («aşırı minimal» + «kısalmıyor» steering'leri 2026-11-03): görünen ad
+         kisalt(.,14); TAM ad SATIR title'ında — çalışan/kayıt bilgisi KORUNARAK birleşik
+         bicim 'TAM ad — N çalışan · M ajan kaydı'; data-proje TAM dizin AYNEN; aria-expanded
+         AYNEN. (agacAd'in kendi title'i kaldirildi — satir title'i zaten TAM adı taşır.) */
+      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(pr.projeAdi) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
-      '<span class="agacAd">' + esc(pr.projeAdi) + "</span>" +
+      '<span class="agacAd">' + esc(kisalt(pr.projeAdi, 14) || pr.projeAdi) + "</span>" +
       (hatali > 0
         ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
         : "") +
@@ -1990,9 +2008,12 @@ function anaSekmeYaz() {
     const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x.dizin === dizin) : null;
     const ad = pr ? pr.projeAdi : dizin; /* kayıt taramadan düştüyse dizin adı dürüst yedek */
     const aktif = aktifSekme === dizin;
+    /* FAZ-D (steering «üst sekme çok fazla geniş oluyor»): etiket kisalt(ad,16) +
+       title TAM ad — dizin (kisalt null dönerse dürüst yedek ad); data-ana TAM dizin
+       AYNEN — seçim yolu değişmez; sekmeKapat aynen. */
     html +=
       '<span class="anaSekmeGrup" role="presentation">' +
-      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(dizin) + '">' + esc(ad) + "</button>" +
+      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' + esc(kisalt(ad, 16) || ad) + "</button>" +
       '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat">x</button>' +
       "</span>";
   }
