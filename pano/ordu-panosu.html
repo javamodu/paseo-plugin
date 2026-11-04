@@ -77,7 +77,7 @@
   main {
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
     display:grid; gap:0;
-    grid-template-columns:var(--solW) 6px minmax(0,1fr) 6px var(--sagW); /* duvar 6px — kapsul-tuval deseni */
+    grid-template-columns:var(--solW) 6px minmax(280px,1fr) 6px var(--sagW); /* duvar 6px — kapsul-tuval deseni; FAZ-S: ORTA emniyet tabanı 280 (JS kolonlariYerlestir kazayla atlanırsa yatay taşma — dürüst; görünmez 4px chat'ten iyi) */
   width:100%; max-width:1760px; margin:0 auto; padding:10px; /* FAZ-P §2: EKONOMİK ritim (eski 12px) */
     overflow:hidden;
   }
@@ -153,7 +153,7 @@
   .sekme {
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
     min-height:34px; border:1px solid transparent; border-bottom:0;
-    border-radius:var(--radius-k) var(--radius-k) 0 0;
+    border-radius:0; /* FAZ-S: VSCode editör-sekme dili — düz köşe (eski üst-radius söküldü); aktif sekme üst kenar vurgusu + gövde zeminine BAĞLANAN görünüm */
     background:transparent; color:var(--ikincil); font-size:13px; font-weight:600; /* FAZ-P §1: baz 13px (eski 15px) */
     white-space:nowrap; position:relative; cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
@@ -312,10 +312,12 @@
   .sekme.anaSekme { gap:6px; }
   .sekmeKapat {
     flex:none; display:inline-flex; align-items:center; justify-content:center;
-    width:20px; height:20px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font:700 12px var(--mono); line-height:1; cursor:pointer;
+    box-sizing:content-box; width:28px; height:28px; padding:6px; /* FAZ-S: VSCode kapatma çarpısı — 28px görsel + 12px padding = 40px dokunma hedefi (K-0061 §5); sekmeler kompakt kalır (eski 20px text-x söküldü — §4 inline SVG ×) */
+    border:0; border-radius:var(--radius-cip); background:transparent;
+    color:var(--ikincil); cursor:pointer;
     transition:color 160ms, background 160ms; /* E12: yalnız renk */
   }
+  .sekmeKapat svg { display:block; }
   .sekmeKapat:hover { color:var(--tehlike); background:var(--yuzey2); }
 
   /* ---- (PANEL-CHAT-1) CHAT BİRİMİ (FAZ-O EK-3: #orta'da — eski sağdan ortaya taşındı):
@@ -391,26 +393,28 @@
     background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
   }
 
-  /* ---- (FAZ-O — scope-freeze 84f81c6a + ek-scope 18b3afa4 + EK-3 kolon takası)
-     ORTA KOLON: MİNİ GÖRÜNÜM UYGULAMASI. Üst: 4-ikonlu menü (SOHBET · API ·
-     AYARLAR · DOKTOR — chat görünümünde de kalır). SOHBET (varsayılan): balon
-     history TÜM alan + ALTTA TEK yuvarlak composer bar (solda hedef pill ·
-     ortada auto-grow metin · sağda ekle + gönder ikonları) + ince durum satırı
-     YALNIZ içerik varken — GÖRÜNÜR başka hiçbir şey YOK (label/token kalıntı 0 —
-     chatgpt.com dili). Token KALICI UI YOK: Ayarlar görünümünde. GÖNDER 40px
-     fine / 44px coarse (K-0061) · §4 inline SVG · E12 yalnız renk. ---- */
-  .gorunumMenu { display:flex; gap:6px; flex:none; margin-bottom:8px; }
-  .gorunumSekme {
-    flex:1 1 auto; min-height:32px;
+  /* ---- (FAZ-S — kullanıcı «api ayarlar ve doktor sol panelin üstüne minimal ikon
+     menü olarak taşı .. doktor ayarlar paneli içinde olsun .. yani üstte iki menü
+     ikon olarak var sağ üst köşede» 2026-11-04) 4-İKON görünüm menüsü chat kolonundan
+     SÖKÜLDÜ (SOHBET ikonu gereksiz — chat kolonun kendisi; DOKTOR Ayarlar'ın İÇİNE
+     indi). YERİNE: SOL panel başlık satırının SAĞINDA minimal ikon menü [API][AYARLAR]
+     (VSCode Explorer başlık-ikonları deseni). 40px dokunma hedefi (K-0061 §5;
+     coarse'ta --min-dokunma 44). Sol panel modları: ağaç (varsayılan) | api | ayarlar;
+     aktif ikon TEKRAR tıklanınca AĞAÇ geri döner (toggle). ---- */
+  .bolumBaslikSatiri { display:flex; align-items:center; gap:6px; margin:0 0 8px; }
+  .bolumBaslikSatiri .bolum-etiket { margin:0; flex:1 1 auto; min-width:0; }
+  .solIkonMenu { display:flex; gap:2px; flex:none; }
+  .solIkonDugme {
     display:inline-flex; align-items:center; justify-content:center;
-    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:999px; /* FAZ-P §4: PILL — modern kompakt görünüm menüsü */
-    color:var(--ikincil); cursor:pointer;
+    width:40px; height:40px; padding:0; border:0; border-radius:var(--radius-cip);
+    background:transparent; color:var(--ikincil); cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
-  .gorunumSekme.aktif { background:var(--yuzey3); border-color:var(--camgobegi); color:var(--metin); }
-  .gorunum { display:flex; flex-direction:column; flex:1 1 auto; min-height:0; }
-  .gorunum[hidden] { display:none; } /* flex kuralı [hidden]'ı ezer — açık söylenir */
-  .gorunum > .bolum { margin-top:0; } /* menü satırı üst nefesi verir (FAZ-O EK-3: görünüm sarmalayıcısı içinde — .bolum doğrudan kolon çocuğu değildir) */
+  .solIkonDugme:hover { color:var(--metin); background:var(--yuzey3); }
+  .solIkonDugme.aktif { background:var(--yuzey3); color:var(--camgobegi); }
+  .solIkonDugme:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-2px; }
+  #sol > .bolum[hidden] { display:none; } /* flex kuralı [hidden]'ı ezer — açık söylenir (FAZ-S sol modları) */
+  #bolum-ayarlar .doktorEtiket { margin-top:14px; } /* DOKTOR başlığı — Ayarlar görünümünün İÇİNDE (kullanıcı emri) */
   .ekranOkuyucu { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; } /* yalnız ekran okuyucu metni */
   #composerForm { display:flex; flex-direction:column; gap:6px; margin-top:0; }
   .composerBar {
@@ -497,9 +501,13 @@
     #sol > .bolum { flex:none; }
     #agacAlani { overflow:visible; }
     /* FAZ-C istifte tek chat birimi doğal sıra: liste üstte (min taban 140px — dar
-       ekranda boş liste kutusu görünür kalır) + composer altta */
+       ekranda boş liste kutusu görünür kalır) + composer altta.
+       FAZ-S (kullanıcı «chat bölümünde sabit composer kayboldu»): max-height:56vh
+       EKLENDİ — İÇ scroll döner (overflow-y:auto baz kuralından); 17k px'lik doğal
+       boy transcript composer'ı belge dibine gömüyordu. Bu FAZ-C'nin mobil chat
+       doğal-sıra doktrinini BİLİNÇLİ devirir (ağaç için sayfa-kaydırma AYNEN). */
     #bolum-chat { flex:none; }
-    .chatListe { min-height:140px; }
+    .chatListe { min-height:140px; max-height:56vh; }
   }
   /* ---- FAZ-J (steering «mobile touch %100» 2026-11-03): KABA (dokunmatik) işaretçide
      dokunma hedefleri 44px'e büyür (var(--min-dokunma)) — masaüstü (pointer:fine) K-0061
@@ -507,10 +515,10 @@
   @media (pointer:coarse) {
     .sekme { min-height:var(--min-dokunma); }
     .agacProjeBas, .agacAjan { min-height:var(--min-dokunma); }
-    .sekmeKapat { width:var(--min-dokunma); height:var(--min-dokunma); }
+    .sekmeKapat { width:28px; height:28px; padding:8px; } /* FAZ-S: 28+16=44px coarse hedef (base 28+12=40) */
     #composerGonder { min-height:var(--min-dokunma); } /* yalnız coarse — masaüstünde 40px §5 KORUNUR */
     .composerIkonBtn { width:var(--min-dokunma); height:var(--min-dokunma); min-height:var(--min-dokunma); } /* FAZ-O ekle ikonu */
-    .gorunumSekme { min-height:var(--min-dokunma); } /* FAZ-O görünüm menüsü */
+    .solIkonDugme { width:var(--min-dokunma); height:var(--min-dokunma); } /* FAZ-S sol başlık ikon menüsü */
     .ayarSatir input, .ayarKaydetBtn { min-height:var(--min-dokunma); } /* FAZ-O Ayarlar/API/Doktor eylem girdileri */
   }
   /* hareket azaltma: tüm animasyon/akış kapanır — sekme/akordiyon anında açılır */
@@ -537,60 +545,77 @@
        ordu-agac-sira / ordu-agac-grup anahtarları kodla birlikte gitti).
        ORDU projesi ağaçta İLK ve özel işaretli. Token göstergesi bilinçli YOK:
        ajan verisinde token alanı yoktur. -->
-  <section id="sol" aria-label="gezgin — projeler ve konuşmalar">
+  <section id="sol" aria-label="gezgin — projeler ve konuşmalar; api ve ayarlar görünümleri">
     <section class="bolum" id="bolum-agac" aria-labelledby="agac-baslik">
-      <h2 class="bolum-etiket" id="agac-baslik">
-        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 M6 8 H14 M6 12 H11 M9 16 H13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        GEZGİN
-      </h2>
+      <!-- FAZ-S: başlık satırı — solda GEZGİN etiketi, SAĞDA minimal ikon menü
+           [API][AYARLAR] (VSCode Explorer başlık-ikonları deseni; kullanıcı «üstte
+           iki menü ikon olarak var sağ üst köşede»). Aktif ikon tekrar tıklanınca
+           ağaç geri döner (toggle). DOKTOR ikonu YOK — doktor Ayarlar'ın içinde. -->
+      <div class="bolumBaslikSatiri">
+        <h2 class="bolum-etiket" id="agac-baslik">
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 M6 8 H14 M6 12 H11 M9 16 H13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          GEZGİN
+        </h2>
+        <div class="solIkonMenu" role="toolbar" aria-label="sol panel görünümleri — api ve ayarlar">
+          <button type="button" class="solIkonDugme" id="gsek-api" aria-pressed="false" aria-label="API — panel sunucusu salt-okur uç ölçümü" title="API">
+            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 6 L3 10 L7 14 M13 6 L17 10 L13 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="solIkonDugme" id="gsek-ayarlar" aria-pressed="false" aria-label="AYARLAR — PANO token ve bağlantı doktoru" title="AYARLAR">
+            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 5.5 H17 M3 10 H17 M3 14.5 H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12.5" cy="5.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="10" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="14.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+          </button>
+        </div>
+      </div>
       <div id="agacAlani" class="agac"></div>
       <div id="agacHata" class="kirmiziYuz" role="alert" hidden></div>
       <p class="logNot">ağaç salt-okur disk taramasından (projeler ucu); ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ</p>
+    </section>
+
+    <!-- FAZ-S: sol panel API modu (4-ikon menüden taşındı — içerik AYNEN; salt-okur) -->
+    <section class="bolum" id="bolum-api" aria-label="panel sunucusu api durumu" hidden>
+      <h2 class="bolum-etiket">API</h2>
+      <p class="bosSatir" id="apiOrigin">panel sunucusu: (görünüme girince ölçülür)</p>
+      <p class="bosSatir">salt-okur uçlar (YENİ uç EKLENMEZ):</p>
+      <p class="apiUcSatiri">GET /api/ordu/projeler</p>
+      <p class="apiUcSatiri">GET /api/ordu/kadro</p>
+      <p class="apiUcSatiri">GET /api/graf</p>
+      <button type="button" id="apiOlc" class="ayarKaydetBtn">ÖLÇ</button>
+      <div id="apiSonuclar" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- FAZ-S: sol panel AYARLAR modu (4-ikon menüden taşındı — içerik AYNEN) +
+         DOKTOR bölümü Ayarlar'ın İÇİNDE (kullanıcı «doktor ayarlar paneli içinde
+         olsun»; muayene 3 sıralı kontrol AYNEN) -->
+    <section class="bolum" id="bolum-ayarlar" aria-label="ayarlar ve bağlantı doktoru" hidden>
+      <h2 class="bolum-etiket">AYARLAR</h2>
+      <label class="ayarEtiket" for="ayarToken">PANO token</label>
+      <div class="ayarSatir">
+        <input id="ayarToken" type="password" autocomplete="off" placeholder="PANO_TOKEN değeri" />
+        <button type="button" id="ayarTokenKaydet" class="ayarKaydetBtn">KAYDET</button>
+      </div>
+      <p class="logNot">token tarayıcı localStorage'ında kalır (pano-token anahtarı) ve gönderimlerde yalnız istek başlığında gider. Başka ayar YOK — olmayan ayar satırı uydurulmaz (E10).</p>
+      <p id="ayarSonuc" role="status" aria-live="polite"></p>
+      <h2 class="bolum-etiket doktorEtiket">DOKTOR</h2>
+      <p class="bosSatir">MUAYENE — sunucu erişimi · token doğruluğu · veri doluluğu: her satır GERÇEK ölçümle gelir (tahmin yok).</p>
+      <button type="button" id="doktorMuayene" class="ayarKaydetBtn">MUAYENE</button>
+      <div id="doktorSonuclar" role="status" aria-live="polite"></div>
     </section>
   </section>
 
   <!-- STEERING-9: sol panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
   <div class="splitter" id="splitSol" role="separator" aria-label="sol panel genişliği" aria-orientation="vertical" aria-valuenow="240" tabindex="0"></div>
 
-  <!-- ============ ORTA (#orta): MİNİ GÖRÜNÜM UYGULAMASI (FAZ-O; EK-3 kolon takası
-       2026-11-04 — kullanıcı «chat sekmesini ortaya al orta bölümü sağa al .. yerdeğişsin»:
-       chat eski sağ kolondan ORTA'ya taşındı, sekmeli kabuk SAĞ'a indi; yalnızca YER
-       değişti — iç mantık/veri katmanı/localStorage anahtarları AYNEN) ============
-       Üstte 4-ikonlu menü satırı: SOHBET · API · AYARLAR · DOKTOR (kullanıcı
-       «chat üstünü 4 ikon menü yap altta api ayarlar chat doctor olarak ..
-       token ve diğerlerini ayarlar içine ekle» 2026-11-04). Menü chat görünümünde
-       de üstte kalır; görünüm tercihi oturumda kalır (localStorage'a GİRMEZ),
-       açılış SOHBET.
-       SOHBET (kullanıcı «komple sıfırla ... chatgpt.com gibi»): balon history
-       TÜM alanı doldurur — FAZ-M transcript (kullanıcı SAĞ balon, ajan yanıtı
-       sol ince balon) + panel gönderimleri; ALTTA TEK composer bar (hedef pill
-       + auto-grow metin + ekle + gönder ikonları) + ince durum satırı yalnız
-       içerik varken. GÖRÜNÜR başka hiçbir şey YOK (label/başlık/not/token
-       kalıntı 0). Composer hedefi İKİ AYRI optgroup (FAZ-M spec):
-       (1) ORDU YÖNETİM (sistem) (kadro rolAtamasi MANAGER — disk taramasındaki
-           kimlikle)
-       (2) SEÇİLİ PROJENİN OTURUM AJANLARI (yönetim kimlikleri HARİÇ — oturuma
-           tıklayınca hedef otomatik O AJANA atanır; LABELS.ROL tespiti YAPILMAZ).
-       API: salt-okur uç ölçümü (YENİ uç EKLENMEZ). AYARLAR: PANO token (kayıt
-       localStorage — pano-token anahtarı). DOKTOR: sunucu/token/veri GERÇEK
-       ölçümü. Token gönderimlerde yalnız istek başlığında gider (E10). -->
-  <section id="orta" aria-label="sohbet paneli — sohbet, api, ayarlar ve doktor görünümleri">
-    <div id="gorunumMenu" class="gorunumMenu" role="tablist" aria-label="chat paneli görünümü — sohbet, api, ayarlar, doktor">
-      <button type="button" class="gorunumSekme aktif" id="gsek-sohbet" role="tab" aria-selected="true" aria-controls="gorunum-sohbet" aria-label="SOHBET — seçili oturum yazışmaları ve composer" title="SOHBET">
-        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 V13 H9 L5 17 V13 H3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-      </button>
-      <button type="button" class="gorunumSekme" id="gsek-api" role="tab" aria-selected="false" aria-controls="gorunum-api" aria-label="API — panel sunucusu salt-okur uç ölçümü" title="API">
-        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 6 L3 10 L7 14 M13 6 L17 10 L13 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button type="button" class="gorunumSekme" id="gsek-ayarlar" role="tab" aria-selected="false" aria-controls="gorunum-ayarlar" aria-label="AYARLAR — PANO token" title="AYARLAR">
-        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 5.5 H17 M3 10 H17 M3 14.5 H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12.5" cy="5.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="10" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="14.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-      </button>
-      <button type="button" class="gorunumSekme" id="gsek-doktor" role="tab" aria-selected="false" aria-controls="gorunum-doktor" aria-label="DOKTOR — bağlantı ve token muayenesi" title="DOKTOR">
-        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 10 H7 L9 6 L12 14 L14 10 H17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div id="gorunum-sohbet" class="gorunum" role="tabpanel" aria-label="sohbet görünümü">
-      <section class="bolum" id="bolum-chat">
+  <!-- ============ ORTA (#orta): SOHBET KOLONU (FAZ-S sadeleşme 2026-11-04 —
+       kullanıcı «chat panelini ise yine vscode gibi sekmeli yönetime geçelim» +
+       «api ayarlar ve doktor sol panelin üstüne minimal ikon menü olarak taşı»:
+       4-ikon görünüm menüsü SÖKÜLDÜ — SOHBET ikonu gereksizdi (chat kolonun
+       kendisi), API/AYARLAR sol panele taşındı, DOKTOR Ayarlar'ın içine indi.
+       Kazanılan dikey alan chat'e kalır: balon history kolonun tamamını doldurur
+       + ALTTA TEK yuvarlak composer bar + ince durum satırı yalnız içerik
+       varken. Oturum seçimi SAĞ'daki ana sekme şeridinden (VSCode editör-sekme
+       dili — FAZ-S restyle; davranış FAZ-O EK-2 aynen): ağaç → sekme → chat
+       dolaylı yolu. Token KALICI UI YOK: Ayarlar sol panel modunda. ============ -->
+  <section id="orta" aria-label="sohbet paneli — seçili oturum yazışmaları ve composer">
+    <section class="bolum" id="bolum-chat">
         <p class="chatBaslikSatiri" id="chatBaslik"><span class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</span></p>
         <div id="chatListe" class="chatListe" role="log" aria-live="polite" aria-label="bu oturumda gönderilen mesajlar ve gönderim sonuçları"></div>
         <p class="bosSatir" id="chatBos">bu oturumda henüz mesaj gönderilmedi</p>
@@ -621,39 +646,6 @@
           <p id="composerSonuc" role="status" aria-live="polite"></p>
         </div>
       </section>
-    </div>
-    <div id="gorunum-api" class="gorunum" role="tabpanel" aria-label="api görünümü" hidden>
-      <section class="bolum" aria-label="panel sunucusu api durumu">
-        <h2 class="bolum-etiket">API</h2>
-        <p class="bosSatir" id="apiOrigin">panel sunucusu: (görünüme girince ölçülür)</p>
-        <p class="bosSatir">salt-okur uçlar (YENİ uç EKLENMEZ):</p>
-        <p class="apiUcSatiri">GET /api/ordu/projeler</p>
-        <p class="apiUcSatiri">GET /api/ordu/kadro</p>
-        <p class="apiUcSatiri">GET /api/graf</p>
-        <button type="button" id="apiOlc" class="ayarKaydetBtn">ÖLÇ</button>
-        <div id="apiSonuclar" role="status" aria-live="polite"></div>
-      </section>
-    </div>
-    <div id="gorunum-ayarlar" class="gorunum" role="tabpanel" aria-label="ayarlar görünümü" hidden>
-      <section class="bolum" aria-label="ayarlar">
-        <h2 class="bolum-etiket">AYARLAR</h2>
-        <label class="ayarEtiket" for="ayarToken">PANO token</label>
-        <div class="ayarSatir">
-          <input id="ayarToken" type="password" autocomplete="off" placeholder="PANO_TOKEN değeri" />
-          <button type="button" id="ayarTokenKaydet" class="ayarKaydetBtn">KAYDET</button>
-        </div>
-        <p class="logNot">token tarayıcı localStorage'ında kalır (pano-token anahtarı) ve gönderimlerde yalnız istek başlığında gider. Başka ayar YOK — olmayan ayar satırı uydurulmaz (E10).</p>
-        <p id="ayarSonuc" role="status" aria-live="polite"></p>
-      </section>
-    </div>
-    <div id="gorunum-doktor" class="gorunum" role="tabpanel" aria-label="doktor görünümü" hidden>
-      <section class="bolum" aria-label="bağlantı doktoru">
-        <h2 class="bolum-etiket">DOKTOR</h2>
-        <p class="bosSatir">MUAYENE — sunucu erişimi · token doğruluğu · veri doluluğu: her satır GERÇEK ölçümle gelir (tahmin yok).</p>
-        <button type="button" id="doktorMuayene" class="ayarKaydetBtn">MUAYENE</button>
-        <div id="doktorSonuclar" role="status" aria-live="polite"></div>
-      </section>
-    </div>
   </section>
 
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
@@ -694,12 +686,14 @@
 // ORDU KOMUTA PANELİ — PANEL-SIFIR-1 (kullanıcı fermani 2026-11-03 «herşeyi sök
 // sadece şunu ... sıfırdan kuracağız» + STEER «ortada ise o projeye ait task
 // grafı yer alacak» + FAZ-O EK-3 KOLON TAKASI 2026-11-04): kabuk = SOL tek-seviye
-// proje ağacı akordiyonu + ORTA MİNİ GÖRÜNÜM UYGULAMASI (chat — 4-ikon menü
-// [SOHBET·API·AYARLAR·DOKTOR] + balon history + alttaki TEK composer bar;
-// chatgpt.com dili) + SAĞ sekmeli bölge (ORDU sabit + proje sekmeleri — görev
-// grafı dalga görünümü /api/graf SSOT'tan; ORDU sekmesi tam graf, proje
-// sekmeleri dizin alanına göre dürüst filtre; FAZ-O EK-2 oturum sekmeleri —
-// dürüst oturum kartı; ağaç → sekme → chat dolaylı yolu).
+// proje ağacı akordiyonu (FAZ-S: başlıkta [API][AYARLAR] ikon menüsü — API/AYARLAR
+// modları + DOKTOR Ayarlar'ın içinde; toggle ile ağaca dönüş) + ORTA SOHBET
+// kolonu (balon history + alttaki TEK composer bar; chatgpt.com dili; FAZ-S 4-ikon
+// menü söküldü — dikey alan chat'e) + SAĞ sekmeli bölge (ORDU sabit + proje
+// sekmeleri — görev grafı dalga görünümü /api/graf SSOT'tan; ORDU sekmesi tam
+// graf, proje sekmeleri dizin alanına göre dürüst filtre; FAZ-O EK-2 oturum
+// sekmeleri — dürüst oturum kartı, FAZ-S VSCode editör-sekme restyle; ağaç →
+// sekme → chat dolaylı yolu).
 // Üst bar + alt sekme şeridi + plan tabloları + akış + sağlık + durum kartları
 // + log yüzleri SÖKÜLDÜ; fetch çağrıları daraltıldı: kalan uçlar
 // /api/ordu/projeler (ağaç + composer) + /api/ordu/kadro (composer ORDU
@@ -1556,27 +1550,32 @@ $("composerForm").addEventListener("submit", async (e) => {
   }
 });
 
-/* ---- FAZ-O: MİNİ GÖRÜNÜM UYGULAMASI — 4-ikon menü [SOHBET][API][AYARLAR][DOKTOR]
-   (kullanıcı «chat üstünü 4 ikon menü yap altta api ayarlar chat doctor olarak ..
-   token ve diğerlerini ayarlar içine ekle» 2026-11-04). Görünüm tercihi
-   localStorage'a GİRMEZ (açılış SOHBET); chat state görünüm dönüşünde KORUNUR
-   (gizlenir — sıfırlanmaz, boşaltılmaz). ---- */
-const GORUNUMLER = ["sohbet", "api", "ayarlar", "doktor"];
-let seciliGorunum = "sohbet";
+/* ---- FAZ-S: SOL PANEL MODLARI — ağaç (varsayılan) | api | ayarlar.
+   İKON menü [API][AYARLAR] sol başlık satırının sağında (VSCode Explorer
+   başlık-ikonları deseni — kullanıcı «api ayarlar ve doktor sol panelin üstüne
+   minimal ikon menü olarak taşı .. yani üstte iki menü ikon olarak var sağ üst
+   köşede» 2026-11-04). 4-ikon chat menüsü SÖKÜLDÜ (SOHBET gereksiz — chat kolonun
+   kendisi; DOKTOR Ayarlar'ın içinde). Aktif ikon TEKRAR tıklanınca AĞAÇ geri
+   döner (toggle). Görünüm tercihi localStorage'a GİRMEZ (açılış ağaç);
+   ağaç verisi/süzgeç/akordiyon mantığı AYNEN — yalnız mod geçişi. ---- */
+const SOL_GORUNUMLER = ["agac", "api", "ayarlar"];
+let seciliSolGorunum = "agac";
 
-function gorunumDegistir(ad) {
-  if (!GORUNUMLER.includes(ad)) return; /* fail-closed: bilinmeyen görünüm yok */
-  seciliGorunum = ad;
-  for (const g of GORUNUMLER) {
-    $("gorunum-" + g).hidden = g !== ad;
+function solGorunumDegistir(ad) {
+  if (!SOL_GORUNUMLER.includes(ad)) return; /* fail-closed: bilinmeyen görünüm yok */
+  const hedef = ad === seciliSolGorunum ? "agac" : ad; /* toggle: aktif ikon tekrar tıkla → ağaç döner */
+  seciliSolGorunum = hedef;
+  for (const g of SOL_GORUNUMLER) $("bolum-" + g).hidden = g !== hedef;
+  for (const g of ["api", "ayarlar"]) {
     const dugme = $("gsek-" + g);
-    dugme.classList.toggle("aktif", g === ad);
-    dugme.setAttribute("aria-selected", g === ad ? "true" : "false");
+    dugme.classList.toggle("aktif", hedef === g);
+    dugme.setAttribute("aria-pressed", hedef === g ? "true" : "false");
   }
-  if (ad === "ayarlar") $("ayarToken").value = oku("pano-token") || ""; /* kayıtlı token varsa dolar — uydurma YOK */
-  if (ad === "api") $("apiOrigin").textContent = "panel sunucusu: " + location.origin;
+  if (hedef === "ayarlar") $("ayarToken").value = oku("pano-token") || ""; /* kayıtlı token varsa dolar — uydurma YOK */
+  if (hedef === "api") $("apiOrigin").textContent = "panel sunucusu: " + location.origin;
 }
-for (const g of GORUNUMLER) $("gsek-" + g).addEventListener("click", () => gorunumDegistir(g));
+$("gsek-api").addEventListener("click", () => solGorunumDegistir("api"));
+$("gsek-ayarlar").addEventListener("click", () => solGorunumDegistir("ayarlar"));
 
 /* AYARLAR: PANO token — localStorage (pano-token); gönderimlerde yalnız istek başlığında */
 $("ayarTokenKaydet").addEventListener("click", () => {
@@ -1742,7 +1741,7 @@ function anaSekmeYaz() {
     html +=
       '<span class="anaSekmeGrup" role="presentation">' +
       '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' + esc(kisalt(ad, 14) || ad) + "</button>" +
-      '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat">x</button>' +
+      '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
       "</span>";
   }
   /* FAZ-O EK-2: OTURUM sekmeleri — proje sekmelerinden SONRA; etiket ağaçtaki TAM ad
@@ -1756,7 +1755,7 @@ function anaSekmeYaz() {
     html +=
       '<span class="anaSekmeGrup" role="presentation">' +
       '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="oturum:' + esc(kimlik) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + kimlik) + '">' + esc(kisalt(ad, 14) || ad) + "</button>" +
-      '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat">x</button>' +
+      '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
       "</span>";
   }
   serit.innerHTML = html;
@@ -1931,17 +1930,55 @@ function splitterKur(id, taraf) {
 }
 splitterKur("splitSol", "sol");
 splitterKur("splitSag", "sag");
-/* açılış: kayıtlı genişlikler (clamp'li — pencere arada değişmiş olabilir;
-   FAZ-P anahtar sürümü: yalnız W2 okunur — eski ordu-solW/ordu-sagW kaydı YOK sayılır) */
-for (const taraf of ["sol", "sag"]) {
-  const w = parseInt(oku("ordu-" + taraf + "W2"), 10);
-  if (isFinite(w) && w >= KENAR[taraf].min) genislikUygula(taraf, genislikKenetle(taraf, w));
-}
-window.addEventListener("resize", () => { /* taraf tavanları pencereyle daralabilir — değerleri yeniden kenetle */
-  for (const taraf of ["sol", "sag"]) {
-    const w = parseInt(getComputedStyle(document.documentElement).getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
-    if (isFinite(w)) genislikUygula(taraf, genislikKenetle(taraf, w));
+/* ---- FAZ-S (kullanıcı «chat bölümünde sabit composer kayboldu .. chat paneli
+   kaymıyor» 2026-11-04 — koordinatör canlı ölçümlü kök neden teşhisi): kolon
+   genişlikleri artık kolonlariYerlestir ile TEK ELDEN yönetilir. Eski desen İKİ
+   kusur üretiyordu: (a) kalıcı kullanıcı genişlikleri (ör. sol 324) + sag 560
+   = 896px sabitken pencere daralınca ORTA eziliyoryordu (grid tabanı 0) →
+   1024'te chatListe 82px → 25 balon 10.000px'lik DİKEY ÇUBUKLAR, ~900'de #orta
+   ~4px → composer GÖRÜNMEZ; (b) eski resize işleyicisi hesaplanan değeri OKUYUP
+   İNLINE yazıyordu → medya 900-1279 tabanları (200/420) donuyordu (FAZ-P dürüst
+   not 2'deki davranış — bu kez belirti üretti).
+   YENİ kolonlariYerlestir: (i) :root inline --solW/--sagW ÖNCE kaldırılır
+   (cascade medya dahil taze okunur), (ii) kullanıcı kaydı (ordu-solW2/ordu-sagW2)
+   VARSA onunla üzerine yazılır (KENAR clamp AYNEN), (iii) görünüme sığdırma:
+   ORTA_TABAN 280 + ayraç 24; taşma varsa ÖNCE sag KENAR.sag.min'e kadar, sonra
+   sol KENAR.sol.min'e kadar daraltılır (masaüstü 900+: minimumlar 200+320+280+24
+   = 824 ≤ 900 — hep sığar; <900 zaten tek-kolon medya), (iv) sonuç inline uygula
+   (aria-valuenow AYNEN). localStorage'a YAZMAZ — kayıt yalnız sürükleme/klavye
+   sonunda (mevcut AYNEN); kullanıcı tercihi dar pencerede geçici ezilir,
+   genişleyince geri döner. Grid satırındaki minmax(280px,1fr) emniyet tabanı
+   JS kazayla atlanırsa yatay taşmayı seçer (dürüst). ---- */
+const ORTA_TABAN = 280;
+const AYRAC = 24; /* 2 splitter 12px + 12px emniyet payı (main padding hesaba clientWidth-20 ile girer) */
+function kolonlariYerlestir() {
+  const kok = document.documentElement;
+  kok.style.removeProperty("--solW"); /* (i) inline kaldır — cascade (medya dahil) taze okunur */
+  kok.style.removeProperty("--sagW");
+  const st = getComputedStyle(kok);
+  let sol = parseInt(st.getPropertyValue("--solW"), 10) || 240;
+  let sag = parseInt(st.getPropertyValue("--sagW"), 10) || 560;
+  const kSol = parseInt(oku("ordu-solW2"), 10); /* (ii) kullanıcı kaydı öncelikli (clamp'li) */
+  if (isFinite(kSol) && kSol >= KENAR.sol.min) sol = genislikKenetle("sol", kSol);
+  const kSag = parseInt(oku("ordu-sagW2"), 10);
+  if (isFinite(kSag) && kSag >= KENAR.sag.min) sag = genislikKenetle("sag", kSag);
+  /* (iii) görünüme sığdırma — main padding 10+10 düşülür */
+  const mevcut = kok.clientWidth - 20;
+  const tasan = sol + sag + ORTA_TABAN + AYRAC - mevcut;
+  if (tasan > 0) {
+    const sagDaral = Math.min(sag - KENAR.sag.min, tasan); /* ÖNCE sag daralt */
+    sag -= sagDaral;
+    const solDaral = Math.min(sol - KENAR.sol.min, tasan - sagDaral); /* sonra sol */
+    sol -= solDaral;
   }
+  genislikUygula("sol", sol); /* (iv) inline uygula — aria-valuenow AYNEN */
+  genislikUygula("sag", sag);
+}
+kolonlariYerlestir(); /* açılış — kayıtlı genişlikler + sığdırma tek elden */
+let kolonResizeZaman = 0;
+window.addEventListener("resize", () => { /* FAZ-S: debounce ~100ms — eski oku-ve-inline-yaz dondurması ÖLDÜ */
+  clearTimeout(kolonResizeZaman);
+  kolonResizeZaman = setTimeout(kolonlariYerlestir, 100);
 });
 
 async function kadroYukle() {

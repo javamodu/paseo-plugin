@@ -1,0 +1,53 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-S-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-S — kolon çöküşü kök neden düzeltmesi (kolonlariYerlestir: inline kaldır → cascade taze oku → kullanıcı kaydı → sığdırma ÖNCE sag SONRA sol; grid ORTA taban 280; mobil chatListe 56vh; resize dondurması ÖLDÜ) + 4-ikon menü sol başlık ikon menüsüne ([API][AYARLAR] toggle; DOKTOR Ayarlar'ın içinde) + VSCode editör-sekme restyle (düz köşe + SVG × kapatma)",
+  "tarihISO": "2026-11-04T12:32:00+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-S",
+  "kullaniciSpec": [
+    "chat bölümünde sabit composer kayboldu .. chat paneli kaymıyor",
+    "api ayarlar ve doktor sol panelin üstüne minimal ikon menü olarak taşı ... doktor ayarlar paneli içinde olsun .. yani üstte iki menü ikon olarak var sağ üst köşede . chat panelini ise yine vscode gibi sekmeli yönetime geçelim"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "(A) grid minmax(280px,1fr) + kolonlariYerlestir (removeProperty ×2 → getComputedStyle cascade → oku W2 clamp'li → mevcut=clientWidth-20 → tasan → ÖNCE sagDaral KENAR.sag.min sonra solDaral → genislikUygula aria AYNEN; localStorage'a YAZMAZ) + açılış çağrı + resize debounce 100ms (eski oku-ve-inline-yaz dondurması SÖKÜLDÜ) + mobil ≤899 .chatListe max-height:56vh (İÇ scroll; min 140 KALIR; FAZ-C doktrini BİLİNÇLİ devir; ağaç sayfa-kaydırma AYNEN). (B) 4-ikon menü SÖKÜLDÜ; bolumBaslikSatiri (GEZGİN + solIkonMenu role=toolbar [API][AYARLAR] 40px/coarse 44 aria-pressed; toggle → ağaç); bolum-agac/api/ayarlar modları + #sol>.bolum[hidden] display:none; DOKTOR bolum-ayarlar içinde (doktorEtiket; muayene AYNEN); API/AYARLAR içerik AYNEN; .sekme radius 0 + aktif yuzey + ::after camgobegi; sekmeKapat SVG × (28+6=40 / coarse 28+8=44). DAVRANIŞ: yalnız solGorunumDegistir + kolonlariYerlestir + anaSekmeYaz × markup; sekme/composer/token/esc AYNEN. server.js/birlesim/konusma-oku hunk 0." },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51x YENİ (~92 satır: 15 kaynak pin + 5 vm kolon senaryosu [1280 kullanıcı 324 korunur · 1024 ÖNCE sag 376 · çok-dar 320+200 sırayla + kayıt YAZILMAZ · medya 200/420 cascade taze · resize debounce 100] + 2 vm sekme senaryosu [SVG × render + aktif/sekmeKapat sınıfları] + değişmezler) + 14 dürüst pin güncellemesi (satır no'lu md raporda; 51t 9 bölge); pano 71→72, tam kapı 309→310" }
+  ],
+  "etiket": ["panel", "faz-s", "kolon-cokus", "kolonlariYerlestir", "grid-minmax-280", "sığdırma", "resize-debounce", "sol-ikon-menu", "vscode-sekme", "svg-kapatma-carpisi", "toggle", "doktor-ayarlar-icinde", "mobil-56vh"],
+  "kanit": {
+    "nodeTestPano": { "tests": 72, "pass": 72, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazs-t1.txt", "kosumNotu": "51x İLK koşumda yeşil — kırılan pin 0" },
+    "tamKapiAcikGlob": { "tests": 310, "pass": 310, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazs-tam.txt + %TEMP%\\fazs-tam-exit.txt", "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs" },
+    "sozdizimi": "node --check test + vm.Script html script SYNTAX_OK",
+    "hijyen": "x-pano-token 2 · CHAT_TAVAN 2 · maxlength 4096 · ordu-agac-secili 6 · @keyframes 1 · box-shadow 1 (=baseline) · webfont 0 · dış URL 0 (w3.org hariç) · U+FFFD 0 · emoji 0 · YENİ renk-token 0 · 4-ikon kalıntı 0 (gorunumMenu/.gorunumSekme/gsek-sohbet/gsek-doktor/bolum-doktor 0) · pano-token alt-dizi 12→11 (yorum tekrarı düştü; bilgi kaybı YOK — logNot + doktor + API yüzeylerinde aynen)",
+    "diffDenetimi": "2 dosya 293+/164−; html JS hunk YALNIZ 3 bölge (solGorunumDegistir + anaSekmeYaz × markup + kolonlariYerlestir/resize); kalanı CSS/HTML/yorum; test 14 bölge + 51x yeni; server.js/birlesim/konusma-oku hunk 0",
+    "dokunulmayan": ["pano/server.js", "pano/konusma-oku.mjs", "pano/ordu-birlesim.mjs", "d1a/d1b", "CODEMAP", "STATE_BOARD"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: RESTART GEREKMEZ (html statik servis; server.js hunk 0 — tarayıcı yenilemesi yeter); canlı DOM: 1024'te kolonlar sığar + composer görünür (kolonlariYerlestir) + sol başlık [API][AYARLAR] toggle + DOKTOR Ayarlar içinde + sekme SVG × + mobil 56vh + ekran kanıtı + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "sığdırma sırası ÖNCE sag SONRA sol (sag daralma payı 440px > sol 160px — ekran-gerçekçi; masaüstü 900+ minimumlar 824 ≤ 900 hep sığar)",
+    "kullanıcı genişlik tercihi dar pencerede GEÇİCİ ezilir (localStorage'a YAZILMAZ — kayıt yalnız sürükleme/klavye; genişleyince geri döner)",
+    "minmax(280px,1fr) emniyet tabanı — JS atlarsa yatay taşma (sessiz 4px chat'ten dürüst)",
+    "mobil 56vh İÇ scroll — FAZ-C doğal-sıra doktrini BİLİNÇLİ devri (17k px transcript composer'ı gömüyordu); ağaç sayfa-kaydırma AYNEN",
+    "toggle: aktif ikon tekrar tıkla → AĞAÇ döner (VSCode Explorer kalıbı); role=toolbar + aria-pressed (WAI-ARIA aç-kapa düğmesi)",
+    "DOKTOR ayrı görünüm DEĞİL — Ayarlar'ın İÇİNDE bölüm (kullanıcı emri); muayene 3 sıralı kontrol DOKUNULMADI",
+    "SVG × inline (mevcut §4 deseni, currentColor); 28+6=40 / coarse 28+8=44 (K-0061 §5); emoji/ikon-font/dış URL YOK",
+    "anaSekmeYaz markup değişti DAVRANIŞ aynı (data-ana/data-kapat/oturum: uzayı/kapanış zinciri AYNEN)",
+    "görünüm tercihi localStorage'a GİRMEZ (açılış ağaç) — FAZ-O doktrini devri",
+    "pano-token yorum tekrarı geri EKLENMEDİ (bilgi mevcut yüzeylerde — şişirme olmasın)"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı PNG (koordinatör — restart GEREKMEZ, tarayıcı yenilemesi yeter)",
+    "K2 görsel kabul (kullanıcıda)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 12:47 +03:00): (1) bağımsız tam kapı 310/310 EXIT=0 (%TEMP%\\fazs-koordinator.txt + gerçek çıkış kodu ayrı dosyadan). (2) Diff: 2 dosya +293/−164 net; JS yalnız 3 bölge bağımsız hunk+anahtar-sözcük taramasıyla (SOL_GORUNUMLER/solGorunumDegistir · anaSekmeYaz SVG × · kolonlariYerlestir+debounce); server.js/birlesim/konusma-oku hunk 0. (3) CANLI KOLON ÇÖKÜŞÜ ÖLDÜ (aynı profil, kullanıcının localStorage sol=324+sag=323 kayıtlarıyla): 1024 → #orta 345 (eski 108), chatListe 319 + iç kaydırma, composer görünür; 950 → sag 320 taban sonra sol 306, orta 292 ≥ 280, localStorage DEĞİŞMEDİ (yazmıyor kanıtı); 1280 → tercihler geri döndü (orta 601, chatListe 575); mobil 390 → chatListe 56vh 472.6px + İÇ kaydırma + composer EKRANDA y=540 + chat önce. (4) CANLI MENÜ+SEKMELER: 4-ikon kalıntı 0 (3 eşleşme SOL_GORUNUMLER sabiti); solIkonMenu toolbar 2 düğme başlık sağında; gerçek tıklama: AYARLAR açılır (ağaç gizli, token+KAYDET+doktor bölümü, aria-pressed) + toggle matrisi 3 geçişte tam; ağaç ajan tıklaması → 'oturum:3f3584c0' sekmesi AKTİF + chat 9 balon; aktif sekme radius 0 + beyaz + petrol 2px üst vurgu; sekmeKapat 40×40 SVG ×. (5) Hijyen: xpano 2 · chatTavan 2 · ml 4096 · panoToken 11 (dürüst — yorum tekrarı, bilgi yüzeylerde) · agacSecili 6 · keyframes 1 · boxShadow 1 · dashed 10 · dis URL w3.org · yasak/emoji/FFFD 0. (6) PNG: ekran-kanit-fazs-kolon-menu-sekme-2026-11-04.png 176.166 bayt 1600x1000 (@1.25 = 1280x800), imza+IHDR doğrulandı; Read PNG boş döndü (4. kez) — K2 KULLANICIDA. (7) Gözlem: sagW2=323 kullanıcının eski kodda paneli elle daraltma izi — yeni kod tercih olarak koruyor. (8) Yazıcı dürüst notları kabul (heredoc exit 2 → Edit · 51x ilk koşumda yeşil). (9) LOC DELTA (K-0062 tavan izlemesi başlangıcı): html +175/−138 = 2030 satır · test +118/−26 = 2721 satır · pano toplam 16.528 satır. (10) Tek elden commit bu kapanışta (CODEMAP dahil)."
+}
