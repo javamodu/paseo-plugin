@@ -8,7 +8,7 @@ import test from "node:test";
 import assert from "node:assert";
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import http from "node:http";
@@ -40,6 +40,15 @@ function istekYapGetir(port, yol) {
     });
     req.on("error", (e) => kapat(new Error("http istegi hatasi: " + e.message)));
     req.end();
+  });
+}
+
+// PANEL-PERF-1: GET + JSON gövde (projeler önbellek testleri — yanıt alanları assert edilir).
+function istekYapGetirJson(port, yol) {
+  return istekYapGetir(port, yol).then((r) => {
+    let gov = null;
+    try { gov = JSON.parse(r.govde); } catch { /* govde json değil */ }
+    return { durum: r.durum, gov };
   });
 }
 
@@ -150,6 +159,101 @@ test("70- izole server: GET / → 302 /ordu (ANA PANEL) · GET /iskelet 200 HTML
     assert.equal(r.durum, 200, "ordu 200 kalmali");
     assert.ok(r.govde.includes("<!DOCTYPE html") || r.govde.includes("<html"), "ordu HTML servis etmeli");
     assert.ok(r.govde.length > 1000, "ordu HTML gövdesi dolu olmali (" + r.govde.length + " bayt)");
+  } finally {
+    if (sunucu) sunucu.kill();
+    rmSync(d, { recursive: true, force: true });
+  }
+});
+
+/* ---- PANEL-PERF-1 (2026-11-04): /api/ordu/projeler TTL önbellek + uçuş-birleştirme ----
+   PANO_PROJELER_TTL_MS test kancasıyla kısa TTL (400ms) — üretim varsayılanı 10sn (server.js).
+   Tarama-sayısı kanıtı DISK-SIDE-EFFECT ile: istekler arası fixture'a YENİ proje dizini eklenir;
+   TTL penceresi içindeki istek onu GÖRMEMELİ (tarama tetiklenmedi), TTL bitince GÖRMELİ (yenilendi). */
+
+test("71- izole server: /api/ordu/projeler TTL önbellek — pencere içinde tarama YOK (disk-side-effect), TTL bitince tarama YENİLENİR", async () => {
+  const d = mkdtempSync(join(tmpdir(), "paseo-projeler-ttl-"));
+  let sunucu = null;
+  try {
+    mkdirSync(join(d, "agents", "D-test-proje"), { recursive: true });
+    writeFileSync(join(d, "agents", "D-test-proje", HEDEF + ".json"), JSON.stringify({ id: HEDEF, provider: "glm53u-claude", lastStatus: "idle", lastActivityAt: "2026-11-04T10:00:00Z", title: "ttl ajan" }), "utf8");
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_PROJELER_TTL_MS: "400" });
+    sunucu = cocuk;
+    /* (a) ilk istek: TAZE tarama (onbellek:false) — tek proje görünür */
+    const r1 = await istekYapGetirJson(port, "/api/ordu/projeler");
+    assert.equal(r1.durum, 200, "ilk istek 200: " + JSON.stringify(r1.gov));
+    assert.equal(r1.gov.onbellek, false, "ilk istek taze tarama (onbellek:false)");
+    assert.ok(Array.isArray(r1.gov.projeler) && r1.gov.projeler.length === 1, "fixture'taki tek proje döner");
+    assert.equal(r1.gov.projeler[0].dizin, "D-test-proje", "dizin adı taramadan gelir");
+    /* (b) diskte YENİ proje doğar (side-effect sayacı yerine gerçek disk kanıtı) */
+    let r;
+    mkdirSync(join(d, "agents", "D-test-yeni"), { recursive: true });
+    writeFileSync(join(d, "agents", "D-test-yeni", HEDEF2 + ".json"), JSON.stringify({ id: HEDEF2, provider: "glm53u-claude", lastStatus: "idle", lastActivityAt: "2026-11-04T10:01:00Z", title: "yeni ajan" }), "utf8");
+    /* (c) TTL penceresi içinde ikinci istek: tarama TETİKLENMEDİ — yeni dizin GÖRÜNMEZ */
+    r = await istekYapGetirJson(port, "/api/ordu/projeler");
+    assert.equal(r.durum, 200, "ikinci istek 200 (önbellekten)");
+    assert.equal(r.gov.onbellek, true, "TTL penceresi içinde onbellek:true");
+    assert.ok(r.gov.projeler.length === 1 && r.gov.projeler[0].dizin === "D-test-proje", "yeni dizin önbellekten GÖRÜNMEZ (tarama tetiklenmedi)");
+    assert.equal(r.gov.olcumAniISO, r1.gov.olcumAniISO, "önbellek yanıtı İLK tarama anını taşır (yanıt anı DEĞİL — dürüstlük)");
+    /* (d) TTL doldu (400ms + pay) → üçüncü istek: tarama YENİLENDİ — yeni dizin GÖRÜNÜR */
+    await new Promise((ok) => setTimeout(ok, 550));
+    r = await istekYapGetirJson(port, "/api/ordu/projeler");
+    assert.equal(r.durum, 200, "üçüncü istek 200 (taze tarama)");
+    assert.equal(r.gov.onbellek, false, "TTL bitince taze tarama (onbellek:false)");
+    assert.ok(r.gov.projeler.length === 2 && r.gov.projeler.some((p) => p.dizin === "D-test-yeni"), "TTL bitince yeni dizin GÖRÜNÜR (tarama yenilendi)");
+    assert.notEqual(r.gov.olcumAniISO, undefined, "taze tarama yeni tarama anı taşır");
+  } finally {
+    if (sunucu) sunucu.kill();
+    rmSync(d, { recursive: true, force: true });
+  }
+});
+
+test("72- izole server: eşzamanlı 2 projeler isteği — TEK tarama (uçuş paylaşımı: aynı tarama anı + aynı liste) + kaynak pini", async () => {
+  const d = mkdtempSync(join(tmpdir(), "paseo-projeler-ucus-"));
+  let sunucu = null;
+  try {
+    mkdirSync(join(d, "agents", "D-test-proje"), { recursive: true });
+    writeFileSync(join(d, "agents", "D-test-proje", HEDEF + ".json"), JSON.stringify({ id: HEDEF, provider: "glm53u-claude", lastStatus: "idle", lastActivityAt: "2026-11-04T11:00:00Z", title: "ucus ajan" }), "utf8");
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_PROJELER_TTL_MS: "400" });
+    sunucu = cocuk;
+    /* (a) iki istek EŞZAMANLI açılır (Promise.all) — tek thread'de ilki taramayı yapar,
+       ikincisi ya önbellekten ya da SÜREN uçuşu paylaşır; iki ayrı tarama AÇILMAZ */
+    const [a, b] = await Promise.all([istekYapGetirJson(port, "/api/ordu/projeler"), istekYapGetirJson(port, "/api/ordu/projeler")]);
+    assert.equal(a.durum, 200, "a 200: " + JSON.stringify(a.gov));
+    assert.equal(b.durum, 200, "b 200: " + JSON.stringify(b.gov));
+    assert.equal(a.gov.olcumAniISO, b.gov.olcumAniISO, "tek tarama: iki yanıt AYNI tarama anını taşır (iki tarama iki farklı an üretirdi)");
+    assert.deepStrictEqual(a.gov.projeler, b.gov.projeler, "tek tarama: iki yanıt aynı proje listesini taşır");
+    /* (b) kaynak pini: uçuş-birleştirme yapısı server.js'te (davranış + kaynak birlikte kanıt) */
+    const srv = readFileSync(SERVER_JS, "utf8");
+    assert.ok(srv.includes("if (!projelerUcus)"), "kaynak pini: süren uçuş kontrolü (paylaşım koşulu) server.js'te");
+    assert.ok(srv.includes("ucus.finally"), "kaynak pini: uçuş hatada da kapanır (finally)");
+  } finally {
+    if (sunucu) sunucu.kill();
+    rmSync(d, { recursive: true, force: true });
+  }
+});
+
+test("73- izole server: hata dürüstlüğü kaynak pinleri — atama YALNIZ başarı yolunda (hata önbelleğe YAZILMAZ) + 500 mesajı + boş tarama dürüst davranış", async () => {
+  const d = mkdtempSync(join(tmpdir(), "paseo-projeler-hata-"));
+  let sunucu = null;
+  try {
+    /* (a) kaynak pinleri: tarama hatası önbelleğe yazılmaz yapısı (atama try/başarı yolunda;
+       projelerTara katmanı fs hatalarını kendisi yuttuğundan [ordu-birlesim.mjs readdirSync/workspaceBasliklari
+       catch'leri] uçta 500 fiilen tetiklenemez — yapı kaynağta pin'lenir, raporda dürüst not) */
+    const srv = readFileSync(SERVER_JS, "utf8");
+    assert.ok(srv.includes("projelerOnbellek = { ts: Date.now(), veri: taze }"), "atama literal'i başarı yolunda (IIFE içi)");
+    assert.ok(srv.indexOf("projelerOnbellek = { ts: Date.now()") < srv.indexOf("paseo projeler okunamadi"), "atama 500 mesajından ÖNCE gelir (hata yolunda atama YOK)");
+    assert.ok(srv.includes('hata: "paseo projeler okunamadi: '), "hata 500 dürüst mesajı korunur (bayat hata dizilmez — fail-closed)");
+    assert.ok(srv.includes("onbellek: true") && srv.includes("onbellek: false"), "onbellek işareti iki yanıt türünü ayırt eder (dürüst etiket)");
+    assert.ok(srv.includes("PANO_PROJELER_TTL_MS"), "TTL test kancası (PASEO_EV deseni) kaynakta");
+    /* (b) davranış: BOŞ Paseo evi (agents/ yok → katman boş liste döner — hata DEĞİL) dürüst
+       200 + boş liste; önbelleğe YAZILIR (boş sonuç hata değildir) → ikinci istek onbellek:true */
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_PROJELER_TTL_MS: "400" });
+    sunucu = cocuk;
+    let r = await istekYapGetirJson(port, "/api/ordu/projeler");
+    assert.equal(r.durum, 200, "boş tarama 200 (hata değil — boş liste dürüst)");
+    assert.ok(Array.isArray(r.gov.projeler) && r.gov.projeler.length === 0, "boş liste dürüst (sahte proje YOK)");
+    r = await istekYapGetirJson(port, "/api/ordu/projeler");
+    assert.equal(r.gov.onbellek, true, "boş tarama sonucu da önbelleğe yazılır (hata değildir)");
   } finally {
     if (sunucu) sunucu.kill();
     rmSync(d, { recursive: true, force: true });

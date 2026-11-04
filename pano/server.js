@@ -57,7 +57,13 @@ const sseIstemci = new Set();
 const KOPRU_KOK_CMD = process.env.PANO_KOPRU_KOK_CMD || null; // izole test kancasi: zincir cozumsuz simulasyonu (503)
 const HEDEF_TTL_MS = 30_000; // hedef beyaz-liste onbellek TTL (/api/veri deseni)
 const GONDERIM_ARALIK_MS = 2_000; // ayni hedefe min gonderim araligi (bellek-ici)
+// PANEL-PERF-1 (2026-11-04): projeler ucu onbellek TTL — env PANO_PROJELER_TTL_MS test kancasi
+// (kisa degerle TTL sinirlari izole test edilir; uretim varsayilani 10sn). Sekil hedefOnbellek
+// AYNEN — { ts, veri }; tarama HATASI onbellige YAZILMAZ (ts ileri alinmaz — bayat hata dizilmez).
+const PROJELER_TTL_MS = Number(process.env.PANO_PROJELER_TTL_MS) > 0 ? Number(process.env.PANO_PROJELER_TTL_MS) : 10_000;
 let hedefOnbellek = { ts: -Infinity, kume: new Set() };
+let projelerOnbellek = { ts: -Infinity, veri: null }; // PANEL-PERF-1: taze { ts, veri } — hata yazilmaz
+let projelerUcus = null; // PANEL-PERF-1: suren tek tarama ucusu (Promise) — eszamanli istekler PAYLASIR
 const sonGonderim = new Map(); // hedef -> son gonderim ms
 
 // GD-004: zaman-sabit token karsilastirma — uzunluk FARKLIYSA timingSafeEqual hic cagrilmez
@@ -438,19 +444,41 @@ const sunucu = http.createServer((req, res) => {
     } catch (e) { jsonYaz(res, 500, { hata: "ordu log okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
-  // STEERING-7: Paseo projeleri — agents/<dizin>/<agentId>.json taramasi. SALT-OKUR, HER ISTEGTE
-  // diskten (bayat onbellek YOK). systemPrompt YANITA GIRMEZ (yalniz sayim alanlari cikar);
-  // bozuk JSON atlanir + sayilir. Ajan kaydi olmayan dizin gorunmez (daemon kayit defteri diskte kapali).
+  // STEERING-7: Paseo projeleri — agents/<dizin>/<agentId>.json taramasi. SALT-OKUR.
+  // PANEL-PERF-1 (2026-11-04): HER ISTEKTE taze tarama KALDIRILDI — panel sekmeleri ~30sn'de bir
+  // yokluyor, taramalar ust uste biniyordu (koordinator olcumu: 33,5sn/8,6sn/3,1sn — kar kurenesi;
+  // graf 4ms idi, yalniz projeler taramasinin kuyrugunda bekliyordu). Yerine TTL ONBELLEK +
+  // UCUS-BIRLESTIRME (veriGetir/hedefBeyazListe desenleri AYNEN):
+  //   - taze pencere icindeki istekler tarama ACMAZ; olcumAniISO ONBELLEKTEKI TARAMA ANINI tasir
+  //     (yanit ani DEGIL — durustluk) + onbellek:true isareti ayirt eder;
+  //   - tarama suren ucus (Promise) eszamanli isteklerce PAYLASILIR — yeni tarama ACILMAZ;
+  //   - tarama HATASI onbellige YAZILMAZ (atama yalniz basari yolunda; bayat hata dizilmez —
+  //     fail-closed) → hata 500 durust doner. systemPrompt YANITA GIRMEZ (yalniz sayim
+  //     alanlari cikar); bozuk JSON atlanir + sayilir. Ajan kaydi olmayan dizin gorunmez.
   if (req.method === "GET" && url.pathname === "/api/ordu/projeler") {
-    try {
-      const { projeler, atlanan } = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI });
-      jsonYaz(res, 200, {
-        olcumAniISO: new Date().toISOString(), // OLCUM ANI etiketi: tarama anindan kanit
-        projeler,
-        atlanan,
-        kapsamNotu: "ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — liste yalnız en az bir ajan kaydı taşıyan dizinleri gösterir",
-      });
-    } catch (e) { jsonYaz(res, 500, { hata: "paseo projeler okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    const veri = projelerOnbellek.veri;
+    if (veri && Date.now() - projelerOnbellek.ts < PROJELER_TTL_MS) {
+      jsonYaz(res, 200, { ...veri, onbellek: true }); // tarama ani: veri.icindeki olcumAniISO (durust)
+      return;
+    }
+    if (!projelerUcus) {
+      projelerUcus = (async () => {
+        const tarama = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI });
+        const taze = {
+          olcumAniISO: new Date().toISOString(), // TARAMA ANI (yanit ani DEGIL — snapshot'i canli gosterme kurali)
+          projeler: tarama.projeler,
+          atlanan: tarama.atlanan,
+          kapsamNotu: "ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — liste yalnız en az bir ajan kaydı taşıyan dizinleri gösterir",
+        };
+        projelerOnbellek = { ts: Date.now(), veri: taze }; // atama YALNIZ basari yolunda — hata onbellige YAZILMAZ
+        return taze;
+      })();
+      const ucus = projelerUcus;
+      ucus.finally(() => { if (projelerUcus === ucus) projelerUcus = null; }).catch(() => {}); // hata da olsa ucus kapanir; turetilmis reddetme yutulur (koordinator: yüzen finally reddi unhandledRejection → surec dususu)
+    }
+    projelerUcus
+      .then((taze) => jsonYaz(res, 200, { ...taze, onbellek: false })) // ucusu paylasan istekler ayni taze taramayi alir
+      .catch((e) => jsonYaz(res, 500, { hata: "paseo projeler okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }));
     return;
   }
   // PANEL-ANA-1 FAZ-M (2026-11-03): GET /api/ordu/konusma?ajan=<uuid> — SALT-OKUR

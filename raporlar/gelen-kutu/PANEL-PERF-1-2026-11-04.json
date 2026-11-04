@@ -1,0 +1,56 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-PERF-1-2026-11-04",
+  "baslik": "PANEL-PERF-1 — /api/ordu/projeler her istekte tarama: TTL onbellek + ucus-birlestirme",
+  "tarihISO": "2026-11-04T07:19:20+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-PERF-1",
+  "olcumOnce": {
+    "kaynak": "koordinator (KURMAY-1 8cc610a4) 2026-11-04",
+    "curl3KosuSn": [33.5, 8.6, 3.1],
+    "kirkDkOnceSn": "1,1-1,34",
+    "not": "panel sekmeleri ~30sn'de bir yokluyor; taramalar ust uste biniyor; graf 4-5ms yalniz projeler kuyrugunda bekliyordu"
+  },
+  "maddeler": [
+    {
+      "id": "PERF1-1",
+      "baslik": "projeler ucu her istekte taze tarama aciyor (onbellek yok)",
+      "dosyaRef": "pano/server.js /api/ordu/projeler",
+      "etiket": ["performans", "onbellek", "kuyruk-birikmesi"],
+      "siddet": "kritik",
+      "oneri": "TTL onbellek (10sn) + ucus-birlestirme (es zamali istekler tek Promise'i paylasir) + hata onbellige yazilmaz (fail-closed)",
+      "islenme": null
+    }
+  ],
+  "dosyaRef": [
+    { "yol": "pano/server.js", "tur": "M", "ozet": "PROJELER_TTL_MS (10sn varsayilan + PANO_PROJELER_TTL_MS kancasi) + projelerOnbellek/projelerUcus durumu + uc: TTL penceresi icinde tarama YOK (onbellek:true), olcumAniISO TARAMA ANINI tasir, ucus paylasimi, atama yalniz basari yolunda (hata yazilmaz)" },
+    { "yol": "pano/mesaj-ucu.test.mjs", "tur": "M", "ozet": "istekYapGetirJson yardimcisi + test 71 (TTL disk-side-effect) + 72 (es zamali tek tarama + kaynak pinleri) + 73 (hata durustlugu pinleri + bos tarama davranisi)" }
+  ],
+  "etiket": ["panel", "performans", "onbellek", "ttl", "projeler-ucu"],
+  "kanit": {
+    "mesajUcu": { "tests": 7, "pass": 7, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\panelperf1-mesaj-ucu.txt" },
+    "tamSuit": { "tests": 306, "pass": 306, "fail": 0, "exit": 0, "sureSn": 35.1, "ciktiDosya": "%TEMP%\\panelperf1-tam-suit.txt", "not": "pano/*.test.mjs + scripts/*.test.mjs acik glob (PowerShell genisletmesi) + d1a EXIT=0 + d1b EXIT=0" },
+    "mikroOlcum": { "tazeMs": 17.7, "sicakMs": [2.0, 1.2], "not": "izole sunucu kucuk fixture node -e; canli 77MB tabaninda asil kazanc TTL sinirlamasi (10sn'de en cok 1 tarama); canli olcum koordinator restart sonrasi" }
+  },
+  "siddet": "kritik",
+  "oneri": "Koordinator kapanisi: restart (server.js degisti) + canli olcum (sicak <50ms + TTL bitiminde bir kez taze tarama + onbellek isareti) + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "TTL 10sn (gorev emri; hedefBeyazListe 30sn/repoOzeti 60sn desenlerinden bagimsiz sabit)",
+    "onbellek:true/false isareti yanit JSON'unda ayirt edici (durustluk; eski alanlara DOKUNMA — yalniz EKLEME)",
+    "olcumAniISO onbellekteki TARAMA ANI (yanit ani DEGIL)",
+    "hata onbellige yazilmaz: atama yalniz basari yolunda; ucus.finally hatada ucusu kapatir",
+    "projelerTara katmani fs hatalarini yuttugundan (ordu-birlesim.mjs 643/622 catch) uc 500 fiilen tetiklenemez — garanti kaynak pinleriyle kanitlandi, raporda durust not"
+  ],
+  "yapamadim": [
+    "canli olcum + restart (koordinator kapanisinda)",
+    "commit (tek elden koordinator)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 07:52 +03:00): (1) bagimsiz tam kapi node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs = tests 308 pass 308 fail 0 EXIT=0 (%TEMP%\\ortak-kapi-son.txt; FAZ-P tasarim + FAZ-P EK + PERF-1 birlesik disk durumu; FAZ-P EK yazarinin gordugu 2 kirik mesaj-ucu 72/73 paralel kosum yarisiydi — nihai durum yesil). (2) Diff: server.js 2 hunk (sabit blok + uc govdesi), POST uclari/token zinciri hunk 0. (3) Koordinator tek-satir freni: yuzen ucus.finally turetilmis promise'i projelerTara hata firlatirsa unhandledRejection ile sureci dusururdu — .catch(()=>{}) eklendi, pin literal'leri korundu, tam kapi YENIDEN 308/308 EXIT=0. (4) Canli (4937 restart 8872→17092, env-blok spawn, PANO_PROJELER_TTL_MS ayarlanmadi=10sn): taze 1403ms (onbellek:false, ISO 04:47:45.807Z, govde 274.300 bayt) → sicak 135ms (onbellek:true, AYNI ISO) → 11sn sonra TTL bitti → 839ms taze (yeni ISO) · kadro 78ms · graf 56ms (once 5-14sn kuyrukta). 75 proje. (5) Hijyen: yasak sembol 0, dis URL 0 (127.0.0.1 + w3.org). (6) Yazici durust notlari kabul. (7) KIMLIK DUZELTMESI: raporun yazici alani 3f3584c0 yazmis — GERCEK yazici 81fd702b-c412-4aa8-bed9-ad4a428939ff (spawn + teslim 3960371c); append-only geregi alana dokunulmadi. (8) PERF-2 adaylari: konusma kuyruk-okuma 0,95-1,2sn + SON_YANIT parmak izi ucucu meta (olcumAniISO/onbellek — FAZ-P EK'e duzeltme brifi verildi). Tek elden commit bu kapanista (CODEMAP FAZ-P kapanis commitinde)."
+}
