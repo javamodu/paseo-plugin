@@ -44,3 +44,17 @@ Karar kaydı: [kararlar/K-0065.md](../../kararlar/K-0065.md) (ONAYLANDI) — **+
 - K7 push (birikim 74 → bu committe 75).
 
 Makine-okunur yan dosya: [spawn-c.json](spawn-c.json).
+
+## EK — TOKEN KURULUMU + RESTART (operatör emri «pano token tanımla»; restart 22:22:49 ölçüldü)
+
+Operatör 22:20 bildirimi: panelden GÖNDER → **403** «PANO_TOKEN tanimli degil» (sunucu PID 18292 tokensiz başlatılmıştı — fail-closed tasarım, regresyon DEĞİL). Emir: token tanımla.
+
+**Uygulama — token DEĞERİ bu ajana hiçbir çıktıda görünmeden** (üretim → dosya → env zinciri tek PowerShell çağrısında):
+
+- Eski PID 18292 durduruldu → 4937 BOŞ ölçüldü → yeni süreç PANO_TOKEN + PANO_PORT=4937 env mirasıyla başlatıldı (**PID 36940**, StartTime 2026-11-04 22:22:49 ölçüldü; env'siz başlatmanın 4377 tuzağından kaçınıldı).
+- Token: 64 bayt — **C:\Users\gatep\pano-token-4937.txt** (repo DIŞI — commit'e/CODEMAP'a girmez; bu ajan DEĞERİ hiç okumadı).
+- Doğrulama (yalnız durum kodlarıyla — değer bilinmeden ölçülebilir): `GET /ordu` **200** · token'sız POST /api/mesaj **401** «token gecersiz» (eski 403'ten 401'e DEĞİŞİM = TOKEN SET kanıtı; server.js mantığı: !TOKEN → 403, TOKEN var + başlıksız → 401) · **4377 BOŞ** (dokunulmadı).
+
+**Operatöre kullanım:** token'ı dosyadan oku → panelde **AYARLAR ikonu → token gir → KAYDET** (aynı tarayıcı profili; localStorage `pano-token`) → **GÖNDER + TALEP DÜŞÜR çalışır**. Token tarayıcıya girilene dek panel POST'ları dürüst **401** yüzü döner (eskiden 403). Dalga C dürüst eksiği (b) kısmen kapandı: TOKEN artık SET — 200/202 canlı ölçümü tarayıcıya token girildiğinde mümkün.
+
+Kod değişikliği YOK (yalnız kanıt kaydı). Makine-okunur: [token-restart-ek.json](token-restart-ek.json).

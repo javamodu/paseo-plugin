@@ -1,0 +1,26 @@
+{
+  "schemaSurum": 1,
+  "ek": "token-kurulumu-restart",
+  "tarih": "2026-11-04T22:22",
+  "operatoerEmri": "«pano token tanımla» (22:20'de panelden GÖNDER 403 bildirimi üzerine — sunucu PID 18292 tokensiz başlatılmıştı; fail-closed tasarım, regresyon DEĞİL)",
+  "olcumZamani": { "restart": "2026-11-04 22:22:49 (Get-Process StartTime)", "rapor": "2026-11-04 22:24:35 (Get-Date)" },
+  "surec": {
+    "eskiPid": "18292 durduruldu (4937 BOŞ ölçümüyle doğrulandı)",
+    "yeniPid": "36940 (node) — PANO_TOKEN + PANO_PORT=4937 env mirasıyla (Start-Process; 4377 açma tuzağından kaçınıldı)"
+  },
+  "token": {
+    "degerBuAjanaGorunduMu": "HAYIR — üretim → dosya → env zinciri tek PowerShell çağrısında; ekrana yalnız durum kodları çıktı; dosya DEĞERİ hiç okunmadı",
+    "dosya": "C:\\Users\\gatep\\pano-token-4937.txt (repo DIŞI — commit'e/CODEMAP'a girmez)",
+    "boyut": "64 bayt (2× Guid N)",
+    "panodanGirilis": "AYARLAR ikonu → token gir → kaydet (localStorage pano-token; aynı tarayıcı profili)"
+  },
+  "dogrulama": {
+    "getOrdu": "200",
+    "tokensizPostApiMesaj": "401 {\"hata\":\"token gecersiz\"} — eski 403'ten 401'e DEĞİŞİM = TOKEN SET EDİLDİ kanıtı (server.js mantığı: !TOKEN → 403 «PANO_TOKEN tanimli degil»; TOKEN var + başlık yok/yanlış → 401 «token gecersiz»; değer bilinmeden ölçülebilir)",
+    "port4377": "BOŞ (dokunulmadı)"
+  },
+  "sonrakiDurum": "token tarayıcıya girilene dek panel POST'ları (GÖNDER + spawn-talebi) dürüst 401 yüzü döner (eskiden 403); girildiğinde 200/202 canlı ölçümü mümkün olur — Dalga C dürüst eksiği (b) kısmen kapandı",
+  "kodDegisikligi": "YOK — yalnız kanıt kaydı (rapor/STATE ek); canlı sunucu tarafı env değişikliği",
+  "codemap": "gereksiz — json sayılmaz (Dalga B restart-ek emsali)",
+  "sirada": "M2 sağ panel metrik gösterimi + rename (onaylı sıra 7. adım)"
+}
