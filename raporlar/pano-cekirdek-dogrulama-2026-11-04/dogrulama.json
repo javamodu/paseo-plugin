@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "id": "pano-cekirdek-dogrulama-2026-11-04",
+  "baslik": "Çekirdek doğrulama turu (uçtan uca) — FAZ-U sonrası stabil kodda koordinatör bizzat; 8/8 denetim geçti (1 gerekçeli atlanan + 1 kullanıcı onayı bekleyen), bulgu yok",
+  "tarihISO": "2026-11-04T14:40:00+03:00",
+  "koordinator": { "ad": "KURMAY-1", "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7" },
+  "kodDurumu": "FAZ-U kapanış 7ff9afc (312/312 test)",
+  "protokol": "plans/DOGRULAMA-TURU-PROTOKOLU.md",
+  "denetimler": [
+    { "id": "D1", "ad": "API zinciri", "sonuc": "GECTI", "olcum": "6 GET 200 + şemalar dolu (genel/kadro/projeler/akis/saglik/log)" },
+    { "id": "D2", "ad": "Veri-disk tutarlılığı", "sonuc": "GECTI", "olcum": "disk 14:37:45 = API 14:37:46 = UI: 76 proje · 1087 kayıt · running 5 · error 40 · idle 189 · ORDU 66/1/0 · dart 1 hata = ağaç uyarı" },
+    { "id": "D3", "ad": "Hiyerarşi doğruluğu", "sonuc": "GECTI", "olcum": "481 bağlı kayıt · 46 yönetici · KURMAY-1 14 bağlı (3f3584c0 idle + 1b8634a8 idle + 12 closed)" },
+    { "id": "D4", "ad": "Fail-closed yüzeyler", "sonuc": "GECTI", "olcum": "konusma sahte ajan 404 + hata metni · POST mesaj token'sız 401 · yanlış token 401 · gönderim yapılmadı" },
+    { "id": "D5", "ad": "Oturum/transcript", "sonuc": "GECTI", "olcum": "konusma?ajan=8cc610a4 → 200 · 7 balon · oturumId 5a494d40 · 73.725.504 bayt tan tail-read" },
+    { "id": "D6", "ad": "Görsel boyutlar", "sonuc": "GECTI", "olcum": "1280 (FAZ-U) + 1024x768: sol 324 tam yükseklik · orta 345 · serit 674w/2 satır/taşma yok · localStorage 324/323 değişmedi + 390 (FAZ-U)" },
+    { "id": "D7", "ad": "Restart-state", "sonuc": "ATLANDI-GEREKCELİ", "olcum": "server.js hunk 0 — restart test edilecek değişiklik üretmedi" },
+    { "id": "D8", "ad": "Canlı gönderim", "sonuc": "KULLANICI-ONAYI-BEKLIYOR", "olcum": "dış-etki; onaysız ölçülmez" }
+  ],
+  "bulgular": [],
+  "duruNotlar": [
+    "çalışan sayısı tur içinde 7→5 (yazıcı idle + 1 dış kapandı) — canlı sistem, ölçüm anı etiketli",
+    "PS 5.1 tek-obje .Count tuzağı disk ORDU çalışan çıktısını boş bastırdı; API 1 doğru — kaynak tutarlı",
+    "ağaç 76 proje = disk 76 dizin = API 76 (FAZ-Q 75 idi; 1 yeni proje doğmuş)"
+  ],
+  "sonraki": "sıra plans/PANEL-DALGA-SIRASI.md: ARŞİV → FAZ-V denetim yüzeyi → FAZ-W → makyaj",
+  "islenme": null
+}
