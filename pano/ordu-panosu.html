@@ -346,38 +346,49 @@
      composer bar + ince durum satırı (chatgpt.com dili). Açık söylenir (E10). */
   .chatListe {
     flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; /* FAZ-J: kaydırma zinciri kesilir — tüm sayfa zıplamaz */
-    display:flex; flex-direction:column; gap:6px; padding:0; /* FAZ-P REVİZYON 2026-11-04 (§2): FLAT yüzey — .bolum kutusu İÇİNDE ikinci kutu çerçevesi SÖKÜLDÜ (iç içe katman azaltma; düz yüzey + ince ayırıcı dili; gap 6 aynen) */
+    display:flex; flex-direction:column; gap:8px; padding:0; /* FAZ-P REVİZYON 2026-11-04 (§2): FLAT yüzey — .bolum kutusu İÇİNDE ikinci kutu çerçevesi SÖKÜLDÜ (iç içe katman azaltma; düz yüzey + ince ayırıcı dili). FAZ-R: gap 6→8 (balonlar arası nefes) */
   }
   .chatListe::-webkit-scrollbar { width:8px; }
   .chatListe::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
   /* FAZ-I (steering «tuvaldeki gibi normal chat» 2026-11-03): BALON mesajlar — kapsul-tuval
      #chatBolum dili uyarlanır (salt-okur ilham; kopya YOK): gönderilen mesaj SAĞA hizalı petrol
-     balon; hata kırmızı tonu KALIR; eski log satır görünümü ([saat] [hedef] metin) KALKAR (bilinçli). */
+     balon; hata kırmızı tonu KALIR; eski log satır görünümü ([saat] [hedef] metin) KALKAR (bilinçli).
+     FAZ-R (kullanıcı «chat yazıları okunaklı değil .. yazı sitili başlıklar soru cevaplar zemin rengi»
+     2026-11-04): SORU balonu KOYU PETROL SOLİD + beyaz metin (eski %8 şeffaf petrol beyaz üstünde
+     görünmezdi — «zemin rengi» şikayetinin kökü); CEVAP balonu SOLİD kenarlık (dashed söküldü);
+     başlık 12px/700 + koyu; satır yüksekliği/iç nefes arttı. */
   .chatMesaj {
-    flex:none; border-radius:var(--radius-k); padding:8px 10px; min-width:0;
-    font-size:15px; line-height:1.55; overflow-wrap:anywhere;
+    flex:none; border-radius:var(--radius-k); padding:10px 14px; min-width:0; /* FAZ-R: iç nefes 8px 10px → 10px 14px */
+    font-size:15px; line-height:1.6; overflow-wrap:anywhere; /* FAZ-R: 1.55 → 1.6; 15px AYNEN (manifesto §1 okunaklılık şartı) */
   }
   .chatMesaj p { margin:0; }
   .chatMesaj.chat-kullanici {
-    background:rgba(15,76,129,0.08); border:1px solid rgba(15,76,129,0.3); color:var(--metin);
-    align-self:flex-end; max-width:min(92%, 660px); /* gönderilen mesaj — SAĞA hizalı; FAZ-P §2a DAR görünüm: balon genişlik TAVANI ~660px (640-680 bandı) — geniş kolonda kalan boşluk kenarda nefes, dar görünümde doğal dolgu */
+    background:var(--camgobegi); color:#fff; /* FAZ-R: KOYU petrol SOLİD + beyaz metin (kontrast ~10:1 AA+; #fff literal — YENİ token EKLENMEZ) */
+    align-self:flex-end; max-width:min(92%, 660px); /* gönderilen mesaj — SAĞA hizalı; FAZ-P §2a DAR görünüm: balon genişlik TAVANI ~660px (640-680 bandı) — geniş kolonda kalan boşluk kenarda nefes, dar görünümde doğal dolgu. FAZ-R: border SÖKÜLDÜ — koyu zemin kendini anlatır */
   }
-  .chatMesaj.chat-kullanici.basarili { border-color:rgba(4,120,87,0.4); } /* gönderildi — yeşil kenar (eski sol kenar sinyalinin karşılığı) */
-  .chatMesaj.chat-kullanici.hata { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.35); } /* hata balonu kırmızı tonu KALIR */
-  .chatMesaj.chat-sistem { /* FAZ-M: transcript AJAN YANITI — SOL ince balon (chat-sistem dili; gönderilen sağ balonun ayna kardeşi) */
-    background:var(--yuzey2); border:1px dashed var(--cizgi); max-width:min(92%, 660px); align-self:flex-start; /* FAZ-P §2a: balon tavanı ajan yanıtında da (aynı DAR görünüm) */
+  .chatMesaj.chat-kullanici.basarili { border:1px solid rgba(255,255,255,0.45); } /* FAZ-R: gönderildi — koyu zeminde BEYAZ dış çerçeve sinyali (eski yeşil kenar) */
+  .chatMesaj.chat-kullanici.hata { background:var(--tehlike); } /* FAZ-R: hata balonu KOYU kırmızı + beyaz metin (~4.6:1 AA; eski açık-kırmızı overlay söküldü) */
+  .chatMesaj.chat-sistem { /* FAZ-M: transcript AJAN YANITI — SOL ince balon (chat-sistem dili; gönderilen sağ balonun ayna kardeşi). FAZ-R: border DASHED → SOLİD (kesik çizgi okunaksız/ucuz his; kalite) */
+    background:var(--yuzey2); border:1px solid var(--cizgi); max-width:min(92%, 660px); align-self:flex-start; /* FAZ-P §2a: balon tavanı ajan yanıtında da (aynı DAR görünüm) */
   }
+  /* FAZ-R: kullanıcı balonu İÇİNDEKİ alt-metinler beyaz-aileye uyarlanır (koyu zeminde
+     gri aile okunmaz); AJAN balonu gri ailesi KALIR (global sınıflar değişmez). Durum
+     sınıfları (bekliyor/basarili/hata) koyu zeminde beyaz-aile — kapsam çocuk seçiciyle. */
+  .chat-kullanici .chatKim { color:rgba(255,255,255,0.85); }
+  .chat-kullanici .chatSaat, .chat-kullanici .chatKesildi, .chat-kullanici .chatSonucSatiri,
+  .chat-kullanici .chatSonuc, .chat-kullanici .chatSonuc.bekliyor,
+  .chat-kullanici .chatSonuc.basarili, .chat-kullanici .chatSonuc.hata { color:rgba(255,255,255,0.8); }
   .chatKesildi { font-size:11px; color:var(--ikincil); font-style:italic; margin:4px 0 0; } /* FAZ-M: metin tavanı işareti (dürüst kesildi bildirimi) */
-  .chatKim { font-size:11.5px; font-weight:700; letter-spacing:0.06em; color:var(--ikincil); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik) */
+  .chatKim { font-size:12px; font-weight:700; letter-spacing:0.08em; color:var(--metin); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik). FAZ-R: 11.5→12px + 0.06→0.08em + gri→Koyu (ajan tarafı; kullanıcı tarafı çocuk seçicide beyaz) */
   .chatSaat { font-size:11px; color:var(--ikincil); margin:4px 0 0; white-space:nowrap; } /* balonun ALTINDA (tuval deseni) */
   .chatSonucSatiri { margin:2px 0 0; }
   .chatSonuc { font-size:12px; font-weight:600; color:var(--ikincil); }
   .chatSonuc.bekliyor { color:var(--ikincil); }
   .chatSonuc.basarili { color:var(--basari); }
   .chatSonuc.hata { color:var(--tehlike); }
-  #chatBos { /* FAZ-I: boş durum — chat-sistem görünümünde İNCE balon */
+  #chatBos { /* FAZ-I: boş durum — chat-sistem görünümünde İNCE balon (FAZ-R: dashed → SOLİD, ajan balonuyla aynı dil) */
     margin:6px 0 0; color:var(--ikincil);
-    background:var(--yuzey2); border:1px dashed var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
+    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:var(--radius-k); padding:4px 10px;
   }
 
   /* ---- (FAZ-O — scope-freeze 84f81c6a + ek-scope 18b3afa4 + EK-3 kolon takası)

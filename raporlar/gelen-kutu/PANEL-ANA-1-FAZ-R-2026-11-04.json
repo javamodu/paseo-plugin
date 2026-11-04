@@ -1,0 +1,49 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-R-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-R — chat okunabilirliği: SORU balonu KOYU petrol + beyaz metin (#fff literal, ~10:1), hata balonu koyu kırmızı (~4.6:1), beyaz-aile çocuk seçicileri, dashed→SOLİD devri, 12px başlık + 1.6 satır + 10px 14px nefes — DAVRANIŞ hunk 0, yalnız CSS",
+  "tarihISO": "2026-11-04T11:36:06+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-R",
+  "kullaniciSpec": [
+    "chat yazıları okunaklı değil bunları düzenle yazı sitili başlıklar soru cevaplar zemin rengi"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "TEK hunk (CSS 346-395 + #chatBos; JS mantığı hunk 0): chat-kullanici bg var(--camgobegi) + color #fff (border SÖKÜLDÜ) · basarili beyaz çerçeve rgba(255,255,255,0.45) · hata bg var(--tehlike) · .chat-kullanici .chatKim/.chatSaat/.chatKesildi/.chatSonuc ailesi beyaz-aile çocuk seçicileri (global gri aile KALIR — ajan balonu) · chat-sistem + #chatBos dashed→solid · .chatKim 11.5→12px + 0.06→0.08em + ikincil→metin · .chatMesaj 1.55→1.6 + padding 10px 14px (15px AYNEN) · .chatListe gap 6→8px" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "11 dürüst pin güncellemesi (satır no'lu md raporda; 51l/51m/51u blokları) — YENİ test bloğu YOK (brief: kaynak pinleri + vm AYNEN); pano 71→71, tam kapı 309→309" }
+  ],
+  "etiket": ["panel", "faz-r", "chat-okunabilirlik", "kontrast", "koyu-zemin", "beyaz-metin", "cocuk-secici", "dashed-solid-devri", "css-only"],
+  "kanit": {
+    "nodeTestPano": { "tests": 71, "pass": 71, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazr-t9.txt" },
+    "tamKapiAcikGlob": { "tests": 309, "pass": 309, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazr-tam.txt", "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs" },
+    "sozdizimi": "node --check test + vm.Script html script SYNTAX_OK",
+    "hijyen": "HEAD-baseline karşılaştırmalı: box-shadow 1=1 · dashed 10=10 (kalanlar sağ panel/kart desenleri — FAZ-R kapsamı DIŞI) · @keyframes 1=1 · webfont 0=0 · dış URL 0 (w3.org hariç) · x-pano-token 2 · CHAT_TAVAN 2 · maxlength 4096 · pano-token 12 · ordu-agac-secili 6 · YENİ renk-token 0 (#fff literal — brief istisnası)",
+    "diffDenetimi": "html TEK hunk CSS bölgesi (function/const/addEventListener/fetch YOK) · test 3 hunk (51l/51m/51u pin satırları) · git status pano/ yalnız 2 M",
+    "dokunulmayan": ["pano/server.js", "pano/konusma-oku.mjs", "pano/ordu-birlesim.mjs", "d1a/d1b", "CODEMAP", "STATE_BOARD"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: RESTART GEREKMEZ (yalnız CSS — tarayıcı yenilemesi yeter); canlı DOM kontrast + görünüm ölçümü + ekran kanıtı PNG + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "soru balonu KOYU petrol var(--camgobegi) + #fff literal (~10:1 AA+) — YENİ renk-token EKLENMEZ, mevcut token'lar yeniden kullanıldı (brief istisnası #fff literal)",
+    "hata balonu var(--tehlike) + beyaz ~4.6:1 AA; kirmiziYuz'un kendi açık-kırmızı ailesi DOKUNULMADI (kapsam dışı)",
+    "beyaz-aile ÇOCUK seçicileri (.chat-kullanici .chatKim vb.) — global gri aile korunur; AJAN balonu (chat-sistem) eski görünümünde",
+    "dashed→SOLİD devri (chat-sistem + #chatBos): FAZ-M'deki bilinçli dashed bu dalgada devrildi — kesik çizgi okunaksız/ucuz his",
+    "15px font AYNEN — okunabilirlik satır yüksekliği (1.6) + iç nefes (10px 14px) + ZEMİN kontrastıyla geldi",
+    "DAVRANIŞ hunk 0 — yalnız CSS; restart GEREKMEZ",
+    "test yorum-tuzağı ailesi: negatif regex'ler blok-içi YORUM kelimelerini yakaladı (border SÖKÜLDÜ / dashed → SOLİD) — özellik-atama sözdizimi (border\\s*:) + pozitif solid piniyle çözüldü"
+  ],
+  "yapamadim": [
+    "canlı DOM kontrast/görünüm doğrulaması + ekran kanıtı PNG (koordinatör — restart GEREKMEZ, yalnız CSS)",
+    "K2 görsel kabul (kullanıcıda)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 11:49 +03:00): (1) bağımsız tam kapı 309/309 EXIT=0 (%TEMP%\\fazr-koordinator.txt + gerçek çıkış kodu ayrı dosyadan). (2) Diff: html 9 hunk HEPSİ satır 349-391 CSS bölgesi — ± satırlarda JS kalıntısı 0 (function/const/let/addEventListener/fetch/if() bağımsız tarandı; davranış hunk 0); test 5 bölge 51l/51m/51u pinleri. (3) Canlı DOM (YENİ sekme 1280x800; restart GEREKMEDİ — CSS-only; eski sekmenin host'u koptu, localStorage token yeni sekmede taşıdı): açılış transcript 25 balon (10 kullanıcı + 15 ajan + 7 dürüst kesildi); kullanıcı balonu rgb(15,76,129) KOYU PETROL SOLİD + rgb(255,255,255) + border none + flex-end + min(92%,660px); ajan balonu rgb(238,242,247) + border SOLİD; kullanıcı chatKim rgba(255,255,255,0.85) 12px/700/0.96px, ajan chatKim rgb(26,35,50) KOYU — ayrım canlı; gövde line-height 24px (15×1.6) + padding 10px 14px; liste gap 8px + FLAT; #chatBos solid. Durum sınıfları geçici-atılmış düğümle ölçüldü (canlı gönderim = gerçek ajana gerçek prompt — dış-etki, KAÇINILDI): basarili beyaz çerçeve rgba(255,255,255,0.45) + hata bg rgb(220,38,38) + sonuç satırı beyaz-aile rgba(255,255,255,0.8) — çocuk seçiciler gerçek DOM'da eşleşiyor (chatKim balon İÇİNDE: gönderim 1421 + transcript kullanıcı 1454). (4) Hijyen: maxlength 4096 · x-pano-token 2 · CHAT_TAVAN 2 · pano-token 12 · ordu-agac-secili 6 · @keyframes 1 · dashed 10 (kalanlar kapsam dışı — baseline aynı) · box-shadow 1 · dış URL w3.org · yasak sembol/emoji/U+FFFD 0. (5) PNG: ekran-kanit-fazr-chat-okunabilirlik-2026-11-04.png 195.731 bayt 1600x1000 (@1.25 = 1280x800 CSS), imza + IHDR doğrulandı; Read PNG boş döndü (3. kez) — K2 görsel kabul KULLANICIDA. (6) Yazıcı dürüst notları kabul (yorum-tuzağı 2 kez · 71 aynen · #fff literal brief istisnası). (7) Tek elden commit bu kapanışta (CODEMAP dahil)."
+}
