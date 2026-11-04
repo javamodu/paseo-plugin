@@ -1,6 +1,6 @@
 ﻿# ANAYASA — ordu
 
-> Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md) bu belgeye tabidir.
+> TEMEL CÜMLE (SSOT): ajan ordusunun KENDİ KENDİNİ DETERMİNİSTİK YÖNETİMİ ve TÜM HAREKETLERİN DENETLENMESİ (operatör 2026-11-04; alt detaylar §6-§7 + GLOSSARY'de birleşiktir). Bu belge bu repo için tüm dokümanların üstündedir. Çelişkide BU BELGE kazanır; evrensel sözleşme (sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md) bu belgeye tabidir.
 > Ajan bu belgeyi değiştiremez; değişiklik önerisi kararlar/K-XXXX.md ile açılır, yalnız kullanıcı onaylar.
 
 ## 1. Hizalama Anahtarları (öncelik sırasıyla)

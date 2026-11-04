@@ -1,6 +1,6 @@
 # GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır)
 
-> Amaç: ORDU paneli ve ajan ordusu mimarisinin kavramlarını tek yerde toparlamak. Tüm tanımlar ölçülmüş gerçeğe dayanır — kaynaklar: çekirdek doğrulama turu (raporlar/pano-cekirdek-dogrulama-2026-11-04), K-0063, plans/AJAN-YONETIM-MATRISI.md, plans/PANEL-DALGA-SIRASI.md, plans/DOGRULAMA-TURU-PROTOKOLU.md. Bu belge İNSAN/AJAN eliyle yazılır ve güncellenir (CODEMAP otomasyonundur — ANAYASA Y3 yalnız CODEMAP için bağlar). Kök: D:\Vibecode\ordu · İlk doğum: 2026-11-04 (operatör emriyle).
+> ANAYASA TEMEL CÜMLESİ (SSOT): «ajan ordusunun kendi kendini deterministik yönetimi ve tüm hareketlerin denetlenmesi» — bu sözlük o cümlenin **alt detaylarının birleşik katmanıdır** (§1-§5; ANAYASA §6-§7 + kararlar birlikte okunur). Tüm tanımlar ölçülmüş gerçeğe dayanır — kaynaklar: çekirdek doğrulama turu (raporlar/pano-cekirdek-dogrulama-2026-11-04), K-0063, plans/AJAN-YONETIM-MATRISI.md, plans/PANEL-DALGA-SIRASI.md, plans/DOGRULAMA-TURU-PROTOKOLU.md. Bu belge İNSAN/AJAN eliyle yazılır ve güncellenir (CODEMAP otomasyonundur — ANAYASA Y3 yalnız CODEMAP için bağlar). Kök: D:\Vibecode\ordu · İlk doğum: 2026-11-04 (operatör emriyle).
 
 ## 1) ORDU PANELİ nedir
 
