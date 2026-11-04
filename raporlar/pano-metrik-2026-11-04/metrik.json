@@ -1,0 +1,24 @@
+{
+  "raporSurum": 1,
+  "dalga": "M1-METRIK",
+  "tarih": "2026-11-04",
+  "saat": "17:56",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "şimdi kurmay ile başlayan tüm hareketlerde herşeyi metrikler altınnda yönetim parametresi yapmalısyız sağ panelde en önemlileri görmeliyiz",
+    "gereksiz giçbir state olmayacak tüm hedef izleme yönetme ve kendi kendine ordu çalışıyor mu"
+  ],
+  "yapilan": {
+    "modul": "pano/ordu-metrik.mjs YENI (74 satir): hareketKaydet (dogrulama RED fail-closed + zamanISO tek-kaynak + append-only JSONL fsync) + metrikOzet (toplam, bozukSatir sayilir, son24s ok/hata/ortSureMs, turler kirilimi, sonHareketISO, olcumAniISO)",
+    "serverKanca": "HAREKET_DEFTERI (env ORDU_HAREKET_DEFTERI; varsayilan core/data/hareket-defteri.jsonl) + /api/mesaj hareket kaydi (t0 sureMs; 200 ok / 503-502-500 hata; kayit bayragi E10) + GET /api/ordu/metrik (salt-okur)",
+    "statePrensibi": "tek yeni kalici state = hareket defteri; otonomi/hedef metrikleri mevcut SSOT'lardan turetilecek (M2 sag panel)"
+  },
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 320, "pass": 320, "fail": 0, "exit": 0, "yeni": "ordu-metrik.test.mjs 75-79 (5) + mesaj-ucu 74- (1 izole-sunucu uc: 503 mudahalesi deftere + kayit bayragi + token YOK + metrik ucu ayni kaydi okur)" },
+  "uretimRestart": { "gerekli": true, "onay": "bekliyor", "sebep": "server.js degisti; 4937 eski kodu kosturuyor; davranis izole testte uc'tan-uca kanitlandi" },
+  "locDelta": { "once": 17665, "sonra": 17875, "net": 210, "tavan": 200, "gerekce": "+200 ustu: yeni cekirdek modul + test yuzeyi (salt ekleme; sokuldu: YOK); pano tavani 18000'e 125 kaldi (%99,3) — ARSIV dalgasi (#2, -6500 adayi) onemli", "panoTavan": 18000, "panoDoluluk": "99,3%" },
+  "kuyrukEmirler": [
+    "devamli: metin kesildi 2000 tavan notu -> devam diyelim tiklayinca acilsin",
+    "sol panelde proje isimlerini daha buyuk yaz"
+  ],
+  "kapsam": ["pano/ordu-metrik.mjs", "pano/ordu-metrik.test.mjs", "pano/server.js", "pano/mesaj-ucu.test.mjs", "raporlar/pano-metrik-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}

@@ -249,11 +249,44 @@ test("73- izole server: hata dürüstlüğü kaynak pinleri — atama YALNIZ ba�
        200 + boş liste; önbelleğe YAZILIR (boş sonuç hata değildir) → ikinci istek onbellek:true */
     const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_PROJELER_TTL_MS: "400" });
     sunucu = cocuk;
-    let r = await istekYapGetirJson(port, "/api/ordu/projeler");
-    assert.equal(r.durum, 200, "boş tarama 200 (hata değil — boş liste dürüst)");
-    assert.ok(Array.isArray(r.gov.projeler) && r.gov.projeler.length === 0, "boş liste dürüst (sahte proje YOK)");
-    r = await istekYapGetirJson(port, "/api/ordu/projeler");
-    assert.equal(r.gov.onbellek, true, "boş tarama sonucu da önbelleğe yazılır (hata değildir)");
+  } finally {
+    if (sunucu) sunucu.kill();
+    rmSync(d, { recursive: true, force: true });
+  }
+});
+
+/* ---- M1 (2026-11-04): KURMAY hareket-metrik uçtan-uca zinciri ----
+   ORDU_HAREKET_DEFTERI env kancasıyla izole defter; 503 müdahalesi DEFTERE YAZILIR
+   (kayit bayrağı 'yazildi') + GET /api/ordu/metrik özeti aynı kaydı okur (SSOT: tek defter). */
+
+test("74- izole server: M1 — 503 müdahalesi hareket defterine yazılır (kayit:'yazildi') + /api/ordu/metrik özeti kaydı okur", async () => {
+  const d = mkdtempSync(join(tmpdir(), "paseo-metrik-uc-"));
+  const defter = join(d, "hareket-defteri.jsonl");
+  let sunucu = null;
+  try {
+    mkdirSync(join(d, "agents", "D-test-proje"), { recursive: true });
+    writeFileSync(join(d, "agents", "D-test-proje", HEDEF + ".json"), JSON.stringify({ id: HEDEF, provider: "glm53u-claude", lastStatus: "idle", lastActivityAt: "2026-11-04T10:00:00Z", title: "metrik ajan" }), "utf8");
+    const token = randomUUID();
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_TOKEN: token, ORDU_HAREKET_DEFTERI: defter });
+    sunucu = cocuk;
+    /* (a) köprü çözümsüz -> 503; DENELEN gonderim hareket olarak deftere düşer */
+    const r = await istekYap(port, "/api/mesaj", { hedef: HEDEF, mesaj: "metrik zincir testi" }, token);
+    assert.equal(r.durum, 503, "503 aynen: " + JSON.stringify(r.gov));
+    assert.equal(r.gov.kayit, "yazildi", "yanıt dürüst kayit bayrağı taşır (E10)");
+    /* (b) defterde TEK satır: mudahale/hata/sureMs sayısal */
+    const satirlar = readFileSync(defter, "utf8").trim().split("\n");
+    assert.equal(satirlar.length, 1, "tek hareket satırı");
+    const kayit = JSON.parse(satirlar[0]);
+    assert.equal(kayit.tur, "mudahale"); assert.equal(kayit.hedef, HEDEF); assert.equal(kayit.sonuc, "hata");
+    assert.ok(typeof kayit.sureMs === "number" && Number.isFinite(kayit.sureMs), "sureMs sayısal");
+    assert.ok(!JSON.stringify(kayit).includes(token), "kayda TOKEN YAZILMAZ");
+    /* (c) read-model: GET /api/ordu/metrik aynı defteri okur */
+    const m = await istekYapGetirJson(port, "/api/ordu/metrik");
+    assert.equal(m.durum, 200, "metrik ucu 200: " + JSON.stringify(m.gov));
+    assert.equal(m.gov.toplam, 1);
+    assert.equal(m.gov.turler.mudahale.toplam, 1); assert.equal(m.gov.turler.mudahale.hata, 1);
+    assert.equal(m.gov.son24s.toplam, 1); assert.equal(m.gov.son24s.hata, 1);
+    assert.equal(m.gov.sonHareketISO, kayit.zamanISO, "özet defterdeki kayıtla uyuşur (SSOT)");
   } finally {
     if (sunucu) sunucu.kill();
     rmSync(d, { recursive: true, force: true });

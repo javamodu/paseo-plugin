@@ -19,6 +19,7 @@ import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
 import { kiraDurum, kiraYoluCoz, logOku } from "./devir-kira.mjs"; // ORDU paneli: kira/log kaynagi (salt-okur)
 import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
 import { mesajGonder } from "./paseo-kopru.mjs"; // FAZ-A Composer köprüsü (K-0060 TASLAK) — süreç doğurma YALNIZ bu modülde
+import { hareketKaydet, metrikOzet } from "./ordu-metrik.mjs"; // M1: KURMAY hareket defteri (append-only) + özet read-model
 import { kuyrukOku, slugYap, transcriptHazirla } from "./konusma-oku.mjs"; // FAZ-M: oturum transcript tail-read (salt-okur saf fonksiyonlar)
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
@@ -52,6 +53,10 @@ const KOKLER = (process.env.PANO_KOKLER || "D:\\Vibecode").split(";");
 const GOVDE_LIMIT_BAYT = 4096; // POST govde tavani (BAYT — GD-006): asiminda baglanti kesilir
 const onbellek = new Map(); // repo -> { ts, veri }
 const sseIstemci = new Set();
+// M1 (2026-11-04; operatör emri «kurmay ile başlayan tüm hareketlerde herşeyi metrikler
+// altında yönetim parametresi yapmalıyız»): KURMAY hareket defteri — panele gelen tüm
+// KURMAY hareketleri (müdahale/spawn) TEK append-only JSONL'de (env ile izole test — DEFTER_429 deseni).
+const HAREKET_DEFTERI = process.env.ORDU_HAREKET_DEFTERI || join(ORDU_KOK, "core", "data", "hareket-defteri.jsonl");
 // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): Composer gonderim koprUsu — dar spawn izni
 // (paseo-kopru.mjs'te SABIT argv + beyaz-liste hedef + UTF-8 prompt-file + --no-wait + timeout).
 const KOPRU_KOK_CMD = process.env.PANO_KOPRU_KOK_CMD || null; // izole test kancasi: zincir cozumsuz simulasyonu (503)
@@ -517,6 +522,13 @@ const sunucu = http.createServer((req, res) => {
     } catch (e) { jsonYaz(res, 500, { hata: "konusma okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
+  // M1 (2026-11-04): GET /api/ordu/metrik — KURMAY hareket-metrik read-model (salt-okur;
+  // diğer /api/ordu/* GET'leri gibi token kapısız; kaynak: hareket defteri, env ezebilir).
+  if (req.method === "GET" && url.pathname === "/api/ordu/metrik") {
+    try { jsonYaz(res, 200, metrikOzet(HAREKET_DEFTERI)); }
+    catch (e) { jsonYaz(res, 500, { hata: "metrik okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
   // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): POST /api/mesaj — Composer gonderim ucu (5. POST).
   // Token kapisi aynen (403/401) · govde 4096 bayt · hedef whitelist = projelerTara taramasi
   // (30sn TTL onbellek) · ayni hedefe min 2sn aralik · kopru zinciri cozulmezse 503 (fail-closed).
@@ -541,16 +553,25 @@ const sunucu = http.createServer((req, res) => {
         return;
       }
       sonGonderim.set(hedef, simdi);
+      // M1 (KURMAY hareket-metrik): her gonderim denemesi hareket defterine yazilir
+      // (tur 'mudahale'); kayit yazilamazsa yanit durust 'kayit' bayragi tasir (E10).
+      const t0 = Date.now();
+      const hareketYaz = (sonuc, detay) => {
+        const hareket = { tur: "mudahale", hedef, sonuc, sureMs: Date.now() - t0 };
+        if (detay) hareket.detay = String(detay).slice(0, 300); // kisa hata ozeti (token YAZILMAZ)
+        try { hareketKaydet(HAREKET_DEFTERI, hareket); return "yazildi"; }
+        catch (e) { return "yazilamadi: " + (e instanceof Error ? e.message : "bilinmeyen"); }
+      };
       mesajGonder(hedef, mesaj, { beyazListe: beyaz, kokCmd: KOPRU_KOK_CMD ?? undefined })
         .then((sonuc) => {
           if (sonuc && sonuc.hata) {
-            if (String(sonuc.hata).startsWith("kopru-cozulmedi")) { jsonYaz(res, 503, { hata: "kopru zinciri cozumlenemedi — gonderim yapilmadi (fail-closed)", detay: sonuc.hata }); return; }
-            jsonYaz(res, 502, { hata: "kopru gonderilemedi", detay: sonuc.hata });
+            if (String(sonuc.hata).startsWith("kopru-cozulmedi")) { jsonYaz(res, 503, { hata: "kopru zinciri cozumlenemedi — gonderim yapilmadi (fail-closed)", detay: sonuc.hata, kayit: hareketYaz("hata", sonuc.hata) }); return; }
+            jsonYaz(res, 502, { hata: "kopru gonderilemedi", detay: sonuc.hata, kayit: hareketYaz("hata", sonuc.hata) });
             return;
           }
-          jsonYaz(res, 200, { gonderildi: true, hedef, zamanISO: new Date().toISOString(), yanit: sonuc && sonuc.yanit !== undefined ? sonuc.yanit : null });
+          jsonYaz(res, 200, { gonderildi: true, hedef, zamanISO: new Date().toISOString(), yanit: sonuc && sonuc.yanit !== undefined ? sonuc.yanit : null, kayit: hareketYaz("ok") });
         })
-        .catch((e) => jsonYaz(res, 500, { hata: "mesaj gonderim beklenmedik hata: " + (e instanceof Error ? e.message : "bilinmeyen") }));
+        .catch((e) => { const mes = e instanceof Error ? e.message : "bilinmeyen"; jsonYaz(res, 500, { hata: "mesaj gonderim beklenmedik hata: " + mes, kayit: hareketYaz("hata", mes) }); });
     });
     return;
   }
