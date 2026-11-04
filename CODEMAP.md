@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD ab12484 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 5f2e88c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -11,7 +11,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `DERSLER.md` (98KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
-- `GLOSSARY.md` (9.2KB) — GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır) | 1) ORDU PANELİ nedir | 2) Deterministik dikey (üç katman)
+- `GLOSSARY.md` (9.6KB) — GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır) | 1) ORDU PANELİ nedir | 2) Deterministik dikey (üç katman)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
 - `kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md` (2.6KB) — ADR eki — Üç denetçi sonrası DC planının sonlandırılması | Karar | Bütçe etkisi (T)
@@ -113,6 +113,6 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `scripts/uygunluk.mjs` (14.1KB) — function enYeniRapor() { | function puanla(r) { | function kapilar(r, puan) {
 - `scripts/yonetici-ozeti.ps1` (8.5KB)
 - `scripts/zincir-kontrol.ps1` (1.3KB)
-- `STATE_BOARD.md` (30.9KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş
+- `STATE_BOARD.md` (32.8KB) — STATE_BOARD — ordu (eski adıyla paseo-plugin; F1'de köke taşındı) | Aktif iş
 - `STATE_BOARD-SABLONU.md` (0.3KB) — STATE_BOARD — <PROJE> | Aktif iş | Son damgalar
 - `surumler/` (6 dosya: en yeni KILIT.md, KILIT.md, KILIT.md)

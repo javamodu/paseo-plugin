@@ -1,6 +1,6 @@
 # GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır)
 
-> ANAYASA TEMEL CÜMLESİ (SSOT): «ajan ordusunun kendi kendini deterministik yönetimi ve tüm hareketlerin denetlenmesi» — bu sözlük o cümlenin **alt detaylarının birleşik katmanıdır** (§1-§5; ANAYASA §6-§7 + kararlar birlikte okunur). Tüm tanımlar ölçülmüş gerçeğe dayanır — kaynaklar: çekirdek doğrulama turu (raporlar/pano-cekirdek-dogrulama-2026-11-04), K-0063, plans/AJAN-YONETIM-MATRISI.md, plans/PANEL-DALGA-SIRASI.md, plans/DOGRULAMA-TURU-PROTOKOLU.md. Bu belge İNSAN/AJAN eliyle yazılır ve güncellenir (CODEMAP otomasyonundur — ANAYASA Y3 yalnız CODEMAP için bağlar). Kök: D:\Vibecode\ordu · İlk doğum: 2026-11-04 (operatör emriyle).
+> ANAYASA TEMEL CÜMLESİ (SSOT): «ajan ordusunun kendi kendini deterministik yönetimi ve tüm hareketlerin denetlenmesi» — bu sözlük o cümlenin **alt detaylarının birleşik katmanıdır** (§1-§5; ANAYASA §6-§7 + kararlar birlikte okunur). Tüm tanımlar ölçülmüş gerçeğe dayanır — kaynaklar: çekirdek doğrulama turu (raporlar/pano-cekirdek-dogrulama-2026-11-04), K-0063, plans/AJAN-YONETIM-MATRISI.md, plans/PANEL-DALGA-SIRASI.md, plans/DOGRULAMA-TURU-PROTOKOLU.md. Bu belge İNSAN/AJAN eliyle yazılır ve güncellenir (CODEMAP otomasyonundur — ANAYASA Y3 yalnız CODEMAP için bağlar). Kök: D:\Vibecode\ordu · Kuruluş: 2026-11-04 (operatör emriyle).
 
 ## 1) ORDU PANELİ nedir
 
@@ -9,7 +9,7 @@ Paseo altında **veya dışında** (adapter mimarisi: `paseo`/`local` — ADR-01
 - **Hiyerarşik:** proje → oturumlar → ajan (tek) veya ajan sürüsü.
 - **Yüzey:** salt-okur GET'ler (ağaç · kadro · akış · sağlık · log · konusma) + **token kapılı POST /api/mesaj** (403/401/400/429 zinciri fail-closed — D4/D8'de ölçüldü).
 - **Disk SSOT:** panel veri kopyası TUTMAZ; `~/.paseo/agents/` kayıtlarını + `.jsonl` transcriptleri okur (konusma = tail-read 512KB). Panel = diskin görünümü. Sahte veri / ölü buton YASAK (E10).
-- **Doğurma köprüsü:** K-0060 TASLAK (kapalı) — bugün panel yalnız MEVCUT ajana mesaj atar; yeni ajan doğurma KURMAY MCP aracıyla.
+- **Spawn köprüsü:** K-0060 TASLAK (kapalı) — bugün panel yalnız MEVCUT ajana mesaj atar; yeni ajan spawn'ı KURMAY MCP aracıyla.
 
 ## 2) Deterministik dikey (üç katman)
 
@@ -17,17 +17,17 @@ Ajan beyni **stokastiktir** (LLM); deterministik olan **süreç ve kapılardır*
 
 | Katman | İş | Araç (ölçülmüş) |
 |---|---|---|
-| **Daemon** (altyapı — yargısız: iyi/kötü bilmez, yalnız taşır) | kayıt defteri · mesaj kuyruğu + teslim (**2 sakin saniye** — D8 kırılımı 1,9 sn) · süreç doğurma/ölüm · cron/heartbeat/schedule | Paseo daemon (bugün) · ordu-core `daemon.ts` (bağımsız yol: tick çocuk süreçte koşar — daemon çökmez; 3 üst üste kırmızı çocuk = fail-closed ölüm; STOP mandalı her uyanışta yeniden okunur) |
+| **Daemon** (altyapı — yargısız: iyi/kötü bilmez, yalnız taşır) | kayıt defteri · mesaj kuyruğu + teslim (**2 sakin saniye** — D8 kırılımı 1,9 sn) · süreç spawn/ölüm · cron/heartbeat/schedule | Paseo daemon (bugün) · ordu-core `daemon.ts` (bağımsız yol: tick çocuk süreçte koşar — daemon çökmez; 3 üst üste kırmızı çocuk = fail-closed ölüm; STOP mandalı her uyanışta yeniden okunur) |
 | **Scriptler** (harness — kabul kapıları: sayı ve exit kodu konuşur) | «yaptım» sözü kanıt DEĞİL | tam kapı `node --test` EXIT=0 · `scripts/ps51-kapisi.ps1` merge-guard · CODEMAP regen · K-0062 LOC tavanları (@Count ölçümü) · PNG imza + IHDR doğrulaması |
 | **Kurallar** (sözleşme — davranış disiplini) | ne yapılır / yapılmaz | ANAYASA > evrensel sözleşme v2.1 > EK-1..5 > kararlar K-xxxx · DERSLER |
 
 Otorite ekseni ALTYAPI ekseninden AYRIDIR: operatör → sözleşme → KURMAY → işçi ajanlar (kararı üst katman verir); daemon hepsinin altındaki ZEMİNDİR (KURMAY dahil — daemon yönetici değil, sahne).
 
-## 3) Doğum ve izleme: ORDU panelinden vs projenin kendi sekmesi
+## 3) Spawn ve izleme: ORDU panelinden vs projenin kendi sekmesi
 
 | | **KURMAY/panel zincirinden** | **Proje sekmesinden (Paseo desktop)** |
 |---|---|---|
-| Doğuran | KURMAY-1 (ajan onun subagent'ı) | operatör (parent'sız — diskte 606 «operatör doğumlu» kayıt) |
+| Spawn eden | KURMAY-1 (ajan onun subagent'ı) | operatör (parent'sız — diskte 606 «operatör spawn'ı» kayıt) |
 | Soy kaydı | `parent-agent-id` YAZILI (481 bağlı kayıt · 46 yönetici) | yok → FAZ-V yüzeyinde dürüst gösterim: «bağlı: operatör» |
 | Kapılardan geçer | token (403/401) + beyaz liste + 429 hız + 4096 bayt tavan + 15 sn köprü zaman aşımı | Paseo desktop'un kendi izin akışı (bizim frenlerimiz o akışta YOK) |
 | İş kabulü | KURMAY kanıt kapısı: brif → koşu → gelen-kutu raporu → bağımsız doğrulama → commit TEK ELDEN (ajanlar COMMIT ATMAZ) | operatörde (o ajan kendi commit'ini atabilir) |
@@ -57,7 +57,7 @@ Reddedilen alternatifler (K-0063): tek kurmay 76 projeyi doğrudan yönetir (öl
 - GÖRME (tam, her ajan): list/status/activity · terminal çıktısı · `~/.paseo/agents/` kayıtları (salt-okur) · transcript tail-read · 76 projelik ağaç.
 - YÖNLENDİRME (tam, hem kendi hem operatör ajanına): prompt gönder · steer (tura katıl) · interrupt (turu kes).
 - KENDİ subagent'ında: model/mod/etiket ayarı (tur sınırında — cache dostu) · cancel (ajan yaşar) · kill/archive (kalıcı ölüm).
-- Doğurma: create_agent (kalıcı subagent) · create_schedule (cron ajanı — her vuruşta yeni ajan) · create_heartbeat (var olan oturuma dürtme) · uzak host (serverId'li).
+- Spawn: create_agent (kalıcı subagent) · create_schedule (cron ajanı — her vuruşta yeni ajan) · create_heartbeat (var olan oturuma dürtme) · uzak host (serverId'li).
 - Schedule yönetimi (kendi olanlar): pause/resume/run-once/update/delete + maxRuns/expiresIn sınırları.
 - Ölçek: paralel yazıcı ≤3 (EK-3) · dalga başına ≤4 koşu (K-0062).
 
@@ -81,8 +81,11 @@ Reddedilen alternatifler (K-0063): tek kurmay 76 projeyi doğrudan yönetir (öl
 
 ## Terimler (kısa sözlük)
 
+**TERİM POLİTİKASI (operatör emri 2026-11-04):** «doğurma / doğum / doğur-» kelime ailesi bu repoda YASAK — yeni yazılarda yerinde **spawn** kullanılır (çok-ajan + süreç literatürünün yerleşik kavramı, (T) — web teyidi bu oturumda boş döndü, kaynak listesi yok). Eski kayıtlar (kararlar, raporlar, ANAYASA) tarihtir; geriye dönük değiştirilmez.
+
 | Terim | Anlam |
 |---|---|
+| **spawn** | yeni ajan süreci başlatma (KURMAY MCP `create_agent` · panel köprüsü K-0060 taslak); «doğurma» YASAK |
 | **daemon** | altyapı süreci: kayıt + kuyruk + süreç + saat; yargısız (determinizm ondan bekleme) |
 | **harness** | deterministik kabul rayları: test EXIT, kapı scriptleri, tavan ölçümleri |
 | **SSOT** | tek doğru kaynak — bu sistemde DISK (kayıtlar + transcript) |
@@ -90,7 +93,7 @@ Reddedilen alternatifler (K-0063): tek kurmay 76 projeyi doğrudan yönetir (öl
 | **2 sakin saniye** | daemon'un mesajı alıcıya teslim öncesi toplu işleme penceresi (tasarım) |
 | **tail-read** | büyük dosyanın yalnız SON bölümünü okuma (konusma: 512KB/30 balon) |
 | **fail-closed** | hata/eksik veri durumunda DÜRÜST boş/kırmızı — sahte içerik doğmaz |
-| **parent-agent-id** | ajanın doğuran annesinin kimliği — hiyerarşinin kayıt temeli |
+| **parent-agent-id** | ajanı spawn eden ajanın kimliği — hiyerarşinin kayıt temeli |
 | **işlenme** | gelen-kutu maddesinin işlendiğinin damgası (+ commit hash) |
 | **[insan] kapıları** | yalnız operatör: push · restart · kill · silme · ücretli üretim · izin |
 | **dalga** | atomik iş birimi: brif → koşu → doğrulama → kapanış (tam kapı test sayısı ölçüt) |
