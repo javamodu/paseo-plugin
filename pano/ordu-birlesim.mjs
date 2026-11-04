@@ -649,10 +649,12 @@ export function projelerTara(paseoEv, secenekler = {}) {
     let dosyalar = [];
     try { dosyalar = readdirSync(projeYolu); } catch { continue; }
     const ajanlar = [];
+    let klasorCwd = null; // FAZ-Q: GERÇEK klasör adının kaynağı — ajan kaydının cwd alanı (dash-bölme YASAK: klasör adının kendisi tireli olabilir); İLK dolu olan yeter — aynı dizindeki kayıtlar aynı yola işaret eder
     for (const f of dosyalar) {
       if (!f.endsWith('.json')) continue;
       let k; try { k = JSON.parse(readFileSync(join(projeYolu, f), 'utf8')); } catch { atlanan++; continue; }
       if (!k || typeof k !== 'object' || typeof k.id !== 'string' || !k.id.trim()) { atlanan++; continue; }
+      if (klasorCwd === null && typeof k.cwd === 'string' && k.cwd.trim()) klasorCwd = k.cwd.trim();
       ajanlar.push({
         ajanKimligi: k.id, // TAM kimlik — Composer gönderim hedefi (whitelist) ağaç/kart kısa önek değil bunu kullanır
         ajanId: kisaAjanId(k.id),
@@ -682,6 +684,7 @@ export function projelerTara(paseoEv, secenekler = {}) {
       dizin: d,
       projeAdi: d, // dizin basename'i — ajan title'lari kararsiz (mojibake dahil), kullanilmaz
       baslik: basliklar.has(d) ? basliklar.get(d) : null, // FAZ-G: workspaces.json TAM basligi; YOK = null (UI'da dashed yol durust yedek; kararsiz alan — UI'da esc() ile)
+      klasorAdi: klasorCwd === null ? null : (klasorCwd.replace(/[\\/]+$/, '').split(/[\\/]/).pop() || null), // FAZ-Q (kullanıcı «sadece klasör adlarını yaz»): GERÇEK klasör adı — cwd basename'i (son \ veya / sonrası segment; son ayraçlar temizlenir; boş = null). Dash-bölme YASAK: 'woo-block' klasörü TEK segment'tir, 'block' DEĞİL
       ajanSayisi: ajanlar.length,
       ajanlar, // TAM liste (FAZ-A): her kayıt ajanKimligi + kısa önek + durum + etkinlik + sağlayıcı + etiket — Composer hedef seçiminin veri kaynağı
       sonEtkinlikISO,

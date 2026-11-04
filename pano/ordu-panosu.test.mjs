@@ -1374,7 +1374,7 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   ok("FAZ-F sıra: AKTİF proje ÜSTTE (P-alfa) — pasifler altta [ORDU, beta] grup içi ORDU-önce aynen (bilinçli pin: eski 'ORDU önce' pini)", h.indexOf("alfa") < h.indexOf("ORDU</span>") && h.indexOf("ORDU</span>") < h.indexOf("beta"));
   const alfaBasIdx = h.indexOf('data-proje="P-alfa"');
   const alfaBas = h.slice(alfaBasIdx, h.indexOf("</div>", alfaBasIdx));
-  ok("proje satırı: sağda ÇALIŞAN sayısı (2 — toplam 4 DEĞİL) + dürüst title TAM adlı birleşik bicim (E-ek1 bilinçli: 'alfa — 2 çalışan · 4 ajan kaydı'; eski pini '2 çalışan · 4 ajan kaydı')", alfaBas.includes('<span class="agacSayi">2</span>') && !alfaBas.includes('<span class="agacSayi">4</span>') && alfaBas.includes('title="alfa — 2 çalışan · 4 ajan kaydı"'));
+  ok("proje satırı: sağda ÇALIŞAN sayısı (2 — toplam 4 DEĞİL) + dürüst title FAZ-Q birleşik bicim (dizin — [baslik] — çalışan/kayıt; fixture'da baslik YOK: 'P-alfa — 2 çalışan · 4 ajan kaydı'; eski pini 'alfa — 2 çalışan · 4 ajan kaydı')", alfaBas.includes('<span class="agacSayi">2</span>') && !alfaBas.includes('<span class="agacSayi">4</span>') && alfaBas.includes('title="P-alfa — 2 çalışan · 4 ajan kaydı"'));
   ok("hata uyarısı: YALNIZ hatalı ajanı olan projede (P-beta VAR · P-alfa/D-ordu YOK)", (h.match(/class="agacUyari"/g) || []).length === 1 && h.indexOf('class="agacUyari"') > h.indexOf('data-proje="P-beta"'));
   ok("uyarı ikonu aria-label + dürüst sayı title'ı", h.includes('aria-label="hata durumunda ajan var"') && h.includes('title="1 ajan hata durumunda"'));
   ok("PANEL-SIFIR-1 TEK SEVİYE: açık projenin TÜM oturum satırları DOĞRUDAN render (grup filtresi YOK — çalışan/bekleyen/bilinmeyen hepsi)", h.includes('data-ajan="' + R1 + '"') && h.includes('data-ajan="' + R2 + '"') && h.includes('data-ajan="' + I1 + '"') && h.includes('data-ajan="' + D1 + '"'));
@@ -1591,7 +1591,7 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   /* --- FAZ-E: ağaç etiketleri (steering «aşırı minimal» + E-ek1/E-ek2 «kısalmıyor/küçük») --- */
   ok("oturum düğümü etiketi TAM a.etiket (FAZ-K — kisalt(a.etiket,12) KALDIRILDI; steering «oturum isimleri ben paseo'da yazdığım isimleri kullan»)", j.includes("etiketVar ? a.etiket :") && !j.includes("kisalt(a.etiket, 12)"));
   ok("proje satırı görünen adı TAM etiket (FAZ-K — kisalt(etiket,12) KALDIRILDI; steering «klasör isimlerini doğrudan yaz») — etiket = projeEtiketi(pr)", j.includes("const etiket = projeEtiketi(pr)") && j.includes('esc(etiket) + "</span>"') && !j.includes("kisalt(etiket, 12) || etiket"));
-  ok("E-ek1+FAZ-G: satır title'ı birleşik dürüst bicim 'TAM etiket — N çalışan · M ajan kaydı' (calisan/kayıt bilgisi KORUNUR)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
+  ok("E-ek1+FAZ-Q: satır title'ı birleşik dürüst bicim 'dizin — [baslik] — N çalışan · M ajan kaydı' (TAM kimlik hover'da; calisan/kayıt bilgisi KORUNUR)", j.includes('const tamTitle = esc(pr.dizin)') && j.includes('" — " + calisan + " çalışan · " + ajanlar.length + " ajan kaydı"'));
   ok("E-ek1: agacAd'in KENDİ title'i YOK (TAM ad satır title'ında — çift tooltip kaldırıldı)", !j.includes('class="agacAd" title='));
   ok("CHAT başlığındaki kisalt(a.etiket, 20) AYNEN (kullanıcı «soldaki» dedi — yalnız ağaç)", j.includes("kisalt(a.etiket, 20)"));
   ok("PANEL-SIFIR-1: AKIŞ yüzü SÖKÜLDÜ — kisalt(o.ad, 80) kalıntısı 0 (eski pin 'AYNEN' idi; akisSatır mekanizması gitti)", !j.includes("kisalt(o.ad, 80)"));
@@ -1691,8 +1691,8 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxG)();
   const hg = sahteG.agacAlani.innerHTML;
-  ok("vm agac: baslik etikete akar — gorunen TAM baslik (FAZ-K: kisalt KALDIRILDI), title 'TAM baslik — N çalışan · M ajan kaydı'", hg.includes(">01234567890123456789012</span>") && hg.includes('title="01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
-  ok("vm agac: baslik YOKSA dashed yedek aynen (beta)", hg.includes(">beta</span>") && hg.includes('title="beta — 0 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: FAZ-Q — klasorAdi YOK → dashed yedek görünür ('P-alfa' [projeAdi]; baslik GÖRÜNMEZ) + baslik TOOLTIP'te yaşar (title 'dizin — baslik — N çalışan · M ajan kaydı')", hg.includes(">P-alfa</span>") && !hg.includes(">01234567890123456789012</span>") && hg.includes('title="P-alfa — 01234567890123456789012 — 1 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: baslik YOKSA title'da da baslik segmenti yok (beta — dashed yedek aynen)", hg.includes(">beta</span>") && hg.includes('title="P-beta — 0 çalışan · 1 ajan kaydı"'));
   ok("vm agac: kimlik yolu DEGISMEZ (data-proje TAM dizin)", hg.includes('data-proje="P-alfa"') && hg.includes('data-proje="P-beta"'));
   const sahte2 = {};
   const $2 = (id) => (sahte2[id] = sahte2[id] || { innerHTML: "" });
@@ -1703,7 +1703,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctxS)();
   const hs = sahte2.anaSekmeSerit.innerHTML;
-  ok("vm ana sekme: baslik etikete akar — FAZ-H kisalt(.,14) + title 'TAM baslik — dizin' + data-ana TAM dizin", hs.includes(">sekme basligi…</button>") && hs.includes('title="sekme basligi uzun ornek metni — P-uzun"') && hs.includes('data-ana="P-uzun"'));
+  ok("vm ana sekme: FAZ-Q — klasorAdi YOK → dashed yedek sekme adı ('P-uzun'; baslik görünmez) + title 'ad — dizin' + data-ana TAM dizin (eski pini baslik akışıydı)", hs.includes(">P-uzun</button>") && !hs.includes(">sekme basligi…</button>") && hs.includes('title="P-uzun — P-uzun"') && hs.includes('data-ana="P-uzun"'));
 });
 
 test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız + kisalt eşikleri — steering «yazılar çok küçük okunaklu yap modern sade minimalist kompkat az yerde çok işlev dinamik akışlar nefes alan tasarım büyük resim ve yazılar» 2026-11-03", () => {
@@ -1870,7 +1870,7 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   ok("ağaç render kaynağında kisalt ÇAĞRISI 0 (ajanDugumHtml + agacYaz TEK SEVİYE — TAM etiket; chat başlık 20 BİLİNÇLİ kalır — bu dilimin DIŞINDA)", !/kisalt\(/.test(agacKaynak));
   ok("proje satırı: '<span class=\"agacAd\">' + esc(etiket) TAM (başlık VARSA başlık = kullanıcının Paseo rename'i)", j.includes('<span class="agacAd">\' + esc(etiket) + "</span>"'));
   ok("oturum düğümü: etiketVar ? a.etiket (TAM) : dürüst yedek (ajanId/kisaIdGoster) — yedek AYNEN", j.includes('etiketVar ? a.etiket : a.ajanId || kisaIdGoster(a.ajanKimligi) || "?"'));
-  ok("satır title birleşik bicim AYNEN (TAM etiket + çalışan/kayıt bilgisi korunur)", j.includes('esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length'));
+  ok("satır title birleşik bicim FAZ-Q (dizin + [baslik] + çalışan/kayıt bilgisi korunur — TAM kimlik hover'da)", j.includes('const tamTitle = esc(pr.dizin)') && j.includes('" — " + calisan + " çalışan · " + ajanlar.length + " ajan kaydı"'));
   /* --- (3) vm: uzun etiketli sahte proje + başlıksız ajan dürüst yedek --- */
   const R1 = "33333333-3333-4333-8333-333333333333";
   const FIXK = {
@@ -1891,9 +1891,9 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxK)();
   const hk = sahteK.agacAlani.innerHTML;
-  ok("vm agac: rename başlık TAM görünür ('dodo lemon' — workspaces.json'dan)", hk.includes(">dodo lemon</span>"));
+  ok("vm agac: FAZ-Q — rename başlık GÖRÜNMEZ ('dodo lemon' tooltip'te yaşar); görünen ad dashed KLASÖR-ADI yedeki TAM sarar", hk.includes(">D-Vibecode-Chrome-extension-sarisite-export</span>") && !hk.includes(">dodo lemon</span>"));
   ok("vm agac: başlıksız ajan DÜRÜST YEDİK AYNEN (etiket YOK → 8 hane kimlik, 'başlıksız' uydurması YOK)", /class="agacDugumAd"[^>]*>33333333</.test(hk) && !hk.includes("başlıksız"));
-  ok("vm agac: kimlik yolu DEĞİŞMEZ (data-proje TAM dizin + data-ajan TAM uuid + title TAM etiket)", hk.includes('data-proje="D-Vibecode-Chrome-extension-sarisite-export"') && hk.includes('data-ajan="' + R1 + '"') && hk.includes('title="dodo lemon — 0 çalışan · 1 ajan kaydı"'));
+  ok("vm agac: kimlik yolu DEĞİŞMEZ (data-proje TAM dizin + data-ajan TAM uuid + title FAZ-Q birleşik: dizin — baslik — çalışan/kayıt)", hk.includes('data-proje="D-Vibecode-Chrome-extension-sarisite-export"') && hk.includes('data-ajan="' + R1 + '"') && hk.includes('title="D-Vibecode-Chrome-extension-sarisite-export — dodo lemon — 0 çalışan · 1 ajan kaydı"'));
   /* --- (4) korunum: min-height 32 ailesi + FAZ-J coarse 44 aynen --- */
   ok("ağaç satır min-height 32px ailesi KORUNUR (sarma doğal uzama — sabit height YOK; agacGrupBas SÖKÜLDÜ)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && !/\.agacGrupBas/.test(HTML));
   ok("FAZ-J coarse 44px AYNEN (pointer:coarse bloğu SIFIR kabuğuna uyarlandı: agacProjeBas + agacAjan 44)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*width:\s*var\(--min-dokunma\)/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
@@ -2142,7 +2142,7 @@ test("51s- PANEL-ANA-1 FAZ-N (kaynak-pin + vm): ağaç ÖLÜ OTURUM FİLTRESİ �
   /* --- (1) kaynak pinleri --- */
   ok("filtre fonksiyonu tanımlı: agacGorunurAjanlar (yeni özellik = ince kanca — render'da çağrılır)", j.includes("function agacGorunurAjanlar("));
   ok("render çağrısı: agacGorunurAjanlar(ajanlar).map(ajanDugumHtml) — satır listesi süzülür", j.includes("agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr))"));
-  ok("başlık sayısı TOPLAM kayıt AYNEN: ajanlar.length (gizlenenler dahil — sahte gizleme YOK E10)", j.includes("ajanlar.length + ' ajan kaydı"));
+  ok("başlık sayısı TOPLAM kayıt AYNEN: ajanlar.length (gizlenenler dahil — sahte gizleme YOK E10; FAZ-Q: tamTitle sabiti çift tırnaklı literal)", j.includes('ajanlar.length + " ajan kaydı"'));
   ok("'+K eski' satırı MEKANİZMA YOK (agacEski sınıfı/id'si yok — minimal; yorumdaki kelime dokümantasyondur)", !j.includes("agacEski"));
   const filtreGovde = HTML.slice(HTML.indexOf("function agacGorunurAjanlar("), HTML.indexOf("function agacYaz("));
   ok("filtre agacSecili'ye DOKUNMAZ (gizli satıra denk gelen kalıcı seçim KORUNUR — davranış dürüst)", filtreGovde.includes("function agacGorunurAjanlar(") && !filtreGovde.includes("agacSecili"));
@@ -2563,4 +2563,67 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
   sabitProjeler[0].dizin = "P-meta-yeni";
   await s6.fns[0](); /* olcumAniISO DA değişti + projeler kaydı değişti — ÇİZER */
   ok("vm uçucu-meta + gerçek değişim: projeler kaydı değişince render KOŞAR (agacYaz 2 + P güncellenir)", s6.ctx.sayac.agacYaz === 2 && s6.ctx.P.projeler[0].dizin === "P-meta-yeni");
+});
+
+test("51w- PANEL-ANA-1 FAZ-Q (kaynak-pin + hermetik + vm): SOL KOLON KAYDIRMA (flex/overflow kök neden — .chatListe deseni) + ağaç adları SADECE KLASÖR ADI (klasorAdi = ajan kaydı cwd basename'i; dash-bölme YASAK: 'woo-block' ≠ 'block') — kullanıcı «soldaki sadece klasör adlarını neden yazmıyorsun uzun yazıyorsun» + «ayrıca sol panel aşağı kaymıyor» 2026-11-04", () => {
+  const j = jsKisim();
+  const birlesim = readFileSync(new URL("./ordu-birlesim.mjs", import.meta.url), "utf8");
+  /* --- (1) CSS kaynak pinleri: sol kaydırma kök neden düzeltmesi --- */
+  ok("(1a) #sol>.bolum esner: flex:1 1 auto + min-height:0 + flex kolon (eski flex:0 1 auto + overflow:hidden automatic min-height korumasını ÖLDÜRÜYORDU — .bolum 3842px içeriği 768px'e KÜÇÜLTÜP kırpıyordu)", HTML.includes("#sol > .bolum { flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }"));
+  ok("(1b) #agacAlani kaydırma alanı: .chatListe deseni AYNEN (flex:1 1 auto + min-height:0 + overflow-y:auto + overscroll-behavior:contain)", HTML.includes("#agacAlani { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }"));
+  ok("(1c) #agacHata + .logNot esnek-olmayan alt çocuk — altta PINLENİR (hata yüzü kaydırma alanından bağımsız hep görünür)", HTML.includes("#bolum-agac #agacHata, #bolum-agac .logNot { flex:0 0 auto; }"));
+  ok("(1d) scrollbar ailesine #agacAlani EKLENDİ (8px + thumb)", HTML.includes("#sol::-webkit-scrollbar, #agacAlani::-webkit-scrollbar") && HTML.includes("#agacAlani::-webkit-scrollbar-thumb"));
+  ok("(1e) MOBİL ≤899: .bolum doğal boy (flex:none) + #agacAlani overflow:visible — iç scroll YOK (sayfa kayar)", (() => { const m = HTML.match(/@media \(max-width:899px\)[\s\S]*?(?=@media|$)/); return m !== null && m[0].includes("#sol > .bolum { flex:none; }") && m[0].includes("#agacAlani { overflow:visible; }"); })());
+  ok("(1f) #orta'ya DOKUNULMADI (şikayet yok; chatListe zaten bu desenle çalışıyor — kolon kuralı değişmez)", /#orta\s*\{[^}]*overflow-y:auto/.test(HTML) && !/#orta[^;]*overflow:hidden/.test(HTML));
+  /* --- (2) birlesim kaynak pinleri: klasorAdi kaynağı cwd --- */
+  ok("(2a) projelerTara ajan döngüsünde cwd yakalama (İLK dolu yeter)", birlesim.includes("let klasorCwd = null;") && birlesim.includes("typeof k.cwd === 'string' && k.cwd.trim()"));
+  ok("(2b) proje kaydına klasorAdi alanı: cwd basename (son ayraçlar temizlenir + son segment; boş = null) — EKLEMELİ alan, mevcut alanlar AYNEN", birlesim.includes("klasorAdi: klasorCwd === null ? null :") && birlesim.includes("replace(/[\\\\/]+$/, '')"));
+  ok("(2c) systemPrompt yanıta GİRMEZ AYNEN (alan ataması 0 — yalnız satır 604 yorumunda doktrin notu)", !birlesim.includes("systemPrompt:"));
+  /* --- (3) hermetik projelerTara: GERÇEK tireli klasör adı (dash-bölme tuzağı pinlenir) --- */
+  const tmp = tempKok();
+  try {
+    const ag = join(tmp, "agents");
+    for (const d of ["D-woo", "D-cwdsiz", "D-slash"]) mkdirSync(join(ag, d), { recursive: true });
+    const ajanYaz = (d, id, cwd) => writeFileSync(join(ag, d, id + ".json"), JSON.stringify(Object.assign({ id, provider: "glm53u-claude", lastStatus: "running", lastActivityAt: "2026-11-04T10:00:00Z", title: "oturum etiketi" }, cwd === undefined ? {} : { cwd })));
+    ajanYaz("D-woo", "11111111-1111-4111-8111-111111111111", "C:\\Users\\gatep\\Local Sites\\1\\app\\public\\wp-content\\themes\\woo-block");
+    ajanYaz("D-cwdsiz", "22222222-2222-4222-8222-222222222222", undefined);
+    ajanYaz("D-slash", "33333333-3333-4333-8333-333333333333", "D:/fwd/klasorum");
+    const r = projelerTara(tmp);
+    const bul = (d) => r.projeler.find((p) => p.dizin === d);
+    assert.equal(bul("D-woo").klasorAdi, "woo-block", "DASH-BÖLME TUZAĞI: tireli klasör adı TEK segment — 'block' DEĞİL (canlı verideki woo-block teması)");
+    assert.equal(bul("D-cwdsiz").klasorAdi, null, "cwd'siz ajan → klasorAdi null (dürüst — uydurma yok E10)");
+    assert.equal(bul("D-slash").klasorAdi, "klasorum", "ileri-bölü cwd'den basename AYNEN çıkar");
+    assert.equal(bul("D-woo").baslik, null, "mevcut alanlar AYNEN: baslik (workspaces.json yok → null)");
+    assert.ok(Array.isArray(bul("D-woo").ajanlar) && bul("D-woo").ajanlar.length === 1, "ajanlar listesi AYNEN");
+  } finally { rmSync(tmp, { recursive: true, force: true }); }
+  /* --- (4) vm: klasorAdi ÖNCELİĞİ (baslik VARSA BİLE kazanır — yeni doktrin) + yedekler + tamTitle --- */
+  ok("(4a) projeEtiketi gövdesi: klasorAdi || projeAdi || '?' — baslik GÖRÜNEN ADI TAŞIMAZ", j.includes("typeof pr.klasorAdi === \"string\" && pr.klasorAdi.trim()") && !j.includes('if (pr && typeof pr.baslik === "string" && pr.baslik.trim()) return pr.baslik;'));
+  ok("(4b) tamTitle birleşimi: dizin + [baslik VARSA] + çalışan/kayıt (TAM kimlik hover'da)", j.includes("const tamTitle = esc(pr.dizin)") && j.includes('typeof pr.baslik === "string" && pr.baslik.trim()'));
+  const R1 = "44444444-4444-4444-8444-444444444444";
+  const FIXW = {
+    olcumAniISO: "2026-11-04T12:00:00Z",
+    projeler: [
+      { dizin: "D-kisa", projeAdi: "D-kisa", baslik: "ÇOK UZUN BAŞLIK VAR AMA", klasorAdi: "woo-block", orduMu: false, ajanlar: [
+        { ajanKimligi: R1, ajanId: "44444444", lastStatus: "running", etiket: "klasörlü ajan" },
+      ] },
+      { dizin: "D-yedek", projeAdi: "D-yedek", orduMu: false, ajanlar: [
+        { ajanKimligi: R1, ajanId: "44444444", lastStatus: "idle", etiket: "yedekli ajan" },
+      ] },
+      { dizin: "D-bos", projeAdi: "   ", orduMu: false, ajanlar: [] },
+    ],
+  };
+  const sahteW = {};
+  const $w = (id) => (sahteW[id] = sahteW[id] || { innerHTML: "", textContent: "", hidden: true });
+  const ctxW = {
+    $: $w, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+    P: FIXW, agacAcik: new Set(["D-kisa", "D-yedek", "D-bos"]), agacSecili: null,
+    NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+  };
+  vm.runInNewContext(HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')) + "\nagacYaz", ctxW)();
+  const hw = sahteW.agacAlani.innerHTML;
+  ok("(4c) vm: klasorAdi kazanır — baslik VARSA BİLE görünmez ('woo-block' görünür; 'ÇOK UZUN BAŞLIK' YOK)", hw.includes(">woo-block</span>") && !hw.includes(">ÇOK UZUN BAŞLIK"));
+  ok("(4d) vm: baslik TOOLTIP'te yaşar (title 'D-kisa — ÇOK UZUN BAŞLIK VAR AMA — 1 çalışan · 1 ajan kaydı')", hw.includes('title="D-kisa — ÇOK UZUN BAŞLIK VAR AMA — 1 çalışan · 1 ajan kaydı"'));
+  ok("(4e) vm: klasorAdi null → dashed projeAdi dürüst yedek + basliksız title segmenti YOK", hw.includes(">D-yedek</span>") && hw.includes('title="D-yedek — 0 çalışan · 1 ajan kaydı"'));
+  ok("(4f) vm: her ikisi de boş → dürüst '?' (uydurma yok)", hw.includes(">?</span>"));
+  ok("(4g) kimlik yolu DEĞİŞMEZ: data-proje TAM dizin", hw.includes('data-proje="D-kisa"') && hw.includes('data-proje="D-yedek"'));
 });

@@ -1,0 +1,49 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-Q-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-Q — ağaç adları SADECE KLASÖR ADI (klasorAdi = ajan kaydı cwd basename'i; dash-bölme YASAK) + sol kolon kaydırma kök neden düzeltmesi (flex/overflow — .chatListe deseni)",
+  "tarihISO": "2026-11-04T11:09:21+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-Q",
+  "kullaniciSpec": [
+    "soldaki sadece klasör adlarını neden yazmıyorsun uzun yazıyorsun sonuçta workspaces klasör adı ile başlıyor",
+    "ayrıva sol panel aşağı kaymıyor"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-birlesim.mjs", "tur": "M", "ozet": "+3 satır: projelerTara ajan döngüsünde İLK dolu k.cwd yakalama + proje kaydına EKLEMELİ klasorAdi alanı (cwd basename; son ayraç temizleme + son segment; boş=null) — dash-bölme YASAK ('woo-block' TEK segment); mevcut alanlar AYNEN; systemPrompt yanıta girmez aynen" },
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "(1) SOL KAYDIRMA: #sol>.bolum flex:1 1 auto + min-height:0 + flex kolon; #agacAlani .chatListe deseni (flex:1 1 auto + min-height:0 + overflow-y:auto + overscroll contain); scrollbar ailesine #agacAlani; #agacHata/.logNot altta pinli (flex:0 0 auto); mobil ≤899 flex:none + overflow:visible (iç scroll YOK); #orta DOKUNULMADI. (2) projeEtiketi klasorAdi||projeAdi||'?' (baslik görünmez — tooltip'e taşındı); agacYaz tamTitle = dizin + [baslik] + çalışan/kayıt; ajanDugumHtml DOKUNULMAZ; sekme/optgroup/konusmaSecGuncelle projeEtiketi paylaşır → kısa ad" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51w YENİ (7 CSS pin + 3 birlesim pin + 3 vm pin + hermetik projelerTara: woo-block dash-bölme tuzağı + cwd'siz null + ileri-bölü basename) + 8 dürüst pin güncellemesi (satır no'lu raporda)" }
+  ],
+  "etiket": ["panel", "faz-q", "klasor-adi", "cwd-basename", "dash-bolme-yasak", "sol-kaydirma", "flex-overflow", "chatliste-deseni"],
+  "kanit": {
+    "nodeTestPano": { "tests": 71, "pass": 71, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazq-t6.txt" },
+    "tamKapiAcikGlob": { "tests": 309, "pass": 309, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazq-tam.txt", "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs" },
+    "hijyen": "yasak sembol 0 YENİ (✓/⚠ HEAD'deki mevcut pin metni — baseline aynı) · dış URL 0 · x-pano-token 2 · CHAT_TAVAN 2 · maxlength 4096 · pano-token 12 · ordu-agac-secili 6 · @keyframes 1",
+    "dokunulmayan": ["pano/server.js", "pano/konusma-oku.mjs", "d1a/d1b", "CODEMAP", "STATE_BOARD"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: RESTART GEREKLİ (ordu-birlesim.mjs değişti — PERF-1 10sn TTL önbelleği taze taramada klasorAdi'yı görür) + canlı DOM: sol kaydırma (scrollHeight>clientHeight + son satır görünür) + ağaçta KISA klasör adları (baslik YOK; TAM kimlik hover'da) + 51w ile 309 beklenir + ekran kanıtı + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "gerçek klasör adının kaynağı ajan kaydının cwd alanı (koordinatör disk doğrulaması); dash-bölme YASAK — 'woo-block' TEK segment, 'block' DEĞİL (51w hermetik pin)",
+    "İLK dolu cwd yeter — aynı dizindeki kayıtlar aynı yola işaret eder",
+    "baslik GÖRÜNEN ADI TAŞIMAZ (kullanıcı emri 'sadece klasör adları') — TAM kimlik (dizin + baslik + çalışan/kayıt) hover title'da yaşar; bilgi kaybı YOK",
+    "aynı kısa ad her yüzeyde (ağaç + sekme + optgroup + konusmaSecGuncelle) — projeEtiketi TEK yardımcı; 5 kullanım değişmedi",
+    "klasorAdi EKLEMELİ alan — mevcut alanlar AYNEN; parmak izi yeni.projeler'i string'lediğinden klasorAdi otomatik parmağa girer (veri değişince render koşar — FAZ-P EK Düzeltme mekanizması kapsar)",
+    "sol kaydırma .chatListe deseninin kopyası — yeni icat YOK; #agacHata/.logNot altta pinlenmesi iyileşme (hata yüzü hep görünür)",
+    "mobil ≤899 iç scroll YOK — .bolum doğal boy, sayfa kayar",
+    "FAZ-K doktrini kısmen devirildi (TAM etiket → kısa klasör adı): FAZ-Q emri daha yeni + spesifik; başlık title'da yaşar; FAZ-K oturum satırı doktrini (TAM ajan etiketi) AYNEN"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı (koordinatör — restart gerekli: ordu-birlesim.mjs değişti)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 11:33 +03:00): (1) bagimsiz tam kapi 309/309 EXIT=0 (%TEMP%\\fazq-koordinator.txt + gercek cikis kodu ayri dosyadan). (2) Diff +103/-20: 3 dosya, hunks brief ile birebir; server.js hunk 0. (3) 4937 RESTART koordinatorce (17092→11680, env-blok spawn): API 75/75 klasorAdi dolu — hayalet worktree'lerde bile GERCEK basename ('sprint53-alias' — naif dash-bolme 'alias' derdi; 'woo-block' ≠ 'block'). (4) Canli DOM 1280x800: KAYDIRMA DOGDU (#agacAlani scrollHeight 2906 > clientHeight 656; programatik alta kaydirma → son satir 'YapaySite' gorunur; oncesi #sol 780==780 + 3842px kirpiliyordu); ADLAR KISA (ilk 5: ordu/page-agent/sarisite-export/playwright-cdp/sprint53-alias; en uzun 26 krk, oncesi 66); ORDU satiri ad 'ordu' + title 'D-Vibecode-ordu — ajan ordusu paseo desktop — 1 calisan · 66 ajan kaydi' (TAM kimlik hover'da); oturum satirlari FAZ-K aynen (Paseo basliklari + son-3 suzgec). (5) Mobil 390x844: medya canli (splitter none · body auto · #sol order:3), #agacAlani overflow:visible + ic scroll YOK, .bolum flex:none, sayfa kaydirmasi document duzeyinde calisiyor (docScrollH 19748). (6) Hijyen baseline aynen (xpano 2 · chatTavan 2 · ml4096 · panoToken 12 · agacSecili 6 · keyframes 1 · dis URL w3.org). (7) PNG: ekran-kanit-fazq-klasor-adi-kaydirma-2026-11-04.png 150.663 bayt 1600x1000 (@1.25 = 1280x800), imza + IHDR dogrulandi (agac 220px kaydirilmis konumda); Read PNG'yi bos dondurdugu icin gorsel inceleme mumkun degil - K2 gorsel kabul KULLANICIDA. (8) 75-proje sorusunun veri temeli: agents/ 75 · Paseo aktif 42 · fark 33 (28 arsivli + 5 worktree kalintisi) — olcum yanlis degil, kaynak farkli; agaci aktif workspace'le sinirlama fikri kullaniciya sunuldu. (9) Yazici durust notlari kabul. Tek elden commit bu kapanista (CODEMAP dahil)."
+}

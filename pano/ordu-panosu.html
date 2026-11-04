@@ -90,14 +90,23 @@
   #sol > .bolum { margin-top:12px; } /* FAZ-P §2 ekonomik nefes (eski 16px; FAZ-O EK-3 notu aynen: chat artık #orta'da — üst nefesi menü satırı verir; sekmeli #sag'ın .bolum doğrudan çocuğu yoktur) */
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; overscroll-behavior:contain; } /* FAZ-J: iç liste dolunca kaydırma zinciri sayfaya zıplamaz */
+  /* FAZ-Q (kullanıcı «sol panel aşağı kaymıyor» 2026-11-04 — koordinatör canlı ölçümü:
+     #sol>.bolum flex:0 1 auto + overflow:hidden automatic min-height korumasını ÖLDÜRÜYORDU
+     → .bolum 3842px'lik ağaç içeriğini 768px'e KÜÇÜLTÜP kırpıyordu; #sol hiç taşma
+     görmediğinden kaydırma çubuğu doğmuyordu. .chatListe deseni AYNEN: .bolumnun kendisi
+     kolonda esner + #agacAlani İÇİNDE kayar; #agacHata + .logNot esnek-olmayan alt çocuk
+     olarak altta PINLENİR (hata yüzü kaydırma alanından bağımsız hep görünür). */
+  #sol > .bolum { flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+  #agacAlani { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+  #bolum-agac #agacHata, #bolum-agac .logNot { flex:0 0 auto; }
   /* FAZ-O EK-3 (kullanıcı «chat sekmesini ortaya al orta bölümü sağa al .. yerdeğişsin»
      2026-11-04) KOLON TAKASI: #orta = CHAT bölgesi (eski #sag'in kolon-kayma davranışı
      buraya taşındı — .chatListe kendi içinde kayar, kolon tavanı taşırsa emniyet),
      #sag = SEKMELİ bölüm (eski #orta davranışı — sekmeGovde kendi içinde kayar). */
   #orta { display:flex; flex-direction:column; min-width:0; min-height:0; overflow-y:auto; }
   #sag { display:flex; flex-direction:column; min-width:0; min-height:0; }
-  #sol::-webkit-scrollbar, #orta::-webkit-scrollbar, #sekmeGovde::-webkit-scrollbar { width:8px; }
-  #sol::-webkit-scrollbar-thumb, #orta::-webkit-scrollbar-thumb, #sekmeGovde::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
+  #sol::-webkit-scrollbar, #agacAlani::-webkit-scrollbar, #orta::-webkit-scrollbar, #sekmeGovde::-webkit-scrollbar { width:8px; } /* FAZ-Q: #agacAlani kaydırma alanı artık ağacın kendisi */
+  #sol::-webkit-scrollbar-thumb, #agacAlani::-webkit-scrollbar-thumb, #orta::-webkit-scrollbar-thumb, #sekmeGovde::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
 
   /* ---- SPLITTER ×2 (panel genişliği; pointer events = fare + dokunmatik) — duvar 6px ---- */
   .splitter {
@@ -472,6 +481,10 @@
     #sol { width:100%; overflow:visible; }
     #orta, #sag { width:100%; overflow:visible; }
     #sekmeGovde { overflow:visible; }
+    /* FAZ-Q: mobilde .bolum DOĞAL BOYDA — iç scroll YOK (sayfa kayar); masaüstü
+       esneme/kaydırma kuralları tek-kolon akışta geçersiz */
+    #sol > .bolum { flex:none; }
+    #agacAlani { overflow:visible; }
     /* FAZ-C istifte tek chat birimi doğal sıra: liste üstte (min taban 140px — dar
        ekranda boş liste kutusu görünür kalır) + composer altta */
     #bolum-chat { flex:none; }
@@ -502,7 +515,7 @@
   <!-- ============ SOL (#sol): GEZGİN — PANEL-SIFIR-1 kabuğu: TEK SEVİYE akordiyon.
        Kullanıcı tarifi (ferman 2026-11-03): «sol taraf klasör isimleri altında
        oturum isimleri ile proje ağacı akordiyon». Proje satırı = klasör adı
-       (projeEtiketi: rename başlığı VARSA o, yoksa dashed dizin — FAZ-G/FAZ-K) +
+       (projeEtiketi: klasör adı — ajan kaydı cwd basename'i klasorAdi; yoksa dashed dizin — FAZ-Q; başlık tooltip'te) +
        çalışan sayısı rozeti + hata uyarı ikonu (yalnız hatalı ajanı olan projede);
        tıkla → akordiyon AÇ/KAPA + o projenin sekmesi ORTA'da açılır; altında
        OTURUM (ajan) satırları DOĞRUDAN — FAZ-K TAM etiket + durum noktası;
@@ -731,7 +744,11 @@ function kisalt(metin, n) {
 }
 
 function projeEtiketi(pr) {
-  if (pr && typeof pr.baslik === "string" && pr.baslik.trim()) return pr.baslik;
+  /* FAZ-Q (kullanıcı «sadece klasör adlarını yaz» 2026-11-04): görünen ad ARTIK klasör
+     adı — ajan kaydının cwd basename'i (ordu-birlesim klasorAdi; dash-bölme YASAK — klasör
+     adının kendisi tireli olabilir: 'woo-block' ≠ 'block'). baslik GÖRÜNEN ADI TAŞIMAZ
+     (tooltip'e taşındı — TAM kimlik hover'da yaşar); yoksa dashed dizin dürüst yedek. */
+  if (pr && typeof pr.klasorAdi === "string" && pr.klasorAdi.trim()) return pr.klasorAdi;
   if (pr && typeof pr.projeAdi === "string" && pr.projeAdi.trim()) return pr.projeAdi;
   return "?"; /* her ikisi de yoksa dürüst soru işareti — boş etiket uydurulmaz */
 }
@@ -1171,17 +1188,17 @@ function agacYaz() {
     const acik = agacAcik.has(pr.dizin);
     const ajanlar = Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
     const calisan = calisanSay(pr);
-    const etiket = projeEtiketi(pr); /* FAZ-G: baslik VARSA etiket — dashed yol dürüst yedek */
+    const etiket = projeEtiketi(pr); /* FAZ-Q: KLASÖR ADI (cwd basename) — baslik VARSA BİLE kısa ad kazanır; yoksa dashed dizin dürüst yedek */
     const hatali = ajanlar.filter((x) => x.lastStatus === "error").length;
+    const tamTitle = esc(pr.dizin) + (typeof pr.baslik === "string" && pr.baslik.trim() ? " — " + esc(pr.baslik) : "") + " — " + calisan + " çalışan · " + ajanlar.length + " ajan kaydı"; /* FAZ-Q: TAM kimlik hover'da yaşar (dizin + baslik [varsa] + sayılar) */
     html +=
       '<div class="agacProje' + (acik ? " acik" : "") + '">' +
       '<div class="agacProjeSatir">' +
-      /* FAZ-K (steering «klasör isimlerini doğrudan yaz» 2026-11-03): görünen ad TAM etiket —
-         etiket = baslik VARSA baslik (workspaces.json — kullanıcının Paseo rename'i), yoksa
-         dizin adı DÜRÜST yedek; satır title'ı TAM etiket — çalışan/kayıt bilgisi KORUNARAK
-         birleşik bicim; data-proje TAM dizin AYNEN (kimlik yolu DEĞİŞMEZ); aria-expanded
-         AYNEN; .agacAd SARAR (white-space:normal). */
-      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + esc(etiket) + " — " + calisan + " çalışan · " + ajanlar.length + ' ajan kaydı">' +
+      /* FAZ-Q (kullanıcı «sadece klasör adlarını yaz» + «uzun yazıyorsun» 2026-11-04):
+         görünen ad ARTIK KISA — projelerTara'nın klasorAdi alanı (cwd basename; dash-bölme
+         YASAK); başlık (workspaces.json rename) TOOLTIP'te yaşar. data-proje TAM dizin
+         AYNEN (kimlik yolu DEĞİŞMEZ); aria-expanded AYNEN; .agacAd SARAR. */
+      '<div class="agacProjeBas" role="button" tabindex="0" data-proje="' + esc(pr.dizin) + '" aria-expanded="' + acik + '" title="' + tamTitle + '">' +
       '<span class="agacOk" aria-hidden="true"></span>' +
       (pr.orduMu ? '<span class="cip">ORDU</span>' : "") +
       '<span class="agacAd">' + esc(etiket) + "</span>" + /* FAZ-K: TAM etiket sarar */
