@@ -1,0 +1,24 @@
+{
+  "raporSurum": 1,
+  "dalga": "TEK-SATIR-MOBIL-INCE",
+  "tarih": "2026-11-04",
+  "saat": "17:17",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "tek satıra insin projeler üstü",
+    "alt satıra geçme .. ayrıca reposnisve mobile touch olmalı %100",
+    "metin kutusu içine eklediğin  aktif konuşma sadece metin üstünde  ince biçimde gelsin"
+  ],
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 314, "pass": 314, "fail": 0, "exit": 0, "not": "yeni test YOK — pinler mevcut testlere gömüldü (51ab + 51g-bölgesi)" },
+  "servisKaniti": { "url": "http://127.0.0.1:4937/ordu", "http": 200, "contentLength": 139574, "seri": "SIRALAMA 135.247 -> ARAMA 138.188 -> bu dalga 139.574", "restart": "HAYIR (server.js dokunulmadı — html statik, reload yeterli)", "kontroller": ["flex-wrap:nowrap", "font-size:11px; font-weight:400 (chatBaslik)"] },
+  "canliDom": { "yapildi": false, "sebep": "Paseo browser automation host bağlı DEĞİL (SIRALAMA + ARAMA ile aynı — üçüncü dalga); kaynak-pin + servis doğrulamasıyla ölçüldü" },
+  "ozellikler": {
+    "tekSatir": "agacAraclar flex-wrap:nowrap + gap:6px; agacAramaKutusu min-width:0 (esnek daralır, satırı zorlamaz)",
+    "mobil": "coarse blokta 5 kural: min-height:var(--min-dokunma) [44px] arama/filtre/siralama + font 14px/13px + onay kutusu 18px; viewport meta zaten mevcut (satır 5)",
+    "inceBaslik": "chatBaslikSatiri 12px/600 -> 11px/400/var(--ikincil) + min-height:20 + nowrap/overflow; chatBaslikSaglayici font:400 10px mono; composer hedef pill DOKUNULMADI (seçim aracı)"
+  },
+  "locDelta": { "once": 17632, "sonra": 17650, "net": 18, "tavan": 200, "panoTavan": 18000, "panoDoluluk": "98.1%" },
+  "z1": { "codemap": "872 dosya, 119 satır (rapor yazımından SONRA yenilendi — ilk kez tam güncel; codemap.ps1 yalnız .md+kod sayar, .json hiç sayılmaz)", "saglik": "16 OK / 2 EKSIK / 1 SARI (üç bayrak da önceki — bu dalga üretmedi)" },
+  "testDegisiklikleri": ["51ab +TEK SATIR pini (flex-wrap:nowrap + gap 6px)", "51ab +MOBİL pinleri (viewport meta + coarse min-height x3 + 14px + 18px)", "51g-bölgesi +İNCE BİÇİM pini (11px/400/ikincil + saglayici 400 10px + 600 YOK)"],
+  "kapsam": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs", "raporlar/pano-tek-satir-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}

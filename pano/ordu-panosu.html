@@ -322,14 +322,14 @@
   .agacAd { flex:1; min-width:0; overflow-wrap:anywhere; } /* FAZ-K: ellipsis/hidden KALDIRILDI — TAM etiket; dashed adlar boşluksuz, ancak anywhere ile kırılır */
   .agacSayi { flex:none; font:700 13px var(--mono); color:var(--ikincil); } /* çalışan sayısı rozeti (başlık title'ında toplam kayıt — dürüst ayrım) */
   .agacUyari { flex:none; display:inline-flex; align-items:center; color:var(--tehlike); } /* hata uyarı ikonu (inline SVG — emoji YASAK §4; yalnız hatalı ajanı olan projede) */
-  .agacAraclar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 6px; padding-left:2px; } /* SIRALAMA dalgası: filtre + sıralama satırı — ağacın tepesinde */
+  .agacAraclar { display:flex; align-items:center; gap:6px; flex-wrap:nowrap; margin:0 0 6px; padding-left:2px; } /* SIRALAMA dalgası: filtre + sıralama satırı — ağacın tepesinde. TEK SATIR (operatör «tek satıra insin projeler üstü» 2026-11-04): nowrap + dar gap — sarma YOK */
   .agacAraclar .agacFiltreEtiket { display:inline-flex; align-items:center; gap:5px; margin:0; font-size:11.5px; color:var(--ikincil); cursor:pointer; user-select:none; white-space:nowrap; }
   .agacAraclar .agacFiltreEtiket input { margin:0; accent-color:var(--camgobegi); }
   .agacAraclar .agacFiltreEtiket:hover { color:var(--metin); }
   .agacSiralamaSec { flex:none; max-width:170px; margin-left:auto; font-size:11.5px; color:var(--ikincil); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:2px 4px; cursor:pointer; } /* sağa yaslı — kullanıcı «sağ üste» tarifi */
   .agacSiralamaSec:hover { color:var(--metin); border-color:var(--ikincil); }
   .agacSiralamaSec:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-1px; }
-  .agacAramaKutusu { flex:1 1 120px; min-width:110px; font-size:11.5px; color:var(--metin); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:3px 7px; cursor:text; } /* ARAMA dalgası: kontrol satırının BAŞINDA — ağaç (projeler) üstünde */
+  .agacAramaKutusu { flex:1 1 120px; min-width:0; font-size:11.5px; color:var(--metin); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:3px 7px; cursor:text; } /* ARAMA dalgası: kontrol satırının BAŞINDA — ağaç (projeler) üstünde; min-width:0 = esnek sıfıra dek daralır (tek satır garantisi; placeholder kırpılır) */
   .agacAramaKutusu::placeholder { color:var(--ikincil); }
   .agacAramaKutusu:hover { border-color:var(--ikincil); }
   .agacAramaKutusu:focus { outline:2px solid var(--camgobegi); outline-offset:-1px; border-color:var(--camgobegi); }
@@ -375,13 +375,18 @@
        ince ayraç çizgisi (kimlik JS girdi koruması için) */
   }
   .chatBaslikSatiri {
-    display:flex; align-items:center; gap:6px; min-height:26px;
-    margin:0 0 6px; font-size:12px; font-weight:600; color:var(--metin);
+    /* İNCE BİÇİM (operatör 2026-11-04 «metin kutusu içine eklediğin aktif konuşma
+       sadece metin üstünde ince biçimde gelsin»): aktif konuşma satırı mesajların
+       ÜSTÜNDE kalır ama hafif — 11px/400 ikincil (chatgpt.com ince durum dili;
+       eski 12px/600 kalın). Kutu İÇİ gösterim YOK (composer'da yalnız hedef pill'i
+       yaşar — o SEÇİM aracıdır, gösterim değil). */
+    display:flex; align-items:center; gap:6px; min-height:20px;
+    margin:0 0 4px; font-size:11px; font-weight:400; color:var(--ikincil);
     white-space:nowrap; overflow:hidden;
   }
   .chatBaslikSatiri .nokta { flex:none; width:8px; height:8px; }
   .chatBaslikAd { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; }
-  .chatBaslikSaglayici { flex:none; margin-left:auto; font:600 10.5px var(--mono); color:var(--ikincil); }
+  .chatBaslikSaglayici { flex:none; margin-left:auto; font:400 10px var(--mono); color:var(--ikincil); }
   /* FAZ-O (scope-freeze «komple sıfırla ... hepsini sök kalan herşeyi» 2026-11-04):
      .chatOturumNotu SÖKÜLDÜ — sohbet görünümünde ekranda yalnız balon history +
      composer bar + ince durum satırı (chatgpt.com dili). Açık söylenir (E10). */
@@ -562,6 +567,16 @@
     .composerIkonBtn { width:var(--min-dokunma); height:var(--min-dokunma); min-height:var(--min-dokunma); } /* FAZ-O ekle ikonu */
     .solIkonDugme { width:var(--min-dokunma); height:var(--min-dokunma); } /* FAZ-S sol başlık ikon menüsü */
     .ayarSatir input, .ayarKaydetBtn { min-height:var(--min-dokunma); } /* FAZ-O Ayarlar/API/Doktor eylem girdileri */
+    /* TEK SATIR + MOBİL DOKUNMATİK (operatör 2026-11-04 «tek satıra insin projeler üstü /
+       alt satıra geçme .. ayrıca responsive mobile touch %100»): kontrol satırı
+       coarse'ta da TEK satır (nowrap yukarıda — sarma YOK); dokunma hedefleri §5 44px
+       (arama/select/etiket) + dokunmatik okunur yazı (14/13px). Arama min-width:0
+       sayesinde dar telefon ekranında bile üçü tek satırda paylaşır. */
+    .agacAraclar { gap:8px; }
+    .agacAramaKutusu { min-height:var(--min-dokunma); font-size:14px; padding:6px 10px; }
+    .agacFiltreEtiket { font-size:13px; padding:8px 0; min-height:var(--min-dokunma); }
+    .agacFiltreEtiket input { width:18px; height:18px; } /* görünür kutu — etiketin kendisi 44px tıklama alanı */
+    .agacSiralamaSec { min-height:var(--min-dokunma); font-size:13px; padding:6px 4px; }
   }
   /* hareket azaltma: tüm animasyon/akış kapanır — sekme/akordiyon anında açılır */
   @media (prefers-reduced-motion: reduce) {
