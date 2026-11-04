@@ -1,0 +1,90 @@
+{
+  "schemaSurum": 1,
+  "taranan": "ordu-a2-git-envanter",
+  "tarih": "2026-11-04",
+  "olcumPenceresi": "22:49-23:00 (agac CANLI: 258 -> 271; M2a yazici aktif)",
+  "head": "792217b",
+  "maddeler": [
+    {
+      "id": "A2-01",
+      "baslik": "113 D (F1 kosu tasinmasi) commit edilmemis — HEAD izliyor, calisma agaci silmis, hicbir commit kaydetmemis; her status 100+ satir gurultu",
+      "dosyaRef": "git status --porcelain (113 ' D' girisi)",
+      "etiket": "git-drift",
+      "siddet": "yuksek",
+      "oneri": "Tek amacl commit ile D'leri stage edip kaydetmek (dosya adiyla; M2a yazim setini ASLA icermeyecek sekilde) — [insan] kapisidir; bu ajan salt-okur uygular degil",
+      "islenme": null
+    },
+    {
+      "id": "A2-02",
+      "baslik": "AGENTS.md olu yollar: 'plugin/ (paseo-verimlilik)' bilesen evi ve 'sozlesme/PASEO-VERIMLILIK-REHBERI-v2.1.md' atfi diskte OLMAYAN dizinlere isaret ediyor (plugin/ ve sozlesme/ yok; CODEMAP dogru, onlarda gecmiyor)",
+      "dosyaRef": "AGENTS.md",
+      "etiket": "belge-drift",
+      "siddet": "yuksek",
+      "oneri": "AGENTS.md yapi bolumunu disk gercegine guncellemek: plugin kütlesi kardes repo D:\\Vibecode\\paseo-verimlilik'te, sozlesme v2.2 ayni repoda",
+      "islenme": null
+    },
+    {
+      "id": "A2-03",
+      "baslik": "pano/ordu-panosu.html + M2a raporlari baska ajanin AKTIF yazim seti (sag panel YONETIM metrik karti; M class 19 -> 20 -> 23 olculdu) — toplu islemlerle cakisma riski",
+      "dosyaRef": "pano/ordu-panosu.html",
+      "etiket": "cakisma-riski",
+      "siddet": "orta",
+      "oneri": "M2a kapanis damgasina kadar pano/* ve M2a raporlarini her stage planindan haric tutmak; add -A zaten yasak (sozlesme 6)",
+      "islenme": null
+    },
+    {
+      "id": "A2-04",
+      "baslik": "Untracked temizlik karari 7 gundur askida: repo-temizlik-hazirligi-2026-10-28 (177 yol, G01 147 bagli belge / G02 24 sahip inceleme / G03 6 sahiplik disi) 7 maddelik [insan] commit kapisini iceriyor ve kapanmamis; bugunku 125 ?? buyuk olcude o kapsamin urunu/devami",
+      "dosyaRef": "raporlar/repo-temizlik-hazirligi-2026-10-28/COMMIT-KONTROL.md",
+      "etiket": "bekleyen-insan-karari",
+      "siddet": "orta",
+      "oneri": "Operator G01/G02/G03 kararlarini kapatmali veya tek yeni kararla (tarihsel raporlarin toplu commit'i) sureci bitirmeli",
+      "islenme": null
+    },
+    {
+      "id": "A2-05",
+      "baslik": "core/data buyuyen olcum dosyalari untracked ve politika yok: devir-kira.json + log, devir-olcum.jsonl, spawn-olcum.jsonl surekli yaziliyor — DERSLER 48'deki telemetri drift deseninin tekrari",
+      "dosyaRef": "core/data/",
+      "etiket": "runtime-drift",
+      "siddet": "orta",
+      "oneri": ".gitignore'a core/data olcum ailesini almak veya periyodik commit politikasi tanimlamak (karar kaydiyla — K kaydi)",
+      "islenme": null
+    },
+    {
+      "id": "A2-06",
+      "baslik": "2 eslesmesiz tarihsel belge diskte hicbir repoda yok: PASEO-VERIMLILIK-PLANI.md (devami plans/PLAN.md v2.10.1) ve arsiv/PASEO-VERIMLILIK-REHBERI-v2.0.md (SUPERSEDED) — icerik git gecmisinde erisilebilir olculdu, veri kaybi YOK",
+      "dosyaRef": "PASEO-VERIMLILIK-PLANI.md",
+      "etiket": "tarihsel-kayit",
+      "siddet": "dusuk",
+      "oneri": "Silme commit'i dustugunde belgeler yalniz git gecmisinde yasayacak; yeni evde arsiv kopyasi istenirse paseo-verimlilik/arsiv/ tasima karari ayri acilmali",
+      "islenme": null
+    },
+    {
+      "id": "A2-07",
+      "baslik": "8 handoff M girisi commit edilmemis echo dogrulama append'leri (10-25 -> 11-01 dosyalarina sonraki oturumlarin echo bloklari; append-only protokol artifact)",
+      "dosyaRef": "plans/handoff/",
+      "etiket": "protokol-artifact",
+      "siddet": "dusuk",
+      "oneri": "Echo zinciri bir sonraki yerel commit'te dosya adiyla eklenmeli; acil risk yok",
+      "islenme": null
+    },
+    {
+      "id": "A2-08",
+      "baslik": "core/evidence (3 dosya: katalog +1.048 satir) + telemetri-haftalik W43/W44 + model-benchmark top30 (+10.464 satir) otomasyon ciktisi drift — DERSLER 48'de kayitli bilinen aile",
+      "dosyaRef": "core/evidence/provider-katalog.html",
+      "etiket": "otomasyon-drift",
+      "siddet": "dusuk",
+      "oneri": "Drift/tazelik kapilarinin bu yollari haric tuttugu saglanmali (saglik.ps1 + bekci); commit periyodu mevcut duzenle surmeli",
+      "islenme": null
+    },
+    {
+      "id": "A2-09",
+      "baslik": "Olçum volatilitesi: ayni oturumda 3 anlik olcum 258 -> 269 -> 271 cikardi (M2a yazicisi aktif) — echo'lar arasi kirli sayilar anlik degerdir, sabit degil",
+      "dosyaRef": "STATE_BOARD.md",
+      "etiket": "olcum-notu",
+      "siddet": "dusuk",
+      "oneri": "Echo/damga satirlarinda olcum an'i da yazilmaya devam edilmeli (mevcut uygulama dogru); bu rapor 22:49 aile dokumune gore analiz verdi",
+      "islenme": null
+    }
+  ]
+}

@@ -359,6 +359,17 @@
   .agacTalepSatir.talep-islandi .agacTalepRozet { color:var(--basari); border-color:rgba(4,120,87,0.45); }
   .agacTalepSatir.talep-hata .agacTalepRozet { color:var(--tehlike); border-color:rgba(220,38,38,0.45); }
   .agacTalepMetin { flex:1; min-width:0; overflow-wrap:anywhere; }
+  /* M2a (2026-11-04; operatör emri «kurmay ile başlayan tüm hareketlerde herşeyi
+     metrikler altında yönetim parametresi yapmalıyız sağ panelde en önemlileri
+     görmeliyiz» + «gereksiz hiçbir state olmayacak»): sağ panel YÖNETİM kartı —
+     grafAlani ÜSTÜ; her sekme görünümünde görünür. Veri: GET /api/ordu/metrik (M1
+     hareket defteri read-model) + P taramasından otonomi türevi; YENİ STATE YOK. */
+  #metrikKarti { margin:0 0 10px; padding:10px 14px; border:1px solid var(--cizgi); border-radius:var(--radius-k); font-size:13px; line-height:1.55; overflow-wrap:anywhere; }
+  #metrikKarti .metrikEtiket { display:block; font:700 11px var(--mono); letter-spacing:0.06em; text-transform:uppercase; color:var(--ikincil); margin:0 0 6px; }
+  #metrikKarti .metrikSatir { margin:0 2px 0 0; }
+  #metrikKarti .metrikSayi { font-weight:700; }
+  #metrikKarti .metrikHata { color:var(--tehlike); font-weight:700; }
+  #metrikKarti .metrikTur { color:var(--ikincil); }
   .agacAraclar { display:flex; align-items:center; gap:6px; flex-wrap:nowrap; margin:0 0 6px; padding-left:2px; } /* SIRALAMA dalgası: filtre + sıralama satırı — ağacın tepesinde. TEK SATIR (operatör «tek satıra insin projeler üstü» 2026-11-04): nowrap + dar gap — sarma YOK */
   .agacAraclar .agacFiltreEtiket { display:inline-flex; align-items:center; gap:5px; margin:0; font-size:11.5px; color:var(--ikincil); cursor:pointer; user-select:none; white-space:nowrap; }
   .agacAraclar .agacFiltreEtiket input { margin:0; accent-color:var(--camgobegi); }
@@ -854,6 +865,13 @@
     <div id="sekmeGovde">
       <div id="grafHata" class="kirmiziYuz" role="alert" hidden></div>
       <section class="sekmePanel acik" id="grafPanel" role="tabpanel" aria-label="sekmeli bölüm gövdesi — seçili sekmenin içeriği">
+        <!-- M2a (2026-11-04): sağ panel YÖNETİM metrik kartı — grafAlani ÜSTÜ, her sekme
+             görünümünde görünür (görev/oturum yüzleri değişir; yönetim üstte kalır —
+             operatör emri «sağ panelde en önemlileri görmeliyiz»). Veri: GET /api/ordu/metrik
+             (M1 hareket defteri read-model) + P taramasından otonomi türevi — YENİ STATE YOK
+             (M1 şartı «gereksiz hiçbir state olmayacak»; sayılar mevcut SSOT'lardan türetilir).
+             Dürüst ilk durum (fail-closed): veri gelmeden içerik doğmaz. -->
+        <div id="metrikKarti" aria-label="yönetim — hareket metrikleri ve otonomi göstergesi"><p class="bosSatir">yönetim metrikleri yüklenmedi (fail-closed)</p></div>
         <div id="grafAlani"><p class="bosSatir">görev grafı yüklenmedi (fail-closed)</p></div>
       </section>
     </div>
@@ -890,7 +908,7 @@
 // innerHTML YAZILMAZ — document.activeElement ASLA ezilmez (odakIcindeMi +
 // gonderiyor bayrağı); graf kutusu detayı (kartDetay) odaktayken graf
 // yeniden yazılmaz. Ağaç/konuşma kartı ajan KIMLIĞİNİ gösterir (tarama kaynağı).
-const UC = { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf", kuyruk: "/api/ordu/spawn-kuyruk" }; /* K-0065 DALGA C: spawn-talebi kuyruğu read-model (salt-okur GET — token'sız) */
+const UC = { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf", kuyruk: "/api/ordu/spawn-kuyruk", metrik: "/api/ordu/metrik" }; /* K-0065 DALGA C: spawn-talebi kuyruğu read-model (salt-okur GET — token'sız) · M2a: M1 hareket-metrik read-model (salt-okur GET — token'sız) */
 const YENILE_SN = 30;
 let G = null; // graf SSOT — yalnız son başarılı fetch
 let K = null; // kadro birleşimi (canlılık işaretli) — yalnız son başarılı fetch
@@ -912,7 +930,7 @@ let K = null; // kadro birleşimi (canlılık işaretli) — yalnız son başar�
    silme YOK — «sıfırlanma» hissinin ayağı); yalnız hiç yüklenmediyse dürüst
    kırmızı yüz/boş (fail-closed ilk yükleme AYNEN). */
 let yoklamaUcusta = false; /* (1) uçuş kilidi */
-const SON_YANIT = { kadro: null, projeler: null, graf: null }; /* (2) uc bazlı parmak izi — null = hiç yüklenmedi */
+const SON_YANIT = { kadro: null, projeler: null, graf: null, metrik: null }; /* (2) uc bazlı parmak izi — null = hiç yüklenmedi (M2a: metrik) */
 /* STEERING-6: çekirdek rol adları graf SSOT'siyle AYNI (anahtar makine-okur); Türkçe etiket yalnız render. */
 const SSOT_ROLLER = ["MANAGER", "CODER", "TESTER", "INSAN-VEKILI-PROXY", "GOZLEMCI"];
 const ROL_ETIKET_TR = { MANAGER: "Yönetici", CODER: "Yazıcı", TESTER: "Denetçi", "INSAN-VEKILI-PROXY": "İnsan-Vekili", GOZLEMCI: "Gözlemci", KULLANICI: "Kullanıcı" };
@@ -1222,6 +1240,86 @@ async function grafYukle() {
       G = null;
       kirmiziYuzGoster("grafHata", "grafAlani", UC.graf + " — " + e.message);
     } /* yoksa: önceki başarılı graf ekranda KALIR (bayat silme YOK) */
+  }
+}
+
+/* ---- M2a (2026-11-04): sağ panel YÖNETİM metrik kartı — operatör emri «kurmay ile
+   başlayan tüm hareketlerde herşeyi metrikler altında yönetim parametresi yapmalıyız
+   sağ panelde en önemlileri görmeliyiz» + «gereksiz hiçbir state olmayacak»: hareket
+   metrikleri GET /api/ordu/metrik'ten (M1 hareket defteri read-model), otonomi türevi
+   P taramasından (ajan lastStatus/sonEtkinlikISO sayıları) — YENİ STATE YOK, tüm
+   sayılar mevcut kaynaklardan türetilir. Kart salt-OKUR (düğme/form YOK → odak ezme
+   riski yok → odakIcindeMi guard'ı gereksiz). Otonomi render ANINDAKI P'den okunur —
+   P ile metrik yarışı en fazla bir tur (30 sn) gecikebilir; dürüst: panelin tüm
+   verileri 30 sn taze. ---- */
+function otonomiTurev() {
+  if (!P || !Array.isArray(P.projeler)) return null; /* dürüst: tarama yok → ölçülemedi */
+  let calisan = 0, hatali = 0, toplamAjan = 0, sonEtkinlik = null;
+  for (const pr of P.projeler) {
+    if (!pr || !Array.isArray(pr.ajanlar)) continue;
+    for (const a of pr.ajanlar) {
+      if (!a) continue;
+      toplamAjan += 1;
+      if (a.lastStatus === "running") calisan += 1;
+      else if (a.lastStatus === "error") hatali += 1;
+      if (typeof a.sonEtkinlikISO === "string" && (!sonEtkinlik || a.sonEtkinlikISO > sonEtkinlik)) sonEtkinlik = a.sonEtkinlikISO;
+    }
+  }
+  return { proje: P.projeler.length, ajan: toplamAjan, calisan, hatali, sonEtkinlikISO: sonEtkinlik };
+}
+
+function metrikKartYaz(m, oto) {
+  const hedef = $("metrikKarti");
+  if (!m || typeof m !== "object") {
+    hedef.innerHTML = '<p class="bosSatir">yönetim metrikleri yok (fail-closed)</p>';
+    return;
+  }
+  const s24 = m.son24s || {};
+  let html = '<span class="metrikEtiket">Yönetim</span>';
+  /* hareket 24 sa — hata >0 kırmızı vurgu (dürüst); ort süre ölçüldüyse görünür */
+  html += '<p class="metrikSatir">hareket (24 sa): ' +
+    '<span class="metrikSayi">' + (typeof s24.toplam === "number" ? s24.toplam : 0) + "</span>" +
+    " — ok <span class=\"metrikSayi\">" + (typeof s24.ok === "number" ? s24.ok : 0) + "</span>" +
+    ' · hata <span class="metrikSayi' + (s24.hata > 0 ? " metrikHata" : "") + '">' + (typeof s24.hata === "number" ? s24.hata : 0) + "</span>" +
+    (typeof s24.ortSureMs === "number" && s24.ortSureMs !== null ? " · ort " + s24.ortSureMs + " ms" : "") +
+    "</p>";
+  /* tür kırılımı — defterdeki GERÇEK turler (bilinmeyen tür de dürüst görünür; boşsa satır YOK) */
+  if (m.turler && typeof m.turler === "object") {
+    const turler = Object.keys(m.turler).filter((t) => m.turler[t] && typeof m.turler[t].toplam === "number");
+    if (turler.length) html += '<p class="metrikSatir metrikTur">türler: ' + turler.map((t) => esc(t) + " " + m.turler[t].toplam).join(" · ") + "</p>";
+  }
+  html += '<p class="metrikSatir">toplam: ' + (typeof m.toplam === "number" ? m.toplam : 0) +
+    (typeof m.bozukSatir === "number" && m.bozukSatir > 0 ? " · " + m.bozukSatir + " bozuk satır (sayılır — gizlenmez)" : "") + "</p>";
+  html += '<p class="metrikSatir">son KURMAY hareketi: ' + (m.sonHareketISO ? esc(String(m.sonHareketISO)) : "yok (hareket kaydı boş)") + "</p>";
+  /* otonomi türevi — «kendi kendine ordu çalışıyor mu» (P'den; hata ajan kırmızı vurgu) */
+  if (oto) {
+    html += '<p class="metrikSatir">otonomi: <span class="metrikSayi">' + oto.calisan + "</span> çalışan · " +
+      '<span class="metrikSayi' + (oto.hatali > 0 ? " metrikHata" : "") + '">' + oto.hatali + "</span> hata · " +
+      oto.ajan + " ajan · " + oto.proje + " proje" +
+      (oto.sonEtkinlikISO ? " · son etkinlik " + esc(String(oto.sonEtkinlikISO)) : "") + "</p>";
+  } else {
+    html += '<p class="metrikSatir">otonomi: ölçülemedi (proje taraması bekleniyor)</p>';
+  }
+  hedef.innerHTML = html;
+}
+
+async function metrikYukle() {
+  try {
+    const v = await cek(UC.metrik);
+    /* FAZ-P EK DÜZELTME deseni: parmak yalnız KARARLI veri — olcumAniISO her ölçümde
+       YENİ (uçucu meta) → parmağa GİRMEZ; aksi halde her tur gereksiz re-render olurdu.
+       Otonomi türevi parmağa DAHİL (P değişirse kart yeniden yazılır). */
+    const kararli = { ...v };
+    delete kararli.olcumAniISO;
+    const oto = otonomiTurev();
+    const parmak = JSON.stringify([kararli, oto]);
+    if (parmak === SON_YANIT.metrik) return; /* aynı VERİ — kart yeniden çizilmez */
+    SON_YANIT.metrik = parmak;
+    metrikKartYaz(v, oto);
+  } catch (e) {
+    if (SON_YANIT.metrik === null) { /* yalnız HİÇ yüklenmediyse dürüst yüz (FAZ-P EK 4) */
+      $("metrikKarti").innerHTML = '<p class="bosSatir">metrik okunamadı: ' + esc(UC.metrik + " — " + e.message) + "</p>";
+    } /* yoksa: önceki başarılı kart ekranda KALIR (bayat silme YOK) */
   }
 }
 
@@ -2549,8 +2647,10 @@ async function hepsiniYukle() {
     /* TRANSCRIPT-CANLI (2026-11-04): seçili konuşma varsa transcript de tazelenir
        (sessiz — hata döngüyü KIRMAZ: kendi catch'i yutar; eski balonlar kalır).
        K-0065 DALGA C (2026-11-04): kuyrukYukle 5. ayak — talep kartı AÇIKSA kuyruk
-       read-model'i tazelenir (kart kapalıysa kendi guard'ı dokunmaz — sessiz). */
-    await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()]);
+       read-model'i tazelenir (kart kapalıysa kendi guard'ı dokunmaz — sessiz).
+       M2a (2026-11-04): metrikYukle 6. ayak — YÖNETİM kartı (grafPanel üstü, her
+       sekme görünümünde): hareket metrikleri + otonomi türevi (parmakla atlanır). */
+    await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle(), metrikYukle()]);
   } finally {
     yoklamaUcusta = false;
   }

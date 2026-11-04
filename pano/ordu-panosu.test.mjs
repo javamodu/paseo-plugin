@@ -141,11 +141,11 @@ test("5- 30 sn yenileme + uc sabitleri DARALTIILDI (PANEL-SIFIR-1: kalan uç kad
   const uclar = ["/api/ordu/kadro", "/api/ordu/projeler", "/api/graf", "/api/ordu/spawn-kuyruk"]; /* K-0065 DALGA C: kuyruk 4. salt-okur GET (read-model — token'sız) */
   for (const u of uclar) ok("kalan uc sabiti: " + u, jsKisim().includes('"' + u + '"'));
   const cagrilar = (jsKisim().match(/cek\(UC\.\w+/g) || []).length;
-  ok("4 cek cagrisi (kadro + projeler + graf + kuyruk — kalan uç başına bir; K-0065 DALGA C bilinçli genişletme: kuyruk read-model)", cagrilar === 4, "bulunan: " + cagrilar);
+  ok("5 cek cagrisi (kadro + projeler + graf + kuyruk + metrik — kalan uç başına bir; K-0065 DALGA C: kuyruk read-model; M2a: M1 hareket-metrik read-model)", cagrilar === 5, "bulunan: " + cagrilar);
   for (const u of ["/api/ordu/genel", "/api/ordu/akis", "/api/ordu/saglik", "/api/ordu/log"]) {
     ok("sökülen uç KALINTISI YOK (UI çağrı kodu): " + u, !jsKisim().includes('"' + u + '"'));
   }
-  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli; TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — seçili konuşma yoklamayla tazelenir, salt-okur; K-0065 DALGA C 2026-11-04: kuyrukYukle 5. ayak — talep kartı açıksa kuyruk read-model tazelenir, guard kapalıyken dokunmaz)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])"));
+  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli; TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — seçili konuşma yoklamayla tazelenir, salt-okur; K-0065 DALGA C 2026-11-04: kuyrukYukle 5. ayak — talep kartı açıksa kuyruk read-model tazelenir, guard kapalıyken dokunmaz; M2a 2026-11-04: metrikYukle 6. ayak — YÖNETİM kartı her turda tazelenir, parmak aynıysa render koşmaz)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle(), metrikYukle()])"));
   ok("sökülen yükleyici fonksiyonlar KALINTI YOK (genelYukle/planYukle/akisYukle/saglikYukle/logYukle)", !jsKisim().includes("function genelYukle(") && !jsKisim().includes("function planYukle(") && !jsKisim().includes("function akisYukle(") && !jsKisim().includes("function saglikYukle(") && !jsKisim().includes("function logYukle("));
   ok("tek YAZMA ucu POST /api/mesaj KALIR (composer)", jsKisim().includes('"/api/mesaj"') && jsKisim().includes('method: "POST"'));
 });
@@ -223,7 +223,7 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("sözleşme: setPointerCapture + lostpointercapture", j.includes("setPointerCapture") && j.includes("lostpointercapture"));
   ok("sözleşme: klavye ±16px (ArrowLeft/ArrowRight)", j.includes('e.key === "ArrowLeft"') && j.includes("-16 : 16"));
   ok("FAZ-P §2a taraf-bazlı clamp: KENAR sabiti sol 200-360 AYNEN · sag 320-760 (eski 260-460 — SAĞ EN GENİŞ)", j.includes("const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 320, max: 760 } };") && j.includes("Math.max(k.min, Math.min(k.max"));
-  ok("PANEL-SIFIR-1 → K-0065: 4 GET ucu (kadro + projeler + graf + kuyruk read-model — DALGA C bilinçli genişletme) + 2 YAZMA ucu POST /api/mesaj (composer) + POST /api/spawn-talebi (DALGA B)", j.includes('method: "POST"') && j.includes('"/api/mesaj"') && j.includes('"/api/spawn-talebi"') && (j.match(/cek\(UC\./g) || []).length === 4);
+  ok("PANEL-SIFIR-1 → K-0065 → M2a: 5 GET ucu (kadro + projeler + graf + kuyruk read-model [DALGA C] + metrik read-model [M2a]) + 2 YAZMA ucu POST /api/mesaj (composer) + POST /api/spawn-talebi (DALGA B)", j.includes('method: "POST"') && j.includes('"/api/mesaj"') && j.includes('"/api/spawn-talebi"') && (j.match(/cek\(UC\./g) || []).length === 5);
   /* --- duncyari ~<900px: sutunlar alt alta (PANEL-SIFIR-1: ağaç ÜSTTE — sol → orta → sag) --- */
   ok("899px kirilimda body scroll geri gelir (overflow:auto)", /@media \(max-width:899px\)[\s\S]*?body\s*\{[^}]*overflow:\s*auto/.test(HTML));
   ok("899px kirilimda splitter gizlenir", /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
@@ -875,7 +875,7 @@ test("46- server.js kaynak-pini: /api/ordu/log ucu + saat dogrulama + mevcut ucl
   for (const u of ['"/api/graf"', '"/api/veri"', '"/api/repolar"', '"/api/kart"', '"/api/atama/durum"', '"/tuval"']) {
     ok("mevcut uc yerinde: " + u, srv.includes("url.pathname === " + u));
   }
-  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi = 6 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 6, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi + M2b /api/rename-talebi = 7 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 7, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
   ok("/api/mesaj ucu (FAZ-A: Composer gonderim)", srv.includes('"/api/mesaj"'));
   ok("server.js'e child_process GELMEDI (spawn yalnız paseo-kopru.mjs'te)", !srv.includes("child_process") && srv.includes('from "./paseo-kopru.mjs"'));
   ok("token kapisi mesaj ucunda aynen (403/401)", srv.includes("mesaj gonderme kapali (fail-closed)"));
@@ -1083,7 +1083,7 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   ok("projelerTara ucta cagrilir (her istekte diskten — bayat onbellek yok)", srv.includes("projelerTara(PASEO_EV"));
   ok("ordu dizin adi koke hesaplanir — boli isaretleri VE surucu iki noktasi tireye (olcumle kanitlandi: D:\\Vibecode\\ordu -> D-Vibecode-ordu)", srv.includes("ORDU_DIZIN_ADI") && srv.includes(".replace(/[\\\\/:]+/g, \"-\")"));
   ok("kapsam notu uctan doner", srv.includes("kapsamNotu"));
-  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi = 6 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 6, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi + M2b /api/rename-talebi = 7 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 7, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
   const j = jsKisim();
   ok("UC.projeler sabiti", j.includes('"/api/ordu/projeler"'));
   ok("projelerYukle cek ile cagirir", j.includes("await cek(UC.projeler)"));
@@ -1808,7 +1808,7 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   /* --- K-0061 §5 minimumlar yukarı taşındı (aşağı düşmez) --- */
   ok("§5 korunur: GÖNDER min-height 40px + --min-dokunma 44px + sekme 32px ≥26px (FAZ-T kuru buton) + ağaç 32px ≥26px", /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML) && HTML.includes("--min-dokunma:44px") && /\.sekme\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   /* --- veri katmanı hunk YOK (diff denetimi desteği) --- */
-  ok("veri katmanı DARALDI (PANEL-SIFIR-1 → K-0065 DALGA C bilinçli genişletme): cek(UC. 4 (kadro + projeler + graf + kuyruk) + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 4 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
+  ok("veri katmanı DARALDI (PANEL-SIFIR-1 → K-0065 DALGA C → M2a bilinçli genişletme): cek(UC. 5 (kadro + projeler + graf + kuyruk + metrik) + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 5 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
   ok("renk dili AYNEN: petrol tek aksan + token seti birebir (YENİ renk YOK — FAZ-H yalnız ölçek/nefes)", HTML.includes("--camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;") && HTML.includes("--zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;") && HTML.includes("--metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);"));
 });
 
@@ -1928,7 +1928,7 @@ test("51n- PANEL-ANA-1 FAZ-J + PANEL-SIFIR-1 (kaynak-pin + vm): responsive + mob
   ok("overscroll-behavior:contain — .chatListe + #sol (kaydırma zinciri sayfaya zıplamaz)", /\.chatListe\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML) && /#sol\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML));
   /* --- sınır: drawer/hamburger YOK + veri katmanı AYNEN --- */
   ok("drawer/perde/hamburger MEKANİZMASI YOK (kayıtlı karar — istif + order yeter; FAZ-C mirası yorumdaki 'kopyalanmadı' cümlesi dokümantasyondur, mekanizma değil)", !/hamburger/i.test(HTML) && !/id="(drawer|perde|menuBtn|navToggle)"/i.test(HTML) && !/class="[^"]*\b(drawer|perde|hamburger)\b/.test(HTML));
-  ok("veri katmanı AYNEN: cek(UC. 4 (graf + projeler + kadro + kuyruk [K-0065 DALGA C bilinçli genişletme] — dürüst sayı) + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 0 (COMPOSER: select söküldü)", (j.match(/cek\(UC\./g) || []).length === 4 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 0);
+  ok("veri katmanı AYNEN: cek(UC. 5 (graf + projeler + kadro + kuyruk [K-0065 DALGA C] + metrik [M2a 2026-11-04] — dürüst sayı) + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 0 (COMPOSER: select söküldü)", (j.match(/cek\(UC\./g) || []).length === 5 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 0);
   ok("localStorage şeması PANEL-SIFIR-1: ordu-agac-sira/GRUP mekanizması gitti (kaydet/oku çağrıları 0 — kelime yorumlarda dokümantasyon olarak geçer); kalan anahtarlar agac-acik + agac-secili + kolon genişlikleri", !j.includes('kaydet("ordu-agac-sira"') && j.includes('kaydet("ordu-agac-acik"') && j.includes('kaydet("ordu-agac-secili"') && !j.includes('kaydet("ordu-agac-grup"') && !j.includes('oku("ordu-agac-grup"'));
 });
 
@@ -2173,7 +2173,7 @@ test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → trans
   ok("fetch: GET /api/ordu/konusma?ajan= + encodeURIComponent(TAM kimlik)", j.includes('"/api/ordu/konusma?ajan=" + encodeURIComponent(ajanKimligi)'));
   ok("fonksiyonlar: async transcriptYukle + transcriptBalonHtml (yeni özellik = ince kanca — composer POST aynen)", j.includes("async function transcriptYukle(") && j.includes("function transcriptBalonHtml("));
   ok("GÖRÜNÜM dalgası: async transcriptTamAc + chatListe delegation dinleyicisi (devamı düğmesi innerHTML yeniden yazımında dinleyici kalır) + tamBalon=1 sorgu", j.includes("async function transcriptTamAc(") && j.includes('$("chatListe").addEventListener("click"') && j.includes('.closest(".chatDevam")') && j.includes('"&tamBalon=" + indeks'));
-  ok("TRANSCRIPT-CANLI (operatör «senin yanıtların bana gelmiyor» 2026-11-04): async transcriptTazele + yoklama döngüsü Promise.all'ında çağrılır + SESSİZ (ağ hatası eski balonları korur — döngü kırılmaz) + yüklenmemiş konuşmaya dokunmaz (return guard; K-0065 DALGA C: dizide kuyrukYukle 5. ayak — bilinçli genişletme)", j.includes("async function transcriptTazele(") && j.includes("Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])") && j.includes("if (!ajan || !Array.isArray(transcriptBalonlar)) return;") && j.includes("catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }"));
+  ok("TRANSCRIPT-CANLI (operatör «senin yanıtların bana gelmiyor» 2026-11-04): async transcriptTazele + yoklama döngüsü Promise.all'ında çağrılır + SESSİZ (ağ hatası eski balonları korur — döngü kırılmaz) + yüklenmemiş konuşmaya dokunmaz (return guard; K-0065 DALGA C: dizide kuyrukYukle 5. ayak; M2a: metrikYukle 6. ayak — bilinçli genişletme)", j.includes("async function transcriptTazele(") && j.includes("Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle(), metrikYukle()])") && j.includes("if (!ajan || !Array.isArray(transcriptBalonlar)) return;") && j.includes("catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }"));
   ok("state: transcriptBalonlar/transcriptHata null + transcriptAcilisIstendi kilidi (null=yüklenmedi, []=dürüst boş)", j.includes("let transcriptBalonlar = null") && j.includes("let transcriptHata = null") && j.includes("let transcriptAcilisIstendi = false"));
   ok("ağaç tıklaması: konusmaSecGuncelle() (argümansız — secimiZorla SÖKÜLDÜ) ardından transcriptYukle(agacSecili) — oturuma tıkla → yazışmalar yüklenir + MANAGER hedefi O AJANA bağlanır (composerModGuncelle konusmaSecGuncelle içinde)", j.includes("konusmaSecGuncelle(); /* ağaç tıklaması") && j.includes("transcriptYukle(agacSecili);") && !j.includes("konusmaSecGuncelle(true)"));
   ok("açılış: kalıcı seçim YALNIZ bir kez yükler (transcriptAcilisIstendi = true — 30sn yenileme döngüsü tekrar fetch ETMEZ)", j.includes("transcriptAcilisIstendi = true"));
@@ -2610,11 +2610,11 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
   const j = jsKisim();
   /* --- kaynak pinleri: mekanizmanın 4 ayağı --- */
   ok("(1) uçuş kilidi: yoklamaUcusta + finally ile açılır (üst üste binen istekler yasak)", j.includes("let yoklamaUcusta = false;") && j.includes("if (yoklamaUcusta) return;") && j.includes("yoklamaUcusta = true;") && j.includes("finally {\n    yoklamaUcusta = false;\n  }"));
-  ok("(2) ayni-veri-atlama: SON_YANIT parmak izi uc bazında + 3 uçta aynı-VERİ return + UÇUCU META DIŞLANIR (EK DÜZELTME: projeler pini yeni.projeler + kadro olcumAniISO destructuring + graf TAM yanıt [statik dosya])", j.includes("const SON_YANIT = { kadro: null, projeler: null, graf: null };") && (j.match(/if \(parmak === SON_YANIT\.\w+\) return;/g) || []).length === 3 && j.includes("JSON.stringify(yeni.projeler ?? null)") && j.includes("const { olcumAniISO: _ucucuOlcum, ...kadroVerisi } = yeni;") && j.includes("JSON.stringify(kadroVerisi)") && (j.match(/const parmak = JSON\.stringify\(yeni\);/g) || []).length === 1);
+  ok("(2) ayni-veri-atlama: SON_YANIT parmak izi uc bazında (M2a: metrik eklendi — 4 uç) + 4 uçta aynı-VERİ return + UÇUCU META DIŞLANIR (EK DÜZELTME: projeler pini yeni.projeler + kadro olcumAniISO destructuring + graf TAM yanıt [statik dosya] + M2a metrik delete kararli.olcumAniISO)", j.includes("const SON_YANIT = { kadro: null, projeler: null, graf: null, metrik: null };") && (j.match(/if \(parmak === SON_YANIT\.\w+\) return;/g) || []).length === 4 && j.includes("JSON.stringify(yeni.projeler ?? null)") && j.includes("const { olcumAniISO: _ucucuOlcum, ...kadroVerisi } = yeni;") && j.includes("JSON.stringify(kadroVerisi)") && (j.match(/const parmak = JSON\.stringify\(yeni\);/g) || []).length === 1 && j.includes("delete kararli.olcumAniISO;"));
   ok("(3) görünmez sekbe: document.hidden kapısı + visibilitychange dinleyicisi (görünür olunca tur HEMEN)", j.includes("if (document.hidden) return;") && j.includes('document.addEventListener("visibilitychange"'));
-  ok("(4) hata-bayat-koruma: yalnız HİÇ yüklenmediyse kırmızı yüz (3 uçta SON_YANIT null koşulu; önceki veri ekranda KALIR)", (j.match(/if \(SON_YANIT\.\w+ === null\)/g) || []).length === 3 && j.includes('kirmiziYuzGoster("agacHata", "agacAlani"'));
-  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN (TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — 4. ayak sessiz tazeleme; K-0065 DALGA C: kuyrukYukle 5. ayak — guard'lı, kart kapalıyken fetch YOK)", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
-  ok("kalan uç çağrı ailesi (cek ×4 — K-0065 DALGA C bilinçli genişletme: kuyruk read-model + P/K/G atamaları değişmedi)", (j.match(/await cek\(UC\.\w+\)/g) || []).length === 4);
+  ok("(4) hata-bayat-koruma: yalnız HİÇ yüklenmediyse kırmızı yüz (4 uçta SON_YANIT null koşulu [M2a: metrik]; önceki veri ekranda KALIR)", (j.match(/if \(SON_YANIT\.\w+ === null\)/g) || []).length === 4 && j.includes('kirmiziYuzGoster("agacHata", "agacAlani"'));
+  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN (TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — 4. ayak sessiz tazeleme; K-0065 DALGA C: kuyrukYukle 5. ayak — guard'lı, kart kapalıyken fetch YOK; M2a: metrikYukle 6. ayak — YÖNETİM kartı)", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle(), metrikYukle()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
+  ok("kalan uç çağrı ailesi (cek ×5 — K-0065 DALGA C: kuyruk read-model + M2a 2026-11-04: metrik read-model + P/K/G atamaları değişmedi)", (j.match(/await cek\(UC\.\w+\)/g) || []).length === 5);
   /* --- vm: davranış senaryoları --- */
   const declB = HTML.slice(HTML.indexOf("let yoklamaUcusta = false;"), HTML.indexOf("/* STEERING-6"));
   const grafB = HTML.slice(HTML.indexOf("async function grafYukle("), HTML.indexOf("/* ---- Paseo canlı tarama"));
@@ -2626,7 +2626,7 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
       cek: cekStub, UC: { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf" },
       odakIcindeMi: () => false, gonderiyor: false, agacSecili: null, seciliKonusma: null, transcriptAcilisIstendi: true,
       P: null, G: null, K: null,
-      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerModGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0, transcriptTazele: 0, kuyrukYukle: 0 },
+      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerModGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0, transcriptTazele: 0, kuyrukYukle: 0, metrikYukle: 0 },
       document: { hidden: false, addEventListener: (tip, fn) => { ctx.gorunurlukDinleyici = fn; } },
     };
     ctx.agacYaz = () => { ctx.sayac.agacYaz++; };
@@ -2644,7 +2644,12 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
        Bu VM talepProje:null dünyasında — gerçek fonksiyon kart kapalıyken DOKUNMAZ (return guard);
        stub aynı sözleşmeyi taklit eder: fetch YOK, sayaç artar (davranış pini 51ac'te gerçek dilimle). */
     ctx.kuyrukYukle = async () => { ctx.sayac.kuyrukYukle++; };
+    /* M2a 2026-11-04: hepsiniYukle dizisi 6. ayak olarak metrikYukle çağırır — metrik fonksiyon
+       BİLDİRİMİ fazpekKos diliminde (grafYukle'den Paseo taramasına dek) yer alır: VM bildirimi
+       ctx stub'ının ÜZERİNE yazar; koşudan SONRA stub geri atanır → hepsiniYukle 6. ayağı stub'la
+       çözülür: fetch YOK, sayaç artar (kuyrukYukle deseni; davranış pini 51ad'te gerçek dilimle) */
     const fns = vm.runInNewContext(parcalar, ctx);
+    ctx.metrikYukle = async () => { ctx.sayac.metrikYukle++; };
     return { ctx, fns };
   };
   /* senaryo 1: AYNİ veri — ikinci özdeş yanıt render tetiklemiyor (projeler yanıtı
@@ -3120,7 +3125,7 @@ test("51ac- K-0065 DALGA C (2026-11-04): + düğmesi TALEP düşürür (spawn ET
   ok("A kuyruk read-model: UC.kuyruk = /api/ordu/spawn-kuyruk (salt-okur, token'sız — cek deseni) + kuyrukYukle guard'lı (talepProje yok → return; kart kapalıyken yoklama turu fetch ATMaz) + parmak aynıysa render koşmaz", j.includes('kuyruk: "/api/ordu/spawn-kuyruk"') && j.includes("async function kuyrukYukle() {") && j.includes("if (!talepProje) return;") && j.includes("if (parmak === sonKuyrukYazi) return;"));
   ok("A E10 DÜRÜST DURUM: rozetler KUYRUKTA | İŞLENDİ | HATA (türetilmiş — sahte «açtı» YOK) + 202 metni «talep kaybolmaz» (kuyruk SSOT) + bozuk satır SAYILIR (gizlenmez)", j.includes('d === "islandi" ? "İŞLENDİ" : d === "hata" ? "HATA" : "KUYRUKTA"') && j.includes("talep kaybolmaz — kuyruk SSOT") && j.includes("bozuk satır (sayılır — gizlenmez)"));
   ok("A istemci önü doğrulama: başlık boş → düşmez + uzunluk (200/3000 — sunucu RED'leri SSOT, KESME YOK) + 401/403 → Ayarlar yönlendirme (composer deseni) + 429 kısa aralık", j.includes('"başlık boş — talep düşmez"') && j.includes("başlık 200, ilk mesaj 3000") && j.includes("token gerekli — Ayarlar görünümünden girin") && j.includes("aynı proje için kısa aralık"));
-  ok("A hepsiniYukle 5 AYAK: kuyrukYukle Promise.all dizisinde (guard'lı — kart açıkken kuyruk canlı tazelenir)", j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])"));
+  ok("A hepsiniYukle 6 AYAK: kuyrukYukle (guard'lı — kart açıkken kuyruk canlı tazelenir) + metrikYukle (M2a — YÖNETİM kartı her sekme görünümünde) Promise.all dizisinde", j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle(), metrikYukle()])"));
   ok("A talepFormAc fail-closed: kimliksiz (boş/türsüz) dizin kartı AÇMAZ", j.includes('if (typeof dizin !== "string" || !dizin.trim()) return;'));
   /* --- (B) vm davranışı: dilim = K-0065 bloğu (arama dinleyicisinden sonra) --- */
   const dilimA = HTML.indexOf("let talepProje = null;");
@@ -3191,4 +3196,66 @@ test("51ac- K-0065 DALGA C (2026-11-04): + düğmesi TALEP düşürür (spawn ET
   await talepFormAc("D-test");
   await new Promise((r) => setTimeout(r, 0));
   ok("B hata + bozuk satır dürüst: HATA rozeti + detay + özette «1 bozuk satır (sayılır — gizlenmez)»", sham.agacTalepKuyruk.innerHTML.includes("HATA") && sham.agacTalepKuyruk.innerHTML.includes("köprü yok") && sham.agacTalepKuyruk.innerHTML.includes("bozuk satır"));
+});
+
+test("51ad- M2a (2026-11-04): sağ panel YÖNETİM metrik kartı — operatör emri «kurmay ile başlayan tüm hareketlerde herşeyi metrikler altında yönetim parametresi yapmalıyız sağ panelde en önemlileri görmeliyiz» + «gereksiz hiçbir state olmayacak»: GET /api/ordu/metrik (M1 hareket defteri read-model) + P'den otonomi türevi — YENİ STATE YOK", async () => {
+  const j = jsKisim();
+  /* --- (A) kaynak pinleri --- */
+  ok("A kart HTML: metrikKarti grafPanel İÇİNDE + grafAlani'den ÖNCE (her sekme görünümünde görünür — görev/oturum yüzleri değişir, yönetim ÜSTTE kalır) + aria-label + dürüst ilk durum (fail-closed bosSatir)", HTML.indexOf('id="grafPanel"') < HTML.indexOf('id="metrikKarti"') && HTML.indexOf('id="metrikKarti"') < HTML.indexOf('id="grafAlani"') && HTML.includes('id="metrikKarti" aria-label="yönetim — hareket metrikleri ve otonomi göstergesi"') && /<div id="metrikKarti"[^>]*><p class="bosSatir">yönetim metrikleri yüklenmedi/.test(HTML));
+  ok("A uç + parmak zemini: UC.metrik = /api/ordu/metrik (salt-okur GET, token'sız — cek deseni) + SON_YANIT.metrik null-başlangıç + async metrikYukle", j.includes('metrik: "/api/ordu/metrik"') && j.includes("const SON_YANIT = { kadro: null, projeler: null, graf: null, metrik: null }") && j.includes("async function metrikYukle() {"));
+  ok("A uçucu-meta parmak DIŞLAMA (FAZ-P EK DÜZELTME deseni): olcumAniISO delete + parmak [kararlı, oto] — girsaydi her ölçümde yeni olurdu → her tur gereksiz re-render", j.includes("delete kararli.olcumAniISO;") && j.includes("const parmak = JSON.stringify([kararli, oto]);") && j.includes("if (parmak === SON_YANIT.metrik) return;"));
+  ok("A otonomi türevi P'den (YENİ STATE YOK): P yok → null (ölçülemedi — uydurulmaz) + running/error sayımı + sonEtkinlikISO en-yeni + tam sayı alanları", j.includes("function otonomiTurev() {") && j.includes("if (!P || !Array.isArray(P.projeler)) return null;") && j.includes('if (a.lastStatus === "running") calisan += 1;') && j.includes('else if (a.lastStatus === "error") hatali += 1;') && j.includes("return { proje: P.projeler.length, ajan: toplamAjan, calisan, hatali, sonEtkinlikISO: sonEtkinlik };"));
+  ok("A kart dürüst yüzleri: hata>0 kırmızı vurgu (metrikHata) + türler GERÇEK turler kırılımından (boş → satır YOK) + bozuk satır SAYILIR (gizlenmez) + son hareket yok → «hareket kaydı boş» + otonomi yok → «ölçülemedi (proje taraması bekleniyor)»", j.includes("hareket (24 sa):") && j.includes("metrikHata") && j.includes('metrikTur">türler: ') && j.includes("bozuk satır (sayılır — gizlenmez)") && j.includes("yok (hareket kaydı boş)") && j.includes("otonomi: ölçülemedi (proje taraması bekleniyor)"));
+  ok("A ilk-yükleme hatası dürüst + bayat silme YOK (FAZ-P EK 4): yalnız SON_YANIT.metrik null iken hata yüzü; önceki başarılı kart ekranda KALIR", j.includes('if (SON_YANIT.metrik === null) {') && j.includes("metrik okunamadı:"));
+  /* --- (B) vm davranışı: dilim = M2a bloğu (grafYukle'den sonra) --- */
+  const dilimA = HTML.indexOf("function otonomiTurev()");
+  const dilimB = HTML.indexOf("/* ---- Paseo canlı tarama");
+  ok("B dilim yerinde (otonomiTurev … Paseo taraması)", dilimA > 0 && dilimB > dilimA);
+  const dilim = HTML.slice(dilimA, dilimB);
+  ok("B YENİ STATE YOK (M1 şartı): blokta localStorage/kaydet/oku YOK — sayılar yalnız P + metrik ucundan türetilir", !dilim.includes("kaydet(") && !dilim.includes("localStorage") && !dilim.includes("oku("));
+  const sham = {};
+  const sham$ = (id) => sham[id] || (sham[id] = { innerHTML: "", textContent: "" });
+  let cekYolu = null;
+  let cekHata = null;
+  let metrikVeri = { olcumAniISO: "2026-11-04T22:00:00.000Z", toplam: 7, bozukSatir: 1, son24s: { toplam: 5, ok: 4, hata: 1, ortSureMs: 321 }, turler: { mudahale: { toplam: 4, ok: 3, hata: 1, sonZamanISO: "2026-11-04T21:00:00Z" }, "spawn-talebi": { toplam: 3, ok: 3, hata: 0, sonZamanISO: "2026-11-04T20:00:00Z" } }, sonHareketISO: "2026-11-04T21:00:00Z" };
+  const Pveri = { projeler: [
+    { dizin: "D-a", orduMu: true, ajanlar: [ { ajanKimligi: "a1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T21:30:00Z" }, { ajanKimligi: "a2", lastStatus: "error", sonEtkinlikISO: "2026-11-04T20:30:00Z" } ] },
+    { dizin: "D-b", orduMu: false, ajanlar: [ { ajanKimligi: "b1", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T19:00:00Z" }, { ajanKimligi: "b2", lastStatus: "running" } ] },
+  ] };
+  const ctx = {
+    $: sham$, esc: fnAl("esc"), P: Pveri,
+    UC: { metrik: "/api/ordu/metrik" },
+    SON_YANIT: { metrik: null },
+    cek: async (yol) => { if (cekHata) throw cekHata; cekYolu = yol; return metrikVeri; },
+  };
+  const [otonomiTurev, metrikKartYaz, metrikYukle] = vm.runInNewContext(dilim + "\n[otonomiTurev, metrikKartYaz, metrikYukle]", ctx);
+  /* (1) otonomi türevi sayıları */
+  const oto = otonomiTurev();
+  ok("B otonomiTurev: 2 proje · 4 ajan · 2 çalışan · 1 hata · en-yeni sonEtkinlikISO (b2'nin ISO'su YOK → katılmaz)", oto && oto.proje === 2 && oto.ajan === 4 && oto.calisan === 2 && oto.hatali === 1 && oto.sonEtkinlikISO === "2026-11-04T21:30:00Z");
+  /* (2) ilk yükleme: render */
+  await metrikYukle();
+  const kart1 = sham.metrikKarti.innerHTML;
+  ok("B ilk render: cek(UC.metrik) + Yönetim etiketi + hareket (24 sa): 5 — ok 4 + hata 1 KIRMIZI vurgu (metrikHata sınıfı) + ort 321 ms + türler kırılımı + toplam 7 + bozuk satır sayılır + son KURMAY hareketi + otonomi sayıları (span'li)", cekYolu === "/api/ordu/metrik" && kart1.includes("Yönetim") && kart1.includes("hareket (24 sa):") && kart1.includes("ok <span") && kart1.includes('metrikSayi metrikHata">1') && kart1.includes("ort 321 ms") && kart1.includes("mudahale 4") && kart1.includes("spawn-talebi 3") && kart1.includes("toplam: 7") && kart1.includes("1 bozuk satır (sayılır — gizlenmez)") && kart1.includes("son KURMAY hareketi: 2026-11-04T21:00:00Z") && kart1.includes("otonomi: <span") && kart1.includes('metrikSayi">2</span> çalışan') && kart1.includes('metrikHata">1</span> hata') && kart1.includes("son etkinlik 2026-11-04T21:30:00Z"));
+  /* (3) uçucu meta değişir (olcumAniISO) → parmak ATLAR */
+  const parmak1 = ctx.SON_YANIT.metrik;
+  metrikVeri = { ...metrikVeri, olcumAniISO: "2026-11-04T22:00:31.999Z" };
+  await metrikYukle();
+  ok("B parmak: olcumAniISO FARKLI (uçucu) → render YOK (SON_YANIT.metrik değişmedi — FAZ-P EK DÜZELTME kanıtı)", ctx.SON_YANIT.metrik === parmak1 && sham.metrikKarti.innerHTML === kart1);
+  /* (4) P değişir (otonomi türevi parmağa DAHİL) → render koşar */
+  Pveri.projeler[0].ajanlar[0].lastStatus = "idle"; /* çalışan 2 → 1 */
+  await metrikYukle();
+  ok("B otonomi parmağı: P değişimi render KOŞUTURUR (çalışan 2 → 1 — kart güncel, bayat kalmaz)", ctx.SON_YANIT.metrik !== parmak1 && sham.metrikKarti.innerHTML.includes('metrikSayi">1</span> çalışan') && !sham.metrikKarti.innerHTML.includes('">2</span> çalışan'));
+  /* (5) ilk-yükleme hatası: dürüst hata yüzü */
+  ctx.SON_YANIT = { metrik: null };
+  cekHata = new Error("uç ölü");
+  await metrikYukle();
+  ok("B hata (hiç yüklenmedi): dürüst «metrik okunamadı: …» yüzü (fail-closed)", sham.metrikKarti.innerHTML.includes("metrik okunamadı:"));
+  /* (6) boş defter + P yok: dürüst sıfırlar */
+  ctx.SON_YANIT = { metrik: null };
+  cekHata = null;
+  metrikVeri = { olcumAniISO: "2026-11-04T22:01:00.000Z", toplam: 0, bozukSatir: 0, son24s: { toplam: 0, ok: 0, hata: 0, ortSureMs: null }, turler: {}, sonHareketISO: null };
+  ctx.P = null;
+  await metrikYukle();
+  const kart6 = sham.metrikKarti.innerHTML;
+  ok("B boş defter dürüst: hareket (24 sa): 0 (span'li) — ok 0 · hata 0 (vurgu YOK) + ort YOK (null) + türler satırı YOK + toplam: 0 (bozuk GİZLİ — 0) + «son KURMAY hareketi: yok (hareket kaydı boş)» + «otonomi: ölçülemedi (proje taraması bekleniyor)»", kart6.includes("hareket (24 sa):") && kart6.includes('metrikSayi">0</span> — ok') && !kart6.includes("metrikHata") && !kart6.includes(" ms") && !kart6.includes("türler:") && kart6.includes("toplam: 0") && !kart6.includes("bozuk satır") && kart6.includes("yok (hareket kaydı boş)") && kart6.includes("otonomi: ölçülemedi (proje taraması bekleniyor)"));
 });

@@ -1,0 +1,41 @@
+{
+  "schemaSurum": 1,
+  "dalga": "M2-sag-panel-rename",
+  "tarih": "2026-11-04T23:11",
+  "operatoerEmirleri": ["«Devam» (onaylı sıra 7. adım: M2 sağ panel + rename)", "M1 şartı: gereksiz hiçbir state olmayacak", "«6 ajan ata ve tüm sorunları gider» (koordinasyon sırasında)"],
+  "kapanis": { "tamKapi": "271 tests / 271 pass / 0 fail / EXIT=0 (ayrı komutla ölçüldü)", "baseline": "266 -> 271 (+51ad M2a + 4 M2b rename testi [A1])" },
+  "m2a": {
+    "sahip": "KURMAY",
+    "dosyalar": ["pano/ordu-panosu.html M", "pano/ordu-panosu.test.mjs M"],
+    "yeniState": "HAYIR (M1 şartı) — metrik ucu (M1'den beri) + P türev",
+    "yuzey": "#metrikKarti (grafPanel içinde, grafAlani'nden önce) + otonomiTurev + metrikKartYaz + metrikYukle + hepsiniYukle 6 ayak",
+    "test": "51ad YENİ (7 kaynak pini + 6 VM senaryosu) + 12 bilinçli pin güncellemesi (cek 4->5 · Promise.all 5->6 · SON_YANIT +metrik · POST 6->7 [M2b])"
+  },
+  "m2b": {
+    "sahip": "ORDU-M2-A1 ajanı (9349dd3a; yazıcı — ajan commit ATMAZ, tek elden KURMAY)",
+    "dosyalar": ["pano/ordu-rename.mjs YENİ 93 satır", "pano/server.js M +~75 (POST /api/rename-talebi + GET /api/ordu/rename-kuyruk)", "pano/ordu-metrik.mjs M (HAREKET_TURLERI + rename-talebi)", "pano/rename-ucu.test.mjs YENİ (4 test)"],
+    "karar": "kurmany-çözülemez -> 202 (talep ÖNCE kuyruğa düşer — kuyruk SSOT; spawn-talebi'nin 503'ünden bilinçli fark) — KURMAY ONAYLADI (gerekçe: talep kaybolmaz, kuyruk SSOT)",
+    "rapor": "raporlar/pano-rename-ucu-2026-11-04/OZET.md (A1'in kalıcı kaydı)"
+  },
+  "kanit": {
+    "canliServis": "GET /ordu 200 165.534 karakter (metrikKarti HTML + aria gövdede; statik dosya — restart GEREKMEZ) + GET /api/ordu/metrik 200 dürüst sıfır (toplam 0 · türler boş)",
+    "canliDom": "ÖLÇÜLEMEDİ — browser automation host bağlı değil (browser_no_host); kanıt zinciri: servis + VM render pini 51ad",
+    "testKosuDurustlugu": "4 tam kapı (267/263/4 -> 271/267/4 -> 271/269/2 -> 271/271) + 2 tek-dosya teşhis; bütçe <=4'e DEĞDİ"
+  },
+  "ajanKoop": {
+    "emir": "«6 ajan ata ve tüm sorunları gider»",
+    "yazici": "A1 (M2b) — bitti",
+    "saltOkur": "A2 git envanteri · A3 kapı/sağlık · A4 canlı denetim · A5 askıda envanter · A6 devir zinciri — 5 rapor raporlar/gelen-kutu/'ya indi, işleme STATE ekinde",
+    "islenmemisOncelikler": ["K7 push (birikim 76)", "F1 113 D kapanışı + AGENTS.md ölü yollar (A2 #2)", "ADR-dc-3 bütçe", "K-0058/K-0064", "G01/G02/G03", "sağlık ölçümleri bayat (probe/bench/katalog regen)", "token'ın panele girilmesi (A5 #4 — GÖNDER/TALEP DÜŞÜR 401'de kapalı)"]
+  },
+  "durustEksikler": [
+    "canlı DOM — browser host bağlı değil (a)",
+    "token tarayıcıda yok — canlı POST 200/202 yolları ölçülemedi (b)",
+    "M2c rename UI tarafı (kalem düğmeleri + kart + kuyruk görünümü) SONRAKİ DALGA (c)",
+    "A1 200 'iletildi' izole koşulamadı — gerçek köprü ister (Dalga B/C emsali) (d)",
+    "4937 restart gerekiyor — M2b server ucu canlıda hizmet dışı, [insan] onayıyla"
+  ],
+  "loc": { "once": 11632, "son": 12229, "delta": 597, "gerekce": "M2a+M2b BİRLEŞİK (onaylı sıra 7. adım tek adım); M2a ~+300 (UI+51ad), M2b ~+300 (çekirdek+uç+4 test); doluluk %67,9 (12.229/18.000)" },
+  "codemap": "taze (884 -> yeniden üretildi; raporlardan SONRA koşuldu)",
+  "bekleyen": ["«tüm yüzey testleri uçtan uca, kullanıcı gibi» (browser host + token gerekli)", "M2c rename UI", "4937 restart [insan]", "K7 push ayrı emir (birikim 77 — bu committe)"]
+}

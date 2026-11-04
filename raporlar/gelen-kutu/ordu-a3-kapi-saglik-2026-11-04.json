@@ -1,0 +1,46 @@
+{
+  "schemaSurum": 1,
+  "ajan": "coder (ORDU-A3 kapi/saglik)",
+  "tarih": "2026-11-04",
+  "olcumSaati": "2026-11-04 22:56",
+  "kaynak": "KURMAY direktifi (paseo-system 45e4f0e7) - operator emri '6 ajan ata ve tüm sorunları gider'",
+  "tamKapi": { "tests": 266, "pass": 265, "fail": 1, "exit": 1, "sureSn": 36.2 },
+  "maddeler": [
+    {
+      "id": "KAPI-1",
+      "baslik": "Tam kapi tek kirmizisi 51v kaynak-pini: KURMAY M2a in-flight kaynak-pin sapmasi (urun hatasi DEGIL - ayristirildi)",
+      "dosyaRef": ["pano/ordu-panosu.test.mjs:2609", "pano/ordu-panosu.html:933", "pano/ordu-panosu.html:1316"],
+      "etiket": ["test", "kaynak-pini", "es-zamanli", "kurmay-m2a", "ayristirma"],
+      "siddet": "orta",
+      "oneri": "KURMAY pin guncellemesi (51 sınıfı KURMAY sorumluluğunda): pin(2) SON_YANIT tanimina ', metrik: null' + parmak karsilastirmasi 3->4; pin(5) Promise.all 5->6 ayak (kaynak satir 2653 metrikYukle iceriyor); pin(6) cek x4->x5 (kaynakta graf/metrik/projeler/kuyruk/kadro); VM fazpekKos ctx'ine metrikYukle stub (transcriptTazele/kuyrukYukle deseni - 6. ayak cozumsuzse ReferenceError ucus kilidini sifirlar). Not: test ilk basarisiz ok()'ta kesildigi icin pin(3)-(6) bu kosuda isletilmedi; ek teshis kaynak okumasiyla cikarildi.",
+      "islenme": null
+    },
+    {
+      "id": "KAPI-2",
+      "baslik": "ps51-kapisi acik tarama: RED 0, UYARI 4 (engelleme YOK); staged mod GECTI",
+      "dosyaRef": ["scripts/kiyasla.ps1:31", "scripts/kiyasla.ps1:38", "scripts/proje-panosu.ps1:58", "scripts/saglik.ps1:157"],
+      "etiket": ["ps51", "uyari", "mekanik-fren", "sk-1"],
+      "siddet": "dusuk",
+      "oneri": "Bilgi - engelleme YOK (uyari sinifi asla RED olmez). proje-panosu.ps1:58 Measure-Object -Line AGENTS.md'de bilincli aktif kullanim kayitli; Format-Table kullanimlari (kiyasla x2, saglik:157) DERSLER 97/198 uyarisiyla bilinen durum - istenirse Out-String donusumu ayri is olarak acilir.",
+      "islenme": null
+    },
+    {
+      "id": "KAPI-3",
+      "baslik": "CODEMAP 884 dosya iddiasi diskle BIREBIR dogrulandi; regen SIMDILIK gerekmez",
+      "dosyaRef": ["CODEMAP.md"],
+      "etiket": ["codemap", "dogrulama", "l2"],
+      "siddet": "bilgi",
+      "oneri": "Regen bu ajan tarafindan ISLETILMEZ (direktif). Regen gerekmez: sayim 884=birebir; gelen-kutu'da son regen'den (21:29) sonra yeni dosya yok; sonrasi yalniz 2 modifikasyon (sayi degistirmez). Bu raporun .md'si sayiyi 885 yapar + KURMAY M2a kapanis dosyalari - KURMAY Z1 kapanis regen'i (raporlardan SONRA) hepsini kapsar.",
+      "islenme": null
+    },
+    {
+      "id": "KAPI-4",
+      "baslik": "scripts/*.test.mjs kirmizi YOK; ORDU-M2-A1 kaynakli kirmizi YOK (rename-ucu.test.mjs diskte yok, server.js kirli degil)",
+      "dosyaRef": ["scripts/", "pano/server.js", "pano/rename-ucu.test.mjs"],
+      "etiket": ["ayristirma", "es-zamanli", "ordu-m2-a1"],
+      "siddet": "bilgi",
+      "oneri": "Bilgi - ayristirma sonucu: tek fail ordu-panosu.test.mjs'te (KAPI-1); test sayisi 266 = eski baseline (es-zamanli ajan yeni test dosyasi eklemedi). A1 tarafindan beklenen rename-ucu.test.mjs olusunca yeni tam kapi kosusu onerilir.",
+      "islenme": null
+    }
+  ]
+}

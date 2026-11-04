@@ -8,7 +8,7 @@
 import { existsSync, mkdirSync, openSync, appendFileSync, fsyncSync, closeSync, readFileSync } from "node:fs";
 import { dirname } from "node:path";
 
-export const HAREKET_TURLERI = ["mudahale", "spawn-talebi", "spawn-sonuc"];
+export const HAREKET_TURLERI = ["mudahale", "spawn-talebi", "spawn-sonuc", "rename-talebi"]; // 'rename-talebi' M2b (2026-11-04): panel rename talebi — çekirdek doğrulama bilinmeyen turu RED'lediğinden burada bilinmeli
 const SONUCLAR = ["ok", "hata"];
 
 // Geçersiz alan RED — çöp deftere YAZILMAZ (fail-closed; E10).

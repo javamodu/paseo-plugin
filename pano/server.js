@@ -22,6 +22,7 @@ import { mesajGonder } from "./paseo-kopru.mjs"; // FAZ-A Composer köprüsü (K
 import { hareketKaydet, metrikOzet } from "./ordu-metrik.mjs"; // M1: KURMAY hareket defteri (append-only) + özet read-model
 import { kuyrukOku, slugYap, transcriptHazirla } from "./konusma-oku.mjs"; // FAZ-M: oturum transcript tail-read (salt-okur saf fonksiyonlar)
 import { talepEkle, kuyrukOzet, kurmayKimligiCoz } from "./ordu-spawn.mjs"; // K-0065 DALGA B: spawn-talebi kuyruğu (panel TALEP düşürür — server spawn ETMEZ)
+import { talepEkle as renameTalepEkle, kuyrukOzet as renameKuyrukOzet } from "./ordu-rename.mjs"; // M2b: rename-talebi kuyruğu (K-0065 deseni — panel YENİ ADLAYMAZ, talep düşürür)
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
@@ -65,6 +66,13 @@ const HAREKET_DEFTERI = process.env.ORDU_HAREKET_DEFTERI || join(ORDU_KOK, "core
 const SPAWN_KUYRUGU = process.env.ORDU_SPAWN_KUYRUGU || join(ORDU_KOK, "core", "data", "spawn-kuyrugu.jsonl");
 const SPAWN_ARALIK_MS = 10_000; // aynı projeye min spawn-talebi aralığı (çift tıklama + sel koruması)
 const sonSpawnTalebi = new Map(); // proje → son talep ms (bellek-içi — sonGonderim deseni)
+// M2b (2026-11-04): rename-talebi kuyruğu — K-0065 deseninin rename uyarlaması. Panel YENİ ADLAYMAZ,
+// TALEP düşürür (server ajan/workspace süreci YÖNETMEZ). Zincir: POST → talep append-only kuyruk +
+// kısa bildirim KURMAY'a → KURMAY MCP ile rename işletir → sonucu kuyruğa yazar → panel GET ile okur
+// (SSOT: tek kuyruk dosyası). env ORDU_RENAME_KUYRUGU izole test kancası (SPAWN_KUYRUGU deseni).
+const RENAME_KUYRUGU = process.env.ORDU_RENAME_KUYRUGU || join(ORDU_KOK, "core", "data", "rename-kuyrugu.jsonl");
+const RENAME_ARALIK_MS = 10_000; // aynı hedefe min rename-talebi aralığı (çift tıklama koruması)
+const sonRenameTalebi = new Map(); // hedefTip|hedef → son talep ms (bellek-içi — sonSpawnTalebi deseni)
 // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): Composer gonderim koprUsu — dar spawn izni
 // (paseo-kopru.mjs'te SABIT argv + beyaz-liste hedef + UTF-8 prompt-file + --no-wait + timeout).
 const KOPRU_KOK_CMD = process.env.PANO_KOPRU_KOK_CMD || null; // izole test kancasi: zincir cozumsuz simulasyonu (503)
@@ -548,6 +556,14 @@ const sunucu = http.createServer((req, res) => {
     catch (e) { jsonYaz(res, 500, { hata: "spawn kuyrugu okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
+  // M2b: GET /api/ordu/rename-kuyruk — rename talep/sonuç read-model (salt-okur; diğer
+  // /api/ordu/* GET'leri gibi token kapısız). Kaynak: append-only kuyruk dosyası (env ezebilir);
+  // durum dürüst türetilir (kuyrukta | islandi | hata) — sahte 'degisti' YOK (E10).
+  if (req.method === "GET" && url.pathname === "/api/ordu/rename-kuyruk") {
+    try { jsonYaz(res, 200, renameKuyrukOzet(RENAME_KUYRUGU)); }
+    catch (e) { jsonYaz(res, 500, { hata: "rename kuyrugu okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
   // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): POST /api/mesaj — Composer gonderim ucu (5. POST).
   // Token kapisi aynen (403/401) · govde 4096 bayt · hedef whitelist = projelerTara taramasi
   // (30sn TTL onbellek) · ayni hedefe min 2sn aralik · kopru zinciri cozulmezse 503 (fail-closed).
@@ -647,6 +663,79 @@ const sunucu = http.createServer((req, res) => {
       };
       const bildirim = "K-0065 spawn-talebi: talepId " + talepKayit.talepId + " · proje " + proje +
         (talepKayit.baslik ? " · baslik " + talepKayit.baslik : "") + " · kuyruk " + SPAWN_KUYRUGU + " — talebi isleyip sonucu kuyruga yaz (tur 'sonuc', talepId eslesmeli).";
+      mesajGonder(kurmay.ajanId, bildirim, { beyazListe: hedefBeyazListe(), kokCmd: KOPRU_KOK_CMD ?? undefined })
+        .then((sonuc) => {
+          const hata = sonuc && sonuc.hata ? String(sonuc.hata) : null;
+          if (hata) jsonYaz(res, 202, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletilmedi", detay: hata, kayit: hareketYaz("hata", hata) });
+          else jsonYaz(res, 200, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletildi", kayit: hareketYaz("ok") });
+        })
+        .catch((e) => { const mes = e instanceof Error ? e.message : "bilinmeyen"; jsonYaz(res, 202, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletilmedi", detay: mes, kayit: hareketYaz("hata", mes) }); });
+    });
+    return;
+  }
+  // M2b: POST /api/rename-talebi — yeniden adlandırma talebi. Panel YENİ ADLAYMAZ, talep düşürür;
+  // KURMAY MCP ile rename işler (K-0065 deseni — server workspace/ajan YÖNETMEZ). Token zinciri
+  // /api/mesaj + spawn-talebi deseni (403/401/400/422/429 fail-closed). hedefTip 'proje' → hedef
+  // Paseo agents TAM dizin adı (projelerTara taramasında OLMALI — izolasyon SSOT: yalnız MEVCUT
+  // proje); hedefTip 'oturum' → hedef ajan kimliği (hedefBeyazListe taramasında OLMALI). Talep
+  // append-only kuyruğa düşer (SSOT — kaybolmaz) + KURMAY'a KISA bildirim; bildirim iletilmezse
+  // 202 dürüst 'iletilmedi' (talep kuyrukta KALIR). Hareket defterine tur 'rename-talebi' kaydı
+  // (M1). Kurmay çözülemezse dahi talep KUYRUĞA DÜŞER (spawn-talebi'nin 503'ünden bilinçli fark:
+  // rename talebi zincirin başına bağlı DEĞİL — KURMAY kuyruğu sonradan işleyebilir; brif kuyrukta
+  // SSOT). Sahte 'degisti' YOK — E10.
+  if (req.method === "POST" && url.pathname === "/api/rename-talebi") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — rename-talebi kapali (fail-closed)" }); return; }
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
+      let istek = null;
+      try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001 sinifi
+      const hedefTip = typeof istek.hedefTip === "string" ? istek.hedefTip.trim() : "";
+      if (hedefTip !== "proje" && hedefTip !== "oturum") { jsonYaz(res, 400, { hata: "hedefTip 'proje'|'oturum' olmali (alinan: " + String(hedefTip) + ")" }); return; }
+      const hedef = typeof istek.hedef === "string" ? istek.hedef.trim() : "";
+      if (!hedef) { jsonYaz(res, 400, { hata: "hedef zorunlu (hedefTip 'proje' → Paseo agents TAM dizin adi | 'oturum' → ajan kimligi)" }); return; }
+      const yeniAd = typeof istek.yeniAd === "string" ? istek.yeniAd.trim() : "";
+      if (!yeniAd) { jsonYaz(res, 400, { hata: "yeniAd zorunlu (dolu string — bos olmaz)" }); return; }
+      if (yeniAd.length > 200) { jsonYaz(res, 422, { hata: "yeniAd 200 karakteri asamaz (kesilmez — RED, durust)" }); return; }
+      if (hedefTip === "proje") {
+        let projeler = null;
+        try { projeler = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI }).projeler; } catch { /* katman fs hatalarını yuttuğundan pratikte ulaşılmaz */ }
+        if (!Array.isArray(projeler) || !projeler.some((p) => p && p.dizin === hedef)) {
+          jsonYaz(res, 400, { hata: "hedef taramada yok (YALNIZ mevcut proje yeniden adlandirilir — izolasyon SSOT)", hedefTip, hedef });
+          return;
+        }
+      } else if (!hedefBeyazListe().has(hedef)) { // hedefTip 'oturum' — ajan kaydı taramadan
+        jsonYaz(res, 400, { hata: "hedef taramada yok (oturum ajan kimligi Paseo agents taramasinda YOK — izolasyon SSOT)", hedefTip, hedef });
+        return;
+      }
+      const hedefAnahtari = hedefTip + "|" + hedef; // 429 anahtarı: tip+hedef çifti (aynı hedefe sel koruması)
+      const simdi = Date.now();
+      const onceki = sonRenameTalebi.get(hedefAnahtari);
+      if (onceki !== undefined && simdi - onceki < RENAME_ARALIK_MS) {
+        jsonYaz(res, 429, { hata: "ayni hedefe cok sik rename-talebi (min 10sn aralik)", bekMs: RENAME_ARALIK_MS - (simdi - onceki) });
+        return;
+      }
+      sonRenameTalebi.set(hedefAnahtari, simdi);
+      const t0 = Date.now();
+      let talepKayit = null;
+      try { talepKayit = renameTalepEkle(RENAME_KUYRUGU, { hedefTip, hedef, yeniAd }); }
+      catch (e) {
+        jsonYaz(res, 500, { hata: "talep kuyruga yazilamadi — kabul edilmedi (fail-closed): " + (e instanceof Error ? e.message : "bilinmeyen") });
+        return;
+      }
+      const kurmay = kurmayKimligiCoz(KADRO_JSON); // kadro SSOT; çözülemezse talep KUYRUKTA kalır (202 — yukarıdaki bilinçli fark)
+      const hareketYaz = (sonuc, detay) => { // M1: her kuyruğa düşen talep hareket defterine yazılır
+        const hareket = { tur: "rename-talebi", hedef: kurmay ? kurmay.ajanId : hedefTip + ":" + hedef, sonuc, sureMs: Date.now() - t0 };
+        if (detay) hareket.detay = String(detay).slice(0, 300); // kısa özet (token YAZILMAZ)
+        try { hareketKaydet(HAREKET_DEFTERI, hareket); return "yazildi"; }
+        catch (e) { return "yazilamadi: " + (e instanceof Error ? e.message : "bilinmeyen"); }
+      };
+      if (!kurmay) {
+        jsonYaz(res, 202, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletilmedi", detay: "kurmay cozulemedi (kadro SSOT) — talep KUYRUKTA kalir, KURMAY kuyrugu isler", kayit: hareketYaz("hata", "kurmay cozulemedi (kadro SSOT)") });
+        return;
+      }
+      const bildirim = "M2b rename-talebi: talepId " + talepKayit.talepId + " · hedefTip " + hedefTip + " · hedef " + hedef +
+        " · yeniAd " + talepKayit.yeniAd + " · kuyruk " + RENAME_KUYRUGU + " — talebi isleyip sonucu kuyruga yaz (tur 'sonuc', talepId eslesmeli).";
       mesajGonder(kurmay.ajanId, bildirim, { beyazListe: hedefBeyazListe(), kokCmd: KOPRU_KOK_CMD ?? undefined })
         .then((sonuc) => {
           const hata = sonuc && sonuc.hata ? String(sonuc.hata) : null;

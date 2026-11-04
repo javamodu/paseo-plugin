@@ -1,0 +1,89 @@
+{
+  "schemaSurum": 1,
+  "id": "ordu-a4-canli-denetim-2026-11-04",
+  "baslik": "ORDU-A4 — 4937 canlı pano sunucusu uçtan-uca salt-okur denetim (6 GET + token kapısı + port + süreç)",
+  "tarihISO": "2026-11-04T22:56:23+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": null,
+    "not": "ajanId bu oturumda olculemedi (ajan kimligi brifte verilmemisti)"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "sinir": "salt-okur denetim; token DEGERI hicbir komutta/ciktida gorunmedi (C:\\Users\\gatep\\pano-token-4937.txt OKUNMADI); restart/durdurma YOK; 4377 dokunulmadi; pano koduna yazma YOK; tek yazma POST'u = bilincli tokensiz 401 testi",
+  "olcumler": {
+    "olcumZamanlari": { "getUclari": "2026-11-04 22:37:26", "postPortPid": "2026-11-04 22:49-22:55", "damga": "2026-11-04 22:56:23", "yontem": "tumu komutla olculdu (Invoke-WebRequest -UseBasicParsing, curl, netstat, Get-Process, date)" },
+    "getUclari": [
+      { "uc": "/ordu", "http": 200, "bayt": 172227, "ozet": "HTML; kaynak pano/ordu-panosu.html her istekte diskten (Cache-Control: no-store); disk boyutu = HTTP yaniti BIREBIR", "dosyaRef": "pano/server.js:256" },
+      { "uc": "/api/ordu/kadro", "http": 200, "bayt": 17419, "ozet": "surum 4; birlikler 9; rolAtamasi MANAGER/CODER/TESTER/INSAN-VEKILI-PROXY/GOZLEMCI; kaynak alani canli Paseo olcum zincirini anlatiyor; kaynak dosya pano/ordu-kadro.json", "dosyaRef": "pano/server.js:413" },
+      { "uc": "/api/ordu/projeler", "http": 200, "bayt": 271566, "ozet": "76 proje (Dalga C canli DOM 76 satir ile TUTARLI); ornek satir gercek veri: sprint53-alias, 1 ajan, idle, sonEtkinlik 2026-10-31T07:12Z, provider claude-glm; onbellek alani mevcut (PANEL-PERF-1 TTL)", "dosyaRef": "pano/server.js:471" },
+      { "uc": "/api/ordu/metrik", "http": 200, "bayt": 156, "ozet": "toplam 0, bozukSatir 0, son24s tumu 0, sonHareketISO null — DURUST SIFIR; defter dosyasi core/data/hareket-defteri.jsonl YOK (hic olusmadi) ile TUTARLI", "dosyaRef": "pano/server.js:538" },
+      { "uc": "/api/ordu/spawn-kuyruk", "http": 200, "bayt": 123, "ozet": "toplamTalep 0, kuyrukta 0, islenen 0, hatali 0, bozukSatir 0, talepler [] — DURUST SIFIR; kuyruk dosyasi core/data/spawn-kuyrugu.jsonl YOK ile TUTARLI", "dosyaRef": "pano/server.js:546" },
+      { "uc": "/api/graf", "http": 200, "bayt": 58194, "ozet": "27 ust duzey anahtar (is, tarih, ajanKadrosu, roller, yetkiMatrisi, gorevler, kenarlar, kritikYol...); kaynak plans/gorev-grafigi-2026-10-26.json her istekte diskten (bayat onbellek yok)", "dosyaRef": "pano/server.js:262" }
+    ],
+    "postTokensiz": { "uc": "/api/mesaj", "http": 401, "govde": { "hata": "token gecersiz" }, "yorum": "TOKEN SET kaniti (403 -> 401 degisimi; server.js:556 !TOKEN->403, 557 TOKEN+gecersiz->401); kapi govde ayristirmadan ONCE -> gercek mesaj GONDERILMEDI, hareket defterine kayit YAZILMADI" },
+    "portlar": { "p4377": "LISTEN YOK = BOS (dokunulmadi)", "p4937": "LISTENING 127.0.0.1:4937, OwningProcess 36940" },
+    "surec": { "pid": 36940, "processName": "node", "startTime": "2026-11-04 22:22:49", "cpuSn": 2.3, "not": "StartTime STATE_BOARD satir 3 ile BIREBIR" }
+  },
+  "maddeler": [
+    {
+      "id": "A4-1",
+      "baslik": "6/6 GET ucu 200 + veri disk SSOT kaynakli (sahte veri YOK)",
+      "dosyaRef": "pano/server.js:256-268,413-418,538-553",
+      "etiket": ["denetim", "canli-servis", "dogrulama"],
+      "siddet": "bilgi",
+      "oneri": "Kayit gereksiz; mevcut desen (her istekte diskten oku, yoksa 404 fail-closed) korunmali",
+      "islenme": null
+    },
+    {
+      "id": "A4-2",
+      "baslik": "Tokensiz POST /api/mesaj 401 {hata: token gecersiz} — TOKEN SET kaniti; kapi govdeden once, mesaj gitmedi",
+      "dosyaRef": "pano/server.js:556-557",
+      "etiket": ["guvenlik", "token-kapisi", "fail-closed"],
+      "siddet": "bilgi",
+      "oneri": "Kayit gereksiz; operatore hatirlatma: panel AYARLAR'dan token girilince GONDER + TALEP DUSUR acilir (200/202 yollari o zaman canli olculur)",
+      "islenme": null
+    },
+    {
+      "id": "A4-3",
+      "baslik": "4377 BOS (dokunulmadi) + 4937 sahibi PID 36940 + StartTime 22:22:49 STATE_BOARD ile birebir",
+      "dosyaRef": "STATE_BOARD.md satir 3",
+      "etiket": ["denetim", "surec-dogrulama"],
+      "siddet": "bilgi",
+      "oneri": "Kayit gereksiz",
+      "islenme": null
+    },
+    {
+      "id": "A4-4",
+      "baslik": "metrik + spawn-kuyruk DURUST SIFIR — defter/kuyruk dosyalari diskte hic olusmamis (tutarli, uydurma sifir degil)",
+      "dosyaRef": "core/data/ (hareket-defteri.jsonl YOK, spawn-kuyrugu.jsonl YOK)",
+      "etiket": ["durustluk", "E10", "veri-tutarliligi"],
+      "siddet": "bilgi",
+      "oneri": "Kayit gereksiz; ilk basarili POST'ta dosyalar olusacak ve metrik uclari saymaya baslayacak",
+      "islenme": null
+    },
+    {
+      "id": "A4-5",
+      "baslik": "/ordu olcum birim farki: 172227 BAYT (disk = HTTP birebir) vs onceki damgalarda 165345 (karakter sayimi; UTF-8 cok-baytlilik farki 6882)",
+      "dosyaRef": "raporlar/pano-spawn-c-2026-11-04/ (onceki 165345 olcumu)",
+      "etiket": ["olcum-yontemi", "rapor-durustlugu"],
+      "siddet": "dusuk",
+      "oneri": "Sonraki damgalarda olcum birimi acik yazilsin (bayt); iki deger de dogru, birim etiketi farki",
+      "islenme": null
+    },
+    {
+      "id": "A4-6",
+      "baslik": "200/202 canli POST yollari bu denetimde olculeMEDI (tokensuz denetim kisiti — token degeri ajan cikisinda gorunmez ilkesi geregi bilincli)",
+      "dosyaRef": "raporlar/pano-spawn-b-2026-11-04/ (202 izole yolu), raporlar/pano-spawn-c-2026-11-04/ (durust eksik b)",
+      "etiket": ["durust-eksik", "kapsam-siniri"],
+      "siddet": "bilgi",
+      "oneri": "Operator token'li testinde olculur; denetim ajanina token verilmemeli (ilke dogru)",
+      "islenme": null
+    }
+  ],
+  "dosyaRef": [],
+  "etiket": ["denetim", "canli-servis", "pano", "4937", "token-kapisi", "salt-okur"],
+  "sonuc": "4937 canli sunucusu (PID 36940) tam denetim SAGLIKLI: 6/6 GET 200 + disk SSOT gercek veri; token kapisi 401 fail-closed CALISIYOR (TOKEN SET); 4377 bos; surec kimligi STATE_BOARD ile birebir. Sorun bulunamadi — maddeler bilgilendirme."
+}

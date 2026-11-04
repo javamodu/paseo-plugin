@@ -1,0 +1,99 @@
+{
+  "schemaSurum": 1,
+  "kaynak": "ordu-a6-devir-zincir (coder 8cc610a4 devir-zincir + gelen-kutu analisti; glm-5.3)",
+  "tarih": "2026-11-04",
+  "damga": "2026-11-04 22:45 (yerel; Get-Date ile olculdu) · HEAD 792217b · kirli 259",
+  "yontem": "salt-okur: zincir taramasi ReadAllText+Contains (BaseName), JSON ConvertFrom-Json, bozuk JSON node temp betigi (kosu sonunda silindi), git diff/status/log; yalniz bu rapor md+json yazildi",
+  "maddeler": [
+    {
+      "id": "A6-1",
+      "baslik": "Handoff zinciri TAM: 40 halka, her biri oncekinin TAM BaseName'ini tasiyor (uzantisiz) — KOPUK YOK; uzantili (.md) arama 11 yanlis-KOPUK uretir (DERSLER-158)",
+      "dosyaRef": "plans/handoff/",
+      "etiket": "(R)",
+      "siddet": "bilgi",
+      "oneri": "Zincir tarama araci daima uzantisiz BaseName ile arar; son halka HANDOFF-2026-11-01-1741",
+      "islenme": null
+    },
+    {
+      "id": "A6-2",
+      "baslik": "4 zincir halkasi untracked (??): HANDOFF-2026-10-29-1835 · -1900 · 2026-10-31-2002 · 2026-11-01-0512 — zincir diskte butun, git kaydinda eksik",
+      "dosyaRef": "plans/handoff/",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Koordinator tek elden commit kapsamina al (K7 push birikimi ile ayni sinif)",
+      "islenme": null
+    },
+    {
+      "id": "A6-3",
+      "baslik": "Brif bilgi bayat: 'son handoff 2026-10-31-2002' — diskte 4 halka daha yeni (11-01-0512/0609/1658/1741)",
+      "dosyaRef": "plans/handoff/HANDOFF-2026-11-01-1741.md",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Brifler diskten taze okunmali; son halka 1741",
+      "islenme": null
+    },
+    {
+      "id": "A6-4",
+      "baslik": "7 M handoff dosyasi (brif 8 dedi; olculen 7): 6'si tam-ek echo-append blogu, 10-27-0031 (+1/-1) placeholder echo doldurma (dosyanin kendi deseni) — kasitli degisiklik / append-only ihlali YOK, hepsi echo sinifi, commit bekliyor",
+      "dosyaRef": "plans/handoff/HANDOFF-2026-11-01-1741.md",
+      "etiket": "(R)",
+      "siddet": "bilgi",
+      "oneri": "Echo-append'ler koordinator kapanis commit'ine biner (mevcut desen, aksiyon yeni degil)",
+      "islenme": null
+    },
+    {
+      "id": "A6-5",
+      "baslik": "Gelen-kutu: 55 JSON · 367 madde · 95 islenme:null (17 dosyada); v1-v8 serisi (2026-10-26/28, 77 madde) madde bazinda bayat/kapanmis karisik — disk-dogrulama + islenme/erata gecisi bekliyor",
+      "dosyaRef": "raporlar/gelen-kutu/",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Ayrik gecis gorevi: her madde diske karsi yeniden dogrulanip islenme veya erata alinir (ORDU-3-sk1 D1-D8 GECTI kayitlari kapanis damgasiyla islenebilir)",
+      "islenme": null
+    },
+    {
+      "id": "A6-6",
+      "baslik": "PANEL-ANA-1-FAZ-J JSON BOZUK: islenme alaninda kacissiz 'D:\\Vibecode\\...' (gecersiz \\V kacisi; node olcumu konum 7129, satir 32) — makine-okunur kayit parse EDILEMEZ; rapor-duzeyi islenme ISLENDI diyor ama otomasyon okuyamaz",
+      "dosyaRef": "raporlar/gelen-kutu/PANEL-ANA-1-FAZ-J-2026-11-03.json:32",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "JSON tek-katman kacisla yeniden yazilmali (append-only: erata/yeni dosya deseni)",
+      "islenme": null
+    },
+    {
+      "id": "A6-7",
+      "baslik": "v5-metrik JSON 12 maddesinin baslik/etiket/siddet alanlari BOS — sema ihlali; makine tarafi madde kimliksiz",
+      "dosyaRef": "raporlar/gelen-kutu/v5-metrik-2026-10-26.json",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "md'den alan eslemesi ya da rapor yeniden uretimi",
+      "islenme": null
+    },
+    {
+      "id": "A6-8",
+      "baslik": "islenme isaretleme katmani tutarsiz: bazi raporlar madde-duzeyi (v7 deseni), bazilari rapor-duzeyi (PANEL-PERF-1, FAZ-J) tasir — madde-duzeyi null taramasi rapor-duzeyi islenmis raporlari 'islenmemis' sayar (PANEL-PERF-1: madde null, rapor ISLENDI 2026-11-04 07:52)",
+      "dosyaRef": "raporlar/gelen-kutu/PANEL-PERF-1-2026-11-04.json",
+      "etiket": "(R)",
+      "siddet": "dusuk",
+      "oneri": "Tek duzey sema karari (madde-duzeyi standart) + gecis notu",
+      "islenme": null
+    },
+    {
+      "id": "A6-9",
+      "baslik": "DERSLER mukerrer siniflar (kayitli ders kullanim aninda tetiklenmiyor): apply_patch 9. tekrara kadar (satir 9-54-71-78-100) · Turkce apostrof tek tirnakta 5+ olay (170+177) · node -e inline 3. (122) · damga saati kayitliyken 2. kez (162-194) · sha256 transkripsiyon 3 olay (195) — KAL-05 ayni bulguyu islenmemis tasiyor",
+      "dosyaRef": "DERSLER.md:54",
+      "etiket": "(R)",
+      "siddet": "yuksek",
+      "oneri": "KAL-05 (gelen-kutu, siddet:yuksek) oncelikli isleme adayi: ders tetikleme mekanizmasi (acilis okumasi + kullanim-ani arama refleksi)",
+      "islenme": null
+    },
+    {
+      "id": "A6-10",
+      "baslik": "Hala gecerli islenmemis bulgu adaylari: SH-e pre-commit kapsam fişi EKSIK (GUVENLIK-DENETCI) · K1 top30.json bayat motor matrisi (KOORDINATOR) · OK-05 auth arizasi 429-kalkan kapsami disi (OPENCODE) · KAL-03 paralel yazici drift handoff'a gorunmez (OTONOM-KALITE)",
+      "dosyaRef": "raporlar/gelen-kutu/GUVENLIK-DENETCI-2026-11-01.json",
+      "etiket": "(R)",
+      "siddet": "orta",
+      "oneri": "Koordinator kapanis kuyruguna: SH-e (kod tarafi) + K1 (json tazeleme) + OK-05 kapsam karari",
+      "islenme": null
+    }
+  ]
+}
