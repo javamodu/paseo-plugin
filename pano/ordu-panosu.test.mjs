@@ -138,14 +138,14 @@ test("4- fail-closed: kalan uçların kendi kirmizi yuzu + VERI OKUNAMADI (yüz 
 test("5- 30 sn yenileme + uc sabitleri DARALTIILDI (PANEL-SIFIR-1: kalan uç kadro + projeler + graf; genel/akis/saglik/log çağrıları söküldü)", () => {
   ok("YENILE_SN = 30", jsKisim().includes("const YENILE_SN = 30;"));
   ok("setInterval(hepsiniYukle, YENILE_SN * 1000)", jsKisim().includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
-  const uclar = ["/api/ordu/kadro", "/api/ordu/projeler", "/api/graf"];
+  const uclar = ["/api/ordu/kadro", "/api/ordu/projeler", "/api/graf", "/api/ordu/spawn-kuyruk"]; /* K-0065 DALGA C: kuyruk 4. salt-okur GET (read-model — token'sız) */
   for (const u of uclar) ok("kalan uc sabiti: " + u, jsKisim().includes('"' + u + '"'));
   const cagrilar = (jsKisim().match(/cek\(UC\.\w+/g) || []).length;
-  ok("3 cek cagrisi (kadro + projeler + graf — kalan uç başına bir)", cagrilar === 3, "bulunan: " + cagrilar);
+  ok("4 cek cagrisi (kadro + projeler + graf + kuyruk — kalan uç başına bir; K-0065 DALGA C bilinçli genişletme: kuyruk read-model)", cagrilar === 4, "bulunan: " + cagrilar);
   for (const u of ["/api/ordu/genel", "/api/ordu/akis", "/api/ordu/saglik", "/api/ordu/log"]) {
     ok("sökülen uç KALINTISI YOK (UI çağrı kodu): " + u, !jsKisim().includes('"' + u + '"'));
   }
-  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli; TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — seçili konuşma yoklamayla tazelenir, salt-okur)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])"));
+  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli; TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — seçili konuşma yoklamayla tazelenir, salt-okur; K-0065 DALGA C 2026-11-04: kuyrukYukle 5. ayak — talep kartı açıksa kuyruk read-model tazelenir, guard kapalıyken dokunmaz)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])"));
   ok("sökülen yükleyici fonksiyonlar KALINTI YOK (genelYukle/planYukle/akisYukle/saglikYukle/logYukle)", !jsKisim().includes("function genelYukle(") && !jsKisim().includes("function planYukle(") && !jsKisim().includes("function akisYukle(") && !jsKisim().includes("function saglikYukle(") && !jsKisim().includes("function logYukle("));
   ok("tek YAZMA ucu POST /api/mesaj KALIR (composer)", jsKisim().includes('"/api/mesaj"') && jsKisim().includes('method: "POST"'));
 });
@@ -223,7 +223,7 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("sözleşme: setPointerCapture + lostpointercapture", j.includes("setPointerCapture") && j.includes("lostpointercapture"));
   ok("sözleşme: klavye ±16px (ArrowLeft/ArrowRight)", j.includes('e.key === "ArrowLeft"') && j.includes("-16 : 16"));
   ok("FAZ-P §2a taraf-bazlı clamp: KENAR sabiti sol 200-360 AYNEN · sag 320-760 (eski 260-460 — SAĞ EN GENİŞ)", j.includes("const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 320, max: 760 } };") && j.includes("Math.max(k.min, Math.min(k.max"));
-  ok("PANEL-SIFIR-1: 3 GET ucu — tek YAZMA ucu POST /api/mesaj (composer)", j.includes('method: "POST"') && j.includes('"/api/mesaj"') && (j.match(/cek\(UC\./g) || []).length === 3);
+  ok("PANEL-SIFIR-1 → K-0065: 4 GET ucu (kadro + projeler + graf + kuyruk read-model — DALGA C bilinçli genişletme) + 2 YAZMA ucu POST /api/mesaj (composer) + POST /api/spawn-talebi (DALGA B)", j.includes('method: "POST"') && j.includes('"/api/mesaj"') && j.includes('"/api/spawn-talebi"') && (j.match(/cek\(UC\./g) || []).length === 4);
   /* --- duncyari ~<900px: sutunlar alt alta (PANEL-SIFIR-1: ağaç ÜSTTE — sol → orta → sag) --- */
   ok("899px kirilimda body scroll geri gelir (overflow:auto)", /@media \(max-width:899px\)[\s\S]*?body\s*\{[^}]*overflow:\s*auto/.test(HTML));
   ok("899px kirilimda splitter gizlenir", /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
@@ -1738,7 +1738,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   ok("kullanim 2/5 ana sekme: ad = pr ? projeEtiketi(pr) : dizin (taramadan dustuysae dizin yedek)", j.includes("pr ? projeEtiketi(pr) : dizin"));
   ok("kullanim 3/5 chat basligi: seciliKonusma.projeEtiket (kimlik yolu projeDizin AYNEN)", j.includes("projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr)") && j.includes("seciliKonusma.projeEtiket"));
   ok("kullanim 4 SO KULDU: composer optgroup kullanımı YOK (COMPOSER dalgası — hedef seçici söküldü; etiket yardımcısına composer dokunmaz)", !j.includes('pr ? projeEtiketi(pr) : "yok"'));
-  ok("PANEL-SIFIR-1: kullanim 5. tablo SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0; FAZ-O EK-2: 5. kullanım oturumBul (oturum kartı proje satırı); ARAMA (2026-11-04): 6. kullanım prAdEs — 1 tanım + 5 kullanım = 6 eşleşme (composer optgroup'ı COMPOSER dalgası sildi)", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6);
+  ok("PANEL-SIFIR-1: kullanim 5. tablo SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0; FAZ-O EK-2: 5. kullanım oturumBul (oturum kartı proje satırı); ARAMA (2026-11-04): 6. kullanım prAdEs; K-0065 DALGA C (2026-11-04): 7. kullanım talepFormAc (talep kartı proje satırı) — 1 tanım + 6 kullanım = 7 eşleşme (composer optgroup'ı COMPOSER dalgası sildi)", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 7);
   ok("kimlik yolu DEGISMEZ: data-proje TAM dizin AYNEN (agac + tasi dugmeleri)", j.includes('data-proje="\' + esc(pr.dizin)'));
   ok("data-ana TAM dizin AYNEN (ana sekme kimligi)", j.includes('data-ana="\' + esc(dizin)'));
 
@@ -1808,7 +1808,7 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   /* --- K-0061 §5 minimumlar yukarı taşındı (aşağı düşmez) --- */
   ok("§5 korunur: GÖNDER min-height 40px + --min-dokunma 44px + sekme 32px ≥26px (FAZ-T kuru buton) + ağaç 32px ≥26px", /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML) && HTML.includes("--min-dokunma:44px") && /\.sekme\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   /* --- veri katmanı hunk YOK (diff denetimi desteği) --- */
-  ok("veri katmanı DARALDI (PANEL-SIFIR-1): cek(UC. 3 (kadro + projeler + graf) + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 3 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
+  ok("veri katmanı DARALDI (PANEL-SIFIR-1 → K-0065 DALGA C bilinçli genişletme): cek(UC. 4 (kadro + projeler + graf + kuyruk) + POST /api/mesaj + CHAT_TAVAN", (j.match(/cek\(UC\./g) || []).length === 4 && j.includes('"/api/mesaj"') && j.includes("CHAT_TAVAN"));
   ok("renk dili AYNEN: petrol tek aksan + token seti birebir (YENİ renk YOK — FAZ-H yalnız ölçek/nefes)", HTML.includes("--camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;") && HTML.includes("--zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;") && HTML.includes("--metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);"));
 });
 
@@ -1863,7 +1863,7 @@ test("51n- PANEL-ANA-1 FAZ-J + PANEL-SIFIR-1 (kaynak-pin + vm): responsive + mob
   /* --- pointer:coarse bloğu (YENİ) — dokunmatikte 44px; masaüstü kompakt AYNEN --- */
   ok("pointer:coarse bloğu var (dokunmatik işaretçi)", /@media \(pointer:coarse\)/.test(HTML));
   ok("coarse: .sekme min-height var(--min-dokunma)", /@media \(pointer:coarse\)[\s\S]*?\.sekme\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
-  ok("coarse: ağaç satır ailesi 44px (agacProjeBas + agacAjan — agacGrupBas SÖKÜLDÜ)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("coarse: ağaç satır ailesi 44px (agacProjeBas + agacAjan + agacTalepDugme [K-0065 DALGA C bilinçli genişletme — + düğmesi dokunmatik 44px] — agacGrupBas SÖKÜLDÜ)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan, \.agacTalepDugme\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
   ok("PANEL-SIFIR-1: coarse taşıma düğmesi KALINTI 0 (agacTasiBtn mekanizması gitti)", !/@media \(pointer:coarse\)[\s\S]*?\.agacTasiBtn/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
   ok("coarse: sekmeKapat büyütmesi SÖKÜLDÜ (SEKME-MİNİMAL emri 2026-11-04 — × 14px KALIR, K-0061 §5 operatör istisnası; filtreBtn SÖKÜLDÜ — kalıntı 0)", !/@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*padding:\s*8px/.test(HTML) && !/\.filtreBtn/.test(HTML));
   ok("coarse: GÖNDER 44px (masaüstünde 40px §5 — yalnız coarse kuralı)", /@media \(pointer:coarse\)[\s\S]*?#composerGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
@@ -1928,7 +1928,7 @@ test("51n- PANEL-ANA-1 FAZ-J + PANEL-SIFIR-1 (kaynak-pin + vm): responsive + mob
   ok("overscroll-behavior:contain — .chatListe + #sol (kaydırma zinciri sayfaya zıplamaz)", /\.chatListe\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML) && /#sol\s*\{[^}]*overscroll-behavior:\s*contain/.test(HTML));
   /* --- sınır: drawer/hamburger YOK + veri katmanı AYNEN --- */
   ok("drawer/perde/hamburger MEKANİZMASI YOK (kayıtlı karar — istif + order yeter; FAZ-C mirası yorumdaki 'kopyalanmadı' cümlesi dokümantasyondur, mekanizma değil)", !/hamburger/i.test(HTML) && !/id="(drawer|perde|menuBtn|navToggle)"/i.test(HTML) && !/class="[^"]*\b(drawer|perde|hamburger)\b/.test(HTML));
-  ok("veri katmanı AYNEN: cek(UC. 3 (graf + projeler + kadro — PANEL-SIFIR-1 sonrası dürüst sayı) + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 0 (COMPOSER: select söküldü)", (j.match(/cek\(UC\./g) || []).length === 3 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 0);
+  ok("veri katmanı AYNEN: cek(UC. 4 (graf + projeler + kadro + kuyruk [K-0065 DALGA C bilinçli genişletme] — dürüst sayı) + POST /api/mesaj + CHAT_TAVAN 200 + optgroup 0 (COMPOSER: select söküldü)", (j.match(/cek\(UC\./g) || []).length === 4 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/<optgroup/g) || []).length === 0);
   ok("localStorage şeması PANEL-SIFIR-1: ordu-agac-sira/GRUP mekanizması gitti (kaydet/oku çağrıları 0 — kelime yorumlarda dokümantasyon olarak geçer); kalan anahtarlar agac-acik + agac-secili + kolon genişlikleri", !j.includes('kaydet("ordu-agac-sira"') && j.includes('kaydet("ordu-agac-acik"') && j.includes('kaydet("ordu-agac-secili"') && !j.includes('kaydet("ordu-agac-grup"') && !j.includes('oku("ordu-agac-grup"'));
 });
 
@@ -1972,10 +1972,10 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   ok("vm agac: kimlik yolu DEĞİŞMEZ (data-proje TAM dizin + data-ajan TAM uuid + title FAZ-Q birleşik: dizin — baslik — çalışan/kayıt)", hk.includes('data-proje="D-Vibecode-Chrome-extension-sarisite-export"') && hk.includes('data-ajan="' + R1 + '"') && hk.includes('title="D-Vibecode-Chrome-extension-sarisite-export — dodo lemon — 0 çalışan · 1 ajan kaydı"'));
   /* --- (4) korunum: min-height 32 ailesi + FAZ-J coarse 44 aynen --- */
   ok("ağaç satır min-height 32px ailesi KORUNUR (sarma doğal uzama — sabit height YOK; agacGrupBas SÖKÜLDÜ)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && !/\.agacGrupBas/.test(HTML));
-  ok("FAZ-J coarse (pointer:coarse bloğu: agacProjeBas + agacAjan 44 — sekmeKapat büyütmesi SEKME-MİNİMAL emriyle SÖKÜLDÜ 2026-11-04, × 14px kalır)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && !/@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*padding:\s*8px/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
+  ok("FAZ-J coarse (pointer:coarse bloğu: agacProjeBas + agacAjan + agacTalepDugme 44 [K-0065 DALGA C] — sekmeKapat büyütmesi SEKME-MİNİMAL emriyle SÖKÜLDÜ 2026-11-04, × 14px kalır)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan, \.agacTalepDugme\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && !/@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*padding:\s*8px/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
   ok("§5 satır ≥26px + GÖNDER 40px AYNEN (FAZ-K ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   /* --- (5) veri katmanı AYNEN (kisaltma yalnız UI'da — server.js/ordu-birlesim.mjs hunk 0) --- */
-  ok("veri katmanı: projeEtiketi yardımcısı + 1 tanım + 5 kullanım = 6 eşleşme (ağaç + konuşma seçimi + ana sekme + FAZ-O EK-2 oturum kartı + ARAMA prAdEs 2026-11-04; composer optgroup COMPOSER dalgasında söküldü) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
+  ok("veri katmanı: projeEtiketi yardımcısı + 1 tanım + 6 kullanım = 7 eşleşme (ağaç + konuşma seçimi + ana sekme + FAZ-O EK-2 oturum kartı + ARAMA prAdEs 2026-11-04 + K-0065 DALGA C talepFormAc 2026-11-04; composer optgroup COMPOSER dalgasında söküldü) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
   ok("YENİ @keyframes/renk/sembol YOK (nabız 1 aynen — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !/--yeni-(renk|token)/.test(h));
 });
 
@@ -2173,7 +2173,7 @@ test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → trans
   ok("fetch: GET /api/ordu/konusma?ajan= + encodeURIComponent(TAM kimlik)", j.includes('"/api/ordu/konusma?ajan=" + encodeURIComponent(ajanKimligi)'));
   ok("fonksiyonlar: async transcriptYukle + transcriptBalonHtml (yeni özellik = ince kanca — composer POST aynen)", j.includes("async function transcriptYukle(") && j.includes("function transcriptBalonHtml("));
   ok("GÖRÜNÜM dalgası: async transcriptTamAc + chatListe delegation dinleyicisi (devamı düğmesi innerHTML yeniden yazımında dinleyici kalır) + tamBalon=1 sorgu", j.includes("async function transcriptTamAc(") && j.includes('$("chatListe").addEventListener("click"') && j.includes('.closest(".chatDevam")') && j.includes('"&tamBalon=" + indeks'));
-  ok("TRANSCRIPT-CANLI (operatör «senin yanıtların bana gelmiyor» 2026-11-04): async transcriptTazele + yoklama döngüsü Promise.all'ında çağrılır + SESSİZ (ağ hatası eski balonları korur — döngü kırılmaz) + yüklenmemiş konuşmaya dokunmaz (return guard)", j.includes("async function transcriptTazele(") && j.includes("Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])") && j.includes("if (!ajan || !Array.isArray(transcriptBalonlar)) return;") && j.includes("catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }"));
+  ok("TRANSCRIPT-CANLI (operatör «senin yanıtların bana gelmiyor» 2026-11-04): async transcriptTazele + yoklama döngüsü Promise.all'ında çağrılır + SESSİZ (ağ hatası eski balonları korur — döngü kırılmaz) + yüklenmemiş konuşmaya dokunmaz (return guard; K-0065 DALGA C: dizide kuyrukYukle 5. ayak — bilinçli genişletme)", j.includes("async function transcriptTazele(") && j.includes("Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])") && j.includes("if (!ajan || !Array.isArray(transcriptBalonlar)) return;") && j.includes("catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }"));
   ok("state: transcriptBalonlar/transcriptHata null + transcriptAcilisIstendi kilidi (null=yüklenmedi, []=dürüst boş)", j.includes("let transcriptBalonlar = null") && j.includes("let transcriptHata = null") && j.includes("let transcriptAcilisIstendi = false"));
   ok("ağaç tıklaması: konusmaSecGuncelle() (argümansız — secimiZorla SÖKÜLDÜ) ardından transcriptYukle(agacSecili) — oturuma tıkla → yazışmalar yüklenir + MANAGER hedefi O AJANA bağlanır (composerModGuncelle konusmaSecGuncelle içinde)", j.includes("konusmaSecGuncelle(); /* ağaç tıklaması") && j.includes("transcriptYukle(agacSecili);") && !j.includes("konusmaSecGuncelle(true)"));
   ok("açılış: kalıcı seçim YALNIZ bir kez yükler (transcriptAcilisIstendi = true — 30sn yenileme döngüsü tekrar fetch ETMEZ)", j.includes("transcriptAcilisIstendi = true"));
@@ -2381,7 +2381,7 @@ test("51t- PANEL-ANA-1 FAZ-O (kaynak-pin + vm): 4-İKON GÖRÜNÜM MENÜSÜ [SOH
   ok("menü kabuğu FAZ-S: SOL başlık ikon menüsü [API][AYARLAR] (bolumBaslikSatiri + solIkonMenu role=toolbar + 2 gsek düğmesi 40px aria-pressed; eski 4-ikon gorunumMenu role=tablist SÖKÜLDÜ)", h.includes('class="bolumBaslikSatiri"') && h.includes('class="solIkonMenu"') && h.includes('role="toolbar"') && h.includes('id="gsek-api"') && h.includes('id="gsek-ayarlar"') && !h.includes('id="gorunumMenu"'));
   ok("açılış modu AĞAÇ (bolum-api/bolum-ayarlar hidden kaynakta; gsek aria-pressed=false; görünüm tercihi localStorage'a GİRMEZ)", /id="bolum-api"[^>]*hidden/.test(h) && /id="bolum-ayarlar"[^>]*hidden/.test(h) && !/id="bolum-agac"[^>]*hidden/.test(h) && h.includes('id="gsek-api" aria-pressed="false"') && !j.includes('kaydet("pano-gorunum"') && !j.includes('kaydet("ordu-gorunum"'));
   ok("SOL_GORUNUMLER sabiti 3 üye + fail-closed + TOGGLE (aktif ikon tekrar tıkla → ağaç döner; eski GORUNUMLER 4 sabiti SÖKÜLDÜ)", j.includes('const SOL_GORUNUMLER = ["agac", "api", "ayarlar"]') && j.includes("if (!SOL_GORUNUMLER.includes(ad)) return;") && j.includes('const hedef = ad === seciliSolGorunum ? "agac" : ad') && !j.includes('const GORUNUMLER'));
-  ok("token YALNIZ Ayarlar görünümünde: ayarToken (password) + KAYDET düğmesi + ayarSonuc; composer bölgesinde token girdisi yok (tek input gizli dosya seçici — yorumdaki 'token' kelimesi dokümantasyondur)", h.includes('<input id="ayarToken" type="password"') && h.includes('id="ayarTokenKaydet"') && h.includes('id="ayarSonuc"') && !h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>")).includes('type="password"') && (h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>")).match(/<input/g) || []).length === 1);
+  ok("token YALNIZ Ayarlar görünümünde: ayarToken (password) + KAYDET düğmesi + ayarSonuc; composer bölgesinde token girdisi yok (tek input gizli dosya seçici — yorumdaki 'token' kelimesi dokümantasyondur; K-0065 DALGA C: agacTalepForm composer'dan ÖNCEDE — </form> araması composer'dan BAŞLAR, talep formu kendi bölümünde)", h.includes('<input id="ayarToken" type="password"') && h.includes('id="ayarTokenKaydet"') && h.includes('id="ayarSonuc"') && !h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>", h.indexOf('id="bolum-composer"'))).includes('type="password"') && (h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>", h.indexOf('id="bolum-composer"'))).match(/<input/g) || []).length === 1 && !/<input[^>]*id="agacTalep(Baslik|Mesaj)"[^>]*type="password"/.test(HTML));
   ok("AYARLAR kaydetme: kaydet(\"pano-token\") + boş değer dürüst 401/403 notu", j.includes('kaydet("pano-token", deger)') && j.includes("gönderimler sunucu kapısında dürüst 401/403"));
   ok("API görünümü salt-okur: 3 GET satırı + ÖLÇ + apiSonuclar (satırlar YALNIZ ölçümle gelir — sahte satır YOK E10)", h.includes('id="apiOrigin"') && h.includes('id="apiOlc"') && h.includes('id="apiSonuclar"') && j.includes("const API_UCLAR = [") && (j.match(/yol: "\/api\//g) || []).length === 3);
   ok("API ölçümü GERÇEK fetch + kod + ms (tahmin YOK; YENİ uç EKLENMEZ — mevcut GET'ler)", j.includes('satir.textContent = uc.ad + " — HTTP " + r.status + " · " + (Date.now() - t0) + " ms"') && !j.includes('yol: "POST'));
@@ -2613,8 +2613,8 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
   ok("(2) ayni-veri-atlama: SON_YANIT parmak izi uc bazında + 3 uçta aynı-VERİ return + UÇUCU META DIŞLANIR (EK DÜZELTME: projeler pini yeni.projeler + kadro olcumAniISO destructuring + graf TAM yanıt [statik dosya])", j.includes("const SON_YANIT = { kadro: null, projeler: null, graf: null };") && (j.match(/if \(parmak === SON_YANIT\.\w+\) return;/g) || []).length === 3 && j.includes("JSON.stringify(yeni.projeler ?? null)") && j.includes("const { olcumAniISO: _ucucuOlcum, ...kadroVerisi } = yeni;") && j.includes("JSON.stringify(kadroVerisi)") && (j.match(/const parmak = JSON\.stringify\(yeni\);/g) || []).length === 1);
   ok("(3) görünmez sekbe: document.hidden kapısı + visibilitychange dinleyicisi (görünür olunca tur HEMEN)", j.includes("if (document.hidden) return;") && j.includes('document.addEventListener("visibilitychange"'));
   ok("(4) hata-bayat-koruma: yalnız HİÇ yüklenmediyse kırmızı yüz (3 uçta SON_YANIT null koşulu; önceki veri ekranda KALIR)", (j.match(/if \(SON_YANIT\.\w+ === null\)/g) || []).length === 3 && j.includes('kirmiziYuzGoster("agacHata", "agacAlani"'));
-  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN (TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — 4. ayak sessiz tazeleme)", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
-  ok("kalan uç çağrı ailesi AYNEN (cek ×3 + P/K/G atamaları değişmedi)", (j.match(/await cek\(UC\.\w+\)/g) || []).length === 3);
+  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN (TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — 4. ayak sessiz tazeleme; K-0065 DALGA C: kuyrukYukle 5. ayak — guard'lı, kart kapalıyken fetch YOK)", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
+  ok("kalan uç çağrı ailesi (cek ×4 — K-0065 DALGA C bilinçli genişletme: kuyruk read-model + P/K/G atamaları değişmedi)", (j.match(/await cek\(UC\.\w+\)/g) || []).length === 4);
   /* --- vm: davranış senaryoları --- */
   const declB = HTML.slice(HTML.indexOf("let yoklamaUcusta = false;"), HTML.indexOf("/* STEERING-6"));
   const grafB = HTML.slice(HTML.indexOf("async function grafYukle("), HTML.indexOf("/* ---- Paseo canlı tarama"));
@@ -2626,7 +2626,7 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
       cek: cekStub, UC: { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf" },
       odakIcindeMi: () => false, gonderiyor: false, agacSecili: null, seciliKonusma: null, transcriptAcilisIstendi: true,
       P: null, G: null, K: null,
-      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerModGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0, transcriptTazele: 0 },
+      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerModGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0, transcriptTazele: 0, kuyrukYukle: 0 },
       document: { hidden: false, addEventListener: (tip, fn) => { ctx.gorunurlukDinleyici = fn; } },
     };
     ctx.agacYaz = () => { ctx.sayac.agacYaz++; };
@@ -2640,6 +2640,10 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
        Bu VM seciliKonusma:null verir — gerçek fonksiyon seçim yokken DOKUNMAZ (return guard);
        stub aynı sözleşmeyi taklit eder: fetch YOK, sayaç artar (davranış pini 51r'de gerçek dilimle). */
     ctx.transcriptTazele = async () => { ctx.sayac.transcriptTazele++; };
+    /* K-0065 DALGA C 2026-11-04: hepsiniYukle dizisi 5. ayak olarak kuyrukYukle çağırır.
+       Bu VM talepProje:null dünyasında — gerçek fonksiyon kart kapalıyken DOKUNMAZ (return guard);
+       stub aynı sözleşmeyi taklit eder: fetch YOK, sayaç artar (davranış pini 51ac'te gerçek dilimle). */
+    ctx.kuyrukYukle = async () => { ctx.sayac.kuyrukYukle++; };
     const fns = vm.runInNewContext(parcalar, ctx);
     return { ctx, fns };
   };
@@ -3103,4 +3107,88 @@ test("51ab- ARAMA (2026-11-04): ağaç arama çubuğu (projeler üstünde) — k
   ];
   const hAranan = kos("eski-aranan", { siralama: "varsayilan", aktifFiltre: false }, cok, new Set(["P-cok"]));
   ok("vm son-3 AÇILIR: aranan oturum (c4, EN ESKİ ISO — agacGorunurAjanlar onu atardı) aramada BULUNUR: tek satır data-ajan=c4", (hAranan.match(/class="agacAjan"/g) || []).length === 1 && hAranan.includes('data-ajan="c4"') && !hAranan.includes('data-ajan="c1"'));
+});
+
+test("51ac- K-0065 DALGA C (2026-11-04): + düğmesi TALEP düşürür (spawn ETMEZ) — hover düğmesi + talep kartı + POST /api/spawn-talebi + kuyruk read-model (GET /api/ordu/spawn-kuyruk); karar K-0065 ONAYLANDI; operatör emri «Devam» (onaylı dalga sırası 6. adım)", async () => {
+  const j = jsKisim();
+  /* --- (A) kaynak pinleri --- */
+  ok("A + düğmesi agacYaz ÜRETİMİ: .agacProjeBas'ın KARDEŞİ (satır içinde, İÇİNDE değil — tıklama akordiyona düşmez) + type=button (form submit tetiklemez) + data-talep-proje esc(pr.dizin) TAM dizin (sunucu whitelist anahtarı)", j.includes('\'<button class="agacTalepDugme" type="button" data-talep-proje="\' + esc(pr.dizin)') && j.includes('aria-label="\' + esc(etiket) + \' projesinde yeni oturum talebi">+</button>\''));
+  ok("A tıklama delegasyonu: .agacTalepDugme dalı .agacProjeBas dalından ÖNCE + return (akordiyon düşmez) + typeof-güvence (talepFormAc yoksa sessiz — VM dilimleri)", j.indexOf('e.target.closest(".agacTalepDugme")') < j.indexOf('e.target.closest(".agacProjeBas")') && j.includes('if (typeof talepFormAc === "function") talepFormAc(talepDugmesi.dataset.talepProje);'));
+  ok("A talep kartı HTML: agacAlani İLE agacHata ARASINDA (ağacın DIŞINDA — 30 sn agacYaz çizimi formu SİLMEZ) + hidden varsayılan + form (baslik maxlength 200 + mesaj maxlength 3000 + TALEP DÜŞÜR + KAPAT) + sonuc role=status", HTML.indexOf('id="agacAlani"') < HTML.indexOf('id="agacTalepKarti"') && HTML.indexOf('id="agacTalepKarti"') < HTML.indexOf('id="agacHata"') && /<div id="agacTalepKarti" hidden>/.test(HTML) && /id="agacTalepBaslik"[^>]*maxlength="200"/.test(HTML) && /id="agacTalepMesaj"[^>]*rows="3"[^>]*maxlength="3000"/.test(HTML) && HTML.includes('id="agacTalepGonder"') && HTML.includes('id="agacTalepKapat"') && HTML.includes('id="agacTalepSonuc" role="status"'));
+  ok("A CSS: + düğmesi opacity 0 → hover/odakta 1 (masaüstü) + coarse'ta HER ZAMAN görünür (hover yok) + 44px dokunma", /\.agacTalepDugme\s*\{[^}]*opacity:\s*0/.test(HTML) && /\.agacProjeSatir:hover \.agacTalepDugme, \.agacTalepDugme:focus-visible\s*\{\s*opacity:\s*1/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.agacTalepDugme\s*\{[^}]*opacity:\s*1/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan, \.agacTalepDugme\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
+  ok("A POST pini: /api/spawn-talebi + x-pano-token başlığı (composer deseni) + gövde {proje, baslik, ilkMesaj?} — boş ilkMesaj GİRMEZ (çekirdek deseni: boş alan yazılmaz)", j.includes('"/api/spawn-talebi"') && j.includes('"x-pano-token"') && j.includes("JSON.stringify(ilkMesaj ? { proje: talepProje, baslik, ilkMesaj } : { proje: talepProje, baslik })"));
+  ok("A kuyruk read-model: UC.kuyruk = /api/ordu/spawn-kuyruk (salt-okur, token'sız — cek deseni) + kuyrukYukle guard'lı (talepProje yok → return; kart kapalıyken yoklama turu fetch ATMaz) + parmak aynıysa render koşmaz", j.includes('kuyruk: "/api/ordu/spawn-kuyruk"') && j.includes("async function kuyrukYukle() {") && j.includes("if (!talepProje) return;") && j.includes("if (parmak === sonKuyrukYazi) return;"));
+  ok("A E10 DÜRÜST DURUM: rozetler KUYRUKTA | İŞLENDİ | HATA (türetilmiş — sahte «açtı» YOK) + 202 metni «talep kaybolmaz» (kuyruk SSOT) + bozuk satır SAYILIR (gizlenmez)", j.includes('d === "islandi" ? "İŞLENDİ" : d === "hata" ? "HATA" : "KUYRUKTA"') && j.includes("talep kaybolmaz — kuyruk SSOT") && j.includes("bozuk satır (sayılır — gizlenmez)"));
+  ok("A istemci önü doğrulama: başlık boş → düşmez + uzunluk (200/3000 — sunucu RED'leri SSOT, KESME YOK) + 401/403 → Ayarlar yönlendirme (composer deseni) + 429 kısa aralık", j.includes('"başlık boş — talep düşmez"') && j.includes("başlık 200, ilk mesaj 3000") && j.includes("token gerekli — Ayarlar görünümünden girin") && j.includes("aynı proje için kısa aralık"));
+  ok("A hepsiniYukle 5 AYAK: kuyrukYukle Promise.all dizisinde (guard'lı — kart açıkken kuyruk canlı tazelenir)", j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()])"));
+  ok("A talepFormAc fail-closed: kimliksiz (boş/türsüz) dizin kartı AÇMAZ", j.includes('if (typeof dizin !== "string" || !dizin.trim()) return;'));
+  /* --- (B) vm davranışı: dilim = K-0065 bloğu (arama dinleyicisinden sonra) --- */
+  const dilimA = HTML.indexOf("let talepProje = null;");
+  const dilimB = HTML.indexOf("/* seçili konuşmayı P taramasında bul");
+  ok("B dilim yerinde (talepProje … seçili konuşma)", dilimA > 0 && dilimB > dilimA);
+  const dilim = HTML.slice(dilimA, dilimB);
+  const dinleyiciler = {};
+  const sham = {};
+  const sham$ = (id) => sham[id] || (sham[id] = { innerHTML: "", textContent: "", value: "", hidden: true, disabled: false, className: "", focus: () => {}, addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; } });
+  let fetchCagr = null;
+  let cekCagr = null;
+  let yanit = { status: 200, ok: true, json: async () => ({ ok: true, talepId: "432e03b7-9004-445c-857d-ebf3b6661d53" }) };
+  let kuyrukVerisi = { olcumAniISO: "2026-11-04T20:00:00Z", toplamTalep: 2, kuyrukta: 1, islenen: 1, hatali: 0, bozukSatir: 0, talepler: [
+    { talepId: "a1", proje: "D-test", baslik: "bekleyen iş", durum: "kuyrukta" },
+    { talepId: "b2", proje: "D-test", baslik: "biten iş", durum: "islandi", ajanId: "432e03b7-9004-445c-857d-ebf3b6661d53" },
+  ] };
+  const ctx = {
+    $: sham$, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+    P: { projeler: [{ dizin: "D-test", projeAdi: "test", orduMu: false, ajanlar: [] }] },
+    oku: () => "sahte-token", kaydet: () => {},
+    UC: { kuyruk: "/api/ordu/spawn-kuyruk" },
+    cek: async (yol) => { cekCagr = yol; return kuyrukVerisi; },
+    fetch: async (yol, secenek) => { fetchCagr = { yol, secenek }; return yanit; },
+  };
+  const [talepFormAc, talepFormKapat, kuyrukYukle] = vm.runInNewContext(dilim + "\n[talepFormAc, talepFormKapat, kuyrukYukle]", ctx);
+  ok("B submit + kapat dinleyicileri kayıtlı", typeof dinleyiciler.submit === "function" && typeof dinleyiciler.click === "function");
+  const gonder = () => dinleyiciler.submit({ preventDefault: () => {} });
+  /* (1) form açılışı + kuyruk render */
+  await talepFormAc("D-test");
+  ok("B talepFormAc: kart AÇILIR (hidden=false) + proje satiri ETİKET + TAM dizin dolar + kuyruk anında çekilir", sham.agacTalepKarti.hidden === false && sham.agacTalepProje.textContent.includes("test") && sham.agacTalepProje.textContent.includes("D-test") && cekCagr === "/api/ordu/spawn-kuyruk");
+  await new Promise((r) => setTimeout(r, 0));
+  const kuyruk1 = sham.agacTalepKuyruk.innerHTML;
+  ok("B kuyruk render: özet satırı (2 talep — 1 kuyrukta · 1 işlendi · 0 hata) + KUYRUKTA + İŞLENDİ rozetleri + islandi ajan kısa kimliği (kisaIdGoster) + esc başlıklar", kuyruk1.includes("2 talep — 1 kuyrukta · 1 işlendi · 0 hata") && kuyruk1.includes("KUYRUKTA") && kuyruk1.includes("İŞLENDİ") && kuyruk1.includes("ajan 432e03b7") && kuyruk1.includes("bekleyen iş"));
+  /* (2) aynı veri → render koşmaz (parmak) */
+  const innerOnce = sham.agacTalepKuyruk.innerHTML;
+  await kuyrukYukle();
+  ok("B parmak: aynı kuyruk verisi render adımını KOŞMAZ (innerHTML referansı değişmez)", sham.agacTalepKuyruk.innerHTML === innerOnce);
+  /* (3) boş başlık → fetch YOK */
+  await gonder();
+  ok("B boş başlık: dürüst hata satırı + fetch ATILMAZ (istemci önü fail-closed)", sham.agacTalepSonuc.textContent.includes("başlık boş") && fetchCagr === null);
+  /* (4) 200 — iletti */
+  sham.agacTalepBaslik.value = "  yeni oturum brifi  ";
+  sham.agacTalepMesaj.value = "ilk mesaj"; /* dolu → gövdede ilkMesaj VAR */
+  await gonder();
+  const govde = fetchCagr ? JSON.parse(fetchCagr.secenek.body) : null;
+  ok("B 200: POST /api/spawn-talebi + token başlığı + gövde {proje TAM dizin, baslik TRIMli, ilkMesaj} + «DÜŞTÜ — bildirim iletildi» yüzü", fetchCagr.yol === "/api/spawn-talebi" && fetchCagr.secenek.headers["x-pano-token"] === "sahte-token" && govde.proje === "D-test" && govde.baslik === "yeni oturum brifi" && govde.ilkMesaj === "ilk mesaj" && sham.agacTalepSonuc.textContent.includes("DÜŞTÜ") && sham.agacTalepSonuc.className === "basarili");
+  /* (5) 202 — kuyrukta, bildirim iletilmedi (talep kaybolmaz) */
+  yanit = { status: 202, ok: false, json: async () => ({ ok: true, kuyrukta: true, bildirim: "iletilmedi" }) };
+  await gonder();
+  ok("B 202: «KUYRUKTA — bildirim iletilmedi .. kaybolmaz» dürüst yüzü (200'ün aksine başarılı ama ayırt edilir)", sham.agacTalepSonuc.textContent.includes("KUYRUKTA") && sham.agacTalepSonuc.textContent.includes("kaybolmaz") && sham.agacTalepSonuc.className === "basarili");
+  /* (6) boş ilkMesaj gövdeye GİRMEZ */
+  yanit = { status: 200, ok: true, json: async () => ({ ok: true, talepId: "x" }) };
+  sham.agacTalepMesaj.value = "   ";
+  await gonder();
+  ok("B boş ilkMesaj GİRMEZ (çekirdek deseni: boş alan yazılmaz)", !JSON.parse(fetchCagr.secenek.body).hasOwnProperty("ilkMesaj"));
+  /* (7) 403 → Ayarlar yönlendirme */
+  yanit = { status: 403, ok: false, json: async () => ({ hata: "token yok" }) };
+  await gonder();
+  ok("B 403: token yönlendirmesi (composer deseni — Ayarlar ikonu)", sham.agacTalepSonuc.textContent.includes("token gerekli — Ayarlar") && sham.agacTalepSonuc.className === "hata");
+  /* (8) kapat → guard: kuyruk çekilmez */
+  cekCagr = null;
+  talepFormKapat();
+  ok("B kapat: kart gizlenir (hidden=true)", sham.agacTalepKarti.hidden === true);
+  await kuyrukYukle();
+  ok("B guard: kart kapalıyken kuyrukYukle fetch ATMaz (return — yoklama turu ucuz)", cekCagr === null);
+  /* (9) hata durumu kuyruk satırı */
+  kuyrukVerisi = { toplamTalep: 1, kuyrukta: 0, islenen: 0, hatali: 1, bozukSatir: 1, talepler: [{ talepId: "c3", proje: "D-test", baslik: "patlayan iş", durum: "hata", detay: "köprü yok" }] };
+  await talepFormAc("D-test");
+  await new Promise((r) => setTimeout(r, 0));
+  ok("B hata + bozuk satır dürüst: HATA rozeti + detay + özette «1 bozuk satır (sayılır — gizlenmez)»", sham.agacTalepKuyruk.innerHTML.includes("HATA") && sham.agacTalepKuyruk.innerHTML.includes("köprü yok") && sham.agacTalepKuyruk.innerHTML.includes("bozuk satır"));
 });

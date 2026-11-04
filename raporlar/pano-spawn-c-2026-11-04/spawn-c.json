@@ -1,0 +1,42 @@
+{
+  "schemaSurum": 1,
+  "dalga": "K-0065 DALGA C",
+  "tarih": "2026-11-04T21:29",
+  "operatoerEmri": "«Devam» (onaylı dalga sırasının 6. adımı)",
+  "karar": "kararlar/K-0065.md — + düğmesi spawn ETMEZ, talep düşürür; panel sunucusu ajan süreci YÖNETMEZ",
+  "kapsam": {
+    "degisen": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs"],
+    "yeniRapor": ["raporlar/pano-spawn-c-2026-11-04/OZET.md", "raporlar/pano-spawn-c-2026-11-04/spawn-c.json", "raporlar/pano-spawn-c-2026-11-04/canli-dom.png"],
+    "serverJs": "DEĞİŞMEDİ — restart GEREKMEDİ (statik HTML her istekte diskten)"
+  },
+  "test": {
+    "tamKapi": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs",
+    "sonuc": "266 tests / 266 pass / 0 fail / EXIT=0 (ayrı komutla ölçüldü)",
+    "yeniBaseline": "266 = 265 + 51ac",
+    "yeniTest": "51ac: 10 kaynak pini + 9 VM senaryosu (açılış+kuyruk render, parmak, boş başlık fetch YOK, 200 gövde+token, 202 kaybolmaz, boş ilkMesaj GİRMEZ, 403 Ayarlar, kapat guard, hata+bozuk satır)",
+    "stubEki": "51v fazpekKos ctx'ine kuyrukYukle stub (transcriptTazele deseni) — hepsiniYukle 5. ayak VM'de çözülür",
+    "pinGuncellemeleri": "11 adet bilinçli genişletme (cek 3→4 · GET 3→4 · projeEtiketi 6→7 · coarse 3 sınıf · 3 Promise.all 4→5 · 51t fromIndex düzeltmesi)",
+    "kosuSayisi": "4 tam kapı: 266/258/8 → 266/265/1 → 266/266 → EXIT=0 teyidi; bütçe ≤4'e DEĞDİ (aşmadı)"
+  },
+  "canliDom": {
+    "sekme": "browser host — http://127.0.0.1:4937/ordu (reload ile taze HTML)",
+    "olcumler": {
+      "dugmeSayisi": "76 (76 proje satırının her birinde; kardeş yapı: agacProjeBas | agacTalepDugme)",
+      "varsayilanOpaklik": "0 (computed style)",
+      "clickKartAcilisi": "kart açıldı + proje: ordu (D-Vibecode-ordu) + odak başlıkta",
+      "kuyrukGet": "«kuyruk: 0 talep — 0 kuyrukta · 0 işlendi · 0 hata» + «kuyrukta talep yok (dürüst boş)»",
+      "submit": "GERÇEK POST /api/spawn-talebi → 403 → «token gerekli — Ayarlar görünümünden girin (üstteki AYARLAR ikonu)» (class hata) + buton finally aktif + kuyruk tazelendi + form korundu",
+      "cssCanliParse": ".agacTalepDugme=0 · .agacProjeSatir:hover .agacTalepDugme,.agacTalepDugme:focus-visible=1 · @(pointer:coarse) .agacTalepDugme=1+min-height:var(--min-dokunma) (tarayıcı cssRules taraması)"
+    },
+    "png": "canli-dom.png 153662 bayt 1534x888 — bu ajan oturumunda Read görseli iki kez sessiz döndü; içerik DOM ölçümleriyle doğrulandı"
+  },
+  "durustEksikler": [
+    "gerçek fare :hover tetiklemesi ölçülemedi — Paseo hover ref bazlı; a11y snapshot opacity:0 öğeyi almıyor (kanıt: canlı CSS parse + VM kaynak pini)",
+    "200/202 canlı ölçülemedi — canlı sunucu tokensiz (403 fail-closed); operatör token'lı başlatınca ölçülür (202 izole yolu Dalga B'de ölçülü)",
+    "Paseo keypress Enter button'da click ÜRETMEDİ (CDP keydown gerektirir) — click DOM API click() ile tetiklendi",
+    "30 sn döngüsünün kuyruk ayağı canlı beklemede ayrı ölçülmedi (guard + VM pini 51ac'te)"
+  ],
+  "loc": { "onceki": 11352, "son": 11632, "delta": 280, "yontem": "pano/ mjs+js+html @(Get-Content).Count, 32 dosya, tek yöntem", "tavan": "+200 AŞILDI (+80) — UI kart+form+kuyruk + 51ac test bloğu; doluluk %64,6 (11.632/18.000)" },
+  "servis": { "getOrdu": "200, 165345 bayt, agacTalepDugme gövdede + kart HTML", "getSpawnKuyruk": "200, dürüst sıfır aynen", "pid18292": "restart'sız" },
+  "sirada": "M2 sağ panel + rename (7. adım) · K-0065 kalanları: yeni workspace · composer proje seçimi · proje ekleme · K7 push (birikim 74 → bu committe 75)"
+}

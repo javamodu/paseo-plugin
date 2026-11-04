@@ -322,6 +322,43 @@
   .agacAd { flex:1; min-width:0; overflow-wrap:anywhere; } /* FAZ-K: ellipsis/hidden KALDIRILDI — TAM etiket; dashed adlar boşluksuz, ancak anywhere ile kırılır */
   .agacSayi { flex:none; font:700 13px var(--mono); color:var(--ikincil); } /* çalışan sayısı rozeti (başlık title'ında toplam kayıt — dürüst ayrım) */
   .agacUyari { flex:none; display:inline-flex; align-items:center; color:var(--tehlike); } /* hata uyarı ikonu (inline SVG — emoji YASAK §4; yalnız hatalı ajanı olan projede) */
+  /* K-0065 DALGA C: + düğmesi — proje satırının sağında; hover/odakta belirir. TALEP düşürür
+     (spawn ETMEZ — K-0065: KURMAY işler). .agacProjeBas'ın KARDEŞİ: tıklama akordiyona DÜŞMEZ
+     (delegasyon closest(".agacProjeBas") onu bulmaz — kendi dalı var). */
+  .agacTalepDugme {
+    flex:none; border:0; border-radius:var(--radius-cip); background:transparent; color:var(--ikincil);
+    font:700 15px var(--mono); padding:0 8px; min-height:32px; cursor:pointer;
+    opacity:0; transition:opacity 160ms ease, color 160ms ease; /* E12: yalnız renk/opaklık */
+  }
+  .agacProjeSatir:hover .agacTalepDugme, .agacTalepDugme:focus-visible { opacity:1; } /* hover + klavye görünür */
+  .agacTalepDugme:hover { color:var(--camgobegi); }
+  .agacTalepDugme:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-1px; }
+  /* K-0065 DALGA C: talep kartı — ağacın DIŞINDA sabit kap (agacYaz 30 sn'de ağacı yeniden
+     çizer; kart/form KURTULUR — agacAlani'na yazılmaz). Dürüst durum: kuyrukta|islandi|hata. */
+  #agacTalepKarti { flex:0 0 auto; display:flex; flex-direction:column; gap:6px; padding:8px; border:1px solid var(--cizgi); border-radius:var(--radius-cip); }
+  #agacTalepKarti[hidden] { display:none; }
+  .agacTalepEtiket { font:700 11.5px var(--mono); color:var(--ikincil); letter-spacing:0.06em; }
+  #agacTalepProje { font-size:12.5px; color:var(--ikincil); overflow-wrap:anywhere; }
+  .agacTalepGirdi { width:100%; box-sizing:border-box; font-size:12.5px; font-family:inherit; color:var(--metin); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:4px 7px; }
+  .agacTalepGirdi::placeholder { color:var(--ikincil); }
+  .agacTalepGirdi:focus { outline:2px solid var(--camgobegi); outline-offset:-1px; border-color:var(--camgobegi); }
+  #agacTalepMesaj { resize:vertical; min-height:48px; max-height:160px; }
+  .agacTalepButonlar { display:flex; gap:6px; }
+  .agacTalepButonlar button { border:1px solid var(--cizgi); border-radius:var(--radius-cip); background:transparent; color:var(--metin); font:700 11.5px var(--mono); padding:5px 10px; cursor:pointer; }
+  .agacTalepButonlar button:hover { border-color:var(--ikincil); }
+  .agacTalepButonlar button:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-1px; }
+  .agacTalepButonlar button:disabled { opacity:0.5; cursor:default; }
+  #agacTalepSonuc { font-size:12px; color:var(--ikincil); overflow-wrap:anywhere; }
+  #agacTalepSonuc.hata { color:var(--tehlike); font-weight:600; }
+  #agacTalepSonuc.basarili { color:var(--basari); font-weight:600; }
+  #agacTalepSonuc:empty { display:none; } /* boşken alan KAPLAMAZ (#composerSonuc deseni) */
+  .agacTalepOzet { font:11.5px var(--mono); color:var(--ikincil); margin:0; }
+  .agacTalepSatir { display:flex; align-items:center; gap:6px; font-size:12px; padding:2px 0; }
+  .agacTalepRozet { flex:none; font:700 10px var(--mono); letter-spacing:0.04em; padding:1px 6px; border-radius:var(--radius-cip); border:1px solid var(--cizgi); color:var(--ikincil); }
+  .agacTalepSatir.talep-kuyrukta .agacTalepRozet { color:var(--uyari); border-color:rgba(180,83,9,0.45); }
+  .agacTalepSatir.talep-islandi .agacTalepRozet { color:var(--basari); border-color:rgba(4,120,87,0.45); }
+  .agacTalepSatir.talep-hata .agacTalepRozet { color:var(--tehlike); border-color:rgba(220,38,38,0.45); }
+  .agacTalepMetin { flex:1; min-width:0; overflow-wrap:anywhere; }
   .agacAraclar { display:flex; align-items:center; gap:6px; flex-wrap:nowrap; margin:0 0 6px; padding-left:2px; } /* SIRALAMA dalgası: filtre + sıralama satırı — ağacın tepesinde. TEK SATIR (operatör «tek satıra insin projeler üstü» 2026-11-04): nowrap + dar gap — sarma YOK */
   .agacAraclar .agacFiltreEtiket { display:inline-flex; align-items:center; gap:5px; margin:0; font-size:11.5px; color:var(--ikincil); cursor:pointer; user-select:none; white-space:nowrap; }
   .agacAraclar .agacFiltreEtiket input { margin:0; accent-color:var(--camgobegi); }
@@ -574,7 +611,8 @@
      kompakt dil BİREBİR AYNEN kalır (34px/32px satırlar yalnız İNE işaretçide geçerli). ---- */
   @media (pointer:coarse) {
     .sekme { min-height:var(--min-dokunma); }
-    .agacProjeBas, .agacAjan { min-height:var(--min-dokunma); }
+    .agacProjeBas, .agacAjan, .agacTalepDugme { min-height:var(--min-dokunma); }
+    .agacTalepDugme { opacity:1; } /* K-0065 DALGA C: dokunmatikte hover YOK — + düğmesi HER ZAMAN görünür */
     /* .sekmeKapat coarse büyütmesi SÖKÜLDÜ (SEKME-MİNİMAL emri 2026-11-04):
        × 14px KALIR — K-0061 §5 istisnası operatör emriyle (geri alınırsa 28+16=44 geri gelir) */
     #composerGonder { min-height:var(--min-dokunma); } /* yalnız coarse — masaüstünde 40px §5 KORUNUR */
@@ -685,6 +723,24 @@
         </select>
       </div>
       <div id="agacAlani" class="agac"></div>
+      <!-- K-0065 DALGA C: YENİ OTURUM TALEBİ kartı — ağaç satırındaki + düğmesi açar.
+           TALEP düşürür (spawn ETMEZ — K-0065: panel sunucusu ajan süreci YÖNETMEZ;
+           KURMAY create_agent işler, sonucu kuyruğa yazar, panel DISKDEN okur).
+           Ağacın DIŞINDA sabit kap: 30 sn ağaç yeniden çizimi formu SİLMEZ. -->
+      <div id="agacTalepKarti" hidden>
+        <div class="agacTalepEtiket">YENİ OTURUM TALEBİ</div>
+        <div id="agacTalepProje"></div>
+        <form id="agacTalepForm">
+          <input id="agacTalepBaslik" class="agacTalepGirdi" maxlength="200" placeholder="başlık (zorunlu, 200'e dek)" autocomplete="off" aria-label="talep başlığı">
+          <textarea id="agacTalepMesaj" class="agacTalepGirdi" rows="3" maxlength="3000" placeholder="ilk mesaj (opsiyonel, 3000'e dek — KURMAY brifi)" aria-label="talep ilk mesajı"></textarea>
+          <div class="agacTalepButonlar">
+            <button type="submit" id="agacTalepGonder">TALEP DÜŞÜR</button>
+            <button type="button" id="agacTalepKapat">KAPAT</button>
+          </div>
+        </form>
+        <div id="agacTalepSonuc" role="status" aria-live="polite"></div>
+        <div id="agacTalepKuyruk"></div>
+      </div>
       <div id="agacHata" class="kirmiziYuz" role="alert" hidden></div>
       <p class="logNot">ağaç salt-okur disk taramasından (projeler ucu); ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ</p>
     </section>
@@ -834,7 +890,7 @@
 // innerHTML YAZILMAZ — document.activeElement ASLA ezilmez (odakIcindeMi +
 // gonderiyor bayrağı); graf kutusu detayı (kartDetay) odaktayken graf
 // yeniden yazılmaz. Ağaç/konuşma kartı ajan KIMLIĞİNİ gösterir (tarama kaynağı).
-const UC = { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf" };
+const UC = { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf", kuyruk: "/api/ordu/spawn-kuyruk" }; /* K-0065 DALGA C: spawn-talebi kuyruğu read-model (salt-okur GET — token'sız) */
 const YENILE_SN = 30;
 let G = null; // graf SSOT — yalnız son başarılı fetch
 let K = null; // kadro birleşimi (canlılık işaretli) — yalnız son başarılı fetch
@@ -1412,6 +1468,9 @@ function agacYaz() {
         : "") +
       '<span class="agacSayi">' + calisan + "</span>" +
       "</div>" +
+      /* K-0065 DALGA C: + düğmesi — .agacProjeBas'ın KARDEŞİ (İÇİNDE değil: tıklama
+         akordiyona düşmez). data-talep-proje TAM dizin (sunucu whitelist anahtarı). */
+      '<button class="agacTalepDugme" type="button" data-talep-proje="' + esc(pr.dizin) + '" title="yeni oturum talebi — talep düşürür (spawn etmez; KURMAY işler)" aria-label="' + esc(etiket) + ' projesinde yeni oturum talebi">+</button>' +
       "</div>" +
       /* PANEL-SIFIR-1: TEK SEVİYE — oturum satırları DOĞRUDAN (durum grup alt-akordiyonu
          SÖKÜLDÜ — kullanıcı tarifi «klasör isimleri altında oturum isimleri»).
@@ -1431,6 +1490,14 @@ function agacYaz() {
    div olduğundan Enter/Space klavye yolu keydown dinleyicisinde tıklamaya çevrilir
    (W3C: düğme içinde düğme yasak). PANEL-SIFIR-1: taşıma/grup dalları SÖKÜLDÜ. */
 $("agacAlani").addEventListener("click", (e) => {
+  /* K-0065 DALGA C: + düğmesi ÖNCE — kendi işini taşır (talep kartı), akordiyona
+     DÜŞMEZ (return; kardeş element olduğundan closest(".agacProjeBas") de bulmaz —
+     çift koruma). fail-closed: kimliksiz düğme kartı AÇMAZ. */
+  const talepDugmesi = e.target.closest(".agacTalepDugme");
+  if (talepDugmesi) {
+    if (typeof talepFormAc === "function") talepFormAc(talepDugmesi.dataset.talepProje);
+    return;
+  }
   const projeDugumu = e.target.closest(".agacProjeBas");
   if (projeDugumu) {
     const dizin = projeDugumu.dataset.proje;
@@ -1488,6 +1555,129 @@ $("agacAktifFiltre").addEventListener("change", (e) => {
 $("agacArama").addEventListener("input", (e) => {
   agacAramaMetni = typeof e.target.value === "string" ? e.target.value : "";
   agacYaz();
+});
+
+/* ================= K-0065 DALGA C: YENİ OTURUM TALEBİ — + düğmesi TALEP düşürür (spawn ETMEZ)
+   Karar K-0065: panel POST /api/spawn-talebi → talep kuyruğa (append-only SSOT) + KURMAY'a
+   kısa bildirim → KURMAY create_agent işler → sonucu kuyruğa yazar → panel GET
+   /api/ordu/spawn-kuyruk ile DISKDEN okur. Dürüst durum: kuyrukta | islandi | hata —
+   sahte «açtı» YOK (E10). Kart ağacın DIŞINDA: 30 sn agacYaz çizimi formu silmez. ================= */
+let talepProje = null; /* açık kartın projesi (TAM dizin — sunucu whitelist anahtarı) */
+let talepGonderiyor = false;
+let sonKuyrukYazi = null; /* parmak — aynı veri render adımını koşmaz (FAZ-P deseni) */
+
+function talepFormAc(dizin) {
+  if (typeof dizin !== "string" || !dizin.trim()) return; /* fail-closed: kimliksiz talep açılmaz */
+  talepProje = dizin;
+  const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x && x.dizin === dizin) : null;
+  $("agacTalepProje").textContent = "proje: " + (pr ? projeEtiketi(pr) + " (" + dizin + ")" : dizin);
+  $("agacTalepBaslik").value = "";
+  $("agacTalepMesaj").value = "";
+  const s = $("agacTalepSonuc");
+  s.textContent = "";
+  s.className = "";
+  $("agacTalepKarti").hidden = false;
+  $("agacTalepBaslik").focus();
+  kuyrukYukle(); /* açılışta kuyruk görünümü (SSOT — diskten) */
+}
+
+function talepFormKapat() {
+  talepProje = null;
+  $("agacTalepKarti").hidden = true;
+}
+
+$("agacTalepKapat").addEventListener("click", talepFormKapat);
+
+/* kuyruk read-model — transcriptTazele deseni: kart KAPALIYSA dokunma (return guard);
+   ağ hatası SESSİZ (eski görünüm kalır — yoklama turu kırılmaz); parmak aynıysa render
+   koşmaz. Bozuk satır sunucuda SAYILIR (gizlenmez); panel salt-OKUR — kuyruk silmez. */
+async function kuyrukYukle() {
+  if (!talepProje) return;
+  try {
+    const v = await cek(UC.kuyruk);
+    const parmak = JSON.stringify(v);
+    if (parmak === sonKuyrukYazi) return;
+    sonKuyrukYazi = parmak;
+    const liste = v && Array.isArray(v.talepler) ? v.talepler : [];
+    let html = "<p class=\"agacTalepOzet\">kuyruk: " +
+      (v && typeof v.toplamTalep === "number" ? v.toplamTalep : liste.length) + " talep — " +
+      (v && typeof v.kuyrukta === "number" ? v.kuyrukta : 0) + " kuyrukta · " +
+      (v && typeof v.islenen === "number" ? v.islenen : 0) + " işlendi · " +
+      (v && typeof v.hatali === "number" ? v.hatali : 0) + " hata" +
+      (v && typeof v.bozukSatir === "number" && v.bozukSatir > 0 ? " · " + v.bozukSatir + " bozuk satır (sayılır — gizlenmez)" : "") +
+      "</p>";
+    if (!liste.length) html += '<p class="bosSatir">kuyrukta talep yok (dürüst boş)</p>';
+    for (const t of liste) {
+      if (!t) continue; /* bozuk kayıt sunucuda atılır + sayılır — panele düşmez */
+      const d = t.durum === "islandi" || t.durum === "hata" ? t.durum : "kuyrukta"; /* bilinmeyen dürüst kuyrukta kalır */
+      html += '<div class="agacTalepSatir talep-' + d + '">' +
+        '<span class="agacTalepRozet">' + (d === "islandi" ? "İŞLENDİ" : d === "hata" ? "HATA" : "KUYRUKTA") + "</span>" +
+        '<span class="agacTalepMetin">' + esc(String(t.baslik || t.proje || t.talepId || "")) +
+        (d === "islandi" && t.ajanId ? " — ajan " + esc(String(kisaIdGoster(t.ajanId) || t.ajanId)) : "") +
+        (d === "hata" && t.detay ? " — " + esc(String(t.detay)) : "") +
+        "</span>" +
+        "</div>";
+    }
+    $("agacTalepKuyruk").innerHTML = html;
+  } catch { /* sessiz: eski kuyruk görünümü kalır (dürüst — yoklama turu kırılmaz) */ }
+}
+
+$("agacTalepForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!talepProje || talepGonderiyor) return;
+  const baslik = $("agacTalepBaslik").value.trim();
+  const ilkMesaj = $("agacTalepMesaj").value.trim();
+  const sonuc = $("agacTalepSonuc");
+  sonuc.textContent = "";
+  sonuc.className = "";
+  if (!baslik) {
+    sonuc.textContent = "başlık boş — talep düşmez";
+    sonuc.className = "hata";
+    return;
+  }
+  /* istemci önü uzunluk dürüstlüğü — sunucu RED'leri SSOT (aynı sınırlar; KESME YOK) */
+  if (baslik.length > 200 || ilkMesaj.length > 3000) {
+    sonuc.textContent = "uzun — başlık 200, ilk mesaj 3000 karaktere dek (kesme YOK: sunucu da reddeder)";
+    sonuc.className = "hata";
+    return;
+  }
+  const dugme = $("agacTalepGonder");
+  talepGonderiyor = true;
+  dugme.disabled = true;
+  try {
+    const r = await fetch("/api/spawn-talebi", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-pano-token": oku("pano-token") || "" },
+      /* boş ilkMesaj GÖVDEYE GİRMEZ — çekirdek deseni (boş alan yazılmaz) */
+      body: JSON.stringify(ilkMesaj ? { proje: talepProje, baslik, ilkMesaj } : { proje: talepProje, baslik }),
+      cache: "no-store",
+    });
+    let v = null;
+    try { v = await r.json(); } catch (e2) { /* gövde JSON değil — ham durum kodu kalır */ }
+    if (r.status === 200 && v && v.ok) {
+      sonuc.textContent = "talep DÜŞTÜ — KURMAY'a bildirim iletildi (talepId " + (v.talepId ? kisaIdGoster(v.talepId) : "?") + "); kuyruk aşağıda";
+      sonuc.className = "basarili";
+    } else if (r.status === 202) {
+      sonuc.textContent = "talep KUYRUKTA — bildirim iletilmedi (KURMAY sırayı işler; talep kaybolmaz — kuyruk SSOT)";
+      sonuc.className = "basarili";
+    } else if (r.status === 401 || r.status === 403) {
+      sonuc.textContent = "token gerekli — Ayarlar görünümünden girin (üstteki AYARLAR ikonu)";
+      sonuc.className = "hata";
+    } else if (r.status === 429) {
+      sonuc.textContent = "bekle — aynı proje için kısa aralık (10 sn)";
+      sonuc.className = "hata";
+    } else {
+      sonuc.textContent = "HTTP " + r.status + (v && v.hata ? " — " + v.hata : "");
+      sonuc.className = "hata";
+    }
+    kuyrukYukle(); /* durum anında tazelensin (SSOT — diskten) */
+  } catch (e2) {
+    sonuc.textContent = "ağ hatası — " + e2.message;
+    sonuc.className = "hata";
+  } finally {
+    talepGonderiyor = false;
+    dugme.disabled = false;
+  }
 });
 
 /* seçili konuşmayı P taramasında bul → SAĞ başlık + composer MOD durumları (yoksa dürüst
@@ -2357,8 +2547,10 @@ async function hepsiniYukle() {
   yoklamaUcusta = true;
   try {
     /* TRANSCRIPT-CANLI (2026-11-04): seçili konuşma varsa transcript de tazelenir
-       (sessiz — hata döngüyü KIRMAZ: kendi catch'i yutar; eski balonlar kalır). */
-    await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()]);
+       (sessiz — hata döngüyü KIRMAZ: kendi catch'i yutar; eski balonlar kalır).
+       K-0065 DALGA C (2026-11-04): kuyrukYukle 5. ayak — talep kartı AÇIKSA kuyruk
+       read-model'i tazelenir (kart kapalıysa kendi guard'ı dokunmaz — sessiz). */
+    await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele(), kuyrukYukle()]);
   } finally {
     yoklamaUcusta = false;
   }
