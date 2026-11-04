@@ -45,3 +45,16 @@ Sıra: ANAYASA > evrensel sözleşme > plan > kanıt raporları > konuşma. Ajan
 - H1. Bu repo bundan sonra TEK ürün hedefine dikey hizalanır: projenin görev grafı olarak kapsüllenip sıralanması (sacayağı I) ve manager LLM'in görev ajan ordusunu askeri disiplinle yönetmesi (sacayağı II: dağıtım·denetim·izleme·takip·replan·benchmark· performansa-dayalı görev yazdırma). Sacayağına hizmet etmeyen yeni iş varsayılan RED (gerekçeli iş fişi olmadan başlamaz).
 - H2. Öncelik: KALP (II) > ÇERÇEVE (I) cilası. Çerçeve kalbi taşır; kalpsiz çerçeve başarısız sayılır. Başarı ölçütü manager döngüsünün kanıtlanmış çıktılarıdır (ölçüm çifti V9-04 standardı).
 - H3. Yol disiplini: dikey dar alan — her dalga atomik, tek-yazıcı, kanıt kanallı (K-0053 hattı); en az kodla en büyük sıçrama; ölçümsüz hız/üstünlük iddiası YASAK (A2 ile birleşir).
+
+## 7. Ordumetre — kendi kendine çalışan ajan ordusunun metrikleri (önem sırasıyla; operatör emri 2026-11-04)
+
+1. **Kanıt kapısı** — testsiz iş kapanışı = 0; kapanış yalnız tam kapı testi EXIT 0 ile.
+2. **Dürüstlük** — sahte veri, ölü buton, ölçümsüz yüzde = 0 (E10 + A2).
+3. **Süreklilik** — her olay anında diske iner; ölüm = duraklama (veri kaybı değil); devam kayıttan.
+4. **Hata direnci** — 429 dahil her hata kayıtta; sessiz yutma = 0; yüzeyler fail-closed.
+5. **Devir sağlığı** — %80 bağlamda handoff; zincir kopukluğu = 0; devralan echo doğrular.
+6. **Verim** — dalga başına net LOC delta <+200; her işlenmede LOC DELTA yazılır (K-0062).
+7. **Kaynak tavanı** — dalga ≤4 koşu, paralel yazıcı ≤3; %100 dolulukta yeni iş alınmaz.
+8. **İzleme kapsamı** — her ajan disk SSOT'tan görünür (panel = görünüm, kopya yok).
+9. **Teslim zinciri** — brief → koşu → gelen-kutu → işlenme + commit hash; işlenmesiz madde = 0.
+10. **Ölçek** — yönetilen kayıt/proje/yönetici sayısı (taban 2026-11-04: 1087/76/46).
