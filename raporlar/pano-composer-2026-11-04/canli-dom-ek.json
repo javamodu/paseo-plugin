@@ -1,0 +1,21 @@
+{
+  "schemaSurum": 1,
+  "ek": "canli-dom",
+  "tarih": "2026-11-04T19:58",
+  "tetik": "operatör emri «yeni sekmeden aç» + browser automation host bağlandı (gün boyu bağlı değildi)",
+  "kanit": {
+    "sekme": "http://127.0.0.1:4937/ordu yeni sekmede açıldı (browser host webview; kullanıcı görünümü değiştirilmedi)",
+    "dom": "KURMAY aria-pressed=true + MANAGER aria-pressed=false (ikisi etkin — kadro ölçülmüş + oturum seçili); composer bölgesinde <select> YOK; optgroup öğesi 0; MANAGER title: «seçili oturumun yönetici ajanı (proje içi manager): 8cc610a4»",
+    "buyume": "409 karakter yazım → scrollHeight 323 → style.height '140px' + overflowY 'auto' (tavanda kaydırma — Paseo scrollEnabled: f>=c); temizleme (value='' + input olayı) → style.height '62px' + overflowY 'hidden' (2 satır başlangıç, kaydırma YOK)",
+    "modGecisi": "KURMAY→MANAGER→KURMAY çift yönlü; aria-pressed anlık takip etti; KURMAY'a dönüş sonrası kutu 62px/hidden",
+    "transcriptCanli": "bu sekmede kurmay yanıtları (COMPOSER kapanış raporu dahil) + operatörün «yeni sekmeden aç» mesajı tıklama YOKKEN otomatik göründü — TRANSCRIPT-CANLI uçtan-uca canlı kanıt",
+    "png": "canli-dom.png 117462 bayt 1534x888 (temiz durum, KURMAY aktif)"
+  },
+  "operatoerBildirimi": {
+    "saat": "19:5x (tur içi)",
+    "metin": "token gerekli — Ayarlar görünümünden girin (üstteki AYARLAR ikonu) uyarısı",
+    "teshis": "POST /api/mesaj 401/403 → dürüst FAZ-O yönlendirmesi (kaynak pano/ordu-panosu.html:1817); token tarayıcı localStorage'ında (pano-token anahtarı) — yeni sekme FARKLI tarayıcı/profilde açıldıysa token orada YOK; GET uçları token'sız (panel görünür/dolu), yalnız GÖNDER kapılı — davranış TASARIM (salt-okur açık, yazma kapılı)",
+    "cozum": "AYARLAR ikonu (gezgin üstü) → PANO token gir → kaydet → o tarayıcıda kalıcı (localStorage)"
+  },
+  "zamanDuzeltmesi": "önceki üstbilgilerdeki 20:0x / 2026-11-04T20:05 saati TAHMİN kalmış (damga saati ölçülür kuralı); gerçek ölçümler: OZET.md yazımı 19:48:50 + composer.json 19:49:03 (mtime) + commit af1da85 19:55:53 (git %ci) + bu ek 19:58-19:59 (Get-Date)"
+}

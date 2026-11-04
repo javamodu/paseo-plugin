@@ -39,3 +39,12 @@ Tarih: 2026-11-04 (kapanış 20:0x ölçümle) · dalga: COMPOSER · kapanış: 
 
 - SIRADA: **K-0065 Dalga B** (yeni oturum: POST /api/spawn-talebi + hareket defteri kaydı) → M2 sağ panel metrik gösterimi + rename.
 - K7 push (birikim 70 → bu committe 71).
+
+## Ek — CANLI DOM + PNG doğrulaması (19:58 ölçüldü; operatör emri «yeni sekmeden aç» — browser host bağlandı)
+
+- Panel **yeni sekmede açıldı** (browser automation host gün boyu bağlı değildi, şu an bağlı). **Canlı DOM:** KURMAY `aria-pressed=true` + MANAGER `aria-pressed=false` (ikisi etkin — kadro ölçülmüş, oturum seçili); composer bölgesinde **select YOK · optgroup öğesi 0**; MANAGER title dürüst: «seçili oturumun yönetici ajanı (proje içi manager): 8cc610a4».
+- **Canlı davranış (evaluate ölçümü):** 409 karakter yazım → `scrollHeight 323 → height "140px" + overflowY "auto"` (tavanda kaydırma — Paseo `scrollEnabled: f>=c`); temizleme → `height "62px" + overflowY "hidden"` (2 satır başlangıç, kaydırma çubuğu YOK). Mod geçişi çift yönlü ölçüldü (KURMAY→MANAGER→KURMAY; aria-pressed anlık takip etti).
+- **TRANSCRIPT-CANLI canlı kanıt:** bu sekmede kurmay yanıtları (kapanış raporu dahil) + operatörün mesajı **tıklamadan** otomatik göründü.
+- **PNG:** `canli-dom.png` (117 KB · 1534×888 · temiz durum, KURMAY aktif) + makine-okunur `canli-dom-ek.json`.
+- **Operatör 19:5x bildirimi:** yeni sekmede GÖNDER denemesi → «token gerekli — Ayarlar görünümünden girin (üstteki AYARLAR ikonu)» = **dürüst FAZ-O davranışı** (POST 401/403, kaynak ordu-panosu.html:1817). Token tarayıcı localStorage'ında (`pano-token` anahtarı) — **yeni sekme farklı tarayıcıda/profilde açıldıysa token orada YOK**; GET uçları token'sız (panel görünür/dolu), yalnız GÖNDER kapılı. **Çözüm:** AYARLAR ikonu (gezgin üstü) → PANO token gir → kaydet → o tarayıcıda kalıcı.
+- **Zaman düzeltmesi:** üstbilgideki «20:0x / 20:05» saati tahmin kalmış — gerçek ölçümler: OZET yazımı 19:48:50 · composer.json 19:49:03 (mtime) · commit `af1da85` 19:55:53 (git) · bu ek 19:58 (Get-Date). Damga saati ölçülür.
