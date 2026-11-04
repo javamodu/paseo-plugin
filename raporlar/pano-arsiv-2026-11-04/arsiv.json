@@ -1,0 +1,19 @@
+{
+  "schemaSurum": 1,
+  "dalga": "arsiv + hareket-izole",
+  "tarih": "2026-11-04T18:29",
+  "restart": { "onay": "operatoer 'onaylıyorum' 18:2x", "port": 4937, "pid": 20964, "kanit": ["/ordu 200 149080", "/api/ordu/metrik 200 (M1 ilk kez canlı)", "tamBalon=0 uc'tan-uca TAM balon"], "tuzak": "env'siz başlatma 4377'yi işgal ediyordu — PANO_PORT=4937 env'iyle doğru başlatıldı; işgalci süreç öldürüldü" },
+  "arsiv": {
+    "tasinan": ["kapsul-tuval.html 2870", "kapsul-tuval.test.mjs 861", "kapsul-tuval-mockup-2026-10-26.html 330", "deney-panel.html 1134", "deney-server.mjs 810", "deney-server.test.mjs 245", "orkestra.html 307"],
+    "hedef": "arsiv/pano/ (git mv — silme YOK)",
+    "loc": { "oncesi": 17986, "sonrasi": 11432, "delta": -6554, "doluluk": "%63,5" }
+  },
+  "hareketIzole": {
+    "bulgu": "test 69 env'inde ORDU_HAREKET_DEFTERI yok → ORDU_KOK fallback üretim defterine 6 test kaydı sızdı (hedefler test sabitleri; 3 tam kapı koşumu)",
+    "yama": "test 69 sunucuDogur env'ine ORDU_HAREKET_DEFTERI izole temp yolu",
+    "defterTemizligi": "6 kayıdın tamamı test atığı (gerçek hareket YOK) — dosya kaldırıldı boş başladı; döküm OZET.md'de",
+    "dogrulama": "koşum sonrası üretim defteri DOSYA YOK"
+  },
+  "kanit": { "testTamKapi": "260 tests / 260 pass / 0 fail / EXIT=0 (YENİ baseline — 60 test arşive taşındı)", "servis": "/ordu 200 + /tuval 302 (restart'sız — server.js değişmedi)", "canliDom": "YAPILAMADI — browser host bağlı değil" },
+  "bekleyen": ["TRANSCRIPT-CANLI (sıradaki)", "COMPOSER (hedef seçici kaldır)", "K-0065 Dalga B", "K7 push (birikim 69)"]
+}

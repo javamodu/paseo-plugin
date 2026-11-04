@@ -120,7 +120,9 @@ test("69- izole server: 503 (köprü zinciri çözümsüz — GERÇEK send YOK) 
     writeFileSync(join(d, "agents", "D-test-proje", HEDEF + ".json"), JSON.stringify({ id: HEDEF, provider: "glm53u-claude", lastStatus: "idle", lastActivityAt: "2026-11-03T10:00:00Z" }), "utf8");
     writeFileSync(join(d, "agents", "D-test-proje", HEDEF2 + ".json"), JSON.stringify({ id: HEDEF2, provider: "glm53u-claude", lastStatus: "running", lastActivityAt: "2026-11-03T10:01:00Z" }), "utf8");
     const token = randomUUID();
-    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_TOKEN: token });
+    /* ARSIV dalgası (2026-11-04): ORDU_HAREKET_DEFTERI izole — 503 denemeleri ÜRETİM defterine
+       sızmıştı (ORDU_KOK fallback = repo kökü; 6 test kaydı üretim defterinde ölçüldü). */
+    const { cocuk, port } = await sunucuDogur({ PANO_PORT: "0", PASEO_EV: d, PANO_KOPRU_KOK_CMD: join(d, "kopru-yok.cmd"), PANO_TOKEN: token, ORDU_HAREKET_DEFTERI: join(d, "hareket-defteri.jsonl") });
     sunucu = cocuk;
     /* (a) whitelist'te VAR hedef ama köprü zinciri çözümsüz -> 503; spawn DENENMEDİ */
     let r = await istekYap(port, "/api/mesaj", { hedef: HEDEF, mesaj: "steering mesajı" }, token);

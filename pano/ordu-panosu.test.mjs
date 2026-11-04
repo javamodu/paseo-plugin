@@ -180,8 +180,8 @@ test("10- TASARIM pinleri — FAZ-P REVİZYON 2026-11-04 kompakt-okunaklı ölç
   ok("§7 meta description (kimlik)", htmlKisim().includes('<meta name="description"'));
 });
 
-test("10c- BEYAZ zemin diger sayfalar (kapsul-tuval + iskelet — yalniz zemin/renk)", () => {
-  const tuval = readFileSync(new URL("./kapsul-tuval.html", import.meta.url), "utf8");
+test("10c- BEYAZ zemin diger sayfalar (kapsul-tuval [ARSIV dalgasi 2026-11-04: arsiv/pano/ altında — üretim yüzü PANEL-SIFIR-1'de zaten 302] + iskelet — yalniz zemin/renk)", () => {
+  const tuval = readFileSync(new URL("../arsiv/pano/kapsul-tuval.html", import.meta.url), "utf8");
   ok("kapsul-tuval zemin SAF BEYAZ", tuval.includes("--zemin:#ffffff"));
   ok("kapsul-tuval eski gri zemin kalkti", !tuval.includes("--zemin:#f4f6f9"));
   const iskelet = readFileSync(new URL("./iskelet.html", import.meta.url), "utf8");
