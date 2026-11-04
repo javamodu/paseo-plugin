@@ -1,17 +1,17 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD dde167b — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD ab12484 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
 - `admin-onboarding.md` (6.1KB) — Admin Onboarding — Paseo Verimlilik Sistemi | 1. Günlük kullanım (en sık 3 hareket) | 2. Rol verme — başlık prefix'i (v0.10)
 - `AGENTS.md` (3.1KB) — AGENTS.md — ordu (L0; eski adı paseo-plugin, F1'de köke taşındı) | Hızlı yön | Yapı
-- `ANAYASA.md` (3.1KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
+- `ANAYASA.md` (4.4KB) — ANAYASA — ordu | 1. Hizalama Anahtarları (öncelik sırasıyla) | 2. SSOT Maddeleri
 - `ANAYASA-SABLONU.md` (2.6KB) — ANAYASA — <proje adı> | 1. Hizalama Anahtarları (öncelik sırasıyla — çakışmada üstteki kazanır) | 2. SSOT Maddeleri (her konunun TEK doğru kaynağı — başka yerde kopya = hata)
 - `arsiv/` (98 dosya: en yeni README.md, SENARYO-v13.md, PLAN-v2.10.md)
 - `core/` (153 dosya: en yeni dc-h1-faults.mjs, dc-h1-fault-matrix.test.ts, dc-pilot-b.test.ts)
 - `DERSLER.md` (98KB) — DERSLER — paseo-plugin (L5)
 - `DERSLER-SABLONU.md` (0.3KB) — DERSLER — <PROJE> | Dersler
 - `FERMANLAR.md` (2.8KB) — FERMANLAR — Paseo Verimlilik Sistemi Aktivasyon Emirleri (v2.1, 2026-10-25) | Ferman 1 — Geçiş (plugin yokken elle; kuruluysa otomatik — agent.create enjeksiyonu) | Ferman 2 — İnşa (paseo-verimlilik plugin'ini yaptırma emri; TAMAMLANDI — K-0003, 2026-10-11; kilit `v0.22-kilit`)
-- `GLOSSARY.md` (9KB) — GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır) | 1) ORDU PANELİ nedir | 2) Deterministik dikey (üç katman)
+- `GLOSSARY.md` (9.2KB) — GLOSSARY — ordu kavram sözlüğü (L2 · elle yazılır) | 1) ORDU PANELİ nedir | 2) Deterministik dikey (üç katman)
 - `HANDOFF-SABLONU.md` (0.4KB) — HANDOFF — <PROJE> (<TARIH-SAAT>) | Bağlam | Yapılanlar (kanıtlı)
 - `kanit/` (10 dosya: en yeni 09-token-verimliligi.md, 10-paseo-ekosistem.md, 08-hafiza.md)
 - `kararlar/ADR-dc-3-denetci-sonlandirma-2026-10-28.md` (2.6KB) — ADR eki — Üç denetçi sonrası DC planının sonlandırılması | Karar | Bütçe etkisi (T)
@@ -86,7 +86,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (33 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, server.js)
 - `plans/` (106 dosya: en yeni TASARIM-MANIFESTOSU.md, DOGRULAMA-TURU-PROTOKOLU.md, PANEL-DALGA-SIRASI.md)
-- `raporlar/` (305 dosya: en yeni OZET.md, PANEL-ANA-1-FAZ-U-2026-11-04.md, PANEL-ANA-1-FAZ-T-2026-11-04.md)
+- `raporlar/` (306 dosya: en yeni OZET.md, 2026-W45.md, OZET.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {

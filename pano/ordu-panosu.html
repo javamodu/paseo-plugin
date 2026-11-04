@@ -172,13 +172,14 @@
   .anaSekmeGrup[style*="--proje-ton"] .sekme:not(.aktif):hover { color:var(--metin); background:hsl(var(--proje-ton) 45% 88%); }
   .anaSekmeGrup[style*="--proje-ton"] .sekme.aktif { background:hsl(var(--proje-ton) 45% 86%); color:var(--metin); font-weight:700; }
   .anaSekmeGrup[style*="--proje-ton"] .sekmeKapat { border-left-color:hsl(var(--proje-ton) 40% 72%); }
-  /* ---- FAZ-U rozetler buton İÇİNDE + FAZ-D DAR üç-katman korunur: metin
-     tavanı 180px .sekmeAd'da (kisalt(ad,14) + title TAM AYNEN); rozetler
-     genişliğe GİRER (buton tavanı 232px) ---- */
-  #anaSekmeSerit .sekme { padding:0 8px; } /* dar dolgu (FAZ-B ailesi) */
-  .anaSekmeGrup .sekme { max-width:232px; }
-  .anaSekmeGrup .sekme .sekmeAd { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
-  .anaSekmeGrup .sekme .nokta { width:8px; height:8px; } /* FAZ-U oturum durum noktası — ağaç ölçeğiyle aynı */
+  /* ---- SEKME-MİNİMAL (kullanıcı emri 2026-11-04 «üst sekmeleri sadece klasör
+     adı olacak şekilde minimal yap .. az dar yer kaplasın sekme»): sekme
+     İÇERİĞİ SADECE AD (FAZ-U durum noktası SÖKÜLDÜ — durum ağaç satırında +
+     oturum kartında yaşar); metin tavanı 110px .sekmeAd'da (kisalt(ad,14) +
+     title TAM AYNEN); buton tavanı 150px (eski 232/180) ---- */
+  #anaSekmeSerit .sekme { padding:0 4px; } /* dar dolgu (eski 8px — minimal emri) */
+  .anaSekmeGrup .sekme { max-width:150px; }
+  .anaSekmeGrup .sekme .sekmeAd { max-width:110px; overflow:hidden; text-overflow:ellipsis; }
   .sekme {
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
     min-height:32px; border:1px solid var(--cizgi);
@@ -336,11 +337,10 @@
   .agacAjan .nokta.kapali { opacity:0.45; } /* closed = soluk */
   .agacDugumAd { flex:1; min-width:0; white-space:normal; overflow-wrap:anywhere; } /* FAZ-K: nowrap/ellipsis KALDIRILDI — TAM oturum adı (kullanıcının Paseo'da yazdığı) sarar */
 
-  /* ---- (FAZ-B) ANA SEKME ŞERİDİ: proje sekmeleri — X ile kapanır; ORDU sekmesi SABİT ---- */
-  .sekme.anaSekme { gap:6px; }
+  /* ---- (FAZ-B) ANA SEKME ŞERİDİ: X ile kapanır; ORDU sekmesi SABİT ---- */
   .sekmeKapat {
     flex:none; display:inline-flex; align-items:center; justify-content:center;
-    box-sizing:content-box; width:28px; height:28px; padding:6px; /* FAZ-S: VSCode kapatma çarpısı — 28px görsel + 12px padding = 40px dokunma hedefi (K-0061 §5); sekmeler kompakt kalır (eski 20px text-x söküldü — §4 inline SVG ×) */
+    box-sizing:content-box; width:12px; height:12px; padding:1px; /* SEKME-MİNİMAL (kullanıcı emri 2026-11-04 «kapanma artısını en küçük olarak değiştir»): 12px görsel + 2px = 14px hedef — eski FAZ-S 28+12=40px dokunma hedefi (K-0061 §5) OPERATÖR İSTİSNASIYLA küçüldü; geri istenirse K-0061'e dönülür; SVG 12×12 */
     border:0; border-radius:var(--radius-cip); background:transparent;
     color:var(--ikincil); cursor:pointer;
     transition:color 160ms, background 160ms; /* E12: yalnız renk */
@@ -545,7 +545,8 @@
   @media (pointer:coarse) {
     .sekme { min-height:var(--min-dokunma); }
     .agacProjeBas, .agacAjan { min-height:var(--min-dokunma); }
-    .sekmeKapat { width:28px; height:28px; padding:8px; } /* FAZ-S: 28+16=44px coarse hedef (base 28+12=40) */
+    /* .sekmeKapat coarse büyütmesi SÖKÜLDÜ (SEKME-MİNİMAL emri 2026-11-04):
+       × 14px KALIR — K-0061 §5 istisnası operatör emriyle (geri alınırsa 28+16=44 geri gelir) */
     #composerGonder { min-height:var(--min-dokunma); } /* yalnız coarse — masaüstünde 40px §5 KORUNUR */
     .composerIkonBtn { width:var(--min-dokunma); height:var(--min-dokunma); min-height:var(--min-dokunma); } /* FAZ-O ekle ikonu */
     .solIkonDugme { width:var(--min-dokunma); height:var(--min-dokunma); } /* FAZ-S sol başlık ikon menüsü */
@@ -567,12 +568,15 @@
        ORTA+SAĞ'nın üstünde (hiza grid'den; FAZ-T'te body'de sayfa tepesindeydi).
        Butonlar flex-wrap:wrap ile satırlara DOĞAL sarar (yatay kaydırma ÖLDÜ).
        Tek şerit HEM chat kolonunu (oturum sekmesi → transcript) HEM sağ gövdeyi
-       (ORDU/proje grafı) yönetir. Kimlik/role/DAVRANIŞ AYNEN — $() kimlik
+       (ORDU grafı) yönetir. Kimlik/role/DAVRANIŞ AYNEN — $() kimlik
        bazlı, DOM konumundan bağımsız. ORDU sekmesi SABİT (kapatılamaz) +
-       proje sekmeleri (FAZ-O EK-2: data-ana = "oturum:" + ajan kimliği).
+       oturum sekmeleri (FAZ-O EK-2: data-ana = "oturum:" + ajan kimliği;
+       SEKME-MİNİMAL 2026-11-04: sekme AĞAÇTAKİ OTURUM satırı tıklamasıyla
+       açılır — proje başlığı yalnız akordiyon; sekme içeriği SADECE AD,
+       × 14px, ton AYNEN).
        Gövde: seçili sekmenin içeriği — graf SSOT dürüst filtre / DÜRÜST
        oturum kartı (sahte veri YASAK E10). -->
-  <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, proje ve oturum sekmeleri X ile kapanır">
+  <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, oturum sekmeleri X ile kapanır">
     <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
   </div>
 
@@ -581,7 +585,8 @@
        oturum isimleri ile proje ağacı akordiyon». Proje satırı = klasör adı
        (projeEtiketi: klasör adı — ajan kaydı cwd basename'i klasorAdi; yoksa dashed dizin — FAZ-Q; başlık tooltip'te) +
        çalışan sayısı rozeti + hata uyarı ikonu (yalnız hatalı ajanı olan projede);
-       tıkla → akordiyon AÇ/KAPA + o projenin sekmesi ORTA'da açılır; altında
+       tıkla → akordiyon AÇ/KAPA (sekme AÇMAZ — kullanıcı emri 2026-11-04
+       «sadece konuşmaya tıklayınca sekme açmalı»; sekme yalnız oturum satırından); altında
        OTURUM (ajan) satırları DOĞRUDAN — FAZ-K TAM etiket + durum noktası;
        konuşma düğümüne tıkla → seçili konuşma (SAĞ başlık + composer hedefi).
        Akordiyon + seçili düğüm localStorage'da kalıcı (ordu-agac-acik /
@@ -1102,9 +1107,11 @@ try {
 let agacSecili = oku("ordu-agac-secili") || null; // seçili konuşma TAM ajan kimliği | null
 let seciliKonusma = null; // { ajan, projeDizin, projeEtiket, orduMu } — SAĞ başlık + composer hedefi (kimlik yolu projeDizin)
 
-/* ANA SEKME durumu: ORDU sekmesi SABİT (kapatılamaz); proje sekmeleri X ile kapanır.
-   Sekme listesi bilinçli olarak KALICI DEĞİL (oturum-içi çalışma yüzü); ağaç/seçim kalıcıdır. */
-let acikSekmeler = []; // açık proje sekmeleri (dizin adları; ORDU hariç)
+/* ANA SEKME durumu: ORDU sekmesi SABİT (kapatılamaz); oturum sekmeleri X ile kapanır.
+   Ağaçtaki PROJE başlığı sekme AÇMAZ (kullanıcı emri 2026-11-04 — sekme yalnız
+   oturum satırı tıklamasıyla açılır); sekme listesi bilinçli olarak KALICI DEĞİL
+   (oturum-içi çalışma yüzü); ağaç/seçim kalıcıdır. */
+let acikSekmeler = []; // açık proje sekmeleri (dizin adları; ORDU hariç) — ağaç artık açmaz, sadece VM/test yüzü
 let aktifSekme = "ordu"; // "ordu" | dizin | "oturum:" + ajan kimliği (FAZ-O EK-2)
 
 /* FAZ-O EK-2 (kullanıcı «orta sekmeden hangi oturum yüklüyse onun history chat
@@ -1112,7 +1119,8 @@ let aktifSekme = "ordu"; // "ordu" | dizin | "oturum:" + ajan kimliği (FAZ-O EK
    aktifSekme kimlik uzayı AYRI: "oturum:" + ajanKimligi (Paseo dizin adlarında
    ':' YOKTUR — proje sekmeleriyle çakışma imkânsız). Açık oturum sekme LİSTESİ
    localStorage'a GİRMEZ (oturum-içi çalışma yüzü). Tek davranış kaynağı SEKME:
-   ağaç tıklaması yalnız sekme AÇAR/AKTİVE EDER — transcriptYukle'yi YALNIZ
+   OTURUM satırı tıklaması yalnız sekme AÇAR/AKTİVE EDER (proje başlığı sekme
+   AÇMAZ — emir 2026-11-04) — transcriptYukle'yi YALNIZ
    sekme değişimi çağırır (ağaç → sekme → chat). */
 let acikOturumSekmeleri = []; // açık oturum sekme kimlikleri (YALNIZ ajan kimliği — önek aktifSekme'de)
 
@@ -1265,8 +1273,10 @@ function agacYaz() {
   $("agacAlani").innerHTML = html || '<p class="bosSatir">taramada proje yok (dürüst boş)</p>';
 }
 
-/* ağaç tıklamaları (temsilci dinleyici): proje başlığı → akordiyon + sekme;
-   ajan düğümü → OTURUM SEKMESİ aç/aktive et (FAZ-O EK-2 — dolaylı yol; seçili
+/* ağaç tıklamaları (temsilci dinleyici): proje başlığı → YALNIZ akordiyon AÇ/KAPA
+   (sekme AÇMAZ — kullanıcı emri 2026-11-04 «sadece konuşmaya tıklayınca sekme
+   açmalı»; sekme yalnız oturum satırı tıklamasından doğar); ajan düğümü →
+   OTURUM SEKMESİ aç/aktive et (FAZ-O EK-2 — dolaylı yol; seçili
    konuşma + transcript sekme değişiminde yüklenir). Proje başlığı role="button"
    div olduğundan Enter/Space klavye yolu keydown dinleyicisinde tıklamaya çevrilir
    (W3C: düğme içinde düğme yasak). PANEL-SIFIR-1: taşıma/grup dalları SÖKÜLDÜ. */
@@ -1277,7 +1287,8 @@ $("agacAlani").addEventListener("click", (e) => {
     if (agacAcik.has(dizin)) agacAcik.delete(dizin);
     else agacAcik.add(dizin);
     kaydet("ordu-agac-acik", JSON.stringify([...agacAcik]));
-    sekmeAc(dizin); /* projeye tıkla → ORTA'da o projenin sekmesi (akordiyonla birlikte) */
+    /* sekmeAc ÇAĞRISI SÖKÜLDÜ (kullanıcı emri 2026-11-04): proje başlığı yalnız
+       akordiyon çevirir — sekme AÇMAZ; sekme yalnız oturum satırı tıklamasıyla */
     agacYaz();
     return;
   }
@@ -1827,27 +1838,28 @@ function projeSekmeHtml(dizin) {
       : "") +
     '<span class="agacSayi" title="çalışan ajan sayısı">' + calisan + "</span>" +
     "</button>" +
-    '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
+    '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
     "</span>"
   );
 }
 
-/* FAZ-U: OTURUM sekme grubu — durum NOKTASI (NOKTA_SINIF ailesi, ağaçla AYNI kaynak);
-   ton kayıt varsa proje dizininden (proje butonuyla AYNI RENK), yoksa ton YOK. */
+/* FAZ-U OTURUM sekme grubu — SEKME-MİNİMAL (kullanıcı emri 2026-11-04 «üst
+   sekmeleri sadece klasör adı olacak şekilde minimal yap»): sekme İÇERİĞİ
+   SADECE AD (durum NOKTASI SÖKÜLDÜ — durum ağaç satırında + oturum kartında
+   + title'da yaşar); ton kayıt varsa proje dizininden (aynı projenin oturumları
+   AYNI RENK — FAZ-U fermanı korunur), yoksa ton YOK. */
 function oturumSekmeHtml(kimlik) {
   const bul = oturumBul(kimlik);
   const a = bul ? bul.ajan : null;
   const ad = a && typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : kisaIdGoster(kimlik) || kimlik;
   const aktif = aktifSekme === "oturum:" + kimlik;
   const d = bul ? bul.dizin : null;
-  const nokta = NOKTA_SINIF[(a && a.lastStatus) || ""] || "gri";
   return (
     '<span class="anaSekmeGrup" role="presentation"' + (d ? ' style="--proje-ton:' + tonHesapla(d) + '"' : "") + '>' +
-    '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="oturum:' + esc(kimlik) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + kimlik) + '">' +
-    '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc((a && a.lastStatus) || "durum bilinmiyor") + '"></span>' +
+    '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="oturum:' + esc(kimlik) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + kimlik + ((a && a.lastStatus) ? " · " + a.lastStatus : "")) + '">' +
     '<span class="sekmeAd">' + esc(kisalt(ad, 14) || ad) + "</span>" +
     "</button>" +
-    '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
+    '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
     "</span>"
   );
 }

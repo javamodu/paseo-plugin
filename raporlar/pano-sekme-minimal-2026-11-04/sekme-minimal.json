@@ -1,0 +1,25 @@
+{
+  "raporSurum": 1,
+  "dalga": "SEKME-MINIMAL",
+  "tarih": "2026-11-04",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "hem proje adına tıklayınca sekme açıyorsun hem konuşmaya tıklayınca öyle değil sadece konuşmaya tıklayınca sekme açmalı",
+    "şu üst sekmeleri sadece klasör adı olacak şekilde minimal yap kapanma artısını en küçük olarak değiştir az dar yer kaplasın sekme"
+  ],
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 312, "pass": 312, "fail": 0, "exit": 0 },
+  "canliDom": {
+    "url": "http://127.0.0.1:4937/ordu",
+    "sekmeId": "2f5c4d80-39ef-4b17-b3f7-632540c99c32",
+    "viewport": "1280x800",
+    "projeTiklamasi": { "hedef": "D-Vibecode", "sekmeOnce": 3, "sekmeSonra": 3, "akordiyon": "acildi (aria-expanded=true, agacCocuklar DOM'da)" },
+    "oturumTiklamasi": { "hedef": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e", "sekmeOnce": 3, "sekmeSonra": 4 },
+    "sekmeOlcu": { "genislikler": [101, 105, 117], "sekmeMaxW": "150px", "sekmeAdMaxW": "110px", "sekmePadding": "0px 4px", "kapatGorsel": "12px x 12px", "kapatPadding": "1px", "kapatBoxSizing": "content-box", "kapatKutu": "15x14 (subpiksel)", "durumNoktasi": "yok (3 grupta da)" }
+  },
+  "pngKanit": { "dosya": "kanit-sekme-minimal.png", "bayt": 178572, "imza": "89 50 4E 47 0D 0A 1A 0A", "ihdr": true, "boyut": "1600x1000" },
+  "locDelta": { "once": 17373, "sonra": 17385, "net": 12, "tavan": 200, "panoTavan": 18000, "panoDoluluk": "96.6%" },
+  "istisnalar": ["K-0061 §5 dokunma hedefi 40px operatör istisnasıyla 14px'e küçültüldü"],
+  "korunanlar": ["FAZ-U ton dili (aynı proje aynı renk)", "anaSekmeGrup birimi", "ORDU sabit sekmesi"],
+  "arsivAdaylari": ["proje-sekme makinesi (sekmeAc/projeSekmeHtml) UI'dan erişilemez — VM testleri sınar"],
+  "kapsam": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs", "raporlar/pano-sekme-minimal-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}
