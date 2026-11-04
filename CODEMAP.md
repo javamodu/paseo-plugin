@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 5f2e88c — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 0b3e213 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -83,10 +83,11 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0061.md` (4.3KB) — K-0061 — ORDU paneli yoğunluk dili: kompakt tek-bakış (PANEL-KOMPAKT-1)
 - `kararlar/K-0062.md` (3.8KB) — K-0062 — Harç ve LOC tavanları (limitsiz kod şişirmesi yasak) | Bağlam | Karar
 - `kararlar/K-0063.md` (2.9KB) — K-0063 — İKİ-KATMAN AJAN YÖNETİMİ: KURMAY + PROJE-MANAGER | Bağlam | Karar
+- `kararlar/K-0065.md` (3.1KB) — K-0065 — SPAWN KÖPRÜSÜ PARİTESİ: panel + düğmesi zincirden spawn (K-0060 uygulaması) | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (33 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, server.js)
 - `plans/` (106 dosya: en yeni TASARIM-MANIFESTOSU.md, DOGRULAMA-TURU-PROTOKOLU.md, PANEL-DALGA-SIRASI.md)
-- `raporlar/` (306 dosya: en yeni OZET.md, 2026-W45.md, OZET.md)
+- `raporlar/` (306 dosya: en yeni 2026-W45.md, OZET.md, OZET.md)
 - `README.md` (4KB) — ordu — Evrensel Ajan Verimlilik Sözleşmesi (v2.1) | Bu repoda çalışacak ajan için ilk yol | İçindekiler
 - `referans/` (50 dosya: en yeni REVIEW-v2.8-2026-10-14.md, 40-kabul.md, 00-master.md)
 - `scripts/bench.mjs` (20.9KB) — function katalog(base, key) { | function post(url, key, body, ms = 240000) { | function parseChat(j) {
