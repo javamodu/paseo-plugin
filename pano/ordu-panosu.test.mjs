@@ -1400,6 +1400,7 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
     agacAcik: new Set(["P-alfa"]),
     agacSecili: null,
     kaydet: (a) => { kayit2.push(a); },
+    agacTercih: { siralama: "varsayilan", aktifFiltre: false }, /* SIRALAMA: dilim kontrol dinleyicilerini kapsar — başlangıç senkron satırı okur */
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf('$("agacAlani").addEventListener("click"'), HTML.indexOf("function konusmaSecGuncelle")), dlgCtx);
   ok("delegasyon kayıtlı: click + keydown dinleyicileri", !!dinleyiciler.click && !!dinleyiciler.keydown);
@@ -1599,8 +1600,8 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
   ok("PANEL-SIFIR-1: .agacGrupBas KALINTI 0 (durum grup katmanı söküldü — ağaç 13px ailesi kalır)", /\.agacProjeBas\s*\{[^}]*font-size:\s*13px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*13px/.test(HTML) && !/\.agacGrupBas/.test(HTML));
   ok("FAZ-H: satır yüksekliği 32px (BİLİNÇLİ: 28→32; §5 ≥26px korunur)", /\.agacProjeBas\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML));
   /* --- FAZ-F: aktif projeler ÜSTTE (steering «solda aktif projeler üstte olsun pasifler aşağıda») --- */
-  ok("FAZ-F kaynak: calisanSay (running sayımı — .agacSayi'nın aynısı) + gorunen stabil ayrımı", j.includes("const calisanSay = (pr) =>") && j.includes("const gorunen = [...P.projeler].sort") && j.includes("for (const pr of gorunen)"));
-  ok("PANEL-SIFIR-1: kalıcı sıra kaydı SÖKÜLDÜ (kaydet('ordu-agac-sira') çağrısı kalıntı 0; YENİ anahtar da YOK)", !j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(aktif|pasif|fa)/.test(j));
+  ok("FAZ-F kaynak: calisanSay (running sayımı — .agacSayi'nın aynısı) + gorunen stabil ayrımı (SIRALAMA dalgası: eski tek-zincir sort → let gorunen + filter + sort ayrık)", j.includes("const calisanSay = (pr) =>") && j.includes("let gorunen = [...P.projeler]") && j.includes("gorunen.sort(") && j.includes("for (const pr of gorunen)"));
+  ok("PANEL-SIFIR-1: ESKİ anahtar SÖKÜLDÜ (kaydet('ordu-agac-sira\"') çağrısı 0 — kapanış tırnağıyla: SIRALAMA dalgasının ordu-agac-siralama anahtarı PREFIX çakışması YOK; eski aktif/pasif/fa ailesinden YALNIZ pasif/fa yasak — ordu-agac-aktif-FILTRE bilinçli yeni anahtar)", !j.includes('kaydet("ordu-agac-sira"') && !/ordu-agac-(pasif|fa)\b/.test(j));
 });
 
 test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json baslik birlesimi — dash eslesme + coklu-cwd secim (aktif + en yeni) + arsiv/basliksiz yedek + bozuk-JSON fail-closed; UI'da etiket TEK yardimcidan (projeEtiketi), kimlik yolu DEGISMEZ", () => {
@@ -2815,4 +2816,65 @@ test("51z- PANEL-ANA-1 FAZ-U (kaynak-pin + vm): ŞERİT GRİD SATIR 1 (steer «�
   ok("(5) vm erişilebilirlik SEKME-MİNİMAL: durum title'da (A2 · error / A1 · running — kayıt düşmüş D1'de durum YOK) + sekmeAd span FAZ-D DAR metin katmanı", ics.includes(" — A2 · error") && ics.includes(" — A1 · running") && !ics.includes(" — D1 ·") && ics.includes('class="sekmeAd"'));
   /* --- (6) değişmezler --- */
   ok("(6) DEĞİŞMEZ: sekmeAc/anaSekmeDegistir/oturumSekmeAc/oturumSekmeKapat + click delegation kaynakta (JS yalnız anaSekmeYaz+yardımcılar bölgesi değişti) + FAZ-R chat + GÖNDER 40 (K-0061 §5)", j.includes("function sekmeAc(") && j.includes("function anaSekmeDegistir(") && j.includes("function oturumSekmeAc(") && j.includes("function oturumSekmeKapat(") && j.includes('$("anaSekmeSerit").addEventListener') && /\.chatMesaj\.chat-kullanici\s*\{[^}]*background:\s*var\(--camgobegi\)/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+});
+
+test("51aa- SIRALAMA (2026-11-04): ağaç kontrol satırı — yalnız-aktifler filtresi + 4 sıralama modu (aktif önce · isim / en son güncellenenler / proje ismi / ajan sayısı) — kaynak pinleri + typeof-güvence + kalıcılık fail-closed + vm davranışı (4 proje × 6 tercih + ORDU istisnası + boş-dürüst); operatör emri «workspace üzerinde sağ üste sıralama»", () => {
+  const j = jsKisim();
+  /* --- (A) kaynak pinleri: kontrol HTML --- */
+  ok("A kontrol satırı: agacAraclar kapsayıcı agacAlani'NIN ÜSTÜNDE + checkbox (id=agacAktifFiltre, label sarmalı) + select (id=agacSiralama, aria-label)", HTML.includes('<div class="agacAraclar">') && HTML.indexOf('<div class="agacAraclar">') < HTML.indexOf('<div id="agacAlani"') && HTML.includes('<input type="checkbox" id="agacAktifFiltre">') && HTML.includes('<select id="agacSiralama"'));
+  ok("A 4 seçenek ferman sırasıyla: varsayilan 'aktif önce · isim' + guncel 'en son güncellenenler' + isim 'proje ismi' + kayit 'ajan sayısı'", /<option value="varsayilan">aktif önce · isim<\/option>/.test(HTML) && /<option value="guncel">en son güncellenenler<\/option>/.test(HTML) && /<option value="isim">proje ismi<\/option>/.test(HTML) && /<option value="kayit">ajan sayısı<\/option>/.test(HTML));
+  ok("A CSS: seçim kutusu SAĞA yaslı (margin-left:auto — «sağ üste» tarifi) + focus-visible odak-dostu + filtre etiketi tıklanabilir (cursor:pointer)", /\.agacSiralamaSec\s*\{[^}]*margin-left:\s*auto/.test(HTML) && /\.agacSiralamaSec:focus-visible\s*\{[^}]*outline:\s*2px/.test(HTML) && /\.agacAraclar \.agacFiltreEtiket\s*\{[^}]*cursor:\s*pointer/.test(HTML));
+  /* --- (B) kaynak pinleri: state + kalıcılık + dinleyiciler --- */
+  ok("B typeof-güvence: agacTercih tanımsız/boşsa VARSAYILAN tercih (mevcut VM testlerinin ctx'i tercih sağlamaz — kırılmadan yeşil kalır)", j.includes('const t = typeof agacTercih === "object" && agacTercih ? agacTercih : { siralama: "varsayilan", aktifFiltre: false }'));
+  ok("B kalıcılık: ordu-agac-siralama OKUMA yalnız 4 geçerli değerle (bilinmeyen yok sayılır — fail-closed) + ordu-agac-aktif-filtre '1' + ikisi de kaydedilir", j.includes('oku("ordu-agac-siralama")') && j.includes('agacTercih.aktifFiltre = oku("ordu-agac-aktif-filtre") === "1"') && j.includes('kaydet("ordu-agac-siralama"') && j.includes('kaydet("ordu-agac-aktif-filtre"'));
+  ok("B dinleyici: select DEĞER DOĞRULAMALI (4 geçerli dışı diske YAZILMAZ) + checkbox booleana düşer (=== true) + başlangıç senkronu (value/checked)", j.includes('const v = e.target.value;') && j.includes('if (v === "guncel" || v === "isim" || v === "kayit" || v === "varsayilan")') && j.includes('e.target.checked === true') && j.includes('$("agacSiralama").value = agacTercih.siralama;') && j.includes('$("agacAktifFiltre").checked = agacTercih.aktifFiltre;'));
+  ok("B dinleyiciler VM DİLİMİNİN DIŞINDA (ajanDugumHtml…agacAlani-click aralığında .addEventListener YOK — mevcut VM testleri sham $ ile koşar)", !HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')).includes(".addEventListener"));
+  ok("B filtre koşulu: ORDU istisnasız (pr.orduMu || calisanSay > 0 — komuta merkezi her koşulda görünür) + boş-dürüst mesajı filtre açıkken ayrışır", j.includes("pr.orduMu || calisanSay(pr) > 0") && j.includes("aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)"));
+  /* --- (C) vm davranışı: 4-proje fixture × tercih --- */
+  const agacA = HTML.indexOf("function ajanDugumHtml(");
+  const agacB = HTML.indexOf('$("agacAlani").addEventListener');
+  const dilim = HTML.slice(agacA, agacB);
+  const kos = (tercih, projeler) => {
+    const sahte = {};
+    const $s = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+    const ctx = {
+      $: $s, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+      P: { projeler }, agacAcik: new Set(), agacSecili: null,
+      NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+    };
+    if (tercih !== undefined) ctx.agacTercih = tercih; /* undefined: ctx'te anahtar YOK — typeof-güvence yolunu sınar */
+    vm.runInNewContext(dilim + "\nagacYaz", ctx)();
+    return sahte.agacAlani.innerHTML;
+  };
+  const sabit = [
+    { dizin: "P-eski", projeAdi: "eski", orduMu: false, ajanlar: [{ ajanKimligi: "e1", ajanId: "e1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T14:00:00Z", etiket: "en yeni etkinlik" }] },
+    { dizin: "P-yeni", projeAdi: "yeni", orduMu: false, ajanlar: [{ ajanKimligi: "y1", ajanId: "y1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T10:00:00Z", etiket: "eski etkinlik" }] },
+    { dizin: "D-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [{ ajanKimligi: "o1", ajanId: "o1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T12:00:00Z", etiket: "kurmay" }] },
+    { dizin: "P-pasif", projeAdi: "aaa-pasif", orduMu: false, ajanlar: [
+      { ajanKimligi: "p1", ajanId: "p1", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T08:00:00Z", etiket: "eski idle 1" },
+      { ajanKimligi: "p2", ajanId: "p2", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T09:00:00Z", etiket: "eski idle 2" },
+    ] },
+  ];
+  const siraOk = (html, beklenen) => {
+    const idx = beklenen.map((d) => html.indexOf('data-proje="' + d + '"'));
+    const satirSay = (html.match(/class="agacProjeBas"/g) || []).length;
+    return satirSay === beklenen.length && idx.every((v) => v >= 0) && idx.every((v, i) => i === 0 || idx[i - 1] < v);
+  };
+  ok("vm typeof-güvence (ctx'te agacTercih YOK): FAZ-F varsayılanı DEĞİŞMEDİ — aktif-öncelik PRIMARY + ORDU önce + isim: [D-ordu → P-eski → P-yeni → P-pasif]", siraOk(kos(undefined, sabit), ["D-ordu", "P-eski", "P-yeni", "P-pasif"]));
+  ok("vm varsayilan (tercihle): güvencesiz yol ile AYNI sıra (kayıt okunmuş senaryo)", siraOk(kos({ siralama: "varsayilan", aktifFiltre: false }, sabit), ["D-ordu", "P-eski", "P-yeni", "P-pasif"]));
+  ok("vm guncel: en yeni ajan sonEtkinlikISO azalan — [P-eski(14:00) → D-ordu(12:00) → P-yeni(10:00) → P-pasif(11-01)] (aktif-öncelik YOK)", siraOk(kos({ siralama: "guncel", aktifFiltre: false }, sabit), ["P-eski", "D-ordu", "P-yeni", "P-pasif"]));
+  ok("vm isim: saf alfabetik (ORDU-önce istisnası korunur) — [D-ordu → P-pasif('aaa-pasif') → P-eski → P-yeni]", siraOk(kos({ siralama: "isim", aktifFiltre: false }, sabit), ["D-ordu", "P-pasif", "P-eski", "P-yeni"]));
+  ok("vm kayit: ajan sayısı azalan — [P-pasif(2) → D-ordu(1) → P-eski(1) → P-yeni(1)] (eşitlikte ORDU-önce + isim)", siraOk(kos({ siralama: "kayit", aktifFiltre: false }, sabit), ["P-pasif", "D-ordu", "P-eski", "P-yeni"]));
+  ok("vm bilinmeyen sıralama değeri ('hile'): isim yoluna DÜŞER (fail-closed — uydurma mod yok)", siraOk(kos({ siralama: "hile", aktifFiltre: false }, sabit), ["D-ordu", "P-pasif", "P-eski", "P-yeni"]));
+  ok("vm yalnız-aktifler: P-pasif ELENİR (çalışan 0) — [D-ordu → P-eski → P-yeni] 3 satır", siraOk(kos({ siralama: "varsayilan", aktifFiltre: true }, sabit), ["D-ordu", "P-eski", "P-yeni"]));
+  const rFiltre = kos({ siralama: "varsayilan", aktifFiltre: true }, [
+    { dizin: "D-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [{ ajanKimligi: "o1", ajanId: "o1", lastStatus: "idle", sonEtkinlikISO: null, etiket: "tek" }] },
+    { dizin: "P-pasif", projeAdi: "aaa-pasif", orduMu: false, ajanlar: [{ ajanKimligi: "p1", ajanId: "p1", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T08:00:00Z", etiket: "eski idle 1" }] },
+  ]);
+  ok("vm ORDU istisnası: filtre açık + ORDU'nun 0 çalışanı → ORDU YİNE GÖRÜNÜR (komuta merkezi erişilebilir; P-pasif elenir)", siraOk(rFiltre, ["D-ordu"]));
+  const rBos = kos({ siralama: "varsayilan", aktifFiltre: true }, [
+    { dizin: "P-tek", projeAdi: "tek", orduMu: false, ajanlar: [{ ajanKimligi: "p1", ajanId: "p1", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T08:00:00Z", etiket: "eski idle" }] },
+  ]);
+  ok("vm boş-dürüst: filtre açık + hiç aktif yok → 'aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)' (sahte liste YOK E10)", rBos.includes("aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)") && !rBos.includes('data-proje="P-tek"'));
+  ok("vm filtre KAPALI + tarama boş → 'taramada proje yok' (eski mesaj AYNEN — filtresiz yol değişmedi)", kos({ siralama: "varsayilan", aktifFiltre: false }, []).includes("taramada proje yok (dürüst boş)"));
 });

@@ -1,0 +1,23 @@
+{
+  "raporSurum": 1,
+  "dalga": "SIRALAMA",
+  "tarih": "2026-11-04",
+  "saat": "16:52",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "ordu panelinde workspace üzerinde sağ üste sıralama ekleyelim sadece aktifler - en son güncellenenler -proje ismine göre şeklinde - ajan sayısına göre sırala şeklinde"
+  ],
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 313, "pass": 313, "fail": 0, "exit": 0 },
+  "servisKaniti": { "url": "http://127.0.0.1:4937/ordu", "http": 200, "bayt": 135247, "restart": "HAYIR (server.js dokunulmadi — html statik, reload yeterli)", "kontroller": ["agacAraclar", "agacAktifFiltre", "agacSiralama", "4 option"] },
+  "canliDom": { "yapildi": false, "sebep": "Paseo browser automation host bagli DEGIL (list_hosts -> hosts: []); davranis VM testlerinde olculu; host donerse PNG eklenebilir" },
+  "ozellikler": {
+    "modlar": ["varsayilan (aktif once + ORDU-once + isim — FAZ-F degismedi)", "guncel (en yeni ajan sonEtkinlikISO azalan)", "isim (saf alfabetik tr locale)", "kayit (ajan sayisi azalan)"],
+    "filtre": "yalniz aktifler — calisan 0 projeler elenir; ORDU istisnasiz gorunur",
+    "kalıcilik": { "siralama": "ordu-agac-siralama", "filtre": "ordu-agac-aktif-filtre", "failClosed": "bilinmeyen değer yok sayılır" },
+    "guvence": "typeof agacTercih — dilim tercih sağlamazsa varsayılan (mevcut VM testleri kırılmaz)"
+  },
+  "locDelta": { "once": 17385, "sonra": 17535, "net": 150, "tavan": 200, "panoTavan": 18000, "panoDoluluk": "97.4%" },
+  "z1": { "codemap": "869 dosya, 119 satir", "saglik": "16 OK / 2 EKSIK / 1 SARI (uc bayrak da onceki dalgalardan — bu dalga uretmedi)" },
+  "testDegisiklikleri": ["51aa YENI (kaynak pin + vm 4-proje x 6 tercih + ORDU istisnasi + bos-durust)", "pin 1602 guncelle (let gorunen + filter + sort)", "pin 1603 guncelle (prefix tuzaği + regex aileden aktif cikarildi)", "51f ctx'ine agacTercih eklendi (dilim kontrol dinleyicilerini kapsar)"],
+  "kapsam": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs", "raporlar/pano-siralama-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}

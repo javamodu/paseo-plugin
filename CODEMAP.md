@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 0b3e213 — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD e9cf68c — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
