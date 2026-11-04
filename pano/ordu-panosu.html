@@ -26,7 +26,9 @@
      · 6px splitter · SAĞ: CHAT paneli (PANEL-CHAT-1/FAZ-I: konuşma başlığı
      + oturum mesaj listesi + composer ALTTA SABİT).
      TEK VIEWPORT: body scroll YOK; her sütun kendi içinde kayar. Splitter
-     ×2 (sürükle/ok tuşları + localStorage «ordu-solW»/«ordu-sagW»;
+     ×2 (sürükle/ok tuşları + localStorage «ordu-solW2»/«ordu-sagW2» — FAZ-P
+     §2a anahtar sürümü: eski «ordu-solW»/«ordu-sagW» okunmaz, eski kayıtlı
+     genişlikler yeni ölçeği EZMEZ;
      ağaç durumu «ordu-agac-acik»/«ordu-agac-secili»; sıra/grup anahtarları
      kodla birlikte SÖKÜLDÜ).
      VERİ: /api/ordu/projeler (ağaç + composer) + /api/ordu/kadro (composer
@@ -35,13 +37,19 @@
      kurulurken geri döner). EMOJİ YOK · webfont YOK · dış URL YOK ·
      animasyon yalnız nabız keyframes (opacity-only, ≤2) ·
      prefers-reduced-motion kapatır.
+     FAZ-P (TASARIM-MANIFESTOSU REVİZYONU 2026-11-04 — §1/§2/§2a/§4):
+     kompakt-okunaklı ölçek (baz ~13px; chat balonu 15px aynen) · EKONOMİK
+     minimal ritim (iç içe kutu katmanı azaltıldı — chatListe FLAT) · KOLON
+     DOKTRİNİ: SAĞ sekmeli EN GENİŞ (560; 320-760) · chat balon genişlik
+     tavanı ~660px (DAR görünüm) · yumuşak radius + pill menü + yuvarlak
+     composer. DAVRANIŞ AYNEN (FAZ-O mekanizmaları — görünüm dalgası).
      ===================================================================== */
   :root {
     --zemin:#ffffff; --yuzey:#ffffff; --yuzey2:#eef2f7; --yuzey3:#e4eaf2;
     --camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;
     --metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);
-    --radius:6px; --radius-k:4px; --radius-cip:4px; --min-dokunma:44px;
-    --solW:240px; --sagW:320px;
+    --radius:10px; --radius-k:8px; --radius-cip:6px; --min-dokunma:44px; /* FAZ-P REVİZYON 2026-11-04 (§4): yumuşak/uyumlu radius — modern dil */
+    --solW:240px; --sagW:560px; /* FAZ-P §2a KOLON DOKTRİNİ: SAĞ (sekmeli) EN GENİŞ ~560 · SOL ağaç kompakt AYNEN */
     --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
   }
   * { box-sizing:border-box; margin:0; font:inherit; }
@@ -49,7 +57,7 @@
   body {
     background:var(--zemin); color:var(--metin);
     font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size:15px; line-height:1.55; /* FAZ-H ölçeği AYNEN taşınır — K-0061 §5 minimumları yukarıda */
+    font-size:13px; line-height:1.5; /* FAZ-P REVİZYON 2026-11-04 (§1): baz ~13px KOMPAKT-OKUNAKLI — eski 15px/1.55 ölçeği revize edildi; chat balon metni 15px/1.55 kuralı .chatMesaj'da (okunaklılık şart) */
     height:100vh; overflow:hidden; /* TEK VIEWPORT — body scroll YOK, her sütun kendi içinde kayar */
     display:flex; flex-direction:column;
   }
@@ -70,7 +78,7 @@
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
     display:grid; gap:0;
     grid-template-columns:var(--solW) 6px minmax(0,1fr) 6px var(--sagW); /* duvar 6px — kapsul-tuval deseni */
-    width:100%; max-width:1760px; margin:0 auto; padding:12px 12px 12px;
+  width:100%; max-width:1760px; margin:0 auto; padding:10px; /* FAZ-P §2: EKONOMİK ritim (eski 12px) */
     overflow:hidden;
   }
   main > * { grid-row:1; }
@@ -79,7 +87,7 @@
   main > #orta { grid-column:3; }
   main > #splitSag { grid-column:4; }
   main > #sag { grid-column:5; }
-  #sol > .bolum { margin-top:16px; } /* FAZ-H nefes: ilk kutu üstten nefes alır (FAZ-O EK-3: eski #sag>.bolum kuralı — chat artık #orta'da ve görünüm sarmalayıcısı içinde, üst nefesi menü satırı verir; sekmeli #sag'ın .bolum doğrudan çocuğu yoktur — ölü seçici kaldırıldı) */
+  #sol > .bolum { margin-top:12px; } /* FAZ-P §2 ekonomik nefes (eski 16px; FAZ-O EK-3 notu aynen: chat artık #orta'da — üst nefesi menü satırı verir; sekmeli #sag'ın .bolum doğrudan çocuğu yoktur) */
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; overscroll-behavior:contain; } /* FAZ-J: iç liste dolunca kaydırma zinciri sayfaya zıplamaz */
   /* FAZ-O EK-3 (kullanıcı «chat sekmesini ortaya al orta bölümü sağa al .. yerdeğişsin»
@@ -106,11 +114,11 @@
 
   .bolum {
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:var(--radius);
-    padding:16px 20px 20px; overflow:hidden; /* FAZ-H nefes AYNEN taşınır */
+    padding:10px 12px 12px; overflow:hidden; /* FAZ-P REVİZYON 2026-11-04 (§2): EKONOMİK minimal ritim (eski 16px 20px 20px) */
   }
   .bolum-etiket {
-    display:flex; align-items:center; gap:8px; margin:0 0 10px;
-    font-size:18px; font-weight:600; color:var(--metin); letter-spacing:0.01em;
+    display:flex; align-items:center; gap:8px; margin:0 0 8px;
+    font-size:15px; font-weight:600; color:var(--metin); letter-spacing:0.01em; /* FAZ-P §1: başlık 15-16px bandı (eski 18px) */
   }
   .bolum-etiket::before { content:""; width:14px; height:3px; border-radius:2px; background:var(--camgobegi); flex:none; }
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
@@ -137,7 +145,7 @@
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
     min-height:34px; border:1px solid transparent; border-bottom:0;
     border-radius:var(--radius-k) var(--radius-k) 0 0;
-    background:transparent; color:var(--ikincil); font-size:15px; font-weight:600;
+    background:transparent; color:var(--ikincil); font-size:13px; font-weight:600; /* FAZ-P §1: baz 13px (eski 15px) */
     white-space:nowrap; position:relative; cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
@@ -148,7 +156,7 @@
   #sekmeGovde {
     flex:1 1 auto; min-height:0; overflow-y:auto; position:relative;
     background:var(--yuzey); border:1px solid var(--cizgi); border-radius:0 0 var(--radius) var(--radius);
-    padding:10px 16px 16px; /* FAZ-H nefes AYNEN */
+    padding:8px 12px 12px; /* FAZ-P §2: EKONOMİK ritim (eski 10px 16px 16px) */
   }
   #sekmeGovde .bolum { border:0; border-radius:0; background:transparent; padding:0 0 8px; } /* panel zaten kutu — iç kart çerçevesi çift olmasın */
   .sekmePanel { opacity:0; transform:translateY(8px); transition:opacity 200ms ease, transform 200ms ease; } /* E12: yalnız transform/opacity */
@@ -264,7 +272,7 @@
   .agacProjeBas {
     display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:32px;
     padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer;
+    color:var(--metin); font-size:13px; font-weight:700; text-align:left; cursor:pointer; /* FAZ-P §1: 13px (FAZ-H 15px'ten revizyon — kompakt-okunaklı; min-height 32 aynen) */
     white-space:normal; transition:background 160ms ease; /* E12: yalnız renk — FAZ-K: TAM etiket sarar */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
@@ -283,7 +291,7 @@
   .agacAjan {
     display:flex; align-items:center; gap:6px; width:100%; min-height:32px;
     padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--ikincil); font-size:15px; text-align:left; cursor:pointer; /* FAZ-H: 13→15px + satır 28→32px — .agacDugumAd buradan kalıtır */
+    color:var(--ikincil); font-size:13px; text-align:left; cursor:pointer; /* FAZ-P §1: 13px (FAZ-H 15→13 revizyon; satır 32px aynen — .agacDugumAd buradan kalıtır */
   }
   .agacAjan:hover { background:var(--yuzey2); color:var(--metin); }
   .agacAjan.secili { background:rgba(15,76,129,0.1); color:var(--metin); box-shadow:inset 2px 0 0 var(--camgobegi); }
@@ -329,8 +337,7 @@
      composer bar + ince durum satırı (chatgpt.com dili). Açık söylenir (E10). */
   .chatListe {
     flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; /* FAZ-J: kaydırma zinciri kesilir — tüm sayfa zıplamaz */
-    display:flex; flex-direction:column; gap:6px; padding:2px; /* FAZ-I: gap 4→6 (tuval chat hattı) */
-    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
+    display:flex; flex-direction:column; gap:6px; padding:0; /* FAZ-P REVİZYON 2026-11-04 (§2): FLAT yüzey — .bolum kutusu İÇİNDE ikinci kutu çerçevesi SÖKÜLDÜ (iç içe katman azaltma; düz yüzey + ince ayırıcı dili; gap 6 aynen) */
   }
   .chatListe::-webkit-scrollbar { width:8px; }
   .chatListe::-webkit-scrollbar-thumb { background:rgba(81,97,122,0.3); border-radius:var(--radius-cip); }
@@ -344,12 +351,12 @@
   .chatMesaj p { margin:0; }
   .chatMesaj.chat-kullanici {
     background:rgba(15,76,129,0.08); border:1px solid rgba(15,76,129,0.3); color:var(--metin);
-    align-self:flex-end; max-width:92%; /* gönderilen mesaj — SAĞA hizalı (tuval deseni) */
+    align-self:flex-end; max-width:min(92%, 660px); /* gönderilen mesaj — SAĞA hizalı; FAZ-P §2a DAR görünüm: balon genişlik TAVANI ~660px (640-680 bandı) — geniş kolonda kalan boşluk kenarda nefes, dar görünümde doğal dolgu */
   }
   .chatMesaj.chat-kullanici.basarili { border-color:rgba(4,120,87,0.4); } /* gönderildi — yeşil kenar (eski sol kenar sinyalinin karşılığı) */
   .chatMesaj.chat-kullanici.hata { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.35); } /* hata balonu kırmızı tonu KALIR */
   .chatMesaj.chat-sistem { /* FAZ-M: transcript AJAN YANITI — SOL ince balon (chat-sistem dili; gönderilen sağ balonun ayna kardeşi) */
-    background:var(--yuzey2); border:1px dashed var(--cizgi); max-width:92%; align-self:flex-start;
+    background:var(--yuzey2); border:1px dashed var(--cizgi); max-width:min(92%, 660px); align-self:flex-start; /* FAZ-P §2a: balon tavanı ajan yanıtında da (aynı DAR görünüm) */
   }
   .chatKesildi { font-size:11px; color:var(--ikincil); font-style:italic; margin:4px 0 0; } /* FAZ-M: metin tavanı işareti (dürüst kesildi bildirimi) */
   .chatKim { font-size:11.5px; font-weight:700; letter-spacing:0.06em; color:var(--ikincil); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik) */
@@ -372,11 +379,11 @@
      YALNIZ içerik varken — GÖRÜNÜR başka hiçbir şey YOK (label/token kalıntı 0 —
      chatgpt.com dili). Token KALICI UI YOK: Ayarlar görünümünde. GÖNDER 40px
      fine / 44px coarse (K-0061) · §4 inline SVG · E12 yalnız renk. ---- */
-  .gorunumMenu { display:flex; gap:4px; flex:none; margin-bottom:8px; }
+  .gorunumMenu { display:flex; gap:6px; flex:none; margin-bottom:8px; }
   .gorunumSekme {
     flex:1 1 auto; min-height:32px;
     display:inline-flex; align-items:center; justify-content:center;
-    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:var(--radius-k);
+    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:999px; /* FAZ-P §4: PILL — modern kompakt görünüm menüsü */
     color:var(--ikincil); cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
@@ -388,13 +395,13 @@
   #composerForm { display:flex; flex-direction:column; gap:6px; margin-top:0; }
   .composerBar {
     display:flex; align-items:flex-end; gap:6px;
-    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:var(--radius);
-    padding:6px;
+    background:var(--yuzey2); border:1px solid var(--cizgi); border-radius:16px; /* FAZ-P §4: modern yuvarlak composer bar */
+    padding:6px 8px;
   }
   #composerForm select { /* hedef/model PILL — optgroup mekanizması AYNEN (beyazliste + composerHedefGuncelle) */
     flex:0 1 132px; min-width:96px; max-width:45%;
     font:inherit; font-size:12px; color:var(--metin);
-    border:1px solid var(--cizgi); border-radius:var(--radius-k); background:var(--yuzey);
+    border:1px solid var(--cizgi); border-radius:999px; background:var(--yuzey); /* FAZ-P §4: PILL hedef seçici */
     padding:4px 8px; cursor:pointer;
   }
   #composerForm select, #composerForm input { min-height:var(--min-dokunma); } /* §5: 44px dokunma */
@@ -407,13 +414,13 @@
   .composerIkonBtn { /* ekle + gönder — inline SVG ikon düğmeleri (§4) */
     flex:0 0 auto; width:40px; height:40px; min-height:40px;
     display:inline-flex; align-items:center; justify-content:center;
-    background:var(--yuzey); border:1px solid var(--cizgi); border-radius:var(--radius-k);
+    background:var(--yuzey); border:1px solid var(--cizgi); border-radius:50%; /* FAZ-P §4: yuvarlak ikon düğmeleri */
     color:var(--ikincil); font:inherit; cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
   .composerIkonBtn:hover { color:var(--metin); background:var(--yuzey3); }
   #composerGonder { /* yukarı-ok SVG + aria-label GÖNDER + ekran-okuyucu durum metni */
-    min-height:40px; padding:0; border:1px solid var(--camgobegi); border-radius:var(--radius-k);
+    min-height:40px; padding:0; border:1px solid var(--camgobegi); border-radius:50%; /* FAZ-P §4: yuvarlak gönder */
     background:var(--camgobegi); color:#fff; font-size:13px; font-weight:700; letter-spacing:0.04em; cursor:pointer;
     transition:background 160ms; /* E12: yalnız renk */
   }
@@ -438,8 +445,8 @@
   .apiUcSatiri { font:600 12px var(--mono); color:var(--ikincil); margin:2px 0; }
   .apiOlcSatiri, .doktorSatir { font-size:12px; color:var(--metin); margin:4px 0; overflow-wrap:anywhere; }
   /* FAZ-O EK-2: oturum sekmesi gövdesi — DÜRÜST kart (P taramasının gerçek alanları) */
-  .oturumKart { font-size:15px; line-height:1.6; color:var(--metin); }
-  .oturumKart h3 { margin:0 0 10px; font-size:16px; font-weight:600; color:var(--metin); }
+  .oturumKart { font-size:13px; line-height:1.55; color:var(--metin); } /* FAZ-P §1: baz 13px (eski 15px) */
+  .oturumKart h3 { margin:0 0 8px; font-size:15px; font-weight:600; color:var(--metin); }
   .oturumKart p { margin:4px 0; overflow-wrap:anywhere; }
   #ayarSonuc.basarili { color:var(--basari); font-weight:600; }
   .logNot { margin:6px 0 0; font-size:11.5px; color:var(--ikincil); }
@@ -451,7 +458,7 @@
      mobilde de chat önce (kullanıcı «chat sekmesini ortaya al .. yerdeğişsin»).
      Tuvalin drawer/perde mekaniği KOPYALANMADI. ---- */
   @media (min-width:900px) and (max-width:1279px) {
-    :root { --solW:200px; --sagW:280px; }
+    :root { --solW:200px; --sagW:420px; } /* FAZ-P §2a: SAĞ en geniş orta ekranda da (eski 280) */
   }
   @media (max-width:899px) {
     body { height:auto; overflow:auto; }
@@ -626,7 +633,7 @@
   </section>
 
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
-  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="320" tabindex="0"></div>
+  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="560" tabindex="0"></div>
 
   <!-- ============ SAĞ (#sag): SEKMELİ BÖLÜM — PANEL-SIFIR-1 kabuğu (FAZ-O EK-3 kolon
        takası 2026-11-04: sekmeli kabuk eski ORTA'dan SAĞ'a taşındı; mantık AYNEN).
@@ -686,6 +693,25 @@ const UC = { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/a
 const YENILE_SN = 30;
 let G = null; // graf SSOT — yalnız son başarılı fetch
 let K = null; // kadro birleşimi (canlılık işaretli) — yalnız son başarılı fetch
+/* FAZ-P EK (kullanıcı hata bildirimi 2026-11-04 «sayfa yenileyip sürekli yeniden
+   yüklüyor sıfırlanıyor sayfa» — koordinatör teşhisi: 30sn döngüsü her turda
+   arayüzü yeniden çiziyor; uçlar yavaşlayınca döngü gözle görülür SIFIRLANMA
+   olur). Yoklama kendini kollar:
+   (1) UÇUŞ KİLİDİ — önceki turun fetch'i bitmeden yeni tur BAŞLAMAZ (üst üste
+   binen istekler yasak; kuyruk birikiminin istemci ayağı kapalı);
+   (2) AYNİ-VERİ-ATLAMA — ucun son başarılı VERİsinin parmak izi (JSON string)
+   değişmedikçe o ucun render adımı KOŞMAZ (agacYaz/kadroYaz/grafYaz yalnız
+   GERÇEK değişimde); karşılaştırma uc bazında; UÇUCU META DIŞLANIR (olcumAniISO
+   [her taze tarama/on istekte yeni] + onbellek bayrağı — EK DÜZELTME: parmağa
+   girselerdi «aynı veri» ana döngüde işlemsiz olurdu; graf ucu statik dosya —
+   TAM yanıt);
+   (3) GÖRÜNMEZ SEKME — document.hidden iken tur atlanır; görünür olunca ilk
+   tur HEMEN (visibilitychange) — veri değişmediyse çizim de olmaz;
+   (4) HATA — önceki başarılı yükleme VARSA mevcut veri ekranda KALIR (bayat
+   silme YOK — «sıfırlanma» hissinin ayağı); yalnız hiç yüklenmediyse dürüst
+   kırmızı yüz/boş (fail-closed ilk yükleme AYNEN). */
+let yoklamaUcusta = false; /* (1) uçuş kilidi */
+const SON_YANIT = { kadro: null, projeler: null, graf: null }; /* (2) uc bazlı parmak izi — null = hiç yüklenmedi */
 /* STEERING-6: çekirdek rol adları graf SSOT'siyle AYNI (anahtar makine-okur); Türkçe etiket yalnız render. */
 const SSOT_ROLLER = ["MANAGER", "CODER", "TESTER", "INSAN-VEKILI-PROXY", "GOZLEMCI"];
 const ROL_ETIKET_TR = { MANAGER: "Yönetici", CODER: "Yazıcı", TESTER: "Denetçi", "INSAN-VEKILI-PROXY": "İnsan-Vekili", GOZLEMCI: "Gözlemci", KULLANICI: "Kullanıcı" };
@@ -977,12 +1003,20 @@ function grafYaz() {
 
 async function grafYukle() {
   try {
-    G = await cek(UC.graf);
+    const yeni = await cek(UC.graf);
+    /* FAZ-P EK DÜZELTME notu: /api/graf statik GRAF_JSON'ı ham servis ediyor (uçucu
+       meta alanı YOK — kararlı) → parmak TAM yanıt aynen */
+    const parmak = JSON.stringify(yeni);
+    if (parmak === SON_YANIT.graf) return; /* FAZ-P EK (2): ayni yanit — govde yeniden çizilmez */
+    SON_YANIT.graf = parmak;
+    G = yeni;
     kirmiziYuzKapat("grafHata");
     if (!odakIcindeMi("#sekmeGovde")) govdeYaz(); /* kartDetay odaktayken ezme (FAZ-O EK-2: aktif oturum sekmesinde graf, karta dokunmaz) */
   } catch (e) {
-    G = null;
-    kirmiziYuzGoster("grafHata", "grafAlani", UC.graf + " — " + e.message);
+    if (SON_YANIT.graf === null) { /* FAZ-P EK (4): yalnız HİÇ yüklenmediyse dürüst kırmızı yüz */
+      G = null;
+      kirmiziYuzGoster("grafHata", "grafAlani", UC.graf + " — " + e.message);
+    } /* yoksa: önceki başarılı graf ekranda KALIR (bayat silme YOK) */
   }
 }
 
@@ -990,7 +1024,7 @@ async function grafYukle() {
 let P = null; // Paseo proje taraması — yalnız son başarılı fetch (bayat veri ekranda kalmaz)
 
 /* GEZGİN ağacı durumu — localStorage kalıcı (anahtarlar ordu-agac-acik / ordu-agac-secili;
-   ordu-solW/sagW ile ÇAKIŞMAZ). PANEL-SIFIR-1: ordu-agac-sira (↑/↓ sıra tercihi) ve
+   ordu-solW2/sagW2 ile ÇAKIŞMAZ). PANEL-SIFIR-1: ordu-agac-sira (↑/↓ sıra tercihi) ve
    ordu-agac-grup (durum grup tercihi) anahtarları mekanizmayla birlikte SÖKÜLDÜ —
    kullanılmayan anahtar kalıntısı YOK. oku/kaydet bildirimleri hoisted'dır — ilk okuma güvenli. */
 let agacAcik = new Set();
@@ -1029,7 +1063,15 @@ let gonderiyor = false; // composer gönderimi sürerken hedef listesi/girdileri
 
 async function projelerYukle() {
   try {
-    P = await cek(UC.projeler);
+    const yeni = await cek(UC.projeler);
+    /* FAZ-P EK DÜZELTME (koordinatör canlı casut ölçümü — «aynı veri» işlemsizdi):
+       parmak yalnız UI'nın tükettiği VERİ (yeni.projeler — UI'da P üzerinden yalnız
+       P.projeler okunur) — uçucu meta (olcumAniISO her taze taramada yeni + onbellek
+       flip [PERF-1'in dürüst işareti]) parmağa GİRMEZ; P ataması TAM yanıt AYNEN */
+    const parmak = JSON.stringify(yeni.projeler ?? null);
+    if (parmak === SON_YANIT.projeler) return; /* FAZ-P EK (2): aynı VERİ — ağaç/composer yeniden çizilmez */
+    SON_YANIT.projeler = parmak;
+    P = yeni;
     kirmiziYuzKapat("agacHata");
     if (!odakIcindeMi("#bolum-agac")) agacYaz();
     if (!seciliKonusma && agacSecili) konusmaSecGuncelle(); /* kalıcı seçimi taramayla eşle */
@@ -1041,8 +1083,10 @@ async function projelerYukle() {
     }
     if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
   } catch (e) {
-    P = null;
-    kirmiziYuzGoster("agacHata", "agacAlani", UC.projeler + " — " + e.message);
+    if (SON_YANIT.projeler === null) { /* FAZ-P EK (4): yalnız HİÇ yüklenmediyse dürüst kırmızı yüz */
+      P = null;
+      kirmiziYuzGoster("agacHata", "agacAlani", UC.projeler + " — " + e.message);
+    } /* yoksa: önceki başarılı tarama ekranda KALIR (bayat silme YOK) */
   }
 }
 
@@ -1803,19 +1847,21 @@ function anaSekmeDegistir(id) {
 
 /* ---- STEERING-9 (b): SPLITTER ×2 — kapsul-tuval.html ADIM-C deseninin KOPYASI
    (pointer events + klavye ←/→ ±16px + taraf-bazlı clamp + aria-valuenow).
-   KOMPAKT (steering 2026-11-03): sol 240 (200-360) · sağ 320 (260-460) —
-   localStorage anahtarları «ordu-solW» / «ordu-sagW»: tuvalin kendi anahtarlarından
-   AYRI — aynı origin'de iki sayfa açıkken birbirinin genişliğini EZMESİN.
-   Kayıtlı kullanıcı değeri ÖNCELİKLİDİR (media 900-1279 daraltması yalnız kayıt yokken). ---- */
+   FAZ-P §2a KOLON DOKTRİNİ (REVİZYON 2026-11-04): sol 240 (200-360) AYNEN ·
+   sağ 560 (320-760) — SAĞ (sekmeli) EN GENİŞ. localStorage anahtarları
+   «ordu-solW2» / «ordu-sagW2» (FAZ-P anahtar sürümü — eski «ordu-solW»/
+   «ordu-sagW» kayıtları OKUNMAZ: eski 320'lik kayıt yeni 560 ölçeğini ezmez;
+   tuvalin anahtarlarından da AYRI). Kayıtlı kullanıcı değeri ÖNCELİKLİDİR
+   (media 900-1279 daraltması yalnız kayıt yokken). Mekanizma AYNEN. ---- */
 function kaydet(anahtar, deger) { try { localStorage.setItem(anahtar, deger); } catch (e) { /* gizli mod: sessiz */ } }
 function oku(anahtar) { try { return localStorage.getItem(anahtar); } catch (e) { return null; } }
-const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 260, max: 460 } };
+const KENAR = { sol: { min: 200, max: 360 }, sag: { min: 320, max: 760 } }; /* FAZ-P §2a: SAĞ EN GENİŞ (eski 260-460) */
 function genislikUygula(taraf, px) {
   document.documentElement.style.setProperty(taraf === "sol" ? "--solW" : "--sagW", Math.round(px) + "px");
   const kolon = $(taraf === "sol" ? "splitSol" : "splitSag");
   if (kolon) kolon.setAttribute("aria-valuenow", String(Math.round(px))); /* WAI-ARIA separator değeri */
 }
-function genislikKenetle(taraf, w) { /* KOMPAKT taraf-bazlı clamp: sol 200-360 · sağ 260-460 */
+function genislikKenetle(taraf, w) { /* FAZ-P taraf-bazlı clamp: sol 200-360 · sağ 320-760 */
   const k = KENAR[taraf] || KENAR.sol;
   return Math.max(k.min, Math.min(k.max, Math.round(w)));
 }
@@ -1832,7 +1878,7 @@ function splitterKur(id, taraf) {
     kolon.classList.add("aktif");
     basX = e.clientX;
     const kok = getComputedStyle(document.documentElement);
-    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 320);
+    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 560);
     kolon.addEventListener("pointermove", hareket);
   });
   const bitis = () => {
@@ -1840,7 +1886,7 @@ function splitterKur(id, taraf) {
     kolon.removeEventListener("pointermove", hareket);
     const kok = getComputedStyle(document.documentElement);
     const w = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10);
-    if (isFinite(w) && w >= KENAR[taraf].min) kaydet("ordu-" + taraf + "W", String(w));
+    if (isFinite(w) && w >= KENAR[taraf].min) kaydet("ordu-" + taraf + "W2", String(w));
   };
   kolon.addEventListener("pointerup", bitis);
   kolon.addEventListener("pointercancel", bitis);
@@ -1849,17 +1895,18 @@ function splitterKur(id, taraf) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
     const kok = getComputedStyle(document.documentElement);
-    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 320);
+    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 560);
     const w = genislikKenetle(taraf, simdi + (e.key === "ArrowLeft" ? -16 : 16));
     genislikUygula(taraf, w);
-    kaydet("ordu-" + taraf + "W", String(w));
+    kaydet("ordu-" + taraf + "W2", String(w));
   });
 }
 splitterKur("splitSol", "sol");
 splitterKur("splitSag", "sag");
-/* açılış: kayıtlı genişlikler (clamp'li — pencere arada değişmiş olabilir) */
+/* açılış: kayıtlı genişlikler (clamp'li — pencere arada değişmiş olabilir;
+   FAZ-P anahtar sürümü: yalnız W2 okunur — eski ordu-solW/ordu-sagW kaydı YOK sayılır) */
 for (const taraf of ["sol", "sag"]) {
-  const w = parseInt(oku("ordu-" + taraf + "W"), 10);
+  const w = parseInt(oku("ordu-" + taraf + "W2"), 10);
   if (isFinite(w) && w >= KENAR[taraf].min) genislikUygula(taraf, genislikKenetle(taraf, w));
 }
 window.addEventListener("resize", () => { /* taraf tavanları pencereyle daralabilir — değerleri yeniden kenetle */
@@ -1871,22 +1918,44 @@ window.addEventListener("resize", () => { /* taraf tavanları pencereyle daralab
 
 async function kadroYukle() {
   try {
-    K = await cek(UC.kadro);
+    const yeni = await cek(UC.kadro);
+    /* FAZ-P EK DÜZELTME: uçucu olcumAniISO (server her istekte new Date basıyor —
+       bu uçta önbellek YOK) parmağa GİRMEZ; parmak kalan VERİ; K ataması TAM
+       yanıt AYNEN */
+    const { olcumAniISO: _ucucuOlcum, ...kadroVerisi } = yeni;
+    const parmak = JSON.stringify(kadroVerisi);
+    if (parmak === SON_YANIT.kadro) return; /* FAZ-P EK (2): aynı VERİ — kadro gövdesi/composer yeniden çizilmez */
+    SON_YANIT.kadro = parmak;
+    K = yeni;
     /* cephe satırı + kutu sorumlu işaretleri kadro gelince tamamlanır (render-only; kartDetay odaktayken ezme) */
     if (!odakIcindeMi("#sekmeGovde")) govdeYaz();
     /* FAZ-B: ORDU YÖNETİM optgroup kaynağı kadro geldi — composer hedef listesi tazelensin (girdi korumasıyla) */
     if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
   } catch (e) {
-    K = null;
-    if (!odakIcindeMi("#sekmeGovde")) govdeYaz(); /* sorumlu işaretleri dürüst 'ATANMADI'ya döner */
-    if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle(); /* yönetim grubu dürüst boşalır */
+    if (SON_YANIT.kadro === null) { /* FAZ-P EK (4): yalnız HİÇ yüklenmediyse dürüst 'ATANMADI' boşalması */
+      K = null;
+      if (!odakIcindeMi("#sekmeGovde")) govdeYaz(); /* sorumlu işaretleri dürüst 'ATANMADI'ya döner */
+      if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle(); /* yönetim grubu dürüst boşalır */
+    } /* yoksa: önceki başarılı kadro ekranda KALIR (bayat silme YOK) */
   }
 }
 
 /* PANEL-SIFIR-1: yenileme döngüsü KALAN uçlara daraltıldı — projeler + kadro +
    graf (ağaç + composer + orta görev grafı); genel/akis/saglik/log çağrıları
-   yüzlerle birlikte söküldü. */
-function hepsiniYukle() { kadroYukle(); projelerYukle(); grafYukle(); }
+   yüzlerle birlikte söküldü.
+   FAZ-P EK: tur ÖNCE (1) uçuş kilidini, (2) görünmez-sekme kapısından geçer;
+   uçlar paralel beklenir (Promise.all) — tur BİTİNCE kilit açılır. */
+async function hepsiniYukle() {
+  if (yoklamaUcusta) return; /* FAZ-P EK (1): önceki turun fetch'i bitmeden yenisi BAŞLAMAZ */
+  if (document.hidden) return; /* FAZ-P EK (3): görünmez sekme yoklama turu atlanır */
+  yoklamaUcusta = true;
+  try {
+    await Promise.all([kadroYukle(), projelerYukle(), grafYukle()]);
+  } finally {
+    yoklamaUcusta = false;
+  }
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) hepsiniYukle(); }); /* FAZ-P EK (3): sekme önüne dönünce ilk tur HEMEN (veri değişmediyse çizim de olmaz) */
 chatBaslikYaz(); /* başlangıçta dürüst boş satır (P gelince kalıcı seçim eşleşirse dolar); mesaj listesi oturum-içi — boş başlar */
 anaSekmeYaz(); /* başlangıç: ORDU ana sekmesi aktif (şeritte sabit) */
 hepsiniYukle();

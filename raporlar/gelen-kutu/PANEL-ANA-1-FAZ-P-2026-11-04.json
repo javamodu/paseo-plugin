@@ -1,0 +1,58 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-P-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-P — tasarım modernizasyonu (TASARIM-MANIFESTOSU REVİZYON 2026-11-04: §1 kompakt-okunaklı · §2 ekonomik ritim · §2a kolon doktrini SAĞ en geniş + chat DAR balon tavanı · §4 modern dil)",
+  "tarihISO": "2026-11-04T07:57:58+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-P",
+  "kullaniciSpec": [
+    "chat paneli daralt en geniş sağdaki panel olsun",
+    "minimal komplat yap okunaklı olsun chat yazıları",
+    "sayfa geneli tasarım dili kötü eski ve modern değil",
+    "akıcı net profesyonel arayüz yap"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "~92 satır: --sagW 560 + KENAR sag 320-760 + aria 560 + fallback 560 + media 420 (§2a) + anahtar sürümü ordu-solW2/ordu-sagW2 (eski kayıt ezmez) + baz 13px/1.5 + başlık 15 + sekme/ağaç/kart 13 (§1; chat balon 15px/1.55 AYNEN) + ekonomik dolgular + chatListe FLAT (iç içe kutu sökümü) + balon tavanı min(92%, 660px) + radius 10/8/6 + pill/yuvarlak composer (§4) — davranış mantığı hunk 0" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51u YENİ (19 kaynak pini: §1/§2/§2a/§4 + DEĞİŞMEZLER) + 7 blokta 26 dürüst pin güncellemesi (satır no'lu raporda) + EK: test 5 satır ~148 bilinçli pin (hepsiniYukle imzası + Promise.all) + 51v YENİ (6 kaynak pini + 9 vm senaryo: uçuş kilidi · aynı-veri atlama · değişen-veri çizer · document.hidden · görünürlük dinleyicisi · hata-bayat-koruma)" }
+  ],
+  "etiket": ["panel", "faz-p", "tasarim-modernizasyonu", "kolon-doktrini", "kompakt-okunakli", "minimal-ritim", "balon-tavani", "yoklama-ucus-kilidi", "ayni-veri-atlama", "hata-bayat-koruma"],
+  "kanit": {
+    "nodeTestPano": { "tests": 70, "pass": 70, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazpek-duzelt.txt" },
+    "npmTest": { "pass": 84, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazpek-duzelt-npm.txt", "not": "EK Düzeltme sonrası tam süit yeşil — PERF-1 b7747c7 (paralel yazıcı) + parmak düzeltmesi birlikte; EK öncesi 2 kırık mesaj-ucu 72/73 paralel yazıcı sürecindeydi, dokunulmadı" },
+    "kalintiTaramasi": "grep eski değerler (sagW:320 / 260-460 / max-width:92% / 18px / 16px 20px / --radius:6px / sürümsüz W / aria 320 / sagW:280) — eşleşme 0",
+    "dokunulmayan": ["pano/server.js", "pano/konusma-oku.mjs", "d1a/d1b", "CODEMAP", "STATE_BOARD"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: bağımsız tam süit (303 tabanına 51u ile +1 — 304 beklenir) + canlı DOM (yenileme yeterli — restart GEREKMEZ: sağ panel ~560 + balon tavanı + FLAT liste + pill menü/yuvarlak composer + 13px krom + chat balonu 15px okunaklı) + TASARIM KAPISI: §1/§2/§2a/§4 manifesto maddeleri + K2 görsel kabul KULLANICIDA + ekran kanıtı + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "anahtar sürümü W2: eski ordu-solW/ordu-sagW kayıtları OKUNMAZ (320'lik eski kayıt 560 varsayılanını ezmez); splitter mekanizması/kalıcılık/resize AYNEN",
+    "balon tavanı tek kural min(92%, 660px): geniş kolonda tavan + kenar nefesi; dar görünümde %92 doğal dolgu — merkezleme kuralı EKLENMEDİ",
+    "chatListe FLAT: .bolum kutusu içinde ikinci çerçeve söküldü (§2 iç içe katman azaltma); kaydırma/gap/overscroll AYNEN",
+    "chat balonu 15px/1.55 KORUNUR (§1 okunaklılık şart — kullanıcı açık sözü); baz 13px yalnız UI kromuna iner; textarea 15px aynen",
+    "modern dil mevcut tokenlarla: radius 10/8/6 + pill 999 + yuvarlak 50% + composerBar 16px; YENİ renk/@keyframes/box-shadow 0",
+    "media 900-1279 sag 420 — orta ekranda da SAĞ en geniş (sol 200 aynen)",
+    "resize pencere-üst-sınırı KENAR'a kenetler (pencereye göre ek mantık YOK — mevcut davranış AYNEN)",
+    "EK (1) uçuş kilidi yoklamaUcusta: senkron set + Promise.all (3 uç paralel) + finally — önceki tur bitmeden yeni tur başlamaz",
+    "EK (2) uc bazlı parmak izi SON_YANIT JSON.stringify: null=hiç yüklenmedi; aynı yanıt render KOŞMAZ (yalnız GERÇEK değişimde)",
+    "EK (3) document.hidden iken yoklama atlar + visibilitychange dönüşte anında tur (30 sn beklemez)",
+    "EK (4) hata-bayat-koruma: uç hatasında önceki başarılı veri ekranda kalır; kırmızı yüz YALNIZ ilk yükleme hatasında (fail-closed AYNEN)",
+    "EK dürüst sınır: odakIcindeMi yüzünden atlanan render, veri sonra değişmezse aynı-veri turlarıyla yeniden denenmez (brief'e harfi harfine bağlı; kullanıcı etkileşimi kendi render'ını tetikler)",
+    "EK DÜZELTME (koordinatör canlı casut ölçümü — EK(2) ana döngüde işlemsizdi): parmak yalnız UI'nın tükettiği VERİ — projeler JSON.stringify(yeni.projeler ?? null) [UI'da yalnız P.projeler; P.atlanan UI'da kullanılmıyor] + kadro olcumAniISO destructuring dışlanır [K = TAM yanıt] + graf TAM yanıt [statik dosya, uçucu alan YOK — server.js:249-252 teyidi]; onbellek bayrağı parmağa ASLA girmez; P/K atamaları TAM yanıt AYNEN",
+    "EK DÜZELTME test: 51v pin (2) dürüst güncelleme + senaryo 1/4 stub'ları gerçek yanıt şekline sarmalandı + senaryo 5 YENİ (uçucu-meta aynılığı render YOK + olcumAniISO değişse de projeler değişince render KOŞAR) — canlı casut yakalananın birebir vm hali",
+    "EK DÜZELTME ders adayı: hermetik statik fixture uçucu-meta tuzağını göremedi (fixture kendi yanıtı üretti — kendine-referans ailesi); canlı davranış casutu yakaladı"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı (koordinatör)",
+    "tasarım kapısı K2 görsel kabul (kullanıcı)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 08:12 +03:00): (1) bağımsız tam kapi node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs = tests 308 pass 308 fail 0 EXIT=0 (%TEMP%\\fazp-son-kapi.txt; tasarim + EK + EK Duzeltme + PERF-1 b7747c7 sonrasi birlesik disk durumu). (2) Diff: 3 bolge (tasarim CSS + EK dongu + EK Duzeltme parmak cekirdegi); davranis mantigi hunk 0. (3) Hijyen HEAD-baseline ile ayni degismezler (yasak 0 · dis URL 0 · xpano 2 · chatTavan 2 · keyframes 1 · balon 660 tavani 2 · sagW 560 + W2 anahtarlari). (4) Canli DAVRANIS (4937 PID 17092, spy test): tur2 = 0 render; tur1'in tek render'i GERCEK filo degisikligi (sunucu tarama diff'i alan duzeyinde kanit: sonEtkinlikISO 05:01:51->05:02:29, chromex idle->running); ucus kilidi olculdu (yoklamaUcusta true/false). (5) Canli TASARIM olcumleri @1280: sag 560 EN GENIS (x=710) · orta 448 · sol 240; baz 13/1.5; bolum-etiket 15; balon 15/1.55 + min(92%,660px); chatListe FLAT; pill 999 + composer 16 + ikon 50%; radius 10/8; aria 560; KENAR 320-760. (6) Media 1100 taze: sag 420 olculdu (resize-sonrasi inline pin medyayi ezer - mevcut davranis, yazici notu 2 kabul). (7) Mobil 390: chat ilk, tasma YOK, GONDER 40 + select 44. (8) PNG: ekran-kanit-fazp-tasarim-ek-2026-11-04.png 271.003 bayt 1918x1110 (@1.25 = 1534x888), imza dogrulandi; Read PNG'yi bos dondurdugu icin gorsel inceleme koordinatorde mumkun olmadi - K2 gorsel kabul KULLANICIDA. (9) Kullanici belirtisi istemci yarisi EK + EK Duzeltme ile kapandi (sunucu yarisi PERF-1 b7747c7). (10) DERSLER adayi: kendine-referans fixture ailesi (statik fixture kendi yanitini uretti - ucucu-meta tuzagi hermetik gorunmez, canli casut yakaladi). (11) TASARIM-MANIFESTOSU REVIZYON 2026-11-04 ayni committe; tek elden commit bu kapanista (CODEMAP dahil)."
+}

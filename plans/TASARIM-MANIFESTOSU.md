@@ -7,18 +7,29 @@
 > Kaynak zinciri: kullanıcı emirleri (2026-10-13 mockup dalgaları · 2026-10-29 R2/DALGA-0-2 brief · 2026-10-29 K8 tuval · 2026-10-29 K2 turu)
 > + [BRIEF-R2-TASARIM](../raporlar/dalga0-2-arayuz-2026-10-29/BRIEF-R2-TASARIM.md) + [STATE_BOARD](../STATE_BOARD.md) K8/K2 damgaları.
 
-## 1. BÜYÜK YAZILAR (küçültme YASAK)
+> **REVİZYON 2026-11-04 (kullanıcı emri — üstün):** «chat paneli daralt en geniş sağdaki panel olsun .. minimal
+> komplat yap okunaklı olsun chat yazıları .. sayfa geneli tasarım dili kötü eski ve modern değil ... akıcı net
+> profesyonel arayüz yap». Bu emirle: §1 «büyük yazılar» → **KOMPAKT-OKUNAKLI ölçek**; §2 «cömert nefes» →
+> **EKONOMİK minimal ritim**; **kolon doktrini** (§2a) EKLENDİ: sağ panel EN GENİŞ · chat kolon DAR (balon genişlik
+> tavanı · dar görünüm) · sol ağaç kompakt. Eski «büyük yazılar/nefes alan» dili bu revizyonla değişir; okunaklılık
+> tabanı ve diğer maddeler AYNEN yürür.
 
-- Baz font **≥15-16px**; bölüm başlıkları **20-24px**; etiket/alt metin 13px'ten Küçük kalıp yalnız meta/rozet sınırında ve BİLİNÇLİ.
-- Yeni bileşen yazı boyutu bu ölçeğe OTURMAK zorundadır. «Sığdırayım» gerekçesiyle küçültme = kapı ihlali.
-- Sayı/monospace alanlar tabular-nums; kimlik (id) etiketleri okunur boyutta kalır.
+## 1. KOMPAKT-OKUNAKLI ÖLÇEK (REVİZYON 2026-11-04)
 
-## 2. NEFES ALAN TASARIM (ferah · tek bakışta)
+- Baz font **~13px**; **chat balon metni 14-15px + rahat satır yüksekliği (okunaklılık şart — «okunaklı olsun chat yazıları»)**; başlık 15-16px; meta/rozet 11-12px BİLİNÇLİ.
+- Küçültme «sığdırma» değil ÖLÇÜ: her boyut okunaklılık tabanını korur; kimlik (id) etiketleri okunur kalır. Sayı/monospace tabular-nums AYNEN.
 
-- **Tek viewport**: her şey tek bakışta görülür; sayfa scroll'u BİTER — uzun içerik panel-İÇİ kayar (overflow-y).
-- Boşluklar CÖMERT: sıkışık satır/sütun = kapsam hatası. Panel içi dolum 44px'lik dokunma ritmiyle nefes alır.
+## 2. MİNİMAL RİTİM (tek bakışta · kompakt · REVİZYON 2026-11-04)
+
+- **Tek viewport**: her şey tek bakışta görülür; sayfa scroll'u BİTER — uzun içerik panel-İÇİ kayar (overflow-y) AYNEN.
+- Boşluklar **EKONOMİK** (minimal-kompakt ritim); iç içe kutu/çerçeve katmanı YOK — düz yüzey + ince ayırıcı. 44px dokunma ritmi etkileşimlilerde KORUNUR (K-0061).
 - Paneller arası duvar **İNCE** (K2: 6px; kalın ayırıcı yasak). Splitter ince tutamaçla sürüklenir.
-- Üst tepe bantları/uzun açıklama şeritleri YOK (K2: tepe dürüstlük şeridi söküldü) — bilgi bileşeninin yanında/ içinde yaşar.
+- Üst tepe bantları/uzun açıklama şeritleri YOK — bilgi bileşeninin yanında/içinde yaşar AYNEN.
+
+## 2a. KOLON DOKTRİNİ (REVİZYON 2026-11-04)
+
+- **Sağ panel (sekmeli bölüm) EN GENİŞ**; **chat (orta) DAR** — balon/genişlik tavanıyla (~640-680px) dar görünüm, kalan boşluk kenara nefes; **sol ağaç kompakt**.
+- Eski kayıtlı genişlikler yeni ölçeği EZMEZ (anahtar sürümü/tek sıfırlama — uygulama detayı dalgada). Splitter + kalıcılık mekanizması AYNEN.
 
 ## 3. BÜYÜK GÖRSELLER
 
