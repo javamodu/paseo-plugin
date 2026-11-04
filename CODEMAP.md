@@ -1,4 +1,4 @@
-# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 7ff9afc — elle duzenleme)
+# CODEMAP — ordu (OTOMATIK URETILDI: HEAD 0c44564 — elle duzenleme)
 
 Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak. Butce hedefi: ~1k token.
 
@@ -81,6 +81,7 @@ Ajan once bu haritadan hedef dosyayi secer, SADECE onu acar. Toplu tarama yasak.
 - `kararlar/K-0060.md` (3.2KB) — K-0060 — Composer gönderim köprüsü: dar spawn izni (PANEL-EXPLORER-1 FAZ-A)
 - `kararlar/K-0061.md` (4.3KB) — K-0061 — ORDU paneli yoğunluk dili: kompakt tek-bakış (PANEL-KOMPAKT-1)
 - `kararlar/K-0062.md` (3.8KB) — K-0062 — Harç ve LOC tavanları (limitsiz kod şişirmesi yasak) | Bağlam | Karar
+- `kararlar/K-0063.md` (2.9KB) — K-0063 — İKİ-KATMAN AJAN YÖNETİMİ: KURMAY + PROJE-MANAGER | Bağlam | Karar
 - `LLM-PROVIDER-REHBERI.md` (8.7KB) — LLM PROVIDER REHBERI — codex / Claude Code / Paseo icin baglanti sozlesmesi | 1. Tek kural: wire formati | 2. Codex CLI
 - `pano/` (33 dosya: en yeni ordu-panosu.test.mjs, ordu-birlesim.mjs, server.js)
 - `plans/` (106 dosya: en yeni TASARIM-MANIFESTOSU.md, DOGRULAMA-TURU-PROTOKOLU.md, PANEL-DALGA-SIRASI.md)
