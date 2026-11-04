@@ -1,0 +1,24 @@
+{
+  "raporSurum": 1,
+  "dalga": "SIRALAMA-DUZELTME",
+  "tarih": "2026-11-04",
+  "saat": "17:45",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "sıralama çalışmıyor proje ismine göre sıralanmalı"
+  ],
+  "teshis": {
+    "hata": "agacYaz ad anahtarı projeAdi = Paseo dizin adı (dashed YOL) — üretimde 'C-Users-gatep-Local-Sites-1' gibi; görünen ad klasorAdi ('1', 'sarisite-export')",
+    "kanit": "gerçek 76-proje taraması (projelerTara izole koşum): klasorAdi ≠ projeAdi ayrımı üretimde yaygın; VM testleri fixture'ları projeAdi'yi kısa ad vererek sınadığından ayrım hiç sınanmamıştı"
+  },
+  "duzeltme": "SON ad anahtarı (tüm modların ortak): String(projeEtiketi(a)).localeCompare(String(projeEtiketi(b)), 'tr') — görünen etiket (klasorAdi → projeAdi → dashed); ORDU-önce + mod anahtarları değişmedi",
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 314, "pass": 314, "fail": 0, "exit": 0, "not": "yeni test YOK — 51aa'ya +2 pin (kaynak pini + üretim-ayrımı VM senaryosu)" },
+  "uretimKaniti": {
+    "yeniIlk15": "[ORDU] ordu | !token-optimzation | .paseo-bench | 1 | agent-bus | agent-codex-supervisor-go | agent-mobile-runtime | agent-orchestration | agent-os-go | agent-os-rust | agent-runtime | agentic-starter | ai-scene-graph | BUSINESS-REALITY-ENGINE | chinese-hsk",
+    "eskiIlk15": "[ORDU] ordu | sprint53-alias | sprint53-backoff | sprint53-mcp | p55-a-76fc-baseline | p55-process-reaper-gate | default-workspace | 1 | woo-block | woo-block | chinese-hsk | HSK3.0 | urunler | Vibecode | !token-optimzation"
+  },
+  "servisKaniti": { "url": "http://127.0.0.1:4937/ordu", "http": 200, "contentLength": 140095, "restart": "HAYIR (server.js dokunulmadı — statik html reload yeterli)", "kontroller": ["yeni anahtar serviste", "eski projeAdi anahtarı serviste YOK"] },
+  "canliDom": { "yapildi": false, "sebep": "browser automation host bağlı DEĞİL (4. dalga); davranış VM + gerçek-veri izole koşumuyla ölçüldü" },
+  "locDelta": { "once": 17650, "sonra": 17665, "net": 15, "tavan": 200, "panoTavan": 18000, "panoDoluluk": "98.1%" },
+  "kapsam": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs", "raporlar/pano-siralama-duzeltme-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}

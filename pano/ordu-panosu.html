@@ -1347,9 +1347,15 @@ function agacYaz() {
       const d = kayitSay(b) - kayitSay(a);
       if (d) return d;
     } /* "isim" + bilinmeyen değer: doğrudan ada (fail-closed) */
+    /* AD ANAHTARI GÖRÜNEN ETİKET (operatör «sıralama çalışmıyor proje ismine göre
+       sıralanmalı» 2026-11-04): eski anahtar projeAdi = Paseo dizin adı (dashed YOL —
+       üretimde 'C-Users-gatep-Local Sites-1' gibi) ama ağaçta GÖRÜNEN ad klasorAdi
+       ('1', 'sarisite-export') → görünmez yola göre sıralama kullanıcıya DÜZENSİZ
+       görünür (C-diskliler D'den önce; klasör adı yol kuyruğuyla uyuşmaz). Sıralama
+       anahtarı = görünen etiket (projeEtiketi: klasorAdi → projeAdi → dashed dizin). */
     return (
       (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0) ||
-      String(a.projeAdi).localeCompare(String(b.projeAdi), "tr")
+      String(projeEtiketi(a)).localeCompare(String(projeEtiketi(b)), "tr")
     );
   });
   let html = "";
