@@ -310,7 +310,7 @@
   .agacProjeBas {
     display:flex; align-items:center; gap:6px; flex:1; min-width:0; min-height:32px;
     padding:2px 8px; border:0; border-radius:var(--radius-cip); background:transparent;
-    color:var(--metin); font-size:13px; font-weight:700; text-align:left; cursor:pointer; /* FAZ-P §1: 13px (FAZ-H 15px'ten revizyon — kompakt-okunaklı; min-height 32 aynen) */
+    color:var(--metin); font-size:15px; font-weight:700; text-align:left; cursor:pointer; /* FAZ-P §1: 15px (GÖRÜNÜM dalgası 2026-11-04: operatör «sol panelde proje isimlerini daha büyük yaz» — FAZ-P 13px kompaktından büyütüldü; min-height 32 aynen) */
     white-space:normal; transition:background 160ms ease; /* E12: yalnız renk — FAZ-K: TAM etiket sarar */
   }
   .agacProjeBas:hover { background:var(--yuzey2); }
@@ -425,6 +425,9 @@
   .chat-kullanici .chatSonuc, .chat-kullanici .chatSonuc.bekliyor,
   .chat-kullanici .chatSonuc.basarili, .chat-kullanici .chatSonuc.hata { color:rgba(255,255,255,0.8); }
   .chatKesildi { font-size:11px; color:var(--ikincil); font-style:italic; margin:4px 0 0; } /* FAZ-M: metin tavanı işareti (dürüst kesildi bildirimi) */
+  .chatDevam { font-size:11.5px; font-weight:600; color:var(--camgobegi); background:transparent; border:0; padding:0; margin:4px 0 0; cursor:pointer; text-decoration:underline; } /* GÖRÜNÜM dalgası: kesilen balonun DEVAMI düğmesi — tıklayınca TAM metin (yeniden fetch ?tamBalon=<i>; kalıcı state YOK) */
+  .chatDevam:hover { color:var(--metin); }
+  .chatDevam:focus-visible { outline:2px solid var(--camgobegi); outline-offset:2px; }
   .chatKim { font-size:12px; font-weight:700; letter-spacing:0.08em; color:var(--metin); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik). FAZ-R: 11.5→12px + 0.06→0.08em + gri→Koyu (ajan tarafı; kullanıcı tarafı çocuk seçicide beyaz) */
   .chatSaat { font-size:11px; color:var(--ikincil); margin:4px 0 0; white-space:nowrap; } /* balonun ALTINDA (tuval deseni) */
   .chatSonucSatiri { margin:2px 0 0; }
@@ -1337,6 +1340,12 @@ function agacYaz() {
   if (t.aktifFiltre) gorunen = gorunen.filter((pr) => pr.orduMu || calisanSay(pr) > 0); /* yalnız aktifler — ORDU istisnasız görünür */
   if (q) gorunen = gorunen.filter((pr) => prAdEs(pr) || (Array.isArray(pr.ajanlar) && pr.ajanlar.some(oturumEsles))); /* arama: proje adı VEYA eşleşen oturumu olan proje (filtreyle VE) */
   gorunen.sort((a, b) => {
+    /* GÖRÜNÜM dalgası (operatör «sol panelde ordu sekmesi sıralamada daima en üstte
+       kalsın değişmesin yeri» 2026-11-04): orduMu farkı TÜM modlardan ÖNCE — İLK anahtar.
+       Eski yerleşimde mod anahtarı (aktif-öncelik/guncel/kayit) önce gelirdi: daha yeni
+       etkinlikli ya da daha çok ajanlı bir proje ORDU'nun ÜSTÜNE çıkabiliyordu. */
+    const o = (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0);
+    if (o) return o;
     if (t.siralama === "varsayilan") {
       const d = (calisanSay(b) > 0 ? 1 : 0) - (calisanSay(a) > 0 ? 1 : 0);
       if (d) return d;
@@ -1353,10 +1362,8 @@ function agacYaz() {
        ('1', 'sarisite-export') → görünmez yola göre sıralama kullanıcıya DÜZENSİZ
        görünür (C-diskliler D'den önce; klasör adı yol kuyruğuyla uyuşmaz). Sıralama
        anahtarı = görünen etiket (projeEtiketi: klasorAdi → projeAdi → dashed dizin). */
-    return (
-      (b.orduMu ? 1 : 0) - (a.orduMu ? 1 : 0) ||
-      String(projeEtiketi(a)).localeCompare(String(projeEtiketi(b)), "tr")
-    );
+    /* ordumu yukarıda İLK anahtar olarak sıfırlandı — buraya gelenlerin orduMu farkı 0 */
+    return String(projeEtiketi(a)).localeCompare(String(projeEtiketi(b)), "tr");
   });
   let html = "";
   for (const pr of gorunen) {
@@ -1583,6 +1590,7 @@ const oturumMesajlari = []; /* { saat, hedefKisa, hedefKimlik, metin, sonuc: { t
 let transcriptBalonlar = null; /* FAZ-M: [{ rol: user|assistant, metin, kesildi }] | null */
 let transcriptHata = null; /* FAZ-M: yükleme hatası dürüst notu | null */
 let transcriptAcilisIstendi = false; /* FAZ-M: kalıcı seçim açılışta YALNIZ bir kez yüklenir (30sn döngüsü tekrar fetch ETMEZ) */
+let tamHataIndex = -1; /* GÖRÜNÜM dalgası: devamı çekme hatası balon indeksi (-1 = hata YOK; bellek-içi görünüm durumu — kalıcı kayıt YOK) */
 
 /* hedefin kısa adı: disk taramasında ajanId (yoksa 8 hane kimlik öneki); taramada
    bulunamayan kimliğin dürüst yedeği 8 hane önek — uydurma ad YOK */
@@ -1638,14 +1646,21 @@ function chatMesajYaz() {
    AJAN YANITI SOL ince balon (.chat-sistem dili). Saat YOK (transcript balonlarına
    uydurma saat yazılmaz — E10; gönderim balonlarında gerçek saat var). Kesildi →
    dürüst işaret satırı. esc() her yerde (transcript metni dış içeriktir). ---- */
-function transcriptBalonHtml(b) {
-  const kesildi = b && b.kesildi ? '<p class="chatKesildi">metin kesildi (2000 karakter tavanı — TAM metin sunucudaki transcript dosyasında kalır)</p>' : "";
+function transcriptBalonHtml(b, indeks) {
+  /* GÖRÜNÜM dalgası (operatör «metin kesildi … yazıyor böyle demede devamı diyelim
+     tıklayınca açılsın» 2026-11-04): eski dürüst-not satırı yerine tıklanabilir DEVAMI
+     düğmesi — tamHataIndex'e çekme hatası balonunda dürüst tekrar-notu. esc() buton
+     metnine gerekmez (sabit metin); indeks Number → data-tam. */
+  const devam = b && b.kesildi
+    ? '<button type="button" class="chatDevam" data-tam="' + Number(indeks) + '">devamı…</button>' +
+      (tamHataIndex === Number(indeks) ? '<p class="chatKesildi">devamı alınamadı — tekrar deneyin</p>' : "")
+    : "";
   if (b && b.rol === "user") {
     return (
       '<div class="chatMesaj chat-kullanici">' +
       '<div class="chatKim">kullanıcı</div>' +
       "<p>" + esc(b.metin) + "</p>" +
-      kesildi +
+      devam +
       "</div>"
     );
   }
@@ -1655,7 +1670,7 @@ function transcriptBalonHtml(b) {
     '<div class="chatMesaj chat-sistem">' +
     '<div class="chatKim" title="' + esc(a ? a.ajanKimligi : "") + '">' + esc(ad) + "</div>" +
     "<p>" + esc(b ? b.metin : "") + "</p>" +
-    kesildi +
+    devam +
     "</div>"
   );
 }
@@ -1668,6 +1683,7 @@ async function transcriptYukle(ajanKimligi) {
   if (!ajanKimligi) return;
   transcriptBalonlar = null;
   transcriptHata = null;
+  tamHataIndex = -1; /* GÖRÜNÜM dalgası: taze yükleme önceki devamı-hatasını siler (dürüst) */
   $("chatBos").hidden = true;
   $("chatListe").innerHTML = '<p class="bosSatir">yazışmalar yükleniyor…</p>';
   try {
@@ -1678,6 +1694,31 @@ async function transcriptYukle(ajanKimligi) {
     transcriptHata = "yazışmalar yüklenemedi — " + e.message + " (oturum seçili kaldı; mesaj gönderilebilir)";
   }
   chatMesajYaz();
+}
+
+/* ---- GÖRÜNÜM dalgası (operatör 2026-11-04): kesilen balonun DEVAMINI açar —
+     GET /api/ordu/konusma?ajan=<kimlik>&tamBalon=<indeks> (salt-okur; yalnız O balon
+     TAM metin döner). Başarı → aynı uzunlukta yeni dizi (yalnız o balon tam) → render;
+     uzunluk DEĞİŞTİYSE (transcript arka planda büyüdü — indeks kaydı) → dürüst hata
+     notu + buton yerinde kalır (tekrar denenebilir; oturum yeniden seçilirse taze
+     yüklenir). Kalıcı state YOK — bellek-içi görünümdür. ---- */
+async function transcriptTamAc(indeks) {
+  const ajan = seciliKonusma ? seciliKonusma.ajan : null;
+  if (!ajan || !Array.isArray(transcriptBalonlar) || !Number.isInteger(indeks)) return;
+  try {
+    const v = await cek("/api/ordu/konusma?ajan=" + encodeURIComponent(ajan.ajanKimligi) + "&tamBalon=" + indeks);
+    if (Array.isArray(v.balonlar) && v.balonlar.length === transcriptBalonlar.length) {
+      tamHataIndex = -1;
+      transcriptBalonlar = v.balonlar;
+      chatMesajYaz();
+    } else {
+      tamHataIndex = indeks; /* dizi değişti — indeks güvenilmez (dürüst) */
+      chatMesajYaz();
+    }
+  } catch {
+    tamHataIndex = indeks; /* ağ/sunucu hatası — buton tekrar denenebilir kalır */
+    chatMesajYaz();
+  }
 }
 
 /* ---- COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü
@@ -1889,6 +1930,13 @@ composerMetin.addEventListener("keydown", (e) => {
 const EK_UZANTILAR = ["txt", "md", "js", "mjs", "json", "ps1", "html", "css", "yml", "yaml", "csv", "log"];
 const EK_TAVAN = 1536; /* karakter — kalan metin dürüst 'kesildi' notuyla */
 $("composerEkle").addEventListener("click", () => $("composerDosya").click());
+/* GÖRÜNÜM dalgası: kesilen transcript balonundaki DEVAMI düğmesi — delegation (balonlar
+   innerHTML ile yeniden yazılır; dinleyici listede kalır). Number() bozulursa NaN →
+   transcriptTamAc koruması (Number.isInteger) reddeder. */
+$("chatListe").addEventListener("click", (e) => {
+  const d = e.target && e.target.closest ? e.target.closest(".chatDevam") : null;
+  if (d) transcriptTamAc(Number(d.getAttribute("data-tam")));
+});
 $("composerDosya").addEventListener("change", async () => {
   const dosyaGirdisi = $("composerDosya");
   const dosya = dosyaGirdisi.files && dosyaGirdisi.files[0];

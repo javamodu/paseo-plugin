@@ -1,0 +1,23 @@
+{
+  "schemaSurum": 1,
+  "dalga": "gorunum",
+  "tarih": "2026-11-04T18:12",
+  "operatoerEmirleri": [
+    "ordu panelinde metin kesildi (2000 karakter tavanı — TAM metin sunucudaki transcript dosyasında kalır) yazıyor böyle demede devamı diyelim tıklayınca açılsın",
+    "sol panelde proje isimlerini daha büyük yaz",
+    "sol panelde ordu sekmesi sıralamada daima en üstte kalsın değişmesin yeri"
+  ],
+  "degisiklikler": {
+    "konusma-oku.mjs": "transcriptHazirla secenekler.tamIndex — o indeksli balon TAM metin (tavan yok, kesildi:false); tamsayı değil/aralık dışı etkisiz (fail-closed)",
+    "server.js": "/api/ordu/konusma?tamBalon=<i> — Number.parseInt + Number.isInteger guard; salt-okur GET",
+    "ordu-panosu.html": "chatDevam butonu (devamı…) + transcriptTamAc + chatListe click delegation + tamHataIndex görünüm durumu + agacProjeBas 15px + agacYaz orduMu İLK anahtar (tüm modlardan önce) + eski 2000-karakter notu KALDIRILDI"
+  },
+  "kanit": {
+    "testTamKapi": "320 tests / 320 pass / 0 fail / EXIT=0",
+    "servis": "GET 127.0.0.1:4937/ordu HTTP 200 149080 — 4 yeni desen serviste (statik html, restart yok)",
+    "canliDom": "YAPILAMADI — browser automation host bağlı değil (dürüst eksik)",
+    "pinDuzeltmeleri": "8 eski-davranış pini yeni GÖRÜNÜM davranışına güncellendi (51f/51g/51j/51l/51r/51aa)"
+  },
+  "loc": { "oncesi": 17875, "sonrasi": 17986, "delta": 111, "tavan": 18000, "doluluk": "%99,9" },
+  "bekleyen": ["4937 restart [insan]", "COMPOSER dalgası (hedef seçici kaldır — operatör yeni emri)", "K7 push (birikim 68)", "ARSIV dalgası (acil — tavan 14 satır)"]
+}

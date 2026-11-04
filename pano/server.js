@@ -513,7 +513,10 @@ const sunucu = http.createServer((req, res) => {
       let st = null;
       try { st = statSync(jsonlYolu); } catch { /* dosya yok — alttaki dürüst 404 */ }
       if (!st) { jsonYaz(res, 404, { hata: "oturum transcript dosyası yok (dürüst boş — sahte içerik YAZILMAZ): " + jsonlYolu }); return; }
-      const balonlar = transcriptHazirla(kuyrukOku(jsonlYolu));
+      /* GÖRÜNÜM dalgası (2026-11-04; operatör «devamı diyelim tıklayınca açılsın»):
+         ?tamBalon=<i> → yalnız O balon TAM metinle döner; boş/bilinmeyen → tavanlı aynen (fail-closed). */
+      const tamBalon = Number.parseInt(String(url.searchParams.get("tamBalon") ?? ""), 10);
+      const balonlar = transcriptHazirla(kuyrukOku(jsonlYolu), Number.isInteger(tamBalon) ? { tamIndex: tamBalon } : {});
       jsonYaz(res, 200, {
         olcumAniISO: new Date().toISOString(), // OLCUM ANI etiketi: snapshot'ı canlı gösterme kuralı
         ajan, oturumId, dosyaBoyutBayt: st.size, balonlar,

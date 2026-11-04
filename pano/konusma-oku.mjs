@@ -86,17 +86,22 @@ export function balonTavan(metin, tavan = METIN_TAVAN) {
 
 // Kuyruk satırları → son TUR_TAVAN balon (metin tavanı uygulanmış). Kronoloji
 // KORUNUR (dizi sırası aynen); konuşma satırı hiç yoksa boş dizi (dürüst).
+// secenekler.tamIndex (GÖRÜNÜM dalgası 2026-11-04; operatör emri «devamı diyelim
+// tıklayınca açılsın»): SONUÇ dizisinde o İNDEKSLİ balona tavan UYGULANMAZ — TAM
+// metin döner (yalnız o balon; sayfa ağırlaşmaz). Aralık dışı/bilinmeyen → etkisiz
+// (tüm balonlar tavanlı — fail-closed).
 export function transcriptHazirla(satirlar, secenekler = {}) {
   const metinTavani = secenekler && typeof secenekler.metinTavan === "number" && secenekler.metinTavan > 0 ? secenekler.metinTavan : METIN_TAVAN;
   const turTavani = secenekler && typeof secenekler.turTavani === "number" && secenekler.turTavani > 0 ? secenekler.turTavani : TUR_TAVAN;
+  const tamIndex = secenekler && Number.isInteger(secenekler.tamIndex) ? secenekler.tamIndex : -1;
   const ham = [];
   const liste = Array.isArray(satirlar) ? satirlar : [];
   for (const s of liste) {
     const b = satirdanBalon(s);
     if (b) ham.push(b);
   }
-  return ham.slice(-turTavani).map((b) => {
-    const t = balonTavan(b.metin, metinTavani);
+  return ham.slice(-turTavani).map((b, i) => {
+    const t = i === tamIndex ? { metin: b.metin, kesildi: false } : balonTavan(b.metin, metinTavani);
     return { rol: b.rol, metin: t.metin, kesildi: t.kesildi };
   });
 }
