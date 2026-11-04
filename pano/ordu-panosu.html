@@ -40,7 +40,7 @@
      FAZ-P (TASARIM-MANIFESTOSU REVİZYONU 2026-11-04 — §1/§2/§2a/§4):
      kompakt-okunaklı ölçek (baz ~13px; chat balonu 15px aynen) · EKONOMİK
      minimal ritim (iç içe kutu katmanı azaltıldı — chatListe FLAT) · KOLON
-     DOKTRİNİ: SAĞ sekmeli EN GENİŞ (560; 320-760) · chat balon genişlik
+     DOKTRİNİ: SAĞ sekmeli EN GENİŞ (620 FAZ-T; 320-760) · chat balon genişlik
      tavanı ~660px (DAR görünüm) · yumuşak radius + pill menü + yuvarlak
      composer. DAVRANIŞ AYNEN (FAZ-O mekanizmaları — görünüm dalgası).
      ===================================================================== */
@@ -49,7 +49,7 @@
     --camgobegi:#0f4c81; --basari:#047857; --uyari:#b45309; --tehlike:#dc2626;
     --metin:#1a2332; --ikincil:#51617a; --cizgi:#e2e8f0; --glow:rgba(15,76,129,0.18);
     --radius:10px; --radius-k:8px; --radius-cip:6px; --min-dokunma:44px; /* FAZ-P REVİZYON 2026-11-04 (§4): yumuşak/uyumlu radius — modern dil */
-    --solW:240px; --sagW:560px; /* FAZ-P §2a KOLON DOKTRİNİ: SAĞ (sekmeli) EN GENİŞ ~560 · SOL ağaç kompakt AYNEN */
+    --solW:240px; --sagW:620px; /* FAZ-P §2a KOLON DOKTRİNİ + FAZ-T (kullanıcı «chat paneli biraz daha daralt» 2026-11-04): SAĞ EN GENİŞ ~620 (eski 560) · SOL ağaç kompakt AYNEN */
     --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
   }
   * { box-sizing:border-box; margin:0; font:inherit; }
@@ -133,17 +133,29 @@
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
 
   /* =====================================================================
-     ORTA: SEKMELİ KABUK (kapsul-tuval sekme deseni) —
-     ANA şeridi: ORDU sekmesi SABİT + proje sekmeleri (X ile kapanır).
-     PANEL-SIFIR-1: alt sekme şeridi + TÜM panel yüzleri SÖKÜLDÜ; gövde
-     DÜRÜST BOŞ (tek ince satır — sahte kart/«yakında» YASAK E3).
+     ANA SEKME ŞERİDİ — FAZ-T (kullanıcı «artık sekme görünümü yerine sayfa
+     üstünde butonlar minimal modern tıklayınca altı dinamik değişecek iki
+     yada 3 satır olabilir bu sayede sağa kaydırma sorunu kalmaz ... aynı
+     şekilde sağdaki panelide vscode sekme görünümü iptal edip sayfa en tepede
+     yan yana dizilen buton kuru görünümlerine geçiyoruz» 2026-11-04): şerit
+     #sag'dan ÇIKIP <main>'den ÖNCE (body flex-column ilk görünür öğesi —
+     «sayfa en tepesi») yaşar; YATAY KAYDIRMA ÖLDÜ (flex-wrap:wrap — butonlar
+     2-3 satıra DOĞAL sarar, yapay satır sınırı YOK); FAZ-S VSCode editör-sekme
+     dili DEVROLÜNDÜ (aktif üst vurgu + gövdeye bağlanan görünüm + şerit kutusu
+     SÖKÜLDÜ — görünüm BUTONDA: pasif kuru kenarlı, aktif petrol kenar). Tek
+     şerit HEM chat kolonunu (oturum sekmesi → transcript) HEM sağ gövdeyi
+     (ORDU/proje grafı) yönetir — «hem chat hem sağ panel» tek yüzeyden.
+     ORDU sabit + proje/oturum sekmeleri X ile kapanır (FAZ-O EK-2 AYNEN).
      ===================================================================== */
   #anaSekmeSerit {
-    display:flex; align-items:stretch; gap:0; overflow-x:auto; flex:none;
-    background:var(--yuzey2); border:1px solid var(--cizgi); border-top:1px solid var(--cizgi); border-bottom:0;
-    border-radius:0; padding:4px 4px 0;
+    display:flex; flex-wrap:wrap; align-items:center; gap:4px; flex:none;
+    width:100%; max-width:1760px; margin:0 auto; padding:10px 10px 0; /* main ile genişlik hizası */
   }
-  .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; }
+  /* FAZ-T kuru buton çipi: sekme+× ikilisi TEK görsel birim — satır kırılımında bölünmez */
+  .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; border:1px solid var(--cizgi); border-radius:var(--radius-cip); overflow:hidden; }
+  .anaSekmeGrup:has(.sekme.aktif) { border-color:var(--camgobegi); }
+  .anaSekmeGrup .sekme { border:0; border-radius:0; }
+  .anaSekmeGrup .sekmeKapat { border-left:1px solid var(--cizgi); border-radius:0; }
   /* ---- (FAZ-D) ANA ŞERİT PROJE SEKMELERİ: DAR aile + taşma emniyeti ----
      K-0061 üç-katman: CSS max-width/clip + JS kisalt(ad,14) + title TAM ad.
      Not: text-overflow flex kapsayıcıda glif basmaz (tarayıcı semantiği) — CSS
@@ -152,15 +164,14 @@
   .anaSekmeGrup .sekme { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
   .sekme {
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
-    min-height:34px; border:1px solid transparent; border-bottom:0;
-    border-radius:0; /* FAZ-S: VSCode editör-sekme dili — düz köşe (eski üst-radius söküldü); aktif sekme üst kenar vurgusu + gövde zeminine BAĞLANAN görünüm */
+    min-height:32px; border:1px solid var(--cizgi);
+    border-radius:var(--radius-cip); /* FAZ-T: KURU buton dili — eski düz-köşe sekme + gövdeye bağlanma SÖKÜLDÜ */
     background:transparent; color:var(--ikincil); font-size:13px; font-weight:600; /* FAZ-P §1: baz 13px (eski 15px) */
     white-space:nowrap; position:relative; cursor:pointer;
     transition:color 160ms ease, background 160ms ease; /* E12: yalnız renk */
   }
-  .sekme:not(.aktif):hover { color:var(--metin); background:var(--yuzey3); }
-  .sekme.aktif { background:var(--yuzey); color:var(--metin); border-color:var(--cizgi); font-weight:700; }
-  .sekme.aktif::after { content:""; position:absolute; left:8px; right:8px; top:0; height:2px; border-radius:0 0 3px 3px; background:var(--camgobegi); }
+  .sekme:not(.aktif):hover { color:var(--metin); background:var(--yuzey2); }
+  .sekme.aktif { background:var(--yuzey2); color:var(--metin); border-color:var(--camgobegi); font-weight:700; }
   .sekme:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-2px; }
   #sekmeGovde {
     flex:1 1 auto; min-height:0; overflow-y:auto; position:relative;
@@ -529,6 +540,25 @@
 </head>
 <body>
 
+  <!-- ============ FAZ-T ANA SEKME ŞERİDİ — SAYFA TEPESİ (kullanıcı «artık sekme
+       görünümü yerine sayfa üstünde butonlar minimal modern tıklayınca altı
+       dinamil değişecek iki yada 3 satır olabilir bu sayede sağa kaydırma sorunu
+       kalmaz» 2026-11-04): #sag'dan ÇIKIP <main>'den ÖNCE (body flex-column ilk
+       görünür öğesi). Tek şerit HEM chat kolonunu (oturum sekmesi → transcript)
+       HEM sağ gövdeyi (ORDU/proje grafı) yönetir — «hem chat hem sağ panel bu
+       şekilde olacak». Kimlik/rol/DAVRANIŞ AYNEN: $() kimlik bazlı — DOM konumu
+       bağımsız çalışır; anaSekmeYaz + click delegation + sekmeAc/sekmeKapat
+       DOKUNULMAZ. Butonlar flex-wrap:wrap ile 2-3 satıra DOĞAL sarar (yatay
+       kaydırma ÖLDÜ). ORDU sekmesi SABİT (kapatılamaz) + proje sekmeleri (X ile
+       kapanır — ağaçtan tıklayınca açılır; FAZ-D DAR tedbiri aynen) + OTURUM
+       sekmeleri (FAZ-O EK-2: data-ana = "oturum:" + ajan kimliği; mükerrer yok).
+       Gövde: seçili sekmenin içeriği — ORDU sekmesinde TAM görev grafı; proje
+       sekmesinde graf SSOT dürüst filtre (eşleşme yoksa DÜRÜST BOŞ — sahte graf
+       YASAK E10); OTURUM sekmesinde DÜRÜST oturum kartı. -->
+  <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, proje ve oturum sekmeleri X ile kapanır">
+    <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
+  </div>
+
 <main id="icerik">
 
   <!-- ============ SOL (#sol): GEZGİN — PANEL-SIFIR-1 kabuğu: TEK SEVİYE akordiyon.
@@ -649,26 +679,22 @@
   </section>
 
   <!-- STEERING-9: sağ panel genişlik tutamacı (sürükle veya ok tuşları: ← daralt · → genişlet) -->
-  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="560" tabindex="0"></div>
+  <div class="splitter" id="splitSag" role="separator" aria-label="sağ panel genişliği" aria-orientation="vertical" aria-valuenow="620" tabindex="0"></div>
 
-  <!-- ============ SAĞ (#sag): SEKMELİ BÖLÜM — PANEL-SIFIR-1 kabuğu (FAZ-O EK-3 kolon
+  <!-- ============ SAĞ (#sag): GÖVDE — PANEL-SIFIR-1 kabuğu (FAZ-O EK-3 kolon
        takası 2026-11-04: sekmeli kabuk eski ORTA'dan SAĞ'a taşındı; mantık AYNEN).
        Kullanıcı tarifi 2026-11-03 «orta sekmeli yapı ile boş şuan» + STEER «ortada
-       (şimdi sağda) ise o projeye ait task grafı yer alacak». Ana sekme şeridi:
-       ORDU sekmesi SABİT (kapatılamaz) + açık proje sekmeleri (X ile kapanır —
-       ağaçtan tıklayınca açılır; FAZ-D DAR tedbiri aynen) + OTURUM sekmeleri
-       (FAZ-O EK-2: ağaçta oturum satırına tıkla → sekme AÇILIR/AKTİF olur; X ile
-       kapanır; mükerrer açılmaz — kimlik uzayı AYRI: data-ana = "oturum:" + ajan
-       kimliği). Gövde: seçili sekmenin içeriği — ORDU sekmesinde TAM görev grafı
-       (KRİTİK YOL + faz dalgaları + ORDU CEPHESİ); proje sekmesinde graf SSOT görev
-       dizin alanına göre dürüst filtre — eşleşme yoksa DÜRÜST BOŞ + not (sahte graf
-       YASAK E10); OTURUM sekmesinde DÜRÜST oturum kartı (P taramasının gerçek
-       alanları — uydurma YOK). -->
-  <section id="sag" aria-label="sağ sütun — sekmeli yapı: ORDU, proje ve oturum sekmeleri">
-    <h2 class="gizli">Sağ sütun — ana sekmeler: ORDU + projeler + oturum sekmeleri</h2>
-    <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, proje ve oturum sekmeleri X ile kapanır">
-      <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
-    </div>
+       (şimdi sağda) ise o projeye ait task grafı yer alacak».
+       FAZ-T (2026-11-04): ana sekme ŞERİDİ bu kolondan ÇIKIP sayfa tepesine
+       taşındı («vscode sekme görünümü iptal edip sayfa en tepede yan yana
+       dizilen buton kuru görünümlerine geçiyoruz») — #sag artık YALNIZ gövde:
+       seçili sekmenin içeriği (ORDU = TAM görev grafı KRİTİK YOL + faz dalgaları
+       + ORDU CEPHESİ; proje sekmesi = graf SSOT görev dizin alanına göre dürüst
+       filtre — eşleşme yoksa DÜRÜST BOŞ + not, sahte graf YASAK E10; OTURUM
+       sekmesi = DÜRÜST oturum kartı, P taramasının gerçek alanları — uydurma
+       YOK). Kapanış zinciri + sekme davranışı JS'te AYNEN. -->
+  <section id="sag" aria-label="sağ sütun — sekme gövdesi: seçili ORDU, proje veya oturum içeriği (sekmeler sayfa tepesinde)">
+    <h2 class="gizli">Sağ sütun — sekme gövdesi: ORDU görev grafı, proje grafları ve oturum kartları</h2>
     <div id="sekmeGovde">
       <div id="grafHata" class="kirmiziYuz" role="alert" hidden></div>
       <section class="sekmePanel acik" id="grafPanel" role="tabpanel" aria-label="sekmeli bölüm gövdesi — seçili sekmenin içeriği">
@@ -693,7 +719,8 @@
 // sekmeleri — görev grafı dalga görünümü /api/graf SSOT'tan; ORDU sekmesi tam
 // graf, proje sekmeleri dizin alanına göre dürüst filtre; FAZ-O EK-2 oturum
 // sekmeleri — dürüst oturum kartı, FAZ-S VSCode editör-sekme restyle; ağaç →
-// sekme → chat dolaylı yolu).
+// sekme → chat dolaylı yolu. FAZ-T: sekme şeridi SAYFA TEPESİNE çıktı (buton
+// satırları — flex-wrap sarar, yatay kaydırma ÖLDÜ; $() kimlik bazlı — JS hunk 0).
 // Üst bar + alt sekme şeridi + plan tabloları + akış + sağlık + durum kartları
 // + log yüzleri SÖKÜLDÜ; fetch çağrıları daraltıldı: kalan uçlar
 // /api/ordu/projeler (ağaç + composer) + /api/ordu/kadro (composer ORDU
@@ -1875,9 +1902,10 @@ function anaSekmeDegistir(id) {
 /* ---- STEERING-9 (b): SPLITTER ×2 — kapsul-tuval.html ADIM-C deseninin KOPYASI
    (pointer events + klavye ←/→ ±16px + taraf-bazlı clamp + aria-valuenow).
    FAZ-P §2a KOLON DOKTRİNİ (REVİZYON 2026-11-04): sol 240 (200-360) AYNEN ·
-   sağ 560 (320-760) — SAĞ (sekmeli) EN GENİŞ. localStorage anahtarları
+   sağ 620 (320-760; FAZ-T «chat paneli biraz daha daralt» 2026-11-04 — eski
+   560) — SAĞ (sekmeli) EN GENİŞ. localStorage anahtarları
    «ordu-solW2» / «ordu-sagW2» (FAZ-P anahtar sürümü — eski «ordu-solW»/
-   «ordu-sagW» kayıtları OKUNMAZ: eski 320'lik kayıt yeni 560 ölçeğini ezmez;
+   «ordu-sagW» kayıtları OKUNMAZ: eski 320'lik kayıt yeni ölçeği ezmez;
    tuvalin anahtarlarından da AYRI). Kayıtlı kullanıcı değeri ÖNCELİKLİDİR
    (media 900-1279 daraltması yalnız kayıt yokken). Mekanizma AYNEN. ---- */
 function kaydet(anahtar, deger) { try { localStorage.setItem(anahtar, deger); } catch (e) { /* gizli mod: sessiz */ } }
@@ -1905,7 +1933,7 @@ function splitterKur(id, taraf) {
     kolon.classList.add("aktif");
     basX = e.clientX;
     const kok = getComputedStyle(document.documentElement);
-    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 560);
+    basGenis = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 620);
     kolon.addEventListener("pointermove", hareket);
   });
   const bitis = () => {
@@ -1922,7 +1950,7 @@ function splitterKur(id, taraf) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
     const kok = getComputedStyle(document.documentElement);
-    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 560);
+    const simdi = parseInt(kok.getPropertyValue(taraf === "sol" ? "--solW" : "--sagW"), 10) || (taraf === "sol" ? 240 : 620);
     const w = genislikKenetle(taraf, simdi + (e.key === "ArrowLeft" ? -16 : 16));
     genislikUygula(taraf, w);
     kaydet("ordu-" + taraf + "W2", String(w));
@@ -1957,7 +1985,7 @@ function kolonlariYerlestir() {
   kok.style.removeProperty("--sagW");
   const st = getComputedStyle(kok);
   let sol = parseInt(st.getPropertyValue("--solW"), 10) || 240;
-  let sag = parseInt(st.getPropertyValue("--sagW"), 10) || 560;
+  let sag = parseInt(st.getPropertyValue("--sagW"), 10) || 620;
   const kSol = parseInt(oku("ordu-solW2"), 10); /* (ii) kullanıcı kaydı öncelikli (clamp'li) */
   if (isFinite(kSol) && kSol >= KENAR.sol.min) sol = genislikKenetle("sol", kSol);
   const kSag = parseInt(oku("ordu-sagW2"), 10);

@@ -1,0 +1,52 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-T-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-T — sekme şeridi SAYFA TEPESİNE taşındı (flex-wrap:wrap buton satırları — yatay kaydırma ÖLDÜ) + KURU buton dili (FAZ-S VSCode sekme dili devrildi; grup çipi :has ile CSS-only) + --sagW 560→620 (chat daraltma); DAVRANIŞ hunk 0 (JS yalnız 3 fallback sabiti brief emriyle)",
+  "tarihISO": "2026-11-04T13:38:00+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-T",
+  "kullaniciSpec": [
+    "chat paneli biraz daha daralt ve artık sekme görünümü yerine sayfa üstünde butonlar minimal modern tıklayınca altı dinamil değişecek iki yada 3 satır olabilir bu sayede sağa kaydırma sorunu kalmaz aaynı zamanda vscode sekmesi kapanabililide .. aynı şekilde sağdaki panelide vscode sekme görünümü iptal edip sayfa en tepede yan yana dfizilen buton kuru görünümlerine geçiyoruz çalışma şekli aynı ..hem chat hem sağ panel bu şekidle olacak ..."
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "(A) #anaSekmeSerit (ORDU statik butonuyla) #sag'dan <main'den ÖNCE taşındı (body ilk görünür öğesi; kimlik/role AYNEN — $() kimlik bazlı); #sag aria+h2 gövde gerçeğine güncellendi + FAZ-T yorumları. (B) overflow-x:auto SÖKÜLDÜ → flex-wrap:wrap + gap:4px (DOĞAL sarma; .anaSekmeGrup ATOMİK bölünmez); serit main hizası 100%/1760/auto + padding 10px 10px 0 + ÇIPLAK ZEMİN. (C) KURU BUTON: ::after üst vurgu + gövdeye bağlanma + şerit kutusu SÖKÜLDÜ; pasif 1px cizgi + radius-cip + 32px; aktif camgobegi kenar + yuzey2 + 700; hover yuzey2; grup çipi (kenar + :has(.aktif) camgobegi + iç sekme kenarsız + kapat sol ayracı). sekmeKapat SVG × 28+6=40 AYNEN. (D) --sagW 620 (:root + aria + 3 JS fallback + yorum; media 420 + KENAR AYNEN; kolonlariYerlestir mantığı DOKUNULMADI). (E) anaSekmeYaz/delegation/sekmeAc/anaSekmeDegistir DOKUNULMADI — JS'te değişen yalnız 3 sabit + 2 yorum. Mobil yeni kural GEREKMEDİ. server.js/birlesim/konusma-oku hunk 0." },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51y YENİ (10 pin: konum <main id=icerik uzun literal — kısa <main FAZ-T yorumuna takılıyordu · overflow-x yalnız özellik-atama dilimi bazlı · flex-wrap · serit hiza/çıplak zemin · kuru buton değerleri · grup çip :has · 620 ailesi ×4 + media + KENAR + 56vh · JS hunk 0 SVG ×/delegation/40px · değişmezler) + 9 dürüst pin güncellemesi (satır no'lu: 75/197/214/247/249/256/1536/1539/1734/1794 — 34px 3 kopya dahil); pano 72→73, tam kapı 310→311" }
+  ],
+  "etiket": ["panel", "faz-t", "sayfa-tepe-serit", "flex-wrap", "yatay-kaydirma-olumu", "kuru-buton", "grup-cip", "has-secici", "sagw-620", "chat-daraltma", "js-hunk-0"],
+  "kanit": {
+    "nodeTestPano": { "tests": 73, "pass": 73, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazt-t3.txt", "kosumNotu": "3 koşum: t1 3 kırık blok (konum pini <main yorum tuzağı + 4×34px + hover yuzey3) → t2 72/72 → t3 51y eklenince 73/73 ilk denemede" },
+    "tamKapiAcikGlob": { "tests": 311, "pass": 311, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazt-tam.txt + %TEMP%\\fazt-tam-exit.txt", "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs" },
+    "sozdizimi": "node --check test + vm.Script html script SYNTAX_OK",
+    "hijyen": "x-pano-token 2 · CHAT_TAVAN 2 · maxlength 4096 · ordu-agac-secili 6 · @keyframes 1 · box-shadow 1 (=baseline) · webfont 0 · dış URL 0 (w3.org hariç) · U+FFFD 0 · emoji 0 · pano-token 11 (=FAZ-S baseline) · YENİ renk-token 0",
+    "diffDenetimi": "2 dosya 111+/56−; 16 hunk: CSS 5 + HTML 4 + JS 5 (yalnız 3 sabit fallback 560→620 + 2 yorum — değişen satırlarda function/const/let/if(/addEventListener 0); server.js/birlesim/konusma-oku hunk 0",
+    "locDelta": "K-0062: html 2030→2058 (+28, %91.9 doluluk — %90 EŞİĞİ AŞILDI) · test 2721→2748 (+27, %91.6) · net +55 (<+200); koordinatör brifinde daraltma adayı UYARISI beklenir",
+    "dokunulmayan": ["pano/server.js", "pano/konusma-oku.mjs", "pano/ordu-birlesim.mjs", "d1a/d1b", "CODEMAP", "STATE_BOARD"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: RESTART GEREKMEZ (html statik; server.js hunk 0 — tarayıcı yenilemesi yeter); canlı DOM: serit sayfa tepesinde + buton sarma (çok sekmeyle 2-3 satır) + tıklama altı dinamik + × kapatma + --sagW 620 kolon ölçümü + dar 1024 + mobil + ekran kanıtı + islenme + CODEMAP + tek elden commit. LOC %90 uyarısı brifine.",
+  "bilincliKararlar": [
+    "TEK şerit (brief yorumlama notu): «hem chat hem sağ panel» mevcut #anaSekmeSerit yüzeyinden — iki ayrı şerit istenirse sonraki dalga",
+    "yapay satır sınırı YOK — flex-wrap DOĞAL sarma; .anaSekmeGrup (sekme+×) satır kırılımında BÖLÜNMEZ (inline-flex atomik)",
+    ":has(.sekme.aktif) grup aktif kenarı CSS-only — JS sınıf yönetimi eklemedim (hunk 0 hedefi); Chrome 105+ panelde sorunsuz",
+    "şerit ÇIPLAK ZEMİN (kutu/background SÖKÜLDÜ) — görsel ağırlık butonda (kullanıcı «kuru görünümler»)",
+    "hover yuzey2 = aktif yuzey2 — ayrım kenar (cizgi→camgobegi) + font-weight (600→700); kuru dilde ikinci zemin katmanı YOK",
+    "min-height 34→32px kuru buton ölçeği (§5 ≥26px bandında)",
+    "--sagW 620: 240+620+280+24=1164 ≤ 1260 sığar; KENAR 320-760 + media 420 AYNEN; kolonlariYerlestir mantığı DOKUNULMADI",
+    "mobil YENİ kural GEREKMEDİ (serit padding main mobil padding ile uyumlu — brief'in «yalnız gerekiyorsa» koşulu gerçekleşmedi)",
+    "JS'te 3 fallback sabiti 560→620 brief D paketinin açık listesi (mantık hunk 0)"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı PNG (koordinatör — restart GEREKMEZ, tarayıcı yenilemesi yeter)",
+    "K2 görsel kabul (kullanıcıda)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 13:52 +03:00): (1) bağımsız tam kapı 311/311 EXIT=0 (%TEMP%\\fazt-koordinator.txt + gerçek çıkış kodu ayrı dosyadan). (2) Diff 11 hunk: JS yalnız 560→620 fallback sabitleri + yorumlar (anahtar-sözcük taraması: değişen satırlarda yalnız 2 const/let fallback — brief D paketi listesi); server.js/birlesim/konusma-oku hunk 0. (3) CANLI DOM 1280×800 (restart GEREKMEDİ): TAŞIMA — serit y=0 tam genişlik 1280, main'den ÖNCE, #sag'da DEĞİL, maxW 1760, çıplak zemin (bg transparent + border 0). KURU BUTON — pasif grup kenarı cizgi rgb(226,232,240) · aktif grup kenarı camgobegi rgb(15,76,129) (:has CANLI) · aktif iç sekme yuzey2 + 700 · 32px · radius 6. SARMA — 12 farklı proje sekmesi (sıralı yeniden-sorgulu tıklama; ilk deneme 12 tık 1 sekme — ağaç her tıklamada agacYaz yeniden render, kopuk düğümler): serit 14 çocuk · 2 SATIR (y=10/56, h=97) · yatay taşma YOK (serit + sayfa) · gruplar atomik. × KAPANMA 13→12 + zincir · ORDU kapatılamaz. CHAT DARALTMA — varsayılan (kayıt-sil-ölç-geri-koy): #sag 620 + kok 620px + aria 620 + #orta 388 (eski 448, ~60px dar) + tercihler resize'ta 324/323 geri döndü (orta 601). MOBİL 390×844: serit en tepede wrap 375 · yatay taşma yok · chatListe 473=56vh iç scroll · composer ekranda y=582 · body auto. TRANSCRIPT 30 balon oturum sekmesiyle yüklendi. (4) Hijyen: emoji 0 · FFFD 0 · dış URL 0 · :has() 1 · keyframes 1 · boxShadow 1 · pano-token 11 · xpano 2 · ml 4096 · chatTavan 2 · agacSecili 6 · yeni token 0. (5) PNG ekran-kanit-fazt-buton-satirlari-2026-11-04.png 164.099 bayt 1600×1000 (@1.25), imza+IHDR doğrulandı; K2 KULLANICIDA. (6) Yazıcı dürüst notları kabul (3 koşum; kopuk-düğme tuzağını koordinatör canlıda yeniden yakaladı). (7) LOC DELTA K-0062: html 2058/2240 %91,9 · test 2748/3000 %91,6 — %90 AŞILDI; pano/ toplam @Count 17.239/18.000 %95,8 (FAZ-S'in 16.528'i Measure-Object ölçümüydü — @Count yöntemiyle FAZ-S gerçek 17.184; K-0062'ye tarihli düzeltme işlendi) — DARALTMA ADAYI: pano/ prototip yüzleri (~5.451 satır: kapsul-tuval.html 2870 + deney-panel 1134 + deney-server 810 + orkestra 307 + mockup 330 — testleri canlı, arşiv dalga ister) + yorum ölü-kilometre sıkıştırma; net +55 (<+200). (8) Tek elden commit bu kapanışta (CODEMAP dahil)."
+}
