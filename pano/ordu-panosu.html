@@ -1721,6 +1721,25 @@ async function transcriptTamAc(indeks) {
   }
 }
 
+/* ---- TRANSCRIPT-CANLI (2026-11-04; operatör acil akışı «senin yanıtların bana gelmiyor»
+     / «neden yanıtların ordu paneline gelmiyor»): 30 sn yoklama turu seçili konuşmanın
+     transcriptini SESSİZ tazeler — yanıtlar tıklama beklemeden akar. Sessiz: 'yükleniyor'
+     satırı YOK (liste titremez); ağ hatasında ESKİ balonlar KALIR (boşa düşürme YOK —
+     dürüst); hiç yüklenmemiş konuşmaya dokunma (açılış kilidi + tıklama yolu aynen).
+     TAM açılmış balon tazelende tavana döner (veri taze — dürüst; devamı yine tıklanır). ---- */
+async function transcriptTazele() {
+  const ajan = seciliKonusma ? seciliKonusma.ajan : null;
+  if (!ajan || !Array.isArray(transcriptBalonlar)) return; /* seçim yok / yüklenmedi — dokunma */
+  try {
+    const v = await cek("/api/ordu/konusma?ajan=" + encodeURIComponent(ajan.ajanKimligi));
+    if (Array.isArray(v.balonlar)) {
+      tamHataIndex = -1;
+      transcriptBalonlar = v.balonlar;
+      chatMesajYaz();
+    }
+  } catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }
+}
+
 /* ---- COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü
      K-0060 YÜRÜRLÜKTE). PANEL-CHAT-1: gönderim mesaj girişi olarak listeye DÜŞER; sonuç
      ince satırda (gönderildi/hata). FAZ-O: token YALNIZ localStorage'dan (pano-token —
@@ -2312,7 +2331,9 @@ async function hepsiniYukle() {
   if (document.hidden) return; /* FAZ-P EK (3): görünmez sekme yoklama turu atlanır */
   yoklamaUcusta = true;
   try {
-    await Promise.all([kadroYukle(), projelerYukle(), grafYukle()]);
+    /* TRANSCRIPT-CANLI (2026-11-04): seçili konuşma varsa transcript de tazelenir
+       (sessiz — hata döngüyü KIRMAZ: kendi catch'i yutar; eski balonlar kalır). */
+    await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()]);
   } finally {
     yoklamaUcusta = false;
   }

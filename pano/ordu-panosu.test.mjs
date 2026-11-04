@@ -145,7 +145,7 @@ test("5- 30 sn yenileme + uc sabitleri DARALTIILDI (PANEL-SIFIR-1: kalan uç kad
   for (const u of ["/api/ordu/genel", "/api/ordu/akis", "/api/ordu/saglik", "/api/ordu/log"]) {
     ok("sökülen uç KALINTISI YOK (UI çağrı kodu): " + u, !jsKisim().includes('"' + u + '"'));
   }
-  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle()])"));
+  ok("hepsiniYukle kalan uçlara daraltıldı (FAZ-P EK: async + Promise.all — uçlar paralel; satır ~148 bilinçli; TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — seçili konuşma yoklamayla tazelenir, salt-okur)", jsKisim().includes("async function hepsiniYukle() {") && jsKisim().includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])"));
   ok("sökülen yükleyici fonksiyonlar KALINTI YOK (genelYukle/planYukle/akisYukle/saglikYukle/logYukle)", !jsKisim().includes("function genelYukle(") && !jsKisim().includes("function planYukle(") && !jsKisim().includes("function akisYukle(") && !jsKisim().includes("function saglikYukle(") && !jsKisim().includes("function logYukle("));
   ok("tek YAZMA ucu POST /api/mesaj KALIR (composer)", jsKisim().includes('"/api/mesaj"') && jsKisim().includes('method: "POST"'));
 });
@@ -2099,6 +2099,7 @@ test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → trans
   ok("fetch: GET /api/ordu/konusma?ajan= + encodeURIComponent(TAM kimlik)", j.includes('"/api/ordu/konusma?ajan=" + encodeURIComponent(ajanKimligi)'));
   ok("fonksiyonlar: async transcriptYukle + transcriptBalonHtml (yeni özellik = ince kanca — composer POST aynen)", j.includes("async function transcriptYukle(") && j.includes("function transcriptBalonHtml("));
   ok("GÖRÜNÜM dalgası: async transcriptTamAc + chatListe delegation dinleyicisi (devamı düğmesi innerHTML yeniden yazımında dinleyici kalır) + tamBalon=1 sorgu", j.includes("async function transcriptTamAc(") && j.includes('$("chatListe").addEventListener("click"') && j.includes('.closest(".chatDevam")') && j.includes('"&tamBalon=" + indeks'));
+  ok("TRANSCRIPT-CANLI (operatör «senin yanıtların bana gelmiyor» 2026-11-04): async transcriptTazele + yoklama döngüsü Promise.all'ında çağrılır + SESSİZ (ağ hatası eski balonları korur — döngü kırılmaz) + yüklenmemiş konuşmaya dokunmaz (return guard)", j.includes("async function transcriptTazele(") && j.includes("Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])") && j.includes("if (!ajan || !Array.isArray(transcriptBalonlar)) return;") && j.includes("catch { /* sessiz: eski görünüm kalır (dürüst — yoklama turu kırılmaz) */ }"));
   ok("state: transcriptBalonlar/transcriptHata null + transcriptAcilisIstendi kilidi (null=yüklenmedi, []=dürüst boş)", j.includes("let transcriptBalonlar = null") && j.includes("let transcriptHata = null") && j.includes("let transcriptAcilisIstendi = false"));
   ok("ağaç tıklaması: konusmaSecGuncelle(true) ardından transcriptYukle(agacSecili) — oturuma tıkla → yazışmalar yüklenir + composer hedefi O AJANA döner", j.includes("konusmaSecGuncelle(true)") && j.includes("transcriptYukle(agacSecili)"));
   ok("açılış: kalıcı seçim YALNIZ bir kez yükler (transcriptAcilisIstendi = true — 30sn yenileme döngüsü tekrar fetch ETMEZ)", j.includes("transcriptAcilisIstendi = true"));
@@ -2125,7 +2126,7 @@ test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → trans
     oturumMesajlari: [], transcriptBalonlar: null, transcriptHata: null, tamHataIndex: -1,
     cek,
   };
-  const fns = vm.runInNewContext(HTML.slice(dilimA, dilimB) + "\n[chatMesajHtml, chatMesajYaz, transcriptBalonHtml, transcriptYukle, transcriptTamAc]", ctx);
+  const fns = vm.runInNewContext(HTML.slice(dilimA, dilimB) + "\n[chatMesajHtml, chatMesajYaz, transcriptBalonHtml, transcriptYukle, transcriptTamAc, transcriptTazele]", ctx);
   /* (2a) transcriptBalonHtml: kullanıcı SAĞ / ajan SOL / esc / saat YOK / kesildi */
   const bu1 = fns[2]({ rol: "user", metin: "merhaba <b>agent</b>" });
   ok("vm balon: kullanıcı mesajı SAĞ balon (chat-kullanici) + 'kullanıcı' etiketi + esc", bu1.includes('chatMesaj chat-kullanici') && bu1.includes(">kullanıcı<") && bu1.includes("&lt;b&gt;agent&lt;/b&gt;") && !bu1.includes("<b>"));
@@ -2189,9 +2190,28 @@ test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → trans
   cekDavranis = async () => { throw new Error("ag yok"); };
   await fns[4](1);
   ok("vm devamı: ağ hatası → buton yerinde (tekrar denenebilir — ölü buton YOK) + hata notu", $r("chatListe").innerHTML.includes("devamı alınamadı") && $r("chatListe").innerHTML.includes('class="chatDevam"'));
+  /* --- TRANSCRIPT-CANLI vm: sessiz tazeleme (operatör «yanıtların bana gelmiyor») --- */
+  anlikListe = "";
+  cekDavranis = async () => ({ balonlar: [
+    { rol: "user", metin: "soru" },
+    { rol: "assistant", metin: "taze yanıt 1" },
+    { rol: "assistant", metin: "taze yanıt 2" },
+  ] });
+  await fns[5]();
+  ok("vm CANLI tazeleme: yeni balonlar render + tamHataIndex sıfırlanır (taze veri — dürüst)", ctx.transcriptBalonlar.length === 3 && ctx.transcriptBalonlar[1].metin === "taze yanıt 1" && ctx.tamHataIndex === -1 && $r("chatListe").innerHTML.includes("taze yanıt 2"));
+  ok("vm CANLI tazeleme SESSİZ: 'yazışmalar yüklenıyor…' satırı BASILMAZ (liste titremez — tıklama yoluyla karışmaz)", !anlikListe.includes("yazışmalar yükleniyor"));
+  const canliTaban = ctx.transcriptBalonlar;
+  cekDavranis = async () => { throw new Error("yoklama ag hatasi"); };
+  await fns[5]();
+  ok("vm CANLI tazeleme hatada SESSİZ: eski balonlar KALIR (boşa düşürme YOK) + hata FIRLATMAZ (döngü kırılmaz)", ctx.transcriptBalonlar === canliTaban);
+  ctx.seciliKonusma = null; /* seçim yok — dokunma guard'ı */
+  const cagrilarCanli = cagrilar.length;
+  await fns[5]();
+  ok("vm CANLI tazeleme: seçim YOK / yüklenmemiş → dokunmaz (fetch YOK — açılış kilidi + tıklama yolu aynen)", cagrilar.length === cagrilarCanli);
+  ctx.seciliKonusma = { ajan: { ajanKimligi: K, ajanId: "kurmay", etiket: "KURMAY-1" } };
   ctx.tamHataIndex = -1;
   /* --- (3) veri katmanı AYNEN: POST /api/mesaj + CHAT_TAVAN + transcript YALNIZ GET (salt-okur) --- */
-  ok("veri katmanı AYNEN: POST /api/mesaj + CHAT_TAVAN 200 — composer gönderim akışı değişmedi; transcript fetch İKİ cek() çağrısı (ilk yükleme + devamı açma — GÖRÜNÜM dalgası; ikisi de salt-okur, method seçeneği YOK)", j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/cek\("\/api\/ordu\/konusma\?ajan="/g) || []).length === 2 && !/konusma\?ajan=[\s\S]{0,60}method/.test(j));
+  ok("veri katmanı AYNEN: POST /api/mesaj + CHAT_TAVAN 200 — composer gönderim akışı değişmedi; transcript fetch UEc cek() çağrısı (ilk yükleme + devamı açma GÖRÜNÜM + canlı tazeleme TRANSCRIPT-CANLI; üçü de salt-okur, method seçeneği YOK)", j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/cek\("\/api\/ordu\/konusma\?ajan="/g) || []).length === 3 && !/konusma\?ajan=[\s\S]{0,60}method/.test(j));
 });
 
 test("51s- PANEL-ANA-1 FAZ-N (kaynak-pin + vm): ağaç ÖLÜ OTURUM FİLTRESİ — klasör altında YALNIZ SON 3 oturum satırı (sonEtkinlikISO en yeni 3; eksik ISO en eski, eşitlikte kimlikle deterministik) + running/error HER ZAMAN görünür (birleşim, mükerrer yok) + başlık sayısı TOPLAM kayıt DÜRÜST KALIR ('+K eski' YOK) + gizli seçim KORUNUR — kullanıcı onayı 2026-11-04 «bu şekilde yap» + «son 2 yada 3 sekme yeterli özellikle aktif sekme gösterilmeli»", () => {
@@ -2519,7 +2539,7 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
   ok("(2) ayni-veri-atlama: SON_YANIT parmak izi uc bazında + 3 uçta aynı-VERİ return + UÇUCU META DIŞLANIR (EK DÜZELTME: projeler pini yeni.projeler + kadro olcumAniISO destructuring + graf TAM yanıt [statik dosya])", j.includes("const SON_YANIT = { kadro: null, projeler: null, graf: null };") && (j.match(/if \(parmak === SON_YANIT\.\w+\) return;/g) || []).length === 3 && j.includes("JSON.stringify(yeni.projeler ?? null)") && j.includes("const { olcumAniISO: _ucucuOlcum, ...kadroVerisi } = yeni;") && j.includes("JSON.stringify(kadroVerisi)") && (j.match(/const parmak = JSON\.stringify\(yeni\);/g) || []).length === 1);
   ok("(3) görünmez sekbe: document.hidden kapısı + visibilitychange dinleyicisi (görünür olunca tur HEMEN)", j.includes("if (document.hidden) return;") && j.includes('document.addEventListener("visibilitychange"'));
   ok("(4) hata-bayat-koruma: yalnız HİÇ yüklenmediyse kırmızı yüz (3 uçta SON_YANIT null koşulu; önceki veri ekranda KALIR)", (j.match(/if \(SON_YANIT\.\w+ === null\)/g) || []).length === 3 && j.includes('kirmiziYuzGoster("agacHata", "agacAlani"'));
-  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
+  ok("hepsiniYukle async + uçlar paralel (Promise.all) + setInterval AYNEN (TRANSCRIPT-CANLI 2026-11-04: diziye transcriptTazele eklendi — 4. ayak sessiz tazeleme)", j.includes("async function hepsiniYukle() {") && j.includes("await Promise.all([kadroYukle(), projelerYukle(), grafYukle(), transcriptTazele()])") && j.includes("setInterval(hepsiniYukle, YENILE_SN * 1000);"));
   ok("kalan uç çağrı ailesi AYNEN (cek ×3 + P/K/G atamaları değişmedi)", (j.match(/await cek\(UC\.\w+\)/g) || []).length === 3);
   /* --- vm: davranış senaryoları --- */
   const declB = HTML.slice(HTML.indexOf("let yoklamaUcusta = false;"), HTML.indexOf("/* STEERING-6"));
@@ -2532,7 +2552,7 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
       cek: cekStub, UC: { kadro: "/api/ordu/kadro", projeler: "/api/ordu/projeler", graf: "/api/graf" },
       odakIcindeMi: () => false, gonderiyor: false, agacSecili: null, seciliKonusma: null, transcriptAcilisIstendi: true,
       P: null, G: null, K: null,
-      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerHedefGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0 },
+      sayac: { agacYaz: 0, konusmaSecGuncelle: 0, transcriptYukle: 0, composerHedefGuncelle: 0, govdeYaz: 0, kirmiziYuzGoster: 0, kirmiziYuzKapat: 0, transcriptTazele: 0 },
       document: { hidden: false, addEventListener: (tip, fn) => { ctx.gorunurlukDinleyici = fn; } },
     };
     ctx.agacYaz = () => { ctx.sayac.agacYaz++; };
@@ -2542,6 +2562,10 @@ test("51v- PANEL-ANA-1 FAZ-P EK (kaynak-pin + vm): yoklama kendini kollar — ku
     ctx.govdeYaz = () => { ctx.sayac.govdeYaz++; };
     ctx.kirmiziYuzGoster = () => { ctx.sayac.kirmiziYuzGoster++; };
     ctx.kirmiziYuzKapat = () => { ctx.sayac.kirmiziYuzKapat++; };
+    /* TRANSCRIPT-CANLI 2026-11-04: hepsiniYukle dizisi 4. ayak olarak transcriptTazele çağırır.
+       Bu VM seciliKonusma:null verir — gerçek fonksiyon seçim yokken DOKUNMAZ (return guard);
+       stub aynı sözleşmeyi taklit eder: fetch YOK, sayaç artar (davranış pini 51r'de gerçek dilimle). */
+    ctx.transcriptTazele = async () => { ctx.sayac.transcriptTazele++; };
     const fns = vm.runInNewContext(parcalar, ctx);
     return { ctx, fns };
   };

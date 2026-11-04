@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "dalga": "transcript-canli",
+  "tarih": "2026-11-04T18:42",
+  "operatoerEmirleri": [
+    "«senin verdiğim bu yanıtları panoda göremiyorum»",
+    "«ordu sekmesinde bu senin yanıtların bana gelmiyor»",
+    "«sadece benim yanıtlarım sana düşüyor»",
+    "«neden yanıtların ordu paneline gelmiyor»",
+    "«ordu panelinden sadece kurmaya emir verebiliyorum kurmayın yanıtları gelmiyor panele»"
+  ],
+  "teshis": { "api": "GET /api/ordu/konusma?ajan=8cc610a4… = 18 balon, son 8'i güncel KURMAY yanıtları — API uçtan-uca ÇALIŞIYOR (ölçüldü 18:15)", "sorun": "UI: transcript yalnız tıklamada/açılışta yükleniyor; 30 sn yenileme döngüsü transcript'i TAZELEMİYORDU" },
+  "cozum": {
+    "fonksiyon": "transcriptTazele: seçili konuşmanın transcriptini SESSİZ tazeler (async; cek /api/ordu/konusma)",
+    "kanca": "hepsiniYukle Promise.all dizisine 4. ayak: [kadro, projeler, graf, transcriptTazele]",
+    "sessiz": "'yükleniyor' satırı YOK (liste titremez) + ağ hatasında ESKİ balonlar KALIR (kendi catch'i yutar — yoklama turu KIRILMAZ)",
+    "guard": "seçim yok / yüklenmemiş konuşmaya dokunma (return) + TAM açılmış balon tazelende tavana döner (dürüst veri tazeliği)"
+  },
+  "kanit": {
+    "testTamKapi": "260 tests / 260 pass / 0 fail / EXIT=0 (261 test değil — 51r içine eklendi + 51v mevcut testlere gömüldü)",
+    "servis": "GET 4937/ordu HTTP 200 · 150.388; transcriptTazele deseni + 4'lü Promise.all SERVİSTE (server.js DEĞİŞMEDİ → restart YOK, sayfa reload yeterli)",
+    "canliDom": "YAPILAMADI — browser host bağlı değil (dürüst eksik; davranış VM + izole uç testleriyle ölçüldü)"
+  },
+  "vmSenaryolari": ["3-balon canlı yanıt → tazele: balonlar değişir + 'taze yanıt 2' render + tamHataIndex -1 + SESSİZ ('yazışmalar yükleniyor' YOK)", "ağ hatası → ESKİ balonlar KALIR (referans eşitliği)", "seçiliKonusma null → fetch YOK (guard)"],
+  "loc": { "oncesi": 11432, "sonrasi": 11477, "delta": 45, "doluluk": "%63,6" },
+  "bekleyen": ["COMPOSER (hedef seçici kaldır + kurmay/manager iki mod + izolasyon SSOT)", "K-0065 Dalga B", "K7 push (birikim 70)"]
+}
