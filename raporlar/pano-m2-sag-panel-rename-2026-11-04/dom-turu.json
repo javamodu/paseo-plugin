@@ -1,0 +1,34 @@
+{
+  "schemaSurum": 1,
+  "ek": "yuzey-turu-dom-katmani",
+  "tarih": "2026-11-04T23:29-23:31 (ölçüldü)",
+  "operatoerEmri": "«tüm yüzey testlerini uçtan uca yap kullanıcı gibi düşün ve ajan ordusunu yönetmek her adımı kontrol et» — İKİNCİ YARI: DOM katmanı (yeni sekme http://127.0.0.1:4937/ordu, operatör emri «yeni sekmede aç»; sekme browserId 7dc6affe, a11y snapshot + DOM ölçümleri)",
+  "olcumYontemi": "Paseo browser automation (browser_snapshot a11y-yaml + browser_evaluate DOM ölçümü + browser_type/click gerçek kullanıcı eylemi)",
+  "sonuclar": [
+    { "adim": "M2a YÖNETİM metrik kartı canlı render", "sonuc": "ÖLÇÜLDÜ — M2 kapanışındaki dürüst eksik (a) KAPANDI", "detay": "#metrikKarti grafPanel İÇİNDE grafAlani'ndan ÖNCE · aria 'yönetim — hareket metrikleri ve otonomi göstergesi' · görünür h=141px · içerik: hareket (24 sa) 0 ok · 0 hata · toplam 0 · son KURMAY hareketi yok (hareket kaydı boş) · otonomi: 2 çalışan · 37 hata · 1036 ajan · 76 proje · son etkinlik 2026-11-04T20:27:12.483Z (P'den gerçek türev)" },
+    { "adim": "ağaç (gezgin)", "sonuc": "ÖLÇÜLDÜ", "detay": "272 satır · 152 satır öğesi · 76 talep (+) düğmesi (her proje satırında) · arama 'proje veya oturum ara' · yalnız-aktifler checkbox · sıralama combobox (4 tercih)" },
+    { "adim": "sohbet görünümü (balonlar + transcript)", "sonuc": "ÖLÇÜLDÜ", "detay": "seçili oturum 8cc610a4 (KURMAY, glm53u-claude) · a11y log balonları render — aj yanıtları + kullanıcının 'yeni sekmede aç' balonu görünür (TRANSCRIPT-CANLI dalgasının yaşayan kanıtı)" },
+    { "adim": "composer", "sonuc": "ÖLÇÜLDÜ", "detay": "KURMAY düğmesi pressed=true (varsayılan) · MANAGER pressed=false · textbox (aria: Enter gönderir, Shift+Enter yeni satır) · dosya ekle · GÖNDER düğmesi MEVCUT (a11y accessible-name 'GÖNDER'; önceki evaluate yanlış id aradığı için YOK sanmıştı — düğme hep vardı)" },
+    { "adim": "GÖNDER 401 yüzü (token'sız gerçek POST)", "sonuc": "ÖLÇÜLDÜ", "detay": "mesaj yazıldı + GÖNDER tıklandı → log kaydı: mesaj + 23:29 + 'hata: HTTP 401 — token gecersiz' sınıf chatMesaj chat-kullanici hata (kırmızı yüz) · düğme finally ile yeniden aktif · kullanıcı metni log'a taşındı (kaybolmadı) · 401 (403 DEĞİL) = TOKEN SET tarayıcıdan da ölçülebilir · mesaj HİÇ teslim edilmedi (fail-closed — canlıya yazı atılmadı)" },
+    { "adim": "talep kartı açılışı (+ düğmesi)", "sonuc": "ÖLÇÜLDÜ", "detay": "+ düğmesi DOM API click (opacity:0 a11y snapshot'a düşmez — Dalga C dersi) → kart AÇILDI: 'YENİ OTURUM TALEBİ · proje: ordu (D-Vibecode-ordu)' · odak başlık girdisinde (INPUT.agacTalepGirdi) · TALEP DÜŞÜR + KAPAT düğmeleri" },
+    { "adim": "talep formu alan sınırları", "sonuc": "ÖLÇÜLDÜ", "detay": "agacTalepBaslik INPUT maxLength=200 · agacTalepMesaj TEXTAREA maxLength=3000 (istemci = sunucu sınırı — KESME YOK)" },
+    { "adim": "kuyruk görünümü (talep kartı içinde)", "sonuc": "ÖLÇÜLDÜ", "detay": "'kuyruk: 0 talep — 0 kuyrukta · 0 işlendi · 0 hata' + 'kuyrukta talep yok (dürüst boş)' — canlı dürüst sıfır" }
+  ],
+  "olculmeyenler": [
+    { "adim": "TALEP DÜŞÜR 401 UI yüzü canlı", "sebep": "browser automation host ~23:31'de koptu — form HİÇ dolmadı, POST HİÇ atılmadı (evaluate koşmadan hata döndü; durum temiz, kuyrukta hiçbir şey yok)", "kanitZinciri": "HTTP turunda POST /api/spawn-talebi token'sız 401 CANLI ölçüldü (yuzey-turu.json) + 401 yüz metni VM senaryosunda pinli (test 51ac) + 403 yüzü Dalga C'de canlı ölçülmüştü (983615f) — yalnız token-durumu farkı" },
+    { "adim": "PNG ekran görüntüsü", "sebep": "host kopması", "kanitZinciri": "a11y snapshot (33.468 karakter, tam yapı) + bu dosyadaki ölçülen değerler" }
+  ],
+  "operatorNotlari": [
+    "tarayıcıdaki sekmede talep kartı AÇIK kalabilir (form boş, hiçbir POST atılmadı) — KAPAT düğmesiyle kapanır",
+    "host yeniden bağlanırsa iki eksik kalem dakikalar içinde tamamlanır (TALEP DÜŞÜR 401 yüzü + PNG)",
+    "200/202 yolları için: token'ı AYARLAR ikonundan girin (C:\\Users\\gatep\\pano-token-4937.txt — DEĞER bu ajana hiç görünmedi)",
+    "M2b rename uçları için: 4937 restart [insan] onayı (şu an dürüst 404)"
+  ],
+  "olcumHatalari_durustluk": [
+    "ilk evaluate GÖNDER'i yanlış id ile aradı (gonderBtn) → 'YOK' sanıldı; a11y snapshot düğmeyi accessible-name ile buldu — düğme hep vardı",
+    "bir sorgu querySelectorAll('*') + textContent tüm sayfayı yakaladı (80.024 karakter) → hedefli sorguyla düzeltildi; çıktı tool-results'a (repo DIŞI) yazıldı, repo temiz",
+    "bir browser_fill ref bayatlığı yüzünden composer dosya-ekle düğmesine gitti ('x' — no-op); talep formu etkilenmedi (alanlar boş ölçüldü)"
+  ],
+  "kodDegisikligi": "YOK — yalnız kanıt kaydı",
+  "degerlendirme": "DOM turu 8/10 adım CANLI ölçüldü (ağaç → sohbet → composer → GÖNDER 401 → talep kartı → form sınırları → kuyruk dürüst sıfır → M2a kartı); 2 adım host kopmasıyla ölçülemedi — kanıt zinciri güçlü (HTTP canlı + VM pini + Dalga C emsali). Kullanıcı yüzeyi uçtan uca BEKLENEN davranışta: okuma açık, yazma dürüst 401 (token girilmedi), M2a kartı canlı, M2b 404 (restart bekler)"
+}

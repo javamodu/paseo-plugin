@@ -65,3 +65,22 @@ Kullanıcının tarayıcısının dokunduğu uçların TAMAMI (15 uç) tek turda
 - **M2b uçları dürüst 404:** GET /api/ordu/rename-kuyruk + POST /api/rename-talebi — **restart gerekliliğinin canlı kanıtı** ([insan] onayı bekler).
 
 **Kalan yarı (DOM turu + token'lı POST) ÖNKOŞULLARI — operatör eylemi:** (1) browser automation host'un bağlanması (şu an bağlı DEĞİL — browser_no_host; Paseo uygulaması tarafında açılır), (2) token'ın AYARLAR ikonundan girilmesi (localStorage pano-token; C:\Users\gatep\pano-token-4937.txt'den okunur — DEĞER bu ajana hiç görünmedi). Kanıt: [yuzey-turu.json](yuzey-turu.json). Kod değişikliği YOK.
+
+## EK-2 — YÜZEY TURU, İKİNCİ YARI: DOM KATMANI (23:29–23:31 ölçüldü; operatör «yeni sekmede aç» — sekme açıldı, tur koşuldu)
+
+Operatör host'u bağladı + yeni sekme açıldı (http://127.0.0.1:4937/ordu). **8/10 adım CANLI ölçüldü** (a11y snapshot 33.468 karakter + DOM ölçümleri + gerçek kullanıcı eylemleri — type/click):
+
+| Adım | Sonuç |
+|---|---|
+| **M2a YÖNETİM kartı canlı render** | **kapanıştaki eksik (a) KAPANDI** — kart grafPanel'de grafAlani'ndan önce · aria ✓ · görünür 141px · dürüst sıfır + P'den gerçek otonomi: «2 çalışan · 37 hata · 1036 ajan · 76 proje · son etkinlik 20:27Z» |
+| Ağaç | 272 satır · 76 + düğmesi · arama · yalnız-aktifler · sıralama ✓ |
+| Sohbet görünümü | balonlar render — kullanıcının «yeni sekmede aç» balonu + aj yanıtları görünür (TRANSCRIPT-CANLI'nın yaşayan kanıtı) |
+| Composer | KURMAY pressed=true (varsayılan) · MANAGER · textbox · dosya ekle · **GÖNDER bulundu** (a11y adı «GÖNDER» — önceki evaluate yanlış id aradığı için YOK sanmıştı) |
+| **GÖNDER 401 yüzü (gerçek POST)** | mesaj + saat + «hata: HTTP 401 — token gecersiz» kırmızı yüz (`chat-kullanici hata`) · düğme finally aktif · kullanıcı metni log'a taşındı (kaybolmadı) · **401 = TOKEN SET tarayıcıdan da ölçülebilir** · mesaj HİÇ teslim edilmedi (fail-closed) |
+| Talep kartı (+ düğmesi) | DOM click → açıldı: «YENİ OTURUM TALEBİ · proje: ordu (D-Vibecode-ordu)» · odak başlıkta · TALEP DÜŞÜR + KAPAT |
+| Form sınırları | başlık maxLength 200 · mesaj maxLength 3000 (istemci = sunucu — KESME YOK) |
+| Kuyruk görünümü | «kuyruk: 0 talep — 0 kuyrukta · 0 işlendi · 0 hata» + «kuyrukta talep yok (dürüst boş)» — canlı dürüst sıfır |
+
+**Ölçülemeyen 2 adım (host ~23:31'de koptu — form HİÇ dolmadı, POST HİÇ atılmadı, durum temiz):** TALEP DÜŞÜR 401 UI yüzü (kanıt zinciri: HTTP 401 canlı + 51ac VM pini + Dalga C 403 yüzü emsali 983615f) + PNG ekran görüntüsü (kanıt: a11y snapshot + ölçülen değerler). Host yeniden bağlanırsa ikisi dakikalar içinde tamamlanır.
+
+Operatör notu: tarayıcıdaki sekmede talep kartı AÇIK kalabilir (form boş) — KAPAT ile kapanır. Kanıt: [dom-turu.json](dom-turu.json). Kod değişikliği YOK.
