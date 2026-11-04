@@ -1,0 +1,24 @@
+{
+  "raporSurum": 1,
+  "dalga": "ARAMA",
+  "tarih": "2026-11-04",
+  "saat": "17:07",
+  "yazici": "KURMAY-1 (8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7, glm53u-claude)",
+  "emirler": [
+    "birde arama çubuğu ekle projeler üstüne"
+  ],
+  "tamKapi": { "komut": "node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs", "tests": 314, "pass": 314, "fail": 0, "exit": 0 },
+  "servisKaniti": { "url": "http://127.0.0.1:4937/ordu", "http": 200, "bayt": 138188, "restart": "HAYIR (server.js dokunulmadı — html statik, reload yeterli)", "kontroller": ["agacArama"] },
+  "canliDom": { "yapildi": false, "sebep": "Paseo browser automation host bağlı DEĞİL (SIRALAMA dalgasıyla aynı); davranış VM testlerinde ölçülü" },
+  "ozellikler": {
+    "yer": "kontrol satırının başında (projeler üstünde) — type=search, flex:1 1 120px",
+    "eslesme": { "locale": "tr (İ→i)", "projeAlanlari": ["etiket", "dizin", "baslik"], "oturumAlanlari": ["etiket", "ajanKimligi", "ajanId"] },
+    "davranis": "proje adı eşleşir → mevcut desen AYNEN; yalnız oturum eşleşir → eşleşenler tam liste (son-3 aramada açılır); arama+filtre VE; boş arama → değişiklik yok",
+    "durum": "geçici (kalıcı kayıt YOK — 30 sn yenilemede kutu ve değişken yaşar, odak korunur)",
+    "bosDurust": "arama > filtre > tarama üç kademeli; arama metni esc() ile"
+  },
+  "locDelta": { "once": 17535, "sonra": 17632, "net": 97, "tavan": 200, "panoTavan": 18000, "panoDoluluk": "97.9%" },
+  "z1": { "codemap": "870 dosya, 119 satır", "saglik": "16 OK / 2 EKSIK / 1 SARI (üç bayrak da önceki dalgalardan — bu dalga üretmedi)" },
+  "testDegisiklikleri": ["51ab YENI (kaynak pin + vm 10 ok)", "51f/51s render-çağrı pini ternary else koluna güncellendi", "51k/51o projeEtiketi sayım 6→7 (7. kullanım prAdEs)", "51f ctx'ine agacTercih (SIRALAMA dalgasından) korunur"],
+  "kapsam": ["pano/ordu-panosu.html", "pano/ordu-panosu.test.mjs", "raporlar/pano-arama-2026-11-04/", "CODEMAP.md", "STATE_BOARD.md"]
+}

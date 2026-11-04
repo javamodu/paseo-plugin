@@ -1333,7 +1333,7 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   ok("PANEL-SIFIR-1: grup mekanizması SÖKÜLDÜ (GRUP_SIRA/GRUP_ADI sabitleri + agacGrupBas render)", !j.includes("const GRUP_SIRA") && !j.includes("const GRUP_ADI") && !j.includes("agacGrupBas"));
   ok("PANEL-SIFIR-1: taşıma mekanizması SÖKÜLDÜ (agacTasi/agacSirala + aria-label'lar)", !j.includes("agacTasi") && !j.includes("function agacSirala(") && !j.includes('aria-label="projeyi yukarı taşı"'));
   ok("PANEL-SIFIR-1: ağaç özeti SÖKÜLDÜ (agacOzet kapısı + 'aktif / proje' sayımı)", !j.includes("agacOzet") && !j.includes("</b> aktif / <b>"));
-  ok("TEK SEVİYE: oturum satırları DOĞRUDAN .agacCocuklar içinde (grup sarmalayıcısı YOK — kullanıcı tarifi; FAZ-N: satır listesi agacGorunurAjanlar ile süzülür)", j.includes('agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr)).join("")'));
+  ok("TEK SEVİYE: oturum satırları DOĞRUDAN .agacCocuklar içinde (grup sarmalayıcısı YOK — kullanıcı tarifi; FAZ-N: satır listesi agacGorunurAjanlar ile süzülür — ARAMA ternary'sinin else kolu, arama boşken AYNEN)", j.includes(': agacGorunurAjanlar(ajanlar)).map((a) => ajanDugumHtml(a, pr)).join("")'));
   ok("çalışan sayısı GERÇEK sayım (lastStatus === running; ajanlar.length TOPLAM kayıttır)", j.includes('x.lastStatus === "running"') && j.includes('x.lastStatus === "error"'));
   ok("proje başlığı role=button DIV (W3C: düğme içinde düğme YASAK)", j.includes('<div class="agacProjeBas" role="button"') && !j.includes('<button type="button" class="agacProjeBas"'));
   ok("klavye yolu keydown dinleyicisi AYNEN (başlık DIV role=button → Enter/Space)", j.includes('$("agacAlani").addEventListener("keydown"'));
@@ -1664,7 +1664,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   ok("kullanim 2/5 ana sekme: ad = pr ? projeEtiketi(pr) : dizin (taramadan dustuysae dizin yedek)", j.includes("pr ? projeEtiketi(pr) : dizin"));
   ok("kullanim 3/5 chat basligi: seciliKonusma.projeEtiket (kimlik yolu projeDizin AYNEN)", j.includes("projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr)") && j.includes("seciliKonusma.projeEtiket"));
   ok("kullanim 4/5 composer optgroup: 'SEÇİLİ PROJENİN OTURUM AJANLARI: etiket' (FAZ-M etiket dili)", j.includes('pr ? projeEtiketi(pr) : "yok"'));
-  ok("PANEL-SIFIR-1: kullanim 5. tablo SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0; FAZ-O EK-2: 6. kullanım oturumBul (oturum kartı proje satırı) — 1 tanım + 5 kullanım = 6 eşleşme", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6);
+  ok("PANEL-SIFIR-1: kullanim 5. tablo SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0; FAZ-O EK-2: 6. kullanım oturumBul (oturum kartı proje satırı); ARAMA (2026-11-04): 7. kullanım prAdEs — 1 tanım + 6 kullanım = 7 eşleşme", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 7);
   ok("kimlik yolu DEGISMEZ: data-proje TAM dizin AYNEN (agac + tasi dugmeleri)", j.includes('data-proje="\' + esc(pr.dizin)'));
   ok("data-ana TAM dizin AYNEN (ana sekme kimligi)", j.includes('data-ana="\' + esc(dizin)'));
 
@@ -1900,7 +1900,7 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   ok("FAZ-J coarse (pointer:coarse bloğu: agacProjeBas + agacAjan 44 — sekmeKapat büyütmesi SEKME-MİNİMAL emriyle SÖKÜLDÜ 2026-11-04, × 14px kalır)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && !/@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*padding:\s*8px/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
   ok("§5 satır ≥26px + GÖNDER 40px AYNEN (FAZ-K ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   /* --- (5) veri katmanı AYNEN (kisaltma yalnız UI'da — server.js/ordu-birlesim.mjs hunk 0) --- */
-  ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 1 tanım + 5 kullanım = 6 eşleşme (ağaç + konuşma seçimi + chat + composer + FAZ-O EK-2 oturum kartı) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
+  ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 1 tanım + 6 kullanım = 7 eşleşme (ağaç + konuşma seçimi + chat + composer + FAZ-O EK-2 oturum kartı + ARAMA prAdEs 2026-11-04) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 7 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
   ok("YENİ @keyframes/renk/sembol YOK (nabız 1 aynen — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !/--yeni-(renk|token)/.test(h));
 });
 
@@ -2142,7 +2142,7 @@ test("51s- PANEL-ANA-1 FAZ-N (kaynak-pin + vm): ağaç ÖLÜ OTURUM FİLTRESİ �
   const j = jsKisim();
   /* --- (1) kaynak pinleri --- */
   ok("filtre fonksiyonu tanımlı: agacGorunurAjanlar (yeni özellik = ince kanca — render'da çağrılır)", j.includes("function agacGorunurAjanlar("));
-  ok("render çağrısı: agacGorunurAjanlar(ajanlar).map(ajanDugumHtml) — satır listesi süzülür", j.includes("agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr))"));
+  ok("render çağrısı: agacGorunurAjanlar(ajanlar).map(ajanDugumHtml) — satır listesi süzülür (ARAMA ternary'sinin else kolu — arama boşken AYNEN)", j.includes("agacGorunurAjanlar(ajanlar)).map((a) => ajanDugumHtml(a, pr))"));
   ok("başlık sayısı TOPLAM kayıt AYNEN: ajanlar.length (gizlenenler dahil — sahte gizleme YOK E10; FAZ-Q: tamTitle sabiti çift tırnaklı literal)", j.includes('ajanlar.length + " ajan kaydı"'));
   ok("'+K eski' satırı MEKANİZMA YOK (agacEski sınıfı/id'si yok — minimal; yorumdaki kelime dokümantasyondur)", !j.includes("agacEski"));
   const filtreGovde = HTML.slice(HTML.indexOf("function agacGorunurAjanlar("), HTML.indexOf("function agacYaz("));
@@ -2877,4 +2877,65 @@ test("51aa- SIRALAMA (2026-11-04): ağaç kontrol satırı — yalnız-aktifler 
   ]);
   ok("vm boş-dürüst: filtre açık + hiç aktif yok → 'aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)' (sahte liste YOK E10)", rBos.includes("aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)") && !rBos.includes('data-proje="P-tek"'));
   ok("vm filtre KAPALI + tarama boş → 'taramada proje yok' (eski mesaj AYNEN — filtresiz yol değişmedi)", kos({ siralama: "varsayilan", aktifFiltre: false }, []).includes("taramada proje yok (dürüst boş)"));
+});
+
+test("51ab- ARAMA (2026-11-04): ağaç arama çubuğu (projeler üstünde) — kaynak pinleri + typeof-güvence + tr-locale + vm davranışı (proje adı VEYA oturum eşleşmesi · arama+filtre VE · son-3 sınırı aramada AÇILIR · boş-dürüst); operatör emri «birde arama çubuğu ekle projeler üstüne»", () => {
+  const j = jsKisim();
+  /* --- (A) kaynak pinleri --- */
+  ok("A kontrol HTML: arama kutusu agacAraclar İÇİNDE + filtre etiketinden ÖNCE (satır başı — «projeler üstüne»): type=search + id=agacArama + placeholder 'proje veya oturum ara' + autocomplete kapalı", HTML.includes('<div class="agacAraclar">') && HTML.indexOf('id="agacArama"') < HTML.indexOf('id="agacAktifFiltre"') && /<input type="search" id="agacArama"[^>]*placeholder="proje veya oturum ara"/.test(HTML) && !/id="agacArama"[^>]*autocomplete="(?!off)/.test(HTML));
+  ok("A CSS: kutu esnek genişler (flex:1 1 120px + min-width — sütun paylaşımlı) + placeholder ikincil renk + odak camgobegi", /\.agacAramaKutusu\s*\{[^}]*flex:\s*1 1 120px/.test(HTML) && /\.agacAramaKutusu::placeholder\s*\{[^}]*color:\s*var\(--ikincil\)/.test(HTML) && /\.agacAramaKutusu:focus\s*\{[^}]*outline:\s*2px solid var\(--camgobegi\)/.test(HTML));
+  ok("A typeof-güvence: agacAramaMetni tanımsızsa boş arama (mevcut VM testlerinin ctx'i arama sağlamaz — kırılmadan yeşil)", j.includes('const qHam = typeof agacAramaMetni === "string" ? agacAramaMetni.trim() : ""'));
+  ok("A eşleşme tr-locale küçük-harf (İ→i Türkçe tuzağı) + alanlar: proje etiket/dizin/başlık · oturum etiket/ajanKimligi/ajanId", j.includes('qHam.toLocaleLowerCase("tr")') && j.includes("v.toLocaleLowerCase(\"tr\").includes(q)") && j.includes("esles(a.etiket) || esles(a.ajanKimligi) || esles(a.ajanId)") && j.includes("esles(pr.dizin)"));
+  ok("A görünürlük: arama filtresi aktif-filtre ardına VE bağlı — proje adı VEYA eşleşen oturumu olan proje", j.includes('if (q) gorunen = gorunen.filter((pr) => prAdEs(pr) || (Array.isArray(pr.ajanlar) && pr.ajanlar.some(oturumEsles)))'));
+  ok("A oturum kolu: proje adı eşleştiyse mevcut desen AYNEN (agacGorunurAjanlar); yalnız oturum eşleştiyse EŞLEŞENLER (tam liste — aranan son-3 sınırına takılmaz)", j.includes("q && !prAdEs(pr) ? ajanlar.filter(oturumEsles) : agacGorunurAjanlar(ajanlar)"));
+  ok("A boş-dürüst üç kademeli: arama > filtre > tarama (arama metni esc() ile yansır — XSS)", j.includes('arama eşleşmesi yok — «\' + esc(qHam) + \'') && j.includes("aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)") && j.includes("taramada proje yok (dürüst boş)"));
+  ok("A dinleyici: input her tuşta agacYaz tazeler + değer güvenceli; ARAMA KALICI KAYIT YOK (kaydet/oku ordu-agac-arama çağrısı 0 — geçici sorgu)", j.includes('$("agacArama").addEventListener("input"') && j.includes('agacAramaMetni = typeof e.target.value === "string" ? e.target.value : "";') && !j.includes('kaydet("ordu-agac-arama"') && !j.includes('oku("ordu-agac-arama"'));
+  ok("A dinleyici VM DİLİMİNİN DIŞINDA (ajanDugumHtml…agacAlani-click aralığında $()-çağrılı agacArama YOK — typeof-güvence satırı agacYaz içinde kalır, dinleyici keydown sonrası kontrol bloğundadır)", !HTML.slice(HTML.indexOf("function ajanDugumHtml("), HTML.indexOf('$("agacAlani").addEventListener')).includes('$("agacArama")') && j.includes('$("agacArama").addEventListener("input"'));
+  /* --- (B) vm davranışı --- */
+  const agacA = HTML.indexOf("function ajanDugumHtml(");
+  const agacB = HTML.indexOf('$("agacAlani").addEventListener');
+  const dilim = HTML.slice(agacA, agacB);
+  const kos = (arama, tercih, projeler, agacAcik) => {
+    const sahte = {};
+    const $s = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+    const ctx = {
+      $: $s, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+      P: { projeler }, agacAcik: agacAcik || new Set(), agacSecili: null,
+      NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+    };
+    if (tercih !== undefined) ctx.agacTercih = tercih;
+    if (arama !== undefined) ctx.agacAramaMetni = arama;
+    vm.runInNewContext(dilim + "\nagacYaz", ctx)();
+    return sahte.agacAlani.innerHTML;
+  };
+  const sabit = [
+    { dizin: "P-eski", projeAdi: "eski", orduMu: false, ajanlar: [{ ajanKimligi: "e1", ajanId: "e1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T14:00:00Z", etiket: "en yeni etkinlik" }] },
+    { dizin: "P-yeni", projeAdi: "yeni", orduMu: false, ajanlar: [{ ajanKimligi: "y1", ajanId: "y1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T10:00:00Z", etiket: "eski etkinlik" }] },
+    { dizin: "D-ordu", projeAdi: "ordu", orduMu: true, ajanlar: [{ ajanKimligi: "o1", ajanId: "o1", lastStatus: "running", sonEtkinlikISO: "2026-11-04T12:00:00Z", etiket: "kurmay" }] },
+    { dizin: "P-pasif", projeAdi: "aaa-pasif", orduMu: false, ajanlar: [
+      { ajanKimligi: "p1", ajanId: "p1", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T08:00:00Z", etiket: "eski idle 1" },
+      { ajanKimligi: "p2", ajanId: "p2", lastStatus: "idle", sonEtkinlikISO: "2026-11-01T09:00:00Z", etiket: "eski idle 2" },
+    ] },
+  ];
+  const projeSay = (html, d) => html.includes('data-proje="' + d + '"');
+  ok("vm typeof-güvence (ctx'te agacAramaMetni YOK): 4 proje AYNEN görünür (mevcut davranış değişmedi)", (() => { const h = kos(undefined, { siralama: "varsayilan", aktifFiltre: false }, sabit); return ["P-eski", "P-yeni", "D-ordu", "P-pasif"].every((d) => projeSay(h, d)) && (h.match(/class="agacProjeBas"/g) || []).length === 4; })());
+  const hEski = kos("eski", { siralama: "varsayilan", aktifFiltre: false }, sabit);
+  ok("vm 'eski': P-eski (AD eşleşir) + P-yeni (oturum etiketi 'eski etkinlik') + P-pasif (oturumlar 'eski idle') görünür · D-ordu ELENİR — sıra [P-eski → P-yeni → P-pasif]", ["P-eski", "P-yeni", "P-pasif"].every((d) => projeSay(hEski, d)) && !projeSay(hEski, "D-ordu") && hEski.indexOf('data-proje="P-eski"') < hEski.indexOf('data-proje="P-yeni"') && hEski.indexOf('data-proje="P-yeni"') < hEski.indexOf('data-proje="P-pasif"'));
+  ok("vm 'kurmay': oturum etiketi üzerinden D-ordu TEK başına görünür", (() => { const h = kos("kurmay", { siralama: "varsayilan", aktifFiltre: false }, sabit); return projeSay(h, "D-ordu") && (h.match(/class="agacProjeBas"/g) || []).length === 1; })());
+  ok("vm 'ESKİ' (büyük İ): tr-locale küçük-harf İ→i — P-eski eşleşir (İngilizce toLowerCase'te 'eski̇' combining-dot ile EŞLEŞMEZDİ)", (() => { const h = kos("ESKİ", { siralama: "varsayilan", aktifFiltre: false }, sabit); return projeSay(h, "P-eski") && !projeSay(h, "D-ordu"); })());
+  ok("vm boş/yalnız-boşluk arama ('  ' → trim): 4 proje AYNEN (arama kapalı yol)", (() => { const h = kos("  ", { siralama: "varsayilan", aktifFiltre: false }, sabit); return (h.match(/class="agacProjeBas"/g) || []).length === 4; })());
+  ok("vm arama + yalnız-aktifler VE: 'eski' + filtre → P-pasif ELENİR (çalışan 0) — [P-eski → P-yeni]", (() => { const h = kos("eski", { siralama: "varsayilan", aktifFiltre: true }, sabit); return projeSay(h, "P-eski") && projeSay(h, "P-yeni") && !projeSay(h, "P-pasif") && !projeSay(h, "D-ordu"); })());
+  ok("vm eşleşme yok: 'yok-boyle' → 'arama eşleşmesi yok — «yok-boyle» (dürüst boş)' + 0 proje satırı (sahte içerik YOK E10)", (() => { const h = kos("yok-boyle", { siralama: "varsayilan", aktifFiltre: false }, sabit); return h.includes("arama eşleşmesi yok — «yok-boyle» (dürüst boş)") && !h.includes("data-proje="); })());
+  const hAcik = kos("eski", { siralama: "varsayilan", aktifFiltre: false }, sabit, new Set(["P-eski", "P-yeni"]));
+  ok("vm oturum kolu (açık projeler): P-eski AD eşleşir → mevcut desen (1 satır) · P-yeni AD eşleşMEZ → yalnız EŞLEŞEN oturum ('eski etkinlik' — 1 satır; 'en yeni etkinlik' değil o projede)", (hAcik.match(/class="agacAjan"/g) || []).length === 2 && hAcik.includes('data-ajan="e1"') && hAcik.includes('data-ajan="y1"'));
+  const cok = [
+    { dizin: "P-cok", projeAdi: "cok", orduMu: false, ajanlar: [
+      { ajanKimligi: "c1", ajanId: "c1", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T03:00:00Z", etiket: "a-bir" },
+      { ajanKimligi: "c2", ajanId: "c2", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T02:00:00Z", etiket: "a-iki" },
+      { ajanKimligi: "c3", ajanId: "c3", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T01:00:00Z", etiket: "a-uc" },
+      { ajanKimligi: "c4", ajanId: "c4", lastStatus: "idle", sonEtkinlikISO: "2026-01-01T00:00:00Z", etiket: "eski-aranan" },
+    ] },
+  ];
+  const hAranan = kos("eski-aranan", { siralama: "varsayilan", aktifFiltre: false }, cok, new Set(["P-cok"]));
+  ok("vm son-3 AÇILIR: aranan oturum (c4, EN ESKİ ISO — agacGorunurAjanlar onu atardı) aramada BULUNUR: tek satır data-ajan=c4", (hAranan.match(/class="agacAjan"/g) || []).length === 1 && hAranan.includes('data-ajan="c4"') && !hAranan.includes('data-ajan="c1"'));
 });

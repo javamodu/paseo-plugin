@@ -329,6 +329,10 @@
   .agacSiralamaSec { flex:none; max-width:170px; margin-left:auto; font-size:11.5px; color:var(--ikincil); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:2px 4px; cursor:pointer; } /* sağa yaslı — kullanıcı «sağ üste» tarifi */
   .agacSiralamaSec:hover { color:var(--metin); border-color:var(--ikincil); }
   .agacSiralamaSec:focus-visible { outline:2px solid var(--camgobegi); outline-offset:-1px; }
+  .agacAramaKutusu { flex:1 1 120px; min-width:110px; font-size:11.5px; color:var(--metin); background:transparent; border:1px solid var(--cizgi); border-radius:var(--radius-cip); padding:3px 7px; cursor:text; } /* ARAMA dalgası: kontrol satırının BAŞINDA — ağaç (projeler) üstünde */
+  .agacAramaKutusu::placeholder { color:var(--ikincil); }
+  .agacAramaKutusu:hover { border-color:var(--ikincil); }
+  .agacAramaKutusu:focus { outline:2px solid var(--camgobegi); outline-offset:-1px; border-color:var(--camgobegi); }
   .agacProjeBas:focus-visible {
     outline:2px solid var(--camgobegi); outline-offset:-2px;
   }
@@ -630,8 +634,16 @@
            ordu-agac-sira mekanizması PANEL-SIFIR-1'de sökülmüştü — YENİ ferman bu
            dalgayla YENİ anahtarlarla (ordu-agac-siralama / ordu-agac-aktif-filtre) geri
            getirdi; tarifi farklı (filtre + 4 sıralama modu). ORDU filtrede İSTİSNASIZ
-           görünür (komuta merkezi her koşulda erişilebilir). -->
+           görünür (komuta merkezi her koşulda erişilebilir).
+           ARAMA dalgası (kullanıcı 2026-11-04 «birde arama çubuğu ekle projeler
+           üstüne»): kontrol satırının BAŞINA arama kutusu — proje adı/dizin/başlık VEYA
+           oturum etiketi/kimliği eşleşir. Arama OTURUM DURUMU (kalıcı kayıt YOK —
+           sayfa yenilenince taze); sıralama+filtre ile birlikte (VE). Arama aktifken
+           oturum satırları: proje ADI eşleştiyse mevcut desen (son-3+aktif) AYNEN;
+           yalnız oturum eşleştiyse EŞLEŞENLER (tam liste — aranan her zaman bulunur,
+           son-3 onu gizlemez). -->
       <div class="agacAraclar">
+        <input type="search" id="agacArama" class="agacAramaKutusu" placeholder="proje veya oturum ara" aria-label="ağaçta ara" autocomplete="off">
         <label class="agacFiltreEtiket" title="yalnız en az 1 çalışan ajanı olan projeler (ORDU her koşulda görünür)">
           <input type="checkbox" id="agacAktifFiltre"> yalnız aktifler
         </label>
@@ -1151,6 +1163,11 @@ try {
   agacTercih.aktifFiltre = oku("ordu-agac-aktif-filtre") === "1";
 } catch (e) { /* bozuk kayıt: varsayılan tercih (fail-closed) */ }
 
+/* ARAMA durumu: oturum-içi geçici (kalıcı kayıt YOK — sayfa yenilenince taze başlar);
+   30 sn P-yenilemesi agacAlani'yi yeniden yazar ama kontrol satırı (agacAraclar) ayrı
+   kapta olduğu için kutu değeri ve bu değişken YAŞAR (odak korunur). */
+let agacAramaMetni = "";
+
 /* ANA SEKME durumu: ORDU sekmesi SABİT (kapatılamaz); oturum sekmeleri X ile kapanır.
    Ağaçtaki PROJE başlığı sekme AÇMAZ (kullanıcı emri 2026-11-04 — sekme yalnız
    oturum satırı tıklamasıyla açılır); sekme listesi bilinçli olarak KALICI DEĞİL
@@ -1280,6 +1297,17 @@ function agacYaz() {
      sökülen ordu-agac-sira mekanizmasının yerine yeni fermanla ordu-agac-siralama
      geldi (yeni anahtar adı — kalıntı çakışması YOK). */
   const t = typeof agacTercih === "object" && agacTercih ? agacTercih : { siralama: "varsayilan", aktifFiltre: false };
+  /* ARAMA: typeof-güvence (agacTercih deseni) — dilim tercih/arama sağlamazsa boş
+     arama = mevcut davranış. Eşleşme tr-locale küçük-harf (İ/i Türkçe tuzağı);
+     alanlar: proje etiket/dizin/başlık · oturum etiket/kimlik/ajanId. */
+  const qHam = typeof agacAramaMetni === "string" ? agacAramaMetni.trim() : "";
+  const q = qHam ? qHam.toLocaleLowerCase("tr") : "";
+  const esles = (s) => {
+    const v = typeof s === "string" ? s : "";
+    return !!(v && q && v.toLocaleLowerCase("tr").includes(q));
+  };
+  const oturumEsles = (a) => a && (esles(a.etiket) || esles(a.ajanKimligi) || esles(a.ajanId));
+  const prAdEs = (pr) => esles(projeEtiketi(pr)) || esles(pr.dizin) || (typeof pr.baslik === "string" && esles(pr.baslik)); /* çağrı yalnız q doluysa koşar — typeof-güvence gerekmez */
   const calisanSay = (pr) => (Array.isArray(pr.ajanlar) ? pr.ajanlar.filter((x) => x.lastStatus === "running").length : 0);
   const sonEtkinlikMax = (pr) => {
     let m = -Infinity;
@@ -1292,6 +1320,7 @@ function agacYaz() {
   const kayitSay = (pr) => (Array.isArray(pr.ajanlar) ? pr.ajanlar.length : 0);
   let gorunen = [...P.projeler];
   if (t.aktifFiltre) gorunen = gorunen.filter((pr) => pr.orduMu || calisanSay(pr) > 0); /* yalnız aktifler — ORDU istisnasız görünür */
+  if (q) gorunen = gorunen.filter((pr) => prAdEs(pr) || (Array.isArray(pr.ajanlar) && pr.ajanlar.some(oturumEsles))); /* arama: proje adı VEYA eşleşen oturumu olan proje (filtreyle VE) */
   gorunen.sort((a, b) => {
     if (t.siralama === "varsayilan") {
       const d = (calisanSay(b) > 0 ? 1 : 0) - (calisanSay(a) > 0 ? 1 : 0);
@@ -1337,10 +1366,10 @@ function agacYaz() {
          SÖKÜLDÜ — kullanıcı tarifi «klasör isimleri altında oturum isimleri»).
          FAZ-N: satır listesi agacGorunurAjanlar ile SÜZÜLÜR (son 3 + running/error) —
          boş-dürüst koşulu TOPLAM kayda bakar (≥1 kayıt → ≥1 görünür satır garantisi). */
-      (acik ? '<div class="agacCocuklar">' + (ajanlar.length > 0 ? agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr)).join("") : '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>" : "") +
+      (acik ? '<div class="agacCocuklar">' + (ajanlar.length > 0 ? (q && !prAdEs(pr) ? ajanlar.filter(oturumEsles) : agacGorunurAjanlar(ajanlar)).map((a) => ajanDugumHtml(a, pr)).join("") : '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>" : "") +
       "</div>";
   }
-  $("agacAlani").innerHTML = html || (t.aktifFiltre ? '<p class="bosSatir">aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)</p>' : '<p class="bosSatir">taramada proje yok (dürüst boş)</p>');
+  $("agacAlani").innerHTML = html || (q ? '<p class="bosSatir">arama eşleşmesi yok — «' + esc(qHam) + '» (dürüst boş)</p>' : t.aktifFiltre ? '<p class="bosSatir">aktif proje yok (yalnız-aktifler filtresi açık — dürüst boş)</p>' : '<p class="bosSatir">taramada proje yok (dürüst boş)</p>');
 }
 
 /* ağaç tıklamaları (temsilci dinleyici): proje başlığı → YALNIZ akordiyon AÇ/KAPA
@@ -1400,6 +1429,13 @@ $("agacSiralama").addEventListener("change", (e) => {
 $("agacAktifFiltre").addEventListener("change", (e) => {
   agacTercih.aktifFiltre = e.target.checked === true;
   kaydet("ordu-agac-aktif-filtre", agacTercih.aktifFiltre ? "1" : "0");
+  agacYaz();
+});
+/* ARAMA: her tuşta ağacı tazeler (76 proje — ucuz; debounce gereksiz). Kalıcı kayıt
+   YOK (geçici sorgu). agacYaz yalnız agacAlani'na yazar — kutu ayrı kapta, odak ve
+   değer yenilemede yaşar. */
+$("agacArama").addEventListener("input", (e) => {
+  agacAramaMetni = typeof e.target.value === "string" ? e.target.value : "";
   agacYaz();
 });
 
