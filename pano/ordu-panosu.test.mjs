@@ -875,7 +875,7 @@ test("46- server.js kaynak-pini: /api/ordu/log ucu + saat dogrulama + mevcut ucl
   for (const u of ['"/api/graf"', '"/api/veri"', '"/api/repolar"', '"/api/kart"', '"/api/atama/durum"', '"/tuval"']) {
     ok("mevcut uc yerinde: " + u, srv.includes("url.pathname === " + u));
   }
-  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj = 5 POST (bilincl genisletme — K-0060 TASLAK)", (srv.match(/req\.method === "POST"/g) || []).length === 5, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi = 6 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 6, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
   ok("/api/mesaj ucu (FAZ-A: Composer gonderim)", srv.includes('"/api/mesaj"'));
   ok("server.js'e child_process GELMEDI (spawn yalnız paseo-kopru.mjs'te)", !srv.includes("child_process") && srv.includes('from "./paseo-kopru.mjs"'));
   ok("token kapisi mesaj ucunda aynen (403/401)", srv.includes("mesaj gonderme kapali (fail-closed)"));
@@ -1083,7 +1083,7 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   ok("projelerTara ucta cagrilir (her istekte diskten — bayat onbellek yok)", srv.includes("projelerTara(PASEO_EV"));
   ok("ordu dizin adi koke hesaplanir — boli isaretleri VE surucu iki noktasi tireye (olcumle kanitlandi: D:\\Vibecode\\ordu -> D-Vibecode-ordu)", srv.includes("ORDU_DIZIN_ADI") && srv.includes(".replace(/[\\\\/:]+/g, \"-\")"));
   ok("kapsam notu uctan doner", srv.includes("kapsamNotu"));
-  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj = 5 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 5, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
+  ok("yazma uclari: mevcut 4 + FAZ-A /api/mesaj + K-0065 DALGA B /api/spawn-talebi = 6 POST (bilincl genisletme)", (srv.match(/req\.method === "POST"/g) || []).length === 6, "bulunan POST ucu: " + (srv.match(/req\.method === "POST"/g) || []).length);
   const j = jsKisim();
   ok("UC.projeler sabiti", j.includes('"/api/ordu/projeler"'));
   ok("projelerYukle cek ile cagirir", j.includes("await cek(UC.projeler)"));

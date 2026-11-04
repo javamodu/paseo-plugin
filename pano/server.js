@@ -21,6 +21,7 @@ import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtike
 import { mesajGonder } from "./paseo-kopru.mjs"; // FAZ-A Composer köprüsü (K-0060 TASLAK) — süreç doğurma YALNIZ bu modülde
 import { hareketKaydet, metrikOzet } from "./ordu-metrik.mjs"; // M1: KURMAY hareket defteri (append-only) + özet read-model
 import { kuyrukOku, slugYap, transcriptHazirla } from "./konusma-oku.mjs"; // FAZ-M: oturum transcript tail-read (salt-okur saf fonksiyonlar)
+import { talepEkle, kuyrukOzet, kurmayKimligiCoz } from "./ordu-spawn.mjs"; // K-0065 DALGA B: spawn-talebi kuyruğu (panel TALEP düşürür — server spawn ETMEZ)
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
@@ -57,6 +58,13 @@ const sseIstemci = new Set();
 // altında yönetim parametresi yapmalıyız»): KURMAY hareket defteri — panele gelen tüm
 // KURMAY hareketleri (müdahale/spawn) TEK append-only JSONL'de (env ile izole test — DEFTER_429 deseni).
 const HAREKET_DEFTERI = process.env.ORDU_HAREKET_DEFTERI || join(ORDU_KOK, "core", "data", "hareket-defteri.jsonl");
+// K-0065 DALGA B (2026-11-04): spawn-talebi kuyruğu — panel talebi DİSKE düşürür, KURMAY işler
+// (server ajan süreci YÖNETMEZ — karar kaydı K-0065). Zincir: POST → talep kuyruk + kısa bildirim
+// KURMAY'a → KURMAY create_agent işletir → sonucu kuyruğa yazar → panel GET ile okur (SSOT:
+// tek kuyruk dosyası; brif KUYRUKTA kalır, bildirimde yalnız işaretçi taşınır). env ezebilir.
+const SPAWN_KUYRUGU = process.env.ORDU_SPAWN_KUYRUGU || join(ORDU_KOK, "core", "data", "spawn-kuyrugu.jsonl");
+const SPAWN_ARALIK_MS = 10_000; // aynı projeye min spawn-talebi aralığı (çift tıklama + sel koruması)
+const sonSpawnTalebi = new Map(); // proje → son talep ms (bellek-içi — sonGonderim deseni)
 // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): Composer gonderim koprUsu — dar spawn izni
 // (paseo-kopru.mjs'te SABIT argv + beyaz-liste hedef + UTF-8 prompt-file + --no-wait + timeout).
 const KOPRU_KOK_CMD = process.env.PANO_KOPRU_KOK_CMD || null; // izole test kancasi: zincir cozumsuz simulasyonu (503)
@@ -532,6 +540,14 @@ const sunucu = http.createServer((req, res) => {
     catch (e) { jsonYaz(res, 500, { hata: "metrik okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
+  // K-0065 DALGA B: GET /api/ordu/spawn-kuyruk — talep/sonuç read-model (salt-okur; diğer
+  // /api/ordu/* GET'leri gibi token kapısız). Kaynak: append-only kuyruk dosyası (env ezebilir);
+  // durum dürüst türetilir (kuyrukta | islandi | hata) — sahte 'açıldı' YOK (E10).
+  if (req.method === "GET" && url.pathname === "/api/ordu/spawn-kuyruk") {
+    try { jsonYaz(res, 200, kuyrukOzet(SPAWN_KUYRUGU)); }
+    catch (e) { jsonYaz(res, 500, { hata: "spawn kuyrugu okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
   // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): POST /api/mesaj — Composer gonderim ucu (5. POST).
   // Token kapisi aynen (403/401) · govde 4096 bayt · hedef whitelist = projelerTara taramasi
   // (30sn TTL onbellek) · ayni hedefe min 2sn aralik · kopru zinciri cozulmezse 503 (fail-closed).
@@ -575,6 +591,69 @@ const sunucu = http.createServer((req, res) => {
           jsonYaz(res, 200, { gonderildi: true, hedef, zamanISO: new Date().toISOString(), yanit: sonuc && sonuc.yanit !== undefined ? sonuc.yanit : null, kayit: hareketYaz("ok") });
         })
         .catch((e) => { const mes = e instanceof Error ? e.message : "bilinmeyen"; jsonYaz(res, 500, { hata: "mesaj gonderim beklenmedik hata: " + mes, kayit: hareketYaz("hata", mes) }); });
+    });
+    return;
+  }
+  // K-0065 DALGA B: POST /api/spawn-talebi — yeni oturum talebi. Panel + düğmesi TALEP düşürür;
+  // server spawn ETMEZ (KURMAY create_agent işletir). Token zinciri /api/mesaj deseni
+  // (403/401/400/422/429 fail-closed) + proje whitelist = projelerTara taraması (YALNIZ mevcut
+  // proje — izolasyon SSOT: var olmayan projeye oturum doğmaz). Kurmay kimliği kadro SSOT'tan;
+  // çözülemezse talep KABUL EDİLMEZ (zincirin başı kopuk — 503). Talep append-only kuyruğa
+  // düşer (SSOT — kaybolmaz) + KURMAY'a KISA bildirim (brif kuyrukta); bildirim iletilmezse
+  // yanıt 202 dürüst 'iletilmedi' (talep kuyrukta KALIR — /api/mesaj'tan fark: orada amaç
+  // mesajın gitmesiydi → 503; burada amaç talebin kuyruğa düşmesi → 202). Hareket defterine
+  // tur 'spawn-talebi' kaydı (M1). Sahte 'açıldı' YOK — E10.
+  if (req.method === "POST" && url.pathname === "/api/spawn-talebi") {
+    if (!TOKEN) { jsonYaz(res, 403, { hata: "PANO_TOKEN tanimli degil — spawn-talebi kapali (fail-closed)" }); return; }
+    if (!tokenGecerliMi(req.headers["x-pano-token"])) { jsonYaz(res, 401, { hata: "token gecersiz" }); return; }
+    govdeTopla(req, (govde) => {
+      let istek = null;
+      try { istek = JSON.parse(govde); } catch { jsonYaz(res, 400, { hata: "gecersiz json" }); return; }
+      if (!istek || typeof istek !== "object") { jsonYaz(res, 400, { hata: "govde nesne degil (null/dizi RED)" }); return; } // O3 B-001 sinifi
+      const proje = typeof istek.proje === "string" ? istek.proje.trim() : "";
+      if (!proje) { jsonYaz(res, 400, { hata: "proje zorunlu (Paseo agents dizin adi — gezgin agacindaki proje)" }); return; }
+      const talep = { proje };
+      if (typeof istek.baslik === "string") talep.baslik = istek.baslik;
+      if (typeof istek.ilkMesaj === "string") talep.ilkMesaj = istek.ilkMesaj;
+      if (talep.baslik !== undefined && talep.baslik.length > 200) { jsonYaz(res, 422, { hata: "baslik 200 karakteri asamaz (kesilmez — RED, durust)" }); return; }
+      if (talep.ilkMesaj !== undefined && talep.ilkMesaj.length > 3000) { jsonYaz(res, 422, { hata: "ilkMesaj 3000 karakteri asamaz (kesilmez — RED, durust)" }); return; }
+      let projeler = null;
+      try { projeler = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI }).projeler; } catch { /* katman fs hatalarını yuttuğundan pratikte ulaşılmaz */ }
+      if (!Array.isArray(projeler) || !projeler.some((p) => p && p.dizin === proje)) {
+        jsonYaz(res, 400, { hata: "proje taramada yok (YALNIZ mevcut proje altina oturum acilir — izolasyon SSOT)", proje });
+        return;
+      }
+      const simdi = Date.now();
+      const onceki = sonSpawnTalebi.get(proje);
+      if (onceki !== undefined && simdi - onceki < SPAWN_ARALIK_MS) {
+        jsonYaz(res, 429, { hata: "ayni projeye cok sik spawn-talebi (min 10sn aralik)", bekMs: SPAWN_ARALIK_MS - (simdi - onceki) });
+        return;
+      }
+      const kurmay = kurmayKimligiCoz(KADRO_JSON);
+      if (!kurmay) { jsonYaz(res, 503, { hata: "kurmay kimligi cozulemedi (kadro SSOT) — talep kabul edilmedi (fail-closed; zincirin basi kopuk)", kadro: KADRO_JSON }); return; }
+      sonSpawnTalebi.set(proje, simdi);
+      const t0 = Date.now();
+      let talepKayit = null;
+      try { talepKayit = talepEkle(SPAWN_KUYRUGU, talep); }
+      catch (e) {
+        jsonYaz(res, 500, { hata: "talep kuyruga yazilamadi — kabul edilmedi (fail-closed): " + (e instanceof Error ? e.message : "bilinmeyen") });
+        return;
+      }
+      const hareketYaz = (sonuc, detay) => { // M1: her kuyruğa düşen talep hareket defterine yazılır
+        const hareket = { tur: "spawn-talebi", hedef: kurmay.ajanId, sonuc, sureMs: Date.now() - t0 };
+        if (detay) hareket.detay = String(detay).slice(0, 300); // kısa özet (token YAZILMAZ)
+        try { hareketKaydet(HAREKET_DEFTERI, hareket); return "yazildi"; }
+        catch (e) { return "yazilamadi: " + (e instanceof Error ? e.message : "bilinmeyen"); }
+      };
+      const bildirim = "K-0065 spawn-talebi: talepId " + talepKayit.talepId + " · proje " + proje +
+        (talepKayit.baslik ? " · baslik " + talepKayit.baslik : "") + " · kuyruk " + SPAWN_KUYRUGU + " — talebi isleyip sonucu kuyruga yaz (tur 'sonuc', talepId eslesmeli).";
+      mesajGonder(kurmay.ajanId, bildirim, { beyazListe: hedefBeyazListe(), kokCmd: KOPRU_KOK_CMD ?? undefined })
+        .then((sonuc) => {
+          const hata = sonuc && sonuc.hata ? String(sonuc.hata) : null;
+          if (hata) jsonYaz(res, 202, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletilmedi", detay: hata, kayit: hareketYaz("hata", hata) });
+          else jsonYaz(res, 200, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletildi", kayit: hareketYaz("ok") });
+        })
+        .catch((e) => { const mes = e instanceof Error ? e.message : "bilinmeyen"; jsonYaz(res, 202, { ok: true, talepId: talepKayit.talepId, zamanISO: talepKayit.zamanISO, kuyrukta: true, bildirim: "iletilmedi", detay: mes, kayit: hareketYaz("hata", mes) }); });
     });
     return;
   }

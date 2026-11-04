@@ -1,0 +1,28 @@
+{
+  "schemaSurum": 1,
+  "dalga": "spawn-b",
+  "tarih": "2026-11-04T20:21",
+  "kararRef": "kararlar/K-0065.md (ONAYLANDI)",
+  "operatoerEmri": "«Devam sıradaki» — onaylı dalga sırası 5. adım",
+  "cozum": {
+    "cekirdek": "pano/ordu-spawn.mjs YENİ 106 satır: talepEkle/sonucEkle (append-only fsync JSONL; RED throw — kesme YOK) + kuyrukOzet (salt-okur read-model: durum türetimi kuyrukta|islandi|hata; EN SON sonuc kazanır; bozuk satır SAYILIR; ilkMesaj 300 pencere + bayrak; 200 talep pencere) + kurmayKimligiCoz (kadro SSOT; şablon atlanır; null fail-closed)",
+    "server": "pano/server.js ince kanca +79: ORDU_SPAWN_KUYRUGU env + SPAWN_ARALIK_MS 10sn + POST /api/spawn-talebi (403/401/400/422/400-whitelist[izolasyon SSOT]/429/503-kurmay[talep DÜŞMEZ]/500 → kuyruk + kısa bildirim → 200 iletildi | 202 iletilmedi[talep kuyrukta KALIR]) + hareket tur 'spawn-talebi' (M1) + GET /api/ordu/spawn-kuyruk (salt-okur)",
+    "test": "pano/spawn-ucu.test.mjs YENİ 246 (bloklar 80-84) + ordu-panosu.test.mjs 2 pin (POST ucu 5→6 — bilinçli K-0065 genişletmesi)"
+  },
+  "kanit": {
+    "testTamKapi": "265 tests / 265 pass / 0 fail / EXIT=0 (YENİ baseline 265 = 260 + 5)",
+    "testKosuDurlugu": "dalga bütçesi ≤4 AŞILDI — 6 tam kapı + 1 tek-dosya teşhis + 1 boot teyidi (2 düzeltme turu: Edit'te /api/veri açılış satırı kazara silindi [syntax; geri eklendi] + POST-sayısı pin regresyonu)",
+    "izole": "kuyruk + hareket defteri + kadro env kancalarıyla tmp — üretim defterine sızıntı YOK; GERÇEK paseo send YOK (köprüsüz simülasyon)",
+    "canliDom": "YAPILAMADI — Dalga C'de browser host ile (dürüst eksik)",
+    "bildirim200Yolu": "izole testlerde KOŞULAMADI (köprüsüz simülasyon 202'yi ölçer; 200 için gerçek köprü — Dalga C canlı)",
+    "restart": "YAPILMADI — server.js DEĞİŞTİ; canlıya alma 4937 restart'ı Dalga C'de [insan] onayıyla (K-0065 planı)"
+  },
+  "loc": {
+    "yontem": "pano/ mjs+js+html @(Get-Content).Count; önceki raporların 11.577'si aynı kareyle ölçülmüyor — git'ten e588ceb yeniden ölçüm 10.921 (d1a/d1b çift-sayım şüphesi; bundan sonraki damgalar tek yöntem)",
+    "oncesi": 10921,
+    "sonrasi": 11352,
+    "delta": 431,
+    "tavanGerekce": "dalga tavanı +200 AŞILDI — yeni çekirdek modül + izole test yüzeyi SALT EKLEME (mevcut dosya dokunuşu yalnız server.js +79 + 2 pin satırı); doluluk %63,1 (18.000 tavan)"
+  },
+  "bekleyen": ["K-0065 Dalga C (hover + düğmesi + uca bağlanma + canlı DOM + izole 4937 restart [insan] onayı)", "M2 sağ panel metrik + rename", "K7 push (birikim 72 → bu committe 73)"]
+}
