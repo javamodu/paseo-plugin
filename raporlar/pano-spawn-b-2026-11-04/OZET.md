@@ -45,3 +45,13 @@ Karar kaydı: [kararlar/K-0065.md](../../kararlar/K-0065.md) (ONAYLANDI) — **+
 
 - **SIRADA: K-0065 Dalga C** — hover + düğmesi + uca bağlanma + canlı DOM + izole 4937 restart (**[insan] onay adımı dalga içinde**).
 - M2 sağ panel metrik gösterimi + rename · K7 push (birikim 72 → bu committe 73).
+
+## EK — RESTART UYGULANDI (operatör emri «Restart yap»; ölçüm 2026-11-04 20:34)
+
+Yukarıdaki **«restart YAPILMADI» dürüst eksiği KAPANDI** — operatör restart emrini doğrudan verdi (Dalga C'ye planlanan [insan] onay adımı önden tüketildi; Dalga C artık restart beklemez).
+
+- **Eski süreç:** PID 20964 durduruldu (`Stop-Process`; durduktan sonra 4937'nin BOŞ olduğu ölçüldü).
+- **Yeni süreç:** `PANO_PORT=4937` env mirasıyla `node pano/server.js` (D:\Vibecode\ordu) — **PID 18292, StartTime 20:33:10 (ölçüldü)**. Env'siz başlatma 4377'yi açan tuzaktan bilinçli kaçınıldı (ARSİV dalgası dersi).
+- **Ölçümler:** GET /ordu **200** (153.174 bayt) · **GET /api/ordu/spawn-kuyruk 200 (123 bayt — DALGA B UCU CANLI)**; gövde dürüst sıfır: `toplamTalep 0, kuyrukta 0, islenen 0, hatali 0, bozukSatir 0, talepler []` · GET /api/ordu/metrik **200** (156 bayt) · token'sız POST /api/mesaj **403** · 4377 **BOŞ** (dokunulmadı).
+- **Token durumu (dürüst):** yeni süreç env'inde **PANO_TOKEN yok** — ölçüm yöntemi: token'sız POST → 403 = `!TOKEN` dalı; 401 olsaydı TOKEN set edilmiş demekti. Eski süreç (20964) de tokensiz çalışıyordu → **restart hiçbir POST yetkisini geriletmedi**; POST uçları (GÖNDER + spawn-talebi) zaten 403 fail-closed idi, öyle kaldı. Token DEĞERİ bu ajana hiçbir komutta/çıktıda görünmez. POST'ları açmak isteyen operatör sunucuyu KENDİ terminalinden başlatır: `$env:PANO_TOKEN='<token>'; $env:PANO_PORT='4937'; node pano/server.js` (D:\Vibecode\ordu'dan).
+- Makine-okunur kanıt: [restart-ek.json](restart-ek.json).

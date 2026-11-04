@@ -1,0 +1,18 @@
+{
+  "schemaSurum": 1,
+  "dalga": "spawn-b-restart",
+  "tarih": "2026-11-04T20:34",
+  "operatoerEmri": "«Restart yap»",
+  "baglam": "K-0065 Dalga B kapanış raporunun «restart YAPILMADI» dürüst eksiği — operatör restart emrini doğrudan verdi (Dalga C'ye planlanan [insan] onay adımı önden tüketildi)",
+  "eskiSurec": {"pid": 20964, "sonuc": "durduruldu (durduktan sonra 4937 BOŞ olduğu ölçüldü)"},
+  "yeniSurec": {"pid": 18292, "startTime": "2026-11-04 20:33:10", "env": "PANO_PORT=4937 (miras — env'siz başlatma 4377'yi açar tuzağından kaçınıldı)"},
+  "olcum": {
+    "getOrdu": "200, 153174 bayt",
+    "getSpawnKuyruk": "200, 123 bayt — DALGA B UCU CANLI; gövde dürüst sıfır: toplamTalep 0, kuyrukta 0, islenen 0, hatali 0, bozukSatir 0, talepler []",
+    "getMetrik": "200, 156 bayt",
+    "postTokenSiz": "403 (env'de PANO_TOKEN yok — ölçüm yöntemi: token'sız POST 403 = !TOKEN dalı; 401 olsaydı TOKEN set edilmişti; eski süreç de tokensizdi → restart hiçbir POST yetkisini geriletmedi)",
+    "port4377": "BOŞ (dokunulmadı)"
+  },
+  "tokenNotu": "Token DEĞERİ bu ajana hiçbir komutta/çıktıda görünmez. POST uçları (GÖNDER + spawn-talebi) 403 fail-closed kalır; açılması operatörün kendi terminalinden başlatmasıyla olur: $env:PANO_TOKEN='<token>'; $env:PANO_PORT='4937'; node pano/server.js (D:\\Vibecode\\ordu)",
+  "kayit": "raporlar/pano-spawn-b-2026-11-04/OZET.md EK bölümü + bu dosya"
+}
