@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "ek": "yuzey-turu-http-katmani",
+  "tarih": "2026-11-04T23:2x",
+  "operatoerEmri": "«tüm yüzey testlerini uçtan uca yap kullanıcı gibi düşün ve ajan ordusunu yönetmek her adımı kontrol et» — İLK YARI: HTTP katmanı (kullanıcının tarayıcısının dokunduğu uçların TAMAMI)",
+  "olcum": "Invoke-WebRequest / Invoke-RestMethod — 4937 canlı (PID 36940)",
+  "sonuclar": [
+    { "uclar": "GET /ordu (panel HTML)", "kod": 200, "not": "165.534 karakter; metrikKarti HTML + aria gövdede (M2a servis kanıtı)" },
+    { "uclar": "GET /api/ordu/kadro", "kod": 200, "not": "kadro SSOT — composer KURMAY kimliği + ağaç ajan satırları" },
+    { "uclar": "GET /api/ordu/projeler", "kod": 200, "not": "ağaç + spawn-talebi whitelist kaynağı" },
+    { "uclar": "GET /api/ordu/genel", "kod": 200 },
+    { "uclar": "GET /api/graf", "kod": 200 },
+    { "uclar": "GET /api/ordu/metrik (M2a kartının verisi)", "kod": 200, "not": "dürüst sıfır — hareket defteri canlıda boş (mudahale yok)" },
+    { "uclar": "GET /api/ordu/spawn-kuyruk (talep kartı kuyruğu)", "kod": 200, "not": "dürüst sıfır" },
+    { "uclar": "GET /api/ordu/rename-kuyruk (M2b)", "kod": 404, "not": "DÜRÜST BEKLENEN — M2b server ucu canlıda restart'a kadar HİZMET DIŞI; restart [insan] onayı bekler" },
+    { "uclar": "GET /api/ordu/saglik", "kod": 200 },
+    { "uclar": "GET /api/ordu/akis", "kod": 200 },
+    { "uclar": "GET /api/ordu/log", "kod": 200 },
+    { "uclar": "GET /api/ordu/konusma?ajan=8cc610a4 (KURMAY sohbeti)", "kod": 200, "not": "transcript balonları — kullanıcı yanıtları buradan akar" },
+    { "uclar": "POST /api/mesaj (token'sız — GÖNDER)", "kod": 401, "not": "TOKEN SET + dürüst red (GÖNDER token girilince 200 olur — tarayıcı AYARLAR)" },
+    { "uclar": "POST /api/spawn-talebi (token'sız — TALEP DÜŞÜR)", "kod": 401, "not": "aynı token zinciri" },
+    { "uclar": "POST /api/rename-talebi (token'sız)", "kod": 404, "not": "DÜRÜST BEKLENEN — M2b restart öncesi" }
+  ],
+  "degerlendirme": "15/15 uç BEKLENEN davranışta: salt-okur yüzey TAMAMEN açık (11 GET 200 — A4'ün 6/6 denetimiyle uyumlu), yazma yüzeyi DÜRÜST kapalı (401 = token girilmemiş; fail-closed tasarım), M2b uçları dürüst 404 (restart gerekliliğinin canlı kanıtı)",
+  "kalanYari": "DOM turu + token'lı POST 200/202 — ÖNKOŞULLAR: (1) browser automation host'un bağlanması (şu an browser_no_host — Paseo uygulaması tarafında), (2) operatör token'ı AYARLAR'dan girmesi (localStorage pano-token); ikisi de operatör eylemi",
+  "kodDegisikligi": "YOK — yalnız kanıt kaydı"
+}

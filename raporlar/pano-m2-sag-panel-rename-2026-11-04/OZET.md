@@ -55,3 +55,13 @@ K-0065 deseninin rename uyarlaması: **panel YENİ ADLAYMAZ — TALEP DÜŞÜRÜ
 - M2c: rename UI tarafı (panel düğmeleri + kart + kuyruk görünümü).
 - Ajan raporu bulguları [insan] sırası: K7 push (birikim 76 → bu committe 77) · F1 113 D kapanışı · AGENTS.md ölü yollar (plugin/ + sozlesme/ diskte yok — A2 #2) · ADR-dc-3 bütçe · K-0058 · K-0064 kayıtsız · G01/G02/G03 kapıları · sağlık ölçümleri bayat (probe/bench/katalog regen).
 - 4937 restart (M2b ucunun canlıya alınması — [insan]).
+
+## EK — YÜZEY TURU, İLK YARI: HTTP KATMANI (23:2x ölçüldü; operatör emri «tüm yüzey testlerini uçtan uca yap kullanıcı gibi düşün»)
+
+Kullanıcının tarayıcısının dokunduğu uçların TAMAMI (15 uç) tek turda ölçüldü — **15/15 BEKLENEN davranışta**:
+
+- **Salt-okur yüzey TAMAMEN açık:** GET /ordu (panel HTML, 165.534 karakter — metrikKarti gövdede) · kadro · projeler · genel · graf · **metrik (M2a kartının verisi — dürüst sıfır)** · spawn-kuyruk (talep kartı) · saglik · akis · log · konusma (KURMAY sohbeti — kullanıcı yanıtları buradan akar) = **11× 200** (A4'ün 6/6 canlı denetimiyle uyumlu).
+- **Yazma yüzeyi DÜRÜST kapalı:** POST /api/mesaj (GÖNDER) + POST /api/spawn-talebi (TALEP DÜŞÜR) token'sız = **401** (TOKEN SET; fail-closed tasarım — token AYARLAR'dan girilince 200/202 açılır).
+- **M2b uçları dürüst 404:** GET /api/ordu/rename-kuyruk + POST /api/rename-talebi — **restart gerekliliğinin canlı kanıtı** ([insan] onayı bekler).
+
+**Kalan yarı (DOM turu + token'lı POST) ÖNKOŞULLARI — operatör eylemi:** (1) browser automation host'un bağlanması (şu an bağlı DEĞİL — browser_no_host; Paseo uygulaması tarafında açılır), (2) token'ın AYARLAR ikonundan girilmesi (localStorage pano-token; C:\Users\gatep\pano-token-4937.txt'den okunur — DEĞER bu ajana hiç görünmedi). Kanıt: [yuzey-turu.json](yuzey-turu.json). Kod değişikliği YOK.
