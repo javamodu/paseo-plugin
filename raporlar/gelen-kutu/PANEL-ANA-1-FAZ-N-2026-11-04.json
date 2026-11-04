@@ -1,0 +1,44 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-N-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-N — ağaç ölü oturum filtresi (son 3 + aktifler)",
+  "tarihISO": "2026-11-04T04:55:00+02:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-N",
+  "kullaniciSpec": [
+    "bu şekilde yap (onay 2026-11-04)",
+    "son 2 yada 3 sekme yeterli özellikle aktif sekme gösterilmeli"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "agacGorunurAjanlar YENİ (son 3 sonEtkinlikISO + running/error birleşimi; deterministik eşitlik) + agacYaz render satırı süzülür; başlık sayısı TOPLAM AYNEN; seçim korunur" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51s YENİ (8 kaynak pini + 5 vm senaryosu) + 51f satır 1333 bilinçli pin güncellemesi" }
+  ],
+  "etiket": ["panel", "faz-n", "agac", "filtre", "olu-oturum"],
+  "kanit": {
+    "nodeTestPano": { "tests": 67, "pass": 67, "fail": 0, "exit": 0 },
+    "npmTest": { "d1a": "7/7", "d1b": "12/12", "nodeTest": "78/78", "exit": 0, "ciktiDosya": "%TEMP%\\fazn-npm.txt" },
+    "dokunulmayan": ["pano/server.js (FAZ-N payı hunk 0)", "pano/konusma-oku.mjs", "d1a/d1b"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: bağımsız tam süit + canlı DOM (ağaç: klasör başlıklarında TOPLAM kayıt sayısı + satır azlığı; yenileme muhtemelen yeterli — restart koordinatör ölçer) + ekran kanıtı + islenme + CODEMAP + tek elden commit (FAZ-M + FAZ-N birlikte değerlendirilir).",
+  "bilincliKararlar": [
+    "eşik 3 (kullanıcı 'son 2 yada 3' — 3 seçildi; tek sabit slice(0, 3))",
+    "görüntü sırası disk-tarama sırası KORUNUR (filtre yalnız görünürlük)",
+    "eksik/bozuk sonEtkinlikISO en eski sayılır (uydurma zaman YOK)",
+    "başlık sayısı TOPLAM kayıt (gizlenenler dahil) — '+K eski' satırı YOK",
+    "gizli satıra denk gelen kalıcı seçim KORUNUR (filtre agacSecili'ye dokunmaz)"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı (koordinatör)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 ~05:1x): (1) koordinatör bağımsız koşumu: node --test pano+scripts = tests 300 pass 300 fail 0 EXIT=0 (FAZ-M+N birleşik glob, %TEMP%\\fazm-fazn-koordinator.txt). (2) CANLI DOM (yenileme — restart GEREKMEDİ, PID 8872 aynen): 75 klasör · 5 açık · toplam görünür oturum 9 · ORDU 65 kayıt → 3 satır (PANEL-CHAT-1 yazıcı · PANEL-ANA-1 yazıcı · coder-devir; en son etkinlik sırasıyla) · seçili 8cc610a4 KORUNDU + transcript 15 balon yeniden yüklendi + composer kilitli. (3) durum ölçümü (kullanıcı sorusunun veri temeli): 1062 kayıt — closed 841 · idle 174 · error 39 · running 8; son 24 saat etkin 69 · son 7 gün 517. (4) görünür sayı ÇALIŞAN adedidir (SIFIR-1 mirası; toplam kayıt tooltip'te) — FAZ-N bilinçli dokunmadı, cila steering'i bekler. (5) ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-n-aga-suzme-2026-11-04.png (144.656 bayt, 1534x888, PNG imza doğrulandı). (6) yazıcı dürüst notları kabul. Tek elden commit bu kapanışta (FAZ-M ile birleşik damga — dosya kümesi örtüşüyor)."
+}

@@ -19,6 +19,7 @@ import { atamaYaz, atamaOku, atamaDurum } from "./graf-yaz.mjs";
 import { kiraDurum, kiraYoluCoz, logOku } from "./devir-kira.mjs"; // ORDU paneli: kira/log kaynagi (salt-okur)
 import { aktifIsOku, akisTopla, defterOzet, gitHeadOku, kadroBirlesim, kiraEtiketi, saglikBirlesim, sorunBirlesim, genelSaglikIsigi, grafSayim, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri } from "./ordu-birlesim.mjs"; // ORDU paneli birlesim katmani
 import { mesajGonder } from "./paseo-kopru.mjs"; // FAZ-A Composer köprüsü (K-0060 TASLAK) — süreç doğurma YALNIZ bu modülde
+import { kuyrukOku, slugYap, transcriptHazirla } from "./konusma-oku.mjs"; // FAZ-M: oturum transcript tail-read (salt-okur saf fonksiyonlar)
 
 const PORT = process.env.PANO_PORT !== undefined ? Number(process.env.PANO_PORT) : 4377;
 const GRAF_JSON = process.env.ORDU_GRAF_JSON || join(import.meta.dirname, "..", "plans", "gorev-grafigi-2026-10-26.json");
@@ -41,6 +42,9 @@ const LOG_TAVAN = 200; // goruntuleme tavani — kaynak defterler append-only, p
 // STEERING-7: Paseo agents deposu (salt-okur canli tarama) — env PASEO_EV test fixture'i icin ezilebilir.
 // ~/.paseo/config.json'da workspace kayit defteri YOK (koordinator kontrolu) — diskteki tek canli kaynak agents/ taramasi.
 const PASEO_EV = process.env.PASEO_EV || join(process.env.USERPROFILE || "C:\\Users\\gatep", ".paseo");
+// PANEL-ANA-1 FAZ-M: Claude projects evi (transcript jsonl kökü) — env ile ezilebilir
+// (PASEO_EV deseni; izole test fixture'i). Salt-okur.
+const CLAUDE_EV = process.env.PANO_CLAUDE_EV || join(process.env.USERPROFILE || "C:\\Users\\gatep", ".claude");
 const ORDU_DIZIN_ADI = ORDU_KOK.replace(/[\\/:]+/g, "-"); // ordu kokunun Paseo agents dizin adi — boli isaretleri VE surucu iki noktasi tireye (D:\Vibecode\ordu -> D-Vibecode-ordu; olcumle kanitlandi)
 const TTL_MS = 60_000;
 const TOKEN = process.env.PANO_TOKEN || null;
@@ -447,6 +451,42 @@ const sunucu = http.createServer((req, res) => {
         kapsamNotu: "ajanı hiç doğmamış workspace bu kaynakta GÖRÜNMEZ (daemon kayıt defteri diskte kapalı) — liste yalnız en az bir ajan kaydı taşıyan dizinleri gösterir",
       });
     } catch (e) { jsonYaz(res, 500, { hata: "paseo projeler okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
+    return;
+  }
+  // PANEL-ANA-1 FAZ-M (2026-11-03): GET /api/ordu/konusma?ajan=<uuid> — SALT-OKUR
+  // oturum transcript. Ajan kaydından (agents/<dizin>/<ajanId>.json) persistence.sessionId
+  // + cwd çözülür → <claudeEv>/projects/<slug>/<sessionId>.jsonl TAIL-READ (TAM DOSYA
+  // ASLA yüklenmez — konusma-oku.mjs). Ajan taramada/kayıtta/transcriptte yok → 404 dürüst
+  // (sahte içerik YASAK E10). PANO_TOKEN YALNIZ POST kapısıyla ilişkilidir — GET salt-okur
+  // (diğer GET uçları deseni AYNEN). Kayıttaki systemPrompt/sır alanları YANITA GİRMEZ.
+  if (req.method === "GET" && url.pathname === "/api/ordu/konusma") {
+    const ajan = url.searchParams.get("ajan") ?? "";
+    if (!/^[A-Za-z0-9-]{8,64}$/.test(ajan)) { jsonYaz(res, 400, { hata: "gecersiz ajan kimligi (uuid bekleniyor)" }); return; }
+    try {
+      const { projeler } = projelerTara(PASEO_EV, { orduDizinAdi: ORDU_DIZIN_ADI });
+      const pr = projeler.find((p) => Array.isArray(p.ajanlar) && p.ajanlar.some((a) => a.ajanKimligi === ajan));
+      if (!pr) { jsonYaz(res, 404, { hata: "ajan disk taramasında yok: " + ajan }); return; }
+      const kayitYolu = join(PASEO_EV, "agents", pr.dizin, ajan + ".json");
+      let kayit = null;
+      try { kayit = JSON.parse(readFileSync(kayitYolu, "utf8")); } catch { /* kayıt yok/bozuk — alttaki dürüst 404 */ }
+      const p = (kayit && typeof kayit === "object" && kayit.persistence && typeof kayit.persistence === "object") ? kayit.persistence : null;
+      const oturumId = p && typeof p.sessionId === "string" && p.sessionId.trim() ? p.sessionId.trim() : null;
+      const cwd = (kayit && typeof kayit.cwd === "string" && kayit.cwd.trim()) || (p && p.metadata && typeof p.metadata.cwd === "string" && p.metadata.cwd.trim()) || null;
+      if (!oturumId || !/^[A-Za-z0-9-]{8,64}$/.test(oturumId) || !cwd) {
+        jsonYaz(res, 404, { hata: "ajan kaydında oturum kimliği (persistence.sessionId) ya da cwd yok — transcript çözülemez (dürüst): " + kayitYolu });
+        return;
+      }
+      const jsonlYolu = join(CLAUDE_EV, "projects", slugYap(cwd), oturumId + ".jsonl");
+      let st = null;
+      try { st = statSync(jsonlYolu); } catch { /* dosya yok — alttaki dürüst 404 */ }
+      if (!st) { jsonYaz(res, 404, { hata: "oturum transcript dosyası yok (dürüst boş — sahte içerik YAZILMAZ): " + jsonlYolu }); return; }
+      const balonlar = transcriptHazirla(kuyrukOku(jsonlYolu));
+      jsonYaz(res, 200, {
+        olcumAniISO: new Date().toISOString(), // OLCUM ANI etiketi: snapshot'ı canlı gösterme kuralı
+        ajan, oturumId, dosyaBoyutBayt: st.size, balonlar,
+        okumaNotu: "tail-read: yalnız son ~512KB (ilk tam satırdan — yarım satır atılır) + son 30 balon + 2000 karakter/balon tavanı; TAM DOSYA asla yüklenmez",
+      });
+    } catch (e) { jsonYaz(res, 500, { hata: "konusma okunamadi: " + (e instanceof Error ? e.message : "bilinmeyen") }); }
     return;
   }
   // PANEL-EXPLORER-1 FAZ-A (K-0060 TASLAK): POST /api/mesaj — Composer gonderim ucu (5. POST).

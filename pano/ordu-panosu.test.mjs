@@ -21,6 +21,10 @@ import {
   saglikBirlesim, enOlduruculer, frenSayilari, sorunBirlesim, genelSaglikIsigi, grafSayim,
   kisaAjanId, kuyrukOku, ajanEslemeKur, logBirlesik, projelerTara, sonDamgaSatiri,
 } from "./ordu-birlesim.mjs";
+// PANEL-ANA-1 FAZ-M: transcript okuma saf fonksiyonları (konusma-oku.mjs — yeni dosya)
+import { slugYap, kuyrukOku as kuyrukOkuFn, satirdanBalon, balonTavan, transcriptHazirla } from "./konusma-oku.mjs";
+// FAZ-M hermetik sunucu testi: gerçek node çocuk süreci (d1a deseni — spawn + PANO_PORT=0)
+import { spawn } from "node:child_process";
 
 const KOK = fileURLToPath(new URL(".", import.meta.url));
 let HTML = "";
@@ -1087,14 +1091,14 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   ok("PANEL-SIFIR-1: fail-closed yuzu AGACA tasindi — kirmiziYuzGoster(agacHata, agacAlani) + icerik bosalir (eski projeHata/projeTabloIci kalintisi 0)", j.includes('kirmiziYuzGoster("agacHata", "agacAlani"') && !j.includes("projeTabloIci"));
   /* --- composer: İKİ AYRI optgroup — manager ile proje ajanı KARIŞMAZ (operatör emri) --- */
   ok("composer hedef select (bolum-composer + composerHedef)", HTML.includes('id="bolum-composer"') && HTML.includes('id="composerHedef"'));
-  ok("optgroup 1: ORDU YÖNETİM (kadro rolAtamasi.MANAGER)", j.includes('optgroup label="ORDU YÖNETİM"') && j.includes("K.rolAtamasi.MANAGER"));
-  ok("optgroup 2: SEÇİLİ PROJENİN AJANLARI", j.includes("AJANLARI"));
+  ok("optgroup 1: ORDU YÖNETİM (sistem) (kadro rolAtamasi.MANAGER — FAZ-M etiket dili: KURMAY = tepe sistem ajanı)", j.includes('optgroup label="ORDU YÖNETİM (sistem)"') && j.includes("K.rolAtamasi.MANAGER"));
+  ok("optgroup 2: SEÇİLİ PROJENİN OTURUM AJANLARI (FAZ-M kullanıcı spec'i — oturum ajanları)", j.includes("SEÇİLİ PROJENİN OTURUM AJANLARI"));
   ok("KURMAY-1 grubu DISK taramasiyla kesisir (yoksa devre-disi dürüst seçenek)", j.includes("diskAjanKumesi()") && j.includes("disk taramasında yok (gönderilemez)"));
   ok("yönetim kimlikleri proje grubunda HARİÇ tutulur (KARIŞMAZ pini)", j.includes("yonetimKumesi.has(a.ajanKimligi)"));
   ok("gönderim: POST /api/mesaj + token başlığı + gonderiliyor durumu", j.includes('"/api/mesaj"') && j.includes('"x-pano-token"') && j.includes("gönderiliyor…"));
   ok("token input (değer AKLA girmez — yalnız başlıkta)", HTML.includes('<input id="token" type="password"') && !j.includes('kaydet("token"'));
   ok("composer textarea + 4096 tavan", HTML.includes('id="composerMesaj"') && HTML.includes('maxlength="4096"'));
-  ok("PANEL-CHAT-1: sağ panel CHAT — oturum listesi + dürüst oturum notu (eski konusmaKart 'geçmiş YOK' notu BİLİNÇLİ değişti)", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes("Bu oturumda gönderilenler — yenileyince temizlenir"));
+  ok("PANEL-CHAT-1/FAZ-M: sağ panel CHAT — oturum listesi + dürüst oturum notu (transcript üstte + panel gönderimleri altta)", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes("Üstte seçili oturumun yazışmaları"));
   ok("yenileme girdi koruması: odakIcindeMi + gonderiyor bayrağı", j.includes("function odakIcindeMi(") && j.includes("let gonderiyor = false") && j.includes('odakIcindeMi("#bolum-composer")'));
   ok("ağaç yenilenmesi odakta atlanır (activeElement ezilmez)", j.includes('odakIcindeMi("#bolum-agac")'));
   /* PANEL-SIFIR-1: UI TABLOSU SÖKÜLDÜ (kullanıcı fermanı «herşeyi sök sadece şunu» —
@@ -1167,7 +1171,7 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
   const ch = secSham.innerHTML;
   const yonetimGrubu = ch.slice(ch.indexOf("ORDU YÖNETİM"), ch.indexOf("</optgroup>"));
   const projeGrubu = ch.slice(ch.lastIndexOf("AJANLARI"));
-  ok("composer: optgroup ORDU YÖNETİM var", ch.includes('optgroup label="ORDU YÖNETİM"'));
+  ok("composer: optgroup ORDU YÖNETİM (sistem) var (FAZ-M etiket dili)", ch.includes('optgroup label="ORDU YÖNETİM (sistem)"'));
   ok("composer: KURMAY-1 yalniz YONETIM grubunda (pini — manager ile proje ajanı KARIŞMAZ)", yonetimGrubu.includes(KURMAY_KIMLIK) && !projeGrubu.includes(KURMAY_KIMLIK));
   ok("composer: yonetim grubu disk taramasi KESISIMI (kaynak: kadro ajanId + tarama)", yonetimGrubu.includes("KURMAY-1 — 8cc610a4"));
   ok("composer: proje grubu yonetim HARIC ajanlari listeler", projeGrubu.includes("432e03b7") && projeGrubu.includes("proje ajanı"));
@@ -1326,7 +1330,7 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   ok("PANEL-SIFIR-1: grup mekanizması SÖKÜLDÜ (GRUP_SIRA/GRUP_ADI sabitleri + agacGrupBas render)", !j.includes("const GRUP_SIRA") && !j.includes("const GRUP_ADI") && !j.includes("agacGrupBas"));
   ok("PANEL-SIFIR-1: taşıma mekanizması SÖKÜLDÜ (agacTasi/agacSirala + aria-label'lar)", !j.includes("agacTasi") && !j.includes("function agacSirala(") && !j.includes('aria-label="projeyi yukarı taşı"'));
   ok("PANEL-SIFIR-1: ağaç özeti SÖKÜLDÜ (agacOzet kapısı + 'aktif / proje' sayımı)", !j.includes("agacOzet") && !j.includes("</b> aktif / <b>"));
-  ok("TEK SEVİYE: oturum satırları DOĞRUDAN .agacCocuklar içinde (grup sarmalayıcısı YOK — kullanıcı tarifi)", j.includes('ajanlar.map((a) => ajanDugumHtml(a, pr)).join("")'));
+  ok("TEK SEVİYE: oturum satırları DOĞRUDAN .agacCocuklar içinde (grup sarmalayıcısı YOK — kullanıcı tarifi; FAZ-N: satır listesi agacGorunurAjanlar ile süzülür)", j.includes('agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr)).join("")'));
   ok("çalışan sayısı GERÇEK sayım (lastStatus === running; ajanlar.length TOPLAM kayıttır)", j.includes('x.lastStatus === "running"') && j.includes('x.lastStatus === "error"'));
   ok("proje başlığı role=button DIV (W3C: düğme içinde düğme YASAK)", j.includes('<div class="agacProjeBas" role="button"') && !j.includes('<button type="button" class="agacProjeBas"'));
   ok("klavye yolu keydown dinleyicisi AYNEN (başlık DIV role=button → Enter/Space)", j.includes('$("agacAlani").addEventListener("keydown"'));
@@ -1381,12 +1385,13 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   /* --- (2) tıklama temsilcisi: yalnız proje başlığı + ajan düğümü (taşıma/grup dalları SÖKÜLDÜ) --- */
   const dinleyiciler = {};
   const agacSham = { addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; } };
-  const cagrilar = { sekme: [], secim: [], yaz: 0 };
+  const cagrilar = { sekme: [], secim: [], yaz: 0, transcript: [] };
   const kayit2 = [];
   const dlgCtx = {
     $: (id) => (id === "agacAlani" ? agacSham : { addEventListener: () => {} }),
     sekmeAc: (d) => { cagrilar.sekme.push(d); },
     konusmaSecGuncelle: (z) => { cagrilar.secim.push(z); },
+    transcriptYukle: (k) => { cagrilar.transcript.push(k); }, /* FAZ-M: ajan düğümü tıklaması transcript yükler — stub */
     agacYaz: () => { cagrilar.yaz++; },
     agacAcik: new Set(["P-alfa"]),
     agacSecili: null,
@@ -1400,10 +1405,11 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   dinleyiciler.click(olay(".agacProjeBas", { dataset: { proje: "P-beta" } }));
   ok("proje başlığı: akordiyon açılır + sekme açılır (mevcut davranış korunur)", dlgCtx.agacAcik.has("P-beta") && cagrilar.sekme.includes("P-beta"));
   ok("ordu-agac-acik kalıcıya yazılır", kayit2.includes("ordu-agac-acik"));
-  /* (4d) ajan düğümü (regresyon): seçim + konusmaSecGuncelle(true) AYNEN */
+  /* (4d) ajan düğümü (regresyon): seçim + konusmaSecGuncelle(true) AYNEN + FAZ-M transcript çağrısı */
   dinleyiciler.click(olay(".agacAjan", { dataset: { ajan: R1, proje: "P-alfa" } }));
   assert.equal(dlgCtx.agacSecili, R1, "ajan düğümü: seçili konuşma TAM kimlikle");
   assert.deepEqual(cagrilar.secim, [true], "ajan düğümü: konusmaSecGuncelle(true) — 51e düzeltmesi korunur");
+  assert.deepEqual(cagrilar.transcript, [R1], "FAZ-M: ajan düğümü tıklaması transcriptYukle(TAM kimlik) çağırır — o oturumun yazışmaları yüklenir");
   ok("ordu-agac-secili kalıcıya yazılır", kayit2.includes("ordu-agac-secili"));
   /* (4e) klavye: başlık DIV role=button → Enter/Space tıklamaya çevrilir */
   let tiklandi = 0, engellendi = 0;
@@ -1419,13 +1425,13 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   const j = jsKisim();
   /* --- kaynak pinleri --- */
   ok("mesaj listesi: role=log + aria-live=polite + otomatik en alta kaydırma", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes('aria-live="polite"') && j.includes("liste.scrollTop = liste.scrollHeight"));
-  ok("oturum dürüst notu: 'Bu oturumda gönderilenler — yenileyince temizlenir'", HTML.includes("Bu oturumda gönderilenler — yenileyince temizlenir"));
+  ok("oturum dürüst notu FAZ-M: transcript üstte + panel gönderimleri altta (eski 'yalnız bu oturumda' notu BİLİNÇLİ değişti)", HTML.includes("Üstte seçili oturumun yazışmaları") && !HTML.includes("tam geçmiş Paseo sekmesinde"));
   const chatA = HTML.indexOf("const CHAT_TAVAN");
   const chatB = HTML.indexOf("function anaSekmeYaz()");
   ok("chat bloğu yerinde (CHAT_TAVAN … anaSekmeYaz)", chatA >= 0 && chatB > chatA);
   const chatSlice = HTML.slice(chatA, chatB);
-  ok("bellek-içi: mesaj listesi KALICI DEĞİL — chat diliminde kaydet(/localStorage YOK", !/kaydet\(/.test(chatSlice) && !chatSlice.includes("localStorage"));
-  ok("30sn yenileme mesaj listesine DOKUNMAZ ($(\"chatListe\") erişimi yalnız 1 yerde — chatMesajYaz)", (j.match(/\$\("chatListe"\)/g) || []).length === 1);
+  ok("chat dilimi bellek-içi (mekanizma: kaydet( VE localStorage ÇAĞRISI yok — FAZ-M yorumda 'localStorage YOK' kelimesi dokümantasyondur)", !/kaydet\(/.test(chatSlice) && !/localStorage\./.test(chatSlice));
+  ok("30sn yenileme mesaj listesine DOKUNMAZ ($(\"chatListe\") erişimi 2 yerde — chatMesajYaz + transcriptYukle FAZ-M; yenileme döngüsü ikisine de YAZMAZ)", (j.match(/\$\("chatListe"\)/g) || []).length === 2);
   ok("giriş yüzü FAZ-I: BALON — chatKim (title TAM kimlik) + TAM metin + chatSaat + İNCE sonuç satırı", chatSlice.includes('<div class="chatKim" title="') && chatSlice.includes('class="chatMesaj chat-kullanici') && chatSlice.includes("chatSonuc"));
   ok("tavan: 200 + en eski düşer (shift)", chatSlice.includes("const CHAT_TAVAN = 200") && chatSlice.includes("oturumMesajlari.shift()"));
   ok("composer AYNEN: POST /api/mesaj + x-pano-token başlığı + gonderiyor bayrağı", chatSlice.includes('"/api/mesaj"') && chatSlice.includes('"x-pano-token"') && chatSlice.includes("gonderiyor = true"));
@@ -1650,7 +1656,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   ok("kullanim 1/5 agac satiri: etiket = projeEtiketi(pr) (kisalt 14 + satir title)", j.includes("const etiket = projeEtiketi(pr)"));
   ok("kullanim 2/5 ana sekme: ad = pr ? projeEtiketi(pr) : dizin (taramadan dustuysae dizin yedek)", j.includes("pr ? projeEtiketi(pr) : dizin"));
   ok("kullanim 3/5 chat basligi: seciliKonusma.projeEtiket (kimlik yolu projeDizin AYNEN)", j.includes("projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr)") && j.includes("seciliKonusma.projeEtiket"));
-  ok("kullanim 4/5 composer optgroup: 'SEÇİLİ PROJE: etiket AJANLARI'", j.includes('pr ? projeEtiketi(pr) : "yok"'));
+  ok("kullanim 4/5 composer optgroup: 'SEÇİLİ PROJENİN OTURUM AJANLARI: etiket' (FAZ-M etiket dili)", j.includes('pr ? projeEtiketi(pr) : "yok"'));
   ok("PANEL-SIFIR-1: kullanim 5/5 SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0 (etiket yardımcısı: 1 tanım + 4 kullanım = 5 eşleşme — ağaç + konuşma seçimi + chat + composer)", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 5);
   ok("kimlik yolu DEGISMEZ: data-proje TAM dizin AYNEN (agac + tasi dugmeleri)", j.includes('data-proje="\' + esc(pr.dizin)'));
   ok("data-ana TAM dizin AYNEN (ana sekme kimligi)", j.includes('data-ana="\' + esc(dizin)'));
@@ -1889,4 +1895,324 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   /* --- (5) veri katmanı AYNEN (kisaltma yalnız UI'da — server.js/ordu-birlesim.mjs hunk 0) --- */
   ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 1 tanım + 4 kullanım = 5 eşleşme (ağaç + konuşma seçimi + chat + composer — 5. tablo kullanımı SÖKÜLDÜ) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 5 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
   ok("YENİ @keyframes/renk/sembol YOK (nabız 1 aynen — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !/--yeni-(renk|token)/.test(h));
+});
+
+test("51p- PANEL-ANA-1 FAZ-M: konusma-oku.mjs SAF FONKSİYONLAR — slugYap (Claude projects slug: her özel karakter AYRI tire — koordinatör canlı ölçümü 2026-11-03 D--Vibecode-ordu; Paseo ORDU_DIZIN_ADI FARKLI kuraldır) + kuyrukOku (TAM DOSYA ASLA: yarım satır ATILIR / küçük dosya TAMAMI / kuyruksuz tek satır boş / boş satır filtresi / UTF-8) + satirdanBalon (yalnız konuşma text blokları; thinking/tool_use/tool_result GİRMEZ) + balonTavan (dürüst kesildi işareti) + transcriptHazirla (kronoloji + son 30 + tavan) — kullanıcı spec'i «sol tarafta proje altında hangi oturuma tıklarsak onun yazışmaları chat ekranına yüklenecek»", () => {
+  const G = mkdtempSync(join(tmpdir(), "51p-"));
+  try {
+    /* --- (1) slugYap: cwd → Claude projects slug (karakter-başına tire) --- */
+    assert.equal(slugYap("D:\\Vibecode\\ordu"), "D--Vibecode-ordu", "slug: GERÇEK dizin biçimi (diskte VAR — Test-Path True; ':' bir tire, '\\' ayrı bir tire)");
+    assert.equal(slugYap("D:/Vibecode/ordu"), "D--Vibecode-ordu", "slug: düz bölümlü cwd aynı çıktı ('/' da ayrı tire)");
+    assert.equal(slugYap("C:\\a\\b\\c"), "C--a-b-c", "slug: sürücü iki noktası + ilk ayraç → çift tire");
+    assert.equal(slugYap("C:\\Users\\g\\.local"), "C--Users-g--local", "slug: NOKTA da tire (diskteki 'C--Users-gatep--local-share-...' biçimi)");
+    assert.equal(slugYap("a b"), "a-b", "slug: boşluk → tire");
+    assert.equal(slugYap("d:\\V"), "d--V", "slug: küçük harf KORUNUR (harf katlaması YOK — diskte 'd--Vibecode' var)");
+    assert.notEqual(slugYap("D:\\Vibecode\\ordu"), "D-Vibecode-ordu", "slug: TEK tireli eski biçim YANLIŞ (diskte YOK — Test-Path False)");
+    /* --- (2) kuyrukOku: tail-read --- */
+    const t1 = join(G, "t1.jsonl");
+    writeFileSync(t1, "A".repeat(20) + "\nsatir1\nsatir2\nsatir3"); // 41 bayt
+    // son 11 bayt = "tir2\nsatir3" — ilk satır YARIM → ATILIR, kalan TAM satırlar
+    assert.deepEqual(kuyrukOkuFn(t1, 11), ["satir3"], "kuyruk: tail ortasındaki YARIM satır atılır (ilk TAM satırdan başlar)");
+    assert.deepEqual(kuyrukOkuFn(t1, 512 * 1024), ["A".repeat(20), "satir1", "satir2", "satir3"], "kuyruk: küçük dosya TAMAMI okunur (yarım satır mantığı devreye girmez)");
+    const t2 = join(G, "t2.jsonl");
+    writeFileSync(t2, "x".repeat(50)); // kuyrukta yeni satır YOK → tamamı yarım → boş
+    assert.deepEqual(kuyrukOkuFn(t2, 10), [], "kuyruk: tail'in tamamı tek yarım satır → boş (uydurma satır YOK)");
+    const t3 = join(G, "t3.jsonl");
+    writeFileSync(t3, "merhaba dünya\n\nikinci satır ğüşiöç\n");
+    assert.deepEqual(kuyrukOkuFn(t3), ["merhaba dünya", "ikinci satır ğüşiöç"], "kuyruk: boş satır atılır + UTF-8 Türkçe bütünlük");
+    /* --- (3) satirdanBalon: yalnız KONUŞMA satırları --- */
+    assert.deepEqual(
+      satirdanBalon(JSON.stringify({ type: "user", message: { role: "user", content: "merhaba ajan" } })),
+      { rol: "user", metin: "merhaba ajan" },
+      "satır: user string content → balon");
+    const asst = satirdanBalon(JSON.stringify({ type: "assistant", message: { role: "assistant", content: [
+      { type: "thinking", thinking: "gizli düşünce" },
+      { type: "text", text: "birinci parça" },
+      { type: "tool_use", name: "bash", input: { command: "ls" } },
+      { type: "text", text: "ikinci parça" },
+    ] } }));
+    assert.deepEqual(asst, { rol: "assistant", metin: "birinci parça\nikinci parça" }, "satır: assistant blok dizisi → YALNIZ text blokları (thinking/tool_use GİRMEZ)");
+    assert.equal(satirdanBalon(JSON.stringify({ type: "user", message: { role: "user", content: [{ type: "tool_result", content: "çıktı" }] } })), null, "satır: yalnız tool_result → null (balon değil)");
+    assert.equal(satirdanBalon(JSON.stringify({ type: "api-request", mesaj: "başka kayıt" })), null, "satır: api-request → null");
+    assert.equal(satirdanBalon(JSON.stringify({ type: "mode", mode: "auto" })), null, "satır: mode → null");
+    assert.equal(satirdanBalon("bozuk json {{{"), null, "satır: bozuk JSON → null (atlanır)");
+    assert.equal(satirdanBalon(JSON.stringify({ type: "user", message: { role: "user", content: "   " } })), null, "satır: boş metin → null");
+    /* --- (4) balonTavan: dürüst kesildi --- */
+    assert.deepEqual(balonTavan("kısa metin"), { metin: "kısa metin", kesildi: false }, "tavan: kısa metin AYNEN");
+    const uzun = balonTavan("x".repeat(2500));
+    assert.equal(uzun.metin.length, 2000, "tavan: 2500 → 2000 karakter");
+    assert.equal(uzun.kesildi, true, "tavan: kesildi işareti DÜRÜST");
+    assert.deepEqual(balonTavan("1234567890", 5), { metin: "12345", kesildi: true }, "tavan: özel eşik parametresi");
+    /* --- (5) transcriptHazirla: filtre + kronoloji + son 30 + tavan --- */
+    const satirlar = [];
+    for (let i = 1; i <= 35; i++) satirlar.push(JSON.stringify({ type: "user", message: { role: "user", content: "m" + i } }));
+    const tH = transcriptHazirla(satirlar);
+    assert.equal(tH.length, 30, "hazırla: son 30 balon (36. satır düşmez — TUR_TAVAN)");
+    assert.equal(tH[0].metin, "m6", "hazırla: en eski kalan m6");
+    assert.equal(tH[29].metin, "m35", "hazırla: en yeni m35");
+    assert.equal(tH[0].kesildi, false, "hazırla: kısa metin kesilmedi");
+    assert.equal(transcriptHazirla(satirlar, { turTavani: 3 })[0].metin, "m33", "hazırla: özel turTavani seçeneği");
+    const karisik = [
+      JSON.stringify({ type: "api-request", mesaj: "yok" }),
+      JSON.stringify({ type: "user", message: { role: "user", content: "soru" } }),
+      "bozuk satır",
+      JSON.stringify({ type: "assistant", message: { role: "assistant", content: [{ type: "text", text: "y".repeat(2500) }] } }),
+    ];
+    const tK = transcriptHazirla(karisik);
+    assert.equal(tK.length, 2, "hazırla: konuşma OLMAYAN satırlar filtrelenir (kronoloji korunur)");
+    assert.deepEqual(tK[0], { rol: "user", metin: "soru", kesildi: false }, "hazırla: sıra korunur (user önce)");
+    assert.equal(tK[1].metin.length, 2000, "hazırla: uzun metin tavanlanır");
+    assert.equal(tK[1].kesildi, true, "hazırla: kesildi işareti taşınır");
+    assert.deepEqual(transcriptHazirla([]), [], "hazırla: boş girdi → boş dizi (dürüst — sahte içerik YASAK E10)");
+    assert.deepEqual(transcriptHazirla(["bozuk", JSON.stringify({ type: "file" })]), [], "hazırla: konuşma satırı hiç yok → boş dizi");
+  } finally { try { rmSync(G, { recursive: true, force: true }); } catch { /* Windows gecikmeli silme */ } }
+});
+
+test("51q- PANEL-ANA-1 FAZ-M: server GET /api/ordu/konusma HERMETİK (gerçek çocuk süreç — d1a deseni; PASEO_EV + PANO_CLAUDE_EV izole fixture) — 200 + balonlar (düşünce/aracı GİRMEZ) + 400 geçersiz kimlik + 404 dürüst (bilinmeyen ajan / sessionId yok / transcript dosyası yok) + GET salt-okur (token başlığı YOK) + kayıttaki systemPrompt YANITA GİRMEZ", async () => {
+  const G = mkdtempSync(join(tmpdir(), "51q-"));
+  const cocuklar = [];
+  const AJAN = "5f482ae0-1111-4111-8111-111111111111";
+  const AJAN2 = "99999999-8888-4888-8888-888888888888"; // sessionId YOK
+  const AJAN3 = "77777777-6666-4666-8666-666666666666"; // transcript dosyası YOK
+  const AJAN_YOK = "aaaaaaaa-bbbb-4bbb-8bbb-cccccccccccc";
+  const OTURUM = "42c288f7-2222-4222-8222-222222222222";
+  const OTURUM2 = "12345678-1234-4123-8123-123456789012";
+  try {
+    /* PASEO_EV fixture: agents/D-Test-p1/<id>.json (projelerTara id ister) */
+    mkdirSync(join(G, "paseo", "agents", "D-Test-p1"), { recursive: true });
+    writeFileSync(join(G, "paseo", "agents", "D-Test-p1", AJAN + ".json"), JSON.stringify({
+      id: AJAN, cwd: "D:\\Test\\p1", lastStatus: "idle", title: "fixture ajan", provider: "glm53u-claude/glm-5.3",
+      persistence: { sessionId: OTURUM },
+      systemPrompt: "SYSTEM_PROMPT_SIR_MARKER — bu sır yalnız kayıtta, YANITA GİRMEZ",
+    }));
+    writeFileSync(join(G, "paseo", "agents", "D-Test-p1", AJAN2 + ".json"), JSON.stringify({ id: AJAN2, cwd: "D:\\Test\\p1", lastStatus: "idle" }));
+    writeFileSync(join(G, "paseo", "agents", "D-Test-p1", AJAN3 + ".json"), JSON.stringify({ id: AJAN3, cwd: "D:\\Test\\p1", persistence: { sessionId: OTURUM2 } }));
+    /* PANO_CLAUDE_EV fixture: projects/<slug>/<sessionId>.jsonl — slug GERÇEK biçim:
+       çift tire ('D--Test-p1' — koordinatör disk ölçümü: her özel karakter AYRI tire;
+       Paseo agents dizini 'D-Test-p1' tek tire FARKLI kuraldır, AYNEN kalır) */
+    assert.equal(slugYap("D:\\Test\\p1"), "D--Test-p1", "gerçek-şekil pini: slugYap(cwd) çıktısı LİTERAL 'D--Test-p1' (self-referans tuzağına gerçek pini — disk biçimi)");
+    const jsonl = [
+      JSON.stringify({ type: "user", message: { role: "user", content: "fixture kullanıcı mesajı <b>x</b>" } }),
+      JSON.stringify({ type: "assistant", message: { role: "assistant", content: [{ type: "thinking", thinking: "gizli düşünce" }, { type: "text", text: "fixture ajan yanıtı" }] } }),
+      JSON.stringify({ type: "api-request", mesaj: "başka kayıt" }),
+      JSON.stringify({ type: "mode", mode: "auto" }),
+      JSON.stringify({ type: "assistant", message: { role: "assistant", content: [{ type: "tool_use", name: "bash" }] } }),
+    ].join("\n") + "\n";
+    mkdirSync(join(G, "claude", "projects", "D--Test-p1"), { recursive: true });
+    writeFileSync(join(G, "claude", "projects", "D--Test-p1", OTURUM + ".jsonl"), jsonl);
+    /* sunucu (izole env — 4937'ye DOKUNULMAZ) */
+    const sunucuBaslat = (env) => {
+      const c = spawn(process.execPath, ["server.js"], { cwd: KOK, env: { ...process.env, ...env } });
+      cocuklar.push(c);
+      return new Promise((res, rej) => {
+        const zamanAsimi = setTimeout(() => rej(new Error("sunucu 5 sn icinde port bildirmedi")), 5000);
+        c.stdout.on("data", (d) => {
+          const m = String(d).match(/127\.0\.0\.1:(\d+)/);
+          if (m) { clearTimeout(zamanAsimi); res(Number(m[1])); }
+        });
+        c.stderr.on("data", (d) => process.stderr.write(d));
+      });
+    };
+    const port = await sunucuBaslat({
+      PANO_PORT: "0", PASEO_EV: join(G, "paseo"), PANO_CLAUDE_EV: join(G, "claude"),
+      PANO_KOKLER: G, ORDU_GRAF_JSON: join(G, "yok.json"),
+    });
+    const base = "http://127.0.0.1:" + port + "/api/ordu/konusma?ajan=";
+    /* (1) 200: transcript çözülür + yalnız konuşma satırları + ölçüm anı + sır GİRMEZ */
+    const r1 = await fetch(base + AJAN); // başlık YOK — GET salt-okur
+    assert.equal(r1.status, 200, "200: GET salt-okur (token başlığı istenmez — PANO_TOKEN yalnız POST kapısı)");
+    const j1 = await r1.json();
+    assert.deepEqual(j1.balonlar, [
+      { rol: "user", metin: "fixture kullanıcı mesajı <b>x</b>", kesildi: false },
+      { rol: "assistant", metin: "fixture ajan yanıtı", kesildi: false },
+    ], "200: yalnız KONUŞMA balonları (api-request/mode/tool_use DÜŞER)");
+    assert.equal(j1.ajan, AJAN, "200: ajan kimliği aynen");
+    assert.equal(j1.oturumId, OTURUM, "200: oturum kimliği kayıttan çözülür");
+    assert.equal(j1.dosyaBoyutBayt, Buffer.byteLength(jsonl), "200: dosya boyutu BAYT cinsinden ölçülür");
+    assert.ok(j1.okumaNotu.includes("TAM DOSYA asla yüklenmez"), "200: dürüst okuma notu (tail-read sınırları)");
+    assert.ok(typeof j1.olcumAniISO === "string" && j1.olcumAniISO.endsWith("Z"), "200: ölçüm anı etiketi (snapshot'ı canlı gösterme kuralı)");
+    const govde = JSON.stringify(j1);
+    assert.ok(!govde.includes("SYSTEM_PROMPT_SIR_MARKER"), "200: kayıttaki systemPrompt YANITA GİRMEZ (sır)");
+    assert.ok(!govde.includes("gizli düşünce"), "200: thinking bloğu balona GİRMEZ");
+    /* (2) 400: geçersiz kimlik */
+    const r2 = await fetch(base + "abc");
+    assert.equal(r2.status, 400, "400: geçersiz kimlik");
+    assert.ok((await r2.json()).hata.includes("gecersiz ajan kimligi"), "400: dürüst hata metni");
+    /* (3) 404: bilinmeyen ajan (disk taramasında yok) */
+    const r3 = await fetch(base + AJAN_YOK);
+    assert.equal(r3.status, 404, "404: bilinmeyen ajan");
+    assert.ok((await r3.json()).hata.includes("ajan disk taramasında yok"), "404: dürüst — sahte içerik YASAK (E10)");
+    /* (4) 404: persistence.sessionId yok */
+    const r4 = await fetch(base + AJAN2);
+    assert.equal(r4.status, 404, "404: sessionId çözülemez");
+    assert.ok((await r4.json()).hata.includes("persistence.sessionId"), "404: dürüst neden metni");
+    /* (5) 404: transcript dosyası yok */
+    const r5 = await fetch(base + AJAN3);
+    const j5 = await r5.json();
+    assert.equal(r5.status, 404, "404: transcript dosyası yok");
+    assert.ok(!("balonlar" in j5), "404: balonlar alanı YOK (uydurma boş dizi bile yazılmaz)");
+    assert.ok(j5.hata.includes("oturum transcript dosyası yok"), "404: dürüst dosya-yok metni (E10)");
+  } finally {
+    for (const c of cocuklar) { try { c.kill("SIGKILL"); } catch { /* zaten çıkmış */ } }
+    try { rmSync(G, { recursive: true, force: true }); } catch { /* Windows gecikmeli silme */ }
+  }
+});
+
+test("51r- PANEL-ANA-1 FAZ-M (kaynak-pin + vm): ağaçta oturuma TIKLA → transcript chat'e yüklenir (transcriptYukle + transcriptBalonHtml: kullanıcı SAĞ balon / ajan YANITI SOL chat-sistem / saat YOK / esc / kesildi işareti) + chatMesajYaz bileşik (transcript ÜSTTE + panel gönderimleri altta) + açılışta YALNIZ bir kez + composer İKİ TÜR AJAN (ORDU YÖNETİM (sistem) + SEÇİLİ PROJENİN OTURUM AJANLARI — labels.rol tespiti YOK)", async () => {
+  const j = jsKisim();
+  /* --- (1) kaynak pinleri --- */
+  ok("fetch: GET /api/ordu/konusma?ajan= + encodeURIComponent(TAM kimlik)", j.includes('"/api/ordu/konusma?ajan=" + encodeURIComponent(ajanKimligi)'));
+  ok("fonksiyonlar: async transcriptYukle + transcriptBalonHtml (yeni özellik = ince kanca — composer POST aynen)", j.includes("async function transcriptYukle(") && j.includes("function transcriptBalonHtml("));
+  ok("state: transcriptBalonlar/transcriptHata null + transcriptAcilisIstendi kilidi (null=yüklenmedi, []=dürüst boş)", j.includes("let transcriptBalonlar = null") && j.includes("let transcriptHata = null") && j.includes("let transcriptAcilisIstendi = false"));
+  ok("ağaç tıklaması: konusmaSecGuncelle(true) ardından transcriptYukle(agacSecili) — oturuma tıkla → yazışmalar yüklenir + composer hedefi O AJANA döner", j.includes("konusmaSecGuncelle(true)") && j.includes("transcriptYukle(agacSecili)"));
+  ok("açılış: kalıcı seçim YALNIZ bir kez yükler (transcriptAcilisIstendi = true — 30sn yenileme döngüsü tekrar fetch ETMEZ)", j.includes("transcriptAcilisIstendi = true"));
+  ok("composer İKİ TÜR AJAN: ORDU YÖNETİM (sistem) + SEÇİLİ PROJENİN OTURUM AJANLARI (labels.rol'da MANAGER tespiti YOK — koordinatör ölçümü: 1058 kayıtta 14 etiket, 'manager' YOK; uydurma tespit YASAK)", j.includes('<optgroup label="ORDU YÖNETİM (sistem)">') && j.includes('<optgroup label="SEÇİLİ PROJENİN OTURUM AJANLARI: ') && !j.includes("labels.rol"));
+  ok("CSS: .chatMesaj.chat-sistem SOL ince balon (align-self:flex-start — ajan yanıtı) + .chatKesildi dürüst işaret satırı", /\.chatMesaj\.chat-sistem\s*\{[^}]*align-self:\s*flex-start/.test(HTML) && /\.chatKesildi\s*\{[^}]*font-style:\s*italic/.test(HTML));
+  ok("yükleniyor dürüst satırı + hata notu seçimi korur (kırmızı yüz çatışı YOK — mesaj gönderilebilir)", j.includes('<p class="bosSatir">yazışmalar yükleniyor…</p>') && j.includes('transcriptHata = "yazışmalar yüklenemedi — "'));
+  ok("chatMesajYaz bileşik: transcriptHtml + oturumHtml (transcript ÜSTTE — kronoloji; panel gönderimleri altta devam eder)", j.includes("liste.innerHTML = transcriptHtml + oturumHtml"));
+  ok("dürüst boş: 'konuşma satırı yok (son bölüm okundu)' — sahte içerik YASAK (E10)", j.includes('"oturumun yazışmalarında konuşma satırı yok (son bölüm okundu — dürüst boş)"'));
+  /* --- (2) vm: chatMesajHtml + chatMesajYaz + transcriptBalonHtml + transcriptYukle --- */
+  const dilimA = HTML.indexOf("function chatMesajHtml(");
+  const dilimB = HTML.indexOf('$("composerForm").addEventListener');
+  ok("FAZ-M vm dilimi yerinde (chatMesajHtml … composerForm dinleyicisi)", dilimA >= 0 && dilimB > dilimA);
+  const K = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7";
+  const R = "11111111-2222-4333-8333-444444444444";
+  const sahte = {};
+  const $r = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true, value: "", scrollTop: 0, scrollHeight: 99 });
+  const cagrilar = [];
+  let anlikListe = "";
+  let cekDavranis = async () => ({ balonlar: [] });
+  const cek = async (yol) => { anlikListe = String($r("chatListe").innerHTML); cagrilar.push(yol); return cekDavranis(yol); };
+  const ctx = {
+    $: $r, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"),
+    seciliKonusma: { ajan: { ajanKimligi: K, ajanId: "kurmay", etiket: "KURMAY-1" } },
+    oturumMesajlari: [], transcriptBalonlar: null, transcriptHata: null,
+    cek,
+  };
+  const fns = vm.runInNewContext(HTML.slice(dilimA, dilimB) + "\n[chatMesajHtml, chatMesajYaz, transcriptBalonHtml, transcriptYukle]", ctx);
+  /* (2a) transcriptBalonHtml: kullanıcı SAĞ / ajan SOL / esc / saat YOK / kesildi */
+  const bu1 = fns[2]({ rol: "user", metin: "merhaba <b>agent</b>" });
+  ok("vm balon: kullanıcı mesajı SAĞ balon (chat-kullanici) + 'kullanıcı' etiketi + esc", bu1.includes('chatMesaj chat-kullanici') && bu1.includes(">kullanıcı<") && bu1.includes("&lt;b&gt;agent&lt;/b&gt;") && !bu1.includes("<b>"));
+  const bu2 = fns[2]({ rol: "assistant", metin: "yanıt metni" });
+  ok("vm balon: ajan yanıtı SOL ince balon (chat-sistem) + title TAM kimlik + seçili konuşmanın kısa adı", bu2.includes("chatMesaj chat-sistem") && bu2.includes('title="' + K + '"') && bu2.includes(">kurmay<"));
+  ok("vm balon: transcript balonlarında saat YOK (uydurma saat YAZILMAZ — E10; gönderim balonunda gerçek saat var)", !fns[2]({ rol: "user", metin: "x" }).includes("chatSaat") && !fns[2]({ rol: "assistant", metin: "x" }).includes("chatSaat"));
+  const bu3 = fns[2]({ rol: "assistant", metin: "x".repeat(300), kesildi: true });
+  ok("vm balon: kesildi → dürüst işaret satırı (TAM metin sunucudaki dosyada kalır)", bu3.includes('class="chatKesildi"') && bu3.includes("TAM metin sunucudaki transcript dosyasında kalır"));
+  /* (2b) transcriptYukle: başarı → balonlar dolar + panel gönderimi ALTTA kalır */
+  ctx.oturumMesajlari.push({ saat: "12:00", hedefKisa: "kurmay", hedefKimlik: K, metin: "panel mesajı <i>", sonuc: { tur: "basarili", metin: "" } });
+  cekDavranis = async () => ({ balonlar: [
+    { rol: "user", metin: "transcript sorusu <script>alert(1)</script>" },
+    { rol: "assistant", metin: "y".repeat(300), kesildi: true },
+  ] });
+  await fns[3](R);
+  ok("vm yükleme: fetch /api/ordu/konusma?ajan=<TAM kimlik>", cagrilar.length === 1 && cagrilar[0] === "/api/ordu/konusma?ajan=" + R);
+  ok("vm yükleme: beklerken dürüst 'yazışmalar yüklenıyor…' satırı (cesur boş YOK)", anlikListe.includes("yazışmalar yükleniyor…"));
+  const h = $r("chatListe").innerHTML;
+  ok("vm yükleme: transcript balonları render (kullanıcı SAĞ + ajan SOL + kesildi işareti)", h.includes("chatMesaj chat-kullanici") && h.includes("chatMesaj chat-sistem") && h.includes("chatKesildi"));
+  ok("vm yükleme: XSS — transcript metni esc'ten geçer (dış içerik)", h.includes("&lt;script&gt;alert(1)&lt;/script&gt;") && !h.includes("<script>alert"));
+  ok("vm yükleme: transcript ÜSTTE + panel gönderimi ALTTA (kronoloji bileşik)", h.indexOf("transcript sorusu") < h.indexOf("panel mesajı") && h.indexOf("panel mesajı") > -1);
+  ok("vm yükleme: boş-durum satırı gizlenir (içerik var)", $r("chatBos").hidden === true);
+  ok("vm yükleme: transcriptBalonlar ctx'e yazılır (sonraki chatMesajYaz çağrıları aynı akışı korur)", Array.isArray(ctx.transcriptBalonlar) && ctx.transcriptBalonlar.length === 2);
+  /* (2c) hata: dürüst not — seçim KALIR, mesaj gönderilebilir */
+  ctx.oturumMesajlari.length = 0;
+  cekDavranis = async () => { throw new Error("boom"); };
+  await fns[3](R);
+  ok("vm hata: transcriptHata dürüst not (neden + seçim kalır — kırmızı yüz YOK)", String(ctx.transcriptHata).includes("yazışmalar yüklenemedi — boom") && String(ctx.transcriptHata).includes("oturum seçili kaldı"));
+  ok("vm hata: chatBos kapısında not görünür (liste boş — uydurma balon YOK)", $r("chatBos").hidden === false && $r("chatBos").textContent.includes("yazışmalar yüklenemedi") && $r("chatListe").innerHTML === "");
+  /* (2d) dürüst boş: balonlar [] → 'konuşma satırı yok' (sahte içerik YASAK) */
+  cekDavranis = async () => ({ balonlar: [] });
+  await fns[3](R);
+  ok("vm boş: yüklendi + boş → dürüst boş metni (son bölüm okundu)", Array.isArray(ctx.transcriptBalonlar) && ctx.transcriptBalonlar.length === 0 && $r("chatBos").textContent.includes("konuşma satırı yok") && $r("chatListe").innerHTML === "");
+  /* (2e) koruma: boş kimlik → fetch ATILMAZ */
+  const cagrilarOnce = cagrilar.length;
+  await fns[3]("");
+  ok("vm koruma: boş kimlikte istek ATILMAZ (fail-closed — sahte transcript YOK)", cagrilar.length === cagrilarOnce);
+  /* --- (3) veri katmanı AYNEN: POST /api/mesaj + CHAT_TAVAN + transcript YALNIZ GET (salt-okur) --- */
+  ok("veri katmanı AYNEN: POST /api/mesaj + CHAT_TAVAN 200 — composer gönderim akışı değişmedi; transcript fetch TEK cek() çağrısı ve salt-okur (method seçeneği YOK — 'konusma?ajan=' diziye göre 2'dir: 1 çağrı + 1 yorum, mekanizma sayısı 1)", j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200") && (j.match(/cek\("\/api\/ordu\/konusma\?ajan="/g) || []).length === 1 && !/konusma\?ajan=[\s\S]{0,60}method/.test(j));
+});
+
+test("51s- PANEL-ANA-1 FAZ-N (kaynak-pin + vm): ağaç ÖLÜ OTURUM FİLTRESİ — klasör altında YALNIZ SON 3 oturum satırı (sonEtkinlikISO en yeni 3; eksik ISO en eski, eşitlikte kimlikle deterministik) + running/error HER ZAMAN görünür (birleşim, mükerrer yok) + başlık sayısı TOPLAM kayıt DÜRÜST KALIR ('+K eski' YOK) + gizli seçim KORUNUR — kullanıcı onayı 2026-11-04 «bu şekilde yap» + «son 2 yada 3 sekme yeterli özellikle aktif sekme gösterilmeli»", () => {
+  const j = jsKisim();
+  /* --- (1) kaynak pinleri --- */
+  ok("filtre fonksiyonu tanımlı: agacGorunurAjanlar (yeni özellik = ince kanca — render'da çağrılır)", j.includes("function agacGorunurAjanlar("));
+  ok("render çağrısı: agacGorunurAjanlar(ajanlar).map(ajanDugumHtml) — satır listesi süzülür", j.includes("agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr))"));
+  ok("başlık sayısı TOPLAM kayıt AYNEN: ajanlar.length (gizlenenler dahil — sahte gizleme YOK E10)", j.includes("ajanlar.length + ' ajan kaydı"));
+  ok("'+K eski' satırı MEKANİZMA YOK (agacEski sınıfı/id'si yok — minimal; yorumdaki kelime dokümantasyondur)", !j.includes("agacEski"));
+  const filtreGovde = HTML.slice(HTML.indexOf("function agacGorunurAjanlar("), HTML.indexOf("function agacYaz("));
+  ok("filtre agacSecili'ye DOKUNMAZ (gizli satıra denk gelen kalıcı seçim KORUNUR — davranış dürüst)", filtreGovde.includes("function agacGorunurAjanlar(") && !filtreGovde.includes("agacSecili"));
+  ok("son 3 eşiği + running/error birleşim koşulu kaynakta", filtreGovde.includes("slice(0, 3)") && filtreGovde.includes('lastStatus === "running"') && filtreGovde.includes('lastStatus === "error"'));
+  /* --- (2) vm: 6 kayıtlı fixture — son 3 + running + error görünür, eski idle GİZLİ --- */
+  const A1 = "11111111-1111-4111-8111-111111111111"; // idle · 2026-01-01 — YALNIZ eski → GİZLİ
+  const A2 = "22222222-2222-4222-8222-222222222222"; // idle · 2026-11-04 — en yeni → GÖRÜNÜR
+  const A3 = "33333333-3333-4333-8333-333333333333"; // idle · 2026-11-03 → GÖRÜNÜR
+  const A4 = "44444444-4444-4444-8444-444444444444"; // idle · 2026-06-01 → GÖRÜNÜR
+  const A5 = "55555555-5555-4555-8555-555555555555"; // running · 2025-01-01 EN ESKİ → GÖRÜNÜR (yaşa bakılmaksızın)
+  const A6 = "66666666-6666-4666-8666-666666666666"; // error · 2024-01-01 → GÖRÜNÜR
+  const agacA = HTML.indexOf("function ajanDugumHtml(");
+  const agacB = HTML.indexOf('$("agacAlani").addEventListener');
+  ok("FAZ-N vm dilimi yerinde (ajanDugumHtml … agacAlani dinleyicisi — filtre + agacYaz dahil)", agacA >= 0 && agacB > agacA);
+  const dilim = HTML.slice(agacA, agacB);
+  const kos = (P, agacAcik, agacSecili) => {
+    const sahte = {};
+    const $s = (id) => (sahte[id] = sahte[id] || { innerHTML: "", textContent: "", hidden: true });
+    const ctx = {
+      $: $s, esc: fnAl("esc"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+      P, agacAcik, agacSecili, NOKTA_SINIF: { running: "yesil", idle: "gri", error: "kirmizi", closed: "kapali" },
+    };
+    vm.runInNewContext(dilim + "\nagacYaz", ctx)();
+    return { html: sahte.agacAlani.innerHTML, ctx };
+  };
+  const r1 = kos({ olcumAniISO: "2026-11-04T00:00:00Z", projeler: [
+    { dizin: "P-alfa", projeAdi: "P-alfa", orduMu: false, ajanlar: [
+      { ajanKimligi: A1, ajanId: "11111111", lastStatus: "idle", sonEtkinlikISO: "2026-01-01T00:00:00Z", etiket: "eski idle" },
+      { ajanKimligi: A2, ajanId: "22222222", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T00:00:00Z", etiket: "en yeni" },
+      { ajanKimligi: A3, ajanId: "33333333", lastStatus: "idle", sonEtkinlikISO: "2026-11-03T00:00:00Z", etiket: "yeni2" },
+      { ajanKimligi: A4, ajanId: "44444444", lastStatus: "idle", sonEtkinlikISO: "2026-06-01T00:00:00Z", etiket: "yeni3" },
+      { ajanKimligi: A5, ajanId: "55555555", lastStatus: "running", sonEtkinlikISO: "2025-01-01T00:00:00Z", etiket: "eski ama CALISIYOR" },
+      { ajanKimligi: A6, ajanId: "66666666", lastStatus: "error", sonEtkinlikISO: "2024-01-01T00:00:00Z", etiket: "eski hata" },
+    ] },
+  ] }, new Set(["P-alfa"]), null);
+  ok("vm 6 kayıt: 5 satır görünür (son 3 + running + error — birleşim)", (r1.html.match(/class="agacAjan"/g) || []).length === 5);
+  ok("vm: eski idle (A1) satırı YOK — yalnız son 3 + aktif/hata", !r1.html.includes('data-ajan="' + A1 + '"') && [A2, A3, A4, A5, A6].every((k) => r1.html.includes('data-ajan="' + k + '"')));
+  ok("vm: başlık sayısı DÜRÜST TOPLAM: 'P-alfa — 1 çalışan · 6 ajan kaydı' (gizlenen A1 dahil; '+ eski' satırı YOK)", r1.html.includes('title="P-alfa — 1 çalışan · 6 ajan kaydı"') && !r1.html.includes("agacEski"));
+  ok("vm: görüntü sırası disk-tarama sırası KORUNUR (A1 atlandı ama diğerleri girdi sırasında: A2 < A3 < A4 < A5 < A6)", [r1.html.indexOf('data-ajan="' + A2), r1.html.indexOf('data-ajan="' + A3), r1.html.indexOf('data-ajan="' + A4), r1.html.indexOf('data-ajan="' + A5), r1.html.indexOf('data-ajan="' + A6)].every((v, i, d) => v >= 0 && (i === 0 || d[i - 1] < v)));
+  /* --- (3) vm: gizli seçim KORUNUR — satır görünmez, agacSecili değişmez --- */
+  const r2 = kos({ projeler: [
+    { dizin: "P-alfa", projeAdi: "P-alfa", orduMu: false, ajanlar: [
+      { ajanKimligi: A1, ajanId: "11111111", lastStatus: "idle", sonEtkinlikISO: "2026-01-01T00:00:00Z", etiket: "eski idle" },
+      { ajanKimligi: A2, ajanId: "22222222", lastStatus: "idle", sonEtkinlikISO: "2026-11-04T00:00:00Z", etiket: "en yeni" },
+      { ajanKimligi: A3, ajanId: "33333333", lastStatus: "idle", sonEtkinlikISO: "2026-11-03T00:00:00Z", etiket: "yeni2" },
+      { ajanKimligi: A4, ajanId: "44444444", lastStatus: "idle", sonEtkinlikISO: "2026-06-01T00:00:00Z", etiket: "yeni3" },
+    ] },
+  ] }, new Set(["P-alfa"]), A1); /* seçim GİZLİ satırda */
+  ok("vm gizli seçim: A1 satırı görünmez AMA agacSecili KORUNUR (render seçimi silmez — dürüst; seçim kompozisyonunu sürdürür)", !r2.html.includes('data-ajan="' + A1 + '"') && r2.ctx.agacSecili === A1);
+  ok("vm gizli seçim: 'secili' sınıfı hiçbir görünür satıra basılmaz (satır yok — uydurma seçim YOK)", !r2.html.includes("agacAjan secili"));
+  /* --- (4) vm: mükerrer YOK — running VE en yeni aynı ajan bir kez render --- */
+  const X = "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx";
+  const r3 = kos({ projeler: [
+    { dizin: "P-beta", projeAdi: "P-beta", orduMu: false, ajanlar: [
+      { ajanKimligi: X, ajanId: "xxxxxxxx", lastStatus: "running", sonEtkinlikISO: "2026-11-04T00:00:00Z", etiket: "aktif ve en yeni" },
+      { ajanKimligi: A2, ajanId: "22222222", lastStatus: "idle", sonEtkinlikISO: "2026-11-03T00:00:00Z", etiket: "yeni2" },
+      { ajanKimligi: A3, ajanId: "33333333", lastStatus: "idle", sonEtkinlikISO: "2026-11-02T00:00:00Z", etiket: "yeni3" },
+    ] },
+  ] }, new Set(["P-beta"]), null);
+  ok("vm birleşim: running + top-3 aynı ajanda TEK satır (mükerrer YOK — Set birleşimi)", (r3.html.match(/class="agacAjan"/g) || []).length === 3 && (r3.html.match(new RegExp('data-ajan="' + X + '"', "g")) || []).length === 1);
+  /* --- (5) vm: eksik sonEtkinlikISO en eski + eşitlikte kimlikle DETERMİNİSTİK --- */
+  const K1 = "aaaa0000-0000-4000-8000-000000000001";
+  const K2 = "bbbb0000-0000-4000-8000-000000000002";
+  const K3 = "cccc0000-0000-4000-8000-000000000003";
+  const K4 = "dddd0000-0000-4000-8000-000000000004";
+  const r4 = kos({ projeler: [
+    { dizin: "P-gama", projeAdi: "P-gama", orduMu: false, ajanlar: [
+      { ajanKimligi: K1, ajanId: "aaaa0000", lastStatus: "idle", sonEtkinlikISO: null, etiket: "iso yok 1" },
+      { ajanKimligi: K2, ajanId: "bbbb0000", lastStatus: "idle", sonEtkinlikISO: null, etiket: "iso yok 2" },
+      { ajanKimligi: K3, ajanId: "cccc0000", lastStatus: "idle", sonEtkinlikISO: "bozuk-iso", etiket: "iso bozuk" },
+      { ajanKimligi: K4, ajanId: "dddd0000", lastStatus: "idle", sonEtkinlikISO: null, etiket: "iso yok 4" },
+    ] },
+  ] }, new Set(["P-gama"]), null);
+  ok("vm deterministik: 4 eksik/bozuk ISO → kimlik sırasıyla en yeni 3 (K4,K3,K2) görünür, K1 (en küçük kimlik) gizli", (r4.html.match(/class="agacAjan"/g) || []).length === 3 && [K4, K3, K2].every((k) => r4.html.includes('data-ajan="' + k + '"')) && !r4.html.includes('data-ajan="' + K1 + '"'));
+  /* --- (6) korunum: FAZ-N CSS/etiket/kimlik yollarına DOKUNULMADI --- */
+  ok("korunum: ajanDugumHtml kimlik yolu AYNEN (data-ajan TAM kimlik + data-proje TAM dizin — FAZ-K mirası; filtre yalnız görünürlüğe karar verir)", j.includes('esc(a.ajanKimligi)') && j.includes('esc(pr.dizin)') && j.includes('" data-ajan="'));
+  ok("korunum: min-height 32 ailesi + coarse 44 + GÖNDER 40 AYNEN (K-0061 — FAZ-N ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  ok("korunum: akordiyon/tıklama/seçim mekanizması AYNEN (agacAcik + agacSecili kaydet/oku çağrıları değişmedi)", j.includes('kaydet("ordu-agac-acik"') && j.includes('kaydet("ordu-agac-secili"'));
 });

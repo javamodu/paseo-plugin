@@ -345,6 +345,10 @@
   }
   .chatMesaj.chat-kullanici.basarili { border-color:rgba(4,120,87,0.4); } /* gönderildi — yeşil kenar (eski sol kenar sinyalinin karşılığı) */
   .chatMesaj.chat-kullanici.hata { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.35); } /* hata balonu kırmızı tonu KALIR */
+  .chatMesaj.chat-sistem { /* FAZ-M: transcript AJAN YANITI — SOL ince balon (chat-sistem dili; gönderilen sağ balonun ayna kardeşi) */
+    background:var(--yuzey2); border:1px dashed var(--cizgi); max-width:92%; align-self:flex-start;
+  }
+  .chatKesildi { font-size:11px; color:var(--ikincil); font-style:italic; margin:4px 0 0; } /* FAZ-M: metin tavanı işareti (dürüst kesildi bildirimi) */
   .chatKim { font-size:11.5px; font-weight:700; letter-spacing:0.06em; color:var(--ikincil); margin:0 0 3px; } /* balonun ÜSTÜNDE alıcı etiketi (title TAM kimlik) */
   .chatSaat { font-size:11px; color:var(--ikincil); margin:4px 0 0; white-space:nowrap; } /* balonun ALTINDA (tuval deseni) */
   .chatSonucSatiri { margin:2px 0 0; }
@@ -480,23 +484,29 @@
 
   <!-- ============ SAĞ (#sag): CHAT PANELİ (PANEL-CHAT-1 — AYNEN KORUNUR) ============
        Üst: seçili konuşmanın öz bilgisi TEK kompakt satır (kısa ad + durum noktası +
-       sağlayıcı kısa; title TAM kimlik). Orta: MESAJ LİSTESİ — yalnız BU OTURUMDA
-       gönderilenler (bellek-içi dizi; localStorage YOK — geçmiş uydurma E10 ihlali;
-       dürüst oturum notu üstte). Konuşma GEÇMİŞİ (transcript) SONRAKİ dalga (FAZ-M).
-       Alt: composer — hedef select İKİ AYRI optgroup:
-       (1) ORDU YÖNETİM (kadro rolAtamasi MANAGER — KURMAY-1; disk taramasındaki kimlikle)
-       (2) SEÇİLİ PROJENİN AJANLARI (yönetim kimlikleri HARİÇ — manager ile proje ajanı KARIŞMAZ).
+       sağlayıcı kısa; title TAM kimlik). Orta: MESAJ LİSTESİ — FAZ-M: seçili OTURUMUN
+       YAZIŞMALARI (transcript — ağaçta oturuma tıklayınca GET /api/ordu/konusma'dan
+       tail-read ile yüklenir; kullanıcı mesajı sağ balon, ajan yanıtı sol ince balon)
+       + BU OTURUMDA gönderilenler altta (bellek-içi dizi; localStorage YOK — geçmiş
+       uydurma E10 ihlali değil, transcript SUNUCUDAN gelir). Alt: composer — hedef
+       select İKİ AYRI optgroup (FAZ-M kullanici spec'i «chat composer da projenin iç
+       manager ajanı yada ordu yönetici manager sistem ajanı seçimi olacak»):
+       (1) ORDU YÖNETİM (sistem) (kadro rolAtamasi MANAGER — KURMAY-1 = tepe sistem
+           ajanı; disk taramasındaki kimlikle)
+       (2) SEÇİLİ PROJENİN OTURUM AJANLARI (yönetim kimlikleri HARİÇ — oturuma tıklayınca
+           hedef otomatik O AJANA atanır: o oturumu yöneten ajan = projenin iç manager'ı;
+           LABELS.ROL tespiti YAPILMAZ — koordinatör ölçümü: 1058 kayıtta 'manager' etiketi YOK).
        Görsel dil kapsul-tuval.html #sag/#chatBolum'dan ESİNLENİR (renk/yoğunluk — KOD
        KOPYA EDİLMEZ; tuval 4930 deney sunucusuna POST eder, bu panel ASLA).
        Token değeri AKLA/LOCALSTORAGE'A girmez — yalnız istek başlığında gider. -->
-  <section id="sag" aria-label="sohbet paneli — seçili konuşma, oturum mesaj listesi ve composer">
+  <section id="sag" aria-label="sohbet paneli — seçili konuşma, oturum yazışmaları ve composer">
     <section class="bolum" id="bolum-chat" aria-labelledby="chat-baslik">
       <h2 class="bolum-etiket" id="chat-baslik">
         <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 4 H17 V13 H9 L5 17 V13 H3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 7.5 H14 M6 10.5 H11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         CHAT
       </h2>
       <p class="chatBaslikSatiri" id="chatBaslik"><span class="bosSatir">konuşma seçilmedi — gezgin ağacından bir ajan düğümüne tıkla</span></p>
-      <p class="chatOturumNotu">Bu oturumda gönderilenler — yenileyince temizlenir (tam geçmiş Paseo sekmesinde)</p>
+      <p class="chatOturumNotu">Üstte seçili oturumun yazışmaları (transcript — sunucudan son bölüm); altta bu panelde gönderdiklerin — panel mesajları yenileyince temizlenir</p>
       <div id="chatListe" class="chatListe" role="log" aria-live="polite" aria-label="bu oturumda gönderilen mesajlar ve gönderim sonuçları"></div>
       <p class="bosSatir" id="chatBos">bu oturumda henüz mesaj gönderilmedi</p>
       <!-- PANEL-ANA-1 FAZ-C: composer TEK chat biriminin alt bölgesi (liste üstte esnek,
@@ -536,7 +546,8 @@
 // Üst bar + alt sekme şeridi + plan tabloları + akış + sağlık + durum kartları
 // + log yüzleri SÖKÜLDÜ; fetch çağrıları daraltıldı: kalan uçlar
 // /api/ordu/projeler (ağaç + composer) + /api/ordu/kadro (composer ORDU
-// YÖNETİM optgroup kaynağı) + /api/graf (orta görev grafı) + tek YAZMA ucu
+// YÖNETİM optgroup kaynağı) + /api/ordu/konusma (FAZ-M: oturum transcript —
+// ağaç tıklamasıyla, tail-read) + /api/graf (orta görev grafı) + tek YAZMA ucu
 // POST /api/mesaj (dar spawn köprüsü — K-0060). Her veri kaynağının kendi
 // kırmızı yüzü var (fail-closed): uç ölse/bayatsa o yüz boşalır + kırmızı
 // 'veri okunamadı' görünür — bayat veri ekranda KALMAZ. 30 sn yenileme
@@ -887,6 +898,12 @@ async function projelerYukle() {
     kirmiziYuzKapat("agacHata");
     if (!odakIcindeMi("#bolum-agac")) agacYaz();
     if (!seciliKonusma && agacSecili) konusmaSecGuncelle(); /* kalıcı seçimi taramayla eşle */
+    /* FAZ-M: kalıcı seçim açılışta YALNIZ bir kez transcript yükler — 30sn döngüsü
+       tekrar fetch ETMEZ (döngü listeye DOKUNMAZ); kullanıcı tıklayınca yeniden yüklenir */
+    if (!transcriptAcilisIstendi && agacSecili && seciliKonusma) {
+      transcriptAcilisIstendi = true;
+      transcriptYukle(agacSecili);
+    }
     if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();
   } catch (e) {
     P = null;
@@ -924,6 +941,35 @@ const UYARI_SVG =
   '<path d="M7 1.5 L12.8 12.2 H1.2 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
   '<path d="M7 5.2 V8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
   '<circle cx="7" cy="10.4" r="0.9" fill="currentColor"/></svg>';
+
+/* ---- PANEL-ANA-1 FAZ-N (kullanıcı onayı 2026-11-04 «bu şekilde yap» — «son 2 yada
+   3 sekme yeterli özellikle aktif sekme gösterilmeli»): ağaç ÖLÜ OTURUM FİLTRESİ.
+   Klasör altında YALNIZ SON 3 oturum satırı (sonEtkinlikISO en yeni 3; eksik/geçersiz
+   ISO en eski kabul — dürüst; eşitlikte kimlikle DETERMİNİSTİK sıra) + lastStatus
+   running/error HER ZAMAN görünür (birleşim, mükerrer yok). Klasör başlığı sayısı
+   DÜRÜST KALIR: «N çalışan · M ajan kaydı» — M TOPLAM kayıt (gizlenenler dahil);
+   '+K eski' satırı YOK (minimal). Kalıcı seçim gizli satıra denk gelirse seçim KORUNUR
+   (bu filtre agacSecili'ye DOKUNMAZ — satır yalnız görünmez; davranış dürüst).
+   Filtre İSTEMCİ tarafında: server.js hunk 0 (projeler ucu sonEtkinlikISO +
+   lastStatus zaten veriyor). ---- */
+function agacGorunurAjanlar(ajanlar) {
+  const liste = Array.isArray(ajanlar) ? ajanlar : [];
+  const sirali = liste.slice().sort((a, b) => {
+    const ma = a && a.sonEtkinlikISO ? Date.parse(a.sonEtkinlikISO) : NaN;
+    const mb = b && b.sonEtkinlikISO ? Date.parse(b.sonEtkinlikISO) : NaN;
+    const va = Number.isFinite(ma) ? ma : -Infinity;
+    const vb = Number.isFinite(mb) ? mb : -Infinity;
+    if (vb !== va) return vb - va; /* en yeni önce; eksik ISO en eski */
+    const ka = String((a && a.ajanKimligi) || "");
+    const kb = String((b && b.ajanKimligi) || "");
+    return kb > ka ? 1 : kb < ka ? -1 : 0; /* eşitlikte kimlikle deterministik */
+  });
+  const son3 = new Set(sirali.slice(0, 3).map((a) => a && a.ajanKimligi));
+  /* görüntü sırası disk-tarama sırası KORUNUR — filtre yalnız görünürlüğe karar verir */
+  return liste.filter(
+    (a) => son3.has(a && a.ajanKimligi) || (a && (a.lastStatus === "running" || a.lastStatus === "error"))
+  );
+}
 
 function agacYaz() {
   if (!P || !Array.isArray(P.projeler)) {
@@ -967,8 +1013,10 @@ function agacYaz() {
       "</div>" +
       "</div>" +
       /* PANEL-SIFIR-1: TEK SEVİYE — oturum satırları DOĞRUDAN (durum grup alt-akordiyonu
-         SÖKÜLDÜ — kullanıcı tarifi «klasör isimleri altında oturum isimleri»). */
-      (acik ? '<div class="agacCocuklar">' + (ajanlar.length > 0 ? ajanlar.map((a) => ajanDugumHtml(a, pr)).join("") : '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>" : "") +
+         SÖKÜLDÜ — kullanıcı tarifi «klasör isimleri altında oturum isimleri»).
+         FAZ-N: satır listesi agacGorunurAjanlar ile SÜZÜLÜR (son 3 + running/error) —
+         boş-dürüst koşulu TOPLAM kayda bakar (≥1 kayıt → ≥1 görünür satır garantisi). */
+      (acik ? '<div class="agacCocuklar">' + (ajanlar.length > 0 ? agacGorunurAjanlar(ajanlar).map((a) => ajanDugumHtml(a, pr)).join("") : '<p class="bosSatir">bu projede ajan kaydı yok (dürüst boş)</p>') + "</div>" : "") +
       "</div>";
   }
   $("agacAlani").innerHTML = html || '<p class="bosSatir">taramada proje yok (dürüst boş)</p>';
@@ -993,7 +1041,8 @@ $("agacAlani").addEventListener("click", (e) => {
   if (ajanDugumu) {
     agacSecili = ajanDugumu.dataset.ajan;
     kaydet("ordu-agac-secili", agacSecili || "");
-    konusmaSecGuncelle(true); /* ağaç tıklaması: composer hedefi de tıklanan konuşmaya döner (yenileme yolu elle seçimi korur) */
+    konusmaSecGuncelle(true); /* ağaç tıklaması: composer hedefi tıklanan konuşmaya döner (yenileme yolu elle seçimi korur) */
+    transcriptYukle(agacSecili); /* FAZ-M: oturuma tıkla → o oturumun yazışmaları chat'e yüklenir */
     agacYaz();
   }
 });
@@ -1046,10 +1095,17 @@ function chatBaslikYaz() {
     '<span class="chatBaslikSaglayici" title="' + esc(a.provider || "sağlayıcı bilinmiyor") + '">' + esc(kisalt(a.provider, 16) || "sağlayıcı?") + "</span>";
 }
 
-/* ---- SAĞ: COMPOSER hedef listesi — İKİ AYRI optgroup (manager ile proje ajanı KARIŞMAZ) ----
-   (1) ORDU YÖNETİM: kadro rolAtamasi.MANAGER birlikleri — ajanKimlik disk taramasındaysa gönderilebilir,
-       değilse dürüst devre-dışı seçenek (fail-closed: sunucu beyaz listesi zaten REDder).
-   (2) SEÇİLİ PROJENİN AJANLARI: seçili konuşmanın (yoksa aktif sekmenin) projesi — yönetim kimlikleri HARİÇ. */
+/* ---- SAĞ: COMPOSER hedef listesi — İKİ AYRI optgroup (kullanıcı spec'i FAZ-M 2026-11-03
+   «chat composer da projenin iç manager ajanı yada ordu yönetici manager sistem ajanı
+   seçimi olacak» — iki tür ajan select menüyle; oturuma tıklayınca hedef otomatik o
+   oturumun ajanına atanır: oturumu yöneten ajan = projenin iç manager'ı).
+   (1) ORDU YÖNETİM (sistem): kadro rolAtamasi.MANAGER birlikleri — KURMAY = hepsinden
+       üst sistem ajanı (kullanıcı onayı 'kurmay zaten tepe'); ajanKimlik disk
+       taramasındaysa gönderilebilir, değilse dürüst devre-dışı seçenek
+       (fail-closed: sunucu beyaz listesi zaten REDder).
+   (2) SEÇİLİ PROJENİN OTURUM AJANLARI: seçili konuşmanın (yoksa aktif sekmenin)
+       projesi — yönetim kimlikleri HARİÇ. LABELS.ROL 'manager' TESPİTİ YAPILMAZ
+       (koordinatör ölçümü: 1058 kayıtta 'manager' etiketi YOK — uydurma tespit E10). ---- */
 function yonetimKimlikleri() {
   const liste = [];
   if (K && K.rolAtamasi && Array.isArray(K.rolAtamasi.MANAGER) && Array.isArray(K.birlikler)) {
@@ -1078,7 +1134,7 @@ function composerHedefGuncelle(secimiZorla) {
   const eskiDeger = sec.value;
   let html = '<option value="">hedef seçilmedi</option>';
   /* (1) ORDU YÖNETİM */
-  html += '<optgroup label="ORDU YÖNETİM">';
+  html += '<optgroup label="ORDU YÖNETİM (sistem)">';
   if (yonetim.length === 0) html += '<option value="" disabled>kayıtlı yönetici yok (kadro rolAtamasi boş)</option>';
   for (const y of yonetim) {
     html += diskte.has(y.kimlik)
@@ -1090,7 +1146,7 @@ function composerHedefGuncelle(secimiZorla) {
   const yonetimKumesi = new Set(yonetim.map((y) => y.kimlik));
   const ajanlar = pr ? (Array.isArray(pr.ajanlar) ? pr.ajanlar : []) : [];
   const projeAjanlari = ajanlar.filter((a) => !yonetimKumesi.has(a.ajanKimligi));
-  html += '<optgroup label="SEÇİLİ PROJE: ' + esc(pr ? projeEtiketi(pr) : "yok") + ' AJANLARI">';
+  html += '<optgroup label="SEÇİLİ PROJENİN OTURUM AJANLARI: ' + esc(pr ? projeEtiketi(pr) : "yok") + '">';
   if (projeAjanlari.length === 0) html += '<option value="" disabled>' + (pr ? "bu projede yönetim dışı ajan yok" : "proje seçilmedi (gezgin ya da sekme)") + "</option>";
   for (const a of projeAjanlari) {
     const kisa = a.ajanId || kisaIdGoster(a.ajanKimligi) || "?";
@@ -1107,12 +1163,20 @@ function composerHedefGuncelle(secimiZorla) {
   sec.value = hedef;
 }
 
-/* ---- (PANEL-CHAT-1) SAĞ: MESAJ LİSTESİ — yalnız BU OTURUMDA gönderilenler. Bellek-içi
-   dizi (localStorage YOK — geçmiş uydurma E10 ihlali; yenileyince temizlenir — dürüst
-   oturum notu listede üstte). 30sn yenileme döngüsü bu listeye DOKUNMAZ (yalnız
-   gönderim eylemi yazar). Konuşma GEÇMİŞİ (transcript) FAZ-M ayrı dalgada. ---- */
+/* ---- (PANEL-CHAT-1) SAĞ: MESAJ LİSTESİ. FAZ-M (kullanıcı spec'i 2026-11-03 «sol
+   tarafta proje altında hangi oturuma tıklarsak onun yazışmaları chat ekranına
+   yüklenecek»): transcriptBalonlar — seçili OTURUMUN yazışmaları, ağaçtaki oturum
+   düğümüne tıklayınca GET /api/ordu/konusma'dan yüklenir (server tail-read yapar;
+   TAM DOSYA asla istemciye gelmez). null = yüklenmedi; [] = yüklendi+dürüst boş.
+   Altında BU PANELDE gönderilenler (bellek-içi dizi; localStorage YOK — geçmiş
+   uydurma E10 ihlali değil: transcript SUNUCUDAN gelir, gönderimler oturum-içi).
+   30sn yenileme döngüsü bu listeye DOKUNMAZ (yalnız gönderim + transcript yükleme
+   yazar). ---- */
 const CHAT_TAVAN = 200; /* bellek tavanı — en eski giriş düşer (oturum-içi) */
 const oturumMesajlari = []; /* { saat, hedefKisa, hedefKimlik, metin, sonuc: { tur, metin } } */
+let transcriptBalonlar = null; /* FAZ-M: [{ rol: user|assistant, metin, kesildi }] | null */
+let transcriptHata = null; /* FAZ-M: yükleme hatası dürüst notu | null */
+let transcriptAcilisIstendi = false; /* FAZ-M: kalıcı seçim açılışta YALNIZ bir kez yüklenir (30sn döngüsü tekrar fetch ETMEZ) */
 
 /* hedefin kısa adı: disk taramasında ajanId (yoksa 8 hane kimlik öneki); taramada
    bulunamayan kimliğin dürüst yedeği 8 hane önek — uydurma ad YOK */
@@ -1150,9 +1214,64 @@ function chatMesajHtml(m) {
 
 function chatMesajYaz() {
   const liste = $("chatListe");
-  liste.innerHTML = oturumMesajlari.map(chatMesajHtml).join("");
-  $("chatBos").hidden = oturumMesajlari.length > 0;
+  /* FAZ-M: transcript balonları ÜSTTE (kronoloji), panel gönderimleri DEVAM eder */
+  const transcriptHtml = (Array.isArray(transcriptBalonlar) ? transcriptBalonlar : []).map(transcriptBalonHtml).join("");
+  const oturumHtml = oturumMesajlari.map(chatMesajHtml).join("");
+  liste.innerHTML = transcriptHtml + oturumHtml;
+  const bos = $("chatBos");
+  bos.hidden = transcriptHtml.length > 0 || oturumMesajlari.length > 0;
+  bos.textContent = transcriptHata
+    ? transcriptHata
+    : Array.isArray(transcriptBalonlar) && transcriptBalonlar.length === 0
+      ? "oturumun yazışmalarında konuşma satırı yok (son bölüm okundu — dürüst boş)"
+      : "bu oturumda henüz mesaj gönderilmedi";
   liste.scrollTop = liste.scrollHeight; /* otomatik en alta kaydırma (role=log) */
+}
+
+/* ---- FAZ-M: transcript balonu — KULLANICI mesajı SAĞ balon (.chat-kullanici dili),
+   AJAN YANITI SOL ince balon (.chat-sistem dili). Saat YOK (transcript balonlarına
+   uydurma saat yazılmaz — E10; gönderim balonlarında gerçek saat var). Kesildi →
+   dürüst işaret satırı. esc() her yerde (transcript metni dış içeriktir). ---- */
+function transcriptBalonHtml(b) {
+  const kesildi = b && b.kesildi ? '<p class="chatKesildi">metin kesildi (2000 karakter tavanı — TAM metin sunucudaki transcript dosyasında kalır)</p>' : "";
+  if (b && b.rol === "user") {
+    return (
+      '<div class="chatMesaj chat-kullanici">' +
+      '<div class="chatKim">kullanıcı</div>' +
+      "<p>" + esc(b.metin) + "</p>" +
+      kesildi +
+      "</div>"
+    );
+  }
+  const a = seciliKonusma ? seciliKonusma.ajan : null;
+  const ad = a ? a.ajanId || kisaIdGoster(a.ajanKimligi) || "?" : "?";
+  return (
+    '<div class="chatMesaj chat-sistem">' +
+    '<div class="chatKim" title="' + esc(a ? a.ajanKimligi : "") + '">' + esc(ad) + "</div>" +
+    "<p>" + esc(b ? b.metin : "") + "</p>" +
+    kesildi +
+    "</div>"
+  );
+}
+
+/* ---- FAZ-M: oturum transcript yükleme — GET /api/ordu/konusma?ajan=<kimlik>
+   (salt-okur; SUNUCU tail-read yapar: TAM dosya asla gelmez). Yüklenene dek dürüst
+   'yükleniyor' satırı; hata → dürüst hata notu (chatBos kapısında — kırmızı yüz
+   çatısı YOK: konuşma seçili kalır, mesaj gönderilebilir). ---- */
+async function transcriptYukle(ajanKimligi) {
+  if (!ajanKimligi) return;
+  transcriptBalonlar = null;
+  transcriptHata = null;
+  $("chatBos").hidden = true;
+  $("chatListe").innerHTML = '<p class="bosSatir">yazışmalar yükleniyor…</p>';
+  try {
+    const v = await cek("/api/ordu/konusma?ajan=" + encodeURIComponent(ajanKimligi));
+    transcriptBalonlar = Array.isArray(v.balonlar) ? v.balonlar : [];
+  } catch (e) {
+    transcriptBalonlar = null;
+    transcriptHata = "yazışmalar yüklenemedi — " + e.message + " (oturum seçili kaldı; mesaj gönderilebilir)";
+  }
+  chatMesajYaz();
 }
 
 /* ---- SAĞ: COMPOSER gönderimi — POST /api/mesaj (token kapısı sunucuda 403/401; köprü

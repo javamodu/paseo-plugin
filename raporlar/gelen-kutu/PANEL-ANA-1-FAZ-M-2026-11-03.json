@@ -1,0 +1,49 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-M-2026-11-03",
+  "baslik": "PANEL-ANA-1 FAZ-M — oturum tıkla → transcript chat'e + composer İKİ TÜR AJAN",
+  "tarihISO": "2026-11-03T22:35:00+02:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-M",
+  "kullaniciSpec": [
+    "sol tarafta proje altında hangi oturuma tıklarsak onun yazışmaları chat ekranına yüklenecek",
+    "chat composer da projenin iç manager ajanı yada ordu yönetici manager sistem ajanı seçimi olacak",
+    "chat composer da iki tür ajan olacak",
+    "chat composr ajanı select menü ile seçilecek",
+    "o oturumu yöneten ajan pase iç manager ajanıdır"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/konusma-oku.mjs", "tur": "YENI", "ozet": "saf fonksiyonlar: slugYap + kuyrukOku (tail 512KB, yarım satır atılır) + satirdanBalon (yalnız konuşma text blokları) + balonTavan + transcriptHazirla" },
+    { "yol": "pano/server.js", "tur": "M", "ozet": "TAM 3 hunk: import + CLAUDE_EV + GET /api/ordu/konusma salt-okur route (404 dürüst aile + systemPrompt yanita girmez); POST uçları AYNEN" },
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "transcript render (kullanıcı SAĞ / ajan SOL chat-sistem / saat YOK / esc / kesildi) + transcriptYukle + ağaç tıklaması + açılışta bir kez + optgroup etiketleri" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51p + 51q + 51r YENİ; kırılan pinler satır no'lu dürüst güncelleme; 51f transcriptYukle stub + davranış pini" }
+  ],
+  "etiket": ["panel", "faz-m", "transcript", "chat", "composer", "tail-read"],
+  "kanit": {
+    "nodeTestPano": { "tests": 66, "pass": 66, "fail": 0 },
+    "npmTest": { "d1a": "7/7", "d1b": "12/12", "nodeTest": "77/77", "exit": 0, "ciktiDosya": "%TEMP%\\fazm-npm-test.txt" },
+    "diffDenetim": { "serverHunk": 3, "postUcHunk": 0, "yeniDosya": ["pano/konusma-oku.mjs"] },
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: bağımsız tam süit + diff + 4937 RESTART (server.js değişti) + canlı DOM (ağaçta oturuma tıkla → transcript balonları; KURMAY-1 hedefli mesaj GÖNDERİLMEZ) + ekran kanıtı + commit.",
+  "bilincliKararlar": [
+    "LABELS.ROL MANAGER tespiti YAPILMADI (1058 kayıtta 14 etiket, 'manager' YOK — uydurma tespit yasak)",
+    "transcript balonlarında saat YOK (uydurma saat E10)",
+    "açılışta kalıcı seçim YALNIZ bir kez yükler (30sn döngüsü tekrar fetch etmez)",
+    "51f vm dilimine transcriptYukle stub + deepEqual davranış pini (güçlendirme)"
+  ],
+  "yapamadim": [
+    "4937 RESTART (koordinatör kapanışında)",
+    "canlı DOM + ekran kanıtı (koordinatör)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 ~05:0x): (1) 4937 gece ölmüştü (PID 4172 ayakta değil) → restart PID 8872 (token yalnız env-blokta). (2) Canlı 4'lü uç ölçümü: 8cc610a4 → 200 (57.031.103 bayt, 14 balon — slug düzeltmesi CANLI; ilk/son balon koordinatörün gerçek o-an mesajları) · 3f3584c0 → 200 (19 balon) · bilinmeyen → 404 · geçersiz → 400. Açılış kalıcı seçimi 278d1da0 → dürüst 404 (transcript dosyası diskte gerçekten yok; yol artık çift-tire slug'la doğru yer). (3) Tarayıcı canlı (yeni sekme): ORDU klasörü açıldı, 8cc610a4 oturumuna tıklandı → 23 balon (1 kullanıcı SAĞ + 22 ajan SOL) + composer otomatik hedef + optgroup etiketleri doğru. (4) Koordinatör bağımsız süiti: node --test pano+scripts = tests 300 pass 300 fail 0 EXIT=0 (FAZ-M+N birleşik glob, %TEMP%\\fazm-fazn-koordinator.txt). (5) Ekran kanıtı raporlar/ordu-panosu-2026-11-03/ekran-kanit-ana-faz-m-konusma-2026-11-04.png (110.026 bayt, 1600x1000, PNG imza doğrulandı). (6) Yazıcı dürüst notları kabul (self-referans fixture tuzağı dersi + iki-kural doktrini). Tek elden commit bu kapanışta (FAZ-N ile aynı dosya kümesi — birleşik damga)."
+}
