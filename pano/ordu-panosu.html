@@ -67,26 +67,33 @@
   select:focus-visible { outline:2px solid var(--camgobegi); outline-offset:2px; }
 
   /* =====================================================================
-     ANA DÜZEN: yatay grid BEŞ HÜCRE — sol · splitter · orta ·
-     splitter · sağ. Genişlikler --solW/--sagW CSS değişkeniyle yönetilir
-     (sürükle/ok tuşları + localStorage — kapsul-tuval ADIM-C deseni).
-     Grid-çocuklar AÇIK kolonlara sabitlenir: kapalı panel hücresi BOŞ kalır,
-     kalan çocuklar kayma YAPMAZ (kapsul-tuval bug-fix deseni).
-     PANEL-SIFIR-1: üst bar SÖKÜLDÜ — main tek üst öğe (üstten nefes 12px).
+     ANA DÜZEN: yatay grid — sol · splitter · (şerit | orta) · splitter ·
+     sağ. Genişlikler --solW/--sagW CSS değişkeniyle yönetilir (sürükle/ok
+     tuşları + localStorage — kapsul-tuval ADIM-C deseni).
+     FAZ-U (kullanıcı «üst düğmeleri orta kısım ve sağ panelin üstünde
+     konumlandır .. sol panel en tepeye kadar gitsin» 2026-11-04): ŞERİT
+     #icerik grid'inin SATIR 1'ine (auto) girer — orta+sağ kolonlarının
+     ÜSTÜNDE; #sol İKİ satırı da kaplar → en tepeden en alta. Splitter'lar
+     --solW/--sagW üzerinden AYNEN çalışır (yalnız satır/alan tanımı
+     değişti; kolonlar FAZ-T'ten AYNEN).
      ===================================================================== */
   main {
     position:relative; z-index:1; flex:1 1 auto; min-height:0;
     display:grid; gap:0;
     grid-template-columns:var(--solW) 6px minmax(280px,1fr) 6px var(--sagW); /* duvar 6px — kapsul-tuval deseni; FAZ-S: ORTA emniyet tabanı 280 (JS kolonlariYerlestir kazayla atlanırsa yatay taşma — dürüst; görünmez 4px chat'ten iyi) */
+    grid-template-rows:auto 1fr; /* FAZ-U: satır 1 şerit (auto), satır 2 gövde (1fr) */
+    grid-template-areas:
+      "sol duvarS serit serit serit"
+      "sol duvarS orta duvarD sag";
   width:100%; max-width:1760px; margin:0 auto; padding:10px; /* FAZ-P §2: EKONOMİK ritim (eski 12px) */
     overflow:hidden;
   }
-  main > * { grid-row:1; }
-  main > #sol { grid-column:1; }
-  main > #splitSol { grid-column:2; }
-  main > #orta { grid-column:3; }
-  main > #splitSag { grid-column:4; }
-  main > #sag { grid-column:5; }
+  main > #sol { grid-area:sol; } /* FAZ-U: İKİ satır — en tepeden en alta */
+  main > #splitSol { grid-area:duvarS; }
+  main > #anaSekmeSerit { grid-area:serit; } /* FAZ-U: satır 1, kolon 3-5 — ORTA+SAĞ üstü */
+  main > #orta { grid-area:orta; }
+  main > #splitSag { grid-area:duvarD; }
+  main > #sag { grid-area:sag; }
   #sol > .bolum { margin-top:12px; } /* FAZ-P §2 ekonomik nefes (eski 16px; FAZ-O EK-3 notu aynen: chat artık #orta'da — üst nefesi menü satırı verir; sekmeli #sag'ın .bolum doğrudan çocuğu yoktur) */
 
   #sol { display:flex; flex-direction:column; min-height:0; min-width:0; overflow-y:auto; overscroll-behavior:contain; } /* FAZ-J: iç liste dolunca kaydırma zinciri sayfaya zıplamaz */
@@ -133,35 +140,45 @@
   .bolum-etiket svg { display:block; flex:none; color:var(--camgobegi); }
 
   /* =====================================================================
-     ANA SEKME ŞERİDİ — FAZ-T (kullanıcı «artık sekme görünümü yerine sayfa
-     üstünde butonlar minimal modern tıklayınca altı dinamik değişecek iki
-     yada 3 satır olabilir bu sayede sağa kaydırma sorunu kalmaz ... aynı
-     şekilde sağdaki panelide vscode sekme görünümü iptal edip sayfa en tepede
-     yan yana dizilen buton kuru görünümlerine geçiyoruz» 2026-11-04): şerit
-     #sag'dan ÇIKIP <main>'den ÖNCE (body flex-column ilk görünür öğesi —
-     «sayfa en tepesi») yaşar; YATAY KAYDIRMA ÖLDÜ (flex-wrap:wrap — butonlar
-     2-3 satıra DOĞAL sarar, yapay satır sınırı YOK); FAZ-S VSCode editör-sekme
-     dili DEVROLÜNDÜ (aktif üst vurgu + gövdeye bağlanan görünüm + şerit kutusu
-     SÖKÜLDÜ — görünüm BUTONDA: pasif kuru kenarlı, aktif petrol kenar). Tek
-     şerit HEM chat kolonunu (oturum sekmesi → transcript) HEM sağ gövdeyi
-     (ORDU/proje grafı) yönetir — «hem chat hem sağ panel» tek yüzeyden.
-     ORDU sabit + proje/oturum sekmeleri X ile kapanır (FAZ-O EK-2 AYNEN).
+     ANA SEKME ŞERİDİ — FAZ-T (kullanıcı «sayfa üstünde butonlar minimal
+     modern .. iki yada 3 satır» 2026-11-04): yatay kaydırma ÖLDÜ
+     (flex-wrap:wrap — DOĞAL sarma); FAZ-S VSCode editör-sekme dili
+     DEVROLÜNDÜ (görünüm BUTONDA: pasif kuru kenarlı, aktif petrol kenar).
+     FAZ-U (2026-11-04): şerit #icerik grid SATIR 1 (grid-area:serit —
+     ORTA+SAĞ üstü, orta panelin sol kenarıyla hizalı; FAZ-T'te body'de
+     sayfa tepesindeydi — steer «üst düğmeleri orta kısım ve sağ panelin
+     üstünde konumlandır .. sol panel en tepeye kadar gitsin»). Tek şerit
+     HEM chat kolonunu HEM sağ gövdeyi yönetir; ORDU sabit + X ile kapanış.
      ===================================================================== */
   #anaSekmeSerit {
-    display:flex; flex-wrap:wrap; align-items:center; gap:4px; flex:none;
-    width:100%; max-width:1760px; margin:0 auto; padding:10px 10px 0; /* main ile genişlik hizası */
+    display:flex; flex-wrap:wrap; align-items:center; gap:4px;
+    grid-area:serit; padding:0 0 8px; /* hiza grid'den (orta sol kenarıyla); alt 8px nefes */
   }
   /* FAZ-T kuru buton çipi: sekme+× ikilisi TEK görsel birim — satır kırılımında bölünmez */
   .anaSekmeGrup { display:inline-flex; align-items:stretch; flex:none; border:1px solid var(--cizgi); border-radius:var(--radius-cip); overflow:hidden; }
   .anaSekmeGrup:has(.sekme.aktif) { border-color:var(--camgobegi); }
   .anaSekmeGrup .sekme { border:0; border-radius:0; }
   .anaSekmeGrup .sekmeKapat { border-left:1px solid var(--cizgi); border-radius:0; }
-  /* ---- (FAZ-D) ANA ŞERİT PROJE SEKMELERİ: DAR aile + taşma emniyeti ----
-     K-0061 üç-katman: CSS max-width/clip + JS kisalt(ad,14) + title TAM ad.
-     Not: text-overflow flex kapsayıcıda glif basmaz (tarayıcı semantiği) — CSS
-     katmanı burada taşma EMNİYETİDİR; görünür kesme JS kisalt + title TAM. ---- */
+  /* ---- FAZ-U PROJE TON AİLESİ (kullanıcı «eğer aynı projede iki oturum açmış
+     isek yanyana olsun aynı renk olsun .. üst butonlar minimal ve renkli
+     modernyalın olsun» 2026-11-04): ton proje DİZİNİNDEN deterministik string
+     hash (TONLAR sabiti JS'te; localStorage'a GİRMEZ); ton/doygunluk SABİT —
+     pasif pastel 45%/92%. ORDU ton ALMAZ (camgöbeği ailesi AYNEN); kayıt
+     düşmüş/eşleşmeyen oturum ton ALMAZ (FAZ-T gri ailesi). Token YOK —
+     hsl() literal + --proje-ton satır-içi değişken. ---- */
+  .anaSekmeGrup[style*="--proje-ton"] { border-color:hsl(var(--proje-ton) 40% 72%); }
+  .anaSekmeGrup[style*="--proje-ton"]:has(.sekme.aktif) { border-color:hsl(var(--proje-ton) 55% 42%); }
+  .anaSekmeGrup[style*="--proje-ton"] .sekme { background:hsl(var(--proje-ton) 45% 92%); }
+  .anaSekmeGrup[style*="--proje-ton"] .sekme:not(.aktif):hover { color:var(--metin); background:hsl(var(--proje-ton) 45% 88%); }
+  .anaSekmeGrup[style*="--proje-ton"] .sekme.aktif { background:hsl(var(--proje-ton) 45% 86%); color:var(--metin); font-weight:700; }
+  .anaSekmeGrup[style*="--proje-ton"] .sekmeKapat { border-left-color:hsl(var(--proje-ton) 40% 72%); }
+  /* ---- FAZ-U rozetler buton İÇİNDE + FAZ-D DAR üç-katman korunur: metin
+     tavanı 180px .sekmeAd'da (kisalt(ad,14) + title TAM AYNEN); rozetler
+     genişliğe GİRER (buton tavanı 232px) ---- */
   #anaSekmeSerit .sekme { padding:0 8px; } /* dar dolgu (FAZ-B ailesi) */
-  .anaSekmeGrup .sekme { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
+  .anaSekmeGrup .sekme { max-width:232px; }
+  .anaSekmeGrup .sekme .sekmeAd { max-width:180px; overflow:hidden; text-overflow:ellipsis; }
+  .anaSekmeGrup .sekme .nokta { width:8px; height:8px; } /* FAZ-U oturum durum noktası — ağaç ölçeğiyle aynı */
   .sekme {
     flex:none; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
     min-height:32px; border:1px solid var(--cizgi);
@@ -499,7 +516,9 @@
     body { height:auto; overflow:auto; }
     main { display:flex; flex-direction:column; height:auto; overflow:visible; padding:8px 10px 16px; gap:10px; }
     /* FAZ-O EK-3: #orta (chat) order:1 → #sag (sekmeli) order:2 → #sol (ağaç)
-       order:3 (CSS order — DOM değişmez; kimlik yolları/data-* AYNEN). */
+       order:3 (CSS order — DOM değişmez; kimlik yolları/data-* AYNEN).
+       FAZ-U: #anaSekmeSerit order:0 — mobilde de EN TEPETE (FAZ-T kanıtı korunur). */
+    #anaSekmeSerit { order:0; }
     #orta { order:1; }
     #sag { order:2; }
     #sol { order:3; }
@@ -540,26 +559,22 @@
 </head>
 <body>
 
-  <!-- ============ FAZ-T ANA SEKME ŞERİDİ — SAYFA TEPESİ (kullanıcı «artık sekme
-       görünümü yerine sayfa üstünde butonlar minimal modern tıklayınca altı
-       dinamil değişecek iki yada 3 satır olabilir bu sayede sağa kaydırma sorunu
-       kalmaz» 2026-11-04): #sag'dan ÇIKIP <main>'den ÖNCE (body flex-column ilk
-       görünür öğesi). Tek şerit HEM chat kolonunu (oturum sekmesi → transcript)
-       HEM sağ gövdeyi (ORDU/proje grafı) yönetir — «hem chat hem sağ panel bu
-       şekilde olacak». Kimlik/rol/DAVRANIŞ AYNEN: $() kimlik bazlı — DOM konumu
-       bağımsız çalışır; anaSekmeYaz + click delegation + sekmeAc/sekmeKapat
-       DOKUNULMAZ. Butonlar flex-wrap:wrap ile 2-3 satıra DOĞAL sarar (yatay
-       kaydırma ÖLDÜ). ORDU sekmesi SABİT (kapatılamaz) + proje sekmeleri (X ile
-       kapanır — ağaçtan tıklayınca açılır; FAZ-D DAR tedbiri aynen) + OTURUM
-       sekmeleri (FAZ-O EK-2: data-ana = "oturum:" + ajan kimliği; mükerrer yok).
-       Gövde: seçili sekmenin içeriği — ORDU sekmesinde TAM görev grafı; proje
-       sekmesinde graf SSOT dürüst filtre (eşleşme yoksa DÜRÜST BOŞ — sahte graf
-       YASAK E10); OTURUM sekmesinde DÜRÜST oturum kartı. -->
+<main id="icerik">
+
+  <!-- ============ FAZ-U ANA SEKME ŞERİDİ — #icerik grid SATIR 1 (kullanıcı
+       «üst düğmeleri orta kısım ve sağ panelin üstünde konumlandır .. sol
+       panel en tepeye kadar gitsin» 2026-11-04): grid-area:serit — kolon 3-5,
+       ORTA+SAĞ'nın üstünde (hiza grid'den; FAZ-T'te body'de sayfa tepesindeydi).
+       Butonlar flex-wrap:wrap ile satırlara DOĞAL sarar (yatay kaydırma ÖLDÜ).
+       Tek şerit HEM chat kolonunu (oturum sekmesi → transcript) HEM sağ gövdeyi
+       (ORDU/proje grafı) yönetir. Kimlik/role/DAVRANIŞ AYNEN — $() kimlik
+       bazlı, DOM konumundan bağımsız. ORDU sekmesi SABİT (kapatılamaz) +
+       proje sekmeleri (FAZ-O EK-2: data-ana = "oturum:" + ajan kimliği).
+       Gövde: seçili sekmenin içeriği — graf SSOT dürüst filtre / DÜRÜST
+       oturum kartı (sahte veri YASAK E10). -->
   <div id="anaSekmeSerit" role="tablist" aria-label="açık sekmeler — ORDU sabit, proje ve oturum sekmeleri X ile kapanır">
     <button type="button" class="sekme aktif" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="true" tabindex="0">ORDU</button>
   </div>
-
-<main id="icerik">
 
   <!-- ============ SOL (#sol): GEZGİN — PANEL-SIFIR-1 kabuğu: TEK SEVİYE akordiyon.
        Kullanıcı tarifi (ferman 2026-11-03): «sol taraf klasör isimleri altında
@@ -1752,40 +1767,89 @@ $("composerDosya").addEventListener("change", async () => {
   sonuc.textContent = "";
 });
 
-/* ---- ANA SEKME şeridi — ORDU SABİT + proje sekmeleri + oturum sekmeleri (X ile
-   kapanır; FAZ-O EK-3: şerit sekmeli bölgeyle SAĞ'da yaşar) ---- */
+/* ---- ANA SEKME şeridi — ORDU SABİT + FAZ-U GRUPLU render (kullanıcı «eğer
+   aynı projede iki oturum açmış isek yanyana olsun aynı renk olsun .. üst
+   butonlar minimal ve renkli modernyalın olsun ve buton içlerine varsa uyarı
+   uyarı-yeşil daire çalışıyor vekaç ajan çalıştığını yazalım» 2026-11-04):
+   her açık projenin butonunun HEMEN ARDINDAN o projenin oturum sekmeleri
+   (AYNI TON); DİZİLER (acikSekmeler/acikOturumSekmeleri) ve kapanış zinciri
+   DEĞİŞMEZ — yalnız RENDER sırası gruplu. Rozetler ağaçla AYNI kaynak:
+   projede çalışan sayısı (agacSayi) + hata ikonu (agacUyari; yalnız hatalı>0);
+   oturumda durum NOKTASI (NOKTA_SINIF ailesi). ---- */
 function anaSekmeYaz() {
   const serit = $("anaSekmeSerit");
   let html =
     '<button type="button" class="sekme' + (aktifSekme === "ordu" ? " aktif" : "") + '" id="sek-ordu" role="tab" data-ana="ordu" aria-selected="' + (aktifSekme === "ordu" ? "true" : "false") + '" tabindex="' + (aktifSekme === "ordu" ? 0 : -1) + '">ORDU</button>';
-  for (const dizin of acikSekmeler) {
-    const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x.dizin === dizin) : null;
-    const ad = pr ? projeEtiketi(pr) : dizin; /* FAZ-G: baslik VARSA etiket; kayıt taramadan düştüyse dizin adı dürüst yedek */
-    const aktif = aktifSekme === dizin;
-    /* FAZ-D (steering «üst sekme çok fazla geniş oluyor»): etiket kisalt(ad,14) +
-       title TAM ad — dizin (kisalt null dönerse dürüst yedek ad); data-ana TAM dizin
-       AYNEN — seçim yolu değişmez; sekmeKapat aynen. */
-    html +=
-      '<span class="anaSekmeGrup" role="presentation">' +
-      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' + esc(kisalt(ad, 14) || ad) + "</button>" +
-      '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
-      "</span>";
-  }
-  /* FAZ-O EK-2: OTURUM sekmeleri — proje sekmelerinden SONRA; etiket ağaçtaki TAM ad
-     (başlıksız kayıtta kısa kimlik dürüst yedek); kimlik uzayı AYRI:
-     data-ana/data-kapat = "oturum:" + ajan kimliği; X mevcut kalıbın aynısı. */
+  /* FAZ-U: oturum → proje dizini (oturumBul.dizin — FAZ-Q klasorAdi kaynağıyla aynı
+     kimlik); AÇIK projeye eşleşenler o projenin kümesinde, eşleşmeyen/kayıt düşmüşler
+     en sonda (dürüst — ton alamaz, FAZ-T gri ailesi). */
+  const kume = new Map();
+  const serbest = [];
   for (const kimlik of acikOturumSekmeleri) {
-    const bul = oturumBul(kimlik);
-    const a = bul ? bul.ajan : null;
-    const ad = a && typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : kisaIdGoster(kimlik) || kimlik;
-    const aktif = aktifSekme === "oturum:" + kimlik;
-    html +=
-      '<span class="anaSekmeGrup" role="presentation">' +
-      '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="oturum:' + esc(kimlik) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + kimlik) + '">' + esc(kisalt(ad, 14) || ad) + "</button>" +
-      '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
-      "</span>";
+    const d = (() => { const bul = oturumBul(kimlik); return bul ? bul.dizin : null; })();
+    if (d && acikSekmeler.includes(d)) {
+      if (!kume.has(d)) kume.set(d, []);
+      kume.get(d).push(kimlik);
+    } else serbest.push(kimlik);
   }
+  for (const dizin of acikSekmeler) {
+    html += projeSekmeHtml(dizin) + (kume.get(dizin) || []).map(oturumSekmeHtml).join("");
+  }
+  html += serbest.map(oturumSekmeHtml).join("");
   serit.innerHTML = html;
+}
+
+/* FAZ-U: deterministik proje tonu — TONLAR sabitinden string hash (reload'da AYNI;
+   localStorage'a GİRMEZ). ORDU ton ALMAZ (camgöbeği ailesi kaynakta). */
+const TONLAR = [199, 152, 43, 25, 265, 330, 18, 210];
+function tonHesapla(dizin) {
+  const s = String(dizin || "");
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 997;
+  return TONLAR[h % TONLAR.length];
+}
+
+/* FAZ-U: PROJE sekme grubu — rozetler ağaçla AYNI kaynak (calisanSay/agacUyari);
+   FAZ-D DAR korunur: kisalt(ad,14) + title TAM ad + .sekmeAd tavan 180px. */
+function projeSekmeHtml(dizin) {
+  const pr = P && Array.isArray(P.projeler) ? P.projeler.find((x) => x.dizin === dizin) : null;
+  const ad = pr ? projeEtiketi(pr) : dizin; /* FAZ-G: kayıt taramadan düştüyse dizin adı dürüst yedek */
+  const aktif = aktifSekme === dizin;
+  const ajanlar = pr && Array.isArray(pr.ajanlar) ? pr.ajanlar : [];
+  const calisan = ajanlar.filter((x) => x.lastStatus === "running").length;
+  const hatali = ajanlar.filter((x) => x.lastStatus === "error").length;
+  return (
+    '<span class="anaSekmeGrup" role="presentation" style="--proje-ton:' + tonHesapla(dizin) + '">' +
+    '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="' + esc(dizin) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + dizin) + '">' +
+    '<span class="sekmeAd">' + esc(kisalt(ad, 14) || ad) + "</span>" +
+    (hatali > 0
+      ? '<span class="agacUyari" role="img" aria-label="hata durumunda ajan var" title="' + hatali + ' ajan hata durumunda">' + UYARI_SVG + "</span>"
+      : "") +
+    '<span class="agacSayi" title="çalışan ajan sayısı">' + calisan + "</span>" +
+    "</button>" +
+    '<button type="button" class="sekmeKapat" data-kapat="' + esc(dizin) + '" aria-label="' + esc(ad) + ' sekmesini kapat" title="sekmeyi kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
+    "</span>"
+  );
+}
+
+/* FAZ-U: OTURUM sekme grubu — durum NOKTASI (NOKTA_SINIF ailesi, ağaçla AYNI kaynak);
+   ton kayıt varsa proje dizininden (proje butonuyla AYNI RENK), yoksa ton YOK. */
+function oturumSekmeHtml(kimlik) {
+  const bul = oturumBul(kimlik);
+  const a = bul ? bul.ajan : null;
+  const ad = a && typeof a.etiket === "string" && a.etiket.trim() ? a.etiket : kisaIdGoster(kimlik) || kimlik;
+  const aktif = aktifSekme === "oturum:" + kimlik;
+  const d = bul ? bul.dizin : null;
+  const nokta = NOKTA_SINIF[(a && a.lastStatus) || ""] || "gri";
+  return (
+    '<span class="anaSekmeGrup" role="presentation"' + (d ? ' style="--proje-ton:' + tonHesapla(d) + '"' : "") + '>' +
+    '<button type="button" class="sekme' + (aktif ? " aktif" : "") + '" role="tab" data-ana="oturum:' + esc(kimlik) + '" aria-selected="' + (aktif ? "true" : "false") + '" tabindex="' + (aktif ? 0 : -1) + '" title="' + esc(ad + " — " + kimlik) + '">' +
+    '<span class="nokta ' + nokta + '" role="img" aria-label="' + esc((a && a.lastStatus) || "durum bilinmiyor") + '"></span>' +
+    '<span class="sekmeAd">' + esc(kisalt(ad, 14) || ad) + "</span>" +
+    "</button>" +
+    '<button type="button" class="sekmeKapat" data-kapat="oturum:' + esc(kimlik) + '" aria-label="' + esc(ad) + ' oturum sekmesini kapat" title="oturum sekmesini kapat"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
+    "</span>"
+  );
 }
 
 $("anaSekmeSerit").addEventListener("click", (e) => {
@@ -1842,7 +1906,7 @@ function oturumBul(ajanKimligi) {
   if (P && Array.isArray(P.projeler)) {
     for (const pr of P.projeler) {
       const a = (Array.isArray(pr.ajanlar) ? pr.ajanlar : []).find((x) => x.ajanKimligi === ajanKimligi);
-      if (a) return { ajan: a, projeEtiket: projeEtiketi(pr), orduMu: !!pr.orduMu };
+      if (a) return { ajan: a, dizin: pr.dizin, projeEtiket: projeEtiketi(pr), orduMu: !!pr.orduMu }; /* FAZ-U: dizin — şerit gruplama/ton anahtarı */
     }
   }
   return null;

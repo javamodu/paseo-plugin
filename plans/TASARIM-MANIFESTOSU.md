@@ -73,3 +73,11 @@
 2. Test paketi vaka iddiaları manifesto maddelerine bağlanır; DOM dumanı + ekran PNG kanıtı.
 3. **Kapıyı geçmeyen iş «bitti» ilan EDİLMEZ** — ölçütlere ekle, düzelt, yeniden kanıtla.
 4. Görsel kabul (K2) kullanıcıda; bu manifesto kabul SİNYALİ değil Kabul KAPISIDIR — ikisi birlikte çalışır.
+
+## REVİZYON 2026-11-04 (FAZ-U — PANEL-ANA-1 sekme şeridi renkli çip ailesi)
+
+- Kullanıcı emri: «üst butonlar minimal ve renkli modernyalın olsun .. aynı projede iki oturum yanyana aynı renk olsun» — şerit butonlarına **pastel proje tonu** ailesi eklendi.
+- Kural: ton/doygunluk SABİT (pasif zemin 45%/92%, kenar 40%/72%; aktif kenar 55%/42%) — **ton proje kimliğinden (dizin) deterministik string hash**; localStorage'a GİRMEZ, reload'da aynı.
+- ORDU sabit butonu ton ALMAZ (camgöbeği ailesi aynen); kayıt düşmüş oturum ton almaz (gri ailesi).
+- Palet büyümez: YENİ renk token YOK — `hsl()` literal + `--proje-ton` satır-içi değişken (JS `tonHesapla`).
+- Kuru dil korunur: ::after üst vurgu YOK · keyframes YOK · box-shadow YOK · radius-cip/32px AYNEN; rozetler (çalışan sayısı · hata ikonu · durum noktası) ağacın AYNI kaynak verisinden, buton İÇİNDE.
