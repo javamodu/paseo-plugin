@@ -1,0 +1,52 @@
+{
+  "schemaSurum": 1,
+  "id": "PANEL-ANA-1-FAZ-O-2026-11-04",
+  "baslik": "PANEL-ANA-1 FAZ-O — 4-ikon görünüm menüsü (token Ayarlar'da) + chatgpt.com sohbet + composer bar + oturum sekmeleri (EK-2) + kolon takası (EK-3: chat ORTA'da, sekmeli SAĞ'da)",
+  "tarihISO": "2026-11-04T06:19:00+03:00",
+  "yazici": {
+    "saglayici": "glm53u-claude/glm-5.3",
+    "ajanId": "3f3584c0-aa80-44f4-a71d-bf82c9b7671e"
+  },
+  "koordinator": {
+    "ad": "KURMAY-1",
+    "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7"
+  },
+  "dalga": "PANEL-ANA-1 FAZ-O",
+  "kullaniciSpec": [
+    "chat üstünü 4 ikon menü yap altta api ayarlar chat doctor olarak .. token ve diğerlerini ayarlar içine ekle",
+    "hangi oturum yüklüyse onun history chat ekranın aktif olacka",
+    "chat sekmesini ortaya al orta bölümü sağa al .. yerdeğişsin",
+    "komple sıfırla ... altta metin kutusu üstte history chatgpt.com gibi",
+    "sağ panel chat hedef token bir sürü garip şey var (görünür etiket yasak)"
+  ],
+  "dosyaRef": [
+    { "yol": "pano/ordu-panosu.html", "tur": "M", "ozet": "EK-3 kolon takası (#orta=chat, #sag=sekmeli; DOM/grid-column aynen) + 4-ikon görünüm menüsü + Ayarlar token (pano-token) + API salt-okur ölçüm + DOKTOR sıralı muayene (hedef-boş probe) + composer bar (auto-grow/Enter/IME/ekle 1536+4096) + oturum sekmeleri (aç/kapat zinciri/kart/dolaylı ağaç yolu)" },
+    { "yol": "pano/ordu-panosu.test.mjs", "tur": "M", "ozet": "51t YENİ (~205 satır: 22 kaynak pini + 30 vm senaryosu) + 17 testte satır no'lu dürüst pin güncellemesi" }
+  ],
+  "etiket": ["panel", "faz-o", "gorunum-menu", "token-ayarlar", "oturum-sekmeleri", "kolon-takasi", "composer-bar"],
+  "kanit": {
+    "nodeTestPano": { "tests": 68, "pass": 68, "fail": 0, "exit": 0 },
+    "npmTest": { "pass": 79, "fail": 0, "exit": 0, "ciktiDosya": "%TEMP%\\fazo-npm.txt" },
+    "dokunulmayan": ["pano/server.js (FAZ-O payı hunk 0)", "pano/konusma-oku.mjs", "d1a/d1b"],
+    "geciciDosya": ["pano/ek3-takas.mjs (tek-kullanımlık splice — koşuldu, SİLİNDİ)", "pano/fazo-51t-fragment.mjs (ek — koşuldu, SİLİNDİ)"],
+    "rev4937Dokunuldu": false
+  },
+  "siddet": "normal",
+  "oneri": "Koordinatör kapanışı: bağımsız tam süit + canlı DOM (yenileme muhtemelen yeterli — restart GEREKMEZ, yalnız HTML değişti; 4-ikon menü geçişleri + Ayarlar token kaydetme + API ölç + DOKTOR muayene + ağaç→oturum sekmesi→transcript dolaylı yolu + EK-3 kolon düzeni) + ekran kanıtı + islenme + CODEMAP + tek elden commit.",
+  "bilincliKararlar": [
+    "kolon takası İÇERİK takasıdır: DOM düğüm sırası + grid-column 1/3/5 AYNEN (yalnız section gövdeleri takas)",
+    "oturum kapanışında ŞERİT SIRASIYLA İLK kalan sekme → son proje → ORDU",
+    "DOKTOR token probe: POST /api/mesaj hedef-boş (sunucu token'u gövdeden ÖNCE denetler — mesaj iletilmez)",
+    "attach: 12 metin uzantısı + içeri ÖNCE 1536 kırpma + 4096 tavanı TOPLAM mesaj üzerinde",
+    "IME: isComposing Enter'ı gönderime çevirmez (W3C)",
+    "gonderDurum ekran-okuyucu span — SVG ikon düğme metni ASLA yazılmaz",
+    "görünüm tercihi localStorage'a GİRMEZ (açılış daima SOHBET)",
+    "kadroYukle G-guard kaldırımı (govdeYaz odak koşulu — G null fail-closed grafYaz içinde)",
+    "ek3-takas.mjs tek-kullanımlık marker-splice deseni (kalıcı dosya YOK)"
+  ],
+  "yapamadim": [
+    "canlı DOM + ekran kanıtı (koordinatör)",
+    "commit (tek elden koordinatör)"
+  ],
+  "islenme": "ISLENDI (KURMAY-1 koordinatör kapanışı, 2026-11-04 ~06:4x): (1) bağımsız tam kapı: node --test pano/*.test.mjs pano/d1a-test.mjs pano/d1b-test.mjs scripts/*.test.mjs = tests 303 pass 303 fail 0 EXIT=0 (%TEMP%\\fazo-koordinator3.txt; pano alt kümesi 68/68 yazıcıyla aynı; dizin-argüman keşfi bu node'da yok — açık glob şart). (2) Diff denetimi: +783/−164 2 dosya; x-pano-token 1460+1578 · CHAT_TAVAN 200 · maxlength 4096 · pano-token/ordu-agac-secili AYNEN · yasak sembol 0 (node taraması) · dış URL 0 · @keyframes 1 mevcut · server.js/konusma-oku.mjs hunk 0. (3) DOKTOR probe güvenliği bağımsız: server.js 496-505 token gövdeden ÖNCE; boş hedef 400 — mesaj ASLA iletilmez; canlıda 401 dürüst. (4) CANLI DOM (taze sekme, restart YOK, PID 8872): kolon takası ölçüldü (#orta=CHAT x=378 · #sag=SEKMELİ x=947) · 4-ikon menü geçişleri · composer bar parçaları tam + token alanı 0 · oturum tıklaması → 'oturum:' sekmesi + kart + hedef kilidi + 25 balon gerçek transcript · API ÖLÇ gerçek: projeler 200 1526 ms · DOKTOR: 200/1471 ms · token 401 · 75 proje 1063 kayıt · mobil 390: order orta 1/sag 2/sol 3 · taşma YOK · GÖNDER 40 fine. Dürüst not: şeritte benim tıklamamla açılamayan sekmeler — kullanıcı test sekmesinde etkileşmiş olabilir; sekme kapatılmadı. (5) Performans tabanı: projeler 1,14-1,34 sn + konusma 0,95-1,20 sn darboğaz (PERF-1 adayı; tuval PLAN girdisi). (6) Ekran kanıtı ekran-kanit-ana-faz-o-kolon-takasi-2026-11-04.png (121.097 bayt, 1534x888, imza doğrulandı). (7) Yazıcı dürüst notları kabul. Tek elden commit bu kapanışta."
+}

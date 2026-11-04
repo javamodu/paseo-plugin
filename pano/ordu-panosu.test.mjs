@@ -69,10 +69,10 @@ test("0- tum inline script vm.Script ile PARSE olur (canli SyntaxError regresyon
 
 /* ===================== (1) HTML yuz sozlesmesi — kaynak-pin ===================== */
 
-test("1- PANEL-SIFIR-1 KABUK: 3 kolon (sol ağaç / orta sekmeli — görev grafı / sağ chat) — tüm sökülen YÜZ bölümleri KALINTI 0 (kullanıcı fermanı 2026-11-03 «herşeyi sök sadece şunu» + STEER «ortada o projeye ait task grafı»)", () => {
+test("1- PANEL-SIFIR-1 KABUK: 3 kolon (sol ağaç / ORTA chat — FAZ-O EK-3 kolon takası / sağ sekmeli bölge) — tüm sökülen YÜZ bölümleri KALINTI 0 (kullanıcı fermanı 2026-11-03 «herşeyi sök sadece şunu» + STEER «ortada o projeye ait task grafı» + FAZ-O EK-3 «chat sekmesini ortaya al orta bölümü sağa al» 2026-11-04)", () => {
   ok("SOL = GEZGİN (bolum-agac + h2 GEZGİN)", HTML.includes('id="bolum-agac"') && /GEZGİN\s*<\/h2/.test(HTML));
-  ok("SAĞ = CHAT (bolum-chat + h2 CHAT)", HTML.includes('id="bolum-chat"') && /CHAT\s*<\/h2/.test(HTML));
-  ok("ORTA = sekmeli kabuk (anaSekmeSerit + sekmeGovde)", HTML.includes('id="anaSekmeSerit"') && HTML.includes('id="sekmeGovde"'));
+  ok("ORTA = CHAT (bolum-chat — FAZ-O EK-3: chat ortaya taşındı; h2 CHAT başlığı FAZ-O'da SÖKÜLDÜ — sohbette görünür başlık YOK, chatgpt.com dili)", HTML.includes('id="bolum-chat"') && !/CHAT\s*<\/h2/.test(HTML) && HTML.indexOf('<section id="orta"') < HTML.indexOf('id="bolum-chat"') && HTML.indexOf('id="bolum-chat"') < HTML.indexOf('<section id="sag"'));
+  ok("SAĞ = sekmeli kabuk (anaSekmeSerit + sekmeGovde — FAZ-O EK-3: sekmeli bölge sağa taşındı)", HTML.includes('id="anaSekmeSerit"') && HTML.includes('id="sekmeGovde"') && HTML.indexOf('<section id="sag"') < HTML.indexOf('id="anaSekmeSerit"') && HTML.indexOf('id="bolum-chat"') < HTML.indexOf('<section id="sag"'));
   ok("ORDU ana sekmesi ŞERİTTE SABİT (HTML gövdesinde)", htmlKisim().includes('id="sek-ordu"') && htmlKisim().includes('>ORDU</button>'));
   const solIdx = HTML.indexOf('id="sol"');
   const ortaIdx = HTML.indexOf('id="orta"');
@@ -99,7 +99,7 @@ test("2- GEZGİN AĞACI (FAZ-B): SOL kolon = projeler + konuşmalar; üstteki se
   /* --- KALDIRILANLAR (bilinçli: ağaç tek seçim yolu — çift kaynak yasak) --- */
   ok("üstteki proje select KALDIRILDI", !HTML.includes('id="projeSec"') && !HTML.includes('id="projeGrup"'));
   ok("proje durum kartı bölümü KALDIRILDI (tablo ORTA sekmeye taşındı)", !HTML.includes('id="bolum-projekart"') && !HTML.includes('id="projeKartIci"'));
-  ok("gorunumDegistir ikili modu KALDIRILDI", !jsKisim().includes("function gorunumDegistir("));
+  ok("gorunumDegistir FAZ-O'da YENİDEN VAR — 4-görünümlü menü anahtarı (eski ikili proje/konuşma modu KALDIRILDI: gecisYeri/proje-konusma toggle kalıntısı YOK; GORUNUMLER sabiti 4 üye)", jsKisim().includes("function gorunumDegistir(") && jsKisim().includes('const GORUNUMLER = ["sohbet", "api", "ayarlar", "doktor"]') && !jsKisim().includes("gecisYeri"));
   /* --- YENİ: gezgin ağacı kabuğu --- */
   ok("SOL = GEZGİN (bolum-agac + h2 GEZGİN)", HTML.includes('id="bolum-agac"') && /GEZGİN\s*<\/h2/.test(HTML));
   ok("ağaç kapları: agacAlani + agacHata (fail-closed kırmızı yüz) — agacOzet SÖKÜLDÜ (PANEL-SIFIR-1)", HTML.includes('id="agacAlani"') && HTML.includes('id="agacHata"') && !HTML.includes('id="agacOzet"'));
@@ -200,13 +200,13 @@ test("10d- STEERING-9 uc-dikey-bolum iskeleti: 5-hucre grid + sekmeler + splitte
   ok("[hidden] acik kurali (display kurallari ezmesin — kapsul-tuval deseni)", /\[hidden\]\s*\{\s*display:\s*none\s*!important/.test(HTML));
   ok("main overflow:hidden (kaydirma yalniz sutunlarda)", /main\s*\{[^}]*overflow:\s*hidden/.test(HTML));
   for (const id of ["sol", "orta", "sag", "splitSol", "splitSag"]) ok('kolon kabugu id="' + id + '"', h.includes('id="' + id + '"'));
-  ok("#sol + #sag kendi icinde kayar (overflow-y:auto)", /#sol\s*\{[^}]*overflow-y:\s*auto/.test(HTML) && /#sag\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
+  ok("#sol + #orta kendi icinde kayar (FAZ-O EK-3: chat bölgesi #orta'da; #sag'da kaydıran #sekmeGovde — pin aşağıda)", /#sol\s*\{[^}]*overflow-y:\s*auto/.test(HTML) && /#orta\s*\{[^}]*overflow-y:\s*auto/.test(HTML) && !/#sag\s*\{[^}]*overflow-y:/.test(HTML));
   /* --- ORTA (PANEL-SIFIR-1): ANA sekme şeridi (ORDU SABİT + proje sekmeleri X ile); ALT şerit SÖKÜLDÜ --- */
   ok("#anaSekmeSerit role=tablist (ORDU sabit sekme kaynakta)", h.includes('<div id="anaSekmeSerit" role="tablist"') && h.includes('id="sek-ordu"'));
-  ok("statik kaynakta 1 role=tab: yalnız ORDU (proje sekmeleri JS ile eklenir; alt şerit SÖKÜLDÜ)", (h.match(/role="tab"/g) || []).length === 1, "bulunan: " + (h.match(/role="tab"/g) || []).length);
+  ok("statik kaynakta 5 role=tab: ORDU (ana şerit) + 4 görünüm menü düğmesi (FAZ-O EK-scope — SOHBET/API/AYARLAR/DOKTOR; proje sekmeleri JS ile eklenir; alt şerit SÖKÜLDÜ)", (h.match(/role="tab"/g) || []).length === 5 && h.includes('id="gsek-sohbet"') && h.includes('id="gsek-api"') && h.includes('id="gsek-ayarlar"') && h.includes('id="gsek-doktor"'), "bulunan: " + (h.match(/role="tab"/g) || []).length);
   ok("alt sekme id'leri KALDIRILDI (sek-durum/plan/akis/saglik/log)", !h.includes('id="sek-durum"') && !h.includes('id="sek-plan"') && !h.includes('id="sek-akis"') && !h.includes('id="sek-saglik"') && !h.includes('id="sek-log"'));
   ok("ORDU başlangıçta aktif (aria-selected=true + tabindex=0)", /id="sek-ordu"[^>]*aria-selected="true"/.test(h) && /id="sek-ordu"[^>]*tabindex="0"/.test(h));
-  ok("TEK statik tabpanel: bosPanel (dürüst boş yüz — sahte kart YOK)", (h.match(/role="tabpanel"/g) || []).length === 1, "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
+  ok("statik tabpanel 5: 4 görünüm (gorunum-sohbet/api/ayarlar/doktor — FAZ-O EK-scope) + sekmeGovde (eski bosPanel SÖKÜLDÜ; sahte kart YOK)", (h.match(/role="tabpanel"/g) || []).length === 5 && !h.includes('id="bosPanel"'), "bulunan: " + (h.match(/role="tabpanel"/g) || []).length);
   ok("yüz bölümleri KALDIRILDI: durumBolum/planBolum/akisBolum/saglikBolum/logBolum/projeSayfa/bosSayfa id'leri 0", !h.includes('id="durumBolum"') && !h.includes('id="planBolum"') && !h.includes('id="akisBolum"') && !h.includes('id="saglikBolum"') && !h.includes('id="logBolum"') && !h.includes('id="projeSayfa"') && !h.includes('id="bosSayfa"'));
   ok("sekme govdesi kendi icinde kayar (#sekmeGovde overflow-y:auto)", /#sekmeGovde\s*\{[^}]*overflow-y:\s*auto/.test(HTML));
   /* --- SPLITTER x2 (pointer + klavye ±16px + clamp) --- */
@@ -237,7 +237,7 @@ test("10e- KOMPAKT (steering 2026-11-03) yoğunluk + taşma kesme + kısa ad + p
   ok("sekme 34px + 15px etiket (FAZ-H — BİLİNÇLİ: 30/12)", /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.sekme\s*\{[^}]*font-size:\s*15px/.test(HTML));
   ok("sekmeKapat 20px hedef (KOMPAKT)", /\.sekmeKapat\s*\{[^}]*width:\s*20px/.test(HTML) && /\.sekmeKapat\s*\{[^}]*height:\s*20px/.test(HTML));
   ok("agacAjan FAZ-H 32px + 15px metin (BİLİNÇLİ: 28/13); durum noktasi 8px; girinti 12px", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /\.agacAjan\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.agacAjan \.nokta\s*\{[^}]*width:\s*8px/.test(HTML) && /\.agacCocuklar\s*\{[^}]*padding:\s*0 0 2px 12px/.test(HTML));
-  ok("composer 12px metin + GÖNDER 40px (KISAT alt sınırı)", /#composerForm select, #composerForm textarea, #composerForm input\s*\{[^}]*font-size:\s*12px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
+  ok("composer: select 12px PILL + textarea 15px metin (§1 ana girdi — FAZ-O bilinçli: eski 12px blok bölündü) + GÖNDER 40px (KISAT alt sınırı)", /#composerForm select\s*\{[^}]*font-size:\s*12px/.test(HTML) && /#composerForm textarea\s*\{[^}]*font-size:\s*15px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML) && !/#composerForm select, #composerForm textarea, #composerForm input\s*\{/.test(HTML));
   /* --- taşma kesme: title tam metin (ağaç adları FAZ-K'da sarar — istisna) --- */
   ok("kisalt fonksiyonu yerinde (kısa ad kuralı)", j.includes("function kisalt(metin, n)"));
   ok("agac düğüm adı .agacDugumAd SARAR (FAZ-K: white-space:normal + overflow-wrap:anywhere — ellipsis/nowrap KALDIRILDI) — eski agacAjanId/agacEtiket KALDIRILDI", /\.agacDugumAd\s*\{[^}]*white-space:\s*normal/.test(HTML) && /\.agacDugumAd\s*\{[^}]*overflow-wrap:\s*anywhere/.test(HTML) && !/\.agacDugumAd\s*\{[^}]*ellipsis/.test(HTML) && !HTML.includes(".agacAjanId") && !HTML.includes(".agacEtiket"));
@@ -1096,9 +1096,9 @@ test("51- FAZ-B kaynak-pin: /api/ordu/projeler ucu (PASEO_EV + her istekte diskt
   ok("KURMAY-1 grubu DISK taramasiyla kesisir (yoksa devre-disi dürüst seçenek)", j.includes("diskAjanKumesi()") && j.includes("disk taramasında yok (gönderilemez)"));
   ok("yönetim kimlikleri proje grubunda HARİÇ tutulur (KARIŞMAZ pini)", j.includes("yonetimKumesi.has(a.ajanKimligi)"));
   ok("gönderim: POST /api/mesaj + token başlığı + gonderiliyor durumu", j.includes('"/api/mesaj"') && j.includes('"x-pano-token"') && j.includes("gönderiliyor…"));
-  ok("token input (değer AKLA girmez — yalnız başlıkta)", HTML.includes('<input id="token" type="password"') && !j.includes('kaydet("token"'));
+  ok("token input FAZ-O: Ayarlar görünümünde ayarToken (type=password — değer AKLA girmez; eski id=token composer'da KALDIRILDI; submit oku(\"pano-token\") başlıkta taşır)", HTML.includes('<input id="ayarToken" type="password"') && !HTML.includes('id="token"') && j.includes('oku("pano-token")') && !j.includes('kaydet("token"'));
   ok("composer textarea + 4096 tavan", HTML.includes('id="composerMesaj"') && HTML.includes('maxlength="4096"'));
-  ok("PANEL-CHAT-1/FAZ-M: sağ panel CHAT — oturum listesi + dürüst oturum notu (transcript üstte + panel gönderimleri altta)", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes("Üstte seçili oturumun yazışmaları"));
+  ok("FAZ-O: sohbet görünümü — balon history + composer (chatListe role=log AYNEN; eski 'Üstte seçili oturumun yazışmaları' notu + chatOturumNotu sınıfı SÖKÜLDÜ — chatgpt.com dili, ekranda yalnız balonlar)", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && !HTML.includes("Üstte seçili oturumun yazışmaları") && !/\.chatOturumNotu\s*\{/.test(HTML));
   ok("yenileme girdi koruması: odakIcindeMi + gonderiyor bayrağı", j.includes("function odakIcindeMi(") && j.includes("let gonderiyor = false") && j.includes('odakIcindeMi("#bolum-composer")'));
   ok("ağaç yenilenmesi odakta atlanır (activeElement ezilmez)", j.includes('odakIcindeMi("#bolum-agac")'));
   /* PANEL-SIFIR-1: UI TABLOSU SÖKÜLDÜ (kullanıcı fermanı «herşeyi sök sadece şunu» —
@@ -1215,6 +1215,9 @@ test("51c- FAZ-B davranis (vm): ana sekme yonetimi — ORDU SABIT + X ile kapani
     projeEtiketi: fnAl("projeEtiketi"), /* FAZ-G bilinçli ekleme: anaSekmeYaz etiketi projeEtiketi(pr)'den alır */
     P: { projeler: [{ dizin: "P-x", projeAdi: "P-x", ajanlar: [] }] },
     acikSekmeler: acikDizi, aktifSekme: "ordu",
+    acikOturumSekmeleri: [], /* FAZ-O EK-2: oturum sekmeleri (anaSekmeYaz render'ı okur) */
+    agacSecili: null, kaydet: () => {}, oku: () => null, /* FAZ-O EK-2: anaSekmeDegistir oturum dalı */
+    konusmaSecGuncelle: () => {}, transcriptYukle: () => {}, agacYaz: () => {}, /* FAZ-O EK-2: oturum dalı çağrıları */
     grafYaz: () => { grafCagrilar++; }, /* PANEL-SIFIR-1: ORTA gövde grafı — sekme değişiminde yeniden çizilir */
     composerHedefGuncelle: () => {}, odakIcindeMi: () => false, gonderiyor: false,
   });
@@ -1385,13 +1388,14 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   /* --- (2) tıklama temsilcisi: yalnız proje başlığı + ajan düğümü (taşıma/grup dalları SÖKÜLDÜ) --- */
   const dinleyiciler = {};
   const agacSham = { addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; } };
-  const cagrilar = { sekme: [], secim: [], yaz: 0, transcript: [] };
+  const cagrilar = { sekme: [], secim: [], yaz: 0, transcript: [], oturumSekme: [] };
   const kayit2 = [];
   const dlgCtx = {
     $: (id) => (id === "agacAlani" ? agacSham : { addEventListener: () => {} }),
     sekmeAc: (d) => { cagrilar.sekme.push(d); },
     konusmaSecGuncelle: (z) => { cagrilar.secim.push(z); },
-    transcriptYukle: (k) => { cagrilar.transcript.push(k); }, /* FAZ-M: ajan düğümü tıklaması transcript yükler — stub */
+    transcriptYukle: (k) => { cagrilar.transcript.push(k); }, /* FAZ-O EK-2: ağaç artık ÇAĞIRMAZ — yalnız oturum sekmesi aktifken anaSekmeDegistir çağırır */
+    oturumSekmeAc: (k) => { cagrilar.oturumSekme.push(k); }, /* FAZ-O EK-2: ağaç tıklaması oturum SEKMESİ açar — dolaylı yol */
     agacYaz: () => { cagrilar.yaz++; },
     agacAcik: new Set(["P-alfa"]),
     agacSecili: null,
@@ -1405,11 +1409,12 @@ test("51f- PANEL-AGAC-1 SIFIR KABUĞU (vm): çalışan sayısı GERÇEK sayımda
   dinleyiciler.click(olay(".agacProjeBas", { dataset: { proje: "P-beta" } }));
   ok("proje başlığı: akordiyon açılır + sekme açılır (mevcut davranış korunur)", dlgCtx.agacAcik.has("P-beta") && cagrilar.sekme.includes("P-beta"));
   ok("ordu-agac-acik kalıcıya yazılır", kayit2.includes("ordu-agac-acik"));
-  /* (4d) ajan düğümü (regresyon): seçim + konusmaSecGuncelle(true) AYNEN + FAZ-M transcript çağrısı */
+  /* (4d) ajan düğümü (FAZ-O EK-2): seçim kaydı + oturum SEKMESİ açılır — ağaç DOLAYLI yolla chat'i besler; konusmaSecGuncelle/transcriptYukle AĞAÇ TIKLAMASINDA ÇAĞRILMAZ («ağaç → orta sekme → chat. Tek davranış kaynağı ORTA SEKME») */
   dinleyiciler.click(olay(".agacAjan", { dataset: { ajan: R1, proje: "P-alfa" } }));
   assert.equal(dlgCtx.agacSecili, R1, "ajan düğümü: seçili konuşma TAM kimlikle");
-  assert.deepEqual(cagrilar.secim, [true], "ajan düğümü: konusmaSecGuncelle(true) — 51e düzeltmesi korunur");
-  assert.deepEqual(cagrilar.transcript, [R1], "FAZ-M: ajan düğümü tıklaması transcriptYukle(TAM kimlik) çağırır — o oturumun yazışmaları yüklenir");
+  assert.deepEqual(cagrilar.oturumSekme, [R1], "FAZ-O EK-2: ajan düğümü tıklaması oturumSekmeAc(TAM kimlik) çağırır — şeritte sekme açılır/aktive olur");
+  assert.deepEqual(cagrilar.secim, [], "FAZ-O EK-2: ağaç tıklaması konusmaSecGuncelle ÇAĞIRMAZ (dolaylı yol — yalnız sekme aktifken anaSekmeDegistir çağırır)");
+  assert.deepEqual(cagrilar.transcript, [], "FAZ-O EK-2: ağaç tıklaması transcriptYukle ÇAĞIRMAZ (transcript yalnız oturum sekmesi aktifleşince yüklenir)");
   ok("ordu-agac-secili kalıcıya yazılır", kayit2.includes("ordu-agac-secili"));
   /* (4e) klavye: başlık DIV role=button → Enter/Space tıklamaya çevrilir */
   let tiklandi = 0, engellendi = 0;
@@ -1425,12 +1430,12 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   const j = jsKisim();
   /* --- kaynak pinleri --- */
   ok("mesaj listesi: role=log + aria-live=polite + otomatik en alta kaydırma", HTML.includes('id="chatListe"') && HTML.includes('role="log"') && HTML.includes('aria-live="polite"') && j.includes("liste.scrollTop = liste.scrollHeight"));
-  ok("oturum dürüst notu FAZ-M: transcript üstte + panel gönderimleri altta (eski 'yalnız bu oturumda' notu BİLİNÇLİ değişti)", HTML.includes("Üstte seçili oturumun yazışmaları") && !HTML.includes("tam geçmiş Paseo sekmesinde"));
+  ok("oturum dürüst notu FAZ-O'da SÖKÜLDÜ (chatgpt.com dili: sohbette not satırı YOK — transcript + gönderimler tek balon akışında; eski not metni kalıntı 0)", !HTML.includes("Üstte seçili oturumun yazışmaları") && !HTML.includes("tam geçmiş Paseo sekmesinde"));
   const chatA = HTML.indexOf("const CHAT_TAVAN");
   const chatB = HTML.indexOf("function anaSekmeYaz()");
   ok("chat bloğu yerinde (CHAT_TAVAN … anaSekmeYaz)", chatA >= 0 && chatB > chatA);
   const chatSlice = HTML.slice(chatA, chatB);
-  ok("chat dilimi bellek-içi (mekanizma: kaydet( VE localStorage ÇAĞRISI yok — FAZ-M yorumda 'localStorage YOK' kelimesi dokümantasyondur)", !/kaydet\(/.test(chatSlice) && !/localStorage\./.test(chatSlice));
+  ok("chat dilimi bellek-içi (FAZ-O: kaydet YALNIZ pano-token — Ayarlar KAYDET düğmesi; localStorage. ÇAĞRISI hâlâ yok — kaydet/oku sarmalayıcı üzerinden)", !/kaydet\((?!["']pano-token["'])/.test(chatSlice) && !/localStorage\./.test(chatSlice) && chatSlice.includes('kaydet("pano-token"'));
   ok("30sn yenileme mesaj listesine DOKUNMAZ ($(\"chatListe\") erişimi 2 yerde — chatMesajYaz + transcriptYukle FAZ-M; yenileme döngüsü ikisine de YAZMAZ)", (j.match(/\$\("chatListe"\)/g) || []).length === 2);
   ok("giriş yüzü FAZ-I: BALON — chatKim (title TAM kimlik) + TAM metin + chatSaat + İNCE sonuç satırı", chatSlice.includes('<div class="chatKim" title="') && chatSlice.includes('class="chatMesaj chat-kullanici') && chatSlice.includes("chatSonuc"));
   ok("tavan: 200 + en eski düşer (shift)", chatSlice.includes("const CHAT_TAVAN = 200") && chatSlice.includes("oturumMesajlari.shift()"));
@@ -1454,13 +1459,14 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
       { ajanKimligi: A1, ajanId: "432e03b7", lastStatus: "running", etiket: "proje ajanı 1" },
     ] }] },
     seciliKonusma: null, gonderiyor: false,
+    oku: () => "sahte-token", kaydet: () => {}, /* FAZ-O: token localStorage oku() sarmalayıcısından — submit + DOKTOR kapısı okur */
     fetch: async (yol, secenek) => { fetchCagr = { yol, secenek }; if (agHatasi) throw new Error("bağlantı koptu"); return yanit; },
   };
   const [oturumMesajlari, chatMesajYaz] = vm.runInNewContext(chatSlice + "\n[oturumMesajlari, chatMesajYaz]", ctx);
   ok("submit dinleyicisi kayıtlı (composerForm sham'ında)", typeof dinleyiciler.submit === "function");
   const gonder = () => dinleyiciler.submit({ preventDefault: () => {} });
-  /* girdi sham'ları önceden doğar (dinleyici gövdesi ilk çağrıda okur — kayıt sırasında değil) */
-  for (const id of ["composerHedef", "composerMesaj", "token", "composerGonder", "composerSonuc", "chatListe", "chatBos"]) sham$(id);
+  /* girdi sham'ları önceden doğar (dinleyici gövdesi ilk çağrıda okur — kayıt sırasında değil; FAZ-O: gonderDurum span — token sham'ı GEREKMEZ, oku() taşır) */
+  for (const id of ["composerHedef", "composerMesaj", "composerGonder", "gonderDurum", "composerSonuc", "chatListe", "chatBos"]) sham$(id);
 
   /* (1) doğrulama: hedef boş → istek YOK + liste boş + composerSonuc dürüst */
   sham.composerHedef.value = "";
@@ -1474,7 +1480,7 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   ok("doğrulama: mesaj boş → giriş listeye DÜŞMEZ", oturumMesajlari.length === 0 && sham.composerSonuc.textContent.includes("mesaj boş"));
 
   /* (2) başarı: giriş düşer → [HH:mm] [kısa ad] metin + 'gönderildi' + editör temizlenir */
-  sham.token.value = "sahte-token"; /* sahte token — yalnız başlıkta yolculuk yapar */
+  sham.composerMesaj.value = "test mesajı"; /* FAZ-O: token oku() sham'ından ("sahte-token") — ekranda alan YOK */
   sham.composerMesaj.value = "test mesajı";
   await gonder();
   const h1 = sham.chatListe.innerHTML;
@@ -1485,7 +1491,7 @@ test("51g- PANEL-CHAT-1 (vm): mesaj listesi oturum-içi — gönderim sonrası r
   ok("liste: hedef kısa ad title'ı TAM kimlik taşır", h1.includes('title="' + A1 + '"'));
   ok("liste: boş-durum satırı gizlenir + otomatik en alta kaydırma", sham.chatBos.hidden === true && sham.chatListe.scrollTop === sham.chatListe.scrollHeight);
   ok("gönderim sonrası: editör temizlenir (gönderilen mesaj beklemesin)", sham.composerMesaj.value === "");
-  ok("dugme geri döner: GÖNDER + disabled=false", sham.composerGonder.textContent === "GÖNDER" && sham.composerGonder.disabled === false);
+  ok("dugme geri döner: gonderDurum span 'GÖNDER' + ikon düğmesi DEĞİŞMEZ (FAZ-O: durum ekran-okuyucu metninde — dugme.textContent yazılmaz)", sham.gonderDurum.textContent === "GÖNDER" && sham.composerGonder.disabled === false && sham.composerGonder.textContent === "");
 
   /* (3) hata 429: 'hata: HTTP 429 — …' kırmızı ince satır + mesaj editörde KALIR (yeniden denenebilir) */
   yanit = { ok: false, status: 429, json: async () => ({ hata: "pencere dolu" }) };
@@ -1540,7 +1546,7 @@ test("51i- PANEL-ANA-1 FAZ-C (kaynak-pin): sağ kolon TEK chat birimi — liste 
   const h = htmlKisim();
   const j = jsKisim();
   /* --- tek-bölüm yapısı: ayrı composer BÖLÜMÜ + başlığı gider --- */
-  ok("#sag'da TEK .bolum: bolum-chat; eski <section id=bolum-composer> KALDIRILDI", h.includes('<section class="bolum" id="bolum-chat"') && !/<section[^>]*id="bolum-composer"/.test(h));
+  ok("FAZ-O EK-3: bolum-chat #ORTA'da (görünüm sarmalayıcısı içinde) — #sag'da .bolum YOK (sekmeli bölge şerit+gövde); eski <section id=bolum-composer> KALDIRILDI", h.includes('<section class="bolum" id="bolum-chat"') && !/<section[^>]*id="bolum-composer"/.test(h) && h.indexOf('<section id="orta"') < h.indexOf('id="bolum-chat"') && h.indexOf('id="bolum-chat"') < h.indexOf('<section id="sag"') && !h.slice(h.indexOf('<section id="sag"')).includes('class="bolum"'));
   ok("COMPOSER h2 başlığı YOK (composer-baslik id'si + h2 gövdesi kalıntısı)", !h.includes('id="composer-baslik"') && !/COMPOSER\s*<\/h2/.test(h));
   ok("composer #bolum-chat İÇİNDE (sarmalayıcı div.composerAlan — bölüm değil)", h.indexOf('id="bolum-chat"') < h.indexOf('id="bolum-composer"') && h.indexOf('id="bolum-composer"') < h.indexOf('id="composerForm"') && h.includes('<div id="bolum-composer" class="composerAlan"'));
   ok("bölüm kapanışı composer'dan SONRA (form bölümün içinde kalır — kopuk değil)", h.indexOf("</section>", h.indexOf('id="composerForm"')) > h.indexOf('id="composerForm"'));
@@ -1549,10 +1555,10 @@ test("51i- PANEL-ANA-1 FAZ-C (kaynak-pin): sağ kolon TEK chat birimi — liste 
   ok("liste ESNEK + kendi içinde kayar: .chatListe flex:1 1 auto + min-height:0 + overflow-y:auto (eski min-height:140px BİLİNÇLİ gitti)", /\.chatListe\s*\{[^}]*flex:\s*1 1 auto[^}]*min-height:\s*0[^}]*overflow-y:\s*auto/.test(HTML));
   ok("composer ALTTA SABİT: .composerAlan flex:none (ayraç çizgisi border-top ile)", /\.composerAlan\s*\{[^}]*flex:\s*none[^}]*border-top:\s*1px solid var\(--cizgi\)/.test(HTML));
   ok("istifte (<899px) doğal sıra korunur: bölüm flex:none + liste min tabanı 140px geri döner", /@media \(max-width:899px\)[\s\S]*?#bolum-chat\s*\{[^}]*flex:\s*none/.test(HTML) && /@media \(max-width:899px\)[\s\S]*?\.chatListe\s*\{[^}]*min-height:\s*140px/.test(HTML));
-  /* --- composer İÇİ AYNEN: alan sırası + id'ler + JS girdi koruması --- */
-  const sira = ["composerHedef", "composerMesaj", "token", "composerGonder"].map((id) => h.indexOf('id="' + id + '"'));
-  ok("composer alan sırası AYNEN: Hedef → Mesaj → token → GÖNDER", sira.every((i) => i >= 0) && sira.every((i, k) => k === 0 || i > sira[k - 1]));
-  ok("composer id'leri AYNEN (form/hedef/mesaj/token/gonder/sonuc — JS $('…') çağrıları yaşar)", ["composerForm", "composerHedef", "composerMesaj", "token", "composerGonder", "composerSonuc"].every((id) => h.includes('id="' + id + '"')));
+  /* --- composer İÇİ FAZ-O: TEK bar düzeni — Hedef → Mesaj → Ekle → GÖNDER (token ALAN YOK — Ayarlar görünümünde); JS girdi koruması AYNEN --- */
+  const sira = ["composerHedef", "composerMesaj", "composerEkle", "composerGonder", "composerDosya"].map((id) => h.indexOf('id="' + id + '"'));
+  ok("composer bar sırası FAZ-O: Hedef → Mesaj → Ekle → GÖNDER (+ gizli dosya girdisi; token alanı SÖKÜLDÜ — chatgpt.com dili)", sira.every((i) => i >= 0) && sira.every((i, k) => k === 0 || i > sira[k - 1]) && !h.includes('<input id="token"'));
+  ok("composer id'leri FAZ-O (form/hedef/mesaj/ekle/dosya/gonder/gonderDurum/sonuc — token AYARLAR görünümünde ayarToken)", ["composerForm", "composerHedef", "composerMesaj", "composerEkle", "composerDosya", "composerGonder", "gonderDurum", "composerSonuc", "ayarToken"].every((id) => h.includes('id="' + id + '"')));
   ok("JS AYNEN: yenileme girdi koruması odakIcindeMi(\"#bolum-composer\") seçicisi sarmalayıcı kimliğiyle yaşar (JS hunk YOK)", j.includes('odakIcindeMi("#bolum-composer")'));
   ok("JS AYNEN: composer submit + 2 AYRI optgroup davranışı değişmedi (JS hunk YOK sınıfı)", j.includes('$("composerForm").addEventListener') && j.includes("optgroup"));
 });
@@ -1575,7 +1581,7 @@ test("51j- PANEL-ANA-1 FAZ-D+E+F (kaynak-pin + vm): ana şerit proje sekmeleri D
       { dizin: "P-uzun", projeAdi: "01234567890123456789012", orduMu: false, ajanlar: [] },
       { dizin: "P-kisa", projeAdi: "kisa", orduMu: false, ajanlar: [] },
     ] },
-    aktifSekme: "ordu", acikSekmeler: ["P-uzun", "P-kisa"],
+    aktifSekme: "ordu", acikSekmeler: ["P-uzun", "P-kisa"], acikOturumSekmeleri: [], /* FAZ-O EK-2: anaSekmeYaz oturum sekme döngüsünü okur */
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctx2)();
   const hs = sahte2.anaSekmeSerit.innerHTML;
@@ -1657,7 +1663,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   ok("kullanim 2/5 ana sekme: ad = pr ? projeEtiketi(pr) : dizin (taramadan dustuysae dizin yedek)", j.includes("pr ? projeEtiketi(pr) : dizin"));
   ok("kullanim 3/5 chat basligi: seciliKonusma.projeEtiket (kimlik yolu projeDizin AYNEN)", j.includes("projeDizin: pr.dizin, projeEtiket: projeEtiketi(pr)") && j.includes("seciliKonusma.projeEtiket"));
   ok("kullanim 4/5 composer optgroup: 'SEÇİLİ PROJENİN OTURUM AJANLARI: etiket' (FAZ-M etiket dili)", j.includes('pr ? projeEtiketi(pr) : "yok"'));
-  ok("PANEL-SIFIR-1: kullanim 5/5 SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0 (etiket yardımcısı: 1 tanım + 4 kullanım = 5 eşleşme — ağaç + konuşma seçimi + chat + composer)", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 5);
+  ok("PANEL-SIFIR-1: kullanim 5. tablo SÖKÜLDÜ — projeTabloAd kapısı kalıntı 0; FAZ-O EK-2: 6. kullanım oturumBul (oturum kartı proje satırı) — 1 tanım + 5 kullanım = 6 eşleşme", !j.includes('projeTabloAd') && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6);
   ok("kimlik yolu DEGISMEZ: data-proje TAM dizin AYNEN (agac + tasi dugmeleri)", j.includes('data-proje="\' + esc(pr.dizin)'));
   ok("data-ana TAM dizin AYNEN (ana sekme kimligi)", j.includes('data-ana="\' + esc(dizin)'));
 
@@ -1693,7 +1699,7 @@ test("51k- PANEL-ANA-1 FAZ-G (birlesim + kaynak-pin + vm): workspaces.json basli
   const ctxS = {
     $: $2, esc: fnAl("esc"), kisalt: fnAl("kisalt"), projeEtiketi: fnAl("projeEtiketi"),
     P: { projeler: [ { dizin: "P-uzun", projeAdi: "P-uzun", baslik: "sekme basligi uzun ornek metni", orduMu: false, ajanlar: [] } ] },
-    aktifSekme: "ordu", acikSekmeler: ["P-uzun"],
+    aktifSekme: "ordu", acikSekmeler: ["P-uzun"], acikOturumSekmeleri: [], /* FAZ-O EK-2 */
   };
   vm.runInNewContext(HTML.slice(HTML.indexOf("function anaSekmeYaz("), HTML.indexOf('$("anaSekmeSerit").addEventListener')) + "\nanaSekmeYaz", ctxS)();
   const hs = sahte2.anaSekmeSerit.innerHTML;
@@ -1713,7 +1719,7 @@ test("51l- PANEL-ANA-1 FAZ-H (kaynak-pin): tipografi ölçeği + nefes + nabız 
   ok("chat balon FAZ-I: .chatMesaj 15px/1.55 + chatKim 11.5px/700 + chatSaat 11px + sonuc 12px (eski chatMetin/chatKimlik KALKTI — 51m'de kalıntı pini)", /\.chatMesaj\s*\{[^}]*font-size:\s*15px/.test(HTML) && /\.chatMesaj\s*\{[^}]*line-height:\s*1\.55/.test(HTML) && /\.chatKim\s*\{[^}]*font-size:\s*11\.5px/.test(HTML) && /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatSonuc\s*\{[^}]*font-size:\s*12px/.test(HTML));
   ok("PANEL-SIFIR-1: planTablo SÖKÜLDÜ — td/th/tfoot + tabloSarma sınıfları kalıntı 0", !/\.planTablo/.test(HTML) && !/\.tabloSarma/.test(HTML));
   /* --- NEFES (padding/dikey boşluk) --- */
-  ok("bolum padding 16px 20px 20px + kolonlar arası 16px", /\.bolum\s*\{[^}]*padding:\s*16px 20px 20px/.test(HTML) && /#sol > \.bolum, #sag > \.bolum\s*\{[^}]*margin-top:\s*16px/.test(HTML));
+  ok("bolum padding 16px 20px 20px + kolonlar arası 16px (FAZ-O EK-3: yalnız #sol > .bolum — #sag'da .bolum yok, #orta'da üst nefesi menü satırı verir; eski çiftli seçici bilinçli daraldı)", /\.bolum\s*\{[^}]*padding:\s*16px 20px 20px/.test(HTML) && /#sol > \.bolum\s*\{[^}]*margin-top:\s*16px/.test(HTML) && !/#sol > \.bolum, #sag > \.bolum/.test(HTML));
   ok("sekmeGovde padding 10px 16px 16px (altSekmeSerit SÖKÜLDÜ — negatif marj kalıntısı 0)", /#sekmeGovde\s*\{[^}]*padding:\s*10px 16px 16px/.test(HTML) && !/#altSekmeSerit/.test(HTML));
   ok("PANEL-SIFIR-1: ozetKart nefes pini gitti — kart sınıfı kalıntı 0 (özet hero söküldü)", !/\.ozetKart/.test(HTML) && !/\.ozetGrid/.test(HTML));
   /* --- DİNAMİK AKIŞ: çalışan noktası nabzı (opacity-only; ≤2 yeni keyframes) --- */
@@ -1743,7 +1749,7 @@ test("51m- PANEL-ANA-1 FAZ-I (kaynak-pin + vm): sağ chat TUVAL DİLİ — balon
   ok("chatKim ÜSTTE: 11.5px/700 + letter-spacing 0.06em + ikincil + margin-bottom 3px", /\.chatKim\s*\{[^}]*font-size:\s*11\.5px/.test(HTML) && /\.chatKim\s*\{[^}]*font-weight:\s*700/.test(HTML) && /\.chatKim\s*\{[^}]*letter-spacing:\s*0\.06em/.test(HTML) && /\.chatKim\s*\{[^}]*margin:\s*0 0 3px/.test(HTML));
   ok("chatSaat ALTTA: 11px + ikincil + margin-top 4px (tuval deseni)", /\.chatSaat\s*\{[^}]*font-size:\s*11px/.test(HTML) && /\.chatSaat\s*\{[^}]*margin:\s*4px 0 0/.test(HTML) && !/\.chatSaat\s*\{[^}]*font-family:\s*var\(--mono\)/.test(HTML));
   ok("chatListe flex column + gap 6px (tuval chat hattı)", /\.chatListe\s*\{[^}]*display:\s*flex; flex-direction:\s*column;\s*gap:\s*6px/.test(HTML));
-  ok("boş durum İNCE balon: chatOturumNotu + #chatBos chat-sistem görünümü (yuzey2 + dashed)", /\.chatOturumNotu\s*\{[^}]*background:\s*var\(--yuzey2\)/.test(HTML) && /\.chatOturumNotu\s*\{[^}]*border:\s*1px dashed var\(--cizgi\)/.test(HTML) && /#chatBos\s*\{[^}]*border:\s*1px dashed var\(--cizgi\)/.test(HTML) && /#chatBos\s*\{[^}]*background:\s*var\(--yuzey2\)/.test(HTML));
+  ok("boş durum İNCE balon FAZ-O: #chatBos chat-sistem görünümü (yuzey2 + dashed) AYNEN; chatOturumNotu sınıfı SÖKÜLDÜ (kelime yalnız yorumda — mekanizma 0)", /#chatBos\s*\{[^}]*border:\s*1px dashed var\(--cizgi\)/.test(HTML) && /#chatBos\s*\{[^}]*background:\s*var\(--yuzey2\)/.test(HTML) && !/\.chatOturumNotu\s*\{/.test(HTML) && !/class="chatOturumNotu"/.test(HTML));
   ok("composer cila: #composerForm gap 6px (tuval chatForm hizası — gönderim mantığı AYNEN)", /#composerForm\s*\{[^}]*gap:\s*6px/.test(HTML));
   /* --- eski log satır görünümü KALKAR (bilinçli pin — kalıntı 0) --- */
   ok("eski chatSatir/chatKimlik/chatMetin sınıf kalıntısı 0 (bilinçli: balon dili)", !HTML.includes("chatSatir") && !HTML.includes("chatKimlik") && !HTML.includes("chatMetin"));
@@ -1787,7 +1793,7 @@ test("51n- PANEL-ANA-1 FAZ-J + PANEL-SIFIR-1 (kaynak-pin + vm): responsive + mob
   ok("coarse: GÖNDER 44px (masaüstünde 40px §5 — yalnız coarse kuralı)", /@media \(pointer:coarse\)[\s\S]*?#composerGonder\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML));
   ok("MASAÜSTÜ KOMPAKT AYNEN: .sekme 34px + ağaç 32px + GÖNDER 40px kaynakta DEĞİŞMEDİ (coarse yalnız medya kuralında)", /\.sekme\s*\{[^}]*min-height:\s*34px/.test(HTML) && /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   /* --- <899px istif sırası (CSS order — DOM değişmez) --- */
-  ok("899px istif sırası PANEL-SIFIR-1: #sol order:1 → #orta order:2 → #sag order:3 (ağaç üstte, graf ortada, chat altta — kullanıcı tarifi)", /@media \(max-width:899px\)[\s\S]*?#sol\s*\{\s*order:1;\s*\}[\s\S]*?#orta\s*\{\s*order:2;\s*\}[\s\S]*?#sag\s*\{\s*order:3;/.test(HTML));
+  ok("899px istif sırası FAZ-O EK-3: #orta (chat) order:1 → #sag (sekmeli) order:2 → #sol (ağaç) order:3 (chat ÜSTTE — kullanıcı «chat sekmesini ortaya al»; eski SIFIR sırası ağaç-üstte bilinçli değişti)", /@media \(max-width:899px\)[\s\S]*?#orta\s*\{\s*order:1;\s*\}[\s\S]*?#sag\s*\{\s*order:2;\s*\}[\s\S]*?#sol\s*\{\s*order:3;/.test(HTML));
   ok("DOM sırası DEĞİŞMEDİ (order yalnız CSS): #sol grid-column:1 → #orta:3 → #sag:5 kaynakta AYNEN", /main > #sol\s*\{[^}]*grid-column:1/.test(HTML) && /main > #orta\s*\{[^}]*grid-column:3/.test(HTML) && /main > #sag\s*\{[^}]*grid-column:5/.test(HTML));
   ok("FAZ-C istif mirası AYNEN: liste 140px tabanı + composer altta + splitter gizli", /@media \(max-width:899px\)[\s\S]*?\.chatListe\s*\{[^}]*min-height:\s*140px/.test(HTML) && /@media \(max-width:899px\)[\s\S]*?\.splitter\s*\{[^}]*display:\s*none/.test(HTML));
   /* --- planTablo/tabloSarma SÖKÜLDÜ (PANEL-SIFIR-1 — tablo yüzü gitti) --- */
@@ -1893,7 +1899,7 @@ test("51o- PANEL-ANA-1 FAZ-K (kaynak-pin + vm): ağaç etiketleri TAM — kisalt
   ok("FAZ-J coarse 44px AYNEN (pointer:coarse bloğu SIFIR kabuğuna uyarlandı: agacProjeBas + agacAjan 44)", /@media \(pointer:coarse\)[\s\S]*?\.agacProjeBas, \.agacAjan\s*\{[^}]*min-height:\s*var\(--min-dokunma\)/.test(HTML) && /@media \(pointer:coarse\)[\s\S]*?\.sekmeKapat\s*\{[^}]*width:\s*var\(--min-dokunma\)/.test(HTML) && !/\.agacTasiBtn/.test(HTML));
   ok("§5 satır ≥26px + GÖNDER 40px AYNEN (FAZ-K ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   /* --- (5) veri katmanı AYNEN (kisaltma yalnız UI'da — server.js/ordu-birlesim.mjs hunk 0) --- */
-  ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 1 tanım + 4 kullanım = 5 eşleşme (ağaç + konuşma seçimi + chat + composer — 5. tablo kullanımı SÖKÜLDÜ) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 5 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
+  ok("veri katmanı AYNEN: projeEtiketi yardımcısı + 1 tanım + 5 kullanım = 6 eşleşme (ağaç + konuşma seçimi + chat + composer + FAZ-O EK-2 oturum kartı) + fetch/POST sayıları değişmedi", j.includes("function projeEtiketi(pr)") && (j.match(/projeEtiketi\(pr\)/g) || []).length === 6 && j.includes('"/api/mesaj"') && j.includes("const CHAT_TAVAN = 200"));
   ok("YENİ @keyframes/renk/sembol YOK (nabız 1 aynen — E12)", (HTML.match(/@keyframes/g) || []).length <= 2 && !/--yeni-(renk|token)/.test(h));
 });
 
@@ -2215,4 +2221,206 @@ test("51s- PANEL-ANA-1 FAZ-N (kaynak-pin + vm): ağaç ÖLÜ OTURUM FİLTRESİ �
   ok("korunum: ajanDugumHtml kimlik yolu AYNEN (data-ajan TAM kimlik + data-proje TAM dizin — FAZ-K mirası; filtre yalnız görünürlüğe karar verir)", j.includes('esc(a.ajanKimligi)') && j.includes('esc(pr.dizin)') && j.includes('" data-ajan="'));
   ok("korunum: min-height 32 ailesi + coarse 44 + GÖNDER 40 AYNEN (K-0061 — FAZ-N ölçek değişikliği YOK)", /\.agacAjan\s*\{[^}]*min-height:\s*32px/.test(HTML) && /#composerGonder\s*\{[^}]*min-height:\s*40px/.test(HTML));
   ok("korunum: akordiyon/tıklama/seçim mekanizması AYNEN (agacAcik + agacSecili kaydet/oku çağrıları değişmedi)", j.includes('kaydet("ordu-agac-acik"') && j.includes('kaydet("ordu-agac-secili"'));
+});
+
+test("51t- PANEL-ANA-1 FAZ-O (kaynak-pin + vm): 4-İKON GÖRÜNÜM MENÜSÜ [SOHBET][API][AYARLAR][DOKTOR] — token YALNIZ Ayarlar'da (kaydet pano-token; 401 → dürüst yönlendirme) + API salt-okur ölçüm (YENİ uç YOK) + DOKTOR sıralı gerçek muayene (token kapısı gövdeden ÖNCE — mesaj DELİLİ gönderilmez) + composer bar (auto-grow + Enter/Shift+Enter/IME + metin dosyası ekle) + OTURUM SEKMELERİ EK-2 (ağaç → ORTA SEKME → chat dolaylı yolu; kapanış zinciri şerit sırasıyla) — kullanıcı «chat üstünü 4 ikon menü yap … token ve diğerlerini ayarlar içine ekle» + «hangi oturum yüklüyse onun history chat ekranının aktif olacak» + «chat sekmesini ortaya al orta bölümü sağa al» 2026-11-04", async () => {
+  const j = jsKisim();
+  const h = htmlKisim();
+  /* --- (1) kaynak pinleri: menü + görünüm kapları --- */
+  ok("menü kabuğu: gorunumMenu role=tablist + 4 gsek düğmesi aria-controls ile görünüm kaplarına bağlı", h.includes('id="gorunumMenu"') && ["gsek-sohbet", "gsek-api", "gsek-ayarlar", "gsek-doktor"].every((id) => h.includes('id="' + id + '"')) && ["gorunum-sohbet", "gorunum-api", "gorunum-ayarlar", "gorunum-doktor"].every((id) => h.includes('id="' + id + '"')));
+  ok("açılış görünümü SOHBET (gsek-sohbet aktif + aria-selected=true kaynakta; api/ayarlar/doktor hidden; görünüm tercihi localStorage'a GİRMEZ)", /class="gorunumSekme aktif" id="gsek-sohbet"/.test(h) && /id="gsek-sohbet"[^>]*aria-selected="true"/.test(h) && /id="gorunum-api"[^>]*hidden/.test(h) && !/id="gorunum-sohbet"[^>]*hidden/.test(h) && !j.includes('kaydet("pano-gorunum"') && !j.includes('kaydet("ordu-gorunum"'));
+  ok("GORUNUMLER sabiti 4 üye + fail-closed (bilinmeyen görünüm yok)", j.includes('const GORUNUMLER = ["sohbet", "api", "ayarlar", "doktor"]') && j.includes("if (!GORUNUMLER.includes(ad)) return;"));
+  ok("token YALNIZ Ayarlar görünümünde: ayarToken (password) + KAYDET düğmesi + ayarSonuc; composer bölgesinde token girdisi yok (tek input gizli dosya seçici — yorumdaki 'token' kelimesi dokümantasyondur)", h.includes('<input id="ayarToken" type="password"') && h.includes('id="ayarTokenKaydet"') && h.includes('id="ayarSonuc"') && !h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>")).includes('type="password"') && (h.slice(h.indexOf('id="bolum-composer"'), h.indexOf("</form>")).match(/<input/g) || []).length === 1);
+  ok("AYARLAR kaydetme: kaydet(\"pano-token\") + boş değer dürüst 401/403 notu", j.includes('kaydet("pano-token", deger)') && j.includes("gönderimler sunucu kapısında dürüst 401/403"));
+  ok("API görünümü salt-okur: 3 GET satırı + ÖLÇ + apiSonuclar (satırlar YALNIZ ölçümle gelir — sahte satır YOK E10)", h.includes('id="apiOrigin"') && h.includes('id="apiOlc"') && h.includes('id="apiSonuclar"') && j.includes("const API_UCLAR = [") && (j.match(/yol: "\/api\//g) || []).length === 3);
+  ok("API ölçümü GERÇEK fetch + kod + ms (tahmin YOK; YENİ uç EKLENMEZ — mevcut GET'ler)", j.includes('satir.textContent = uc.ad + " — HTTP " + r.status + " · " + (Date.now() - t0) + " ms"') && !j.includes('yol: "POST'));
+  ok("DOKTOR: MUAYENE sıralı 3 gerçek kontrol + doktorSonuclar; (b) token kapısı gövdeden ÖNCE — hedef BOŞ probe (mesaj DELİLİ gönderilmez)", h.includes('id="doktorMuayene"') && h.includes('id="doktorSonuclar"') && j.includes('body: JSON.stringify({ hedef: "", mesaj: "" })') && j.includes("r.status === 401 || r.status === 403"));
+  ok("composer bar: auto-grow (tavan 140) + Enter GÖNDER/Shift+Enter satır/IME isComposing reddi + ekle", j.includes("function composerBoyutla()") && j.includes("Math.min(composerMetin.scrollHeight, 140)") && j.includes('e.key === "Enter" && !e.shiftKey && !e.isComposing') && j.includes("f.requestSubmit()"));
+  ok("ekle: METİN uzantı listesi + 1536 tavan + 4096 mesaj tavanı dürüst notu (ikili/uyumsuz hata satırı)", j.includes('const EK_UZANTILAR = ["txt"') && j.includes("const EK_TAVAN = 1536") && j.includes("dosya kesildi") && j.includes("mesaj tavanı 4096 karakter aşıldı"));
+  /* --- (2) kaynak pinleri: OTURUM SEKMELERİ (EK-2) --- */
+  ok("oturum sekme mekanizması: oturumSekmeAc/Kapat + oturumBul + oturumKartYaz + govdeYaz (tek yönlendirme)", j.includes("function oturumSekmeAc(") && j.includes("function oturumSekmeKapat(") && j.includes("function oturumBul(") && j.includes("function oturumKartYaz(") && j.includes("function govdeYaz()"));
+  ok("kimlik uzayı AYRI: data-ana/data-kapat = \"oturum:\" + kimlik (Paseo dizin adlarında ':' YOK — proje uzayıyla çakışma imkânsız)", j.includes("data-ana=\"oturum:' + esc(kimlik)") && j.includes("data-kapat=\"oturum:' + esc(kimlik)"));
+  const agacDilim = HTML.slice(HTML.indexOf('$("agacAlani").addEventListener("click"'), HTML.indexOf("function konusmaSecGuncelle"));
+  ok("ağaç tıklaması DOLAYLI yol: oturumSekmeAc(agacSecili) — konusmaSecGuncelle/transcriptYukle AĞAÇ TİKLAMASINDA YOK («tek davranış kaynağı ORTA SEKME»)", j.includes("oturumSekmeAc(agacSecili)") && !agacDilim.includes("transcriptYukle(") && !agacDilim.includes("konusmaSecGuncelle("));
+  ok("transcriptYukle ÇAĞRISI kaynakta 2 yerde: açılış (transcriptAcilisIstendi kilidi) + anaSekmeDegistir oturum dalı (tanım hariç) — AÇILIŞ sekme AÇMAZ", (j.match(/transcriptYukle\(/g) || []).length - (j.match(/function transcriptYukle\(/g) || []).length === 2 && j.includes("transcriptAcilisIstendi"));
+  ok("açık oturum sekme LİSTESİ localStorage'a GİRMEZ (kaynakta kaydet çağrıları yalnız agac-acik/agac-secili/kolon genişlikleri/pano-token ailesi)", !j.includes('kaydet("ordu-oturum') && !j.includes('kaydet("pano-oturum') && !j.includes('kaydet("oturum'));
+  ok("PROJE/ORDU sekmesinde chat SON oturumu KORUR (sessiz): anaSekmeDegistir oturum-dışı dalı composerHedefGuncelle çağırır, transcriptYukle ÇAĞIRMAZ", j.includes('else if (!gonderiyor && !odakIcindeMi("#bolum-composer")) composerHedefGuncelle();'));
+  ok("oturum kartı DÜRÜST: gerçek P alanları (etiket/ajan/sağlayıcı/durum/son etkinlik/proje); kayıt yok → 'kayıt taramada yok' (uydurma kart YASAK E10)", j.includes('<div class="oturumKart">') && j.includes("bu oturumun kaydı taramada yok"));
+
+  /* --- (3) vm: görünüm geçişi + token kaydetme + chat state korunumu --- */
+  const fazA = HTML.indexOf("const GORUNUMLER");
+  const fazB = HTML.indexOf("function anaSekmeYaz()");
+  ok("FAZ-O dilim yerinde (GORUNUMLER … anaSekmeYaz)", fazA >= 0 && fazB > fazA);
+  const fazoKos = (fetchStub) => {
+    const sham = {};
+    const kayitli = {};
+    const olusturulan = [];
+    const sham$ = (id) => {
+      if (!sham[id]) {
+        const dinleyiciler = {};
+        sham[id] = {
+          innerHTML: "", textContent: "", value: "", hidden: false, disabled: false, className: "",
+          scrollTop: 0, scrollHeight: 500, style: {}, files: null, _aria: {}, _sinif: new Set(),
+          classList: { toggle: (ad, acik) => { if (acik) sham[id]._sinif.add(ad); else sham[id]._sinif.delete(ad); } },
+          setAttribute: (k, v) => { sham[id]._aria[k] = v; },
+          appendChild: () => {},
+          addEventListener: (tip, fn) => { dinleyiciler[tip] = fn; },
+          dinleyiciler,
+        };
+      }
+      return sham[id];
+    };
+    const fns = vm.runInNewContext(HTML.slice(fazA, fazB) + "\n[gorunumDegistir, composerBoyutla]", {
+      $: sham$, oku: (a) => (a in kayitli ? kayitli[a] : null), kaydet: (a, v) => { kayitli[a] = v; },
+      fetch: fetchStub, location: { origin: "http://test:4937" },
+      document: { createElement: () => { const el = { className: "", textContent: "" }; olusturulan.push(el); return el; } },
+    });
+    sham$("chatListe"); /* sohbet state korunumu senaryosu için önceden doğar — FAZ-O dilimi yükte dokunmaz */
+    sham$("composerForm"); /* keydown işleyicisi ÇAĞRI anında $() ile arar — requestSubmit spy'ı önceden oturur */
+    return { sham, kayitli, olusturulan, fns };
+  };
+  const k1 = fazoKos(async () => ({ ok: true, status: 200, json: async () => ({}) }));
+  const [gorunumDegistir, composerBoyutla] = k1.fns;
+  gorunumDegistir("api");
+  ok("vm görünüm: api görünür + diğer ÜÇÜ gizli (hidden anahtarları)", k1.sham["gorunum-api"].hidden === false && k1.sham["gorunum-sohbet"].hidden === true && k1.sham["gorunum-ayarlar"].hidden === true && k1.sham["gorunum-doktor"].hidden === true);
+  ok("vm görünüm: gsek-api aktif sınıfı + aria-selected=true (diğerleri false)", k1.sham["gsek-api"]._sinif.has("aktif") && k1.sham["gsek-api"]._aria["aria-selected"] === "true" && k1.sham["gsek-sohbet"]._aria["aria-selected"] === "false" && !k1.sham["gsek-sohbet"]._sinif.has("aktif"));
+  ok("vm görünüm: apiOrigin GERÇEK origin ölçümüyle dolar (tahmin YOK)", k1.sham.apiOrigin.textContent === "panel sunucusu: http://test:4937");
+  ok("vm görünüm: bilinmeyen ad fail-closed (değişim yok — api görünür kalır)", gorunumDegistir("yok-boyle") === undefined && k1.sham["gorunum-api"].hidden === false);
+  /* chat state görünüm dönüşünde KORUNUR (gizlenir — sıfırlanmaz) */
+  k1.sham.chatListe.innerHTML = "kanari-balon";
+  gorunumDegistir("sohbet");
+  ok("vm görünüm: sohbet'e dönüş chat state KORUR (chatListe dokunulmaz — boşaltılmaz)", k1.sham.chatListe.innerHTML === "kanari-balon" && k1.sham["gorunum-sohbet"].hidden === false);
+  ok("vm görünüm: görünüm tercihi KAYDEDİLMEDİ (kayitli boş — localStorage'a girmez)", Object.keys(k1.kayitli).length === 0);
+  /* ayarlar → token dolar + KAYDET yazar */
+  gorunumDegistir("ayarlar");
+  ok("vm ayarlar: kayıtlı token YOKSA alan BOŞ dolar (uydurma YOK)", k1.sham.ayarToken.value === "");
+  k1.sham.ayarToken.value = "yeni-token";
+  k1.sham.ayarTokenKaydet.dinleyiciler.click();
+  ok("vm ayarlar: KAYDET → kaydet(\"pano-token\") + dürüst sonuc satırı", k1.kayitli["pano-token"] === "yeni-token" && k1.sham.ayarSonuc.textContent.includes("token kaydedildi"));
+  k1.sham.ayarToken.value = "";
+  k1.sham.ayarTokenKaydet.dinleyiciler.click();
+  ok("vm ayarlar: BOŞ değer dürüst not (401/403 yüzüne yönlendirir)", k1.kayitli["pano-token"] === "" && k1.sham.ayarSonuc.textContent.includes("401/403"));
+
+  /* --- (4) vm: API ölçümü — 3 satır gerçek fetch + erişilemedi dürüst --- */
+  const k2 = fazoKos(async (yol) => { if (yol === "/api/ordu/kadro") throw new Error("koptu"); return { ok: true, status: 200, json: async () => ({}) }; });
+  await k2.sham.apiOlc.dinleyiciler.click();
+  ok("vm api: 3 satır ölçüldü (uc adı + HTTP + ms — sırayla gerçek fetch)", k2.olusturulan.length === 3 && k2.olusturulan[0].textContent.includes("GET /api/ordu/projeler — HTTP 200 · ") && k2.olusturulan[2].textContent.includes("GET /api/graf — HTTP 200 · "));
+  ok("vm api: erişilemeyen uç DÜRÜST hata satırı (kirmizi yüz YOK)", k2.olusturulan[1].textContent.includes("GET /api/ordu/kadro — erişilemedi (koptu)"));
+
+  /* --- (5) vm: DOKTOR sıralı 3 kontrol --- */
+  const doktorFetch = async (yol, secenek) => {
+    if (secenek && secenek.method === "POST") return { ok: false, status: 401 };
+    return { ok: true, status: 200, json: async () => ({ projeler: [{ ajanlar: [{}, {}] }, { ajanlar: [{}] }] }) };
+  };
+  const k3 = fazoKos(doktorFetch);
+  await k3.sham.doktorMuayene.dinleyiciler.click();
+  const [da, db, dc] = k3.olusturulan;
+  ok("vm doktor (a): sunucu erişimi HTTP + ms ölçülür", da.textContent.includes("sunucu erişimi: HTTP 200 · "));
+  ok("vm doktor (b): 401 → token HATALI/eksik + Ayarlar yönlendirmesi (mesaj GÖNDERİLMEDİ — hedef boş probe)", db.textContent.includes("token doğruluğu: HATALI/eksik (HTTP 401)") && db.textContent.includes("Ayarlar"));
+  ok("vm doktor (c): veri doluluğu GERÇEK sayım (2 proje · 3 ajan kaydı)", dc.textContent === "veri doluluğu: 2 proje · 3 ajan kaydı");
+  const k3b = fazoKos(async (yol, secenek) => {
+    if (secenek && secenek.method === "POST") return { ok: false, status: 400, json: async () => ({ hata: "hedef zorunlu" }) };
+    return { ok: false, status: 500, json: async () => ({}) };
+  });
+  await k3b.sham.doktorMuayene.dinleyiciler.click();
+  ok("vm doktor: 400 gövde reddi = kapı GEÇTİ (token doğru; mesaj delilli gönderilmedi)", k3b.olusturulan[1].textContent.includes("token doğruluğu: geçti (kapı HTTP 400"));
+  ok("vm doktor: (a) veri getirmedi → (c) dürüst ölçülemedi (uydurma sayım YOK E10)", k3b.olusturulan[2].textContent.includes("veri doluluğu: ölçülemedi"));
+
+  /* --- (6) vm: composer bar — Enter/Shift+Enter/IME + auto-grow --- */
+  const k4 = fazoKos(async () => ({ ok: true, status: 200, json: async () => ({}) }));
+  let submitSay = 0, onlenen = 0;
+  k4.sham.composerForm.requestSubmit = () => { submitSay++; };
+  const klavye = (e) => k4.sham.composerMesaj.dinleyiciler.keydown({ key: "Enter", shiftKey: false, isComposing: false, preventDefault: () => { onlenen++; }, ...e });
+  klavye({});
+  ok("vm klavye: Enter GÖNDERİR (requestSubmit — form gönderimi)", submitSay === 1 && onlenen === 1);
+  klavye({ shiftKey: true });
+  klavye({ isComposing: true });
+  ok("vm klavye: Shift+Enter yeni satır + IME isComposing reddi (gönderime ÇEVRİLMEZ)", submitSay === 1 && onlenen === 1);
+  k4.sham.composerMesaj.scrollHeight = 500;
+  k4.sham.composerMesaj.dinleyiciler.input();
+  ok("vm auto-grow: yükseklik tavana kilitlenir (scrollHeight 500 → 140px)", k4.sham.composerMesaj.style.height === "140px");
+  k4.sham.composerMesaj.scrollHeight = 40;
+  k4.sham.composerMesaj.dinleyiciler.input();
+  ok("vm auto-grow: küçük içerik doğal yükseklik (40px)", k4.sham.composerMesaj.style.height === "40px");
+
+  /* --- (7) vm: dosya ekle — metin içeriği + kesildi notu + ret yolları --- */
+  const k5 = fazoKos(async () => ({ ok: true, status: 200, json: async () => ({}) }));
+  const ekle = async (dosya) => {
+    k5.sham.composerDosya.files = [dosya];
+    k5.sham.composerDosya.value = "C:/sahte/yol";
+    await k5.sham.composerDosya.dinleyiciler.change();
+  };
+  await ekle({ name: "not.txt", text: async () => "merhaba dosya" });
+  ok("vm ekle: metin içeriği [dosya: ad] başlığıyla mesaja EKLENİR + girdi sıfırlanır (aynı dosya tekrar seçilir)", k5.sham.composerMesaj.value.includes("[dosya: not.txt]") && k5.sham.composerMesaj.value.includes("merhaba dosya") && k5.sham.composerDosya.value === "" && k5.sham.composerSonuc.textContent === "");
+  await ekle({ name: "buyuk.log", text: async () => "x".repeat(1600) });
+  ok("vm ekle: 1536 tavan — ilk 1536 karakter + dürüst 'kesildi' notu", k5.sham.composerMesaj.value.includes("x".repeat(1536)) && k5.sham.composerMesaj.value.includes("…(dosya kesildi — ilk 1536 karakter eklendi)"));
+  await ekle({ name: "kur.exe", text: async () => "MZ90" });
+  ok("vm ekle: uyumsuz uzantı RED (hata satırı — mesaj DEĞİŞMEZ)", k5.sham.composerSonuc.textContent.includes(".exe' desteklenmiyor") && k5.sham.composerMesaj.value.includes("x".repeat(1536)));
+  k5.sham.composerMesaj.value = "z".repeat(2600); /* mevcut metin zaten büyük — kırpılmış dosya (1536) + başlık taşar */
+  const onceki = k5.sham.composerMesaj.value;
+  await ekle({ name: "tasan.txt", text: async () => "y".repeat(3000) });
+  ok("vm ekle: 4096 mesaj tavanı aşarsa RED (eklenmez — mevcut metin aynen; dosya ÖNCE 1536'ya kırpılır, tavan toplam mesaj üzerindedir)", k5.sham.composerSonuc.textContent.includes("mesaj tavanı 4096 karakter aşıldı") && k5.sham.composerMesaj.value === onceki);
+  await ekle({ name: "bozuk.txt", text: async () => { throw new Error("okunamadi"); } });
+  ok("vm ekle: dosya okunamadı → dürüst hata satırı", k5.sham.composerSonuc.textContent.includes("dosya okunamadı"));
+
+  /* --- (8) vm: OTURUM SEKMELERİ — açma/aktive + dolaylı chat beslemesi + kapanış zinciri --- */
+  const R1 = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7";
+  const R2 = "3f3584c0-aa80-44f4-a71d-bf82c9b7671e";
+  const PX = "P-x";
+  const otA = HTML.indexOf("function anaSekmeYaz()");
+  const otB = HTML.indexOf("function kaydet(");
+  ok("oturum dilim yerinde (anaSekmeYaz … kaydet)", otA >= 0 && otB > otA);
+  const oturumKos = () => {
+    const sham = {};
+    let seritHtml = "";
+    const seritSham = { get innerHTML() { return seritHtml; }, set innerHTML(v) { seritHtml = String(v); }, addEventListener: () => {} };
+    const cagrilar = { transcript: [], secim: [], agacYaz: 0, grafYaz: 0, composer: 0, kaydet: [] };
+    const sham$ = (id) => (id === "anaSekmeSerit" ? seritSham : sham[id] || (sham[id] = { innerHTML: "", textContent: "", hidden: true }));
+    const ctx = {
+      $: sham$, esc: fnAl("esc"), kisalt: fnAl("kisalt"), kisaIdGoster: fnAl("kisaIdGoster"), projeEtiketi: fnAl("projeEtiketi"),
+      P: { projeler: [
+        { dizin: PX, projeAdi: "x", orduMu: false, ajanlar: [
+          { ajanKimligi: R1, ajanId: "8cc610a4", lastStatus: "running", provider: "glm53u-claude/glm-5.3", sonEtkinlikISO: "2026-11-04T10:00:00Z", etiket: "KURMAY-1 oturumu" },
+          { ajanKimligi: R2, ajanId: "3f3584c0", lastStatus: "idle", provider: "glm53u-claude/glm-5.3", sonEtkinlikISO: "2026-11-04T09:00:00Z", etiket: "PANEL yazici oturumu" },
+        ] },
+      ] },
+      acikSekmeler: [], aktifSekme: "ordu", acikOturumSekmeleri: [], agacSecili: null,
+      kaydet: (a) => { cagrilar.kaydet.push(a); }, oku: () => null,
+      konusmaSecGuncelle: (z) => { cagrilar.secim.push(z); }, transcriptYukle: (k) => { cagrilar.transcript.push(k); },
+      agacYaz: () => { cagrilar.agacYaz++; }, grafYaz: () => { cagrilar.grafYaz++; },
+      composerHedefGuncelle: () => { cagrilar.composer++; }, odakIcindeMi: () => false, gonderiyor: false,
+    };
+    const fns = vm.runInNewContext(HTML.slice(otA, otB) + "\n[anaSekmeDegistir, sekmeAc, sekmeKapat, oturumSekmeAc, oturumSekmeKapat, oturumKartYaz, govdeYaz]", ctx);
+    return { sham, seritHtml: () => seritHtml, cagrilar, ctx, fns };
+  };
+  const o1 = oturumKos();
+  const [anaSekmeDegistir, sekmeAc, sekmeKapat, oturumSekmeAc, oturumSekmeKapat, oturumKartYaz, govdeYaz] = o1.fns;
+  oturumSekmeAc(R1);
+  ok("vm oturum: sekme AÇILIR + AKTİF olur (data-ana=oturum:+kimlik; ORDU pasif)", o1.ctx.acikOturumSekmeleri.length === 1 && o1.ctx.aktifSekme === "oturum:" + R1 && o1.seritHtml().includes('data-ana="oturum:' + R1 + '"') && /data-ana="oturum:[^"]*"[^>]*aria-selected="true"/.test(o1.seritHtml()));
+  ok("vm oturum: chat DOLAYLI beslenir — konusmaSecGuncelle(true) + transcriptYukle(kimlik) + agacSecili + agacYaz (ağaç tıklamasının yolu)", o1.cagrilar.secim.length === 1 && o1.cagrilar.secim[0] === true && o1.cagrilar.transcript.length === 1 && o1.cagrilar.transcript[0] === R1 && o1.ctx.agacSecili === R1 && o1.cagrilar.agacYaz === 1 && o1.cagrilar.kaydet.includes("ordu-agac-secili"));
+  oturumSekmeAc(R1);
+  ok("vm oturum: MÜKERRER AÇILMAZ (ikinci tık varolan sekme yalnız AKTİVE eder — tek sekme)", o1.ctx.acikOturumSekmeleri.length === 1 && (o1.seritHtml().match(/data-ana="oturum:/g) || []).length === 1);
+  ok("vm oturum sekme etiketi: DAR etiket (kisalt 14 — FAZ-H ailesi) + TAM ad + kimlik title'da (X ile kapanır)", o1.seritHtml().includes(">KURMAY-1 otur…</button>") && o1.seritHtml().includes('title="KURMAY-1 oturumu — ' + R1 + '"') && o1.seritHtml().includes('data-kapat="oturum:' + R1 + '"'));
+  sekmeAc(PX);
+  ok("vm oturum: PROJE sekmesine dönüş chat'i SESSİZ korur (transcript/konusmaSecGuncelle YENİDEN çağrılmaz — sayaç aynen; composer hedef listesi tazelenir)", o1.cagrilar.transcript.length === 2 && o1.cagrilar.secim.length === 2 && o1.cagrilar.composer >= 1 && o1.ctx.aktifSekme === PX);
+  oturumSekmeAc(R2);
+  oturumSekmeKapat(R2);
+  ok("vm kapanış zinciri: kapanan aktif oturum → kalan oturum sekmelerinden ŞERİT SIRASIYLA İLKİ (R1)", o1.ctx.aktifSekme === "oturum:" + R1 && o1.ctx.acikOturumSekmeleri.length === 1);
+  oturumSekmeKapat(R1);
+  ok("vm kapanış zinciri: oturum kalmadı → SON AÇIK PROJE (P-x)", o1.ctx.aktifSekme === PX && o1.ctx.acikOturumSekmeleri.length === 0);
+  sekmeKapat(PX);
+  ok("vm kapanış zinciri: sekme de kalmadı → ORDU (fail-closed son nokta)", o1.ctx.aktifSekme === "ordu");
+  anaSekmeDegistir("oturum:dusmus-kimlik");
+  ok("vm fail-closed: kapalı/düşmüş oturum kimliği ORDU'ya döner", o1.ctx.aktifSekme === "ordu");
+  /* gövde: oturum sekmesi → DÜRÜST kart; proje → graf */
+  const o2 = oturumKos();
+  o2.ctx.aktifSekme = "oturum:" + R1;
+  o2.fns[6]();
+  const kart = o2.sham.grafAlani.innerHTML;
+  ok("vm kart: DÜRÜST oturum kartı — gerçek P alanları (etiket başlık + ajan kimliği title'lı + sağlayıcı + durum + son etkinlik + proje)", kart.includes('<div class="oturumKart">') && kart.includes("<h3>KURMAY-1 oturumu</h3>") && kart.includes('title="' + R1 + '">ajan: ' + R1) && kart.includes("sağlayıcı: glm53u-claude/glm-5.3") && kart.includes("durum: running") && kart.includes("son etkinlik: 2026-11-04T10:00:00Z") && kart.includes("proje: x"));
+  o2.fns[5]("taramada-yok-kimlik");
+  ok("vm kart: kayıt yoksa DÜRÜST boş satır (uydurma kart YASAK)", o2.sham.grafAlani.innerHTML.includes("bu oturumun kaydı taramada yok"));
+  o2.ctx.aktifSekme = PX;
+  o2.fns[6]();
+  ok("vm gövde: PROJE sekmesi → grafYaz AYNEN (tek yönlendirme fonksiyonu)", o2.cagrilar.grafYaz === 1 && o2.cagrilar.transcript.length === 0);
 });
