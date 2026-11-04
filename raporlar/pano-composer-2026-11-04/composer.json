@@ -1,0 +1,27 @@
+{
+  "schemaSurum": 1,
+  "dalga": "composer",
+  "tarih": "2026-11-04T20:05",
+  "operatoerEmirleri": [
+    "«ordu composer içindeki chat metin kutusu tasarımını bozuk buradaki select menü değişemez bu şekilde bu hatalı ... bunu kaldır sadece kurmay ve manager (prpje yönetici ajanı) olarak iki mod kalsın dedik .. bu şekilde oturum seçemezsin üstte .. oturum üstte düğme ile geliyor ve history oturum ikisi birbirine bağlı izole çalışır değişmez bu ssot belgedir»",
+    "«her proje izoledir ve her proje altındaki her oturum birbirinden izoledir bu ssot emirdir . aksi olmadıkça ajanlar diğer konuşmaya dahil olamaz izin verilmediği sürece .. kurmay farklıdır»",
+    "«select menü üstte txt buton olsun minimal kurmay ve manager olarak»",
+    "«metin kutusunu iiki satır yükseklikte sabitle eğer daha fazla yazı gelirse metin kutusuna metin kutusunu yükseltebilirsin kaydırma çubuğu başlangçta olmasın yükselt ve belli seviyeden sorna kaydırma çubuğu gelsin»",
+    "«ayrıca paseodaki metin kutusunu örnek alabilirsin görebiliyormusun tasarım olarak»"
+  ],
+  "cozum": {
+    "mod": "composerMod kurmay|manager bellek-içi; hedefKimligi() gönderim anında: KURMAY=kadro tur-kurmay ajanId (izolasyon istisnası), MANAGER=seciliKonusma.ajan.ajanKimligi (proje içi manager; başka oturumun ajanı UI'da seçilemez — izolasyon SSOT)",
+    "failKapali": "kadro yoksa KURMAY / oturum yoksa MANAGER düğmesi devre-dışı + dürüst title; submit dürüst yüzler: oturum seçilmedi / kurmay kimliği yok / mesaj boş",
+    "ustSatir": "composerMod satırı composerBar DIŞINDA girdinin üstünde (Paseo buttonRow modeli); minimal METİN düğme: border:none + background:transparent + aktifte camgöbeği 2px alt çizgi",
+    "metinKutusu": "textarea rows=2 + min-height:62px + max-height:140px + overflow-y:hidden; composerBoyutla: height=min(scrollHeight,140) + overflowY yalnız tavanda auto (Paseo scrollEnabled: f>=c deseni); gönderim sonrası 2 satıra döner",
+    "sokulenler": ["composerHedef select (2 optgroup)", "composerHedefGuncelle", "konusmaSecGuncelle secimiZorla parametresi", "select-zorlama dalı"],
+    "paseoOrnegi": "Paseo Electron app-dist web bundle'ından ölçüldü: textInput {width:100%, lineHeight:1.4, outline:none} + buttonRow {alignItems:flex-end} + mode:measured {height,minHeight,maxHeight} + scrollEnabled: f>=c — panel deseni birebir"
+  },
+  "kanit": {
+    "testTamKapi": "260 tests / 260 pass / 0 fail / EXIT=0 (test bloğu 260 sabit; pinler mevcut testlere gömüldü — 51g yeniden yazıldı, 51e/51b VM mod senaryoları, 51i sıra, 51u minimal metin, 51r argless, 51t/51v stub'lar)",
+    "servis": "GET 4937/ordu HTTP 200 · 153174; composerMod/modKurmay/modManager + rows=2 + overflow-y:hidden + tavandami toggle + minimal düğme stili SERVİSTE; optgroup 0; server.js DEĞİŞMEDİ → restart gerekmedi (operatör restart'ı zararsız: PID 20964 aynen, 4377 boş)",
+    "canliDom": "YAPILAMADI — browser automation host bağlı değil (dürüst eksik)"
+  },
+  "loc": { "oncesi": 11477, "sonrasi": 11577, "delta": 100, "doluluk": "%64,3" },
+  "bekleyen": ["K-0065 Dalga B (spawn-talebi + hareket defteri)", "M2 sağ panel metrik + rename", "K7 push (birikim 71)"]
+}
