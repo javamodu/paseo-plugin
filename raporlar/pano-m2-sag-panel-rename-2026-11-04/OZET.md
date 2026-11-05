@@ -84,3 +84,9 @@ Operatör host'u bağladı + yeni sekme açıldı (http://127.0.0.1:4937/ordu). 
 **Ölçülemeyen 2 adım (host ~23:31'de koptu — form HİÇ dolmadı, POST HİÇ atılmadı, durum temiz):** TALEP DÜŞÜR 401 UI yüzü (kanıt zinciri: HTTP 401 canlı + 51ac VM pini + Dalga C 403 yüzü emsali 983615f) + PNG ekran görüntüsü (kanıt: a11y snapshot + ölçülen değerler). Host yeniden bağlanırsa ikisi dakikalar içinde tamamlanır.
 
 Operatör notu: tarayıcıdaki sekmede talep kartı AÇIK kalabilir (form boş) — KAPAT ile kapanır. Kanıt: [dom-turu.json](dom-turu.json). Kod değişikliği YOK.
+
+## EK-3 — TOKEN ZİNCİRİ 200: PANEL KANALI İLK KEZ UÇTAN UCA AÇIK (2026-11-05 05:43 ölçüldü; operatör «token kaydedildi» → teşhis → yeniden giriş → «tekrar dene»)
+
+Zincir: operatör token'ı AYARLAR'dan girdi → ilk test **401** (localStorage değeri **24 karakter**, sunucu dosyası **64** — eksik yapıştırma; panel girdisi maxlength'SİZ, kırpma YOK → operatör teşhisi + tam değeri yeniden girdi) → ikinci test **GÖNDER 200** «gönderildi · 2026-11-05T02:43:44.955Z» (yeşil `chat-kullanici basarili` yüzü) → **mesaj KURMAY'a TESLİM EDİLDİ** (agent-message olarak bu oturuma ulaştı — panel → sunucu → köprü → KURMAY tam gidiş-dönüş). İletilen metin iki test mesajının birleşimiydi (ilk 401'li denemenin metni composer'da KORUNMUŞTU — tasarım: kullanıcı metni hatada kaybolmaz; kozmetik test eseri).
+
+**Anlamı:** operatör artık panelden KURMAY'a yazar; yanıt 30 sn içinde TRANSCRIPT-CANLI ile panele akar — YENİ YÖNELİM'in (a) müdahale akışı TAM. TALEP DÜŞÜR bilinçli test edilmedi (üretim kuyruğuna test talebi atılmaz; aynı token kapısı GÖNDER'le kanıtlandı; 200/202 yüzleri 51ac'te pinli). Token DEĞERİ hiçbir çıktıda görünmedi (yalnız uzunluk ölçümleri: 24 → 64). Kanıt: [token-zinciri-ek.json](token-zinciri-ek.json) + [token-zinciri-200.png](token-zinciri-200.png) (130.818 bayt). Kod değişikliği YOK.

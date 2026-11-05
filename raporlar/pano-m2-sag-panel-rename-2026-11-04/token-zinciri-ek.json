@@ -1,0 +1,19 @@
+{
+  "schemaSurum": 1,
+  "ek": "token-zinciri-200",
+  "tarih": "2026-11-05T05:43 (ölçüldü)",
+  "operatoerAkisi": "«token kaydedildi (localStorage — pano-token anahtarı)» → ilk test 401 (değer 24 karakter, dosya 64 — eksik yapıştırma teşhisi; panel girdisi maxlength'SIZ, kırpma YOK) → operatör tam değeri yeniden girdi → «tekrar dene» → GÖNDER 200",
+  "sonuc": {
+    "gonderKod": 200,
+    "logKaydi": "gönderildi · 2026-11-05T02:43:44.955Z (sınıf chatMesaj chat-kullanici basarili — yeşil yüz)",
+    "roundTrip": "MESAJ KURMAY'A TESLİM EDİLDİ — panel → sunucu (200) → paseo-kopru → KURMAY oturumuna agent-message olarak ULAŞTI (tam gidiş-dönüş kanıtı; iletien metin iki test mesajının birleşimi: ilk 401'li denemenin metni composer'da KORUNMUŞTU [tasarım: kullanıcı metni hatada kaybolmaz], ikinci yazım araya girdi — kozmetik test eseri)"
+  },
+  "kanit": [
+    "PNG: token-zinciri-200.png (130.818 bayt, 1534x888 — composer + GÖNDER başarılı log yüzü)",
+    "paseo-system agent-message 48d1af87 (bu oturuma ulaştı — kanıt zincirinin son halkası)",
+    "localStorage token uzunluk ölçümü 24 → 64 (DEĞER hiçbir çıktıda görünmedi — yalnız uzunluk)"
+  ],
+  "talepDusur": "BİLİNÇLİ test edilmedi — üretim kuyruğuna test talebi atılmaz; token zinciri GÖNDER ile aynı kapıdan kanıtlandı; 200/202 yüzleri test-pinli (51ac VM senaryoları). Operatörün gerçek oturum talebiyle ilk kullanımı beklenir (YENİ YÖNELİM akışı)",
+  "onem": "PANEL-KANAL İLK KEZ UÇTAN UCA AÇIK: operatör artık panelden KURMAY'a yazar, yanıt 30 sn içinde TRANSCRIPT-CANLI ile panele akar — YENİ YÖNELİM'in (a) müdahale akışı TAM",
+  "kodDegisikligi": "YOK — yalnız kanıt kaydı"
+}
