@@ -335,10 +335,10 @@ test("19- kadro: gercek ordu (5) + graf sablonlari (4) — kod adlari SSOT", () 
   assert.equal(sablonlar.length, 4, "graf sablonu: MANAGER/CODER/TESTER/GOZLEMCI");
   /* BOLUM 6 spec eki: ajanId YALNIZ olculmus kartlarda (kaynak etiketi zorunlu) */
   const ajanIdli = KADRO.birlikler.filter((b) => b.ajanId !== undefined).map((b) => b.kodAdi);
-  assert.deepEqual(ajanIdli.sort(), ["KURMAY-1", "NOBET-1"], "ajanId tasiyanlar: KURMAY-1 (8cc610a4) + NOBET-1 (432e03b7)");
+  assert.deepEqual(ajanIdli.sort(), ["KURMAY-1", "NOBET-1"], "ajanId tasiyanlar: KURMAY-1 (583910a6) + NOBET-1 (432e03b7)");
   const kurmay = KADRO.birlikler.find((b) => b.kodAdi === "KURMAY-1");
   const nobet1 = KADRO.birlikler.find((b) => b.kodAdi === "NOBET-1");
-  ok("KURMAY-1 ajanId UUID (Paseo olcumu)", kurmay.ajanId === "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7");
+  ok("KURMAY-1 ajanId UUID (Paseo olcumu 2026-11-05 — kanal devri KURMAY-2)", kurmay.ajanId === "583910a6-e2b7-4134-92dc-adeb35546780");
   ok("KURMAY-1 ajanIdKaynak dolu (kaynak beyani)", typeof kurmay.ajanIdKaynak === "string" && kurmay.ajanIdKaynak.includes("Paseo"));
   ok("NOBET-1 ajanId UUID (run#3 ajani)", nobet1.ajanId === "432e03b7-9004-445c-857d-ebf3b6661d53");
   ok("NOBET-1 ajanIdKaynak dolu (kaynak beyani)", typeof nobet1.ajanIdKaynak === "string" && nobet1.ajanIdKaynak.includes("3b6cd207"));
@@ -1154,7 +1154,7 @@ test("51b- FAZ-B davranis (vm): agacYaz (ORDU once + secili dugum + esc) + compo
   const compA = HTML.indexOf('let composerMod = "kurmay";');
   const compB = HTML.indexOf('$("composerForm").addEventListener');
   ok("composerMod + kurmayKimligi + hedefKimligi + composerModGuncelle + composerModKur yerinde (eski select bloğu SÖKÜLDÜ)", compA >= 0 && compB > compA && !HTML.includes("function composerHedefGuncelle"));
-  const KURMAY_KIMLIK = "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7";
+  const KURMAY_KIMLIK = "583910a6-e2b7-4134-92dc-adeb35546780";
   const PROJE_AJANI = "432e03b7-9004-445c-857d-ebf3b6661d53";
   /* mod düğmesi sham'i: classList.toggle + setAttribute + disabled + title + addEventListener */
   const modBtnSham = () => {

@@ -1,6 +1,6 @@
 {
   "surum": 4,
-  "damgaISO": "2026-11-01T18:21:14+03:00",
+  "damgaISO": "2026-11-05T05:59:47+03:00",
   "kaynak": "ORDU KOMUTA PANELİ görev spec'i (operator 2026-11-01 + spec güncellemesi 17:5x + BÖLÜM 6 LOG spec eki 18:1x + STEERING-5 görev-emri/rol-modeli 18:2x) + plans/gorev-grafigi-2026-10-26.json ajanKadrosu/roller/yetkiMatrisi + canlı kaynak ölçümleri (Paseo schedule listesi + tur geçmişi + list_agents 2026-11-01T15:12Z [ajanId ölçümü]; kira: core/data/devir-kira.json; telemetri: raporlar/telemetri-haftalik/2026-W44.md). Kod adları bu dosyada yaşar — ajan ID'leri ekranda kısa önek + title'da tam. Damga date komutuyla ölçüldü.",
   "not": "ÇİFT-TEMEL (STEERING-5): bu dosya + plans/gorev-grafigi-2026-10-26.json hem insan-okur panel hem makine-okur tüketiminin TEK kaynağıdır — panel kopya YAZMAZ, salt-okur render eder; kopya yok olduğu için insan/makine görünümü her zaman senkron (S8 drift imkânsız). canlılık işareti server ucu /api/ordu/kadro'da kiraDurum ile BİRLEŞTİRİLİR (kira devirSinifi operator→KURMAY sınıfı, nobet→nöbet sınıfı kartı canlı YEŞİL). Bu dosya statik kayıttır; canlılığı ASLA kendisi iddia etmez. 'olcum' alanı YALNIZ ölçülmüş değerleri taşır (kaynak etiketi zorunlu); ölçümü olmayan alan 'ölçülmedi' gösterilir — sayı asla uydurulmaz. 'ajanId' yalnız Paseo'dan ölçülmüş kimlik taşır (ajanIdKaynak etiketi zorunlu); ölçülemeyen kart ajanId satırı taşımaz — panel 'ölçülemedi' der. 'gorevEmri' EK-3 4 alanlı yapılandırılmış emirdir (makine-okur) + kısa insan-okur özet. 'rolAtamasi' N:M haritadır: anahtarlar gorev-grafigi SSOT'nin 5 çekirdek rol adını BİREBİR kullanır (MANAGER · CODER · TESTER · INSAN-VEKILI-PROXY · GOZLEMCI — STEERING-6: paneldeki rol anahtarı = makinenin graf JSON'unda aradığı anahtar; KULLANICI insandır, alt-ajan değil); uzmanlaşmalar (nöbetçi/ölçücü/devir-doğrulayıcı/graf-kurmacı) çekirdek rolün ÜST etiketidir ('uzmanlik' alanı), ayrı çekirdek rol DEĞİL. Spawn senkronu: koordinatörün dispatch brief'i bu kaydın içeriğiyle eşleşir — tam otomasyon (spawn ucunun kayıttan initialPrompt üretmesi) ileriki aşamadır, 'otomatiktir' DENMEZ. 'cephe' = grafa bağlı olmayan canlı çalışma hattı etiketi (GÖREV GRAF + ORDU görünümünün ORDU CEPHESİ satırı). Graf görev kutularının sorumlusu 'ATANMADI'dır — kadroda hiçbir graf görevine sahte atama YOKTUR.",
   "rolAtamasi": {
@@ -66,8 +66,8 @@
         },
         "ozet": "koordinatör — planı yürütür, devri alır, yazarları görevlendirir, bağımsız doğrular; commit tek elden operatör"
       },
-      "ajanId": "8cc610a4-6fd3-48c4-8db2-6fb9e6c1eaf7",
-      "ajanIdKaynak": "Paseo list_agents ölçümü 2026-11-01T15:12Z: KD-c duman ajanı 7bbe3f5b'nin parent-agent-id'si (d2457dc devir-alma turunu yürüten oturum) + son etkinlik 2026-11-01T15:10:22Z — KURMAY-1 koordinatör oturumunun Paseo ajan kimliği",
+      "ajanId": "583910a6-e2b7-4134-92dc-adeb35546780",
+      "ajanIdKaynak": "Paseo create_agent ölçümü 2026-11-05 (kanal devri turu — HANDOFF-2026-11-05-0544 · devir commit 3cdbf2e): KURMAY-2 koordinatör oturumunun Paseo ajan kimliği; devreden 8cc610a4 emekli (96,2 MB seans · 7.480+ aktivite · tekrarlayan takılmanın ölçülmüş kökü)",
       "kaynakAciklama": "kira devirSinifi 'operator' sahibi KURMAY sınıfına bağlanır — canlılık kira durumundan (devir-kira.json) okunur, bu kayıt kendisi iddia etmez; manager VE graf-kurmacı rolleri şu an İKİSİ DE bu ajanda (kullanıcı kuralı: aynı ajan da olabilir)",
       "canliKaynak": "kira"
     },
